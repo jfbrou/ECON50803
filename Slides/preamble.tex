@@ -1,0 +1,265 @@
+% ============================================================================
+% HEC Montréal MBA -- ECON50803: Macroeconomic Environment
+% Shared Beamer Preamble
+% ============================================================================
+
+% --- Theme and base settings ------------------------------------------------
+\usetheme{default}
+\setbeamersize{text margin left=1.2cm, text margin right=1.2cm}
+
+% --- Fonts ------------------------------------------------------------------
+% Sans-serif throughout for a business look (comment out FiraSans if unavailable)
+\usepackage[sfdefault,light]{FiraSans}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+\setbeamerfont{title}{series=\bfseries, size=\Large}
+\setbeamerfont{frametitle}{series=\bfseries, size=\large}
+\setbeamerfont{framesubtitle}{series=\mdseries, size=\normalsize}
+
+% --- Colors -----------------------------------------------------------------
+\definecolor{HECnavy}{HTML}{002855}
+\definecolor{HECgreen}{HTML}{26d07c}
+\definecolor{HECcoral}{HTML}{ff585d}
+\definecolor{HECtext}{HTML}{2D3748}
+\definecolor{HECgray}{HTML}{94A3B8}
+\definecolor{HEClightgray}{HTML}{F1F5F9}
+\definecolor{HEClightblue}{HTML}{E8EDF3}
+
+% Beamer color assignments
+\setbeamercolor{normal text}{fg=HECtext}
+\setbeamercolor{title}{fg=HECnavy}
+\setbeamercolor{frametitle}{fg=HECnavy}
+\setbeamercolor{structure}{fg=HECnavy}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{alerted text}{fg=HECcoral}
+\setbeamercolor{example text}{fg=HECgreen}
+\hypersetup{colorlinks, linkcolor=HECnavy, urlcolor=HECnavy, citecolor=HECtext}
+
+% --- Navigation and chrome --------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Frame title: bold text with a thin accent line
+\setbeamertemplate{frametitle}{%
+   \vspace{0.25cm}%
+   {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}%
+   \ifx\insertframesubtitle\empty\else%
+      \\[2pt]{\usebeamerfont{framesubtitle}\textcolor{HECgray}{\insertframesubtitle}}%
+   \fi%
+   \\[-4pt]\textcolor{HECgreen}{\rule{2.5cm}{1.5pt}}%
+   \\[-2pt]%
+}
+
+% Footer: course name left, slide number right, thin rule above
+\setbeamertemplate{footline}{%
+   \vspace{-0.1cm}%
+   \hbox to \paperwidth{%
+      \hspace{1.2cm}%
+      \textcolor{HEClightgray}{\rule{0.84\paperwidth}{0.4pt}}%
+      \hspace{1.2cm}%
+   }%
+   \vspace{0.05cm}%
+   \hbox to \paperwidth{%
+      \hspace{1.2cm}%
+      {\scriptsize\textcolor{HECgray}{ECON50803\enspace\textbar\enspace Macroeconomic Environment}}%
+      \hfill%
+      {\scriptsize\textcolor{HECgray}{\insertframenumber}}%
+      \hspace{1.2cm}%
+   }%
+   \vspace{0.15cm}%
+}
+
+% --- Itemize/enumerate styling ----------------------------------------------
+\setbeamertemplate{itemize item}{\textcolor{HECnavy}{\scalebox{1.8}{\textbullet}}}
+\setbeamertemplate{itemize subitem}{\textcolor{HECgray}{\scalebox{1.5}{\textbullet}}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{HECgray}{\scalebox{0.6}{$\blacktriangleright$}}}
+\setbeamertemplate{enumerate item}{\textcolor{HECnavy}{\bfseries\insertenumlabel.}}
+\setbeamertemplate{enumerate subitem}{\textcolor{HECgray}{\insertsubenumlabel.}}
+
+% --- Packages ---------------------------------------------------------------
+\usepackage{
+   tikz, caption, subcaption, ragged2e, amsmath, bm,
+   makecell, threeparttable, booktabs, mathtools,
+   multirow, calc, hyperref, tabularx, colortbl,
+   transparent, tcolorbox, xcolor, graphicx
+}
+\usepackage[round]{natbib}
+\usetikzlibrary{decorations.pathreplacing, decorations.markings, calc, arrows.meta}
+\usepackage[absolute,overlay]{textpos}
+\captionsetup[figure]{labelformat=empty, font=small, textfont=it}
+\captionsetup[table]{labelformat=empty, font=small}
+\setlength{\belowcaptionskip}{0cm}
+\apptocmd{\frame}{}{\justifying}
+
+% --- Paths ------------------------------------------------------------------
+\graphicspath{{../Figures/}}
+\newcommand*\includetables[1]{\input{../Tables/#1.tex}}
+
+% --- Mathematical commands --------------------------------------------------
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\partialof}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\totalof}[2]{\frac{\text{d}#1}{\text{d}#2}}
+\newcommand{\pctchg}[1]{\%\Delta #1}
+\newcommand{\smallquad}{\hspace{0.5em}}
+
+% --- Resize equation command ------------------------------------------------
+\newcommand{\resizeeq}[2]{\resizebox{#2\hsize}{!}{$#1$}}
+
+% ============================================================================
+% CUSTOM SLIDE TYPES
+% ============================================================================
+
+% --- Title slide (call with \titleframe) ------------------------------------
+\newcommand{\titleframe}{%
+   {\setbeamertemplate{footline}{}%
+   \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+         % Navy accent bar on the left
+         \fill[HECnavy] (current page.north west) rectangle
+            ([xshift=0.6cm]current page.south west);
+         % Green accent line
+         \fill[HECgreen] ([xshift=0.6cm]current page.north west) rectangle
+            ([xshift=0.65cm]current page.south west);
+      \end{tikzpicture}
+      \vspace{1cm}
+      \hspace{0.6cm}%
+      \begin{minipage}{0.85\textwidth}
+         {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+         \\[12pt]
+         \textcolor{HECgreen}{\rule{3cm}{2pt}}
+         \\[12pt]
+         {\large\textcolor{HECgray}{\insertauthor}}
+         \\[6pt]
+         {\normalsize\textcolor{HECgray}{\insertdate}}
+      \end{minipage}
+      \vfill
+      \hspace{0.6cm}%
+      {\footnotesize\textcolor{HECgray}{HEC Montr\'eal \enspace\textbar\enspace MBA}}
+      \vspace{0.5cm}
+   \end{frame}}%
+}
+
+% --- Section divider slide --------------------------------------------------
+\newcommand{\sectionframe}[1]{%
+   {\setbeamertemplate{footline}{}%
+   \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+         \fill[HECnavy] ([shift={(-1pt,1pt)}]current page.north west) rectangle
+            ([shift={(1pt,-1pt)}]current page.south east);
+         \node[anchor=center] at (current page.center) {%
+            \begin{minipage}{0.8\paperwidth}
+               \centering
+               {\LARGE\bfseries\textcolor{white}{#1}}
+               \\[12pt]
+               \textcolor{HECgreen}{\rule{3cm}{2pt}}
+            \end{minipage}
+         };
+      \end{tikzpicture}
+   \end{frame}}%
+}
+
+% --- Takeaway / summary slide -----------------------------------------------
+\newcommand{\takeawayframe}[2]{%
+   \begin{frame}{#1}
+      \vspace{0.3cm}
+      \begin{tcolorbox}[
+         colback=HEClightgray,
+         colframe=HECgreen,
+         boxrule=0pt,
+         leftrule=3pt,
+         arc=8pt,
+         left=10pt, right=10pt, top=8pt, bottom=8pt
+      ]
+         #2
+      \end{tcolorbox}
+   \end{frame}%
+}
+
+% ============================================================================
+% CUSTOM BOX ENVIRONMENTS
+% ============================================================================
+
+% Key Insight (green accent)
+\newtcolorbox{keyinsight}[1][Key insight]{%
+   colback=HECgreen!5,
+   colframe=HECgreen,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=8pt,
+   title={\textcolor{HECgreen}{\bfseries #1}},
+   coltitle=HECgreen,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+% Business Implication (navy accent)
+\newtcolorbox{bizimplication}[1][Business implication]{%
+   colback=HECnavy!5,
+   colframe=HECnavy,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=8pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+% Warning / Important (coral accent)
+\newtcolorbox{warning}[1][Important]{%
+   colback=HECcoral!5,
+   colframe=HECcoral,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=8pt,
+   title={\textcolor{HECcoral}{\bfseries #1}},
+   coltitle=HECcoral,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+% Definition (gray background)
+\newtcolorbox{defbox}[1][Definition]{%
+   colback=HEClightgray,
+   colframe=HEClightgray,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=8pt,
+   left=10pt, right=10pt, top=6pt, bottom=6pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]}
+}
+
+% ============================================================================
+% NAVIGATION BUTTONS (optional, for bottom-of-slide section nav)
+% ============================================================================
+
+\newlength{\buttonwidth}
+\newlength{\currentxpos}
+\setlength{\currentxpos}{1.2cm}
+\newlength{\buttonsep}
+\setlength{\buttonsep}{0.05cm}
+
+\newcommand{\mybutton}[2]{%
+   \settowidth{\buttonwidth}{#1}%
+   \begin{textblock*}{\buttonwidth + 2ex}(\currentxpos, \paperheight - 2.5em)
+      \hyperlink{#2}{\beamerbutton{#1}}
+   \end{textblock*}%
+   \addtolength{\currentxpos}{\buttonwidth + \buttonsep}%
+}
+
+% ============================================================================
+% BACKUP SLIDES SUPPORT
+% ============================================================================
+
+\newcommand{\backupbegin}{%
+   \newcounter{finalframe}%
+   \setcounter{finalframe}{\value{framenumber}}%
+}
+\newcommand{\backupend}{%
+   \setcounter{framenumber}{\value{finalframe}}%
+}
