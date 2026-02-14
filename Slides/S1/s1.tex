@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \input{../preamble.tex}
 
-\title{The Macroeconomic Landscape}
+\title{The macroeconomic landscape}
 \author{Jean-F\'elix Brouillette}
 \date{Session 1}
 
@@ -11,70 +11,38 @@
 \titleframe
 % ============================================================================
 
-% --- Opening hook: current events ---
-\begin{frame}{A complex and uncertain world}
-   % TODO: Replace the text headlines below with a visual collage of actual
-   % screenshots from major outlets, similar to MBA S1 slide 2.
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECgray}{The Economist}}\\
-         {\itshape ``Can anything replace globalization?''}
-         \vspace{0.25cm}
-
-         \textbf{\textcolor{HECgray}{Financial Times}}\\
-         {\itshape ``Bank of Canada cuts rates as economy slows''}
-         \vspace{0.25cm}
-
-         \textbf{\textcolor{HECgray}{La Presse}}\\
-         {\itshape ``Crise du logement: le Canada n'arrive plus \`a suivre''}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECgray}{Bloomberg}}\\
-         {\itshape ``AI spending boom yet to show up in productivity data''}
-         \vspace{0.25cm}
-
-         \textbf{\textcolor{HECgray}{The Globe and Mail}}\\
-         {\itshape ``Trump tariffs threaten 75\% of Canadian exports''}
-         \vspace{0.25cm}
-
-         \textbf{\textcolor{HECgray}{Wall Street Journal}}\\
-         {\itshape ``Inflation is finally cooling. Now comes the hard part.''}
-      \end{column}
-   \end{columns}
-   \vspace{0.3cm}
-   \begin{bizimplication}
-      What do these headlines have in common? They are all \textbf{macroeconomics}. This course will give you the tools to make sense of them.
-   \end{bizimplication}
+% --- Slide 1: What is macroeconomics?
+\begin{frame}{What is macroeconomics?}
+   \textbf{Macroeconomics deals with\ldots}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Global economic phenomena: the \textbf{big picture}
+      \item \textbf{Interconnections} between economic agents (e.g., consumers, firms, gov.)
+      \item \textbf{Long-run} trends, \textbf{short-run} fluctuations, and economic \textbf{policy}
+   \end{itemize}
+   \vspace{0.4cm}
+   \textbf{Macroeconomics is closely linked to many other fields:}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Politics and geopolitics
+      \item Psychology and sociology
+      \item Finance
+      \item Environment, technology, etc.
+   \end{itemize}
 \end{frame}
 
-% ============================================================================
-\begin{frame}{Outline}
-   \begin{enumerate}
-      \setlength\itemsep{0.35cm}
-      \item \textbf{Why macroeconomics matters for business}
-      \item Course overview and logistics
-      \item Measuring the economy: GDP
-      \item Measuring inflation
-      \item Comparing living standards across countries
-      \item Beyond GDP
-      \item The macroeconomic landscape in 2026
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Why Macroeconomics\\Matters for Business}
-% ============================================================================
-
-\begin{frame}{Macroeconomics vs. microeconomics}
-   \textbf{Microeconomics} provides great tools to study how individuals make decisions...
+% --- Slide 2: Macro vs. micro ---
+\begin{frame}{Macroeconomics vs.\ microeconomics}
+   \textbf{Microeconomics} provides great tools to study how individuals make decisions\ldots
    \\[6pt]
-   ...but not how they \textbf{aggregate} to the economy as a whole
+   \ldots but not how they \textbf{aggregate} to the economy as a whole
    \\[6pt]
-   ...and this aggregation, in turn, matters \textbf{a lot} for individual decision-making!
+   \ldots and this aggregation, in turn, matters \textbf{a lot} for individual decision-making!
    \vspace{0.5cm}
 
-   \textbf{When individual rationality leads to collective madness:}
+   \textbf{When individual rationality leads to collective madness\ldots}
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.2cm}
@@ -84,90 +52,243 @@
    \end{itemize}
 \end{frame}
 
+% --- Slide 3: Why should you care? (adapted from Vincent S1 slide 3) ---
 \begin{frame}{Why should \textit{you} care about macroeconomics?}
-   \textbf{Macroeconomics matters for business:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Forecasting sales, interest rates, and wages
-      \item Asset pricing and portfolio management
-      \item Expanding into foreign markets and currency risks
-      \item Anticipating regulatory and policy changes
-   \end{itemize}
+   The success of any business decision rests partly on \textbf{macroeconomic conditions} \\
    \vspace{0.3cm}
-   \textbf{Can you answer these questions?}
+
+   Macroeconomic events, forces, and trends\ldots
    \vspace{0.15cm}
    \begin{enumerate}
-      \setlength\itemsep{0.15cm}
-      \item You advise a client during a recession. Do you recommend stocks or bonds?
-      \item Do you expand manufacturing in Europe or Southeast Asia?
-      \item Do you borrow now or wait for interest rates to fall?
-      \item Should your firm hedge against a weaker Canadian dollar?
+      \setlength\itemsep{0.2cm}
+      \item \ldots disrupt \textbf{business strategies}
+      \item \ldots influence \textbf{costs, wages, interest rates}, and \textbf{competition}
+      \item \ldots are sources of \textbf{risk}, but also of \textbf{opportunity}
+      \item \ldots shape \textbf{markets} on a global scale \\
+   \end{enumerate}
+   \vspace{0.3cm}
+
+   \ldots and \textbf{macroeconomic jargon} will be at the heart of conversations you will have as future managers
+\end{frame}
+
+% --- Slides 4--5: Headlines collage + "Where are we now?" overlay ---
+\begin{frame}{A complex and uncertain world}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[economist]{The Economist}{``Who wrangled the best trade deal from Donald Trump?''}
+      \newsheadline[bloomberg]{Bloomberg}{``Kevin Warsh’s Fed Job Already Looks Impossible''}
+      \newsheadline[ft]{Financial Times}{``Gold rips past \$5,000 on fears of global turmoil''}
+      \newsheadline[lapresse]{La Presse}{``Les exportations du Québec en forte baisse''}
+      \newsheadline[globeandmail]{The Globe and Mail}{``Mark Carney’s speech got the world’s attention---but was it the right message?''}
+      \newsheadline[wsj]{The Wall Street Journal}{``The Big Money in Today’s Economy Is Going to Capital, Not Labor''}
+      \headlinesoverlay{Where are we now?}
+   \end{tikzpicture}
+\end{frame}
+
+% --- Narrative arc: 6 slides after "Where are we now?" ---
+
+% Slide N1: After a very unusual recession...
+\begin{frame}{After a very unusual recession\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{can_unemployment.png}
+   \end{figure}
+\end{frame}
+
+% Slide N2: An old enemy back from the dead...
+\begin{frame}{An old enemy back from the dead\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{can_inflation_longrun.png}
+   \end{figure}
+\end{frame}
+
+% Slide N3: A forceful response...
+\begin{frame}{A forceful response\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{policy_rates.png}
+   \end{figure}
+\end{frame}
+
+% Slide N4: A return to normal...
+\begin{frame}{A return to normal\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{canada_inflation_recent.png}
+   \end{figure}
+\end{frame}
+
+% Slide N5: Trump tariffs
+\begin{frame}{The return of protectionism\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{us_tariff_rate.png}
+   \end{figure}
+\end{frame}
+
+% Slide N6: An uncertain future...
+\begin{frame}{An uncertain future\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{canada_employment_exports.png}
+   \end{figure}
+\end{frame}
+
+% Slide N6: What about the distant future?
+\begin{frame}{What about the distant future?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{hockey_stick_world.png}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Outline}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item \textbf{Course overview and logistics}
+      \item Measuring the economy: GDP
+      \item Measuring inflation
+      \item Comparing living standards across countries
+      \item Beyond GDP
+      \item The macroeconomic landscape in 2026
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Course Overview}
+\sectionframe{Course overview}
 % ============================================================================
 
 \begin{frame}{Course objectives}
-   \textbf{By the end of this course, you will be able to:}
+   \textbf{No, I will not make you economists\ldots but by the end of this course, you will:}
    \vspace{0.3cm}
    \begin{enumerate}
       \setlength\itemsep{0.3cm}
-      \item Understand the key \textbf{concepts and mechanisms} of macroeconomics
-      \item Critically interpret \textbf{macroeconomic news} (train your ``BS'' detector)
-      \item Use simple analytical frameworks to \textbf{reason about policy} and business strategy
+      \item Be \textbf{less intimidated} by macroeconomic discussions and jargon
+      \item Be able to critically interpret \textbf{macroeconomic news} (``BS'' detector)
+      \item Be aware of major \textbf{macroeconomic trends}
+      \item Have \textbf{objective and coherent} conversations about macroeconomics
    \end{enumerate}
    \vspace{0.5cm}
    \begin{defbox}[What this course is \textbf{not}]
-      Not technical. Not abstract. Not ideological. \\
-      Applied, relevant, and evidence-based.
+      Technical. Abstract. Ideological.
    \end{defbox}
 \end{frame}
 
 \begin{frame}{Themes to be covered}
    \begin{enumerate}
-      \setlength\itemsep{0.35cm}
-      \item \textbf{GDP and living standards} (today)
+      \setlength\itemsep{0.5cm}
       \item \textbf{Long-run economic growth:} why are some countries rich and others poor?
       \item \textbf{The labor market:} inequality, technology, and AI
-      \item \textbf{Money, inflation, and business cycles}
+      \item \textbf{Business cycles:} why does the economy boom and bust?
       \item \textbf{Monetary and fiscal policy:} how governments fight recessions
-      \item \textbf{Financial markets and international macro}
+      \item \textbf{International trade and imbalances:} (de)globalization, tariffs, etc.
    \end{enumerate}
 \end{frame}
 
-\begin{frame}{Logistics}
-   % TODO: Update with your actual logistics
-   \textbf{Teaching material:}
-   \vspace{0.15cm}
+\begin{frame}{Teaching team}
+   \begin{columns}[c]
+      \begin{column}{0.35\textwidth}
+         \begin{center}
+            \includegraphics[width=1.0\textwidth]{headshot}
+         \end{center}
+      \end{column}
+      \hspace{-1cm}
+      \begin{column}{0.65\textwidth}
+         \textbf{Jean-F\'elix Brouillette} \\[0.15cm]
+         Assistant Professor of Applied Economics \\[0.3cm]
+         {\small B.B.A.\ and M.Sc.\ in Economics, HEC Montr\'eal \\
+         Ph.D.\ in Economics, Stanford University} \\[0.3cm]
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item E-mail: {\small \href{mailto:jean-felix.brouillette@hec.ca}{jean-felix.brouillette@hec.ca}}
+            \item Office hours: TBD
+            \item Office: 4.148 (CSC)
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Pedagogical material}
+   \textbf{ZoneCours (ZC)}
+   \vspace{0.1cm}
    \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Slides posted on ZoneCours before each class
-      \item Textbook: Vincent \& Yared (required readings + exercises)
-      \item Regular reading: \textit{The Economist, FT, WSJ, Bloomberg, La Presse Affaires}
+      \setlength\itemsep{0.1cm}
+      \item Slides and articles posted before each class
+      \item Exercises and solutions
    \end{itemize}
-   \vspace{0.4cm}
-   \textbf{Evaluation:}
-   \vspace{0.15cm}
+   \vspace{0.3cm}
+   \textbf{Textbook}
+   \vspace{0.1cm}
    \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Case study (``Global Macro Risk''): 20\%
-      \item In-class debate: 10\%
-      \item Quiz (Session 4): 10\%
-      \item Final exam: 50\%
-      \item Contribution and professionalism: 10\%
+      \setlength\itemsep{0.1cm}
+      \item Vincent \& Yared (Pearson Revel): not mandatory
+      \item ZC: reference for lectures + exercises
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{Stay on top of macro news}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \item \textit{The Economist, The Financial Times, The Wall Street Journal, Bloomberg, La Presse Affaires, Reuters, Les Échos, etc.}
    \end{itemize}
 \end{frame}
 
+\begin{frame}{Grades}
+   \vspace{0.3cm}
+   \begin{tabular}{l r}
+      \textbf{Team project} (two parts) & \textbf{30\%} \\[0.2cm]
+      \textbf{Quiz} (session 4, $\sim$15 minutes, multiple choice) & \textbf{10\%} \\[0.2cm]
+      \textbf{Final exam} (March 30th) & \textbf{50\%} \\[0.2cm]
+      \textbf{Contribution and professionalism} & \textbf{10\%} \\
+   \end{tabular}
+   \vspace{0.4cm}
+   \begin{defbox}[Details]
+      Team project details are on ZC. Examples of quiz questions will be provided.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Contribution and professionalism}
+   \small
+   \textbf{Criteria:}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Attendance and punctuality} --- as per program requirements
+      \item \textbf{Active participation} --- quality and relevance of interventions
+      \item \textbf{Professionalism} --- autonomy, judgment, collegiality
+   \end{enumerate}
+   \vspace{0.4cm}
+   \textbf{To promote active learning:}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Name cards} --- please bring yours to every class
+      \item \textbf{No laptops} in class (exception: tablets lying flat)
+      \item \textbf{Limit comings and goings} during class
+   \end{enumerate}
+\end{frame}
+
 % ============================================================================
-\sectionframe{Measuring the Economy: GDP}
+\begin{frame}{Outline}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Course overview and logistics}
+      \item \textbf{Measuring the economy: GDP}
+      \item Measuring inflation
+      \item Comparing living standards across countries
+      \item Beyond GDP
+      \item The macroeconomic landscape in 2026
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Measuring the economy: GDP}
 % ============================================================================
 
 \begin{frame}{What is GDP?}
    \begin{defbox}[Gross Domestic Product (GDP)]
-      The total market value of all \textbf{final} goods and services produced \textbf{within a country} during a given period.
+      The total \textbf{market value} of all \textbf{final} goods and services produced \textbf{within a country} during a \textbf{given period}.
    \end{defbox}
    \vspace{0.3cm}
    \textbf{Key words:}
@@ -176,8 +297,8 @@
       \setlength\itemsep{0.15cm}
       \item \textbf{Market value:} measured in dollars (or another currency)
       \item \textbf{Final:} excludes intermediate goods to avoid double-counting
-      \item \textbf{Within a country:} production on Canadian soil, regardless of who owns the firm
-      \item \textbf{During a given period:} a flow, not a stock (typically quarterly or annual)
+      \item \textbf{Within a country:} production on Canadian soil
+      \item \textbf{Given period:} a flow, not a stock (typically quarterly or annual)
    \end{itemize}
 \end{frame}
 
@@ -185,153 +306,358 @@
    \framesubtitle{They all give the same answer}
 
    \small
-   \begin{columns}[T]
-      \begin{column}{0.32\textwidth}
-         \textbf{\textcolor{HECnavy}{1. Expenditure}}\\[4pt]
-         Who is buying?
-         \vspace{-0.2cm}
-         \begin{equation*}
-            Y = C + I + G + NX
-         \end{equation*}
-         \vspace{-0.6cm}
-         \begin{itemize}
-            \footnotesize
-            \item $C$: consumption
-            \item $I$: investment
-            \item $G$: gov't spending
-            \item $NX$: net exports
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.32\textwidth}
-         \textbf{\textcolor{HECnavy}{2. Income}}\\[4pt]
-         Who is earning?
-         \vspace{0.1cm}
-         \begin{itemize}
-            \footnotesize
-            \item Wages and salaries
-            \item Corporate profits
-            \item Rental income
-            \item Interest income
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.32\textwidth}
-         \textbf{\textcolor{HECnavy}{3. Value added}}\\[4pt]
-         Who is producing?
-         \vspace{0.1cm}
-         \begin{itemize}
-            \footnotesize
-            \item Value added at each stage
-            \item Revenue $-$ intermediate inputs
-         \end{itemize}
-      \end{column}
-   \end{columns}
+   \noindent%
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{1. Expenditure}}\\[4pt]
+      Who is buying?
+      \vspace{-0.2cm}
+      \begin{equation*}
+         Y = C + I + G + NX
+      \end{equation*}
+      \vspace{-0.8cm}
+      \begin{itemize}
+         \footnotesize
+         \item $C$: consumption
+         \item $I$: investment
+         \item $G$: gov. spending
+         \item $NX$: net exports
+      \end{itemize}
+   \end{minipage}%
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{2. Income}}\\[4pt]
+      Who is earning?
+      \vspace{0.1cm}
+      \begin{itemize}
+         \footnotesize
+         \item Wages/salaries
+         \item Corporate profits
+         \item Rental income
+         \item Interest income
+      \end{itemize}
+   \end{minipage}%
+   \hspace{-0.5cm}
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{3. Value added}}\\[4pt]
+      Who is producing?
+      \vspace{0.1cm}
+      \begin{itemize}
+         \footnotesize
+         \item Value added at each stage
+         \item Revenue $-$ int. inputs
+      \end{itemize}
+   \end{minipage}
    \vspace{0.1cm}
    \begin{keyinsight}
-      Every dollar spent is a dollar earned is a dollar of value created. All three approaches yield the same GDP.
+      Every dollar spent is a dollar earned is a dollar of value created
    \end{keyinsight}
 \end{frame}
 
-\begin{frame}{What do C, I, G, and NX include?}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECnavy}{Consumption ($C$)}}
-         \begin{itemize}
-            \footnotesize
-            \item Durable goods (cars, appliances)
-            \item Non-durable goods (food, clothing)
-            \item Services (rent, healthcare, haircuts)
-         \end{itemize}
-         \vspace{0.2cm}
-         \textbf{\textcolor{HECnavy}{Investment ($I$)}}
-         \begin{itemize}
-            \footnotesize
-            \item Business fixed capital (machines, factories)
-            \item Residential (new housing construction)
-            \item Inventories (unsold goods = investment in stocks)
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECnavy}{Government spending ($G$)}}
-         \begin{itemize}
-            \footnotesize
-            \item Roads, defense, education, healthcare
-            \item Does \textbf{not} include transfers (EI, pensions)
-            \item Why? Transfers redistribute income, they don't buy goods
-         \end{itemize}
-         \vspace{0.2cm}
-         \textbf{\textcolor{HECnavy}{Net exports ($NX$)}}
-         \begin{itemize}
-            \footnotesize
-            \item $NX = \text{Exports} - \text{Imports}$
-            \item Can be negative (net importer)
-         \end{itemize}
-      \end{column}
-   \end{columns}
+\begin{frame}[t]{Example: value added avoids double counting}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Example}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      A business hires employees to work in a fertilizer plant and pays them \$0.50 in wages. The business sells the fertilizer to Dwight, a self-employed farmer, for \$0.80. Dwight uses it to produce beets, which he sells to Jim for \$1. Jim eats the beets.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Income} & & \textbf{Expenditure} & \\
+         \hline
+         Manufacturing & 0.80 & Wages & 0.50 & Consumption & 1.00 \\
+         Agriculture & 0.20 & Profits & 0.30 & & \\
+         & & Prop.\ income & 0.20 & & \\
+         \hline
+         \textbf{Total} & \textbf{1.00} & \textbf{Total} & \textbf{1.00} & \textbf{Total} & \textbf{1.00}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Production = \textbf{value added} (revenue $-$ intermediate inputs), not total revenue. This avoids double counting and ensures all three approaches agree.
+   \end{keyinsight}
 \end{frame}
 
-\begin{frame}{Why do we need net exports?}
-   $C$, $I$, and $G$ include spending on \textbf{foreign} goods (imports).\\[6pt]
-   At the same time, foreigners buy \textbf{our} goods (exports).
-   \vspace{0.3cm}
+\begin{frame}{The expenditure approach: $Y = C + I + G + NX$}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.8\textheight]{gdp_decomposition_canada.png}
+   \end{figure}
+\end{frame}
 
-   Since GDP measures \textit{domestic} production, we need to correct:
+% ── Consumption ───────────────────────────────────────────────────────
+
+\begin{frame}[t]{Consumption ($C$)}
+   \textbf{Household spending} on final goods and services:
    \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Durable goods} --- cars, furniture, appliances (long-lasting)
+      \item \textbf{Non-durable goods} --- food, clothing, gasoline (used up quickly)
+      \item \textbf{Services} --- rent, healthcare, haircuts, education
+   \end{itemize}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      Services account for over 60\% of consumption in Canada. The shift from goods to services is a hallmark of advanced economies.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Consumption share of GDP in Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{consumption_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Consumption is the largest component ($\approx$60\%), and increasing over time.
+\end{frame}
+
+% ── Investment ────────────────────────────────────────────────────────
+
+\begin{frame}[t]{Investment ($I$)}
+   \textbf{Spending on goods used to produce future output:}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Business fixed capital} --- machines, equipment, factories, software
+      \item \textbf{Residential} --- new housing construction
+      \item \textbf{Inventories} --- unsold goods stored in warehouses
+   \end{itemize}
+   \vspace{0.3cm}
+   \begin{warning}[Common confusion]
+      In economics, ``investment'' means \textbf{physical capital formation}, not buying stocks or bonds. A firm purchasing a delivery van is investment; buying shares of Tesla is not.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Example: investment}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Example}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      General Motors produces a minivan, which it sells for \$1,000 to the Michael Scott Paper Company. The cost of producing it is made up of workers' wages worth \$600.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Income} & & \textbf{Expenditure} & \\
+         \hline
+         Manufacturing & 1,000 & Wages & 600 & Investment & 1,000 \\
+         & & Profits & 400 & & \\
+         \hline
+         \textbf{Total} & \textbf{1,000} & \textbf{Total} & \textbf{1,000} & \textbf{Total} & \textbf{1,000}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      A firm buying a capital good = \textbf{investment}, not consumption.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Example: inventories (Year 1)}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Example}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      Dunder Mifflin produces 500 tons of white paper worth \$400 and stores them in its warehouse while it waits for customers to buy them. The cost of producing them is made up of workers' wages of \$500.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Income} & & \textbf{Expenditure} & \\
+         \hline
+         Manufacturing & 400 & Wages & 500 & Investment & 400 \\
+         & & Profits & (100) & & \\
+         \hline
+         \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Unsold goods = \textbf{inventory investment}. GDP captures all production, even without a sale.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Example: inventories (Year 2)}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Example}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      The following year, Dunder Mifflin finally sells its paper worth \$400.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Income} & & \textbf{Expenditure} & \\
+         \hline
+         & & & & Consumption & 400 \\
+         & & & & Investment & (400) \\
+         \hline
+         \textbf{Total} & \textbf{0} & \textbf{Total} & \textbf{0} & \textbf{Total} & \textbf{0}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Selling from inventory: $C$ rises, $I$ falls $\Rightarrow$ GDP = 0. Production was counted in year~1.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Investment share of GDP in Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{investment_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Investment is the most \textbf{volatile} component --- it swings sharply during recessions.
+\end{frame}
+
+% ── Government spending ───────────────────────────────────────────────
+
+\begin{frame}[t]{Government spending ($G$)}
+   \small
+   \textbf{Major producer} of goods/services:
+   military, education, healthcare, infrastructure.
+   \vspace{0.15cm}
+   \begin{defbox}[Valued at cost]
+      Often missing market prices, so $G$ measured using \textbf{cost of inputs}.
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{warning}[Transfers $\neq$ government spending]
+      Social transfers (UI, pensions, welfare) are \textbf{not} in $G$ because they do not involve any new production --- they redistribute existing income.
+   \end{warning}
+\end{frame}
+
+\begin{frame}{Government spending share of GDP in Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{government_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Government spending spikes in recessions, but on a long downward trend since the 1990s.
+\end{frame}
+
+% ── Exports and imports ───────────────────────────────────────────────
+
+\begin{frame}[t]{Exports and imports ($NX$)}
+   $C$, $I$, and $G$ include spending on \textbf{foreign} goods (imports).\\[4pt]
+   Since GDP measures \textit{domestic} production, we need a correction:
+   \vspace{0.1cm}
    \begin{equation*}
       Y = \underbrace{C + I + G}_{\text{total spending}} + \underbrace{X - M}_{\text{net exports}}
    \end{equation*}
-   \vspace{-0.2cm}
+   \vspace{-0.3cm}
    \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Add exports ($X$): domestic production bought by foreigners
-      \item Subtract imports ($M$): foreign production included in $C$, $I$, $G$
+      \setlength\itemsep{0.1cm}
+      \item $X$ (exports): domestic production sold to foreigners
+      \item $M$ (imports): foreign production already counted in $C$, $I$, $G$
    \end{itemize}
-   \vspace{0.2cm}
-   \begin{keyinsight}
-      Net exports ensure the expenditure approach captures only what is produced \textit{within} the country.
-   \end{keyinsight}
+   \vspace{0.15cm}
+   \begin{defbox}[Trade openness]
+      $(X + M) / Y$ measures how important trade is for an economy.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Trade share of GDP in Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{trade_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Canada is a very open economy. Trade peaked with NAFTA (1994) and has slightly declined since.
+\end{frame}
+
+\begin{frame}[t]{Training your ``BS'' detector}
+   \footnotesize
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.42\textwidth}
+         \includegraphics[width=\linewidth, height=0.65\textheight, keepaspectratio]{misleading_GDP_accounting.png}\\[-2pt]
+         {\scriptsize\textcolor{HECgray}{Source: \textit{The Economist}, 2025}}
+      \end{column}
+      \hspace{-2cm}
+      \begin{column}{0.54\textwidth}
+         In Q1 2025, US GDP fell. Many blamed imports: ``the trade deficit subtracted 5~pp from GDP growth.''
+         \vspace{0.15cm}
+         \begin{warning}[That's misleading]
+            \footnotesize
+            Imports enter GDP \textbf{twice}: once \textit{added} in $C$, $I$, or $G$, and once \textit{subtracted} in $NX$.\\[8pt]
+            If firms front-load imports before tariffs, inventories surge ($\uparrow I$) while net exports plunge ($\downarrow NX$). The two cancel out.\\[8pt]
+            If consumers hurry to buy dishwashers before tariffs, consumption surges ($\uparrow C$) while net exports plunge ($\downarrow NX$). The two cancel out.
+         \end{warning}
+      \end{column}
+   \end{columns}
 \end{frame}
 
 \begin{frame}{GDP by expenditure: cross-country comparison}
-   % TODO: Create 4 pie charts side by side (2x2 grid) for Canada, US, China, Brazil.
-   % Source: World Bank national accounts data
-   % Canada: C 57%, I 22%, G 23%, NX -2%
-   % US: C 68%, I 21%, G 14%, NX -3%
-   % China: C 39%, I 43%, G 17%, NX 1%
-   % Brazil: C 65%, I 15%, G 20%, NX 0%
    \begin{figure}
       \centering
-      % \includegraphics[width=\textwidth]{gdp_components_4countries.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=4cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: GDP expenditure shares -- 4 pie charts]}\\[4pt]
-         \textcolor{HECgray}{\small Canada (C 57\%), US (C 68\%), China (I 43\%!), Brazil (C 65\%)}
-      \end{tcolorbox}
+      \includegraphics[width=\textwidth]{gdp_decomposition_4countries.png}
    \end{figure}
    \vspace{-0.2cm}
-   \begin{bizimplication}
-      China is investment-driven (I = 43\%), while the US is consumption-driven (C = 68\%). These differences shape trade patterns and growth strategies.
-   \end{bizimplication}
+   \begin{keyinsight}[Different growth models]
+      China is investment-driven ($I$ = 41\%), while the US is consumption-driven ($C$ = 68\%). These differences shape trade patterns and growth strategies.
+   \end{keyinsight}
 \end{frame}
 
-\begin{frame}{Exercise: GDP accounting}
-   \framesubtitle{$Y = C + I + G + NX$}
+\begin{frame}[t]{What GDP does \textit{not} measure}
+   GDP only counts \textbf{market transactions}. A lot of economic activity is missed:
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Household production} --- cooking, childcare, home repairs
+      \item \textbf{Volunteer work} --- community services, charities
+      \item \textbf{Underground economy} --- unreported income, informal work
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{keyinsight}[Sex, drugs, and GDP]
+      In 2014, EU accounting rules began requiring countries to include estimates of illegal activities (e.g., drugs, prostitution) in GDP. Italy's GDP rose by 18\% overnight\ldots
+      \hfill{\scriptsize\textit{\color{black!50}The Economist, 2014}}
+   \end{keyinsight}
+\end{frame}
 
-   For each transaction, identify which GDP component(s) are affected and by how much.
-   \vspace{0.3cm}
+\begin{frame}{Can we trust GDP figures?}
+   \centering
+   \includegraphics[width=0.75\linewidth, height=0.8\textheight, keepaspectratio]{china_transparency.png}
+\end{frame}
 
+\begin{frame}{When data is unavailable\ldots}
+   \centering
+   \includegraphics[width=0.75\linewidth, height=0.8\textheight, keepaspectratio]{korea_space.png}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Outline}
    \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item A Canadian firm produces and sells a sofa for \$500. It used \$75 worth of imported parts from the US.
-      \item A Canadian firm produces 100 electronic components at \$80 each. The government buys 95 at \$100 each. The remaining 5 are unsold at year-end.
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Course overview and logistics}
+      \item {\color{gray!50}Measuring the economy: GDP}
+      \item \textbf{Measuring inflation}
+      \item Comparing living standards across countries
+      \item Beyond GDP
+      \item The macroeconomic landscape in 2026
    \end{enumerate}
-   \vspace{0.3cm}
-   \begin{defbox}[Hint]
-      Think about each component separately. Remember: imports are subtracted, inventories count as investment.
-   \end{defbox}
 \end{frame}
+
+% ============================================================================
+\sectionframe{Measuring inflation}
+% ============================================================================
 
 \begin{frame}[t]{Real vs. nominal GDP}
    \begin{defbox}
@@ -406,108 +732,8 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}{Can we trust GDP figures?}
-   GDP captures, by definition, only production that can be \textbf{measured}.
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Household production:} cooking, childcare, home repairs --- not counted
-      \item \textbf{Underground economy:} unreported income, informal work
-      \item \textbf{Data reliability:} can we trust the numbers published by national statistical agencies?
-   \end{itemize}
-   \vspace{0.3cm}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \begin{warning}[China's GDP: how reliable?]
-            China has quietly discontinued tens of thousands of economic statistics since Xi became leader (FT). Independent estimates suggest true growth may be much lower.
-         \end{warning}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert FT chart: China becoming less transparent
-         % "China is becoming much less transparent about its economic performance"
-         % Annual number of economic indicators published by NBS
-         % Source: FT analysis of CEIC; Chinese National Bureau of Statistics
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=3.5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: China --- declining data transparency]}\\
-            \textcolor{HECgray}{\small Source: FT / CEIC / NBS}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{The importance of reliable and objective data}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         Data integrity is not only a concern in authoritarian regimes.
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item In 2025, the U.S.\ administration fired the head of the Bureau of Labor Statistics
-            \item Job growth in May--June 2025 was later \textbf{revised sharply down}
-            \item Data revisions: $-$911,000 jobs over 12 months
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{warning}
-            Reliable economic data requires \textbf{independent} statistical agencies. When independence is threatened, markets lose a critical input.
-         \end{warning}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert NYT chart: "Data Integrity at Risk"
-         % Monthly change in jobs, July 2024-July 2025
-         % Source: Bureau of Labor Statistics, NYT Aug 4 2025
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=4cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Data Integrity at Risk]}\\
-            \textcolor{HECgray}{\small Monthly job changes, revised down]}\\
-            \textcolor{HECgray}{\small Source: NYT / BLS}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}{Measuring economic activity from space}
-   % TODO: Insert Korean peninsula night lights image
-   % Source: Henderson, Storeygard, and Weil (AER, 2012)
-   % Side by side: 1992 and 2008 (or more recent)
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \begin{figure}
-            \centering
-            % \includegraphics[width=\textwidth]{korea_nightlights.png}
-            \begin{tcolorbox}[
-               colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-               arc=8pt, height=5cm, valign=center
-            ]
-               \centering
-               \textcolor{HECgray}{\small [Figure: Korean peninsula at night]}\\
-               \textcolor{HECgray}{\small South Korea lit up, North Korea dark}
-            \end{tcolorbox}
-         \end{figure}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         Satellite images of nighttime light can be used to \textbf{verify} GDP data.
-         \vspace{0.2cm}
-
-         {\small Henderson, Storeygard \& Weil (\textit{AER}, 2012) show that light intensity tracks economic activity --- especially useful where official data is unreliable.}
-         \vspace{0.2cm}
-
-         \begin{keyinsight}
-            GDP data is imperfect. Always think critically about the numbers.
-         \end{keyinsight}
-      \end{column}
-   \end{columns}
-\end{frame}
-
 % ============================================================================
-\sectionframe{Measuring Inflation}
+\sectionframe{Measuring inflation}
 % ============================================================================
 
 \begin{frame}{What is inflation?}
@@ -532,7 +758,7 @@
    \end{itemize}
 \end{frame}
 
-\begin{frame}{The Consumer Price Index (CPI)}
+\begin{frame}{The consumer price index (CPI)}
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \textbf{How it works:}
@@ -645,7 +871,7 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{Comparing Living Standards\\Across Countries}
+\sectionframe{Comparing living standards\\across countries}
 % ============================================================================
 
 \begin{frame}{GDP per capita: enormous variation}
@@ -805,7 +1031,7 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{The Macroeconomic Landscape\\in 2026}
+\sectionframe{The macroeconomic landscape\\in 2026}
 % ============================================================================
 
 \begin{frame}{Where we stand today}
@@ -827,44 +1053,28 @@
 \end{frame}
 
 \begin{frame}[t]{The inflation cycle: a case study in real time}
-   % TODO: Insert CPI inflation chart for Canada and/or US, 2019-2026
-   % Show: pre-pandemic ~2%, pandemic dip, surge to 8%+, disinflation back to ~2-3%
-   % Source: Statistics Canada or FRED (CPIAUCSL)
+   % Canadian CPI inflation, 2016-2026 with BoC target band
+   % Source: FRED (CPALCY01CAM661N), generated by figures_s1.py
+   \vspace{-0.15cm}
    \begin{figure}
       \centering
-      % \includegraphics[width=\textwidth]{inflation_canada_2019_2026.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=3.8cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: CPI inflation, Canada and US, 2019--2026]}\\
-         \textcolor{HECgray}{\small Annotate: supply shocks, rate hikes begin, disinflation]}
-      \end{tcolorbox}
+      \includegraphics[width=0.85\textwidth, height=4.2cm, keepaspectratio]{canada_inflation_recent.png}
    \end{figure}
-   \vspace{-0.15cm}
+   \vspace{-0.25cm}
    \begin{keyinsight}
       In 2021, most economists believed inflation was ``transitory.'' It wasn't. Understanding \textit{why} they were wrong is one of the goals of this course.
    \end{keyinsight}
 \end{frame}
 
 \begin{frame}[t]{Interest rates: the end of free money}
-   % TODO: Insert policy rate chart (Fed, BoC, ECB, BoE) 2007-2026
-   % Show: near-zero 2009-2021, then sharp hikes to ~5%, then partial cuts
-   % Update the MBA S1 chart (which stopped at 2020)
+   % Policy rates: Fed funds + BoC overnight, 2006-2026
+   % Source: FRED (DFF, IRSTCI01CAM156N), generated by figures_s1.py
+   \vspace{-0.1cm}
    \begin{figure}
       \centering
-      % \includegraphics[width=\textwidth]{policy_rates_2007_2026.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=4cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: Policy interest rates, major central banks, 2007--2026]}\\
-         \textcolor{HECgray}{\small Fed, Bank of Canada, ECB, Bank of England}
-      \end{tcolorbox}
+      \includegraphics[width=0.85\textwidth, height=4.2cm, keepaspectratio]{policy_rates.png}
    \end{figure}
-   \vspace{-0.2cm}
+   \vspace{-0.3cm}
    \begin{bizimplication}
       Higher rates mean higher borrowing costs, lower asset valuations, and a different environment for investment and M\&A.
    \end{bizimplication}
@@ -919,17 +1129,15 @@
          \end{warning}
       \end{column}
       \begin{column}{0.42\textwidth}
-         % TODO: Insert FT chart: "The progression of Trump's tariffs"
-         % Effective US global tariff rate, as at Aug 1 2025
-         % Shows tariff escalation from Jan 2025 through Aug 2025
-         % Source: Yale Budget Lab; US Census Bureau; FT graphic: Alan Smith
+         % TODO: Insert chart for this column
+         % (tariff rate figure moved to narrative arc slide N5)
          \begin{tcolorbox}[
             colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
             arc=8pt, height=5cm, valign=center
          ]
             \centering
             \textcolor{HECgray}{\small [Figure: Progression of Trump tariffs]}\\
-            \textcolor{HECgray}{\small US effective tariff rate, 2025]}\\
+            \textcolor{HECgray}{\small US effective tariff rate, 2025}\\
             \textcolor{HECgray}{\small Source: FT / Yale Budget Lab}
          \end{tcolorbox}
       \end{column}
@@ -991,7 +1199,7 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{Where This Course Is Going}
+\sectionframe{Where this course is going}
 % ============================================================================
 
 \begin{frame}{Connecting the themes to the course}

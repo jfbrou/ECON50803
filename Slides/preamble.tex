@@ -69,8 +69,8 @@
 }
 
 % --- Itemize/enumerate styling ----------------------------------------------
-\setbeamertemplate{itemize item}{\textcolor{HECnavy}{\scalebox{1.8}{\textbullet}}}
-\setbeamertemplate{itemize subitem}{\textcolor{HECgray}{\scalebox{1.5}{\textbullet}}}
+\setbeamertemplate{itemize item}{\textcolor{HECnavy}{$\bullet$}}
+\setbeamertemplate{itemize subitem}{\textcolor{HECgray}{$\bullet$}}
 \setbeamertemplate{itemize subsubitem}{\textcolor{HECgray}{\scalebox{0.6}{$\blacktriangleright$}}}
 \setbeamertemplate{enumerate item}{\textcolor{HECnavy}{\bfseries\insertenumlabel.}}
 \setbeamertemplate{enumerate subitem}{\textcolor{HECgray}{\insertsubenumlabel.}}
@@ -232,6 +232,62 @@
    coltitle=HECnavy,
    fonttitle=\bfseries,
    attach title to upper={\\[4pt]}
+}
+
+% ============================================================================
+% NEWSPAPER HEADLINES SLIDE TEMPLATE
+% ============================================================================
+% Usage: inside a frame, open a tikzpicture[remember picture, overlay], then:
+%   \setcounter{newshl}{0}
+%   \newsheadline{Newspaper Name}{``Headline text''}   % up to 6 entries
+%   \headlinesoverlay{Large overlay text}               % optional 2nd slide
+%
+% Headlines are auto-positioned in a 2×3 staggered grid (left/right alternating).
+%
+% Logo support: place PNG files in Figures/logos/ (e.g., ft.png, economist.png).
+% Use the optional argument to specify the logo file (without extension):
+%   \newsheadline[ft]{Financial Times}{Headline text}   % logo + bold headline
+%   \newsheadline{The Economist}{``Headline text''}      % text-only fallback
+
+\newcounter{newshl}
+
+\newcommand{\newsheadline}[3][]{%
+   % #1 = optional logo file key (e.g., ft → logos/ft.png)
+   % #2 = newspaper name (text fallback when no logo)
+   % #3 = headline text
+   \stepcounter{newshl}%
+   \pgfmathsetmacro{\hlrow}{int((\thenewshl-1)/2)}%
+   \pgfmathsetmacro{\hlcol}{int(mod(\thenewshl-1,2))}%
+   \pgfmathsetmacro{\hlx}{1.2 + \hlcol * 7.3}%
+   \pgfmathsetmacro{\hly}{-2.0 - \hlrow * 2.0 - \hlcol * 0.2}%
+   \node[anchor=north west]
+      at ([shift={(\hlx cm,\hly cm)}]current page.north west) {%
+      \ifx\\#1\\%
+         \begin{minipage}[t]{5.8cm}%
+            \textbf{\textcolor{HECgray}{\footnotesize\MakeUppercase{#2}}}%
+            \\[-1pt]%
+            {\small\itshape #3}%
+         \end{minipage}%
+      \else%
+         \begin{minipage}[c]{1.2cm}%
+            \includegraphics[height=1.2cm]{logos/#1}%
+         \end{minipage}%
+         \hspace{6pt}%
+         \begin{minipage}[c]{4.3cm}%
+            \raggedright{\small\textcolor{HECtext!75}{#3}}%
+         \end{minipage}%
+      \fi%
+   };%
+}
+
+\newcommand{\headlinesoverlay}[1]{%
+   \only<2>{%
+      \fill[white, opacity=0.85]
+         (current page.south west) rectangle (current page.north east);%
+      \node[anchor=center] at ([yshift=-0.5cm]current page.center) {%
+         {\fontsize{36}{44}\selectfont\bfseries\textcolor{HECnavy}{#1}}%
+      };%
+   }%
 }
 
 % ============================================================================
