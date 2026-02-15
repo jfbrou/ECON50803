@@ -149,10 +149,9 @@
       \setlength\itemsep{0.35cm}
       \item \textbf{Course overview and logistics}
       \item Measuring the economy: GDP
-      \item Measuring inflation
-      \item Comparing living standards across countries
+      \item Comparing GDP over time
+      \item Comparing GDP across countries
       \item Beyond GDP
-      \item The macroeconomic landscape in 2026
    \end{enumerate}
 \end{frame}
 
@@ -275,10 +274,9 @@
       \setlength\itemsep{0.35cm}
       \item {\color{gray!50}Course overview and logistics}
       \item \textbf{Measuring the economy: GDP}
-      \item Measuring inflation
-      \item Comparing living standards across countries
+      \item Comparing GDP over time
+      \item Comparing GDP across countries
       \item Beyond GDP
-      \item The macroeconomic landscape in 2026
    \end{enumerate}
 \end{frame}
 
@@ -634,12 +632,45 @@
 
 \begin{frame}{Can we trust GDP figures?}
    \centering
-   \includegraphics[width=0.75\linewidth, height=0.8\textheight, keepaspectratio]{china_transparency.png}
+   \includegraphics[height=0.75\textheight, keepaspectratio]{china_transparency.png}
 \end{frame}
 
-\begin{frame}{When data is unavailable\ldots}
+\begin{frame}[t]{GDP manipulation: three cautionary tales}
+   \small
+   \begin{itemize}
+      \setlength\itemsep{0.5cm}
+      \item \textbf{China:} Suspiciously smooth GDP growth, statistical series are increasingly discontinued, and provinces routinely report figures matching central targets\ldots Autocracies overstate growth by $\sim$35\% on average.
+         \\{\scriptsize\textcolor{HECgray}{Martinez, ``How Much Should We Trust the Dictator's GDP Growth Estimates?'' \textit{JPE}, 2022}}
+      \item \textbf{Venezuela:} the central bank stopped publishing GDP and inflation data from 2016 to 2019; when it resumed, it revealed a cumulative GDP contraction of $\sim$47\%
+         \\{\scriptsize\textcolor{HECgray}{IMF World Economic Outlook; Banco Central de Venezuela, 2019}}
+      \item \textbf{Greece:} the 2009 deficit was reported as 3.7\% of GDP, then revised to 15.4\% --- more than four times the original figure, triggering the eurozone debt crisis
+         \\{\scriptsize\textcolor{HECgray}{European Commission, Report on Greek Government Deficit and Debt Statistics, 2010}}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{When data goes missing\ldots economists get creative!}
+   \footnotesize
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Satellite night lights:} brightness correlates with economic activity --- for poor-data countries, night lights are as informative as official GDP,
+         {\scriptsize\textcolor{HECgray}{(Henderson et al., \textit{AER}, 2012).}}
+      \item \textbf{Trade and port data:} shipping volumes, ship AIS draft depth, customs records, and container throughput reveal trade flows that official statistics may undercount.
+      \item \textbf{ML inference:} ML algorithms detect oil tankers turning off transponders to evade sanctions (dark shipping), mapping illicit trade flows in real time,
+         {\scriptsize\textcolor{HECgray}{(Fern\'andez-Villaverde et al., NBER WP 33486, 2025).}}
+      \item \textbf{Online prices:} web-scraped retail prices track inflation daily --- famously exposed Argentina's manipulated CPI,
+         {\scriptsize\textcolor{HECgray}{(Cavallo \& Rigobon, \textit{JEP}, 2016).}}
+      \item \textbf{Mobile phone data:} call density and airtime purchases proxy for consumption in developing countries.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{When darkness sheds light\ldots}
    \centering
-   \includegraphics[width=0.75\linewidth, height=0.8\textheight, keepaspectratio]{korea_space.png}
+   \includegraphics[height=0.75\textheight, keepaspectratio]{korea_space.png}
+\end{frame}
+
+\begin{frame}{When darkness sheds light\ldots}
+   \centering
+   \includegraphics[height=0.8\textheight, keepaspectratio]{gdp_manipulation.png}
 \end{frame}
 
 % ============================================================================
@@ -648,108 +679,86 @@
       \setlength\itemsep{0.35cm}
       \item {\color{gray!50}Course overview and logistics}
       \item {\color{gray!50}Measuring the economy: GDP}
-      \item \textbf{Measuring inflation}
-      \item Comparing living standards across countries
+      \item \textbf{Comparing GDP over time}
+      \item Comparing GDP across countries
       \item Beyond GDP
-      \item The macroeconomic landscape in 2026
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Measuring inflation}
+\sectionframe{Comparing GDP over time}
 % ============================================================================
 
-\begin{frame}[t]{Real vs. nominal GDP}
-   \begin{defbox}
-      \textbf{Nominal GDP} = output at \textit{current} prices. \quad
-      \textbf{Real GDP} = output at \textit{constant} prices.
-   \end{defbox}
-   \vspace{0.05cm}
-
-   \textbf{Example:} nominal GDP grew 5\%, prices rose 3\% $\Rightarrow$ real GDP grew $\sim$2\%.
-   \vspace{0.05cm}
-
-   The \textbf{GDP deflator} captures the overall price level:
-   \vspace{-0.2cm}
-   \begin{equation*}
-      \text{GDP deflator} = \frac{\text{Nominal GDP}}{\text{Real GDP}} \times 100
-   \end{equation*}
-   \vspace{-0.4cm}
-   \begin{keyinsight}
-      Always use \textbf{real} GDP when comparing output over time. Nominal GDP confounds price and quantity changes.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{Canadian real GDP since 1960}
-   % TODO: Insert FRED or StatCan chart of Canadian real GDP (quarterly, log scale).
-   % Show the 1981-82, 1990-91, 2008-09, and 2020 recessions clearly.
-   % Source: Statistics Canada, Table 36-10-0104-01
+\begin{frame}{Nominal GDP growth in Canada}
    \begin{figure}
       \centering
-      % \includegraphics[width=\textwidth]{real_gdp_canada.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=6cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: Canadian real GDP, 1960--2025, log scale]}\\
-         \textcolor{HECgray}{\small Shade the recessions: 1981, 1990, 2008, 2020}
-      \end{tcolorbox}
+      \includegraphics[width=\textwidth]{gdp_nominal_canada.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Canada's declining standard of living}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.50\textwidth}
-         GDP growth can mask very different \textbf{per capita} dynamics.
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Canada's real GDP per capita has \textbf{declined} relative to the U.S.\ since 2016
-            \item Rapid population growth (immigration) boosted total GDP but \textbf{not per capita}
-            \item The U.S.--Canada gap is now at its widest in decades
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{warning}
-            Always look at GDP \textbf{per capita} when assessing living standards. Total GDP can be misleading.
-         \end{warning}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         % TODO: Insert NBF chart: "Canada: Standard of living is declining"
-         % Real GDP per capita: Canada vs. the U.S., indexed to 2016Q1=100
-         % Source: NBF Economics and Strategy (Statistics Canada and BEA)
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=4.5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Real GDP per capita]}\\
-            \textcolor{HECgray}{\small Canada vs.\ U.S., 2016--2024]}\\
-            \textcolor{HECgray}{\small Source: NBF / StatCan / BEA}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}{Nominal vs.\ real GDP growth in Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.png}
+   \end{figure}
 \end{frame}
 
-% ============================================================================
-\sectionframe{Measuring inflation}
-% ============================================================================
+\begin{frame}[t]{GDP and prices}
+   \begin{defbox}
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{Nominal GDP} = output valued at \textit{current} prices
+         \item \textbf{Real GDP} = output valued at \textit{constant} prices
+         \item \textbf{GDP deflator} = $\frac{\text{Nominal GDP}}{\text{Real GDP}} \times 100$
+      \end{itemize}
+   \end{defbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Nominal GDP comparisons are contaminated by price changes. Real GDP isolates quantity changes, allowing us to measure true economic growth.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{What if higher prices reflect better quality?}
+   \small
+   When a good/service \textbf{improves}, part of the price increase reflects quality, not inflation:
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{New cars:} average price rose from $\sim$\$23K (2005) to $\sim$\$48K (2024) --- but modern cars have 10+ airbags, lane assist, backup cameras, and last twice as long
+      \item \textbf{Cancer drugs:} a year of treatment cost $\sim$\$10K in 2000; today's immunotherapies exceed \$100K --- but the cancer mortality rate has fallen 34\% since 1991
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{keyinsight}
+      Statistical agencies try to adjust for this (\textbf{hedonic pricing}), but actual quality growth is roughly \textbf{3$\times$ larger} than what they measure. If we overstate inflation, we understate real GDP growth\ldots
+      \hfill{\scriptsize\textcolor{HECgray}{Bils \& Klenow, \textit{AER}, 2001}}
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Inflation is back in fashion\ldots}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[bloomberg]{Bloomberg}{``The Affordability Crisis Should Have Been Over By Now''}
+      \newsheadline[washpost]{The Washington Post}{``Rising prices fueled by tariffs, delayed inflation report shows''}
+      \newsheadline[globeandmail]{The Globe and Mail}{``Canada's inflation rate rises to 2.4\% as grocery prices surge''}
+      \newsheadline[ledevoir]{Le Devoir}{``Vers une nouvelle hausse du prix des aliments en 2026''}
+      \newsheadline[wsj]{The Wall Street Journal}{``Trump's Tariffs Cost the Average Household \$1,000 Last Year''}
+      \newsheadline[lapresse]{La Presse}{``L'inflation alimentaire ne dispara\^itra pas de sit\^ot''}
+   \end{tikzpicture}
+\end{frame}
 
 \begin{frame}{What is inflation?}
    \begin{defbox}[Inflation]
-      The rate of change in the \textbf{overall price level} between two periods.
+      The \% rate of change in the \textbf{overall price level} between two periods.
    \end{defbox}
-   \vspace{0.3cm}
 
    \begin{equation*}
-      \pi_t = \frac{P_t - P_{t-1}}{P_{t-1}} = \%\Delta P
+      \pi_t = \frac{P_t - P_{t-1}}{P_{t-1}} = \%\Delta P \quad \text{where $P_t =$ price level at time $t$}
    \end{equation*}
 
-   where $P_t$ is the price level at time $t$.
    \vspace{0.3cm}
 
-   \textbf{Key question:} how do we measure $P$?
+   \textbf{Key question:} how do we measure $P_t$?
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
@@ -758,121 +767,63 @@
    \end{itemize}
 \end{frame}
 
-\begin{frame}{The consumer price index (CPI)}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{How it works:}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Statistical agencies (Statistics Canada, BLS) survey thousands of prices monthly
-            \item Prices are weighted by a \textbf{fixed basket} reflecting typical consumer spending
-            \item Categories: food, housing, transport, clothing, healthcare, recreation, etc.
-         \end{itemize}
-         \vspace{0.15cm}
-         \textbf{Headline vs. core inflation:}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \footnotesize
-            \setlength\itemsep{0.1cm}
-            \item \textbf{Headline:} all items (volatile)
-            \item \textbf{Core:} excludes food \& energy (less noisy)
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert CPI inflation chart for Canada, 2005-2026
-         % Show headline vs core measures, with BoC 2% target band
-         % Source: Statistics Canada / Bank of Canada
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Canada CPI inflation]}\\
-            \textcolor{HECgray}{\small Headline vs.\ core, 2005--2026]}\\
-            \textcolor{HECgray}{\small with BoC 2\% target}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}{Recent inflation in Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_cpi_deflator_canada.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Headline vs.\ core inflation}
+\begin{frame}{Headline vs.\ core inflation}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_headline_core_canada.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{High-frequency inflation indicators}
    \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{Headline inflation} includes all items --- but some are very volatile (food, energy, gasoline).
-         \vspace{0.15cm}
-
-         \textbf{Core (underlying) inflation} strips out extreme price changes to reveal the \textbf{trend}.
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Bank of Canada uses CPI-trim and CPI-median
-            \item U.S.\ Fed focuses on ``core PCE'' (excludes food \& energy)
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{keyinsight}
-            Central banks focus on core inflation for policy decisions --- headline inflation is too noisy.
-         \end{keyinsight}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert Bank of Canada chart: core inflation range
-         % "L'inflation fondamentale a augmenté depuis la fin de 2024"
-         % Shows CPI ex indirect taxes and range of core measures, 2019-2025
-         % Source: Bank of Canada
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: CPI and core inflation]}\\
-            \textcolor{HECgray}{\small range, Canada, 2019--2025]}\\
-            \textcolor{HECgray}{\small Source: Bank of Canada}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+   Scraping \textbf{millions of online prices daily}, for a real-time alternative to official CPI data
+   \vspace{0.1cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.92\textwidth, height=0.75\textheight, keepaspectratio]{inflation_highfreq_cavallo.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Inflation: why it matters for business}
-   \footnotesize
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{\small Inflation affects:}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.08cm}
-            \item \textbf{Purchasing power:} wages may not keep up
-            \item \textbf{Interest rates:} central banks raise rates to fight inflation
-            \item \textbf{Contracts:} long-term deals eroded by unexpected inflation
-            \item \textbf{Asset values:} bonds lose value when inflation rises
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{bizimplication}
-            In 2022--23, firms faced a key decision: pass costs to consumers, or absorb them? In 2025, tariffs brought new price pressures.
-         \end{bizimplication}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert chart: PriceStats tariff tracker
-         % Domestic vs imported goods price index, Nov 2024--Aug 2025
-         % Shows imported prices rising after tariff announcements
-         % Source: Cavallo, Llamas & Vazquez (2025), PriceStats / State Street
-         % https://www.pricinglab.org/tariff-tracker/
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=3.5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Tariff impact on prices]}\\
-            \textcolor{HECgray}{\small Domestic vs.\ imported, 2024--25]}\\
-            \textcolor{HECgray}{\small Source: PriceStats / Cavallo et al.}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}[t]{New product bias and the price of light}
+   \small
+   When an entirely \textbf{new product} appears, there is no predecessor to compare it to. The price index starts fresh, missing the leap\ldots
+   \vspace{0.25cm}
+   \begin{keyinsight}[The price of light (Nordhaus, 1997)]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \item What are we buying when we buy a candle, a kerosene lamp, or a light bulb?
+         \item We are buying \textbf{light} --- lumens!
+         \item From candles to LEDs, the true cost per lumen fell by a factor of $\sim$500.
+         \item But price don't track ``lumens'' --- they track \textbf{products} (e.g., candles, lamps).
+         \item Each technology switch \textbf{resets} the comparison --- the revolution is invisible.
+      \end{itemize}
+   \end{keyinsight}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Comparing living standards\\across countries}
+\sectionframe{Comparing GDP across countries}
 % ============================================================================
+
+\begin{frame}{Canada is keeping up with the United States\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_canada_usa.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Until you account for population growth\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_per_capita_canada_usa.png}
+   \end{figure}
+\end{frame}
 
 \begin{frame}{GDP per capita: enormous variation}
    % TODO: Insert figure from Our World in Data or Penn World Table
@@ -1031,175 +982,7 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{The macroeconomic landscape\\in 2026}
-% ============================================================================
-
-\begin{frame}{Where we stand today}
-   \framesubtitle{Five themes shaping the global economy}
-
-   \small
-   \begin{enumerate}
-      \setlength\itemsep{0.1cm}
-      \item \textbf{Post-pandemic inflation:} supply shocks $\to$ aggressive tightening $\to$ disinflation
-      \item \textbf{Interest rate regime shift:} the end of ``free money'' after near-zero rates
-      \item \textbf{AI and productivity:} will the AI revolution deliver a sustained productivity boom?
-      \item \textbf{Deglobalization:} reshoring, tariffs, and US-China decoupling
-      \item \textbf{Canada:} housing affordability, immigration reversal, and fiscal pressures
-   \end{enumerate}
-   \vspace{0.1cm}
-   \begin{bizimplication}
-      Each theme connects directly to the analytical tools we will develop in this course.
-   \end{bizimplication}
-\end{frame}
-
-\begin{frame}[t]{The inflation cycle: a case study in real time}
-   % Canadian CPI inflation, 2016-2026 with BoC target band
-   % Source: FRED (CPALCY01CAM661N), generated by figures_s1.py
-   \vspace{-0.15cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.85\textwidth, height=4.2cm, keepaspectratio]{canada_inflation_recent.png}
-   \end{figure}
-   \vspace{-0.25cm}
-   \begin{keyinsight}
-      In 2021, most economists believed inflation was ``transitory.'' It wasn't. Understanding \textit{why} they were wrong is one of the goals of this course.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{Interest rates: the end of free money}
-   % Policy rates: Fed funds + BoC overnight, 2006-2026
-   % Source: FRED (DFF, IRSTCI01CAM156N), generated by figures_s1.py
-   \vspace{-0.1cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.85\textwidth, height=4.2cm, keepaspectratio]{policy_rates.png}
-   \end{figure}
-   \vspace{-0.3cm}
-   \begin{bizimplication}
-      Higher rates mean higher borrowing costs, lower asset valuations, and a different environment for investment and M\&A.
-   \end{bizimplication}
-\end{frame}
-
-\begin{frame}[t]{AI and the productivity question}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{The big question:}\\[6pt]
-         Will AI deliver a new era of productivity growth, or is it mostly hype?
-         \vspace{0.3cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item \textbf{Optimists:} AI is a general-purpose technology (like electricity)
-            \item \textbf{Skeptics:} productivity growth has been disappointing for decades despite previous tech booms
-            \item \textbf{The data so far:} massive investment, but productivity gains not yet visible in aggregate statistics
-         \end{itemize}
-         \vspace{0.2cm}
-         {\small We will revisit this in Sessions 2--3.}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert figure on US labor productivity growth (5-year averages)
-         % Source: BLS or FRED (OPHNFB)
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5.5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: U.S.\ labor productivity growth]}\\
-            \textcolor{HECgray}{\small 5-year averages, 1950--2025}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Deglobalization and trade tensions}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{The world is fragmenting:}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item US-China decoupling accelerating
-            \item U.S.\ effective tariff rate at highest in nearly a century ($\sim$17\%, Smoot-Hawley levels)
-            \item ``Reshoring'' and ``friend-shoring'' as strategy
-            \item Supply chain resilience vs.\ efficiency
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{warning}[For business]
-            Global supply chains built over decades are being restructured. This creates both risks and opportunities.
-         \end{warning}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert chart for this column
-         % (tariff rate figure moved to narrative arc slide N5)
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Progression of Trump tariffs]}\\
-            \textcolor{HECgray}{\small US effective tariff rate, 2025}\\
-            \textcolor{HECgray}{\small Source: FT / Yale Budget Lab}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Canada: the tariff impact in real time}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         The Canadian economy \textbf{contracted} in Q2 2025, driven by a collapse in exports to the U.S.
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Employment in export-dependent sectors \textbf{fell sharply} while other sectors grew
-            \item $\sim$75\% of Canadian exports go to the U.S.
-            \item Bank of Canada cut rates aggressively in response
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{bizimplication}
-            The GDP expenditure identity in action: a drop in $NX$ directly reduces $Y$. We will explore these mechanics throughout the course.
-         \end{bizimplication}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert Bank of Canada chart: GDP growth decomposition
-         % Contribution to real GDP growth, Q2 2024 -- Q2 2025
-         % Shows contraction in 2025Q2 driven by exports
-         % Source: Statistics Canada, Bank of Canada estimates
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: Canada GDP decomposition]}\\
-            \textcolor{HECgray}{\small Q2 2025 contraction]}\\
-            \textcolor{HECgray}{\small Source: Bank of Canada}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}{Canada in the global picture}
-   \textbf{Key challenges for the Canadian economy:}
-   \vspace{0.1cm}
-   \small
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item \textbf{Housing affordability:} prices have far outpaced incomes, especially in major cities
-      \item \textbf{Immigration policy:} rapid population growth strained housing and services; government reversed course
-      \item \textbf{Productivity gap:} Canadian productivity growth has consistently lagged the U.S.
-      \item \textbf{Trade exposure:} $\sim$75\% of exports go to the U.S. --- tariff risks are existential
-      \item \textbf{Declining living standards:} real GDP per capita has fallen relative to the U.S.
-      \item \textbf{Fiscal pressures:} pandemic deficits pushed public debt to new highs
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{bizimplication}
-      Many of these challenges intersect. We will study each through the lens of macro theory.
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Where this course is going}
+\sectionframe{Where are we going next?}
 % ============================================================================
 
 \begin{frame}{Connecting the themes to the course}
@@ -1229,28 +1012,7 @@
       \item Always use \textbf{real GDP per capita} over time and \textbf{PPP-adjusted GDP} across countries
       \item \textbf{Inflation} (measured by CPI) tracks changes in the cost of living --- focus on \textbf{core} measures for the trend
       \item GDP data is imperfect: think critically about the numbers and who produces them
-      \item The 2026 landscape: tariff disruptions, declining Canadian living standards, AI, and the end of ``free money''
    \end{enumerate}
 }
-
-% ============================================================================
-
-\begin{frame}{Before next class}
-   \textbf{Readings:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Vincent \& Yared, Chapters 1--2
-      % TODO: Update with actual assigned readings
-   \end{itemize}
-   \vspace{0.4cm}
-   \textbf{To think about:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Pick a country. Look up its GDP per capita (PPP). What surprised you?
-      \item Find a recent macroeconomic headline. What questions does it raise?
-   \end{itemize}
-\end{frame}
 
 \end{document}

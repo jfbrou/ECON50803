@@ -15,5 +15,8 @@
 *.blg
 *.vrb
 
+# Evaluations (exams, quizzes, grades)
+Evaluations/
+
 # Environment
 .env

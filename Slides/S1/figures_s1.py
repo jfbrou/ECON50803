@@ -856,6 +856,328 @@ def trade_share_gdp():
                     fname='trade_share_gdp.png')
 
 
+# ── World Bank API helper ─────────────────────────────────────────────
+def _get_worldbank(indicator, country_iso, start=2000, end=2025):
+    """Fetch annual data from the World Bank API as a pandas Series."""
+    url = (f'https://api.worldbank.org/v2/country/{country_iso}/'
+           f'indicator/{indicator}?format=json&per_page=100'
+           f'&date={start}:{end}')
+    resp = requests.get(url, timeout=20)
+    resp.raise_for_status()
+    records = resp.json()[1]
+    data = [(int(r['date']), r['value']) for r in records
+            if r['value'] is not None]
+    s = pd.Series(dict(data)).sort_index()
+    s.index = pd.to_datetime(s.index, format='%Y')
+    return s
+
+
+# =====================================================================
+# Figure: Real GDP — Canada vs USA (quarterly, indexed)
+# =====================================================================
+def gdp_canada_usa():
+    print('Figure: Real GDP — Canada vs USA (quarterly)')
+    can = get_fred_data('NGDPRSAXDCCAQ')   # Real GDP, quarterly, SA, CAD millions
+    usa = get_fred_data('GDPC1')           # Real GDP, quarterly, SA, USD billions
+
+    # Index to 2015Q1 = 100
+    can_base = can.loc['2015-01-01':'2015-03-31'].iloc[0]
+    usa_base = usa.loc['2015-01-01':'2015-03-31'].iloc[0]
+    can_idx = (can / can_base * 100).loc['2015-01-01':]
+    usa_idx = (usa / usa_base * 100).loc['2015-01-01':]
+
+    fig, ax = new_figure()
+    ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
+    ax.plot(usa_idx, color=palette[1], linewidth=2.5, label='United States')
+    ax.axhline(y=100, color='black', linewidth=0.5)
+
+    last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
+    ax.set_xlim(pd.to_datetime('2015-01-01'), last_date)
+    xticks = [pd.to_datetime(str(y)) for y in range(2015, last_date.year + 1)]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([d.year for d in xticks], fontsize=12)
+
+    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 5)
+    ax.set_ylim(85, ymax)
+    ax.set_yticks(range(90, ymax + 1, 5))
+    ax.set_yticklabels(range(90, ymax + 1, 5), fontsize=12)
+    ax.set_ylabel('Real GDP (2015Q1 = 100)', fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    for start, end in recessions_ca:
+        if start >= pd.to_datetime('2015'):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source: OECD (via FRED)')
+    save(fig, 'gdp_canada_usa.png')
+
+
+# =====================================================================
+# Figure: Real GDP per capita — Canada vs USA (quarterly, indexed)
+# =====================================================================
+def gdp_per_capita_canada_usa():
+    print('Figure: Real GDP per capita — Canada vs USA (quarterly)')
+    can_gdp = get_fred_data('NGDPRSAXDCCAQ')
+    usa_gdp = get_fred_data('GDPC1')
+
+    # Annual total population from World Bank, interpolated to quarterly
+    can_pop_a = _get_worldbank('SP.POP.TOTL', 'CAN', start=2014, end=2025)
+    usa_pop_a = _get_worldbank('SP.POP.TOTL', 'USA', start=2014, end=2025)
+
+    q_dates = can_gdp.loc['2014-01-01':].index
+    combined_can = can_pop_a.index.union(q_dates).sort_values().drop_duplicates()
+    combined_usa = usa_pop_a.index.union(q_dates).sort_values().drop_duplicates()
+    can_pop_q = can_pop_a.reindex(combined_can).interpolate(method='time').reindex(q_dates)
+    usa_pop_q = usa_pop_a.reindex(combined_usa).interpolate(method='time').reindex(q_dates)
+
+    # GDP per capita (units cancel when indexing)
+    can_pc = (can_gdp / can_pop_q).dropna()
+    usa_pc = (usa_gdp / usa_pop_q).dropna()
+
+    # Index to 2015Q1 = 100
+    can_base = can_pc.loc['2015-01-01':'2015-03-31'].iloc[0]
+    usa_base = usa_pc.loc['2015-01-01':'2015-03-31'].iloc[0]
+    can_idx = (can_pc / can_base * 100).loc['2015-01-01':]
+    usa_idx = (usa_pc / usa_base * 100).loc['2015-01-01':]
+
+    fig, ax = new_figure()
+    ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
+    ax.plot(usa_idx, color=palette[1], linewidth=2.5, label='United States')
+    ax.axhline(y=100, color='black', linewidth=0.5)
+
+    last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
+    ax.set_xlim(pd.to_datetime('2015-01-01'), last_date)
+    xticks = [pd.to_datetime(str(y)) for y in range(2015, last_date.year + 1)]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([d.year for d in xticks], fontsize=12)
+
+    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 5)
+    ax.set_ylim(85, ymax)
+    ax.set_yticks(range(90, ymax + 1, 5))
+    ax.set_yticklabels(range(90, ymax + 1, 5), fontsize=12)
+    ax.set_ylabel('Real GDP per capita (2015Q1 = 100)', fontsize=12,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    for start, end in recessions_ca:
+        if start >= pd.to_datetime('2015'):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source: OECD (via FRED), World Bank')
+    save(fig, 'gdp_per_capita_canada_usa.png')
+
+
+# ── Shared helper for GDP growth plots ────────────────────────────────
+def _gdp_growth_plot(real_g, nom_g, show_real, fname):
+    """Plot nominal (and optionally real) GDP growth for Canada."""
+    fig, ax = new_figure()
+    ax.plot(nom_g, color=palette[0], linewidth=2, label='Nominal')
+    if show_real:
+        ax.plot(real_g, color=palette[1], linewidth=2, label='Real')
+    ax.axhline(y=0, color='black', linewidth=0.5)
+
+    first_year = max(real_g.dropna().index[0].year, 1962)
+    last_date = min(real_g.dropna().index[-1], nom_g.dropna().index[-1])
+    last_year_tick = (last_date.year // 10) * 10
+    ax.set_xlim(pd.to_datetime(str(first_year)), last_date)
+    tick_years = list(range(first_year, last_year_tick + 11, 10))
+    ax.set_xticks([pd.to_datetime(str(y)) for y in tick_years])
+    ax.set_xticklabels(tick_years, fontsize=12)
+
+    ymin = -0.10
+    ymax = 0.25
+    ax.set_ylim(ymin, ymax)
+    yticks = np.arange(ymin, ymax + 0.001, 0.05)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=12)
+    ax.set_ylabel('GDP growth', fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    for start, end in recessions_ca:
+        if start >= pd.to_datetime(str(first_year)):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='lower left',
+              bbox_to_anchor=(0.0, 0.0))
+    add_source(ax, 'Source: OECD (via FRED)')
+    save(fig, fname)
+
+
+# =====================================================================
+# Figure: Nominal GDP growth — Canada (alone)
+# =====================================================================
+def gdp_nominal_canada():
+    print('Figure: Nominal GDP growth — Canada')
+    real = get_fred_data('NGDPRSAXDCCAQ')
+    nom = get_fred_data('NGDPSAXDCCAQ')
+    real_g = real.pct_change(4).dropna()
+    nom_g = nom.pct_change(4).dropna()
+    _gdp_growth_plot(real_g, nom_g, show_real=False, fname='gdp_nominal_canada.png')
+
+
+# =====================================================================
+# Figure: Nominal vs real GDP growth — Canada
+# =====================================================================
+def gdp_nominal_real_canada():
+    print('Figure: Nominal vs real GDP growth — Canada')
+    real = get_fred_data('NGDPRSAXDCCAQ')
+    nom = get_fred_data('NGDPSAXDCCAQ')
+    real_g = real.pct_change(4).dropna()
+    nom_g = nom.pct_change(4).dropna()
+    _gdp_growth_plot(real_g, nom_g, show_real=True, fname='gdp_nominal_real_canada.png')
+
+
+# =====================================================================
+# Figure: CPI vs GDP deflator inflation — Canada (recent)
+# =====================================================================
+def inflation_cpi_deflator_canada():
+    print('Figure: CPI vs GDP deflator inflation — Canada')
+    # CPI (monthly, index 2015=100) → 12-month % change
+    cpi = get_fred_data('CANCPIALLMINMEI')
+    cpi_infl = cpi.pct_change(12).dropna()
+
+    # GDP deflator = nominal GDP / real GDP → 4-quarter % change
+    nom_gdp = get_fred_data('NGDPSAXDCCAQ')
+    real_gdp = get_fred_data('NGDPRSAXDCCAQ')
+    deflator = nom_gdp / real_gdp
+    defl_infl = deflator.pct_change(4).dropna()
+
+    fig, ax = new_figure()
+
+    # BoC target band (1–3%)
+    ax.axhspan(0.01, 0.03, color=palette[1], alpha=0.12, linewidth=0)
+    ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
+               label='BoC 2\\% target')
+
+    ax.plot(cpi_infl, color=palette[0], linewidth=2, label='CPI')
+    ax.plot(defl_infl, color=palette[2], linewidth=2, label='GDP deflator')
+
+    last_date = min(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
+    ax.set_xlim(pd.to_datetime('2016'), last_date)
+    ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
+    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=12)
+
+    ax.set_ylim(-0.02, 0.10)
+    ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
+    ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
+                       fontsize=12)
+    ax.set_ylabel('Inflation (year-over-year)', fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    for start, end in recessions_ca:
+        if start >= pd.to_datetime('2016'):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source: OECD (via FRED)')
+    save(fig, 'inflation_cpi_deflator_canada.png')
+
+
+# =====================================================================
+# Figure: Headline vs core CPI inflation — Canada
+# =====================================================================
+def inflation_headline_core_canada():
+    print('Figure: Headline vs core CPI inflation — Canada')
+    # Headline CPI (monthly, index 2015=100)
+    cpi = get_fred_data('CANCPIALLMINMEI')
+    headline = cpi.pct_change(12).dropna()
+
+    # Core CPI — OECD definition: all items less food and energy
+    core_cpi = get_fred_data('CANCPICORMINMEI')
+    core = core_cpi.pct_change(12).dropna()
+
+    fig, ax = new_figure()
+
+    # BoC target band (1–3%)
+    ax.axhspan(0.01, 0.03, color=palette[1], alpha=0.12, linewidth=0)
+    ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
+               label='BoC 2\\% target')
+
+    ax.plot(headline, color=palette[0], linewidth=2, label='Headline CPI')
+    ax.plot(core, color=palette[2], linewidth=2, label='Core CPI (ex.\ food \\& energy)')
+
+    last_date = min(headline.dropna().index[-1], core.dropna().index[-1])
+    ax.set_xlim(pd.to_datetime('2016'), last_date)
+    ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
+    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=12)
+
+    ax.set_ylim(-0.02, 0.10)
+    ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
+    ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
+                       fontsize=12)
+    ax.set_ylabel('CPI inflation (year-over-year)', fontsize=12,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    for start, end in recessions_ca:
+        if start >= pd.to_datetime('2016'):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source: OECD (via FRED)')
+    save(fig, 'inflation_headline_core_canada.png')
+
+
+# =====================================================================
+# Figure: High-frequency online price indices (Cavallo et al.)
+# =====================================================================
+def inflation_highfreq_cavallo():
+    print('Figure: High-frequency online prices (Cavallo et al.)')
+    url = ('https://www.pricinglab.org/files/'
+           'Cavallo_Llamas_Vazquez_domestic_imported_trend_line.csv')
+    df = pd.read_csv(url)
+    df['date'] = pd.to_datetime(df['date'], format='%d%b%Y')
+    df = df.sort_values('date').reset_index(drop=True)
+
+    # Convert to cumulative % change from first observation
+    dom_pct = (df['index_domestic'] - 1) * 100
+    imp_pct = (df['index_imported'] - 1) * 100
+
+    # 14-day rolling average for smoothed lines
+    dom_smooth = dom_pct.rolling(14, center=True, min_periods=1).mean()
+    imp_smooth = imp_pct.rolling(14, center=True, min_periods=1).mean()
+
+    fig, ax = new_figure()
+
+    # Raw daily data
+    ax.plot(df['date'], dom_pct, color=palette[0], linewidth=2,
+            label='Domestic goods')
+    ax.plot(df['date'], imp_pct, color=palette[2], linewidth=2,
+            label='Imported goods')
+
+    ax.axhline(y=0, color='black', linewidth=0.5)
+
+    # x-axis: monthly ticks
+    first_date = df['date'].min()
+    last_date = df['date'].max()
+    xticks = pd.date_range(first_date.replace(day=1), last_date, freq='2MS')
+    ax.set_xlim(first_date, last_date)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([d.strftime('%b\n%Y') for d in xticks], fontsize=11)
+
+    # y-axis
+    ymin = int(np.floor(min(dom_pct.min(), imp_pct.min())))
+    ymax = int(np.ceil(max(dom_pct.max(), imp_pct.max())))
+    ax.set_ylim(ymin, ymax)
+    yticks = np.arange(ymin, ymax + 0.1, 1)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{x:+.0f}' + r'\%' for x in yticks], fontsize=12)
+    ax.set_ylabel('Cumulative price change', fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, r'Source: Cavallo, Llamas \& V\'azquez (PricingLab)')
+    save(fig, 'inflation_highfreq_cavallo.png')
+
+
 # =====================================================================
 # Main
 # =====================================================================
@@ -875,4 +1197,11 @@ if __name__ == '__main__':
     investment_share_gdp()
     government_share_gdp()
     trade_share_gdp()
+    gdp_canada_usa()
+    gdp_per_capita_canada_usa()
+    gdp_nominal_canada()
+    gdp_nominal_real_canada()
+    inflation_cpi_deflator_canada()
+    inflation_headline_core_canada()
+    inflation_highfreq_cavallo()
     print('\nDone.')
