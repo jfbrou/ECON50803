@@ -880,11 +880,11 @@ def gdp_canada_usa():
     can = get_fred_data('NGDPRSAXDCCAQ')   # Real GDP, quarterly, SA, CAD millions
     usa = get_fred_data('GDPC1')           # Real GDP, quarterly, SA, USD billions
 
-    # Index to 2015Q1 = 100
-    can_base = can.loc['2015-01-01':'2015-03-31'].iloc[0]
-    usa_base = usa.loc['2015-01-01':'2015-03-31'].iloc[0]
-    can_idx = (can / can_base * 100).loc['2015-01-01':]
-    usa_idx = (usa / usa_base * 100).loc['2015-01-01':]
+    # Index to 2000Q1 = 100
+    can_base = can.loc['2000-01-01':'2000-03-31'].iloc[0]
+    usa_base = usa.loc['2000-01-01':'2000-03-31'].iloc[0]
+    can_idx = (can / can_base * 100).loc['2000-01-01':]
+    usa_idx = (usa / usa_base * 100).loc['2000-01-01':]
 
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
@@ -892,20 +892,20 @@ def gdp_canada_usa():
     ax.axhline(y=100, color='black', linewidth=0.5)
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
-    ax.set_xlim(pd.to_datetime('2015-01-01'), last_date)
-    xticks = [pd.to_datetime(str(y)) for y in range(2015, last_date.year + 1)]
+    ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
+    xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
     ax.set_xticklabels([d.year for d in xticks], fontsize=12)
 
-    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 5)
-    ax.set_ylim(85, ymax)
-    ax.set_yticks(range(90, ymax + 1, 5))
-    ax.set_yticklabels(range(90, ymax + 1, 5), fontsize=12)
-    ax.set_ylabel('Real GDP (2015Q1 = 100)', fontsize=12, rotation=0, ha='left')
+    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 10)
+    ax.set_ylim(90, ymax)
+    ax.set_yticks(range(100, ymax + 1, 10))
+    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
+    ax.set_ylabel('Real GDP (2000Q1 = 100)', fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
-        if start >= pd.to_datetime('2015'):
+        if start >= pd.to_datetime('2000'):
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
@@ -923,10 +923,10 @@ def gdp_per_capita_canada_usa():
     usa_gdp = get_fred_data('GDPC1')
 
     # Annual total population from World Bank, interpolated to quarterly
-    can_pop_a = _get_worldbank('SP.POP.TOTL', 'CAN', start=2014, end=2025)
-    usa_pop_a = _get_worldbank('SP.POP.TOTL', 'USA', start=2014, end=2025)
+    can_pop_a = _get_worldbank('SP.POP.TOTL', 'CAN', start=1999, end=2025)
+    usa_pop_a = _get_worldbank('SP.POP.TOTL', 'USA', start=1999, end=2025)
 
-    q_dates = can_gdp.loc['2014-01-01':].index
+    q_dates = can_gdp.loc['1999-01-01':].index
     combined_can = can_pop_a.index.union(q_dates).sort_values().drop_duplicates()
     combined_usa = usa_pop_a.index.union(q_dates).sort_values().drop_duplicates()
     can_pop_q = can_pop_a.reindex(combined_can).interpolate(method='time').reindex(q_dates)
@@ -936,11 +936,11 @@ def gdp_per_capita_canada_usa():
     can_pc = (can_gdp / can_pop_q).dropna()
     usa_pc = (usa_gdp / usa_pop_q).dropna()
 
-    # Index to 2015Q1 = 100
-    can_base = can_pc.loc['2015-01-01':'2015-03-31'].iloc[0]
-    usa_base = usa_pc.loc['2015-01-01':'2015-03-31'].iloc[0]
-    can_idx = (can_pc / can_base * 100).loc['2015-01-01':]
-    usa_idx = (usa_pc / usa_base * 100).loc['2015-01-01':]
+    # Index to 2000Q1 = 100
+    can_base = can_pc.loc['2000-01-01':'2000-03-31'].iloc[0]
+    usa_base = usa_pc.loc['2000-01-01':'2000-03-31'].iloc[0]
+    can_idx = (can_pc / can_base * 100).loc['2000-01-01':]
+    usa_idx = (usa_pc / usa_base * 100).loc['2000-01-01':]
 
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
@@ -948,27 +948,301 @@ def gdp_per_capita_canada_usa():
     ax.axhline(y=100, color='black', linewidth=0.5)
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
-    ax.set_xlim(pd.to_datetime('2015-01-01'), last_date)
-    xticks = [pd.to_datetime(str(y)) for y in range(2015, last_date.year + 1)]
+    ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
+    xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
     ax.set_xticklabels([d.year for d in xticks], fontsize=12)
 
-    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 5)
-    ax.set_ylim(85, ymax)
-    ax.set_yticks(range(90, ymax + 1, 5))
-    ax.set_yticklabels(range(90, ymax + 1, 5), fontsize=12)
-    ax.set_ylabel('Real GDP per capita (2015Q1 = 100)', fontsize=12,
+    ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 10)
+    ax.set_ylim(90, ymax)
+    ax.set_yticks(range(100, ymax + 1, 10))
+    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
+    ax.set_ylabel('Real GDP per capita (2000Q1 = 100)', fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
-        if start >= pd.to_datetime('2015'):
+        if start >= pd.to_datetime('2000'):
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
     add_source(ax, 'Source: OECD (via FRED), World Bank')
     save(fig, 'gdp_per_capita_canada_usa.png')
+
+
+# =====================================================================
+# Figure: Real GDP at PPP — horizontal bar chart of top economies
+# =====================================================================
+def gdp_ppp_time_series():
+    print('Figure: Real GDP at PPP — top economies bar chart')
+    # World Bank: GDP, PPP (constant 2021 international $)
+    indicator = 'NY.GDP.MKTP.PP.KD'
+
+    # Top 12 economies by GDP PPP (approximate ordering)
+    countries = {
+        'CHN': 'China', 'USA': 'United States', 'IND': 'India',
+        'JPN': 'Japan', 'DEU': 'Germany', 'RUS': 'Russia',
+        'IDN': 'Indonesia', 'BRA': 'Brazil', 'GBR': 'United Kingdom',
+        'FRA': 'France', 'MEX': 'Mexico', 'CAN': 'Canada',
+    }
+
+    data = {}
+    for iso, name in countries.items():
+        s = _get_worldbank(indicator, iso, start=2020, end=2025)
+        if len(s) > 0:
+            data[name] = s.iloc[-1] / 1e12  # most recent year, in trillions
+
+    # Sort descending
+    data = dict(sorted(data.items(), key=lambda x: x[1], reverse=False))
+
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+
+    names = list(data.keys())
+    values = list(data.values())
+    colors = [palette[1] if n == 'Canada' else palette[0] for n in names]
+
+    bars = ax.barh(names, values, color=colors, height=0.65, edgecolor='white',
+                   linewidth=0.5)
+
+    # Value labels at end of each bar
+    for bar, val in zip(bars, values):
+        ax.text(val + 0.3, bar.get_y() + bar.get_height() / 2,
+                f'\\${val:.1f}T', va='center', fontsize=10, color=palette[7])
+
+    ax.set_xlim(0, max(values) * 1.2)
+    ax.set_xticks([])
+    ax.tick_params(axis='y', labelsize=11)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.invert_yaxis()
+
+    ax.set_title('Real GDP at PPP (trillions, 2021 int.\\ \\$)',
+                 fontsize=12, loc='left', pad=10)
+    add_source(ax, 'Source: World Bank, WDI')
+    save(fig, 'gdp_ppp_world.png')
+
+
+# =====================================================================
+# Figure: GDP per capita vs price level (cross-section scatter)
+# =====================================================================
+def gdp_per_capita_vs_price_level():
+    print('Figure: GDP per capita vs price level')
+    # GDP per capita, PPP (constant 2021 international $)
+    gdppc_ind = 'NY.GDP.PCAP.PP.KD'
+    # PPP conversion factor, GDP (LCU per international $)
+    ppp_ind = 'PA.NUS.PPP'
+    # Official exchange rate (LCU per US$, period average)
+    xr_ind = 'PA.NUS.FCRF'
+    # Population
+    pop_ind = 'SP.POP.TOTL'
+
+    # Fetch all countries at once (keyed by ISO3 code)
+    def _fetch_all(indicator, year=2022):
+        url = (f'https://api.worldbank.org/v2/country/all/'
+               f'indicator/{indicator}?format=json&per_page=500'
+               f'&date={year}:{year}')
+        resp = requests.get(url, timeout=30)
+        resp.raise_for_status()
+        pages = resp.json()[0]['pages']
+        records = resp.json()[1]
+        for p in range(2, pages + 1):
+            resp2 = requests.get(url + f'&page={p}', timeout=30)
+            records.extend(resp2.json()[1])
+        return {r['countryiso3code']: r['value'] for r in records
+                if r['value'] is not None and r['countryiso3code']}
+
+    gdppc = _fetch_all(gdppc_ind)
+    ppp = _fetch_all(ppp_ind)
+    xr = _fetch_all(xr_ind)
+    pop = _fetch_all(pop_ind)
+
+    # Price level = PPP / market exchange rate (US = 1 by definition)
+    rows = []
+    for iso in gdppc:
+        if iso in ppp and iso in xr and iso in pop:
+            if xr[iso] > 0:
+                pl = ppp[iso] / xr[iso]
+                rows.append({
+                    'iso': iso,
+                    'gdppc': gdppc[iso],
+                    'price_level': pl,
+                    'pop': pop[iso],
+                })
+    df = pd.DataFrame(rows)
+
+    # Drop aggregates (World Bank aggregates have non-standard codes)
+    aggregates = {'WLD', 'EAS', 'ECS', 'LCN', 'MEA', 'NAC', 'SAS', 'SSF',
+                  'EMU', 'EUU', 'OED', 'HIC', 'LIC', 'LMC', 'MIC', 'UMC',
+                  'LDC', 'ARB', 'CSS', 'PST', 'TSA', 'TSS', 'TEA', 'TEC',
+                  'TLA', 'TMN', 'TNA', 'FCS', 'HPC', 'IBD', 'IBT', 'IDA',
+                  'IDB', 'IDX', 'PRE', 'SSA', 'SST'}
+    df = df[~df['iso'].isin(aggregates)]
+    df = df[(df['gdppc'] > 500) & (df['price_level'] > 0)]
+
+    # Highlight countries
+    highlights = {
+        'USA': 'United States', 'CAN': 'Canada', 'CHN': 'China',
+        'IND': 'India', 'JPN': 'Japan', 'BRA': 'Brazil',
+        'NGA': 'Nigeria', 'NOR': 'Norway', 'CHE': 'Switzerland',
+    }
+
+    fig, ax = new_figure()
+
+    # Bubble sizes proportional to population
+    max_pop = df['pop'].max()
+    sizes = 300 * (df['pop'] / max_pop) ** 0.5
+    sizes = sizes.clip(lower=8)
+
+    ax.scatter(df['gdppc'], df['price_level'], s=sizes,
+               color=palette[0], alpha=0.35, edgecolors='white',
+               linewidth=0.5)
+
+    # Highlight specific countries with arrows connecting labels to dots
+    for iso, name in highlights.items():
+        row = df[df['iso'] == iso]
+        if len(row) == 0:
+            continue
+        row = row.iloc[0]
+        sz = 300 * (row['pop'] / max_pop) ** 0.5
+        sz = max(sz, 8)
+        color = palette[1] if iso == 'CAN' else palette[0]
+        ax.scatter(row['gdppc'], row['price_level'], s=sz,
+                   color=color, alpha=0.7, edgecolors='white', linewidth=0.5,
+                   zorder=5)
+        # Offset in points — tuned to avoid overlap
+        offsets = {
+            'USA': (12, 10), 'CAN': (12, -14), 'CHN': (18, 10),
+            'IND': (12, -14), 'JPN': (-50, 14), 'BRA': (-50, 10),
+            'NGA': (-55, -10), 'NOR': (-70, 20), 'CHE': (-70, -15),
+        }
+        ox, oy = offsets.get(iso, (15, 8))
+        ax.annotate(name, xy=(row['gdppc'], row['price_level']),
+                    xytext=(ox, oy), textcoords='offset points',
+                    fontsize=9, fontweight='bold', color='black',
+                    arrowprops=dict(arrowstyle='-', color=palette[7],
+                                    lw=0.8, shrinkB=3),
+                    zorder=10)
+
+    ax.set_xscale('log')
+    ax.set_xlim(800, 150000)
+    ax.set_xticks([1000, 10000, 100000])
+    ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
+    ax.set_xlabel('Real GDP per capita (PPP)', fontsize=12)
+    ax.set_ylim(0.1, 1.4)
+    ax.set_yticks(np.arange(0.2, 1.4 + 0.01, 0.2))
+    ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.2, 1.4 + 0.01, 0.2)],
+                       fontsize=12)
+    ax.set_ylabel(r'$P\,/\,P^{US}$', fontsize=14, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    style_axes(ax)
+    add_source(ax, 'Source: World Bank, WDI (2022)')
+    save(fig, 'gdp_per_capita_vs_price_level.png')
+
+
+# =====================================================================
+# Figure: Big Mac Index — dot chart (Economist-style)
+# =====================================================================
+def big_mac_index():
+    print('Figure: Big Mac Index — dot chart')
+    url = ('https://raw.githubusercontent.com/TheEconomist/'
+           'big-mac-data/master/output-data/big-mac-full-index.csv')
+    df = pd.read_csv(url)
+
+    # Two most recent dates
+    dates = sorted(df['date'].unique())
+    d_latest = dates[-1]       # Jan 2025
+    d_prev = dates[-2]         # Jul 2024
+
+    latest = df[df['date'] == d_latest].set_index('iso_a3')
+    prev = df[df['date'] == d_prev].set_index('iso_a3')
+
+    # Selected countries (mix of over- and under-valued)
+    selected = [
+        'CHE', 'NOR', 'EUZ', 'GBR', 'USA', 'CAN', 'SWE',
+        'TUR', 'SGP', 'MEX', 'KOR', 'BRA', 'CHN', 'JPN',
+        'VNM', 'IND', 'TWN',
+    ]
+
+    rows = []
+    for iso in selected:
+        if iso in latest.index:
+            row = {'iso': iso, 'name': latest.loc[iso, 'name'],
+                   'pct_latest': latest.loc[iso, 'USD_raw'] * 100,
+                   'price_latest': latest.loc[iso, 'dollar_price']}
+            if iso in prev.index:
+                row['pct_prev'] = prev.loc[iso, 'USD_raw'] * 100
+            else:
+                row['pct_prev'] = np.nan
+            rows.append(row)
+
+    rdf = pd.DataFrame(rows)
+    # Sort by latest valuation descending
+    rdf = rdf.sort_values('pct_latest', ascending=True).reset_index(drop=True)
+
+    fig, ax = plt.subplots(figsize=(7, 5.5))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+
+    y = np.arange(len(rdf))
+
+    # Previous period dots (lighter)
+    ax.scatter(rdf['pct_prev'], y, s=55, color=palette[2], alpha=0.3,
+               zorder=3, label='Jul 2024')
+    # Latest dots
+    colors = [palette[1] if iso == 'CAN' else palette[2] for iso in rdf['iso']]
+    ax.scatter(rdf['pct_latest'], y, s=65, color=colors, alpha=0.85,
+               zorder=4, label='Jan 2025')
+
+    # Zero line
+    ax.axvline(x=0, color='black', linewidth=0.8)
+
+    # Price labels on the right margin
+    xmax = rdf['pct_latest'].max()
+    price_x = 52
+    for i, row in rdf.iterrows():
+        idx = rdf.index.get_loc(i)
+        ax.text(price_x, idx, f'\\${row["price_latest"]:.2f}',
+                va='center', fontsize=9, color=palette[7])
+
+    # Country names on the left
+    ax.set_yticks(y)
+    ax.set_yticklabels(rdf['name'], fontsize=10)
+
+    # x-axis
+    ax.set_xlim(-65, 70)
+    xticks = range(-60, 41, 20)
+    ax.set_xticks(list(xticks))
+    ax.set_xticklabels([f'{x:+d}' if x != 0 else '0' for x in xticks],
+                       fontsize=10)
+    ax.set_xlabel('Local currency valuation against the dollar, \\%',
+                  fontsize=10)
+
+    # Price column header — right-aligned above the price column
+    ax.text(price_x + 8, len(rdf) + 0.3,
+            'Price, \\$', fontsize=9, fontweight='bold',
+            va='bottom', ha='center', color=palette[0])
+
+    # Horizontal grid lines
+    for yi in y:
+        ax.axhline(y=yi, color='gray', linewidth=0.3, alpha=0.5)
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(axis='y', length=0)
+
+    ax.legend(frameon=False, fontsize=9, loc='lower left',
+              bbox_to_anchor=(0.0, -0.1), ncol=2,
+              markerscale=1.2)
+    ax.text(0.55, 1.06, r"Source: \textit{The Economist}, Big Mac Index",
+            fontsize=8, color='k', ha='left', va='bottom',
+            transform=ax.transAxes)
+    save(fig, 'big_mac_index.png')
 
 
 # ── Shared helper for GDP growth plots ────────────────────────────────
@@ -1197,6 +1471,9 @@ if __name__ == '__main__':
     investment_share_gdp()
     government_share_gdp()
     trade_share_gdp()
+    gdp_ppp_time_series()
+    gdp_per_capita_vs_price_level()
+    big_mac_index()
     gdp_canada_usa()
     gdp_per_capita_canada_usa()
     gdp_nominal_canada()

@@ -811,6 +811,61 @@
 \sectionframe{Comparing GDP across countries}
 % ============================================================================
 
+\begin{frame}{The world economy at a glance}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.75\textheight, keepaspectratio]{gdp_ppp_world.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize China has overtaken the US in PPP terms --- but what does ``PPP'' mean?
+\end{frame}
+
+\begin{frame}[t]{How to deal with different units?}
+   \framesubtitle{Why exchange rates can be misleading}
+   \small
+
+   \textbf{Two ways to convert GDP into a common currency:}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Market exchange rates}
+      \vspace{0.05cm}
+      \begin{itemize}
+         \setlength\itemsep{0.05cm}
+         \item Widely available and updated frequently
+         \item Problem: very volatile, and ignores price-level differences
+      \end{itemize}
+      \item \textbf{Purchasing Power Parity (PPP)}
+      \vspace{0.05cm}
+      \begin{itemize}
+         \setlength\itemsep{0.05cm}
+         \item Adjusts for differences in the cost of living
+         \item A dollar buys much more in Lagos than in New York
+         \item Updated less frequently
+         \item Different countries consume different goods/services
+      \end{itemize}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Higher prices in richer countries (Balassa-Samuelson effect)}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{The Big Mac Index}
+   \small
+   A Big Mac is (roughly) the same product everywhere $\Rightarrow$ ``quick and dirty'' PPP measure
+   \vspace{-0.1cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.72\textheight, keepaspectratio]{big_mac_index.png}
+   \end{figure}
+\end{frame}
+
 \begin{frame}{Canada is keeping up with the United States\ldots}
    \begin{figure}
       \centering
@@ -825,77 +880,26 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{GDP per capita: enormous variation}
-   % TODO: Insert figure from Our World in Data or Penn World Table
-   % GDP per capita (PPP, 2017 international $) for selected countries
-   \begin{figure}
-      \centering
-      % \includegraphics[width=\textwidth]{gdp_per_capita_selected.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=6cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: GDP per capita (PPP) since 1950]}\\
-         \textcolor{HECgray}{\small US, Canada, Germany, S. Korea, China, India, Nigeria]}\\
-         \textcolor{HECgray}{\small Source: Our World in Data / Penn World Table}
-      \end{tcolorbox}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Comparing GDPs across countries}
-   \framesubtitle{Why exchange rates can be misleading}
-
-   \textbf{Two ways to convert GDP into a common currency:}
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Market exchange rates}
-      \begin{itemize}
-         \item Useful for comparing \textit{economic power} (e.g., trade, geopolitics)
-         \item Problem: very volatile, and ignores price-level differences
-      \end{itemize}
-      \item \textbf{Purchasing Power Parity (PPP)}
-      \begin{itemize}
-         \item Adjusts for differences in the cost of living
-         \item Better measure of \textit{living standards}
-         \item A dollar buys much more in Lagos than in New York
-      \end{itemize}
-   \end{enumerate}
-\end{frame}
-
-\begin{frame}[t]{China vs. United States: it depends how you measure}
-   % TODO: Reproduce the China vs US GDP comparison from MBA S2.
-   % Two panels side-by-side:
-   %   Left: GDP in USD at market exchange rate (US >> China)
-   %   Right: GDP in USD at PPP (China > US since ~2016)
-   % Source: World Bank or IMF WEO
-   \begin{columns}
-      \begin{column}{0.48\textwidth}
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=4cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [GDP at market exchange rate]}\\
-            \textcolor{HECgray}{\small US $>$ China}
-         \end{tcolorbox}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=4cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [GDP at PPP]}\\
-            \textcolor{HECgray}{\small China $>$ US since $\sim$2016}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}[t]{Real GDP vs.\ real GDP per capita}
+   \small
+   \textbf{These two plots tell very different stories:}
    \vspace{0.15cm}
-   \begin{warning}[Which measure to use?]
-      It depends on the question. Geopolitical influence $\to$ market rates. Living standards $\to$ PPP.
-   \end{warning}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Real GDP} measures the total size of the economy
+      \begin{itemize}
+         \item Canada's economy has grown steadily --- partly because the population has grown
+      \end{itemize}
+      \item \textbf{Real GDP per capita} measures the average standard of living
+      \begin{itemize}
+         \item Canada has been \textbf{falling behind} the US since $\sim$2015
+         \item Strong population growth (immigration) raised GDP but diluted per-capita gains
+      \end{itemize}
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{bizimplication}
+      \small As a manager, total GDP matters for market size. GDP per capita matters for consumer spending power and talent attraction.
+   \end{bizimplication}
 \end{frame}
 
 % ============================================================================
