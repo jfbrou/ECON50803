@@ -750,8 +750,9 @@ def gdp_decomposition_4countries():
                     break
 
     colors = [palette[0], palette[2], palette[1], palette[3]]  # C, I, G, NX
-    fig, axes = plt.subplots(1, 4, figsize=(14, 3.8))
+    fig, axes = plt.subplots(1, 4, figsize=(14, 4.5))
     fig.patch.set_alpha(0.0)
+    fig.subplots_adjust(top=0.85)
 
     for ax, (name, comps) in zip(axes, data.items()):
         ax.patch.set_alpha(0.0)
