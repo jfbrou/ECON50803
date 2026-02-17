@@ -519,7 +519,7 @@ def hockey_stick_world():
 def us_tariff_rate():
     print('Figure 7: US effective tariff rate since 1790')
     # Data from Yale Budget Lab "State of U.S. Tariffs: January 19, 2026"
-    xlsx = os.path.join(Path(__file__).resolve().parent, 'tariff_data.xlsx')
+    xlsx = os.path.join(Path(__file__).resolve().parent.parent, 'Data', 'tariff_data.xlsx')
     df = pd.read_excel(xlsx, sheet_name='F1', header=None,
                        skiprows=5,  # skip title/subtitle/source/blank/header
                        names=['Year', 'ETR', 'proj_post', 'cur_post',
