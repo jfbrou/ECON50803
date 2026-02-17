@@ -34,7 +34,7 @@ from statsmodels.tsa.filters.hp_filter import hpfilter
 from stats_can import StatsCan
 
 # ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
+dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent.parent, '.env'))
 fred_api_key = os.getenv('fred_api_key')
 
 # ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
@@ -54,7 +54,7 @@ palette = ['#002855',   # HECnavy
            '#888b8d']   # gray
 
 # ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
+FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
 # ── US recession dates (NBER) ───────────────────────────────────────────
@@ -519,7 +519,7 @@ def hockey_stick_world():
 def us_tariff_rate():
     print('Figure 7: US effective tariff rate since 1790')
     # Data from Yale Budget Lab "State of U.S. Tariffs: January 19, 2026"
-    xlsx = os.path.join(Path(__file__).resolve().parent.parent, 'Data', 'tariff_data.xlsx')
+    xlsx = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Data', 'tariff_data.xlsx')
     df = pd.read_excel(xlsx, sheet_name='F1', header=None,
                        skiprows=5,  # skip title/subtitle/source/blank/header
                        names=['Year', 'ETR', 'proj_post', 'cur_post',
