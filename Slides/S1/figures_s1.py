@@ -1602,35 +1602,34 @@ def hdi_vs_gdp_per_capita():
     sizes = sizes.clip(lower=15)
 
     ax.scatter(df.ny_gdp_pcap_pp_kd, df.hdi, s=sizes,
-               color=palette[0], alpha=0.35, edgecolors='white',
+               color=palette[0], alpha=0.45, edgecolors='white',
                linewidth=0.5)
 
-    # Highlight specific countries
-    for iso, name in highlights.items():
-        row = df[df.code == iso]
-        if len(row) == 0:
-            continue
-        row = row.iloc[0]
-        sz = max(800 * row['pop_share'] ** 0.5, 15)
-        color = palette[1] if iso == 'CAN' else palette[0]
-        ax.scatter(row.ny_gdp_pcap_pp_kd, row.hdi, s=sz,
-                   color=color, alpha=0.7, edgecolors='white', linewidth=0.5,
-                   zorder=5)
-        offsets = {
-            'USA': (14, -20), 'CAN': (-50, -20), 'CHN': (14, -16),
-            'IND': (-42, -16), 'BRA': (-42, 10), 'NGA': (14, -14),
-            'NOR': (14, -16), 'JPN': (-42, 14),
-        }
-        ox, oy = offsets.get(iso, (14, 8))
-        ax.annotate(name, xy=(row.ny_gdp_pcap_pp_kd, row.hdi),
-                    xytext=(ox, oy), textcoords='offset points',
-                    fontsize=9, fontweight='bold', color='black',
-                    arrowprops=dict(arrowstyle='-', color=palette[7],
-                                    lw=0.8, shrinkB=3),
-                    zorder=10)
+    # Regression line (log GDP vs HDI)
+    log_x = np.log(df.ny_gdp_pcap_pp_kd.values)
+    y_vals = df.hdi.values
+    slope, intercept = np.polyfit(log_x, y_vals, 1)
+    x_line = np.linspace(np.log(1000), np.log(150000), 200)
+    ax.plot(np.exp(x_line), slope * x_line + intercept,
+            color=palette[1], linewidth=1.5, zorder=1)
+
+    # Correlation coefficient
+    corr = np.corrcoef(log_x, y_vals)[0, 1]
+    ax.text(0.03, 0.95, f'$\\rho = {corr:.2f}$', fontsize=9, color=palette[7],
+            ha='left', va='top', transform=ax.transAxes)
+
+    # Highlight Canada with accent color
+    can = df[df.code == 'CAN']
+    if len(can) > 0:
+        can = can.iloc[0]
+        sz = max(800 * can['pop_share'] ** 0.5, 15)
+        ax.scatter(can.ny_gdp_pcap_pp_kd, can.hdi, s=sz,
+                   color=palette[1], alpha=0.7, edgecolors='white',
+                   linewidth=0.5, zorder=5, label='Canada')
+    ax.legend(loc='lower right', frameon=False, fontsize=11)
 
     ax.set_xscale('log')
-    ax.set_xlim(800, 150000)
+    ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
     ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
     ax.set_xlabel('Real GDP per capita (PPP)', fontsize=12)
@@ -1701,40 +1700,29 @@ def beyond_gdp():
 
     # 45-degree line
     ax.plot([1 / 100, 2.7], [1 / 100, 2.7], color=palette[1],
-            linestyle='-', linewidth=1.5, zorder=2)
+            linestyle='-', linewidth=1.5, zorder=1)
 
     # Bubble sizes proportional to population
     max_pop = df['pop'].max()
     sizes = 500 * (df['pop'] / max_pop) ** 0.5
     sizes = sizes.clip(lower=10)
 
-    ax.scatter(df.y, df.welfare, s=sizes, color=palette[0], alpha=0.35,
+    ax.scatter(df.y, df.welfare, s=sizes, color=palette[0], alpha=0.45,
                edgecolors='white', linewidth=0.5, zorder=3)
 
-    # Label select countries
-    highlights = {
-        'United States': (-14, -18),
-        'France': (-50, 14),
-        'Canada': (14, 12),
-        'China': (14, -16),
-        'India': (-48, 10),
-        'Nigeria': (-55, -14),
-        'Norway': (-55, -14),
-    }
-    for _, row in df.iterrows():
-        name = str(row['country']).strip()
-        if name in highlights:
-            ox, oy = highlights[name]
-            sz = max(500 * (row['pop'] / max_pop) ** 0.5, 10)
-            color = palette[1] if name == 'Canada' else palette[0]
-            ax.scatter(row.y, row.welfare, s=sz, color=color, alpha=0.7,
-                       edgecolors='white', linewidth=0.5, zorder=5)
-            ax.annotate(name, xy=(row.y, row.welfare),
-                        xytext=(ox, oy), textcoords='offset points',
-                        fontsize=9, fontweight='bold', color='black',
-                        arrowprops=dict(arrowstyle='-', color=palette[7],
-                                        lw=0.8, shrinkB=3),
-                        zorder=10)
+    # Correlation coefficient (log-log)
+    corr = np.corrcoef(np.log(df.y.values), np.log(df.welfare.values))[0, 1]
+    ax.text(0.03, 0.95, f'$\\rho = {corr:.2f}$', fontsize=9, color=palette[7],
+            ha='left', va='top', transform=ax.transAxes)
+
+    # Highlight Canada with accent color
+    can = df[df['country'].str.strip() == 'Canada']
+    if len(can) > 0:
+        can = can.iloc[0]
+        sz = max(500 * (can['pop'] / max_pop) ** 0.5, 10)
+        ax.scatter(can.y, can.welfare, s=sz, color=palette[1], alpha=0.7,
+                   edgecolors='white', linewidth=0.5, zorder=5, label='Canada')
+    ax.legend(loc='lower right', frameon=False, fontsize=11)
 
     ax.set_xscale('log', base=2)
     ax.set_xlim(1 / 100, 2.7)
