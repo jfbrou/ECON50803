@@ -54,7 +54,7 @@ palette = ['#002855',   # HECnavy
            '#888b8d']   # gray
 
 # ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Figures')
+FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Figures_EN')
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
 # ── US recession dates (NBER) ───────────────────────────────────────────
