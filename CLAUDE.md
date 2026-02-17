@@ -106,8 +106,6 @@ Build artifacts (`.aux`, `.log`, `.nav`, `.out`, `.snm`, `.toc`, `.fls`, `.fdb_l
 ### Custom slide types
 - `\titleframe` -- Title slide with navy sidebar
 - `\sectionframe{Title}` -- Full-navy section divider
-- `\takeawayframe{Title}{Content}` -- Summary slide with green-accented box
-
 ### Custom box environments (all use `arc=8pt` rounded corners)
 - `\begin{keyinsight}[title]` -- Green accent, for key economic insights
 - `\begin{bizimplication}[title]` -- Navy accent, for business relevance
@@ -146,7 +144,6 @@ Build artifacts (`.aux`, `.log`, `.nav`, `.out`, `.snm`, `.toc`, `.fls`, `.fdb_l
 - More explicit connection of concepts to business decisions (bizimplication boxes)
 - Clearer key insights (keyinsight boxes) after each major concept
 - Definitions in structured defbox environments
-- Takeaway summary at end of each session
 - "Before next class" reading suggestions
 
 ### What to omit from Vincent:

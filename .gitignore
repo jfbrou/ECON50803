@@ -18,5 +18,9 @@
 # Evaluations (exams, quizzes, grades)
 Evaluations/
 
+# Python
+__pycache__/
+*.h5
+
 # Environment
 .env

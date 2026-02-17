@@ -135,8 +135,8 @@
    \end{figure}
 \end{frame}
 
-% Slide N6: What about the distant future?
-\begin{frame}{What about the distant future?}
+% Slide N7: What about the distant future?
+\begin{frame}{What about the distant future\ldots}
    \begin{figure}
       \centering
       \includegraphics[width=0.9\textwidth]{hockey_stick_world.png}
@@ -156,7 +156,7 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{Course overview}
+\sectionframe{Course overview and logistics}
 % ============================================================================
 
 \begin{frame}{Course objectives}
@@ -638,7 +638,7 @@
 \begin{frame}[t]{GDP manipulation: three cautionary tales}
    \small
    \begin{itemize}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.1cm}
       \item \textbf{China:} Suspiciously smooth GDP growth, statistical series are increasingly discontinued, and provinces routinely report figures matching central targets\ldots Autocracies overstate growth by $\sim$35\% on average.
          \\{\scriptsize\textcolor{HECgray}{Martinez, ``How Much Should We Trust the Dictator's GDP Growth Estimates?'' \textit{JPE}, 2022}}
       \item \textbf{Venezuela:} the central bank stopped publishing GDP and inflation data from 2016 to 2019; when it resumed, it revealed a cumulative GDP contraction of $\sim$47\%
@@ -646,6 +646,9 @@
       \item \textbf{Greece:} the 2009 deficit was reported as 3.7\% of GDP, then revised to 15.4\% --- more than four times the original figure, triggering the eurozone debt crisis
          \\{\scriptsize\textcolor{HECgray}{European Commission, Report on Greek Government Deficit and Debt Statistics, 2010}}
    \end{itemize}
+   \begin{bizimplication}[Due diligence]
+      \footnotesize When evaluating market entry or investment, don't take official GDP at face value. Cross-check with alternative data --- especially in autocracies.
+   \end{bizimplication}
 \end{frame}
 
 \begin{frame}[t]{When data goes missing\ldots economists get creative!}
@@ -668,7 +671,7 @@
    \includegraphics[height=0.75\textheight, keepaspectratio]{korea_space.png}
 \end{frame}
 
-\begin{frame}{When darkness sheds light\ldots}
+\begin{frame}[t]{When darkness sheds light\ldots}
    \centering
    \includegraphics[height=0.8\textheight, keepaspectratio]{gdp_manipulation.png}
 \end{frame}
@@ -801,10 +804,22 @@
          \item What are we buying when we buy a candle, a kerosene lamp, or a light bulb?
          \item We are buying \textbf{light} --- lumens!
          \item From candles to LEDs, the true cost per lumen fell by a factor of $\sim$500.
-         \item But price don't track ``lumens'' --- they track \textbf{products} (e.g., candles, lamps).
+         \item But prices don't track ``lumens'' --- they track \textbf{products} (e.g., candles, lamps).
          \item Each technology switch \textbf{resets} the comparison --- the revolution is invisible.
       \end{itemize}
    \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Outline}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Course overview and logistics}
+      \item {\color{gray!50}Measuring the economy: GDP}
+      \item {\color{gray!50}Comparing GDP over time}
+      \item \textbf{Comparing GDP across countries}
+      \item Beyond GDP
+   \end{enumerate}
 \end{frame}
 
 % ============================================================================
@@ -829,21 +844,21 @@
    \vspace{0.15cm}
    \begin{enumerate}
       \setlength\itemsep{0.15cm}
-      \item \textbf{Market exchange rates}
-      \vspace{0.05cm}
+      \item \textbf{Market exchange rates:}  $\smallquad e^N = \mathdollar_D / \mathdollar_F$
+      \vspace{0.1cm}
       \begin{itemize}
-         \setlength\itemsep{0.05cm}
+         \setlength\itemsep{0.1cm}
          \item Widely available and updated frequently
          \item Problem: very volatile, and ignores price-level differences
       \end{itemize}
-      \item \textbf{Purchasing Power Parity (PPP)}
-      \vspace{0.05cm}
+      \item \textbf{Purchasing Power Parity (PPP):} $\smallquad e^{PPP} = P_D / P_F$
+      \vspace{0.1cm}
       \begin{itemize}
-         \setlength\itemsep{0.05cm}
-         \item Adjusts for differences in the cost of living
-         \item A dollar buys much more in Lagos than in New York
+         \setlength\itemsep{0.1cm}
+         \item Better living standards comparisons: dollar buys more in Lagos than NYC
+         \item Are goods/services comparable across countries?
          \item Updated less frequently
-         \item Different countries consume different goods/services
+         \item Real exchange rate: $e^R = e^N / e^{PPP}$
       \end{itemize}
    \end{enumerate}
 \end{frame}
@@ -858,12 +873,50 @@
 
 \begin{frame}[t]{The Big Mac Index}
    \small
-   A Big Mac is (roughly) the same product everywhere $\Rightarrow$ ``quick and dirty'' PPP measure
    \vspace{-0.1cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=\textwidth, height=0.72\textheight, keepaspectratio]{big_mac_index.png}
-   \end{figure}
+   \begin{columns}[T]
+      \begin{column}{0.6\textwidth}
+         \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth, height=0.82\textheight, keepaspectratio]{big_mac_index.png}
+         \end{figure}
+      \end{column}
+      \begin{column}{0.37\textwidth}
+         A Big Mac is (roughly) the same product everywhere $\to$ ``quick and dirty'' PPP measure
+         \vspace{0.2cm}
+
+         \textbf{Example (Switzerland):}
+         \vspace{0.05cm}
+         \begin{itemize}
+            \setlength\itemsep{0.05cm}
+            \footnotesize
+            \item In Switzerland: CHF 6.90
+            \item In the U.S.: \$5.69
+            \item Implied PPP: $\frac{6.90}{5.69} = 1.21 \text{ CHF} / \mathdollar$
+            \item Market rate $\approx 0.88 \text{ CHF} / \mathdollar$
+            \item CHF is \textbf{overvalued}
+         \end{itemize}
+         \vspace{0.15cm}
+         {\footnotesize Published by \textit{The Economist} since 1986 --- half-serious, half-fun}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Real GDP vs.\ real GDP per capita}
+   \small
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Real GDP} measures the total size of the economy
+      \item \textbf{Real GDP per capita} measures the average standard of living
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Market strategy]
+      \small You sell luxury handbags. Should you expand to a country with high GDP or high GDP per capita? What if you sell affordable consumer goods with thin margins?
+   \end{bizimplication}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Compensation]
+      \small Your Canadian employees ask for a raise because ``the economy is growing.'' GDP is up 15\% over the past decade. Is that a good argument for higher wages?
+   \end{bizimplication}
 \end{frame}
 
 \begin{frame}{Canada is keeping up with the United States\ldots}
@@ -880,109 +933,114 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Real GDP vs.\ real GDP per capita}
-   \small
-   \textbf{These two plots tell very different stories:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Real GDP} measures the total size of the economy
-      \begin{itemize}
-         \item Canada's economy has grown steadily --- partly because the population has grown
-      \end{itemize}
-      \item \textbf{Real GDP per capita} measures the average standard of living
-      \begin{itemize}
-         \item Canada has been \textbf{falling behind} the US since $\sim$2015
-         \item Strong population growth (immigration) raised GDP but diluted per-capita gains
-      \end{itemize}
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{bizimplication}
-      \small As a manager, total GDP matters for market size. GDP per capita matters for consumer spending power and talent attraction.
-   \end{bizimplication}
+\begin{frame}{GDP vs.\ GDP per capita across countries}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{gdp_vs_gdp_per_capita.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize Large economy $\neq$ rich population. India and China have massive GDP but modest GDP per capita.
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Outline}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Course overview and logistics}
+      \item {\color{gray!50}Measuring the economy: GDP}
+      \item {\color{gray!50}Comparing GDP over time}
+      \item {\color{gray!50}Comparing GDP across countries}
+      \item \textbf{Beyond GDP}
+   \end{enumerate}
 \end{frame}
 
 % ============================================================================
 \sectionframe{Beyond GDP}
 % ============================================================================
 
-\begin{frame}{What GDP does \textbf{not} capture}
+\begin{frame}[t]{What GDP does not capture}
+   \small
    GDP is a useful but incomplete measure of well-being. It misses:
-   \vspace{0.3cm}
+   \vspace{0.1cm}
    \begin{itemize}
-      \setlength\itemsep{0.25cm}
+      \setlength\itemsep{0.1cm}
       \item \textbf{Inequality:} a country's GDP can grow while most citizens get poorer
-      \item \textbf{Non-market production:} household work, childcare, volunteering
-      \item \textbf{Environmental costs:} pollution, resource depletion, climate damage
-      \item \textbf{Health and well-being:} life expectancy, mental health, leisure time
-      \item \textbf{Quality improvements:} your smartphone is infinitely better than a 2005 phone, but GDP struggles to capture this
+      \item \textbf{Leisure time:} working 80h/week raises GDP, but well-being may be low
+      \item \textbf{Health and well-being:} life expectancy, mental health, morbidity
+      \item \textbf{Environmental degradation:} pollution, resource depletion, climate damage
+      \item \textbf{Political freedom:} democracy, human rights, corruption
+      \item \textbf{Safety and security:} crime rates, conflict
+   \end{itemize}
+   \vspace{0.05cm}
+   \begin{bizimplication}[ESG and stakeholder value]
+      \footnotesize Investors and consumers increasingly judge firms on dimensions GDP ignores. Understanding these limits helps anticipate where regulation and market expectations are heading.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{}
+   \small
+   \begin{quotation}
+      Our gross national product, now, is over \$800 billion dollars a year, but that gross national product–if we judge the United States of America by that–that gross national product counts air pollution and cigarette advertising, and ambulances to clear our highways of carnage. It counts special locks for our doors and the jails for the people who break them. It counts the destruction of the redwood and the loss of our natural wonder in chaotic sprawl. It counts napalm and counts nuclear warheads and armored cars for the police to fight the riots in our cities. It counts Whitman’s rifle and Speck’s knife, and the television programs which glorify violence in order to sell toys to our children. Yet the gross national product does not allow for the health of our children, the quality of their education or the joy of their play. It does not include the beauty of our poetry or the strength of our marriages, the intelligence of our public debate or the integrity of our public officials. It measures neither our wit nor our courage, neither our wisdom nor our learning, neither our compassion nor our devotion to our country, it measures everything in short, except that which makes life worthwhile. And it can tell us everything about America except why we are proud that we are Americans.
+      \hfill{\scriptsize\textcolor{HECgray}{Robert F. Kennedy, 1968}}
+   \end{quotation}
+\end{frame}
+
+\begin{frame}{Human Development Index (HDI)}
+   Index developed by the UN with three ingredients:
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Health:} life expectancy at birth
+      \item \textbf{Education:} mean years of schooling for adults + expected years of schooling for children
+      \item \textbf{Standard of living:} GNI per capita (PPP-adjusted)
+   \end{itemize}
+   \vspace{0.5cm}
+   What are the \textbf{pros and cons} of this index compared to GDP per capita?
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Captures more dimensions of well-being, not just income
+      \item Arbitrary scaling/weighting of each ingredient
    \end{itemize}
 \end{frame}
 
-\begin{frame}{Growth has lifted millions out of extreme poverty...}
-   % TODO: Insert Our World in Data figure on extreme poverty by world region
-   % (same as ECON20852 S3 and MBA S3)
-   % Source: ourworldindata.org/extreme-poverty
+\begin{frame}{HDI vs.\ GDP per capita}
    \begin{figure}
       \centering
-      % \includegraphics[width=\textwidth]{poverty.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=6cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: Share of population in extreme poverty by region, 1981--2020]}\\
-         \textcolor{HECgray}{\small Source: Our World in Data / World Bank}
-      \end{tcolorbox}
+      \includegraphics[width=\textwidth]{hdi_vs_gdp_per_capita.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}{...and saved millions of lives}
-   % TODO: Insert Our World in Data figure on life expectancy over time
-   % (same as ECON20852 S3 and MBA S3)
-   % Source: ourworldindata.org/life-expectancy
-   \begin{figure}
-      \centering
-      % \includegraphics[width=\textwidth]{life_expectancy.png}
-      \begin{tcolorbox}[
-         colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-         arc=8pt, width=0.9\textwidth, height=6cm, valign=center
-      ]
-         \centering
-         \textcolor{HECgray}{\small [Figure: Life expectancy at birth, selected countries, 1543--2020]}\\
-         \textcolor{HECgray}{\small Source: Our World in Data (Riley, Clio Infra, UN)}
-      \end{tcolorbox}
-   \end{figure}
+\begin{frame}[t]{Beyond GDP: Jones and Klenow (2016)}
+   \small
+   \textbf{Key idea:} GDP per capita misses important dimensions of welfare
+   \vspace{0.05cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item How much extra consumption needed in the U.S.\ to be as well off as in country $X$?
+      \item Accounts for \textbf{consumption}, \textbf{life expectancy}, \textbf{leisure}, and \textbf{inequality}
+      \item Grounded in economic theory (expected lifetime utility), not ad-hoc weighting
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{keyinsight}[Key findings]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Western Europe: welfare closer to U.S.\ than GDP suggests (more leisure, longer lives, less inequality)
+         \item Poor countries: welfare \textit{even lower} than GDP suggests (shorter lives, higher inequality)
+      \end{itemize}
+   \end{keyinsight}
 \end{frame}
 
-\begin{frame}[t]{But growth alone is not enough}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{Growth with rising inequality?}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item U.S. real GDP per capita has roughly doubled since 1980
-            \item But median household income has barely budged
-            \item The gains have been concentrated at the top
-         \end{itemize}
-         \vspace{0.2cm}
-         \begin{warning}[For managers]
-            Inequality shapes consumer demand, labor markets, regulation, and political risk.
-         \end{warning}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         % TODO: Insert figure showing GDP per capita vs median income in the US
-         % Or the "elephant curve" from Lakner-Milanovic
-         \begin{tcolorbox}[
-            colback=HEClightgray, colframe=HECgray, boxrule=0.5pt,
-            arc=8pt, height=5.5cm, valign=center
-         ]
-            \centering
-            \textcolor{HECgray}{\small [Figure: GDP per capita vs.\ median income (US)]}
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}{Beyond GDP: welfare vs.\ GDP per capita}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{beyond_gdp.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize Above the 45$^\circ$ line $\to$ welfare exceeds what GDP predicts.
+   Below $\to$ welfare falls short.
 \end{frame}
 
 % ============================================================================
@@ -997,26 +1055,13 @@
       \toprule
       \textbf{Theme} & \textbf{Course sessions} \\
       \midrule
-      Why are some countries rich? & S2: Long-run growth \\
-      AI, inequality, labor shortages & S3: Labor market \\
-      Where does inflation come from? & S4: Money \& business cycles \\
-      Rate hikes, stimulus, debt & S5: Monetary \& fiscal policy \\
-      Trade, exchange rates, China & S6: Financial markets \& international \\
+      Why are some countries richer than others? & S2: Long-run economic growth \\
+      What are the drivers of income inequality? & S3: The labor market \\
+      Why does the economy boom and bust? & S4: Business cycles \\
+      Why and how to fight against recessions? & S5: Monetary \& fiscal policy \\
+      What is the future of globalization? & S6: Intl. trade \& imbalances \\
       \bottomrule
    \end{tabular}
 \end{frame}
-
-% ============================================================================
-\takeawayframe{Key takeaways}{%
-   \small
-   \begin{enumerate}
-      \setlength\itemsep{0.08cm}
-      \item \textbf{GDP} measures the total value of final goods and services produced in a country
-      \item The expenditure identity ($Y = C + I + G + NX$) is the backbone of macro accounting
-      \item Always use \textbf{real GDP per capita} over time and \textbf{PPP-adjusted GDP} across countries
-      \item \textbf{Inflation} (measured by CPI) tracks changes in the cost of living --- focus on \textbf{core} measures for the trend
-      \item GDP data is imperfect: think critically about the numbers and who produces them
-   \end{enumerate}
-}
 
 \end{document}
