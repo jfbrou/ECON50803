@@ -1,19 +1,9 @@
 """
-ECON50803 — Session 1: Figure Generation
-=========================================
+ECON50803 — Session 1 : Figure Generation
+============================================
 
-Generates the six narrative-arc figures shown after the "Where are we now?"
-headlines slide:
-    1. can_unemployment.png        — "After a very unusual recession…"
-    2. can_inflation_longrun.png   — "An old enemy back from the dead…"
-    3. policy_rates.png            — "A forceful response…"
-    4. canada_inflation_recent.png — "A return to normal…"
-    5. canada_employment_exports.png — "An uncertain future…"
-    6. hockey_stick_world.png      — "What about long-run growth?"
-
-Canadian data is used whenever possible. Style conventions follow
-ECON20852/Programs/figures.py, adapted to the ECON50803 Beamer template
-(Fira Sans, HEC colour palette).
+Generates all matplotlib figures for Session 1 slides.
+All figure labels, axis titles, legends, and annotations are in French.
 
 Run from Slides/S1/:
     python3 figures_s1.py
@@ -34,7 +24,7 @@ from statsmodels.tsa.filters.hp_filter import hpfilter
 from stats_can import StatsCan
 
 # ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent.parent, '.env'))
+dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
 fred_api_key = os.getenv('fred_api_key')
 
 # ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
@@ -54,8 +44,19 @@ palette = ['#002855',   # HECnavy
            '#888b8d']   # gray
 
 # ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Figures_EN')
+FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)
+
+# ── French month abbreviations (for LaTeX/usetex date labels) ───────────
+MONTH_FR = {1: 'janv.', 2: r'f\'{e}vr.', 3: 'mars', 4: 'avr.',
+            5: 'mai', 6: 'juin', 7: 'juil.', 8: r'ao\^{u}t',
+            9: 'sept.', 10: 'oct.', 11: 'nov.', 12: r'd\'{e}c.'}
+
+
+def french_date_label(d):
+    """Format a datetime as 'month_abbr\\nYYYY' in French."""
+    return MONTH_FR[d.month] + '\n' + str(d.year)
+
 
 # ── US recession dates (NBER) ───────────────────────────────────────────
 recessions_us = [
@@ -152,11 +153,44 @@ def save(fig, name):
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURES_DIR, name), transparent=True, dpi=300)
     plt.close(fig)
-    print(f'  ✓ {name}')
+    print(f'  \u2713 {name}')
 
 def tick_ceil(value, step):
     """Round up value to the next multiple of step."""
     return int(np.ceil(value / step)) * step
+
+
+# ── Country name translation mapping (English data → French labels) ─────
+COUNTRY_FR = {
+    'United States': r"\'{E}tats-Unis",
+    'United Kingdom': 'Royaume-Uni',
+    'China': 'Chine',
+    'Brazil': r"Br\'{e}sil",
+    'Canada': 'Canada',
+    'France': 'France',
+    'India': 'Inde',
+    'Nigeria': r"Nig\'{e}ria",
+    'Norway': r"Norv\`{e}ge",
+    'Luxembourg': 'Luxembourg',
+    'Switzerland': 'Suisse',
+    'Japan': 'Japon',
+    'Germany': 'Allemagne',
+    'Russia': 'Russie',
+    'Indonesia': r"Indon\'{e}sie",
+    'Mexico': 'Mexique',
+    'South Korea': r"Cor\'{e}e du Sud",
+    'Euro area': 'Zone euro',
+    'Sweden': r"Su\`{e}de",
+    'Turkey': 'Turquie',
+    'Singapore': 'Singapour',
+    'Vietnam': r"Vi\^{e}t Nam",
+    'Taiwan': 'Taïwan',
+}
+
+
+def _tr_country(name):
+    """Translate a country name to French, falling back to original."""
+    return COUNTRY_FR.get(name, name)
 
 
 # =====================================================================
@@ -189,7 +223,7 @@ def can_unemployment():
     ax.set_ylim(0, 16)
     ax.set_yticks(range(0, 16 + 1, 2))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 16 + 1, 2)], fontsize=12)
-    ax.set_ylabel('Unemployment rate', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Taux de ch\^{o}mage", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -213,7 +247,7 @@ def can_inflation_longrun():
 
     ax.plot(infl, color=palette[0], linewidth=2)
     ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
-               label='BoC 2\\% target (since 1991)')
+               label=r"Cible de 2\% de la BdC (depuis 1991)")
 
     # Annotation for 2022 peak
     peak_date = infl.loc['2021-01-01':'2023-12-31'].idxmax()
@@ -233,7 +267,7 @@ def can_inflation_longrun():
     ax.set_yticks(np.arange(-0.02, 0.14 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 14 + 0.1, 2)],
                        fontsize=12)
-    ax.set_ylabel('CPI inflation (12-month)', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -257,8 +291,10 @@ def policy_rates():
 
     fig, ax = new_figure()
 
-    ax.plot(fed, color=palette[0], linewidth=2, label='Fed funds rate (US)')
-    ax.plot(boc, color=palette[1], linewidth=2, label='Overnight rate (Canada)')
+    ax.plot(fed, color=palette[0], linewidth=2,
+            label=r"Taux des fonds f\'{e}d\'{e}raux (\'{E}.-U.)")
+    ax.plot(boc, color=palette[1], linewidth=2,
+            label=r"Taux \`{a} un jour (Canada)")
 
     last_year = max(fed.dropna().index[-1].year, boc.dropna().index[-1].year)
     xlim_end = tick_ceil(last_year, 2)
@@ -268,7 +304,7 @@ def policy_rates():
     ax.set_ylim(0, 6)
     ax.set_yticks(range(0, 6 + 1, 1))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 6 + 1, 1)], fontsize=12)
-    ax.set_ylabel('Policy rate', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel('Taux directeur', fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -298,12 +334,12 @@ def canada_inflation_recent():
 
     fig, ax = new_figure()
 
-    # BoC target band (1–3%)
+    # BoC target band (1-3%)
     ax.axhspan(0.01, 0.03, color=palette[1], alpha=0.12, linewidth=0)
     ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
-               label='BoC 2\\% target')
+               label=r"Cible de 2\% de la BdC")
 
-    ax.plot(infl, color=palette[0], linewidth=2, label='CPI inflation')
+    ax.plot(infl, color=palette[0], linewidth=2, label='Inflation IPC')
 
     # Plot expectations (only future portion, from last actual data onward)
     last_actual = infl.dropna().index[-1]
@@ -314,14 +350,14 @@ def canada_inflation_recent():
         bridge_vals = np.concatenate([[infl.loc[last_actual]],
                                       exp_vals[future_mask]])
         ax.plot(bridge_dates, bridge_vals, color=palette[7], linewidth=2,
-                linestyle=':', label='Consumer expectations (1-yr ahead)')
+                linestyle=':', label='Anticipations des consommateurs (1 an)')
 
     # Annotation for 2022 peak
     peak_date = infl.loc['2021-01-01':'2023-12-31'].idxmax()
     peak_val = infl.loc[peak_date]
     ax.annotate(f'{100*peak_val:.1f}\\%',
                 xy=(peak_date, peak_val),
-                xytext=(peak_date + pd.DateOffset(months=18), peak_val + 0.005),
+                xytext=(peak_date + pd.DateOffset(months=8), peak_val + 0.008),
                 fontsize=11, color=palette[2], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
 
@@ -337,7 +373,7 @@ def canada_inflation_recent():
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
                        fontsize=12)
-    ax.set_ylabel('CPI inflation (12-month)', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
@@ -420,14 +456,14 @@ def canada_employment_exports():
     if len(high_matched) > 0:
         high_idx = get_index(high_matched)
         ax.plot(high_idx, color=palette[2], linewidth=2,
-                label='High US export dependence')
+                label=r"Forte d\'{e}pendance aux export. am\'{e}ricaines")
     if len(low_matched) > 0:
         low_idx = get_index(low_matched)
         ax.plot(low_idx, color=palette[0], linewidth=2,
-                label='Limited US export dependence')
+                label=r"Faible d\'{e}pendance aux export. am\'{e}ricaines")
     if len(total) > 0:
         ax.plot(total, color=palette[1], linewidth=2,
-                label='All sectors')
+                label='Tous les secteurs')
 
     # Determine y-axis range: round to nice ticks
     all_series = []
@@ -456,8 +492,8 @@ def canada_employment_exports():
     xtick_dates = xtick_all[xtick_all <= xlim_right]
     ax.set_xlim(pd.to_datetime('2023-01-01'), xlim_right)
     ax.set_xticks(xtick_dates)
-    ax.set_xticklabels([d.strftime('%b\n%Y') for d in xtick_dates], fontsize=11)
-    ax.set_ylabel('Employment index (Jan 2023 = 100)', fontsize=12,
+    ax.set_xticklabels([french_date_label(d) for d in xtick_dates], fontsize=11)
+    ax.set_ylabel(r"Indice d'emploi (janv. 2023 = 100)", fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -482,18 +518,19 @@ def hockey_stick_world():
 
     fig, ax = new_figure()
 
+    # Data uses English entity names; display labels are French
     countries = {
-        'United States': palette[0],
-        'United Kingdom': palette[1],
-        'Canada': palette[2],
-        'France': palette[3],
+        'United States': (r"\'{E}tats-Unis", palette[0]),
+        'United Kingdom': ('Royaume-Uni', palette[1]),
+        'Canada': ('Canada', palette[2]),
+        'France': ('France', palette[3]),
     }
 
     max_year = 0
-    for country, color in countries.items():
-        sub = df.loc[(df['Entity'] == country) & df['GDP per capita'].notna()]
+    for entity_en, (label_fr, color) in countries.items():
+        sub = df.loc[(df['Entity'] == entity_en) & df['GDP per capita'].notna()]
         ax.plot(sub['Year'], sub['GDP per capita'], color=color,
-                label=country, linewidth=2)
+                label=label_fr, linewidth=2)
         max_year = max(max_year, sub['Year'].max())
 
     ax.set_xlim(0, max_year + 5)
@@ -503,7 +540,7 @@ def hockey_stick_world():
     ax.set_yticks(range(0, 70000 + 1, 10000))
     ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 70 + 1, 10)],
                        fontsize=12)
-    ax.set_ylabel('Real GDP per capita', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
@@ -528,7 +565,7 @@ def us_tariff_rate():
     df = df.dropna(subset=['Year'])
     df['Year'] = df['Year'].astype(int)
 
-    # Historical series (1790–2024)
+    # Historical series (1790-2024)
     hist = df[df['ETR'].notna()].copy()
 
     # 2025 rates (pre-substitution)
@@ -564,14 +601,14 @@ def us_tariff_rate():
     ax.plot(2025, etr_2025_canada, 'o', color=palette[1], markersize=8, zorder=5)
 
     # Annotations — short arrows
-    ax.annotate(f'{etr_2025_overall:.1f}\\%  overall',
+    ax.annotate(f'{etr_2025_overall:.1f}\\%  global',
                 xy=(2025, etr_2025_overall),
-                xytext=(2005, 22),
+                xytext=(2015, 20),
                 fontsize=11, color=palette[2], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
-    ax.annotate(f'{etr_2025_canada:.1f}\\%  on Canadian goods',
+    ax.annotate(f'{etr_2025_canada:.1f}\\%  Canada',
                 xy=(2025, etr_2025_canada),
-                xytext=(1990, 12),
+                xytext=(2005, 11),
                 fontsize=11, color=palette[1], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
 
@@ -591,7 +628,8 @@ def us_tariff_rate():
     ax.set_yticks(range(0, 25 + 1, 5))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 25 + 1, 5)],
                        fontsize=12)
-    ax.set_ylabel('US effective tariff rate', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Taux tarifaire effectif am\'{e}ricain", fontsize=12,
+                  rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
@@ -727,9 +765,9 @@ def gdp_decomposition_4countries():
     }
     countries = {
         'CAN': 'Canada',
-        'USA': 'United States',
-        'CHN': 'China',
-        'BRA': 'Brazil',
+        'USA': r"\'{E}tats-Unis",
+        'CHN': 'Chine',
+        'BRA': r"Br\'{e}sil",
     }
 
     # Fetch from World Bank API
@@ -881,7 +919,8 @@ def gdp_canada_usa():
 
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
-    ax.plot(usa_idx, color=palette[1], linewidth=2.5, label='United States')
+    ax.plot(usa_idx, color=palette[1], linewidth=2.5,
+            label=r"\'{E}tats-Unis")
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
@@ -893,7 +932,7 @@ def gdp_canada_usa():
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
     ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
-    ax.set_ylabel('Real GDP (2000Q1 = 100)', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"PIB r\'{e}el (2000T1 = 100)", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -936,7 +975,8 @@ def gdp_per_capita_canada_usa():
 
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
-    ax.plot(usa_idx, color=palette[1], linewidth=2.5, label='United States')
+    ax.plot(usa_idx, color=palette[1], linewidth=2.5,
+            label=r"\'{E}tats-Unis")
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
@@ -948,7 +988,7 @@ def gdp_per_capita_canada_usa():
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
     ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
-    ax.set_ylabel('Real GDP per capita (2000Q1 = 100)', fontsize=12,
+    ax.set_ylabel(r"PIB r\'{e}el par hab. (2000T1 = 100)", fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1014,11 +1054,11 @@ def gdp_vs_gdp_per_capita():
     df = df[~df['iso'].isin(aggregates)]
     df = df[df['gdp'] > 0]
 
-    # Highlight countries
+    # Highlight countries (ISO → French display label)
     highlights = {
-        'USA': 'United States', 'CAN': 'Canada', 'CHN': 'China',
-        'IND': 'India', 'BRA': 'Brazil', 'NGA': 'Nigeria',
-        'NOR': 'Norway', 'LUX': 'Luxembourg',
+        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'BRA': r"Br\'{e}sil", 'NGA': r"Nig\'{e}ria",
+        'NOR': r"Norv\`{e}ge", 'LUX': 'Luxembourg',
     }
 
     fig, ax = new_figure()
@@ -1063,7 +1103,8 @@ def gdp_vs_gdp_per_capita():
     ax.set_xticks([0.01, 0.1, 1, 10])
     ax.set_xticklabels([r'\$0.01T', r'\$0.1T', r'\$1T', r'\$10T'],
                        fontsize=12)
-    ax.set_xlabel('Real GDP, PPP (trillions, 2021 int.\\ \\$)', fontsize=12)
+    ax.set_xlabel(r"PIB r\'{e}el, PPA (milliers de Mds, \$ int. 2021)",
+                  fontsize=12)
 
     ax.set_yscale('log')
     ax.set_ylim(800, 150000)
@@ -1071,7 +1112,7 @@ def gdp_vs_gdp_per_capita():
     ax.set_yticks(yticks)
     ax.set_yticklabels([r'\$1K', r'\$2K', r'\$5K', r'\$10K',
                         r'\$20K', r'\$50K', r'\$100K'], fontsize=12)
-    ax.set_ylabel('Real GDP per capita (PPP)', fontsize=12,
+    ax.set_ylabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1089,18 +1130,27 @@ def gdp_ppp_time_series():
     indicator = 'NY.GDP.MKTP.PP.KD'
 
     # Top 12 economies by GDP PPP (approximate ordering)
-    countries = {
-        'CHN': 'China', 'USA': 'United States', 'IND': 'India',
-        'JPN': 'Japan', 'DEU': 'Germany', 'RUS': 'Russia',
-        'IDN': 'Indonesia', 'BRA': 'Brazil', 'GBR': 'United Kingdom',
-        'FRA': 'France', 'MEX': 'Mexico', 'CAN': 'Canada',
+    # ISO → (English name for API, French label for display)
+    countries_iso = {
+        'CHN': ('China', 'Chine'),
+        'USA': ('United States', r"\'{E}tats-Unis"),
+        'IND': ('India', 'Inde'),
+        'JPN': ('Japan', 'Japon'),
+        'DEU': ('Germany', 'Allemagne'),
+        'RUS': ('Russia', 'Russie'),
+        'IDN': ('Indonesia', r"Indon\'{e}sie"),
+        'BRA': ('Brazil', r"Br\'{e}sil"),
+        'GBR': ('United Kingdom', 'Royaume-Uni'),
+        'FRA': ('France', 'France'),
+        'MEX': ('Mexico', 'Mexique'),
+        'CAN': ('Canada', 'Canada'),
     }
 
     data = {}
-    for iso, name in countries.items():
+    for iso, (name_en, name_fr) in countries_iso.items():
         s = _get_worldbank(indicator, iso, start=2020, end=2025)
         if len(s) > 0:
-            data[name] = s.iloc[-1] / 1e12  # most recent year, in trillions
+            data[name_fr] = s.iloc[-1] / 1e12  # most recent year, in trillions
 
     # Sort descending
     data = dict(sorted(data.items(), key=lambda x: x[1], reverse=False))
@@ -1129,7 +1179,7 @@ def gdp_ppp_time_series():
     ax.spines['bottom'].set_visible(False)
     ax.invert_yaxis()
 
-    ax.set_title('Real GDP at PPP (trillions, 2021 int.\\ \\$)',
+    ax.set_title(r"PIB r\'{e}el en PPA (milliers de Mds, \$ int. 2021)",
                  fontsize=12, loc='left', pad=10)
     add_source(ax, 'Source: World Bank, WDI')
     save(fig, 'gdp_ppp_world.png')
@@ -1192,11 +1242,11 @@ def gdp_per_capita_vs_price_level():
     df = df[~df['iso'].isin(aggregates)]
     df = df[(df['gdppc'] > 500) & (df['price_level'] > 0.05)]
 
-    # Highlight countries
+    # Highlight countries (ISO → French display label)
     highlights = {
-        'USA': 'United States', 'CAN': 'Canada', 'CHN': 'China',
-        'IND': 'India', 'JPN': 'Japan', 'BRA': 'Brazil',
-        'NGA': 'Nigeria', 'NOR': 'Norway', 'CHE': 'Switzerland',
+        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'JPN': 'Japon', 'BRA': r"Br\'{e}sil",
+        'NGA': r"Nig\'{e}ria", 'NOR': r"Norv\`{e}ge", 'CHE': 'Suisse',
     }
 
     fig, ax = new_figure()
@@ -1240,7 +1290,7 @@ def gdp_per_capita_vs_price_level():
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
     ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
-    ax.set_xlabel('Real GDP per capita (PPP)', fontsize=12)
+    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12)
     ax.set_ylim(0.05, 1.2)
     ax.set_yticks(np.arange(0.2, 1.2 + 0.01, 0.2))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.2, 1.2 + 0.01, 0.2)],
@@ -1294,6 +1344,9 @@ def big_mac_index():
     # Sort by latest valuation descending
     rdf = rdf.sort_values('pct_latest', ascending=True).reset_index(drop=True)
 
+    # Translate country names to French for y-axis labels
+    rdf['name_fr'] = rdf['name'].apply(_tr_country)
+
     fig, ax = plt.subplots(figsize=(7, 5.5))
     fig.patch.set_alpha(0.0)
     ax.patch.set_alpha(0.0)
@@ -1319,9 +1372,9 @@ def big_mac_index():
         ax.text(price_x, idx, f'\\${row["price_latest"]:.2f}',
                 va='center', fontsize=9, color=palette[7])
 
-    # Country names on the left
+    # Country names on the left (French)
     ax.set_yticks(y)
-    ax.set_yticklabels(rdf['name'], fontsize=10)
+    ax.set_yticklabels(rdf['name_fr'], fontsize=10)
 
     # x-axis
     ax.set_xlim(-65, 70)
@@ -1329,12 +1382,12 @@ def big_mac_index():
     ax.set_xticks(list(xticks))
     ax.set_xticklabels([f'{x:+d}' if x != 0 else '0' for x in xticks],
                        fontsize=10)
-    ax.set_xlabel('Local currency valuation against the dollar, \\%',
+    ax.set_xlabel(r"\'{E}valuation de la monnaie locale face au dollar, \%",
                   fontsize=10)
 
     # Price column header — right-aligned above the price column
     ax.text(price_x + 8, len(rdf) + 0.3,
-            'Price, \\$', fontsize=9, fontweight='bold',
+            'Prix, \\$', fontsize=9, fontweight='bold',
             va='bottom', ha='center', color=palette[0])
 
     # Horizontal grid lines
@@ -1359,7 +1412,7 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
     fig, ax = new_figure()
     ax.plot(nom_g, color=palette[0], linewidth=2, label='Nominal')
     if show_real:
-        ax.plot(real_g, color=palette[1], linewidth=2, label='Real')
+        ax.plot(real_g, color=palette[1], linewidth=2, label=r"R\'{e}el")
     ax.axhline(y=0, color='black', linewidth=0.5)
 
     first_year = max(real_g.dropna().index[0].year, 1962)
@@ -1376,7 +1429,7 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
     yticks = np.arange(ymin, ymax + 0.001, 0.05)
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=12)
-    ax.set_ylabel('GDP growth', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Croissance du PIB", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -1419,11 +1472,11 @@ def gdp_nominal_real_canada():
 # =====================================================================
 def inflation_cpi_deflator_canada():
     print('Figure: CPI vs GDP deflator inflation — Canada')
-    # CPI (monthly, index 2015=100) → 12-month % change
+    # CPI (monthly, index 2015=100) -> 12-month % change
     cpi = get_fred_data('CANCPIALLMINMEI')
     cpi_infl = cpi.pct_change(12).dropna()
 
-    # GDP deflator = nominal GDP / real GDP → 4-quarter % change
+    # GDP deflator = nominal GDP / real GDP -> 4-quarter % change
     nom_gdp = get_fred_data('NGDPSAXDCCAQ')
     real_gdp = get_fred_data('NGDPRSAXDCCAQ')
     deflator = nom_gdp / real_gdp
@@ -1431,13 +1484,14 @@ def inflation_cpi_deflator_canada():
 
     fig, ax = new_figure()
 
-    # BoC target band (1–3%)
+    # BoC target band (1-3%)
     ax.axhspan(0.01, 0.03, color=palette[1], alpha=0.12, linewidth=0)
     ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
-               label='BoC 2\\% target')
+               label=r"Cible de 2\% de la BdC")
 
-    ax.plot(cpi_infl, color=palette[0], linewidth=2, label='CPI')
-    ax.plot(defl_infl, color=palette[2], linewidth=2, label='GDP deflator')
+    ax.plot(cpi_infl, color=palette[0], linewidth=2, label='IPC')
+    ax.plot(defl_infl, color=palette[2], linewidth=2,
+            label=r"D\'{e}flateur du PIB")
 
     last_date = min(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
@@ -1448,7 +1502,7 @@ def inflation_cpi_deflator_canada():
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
                        fontsize=12)
-    ax.set_ylabel('Inflation (year-over-year)', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Inflation (sur 12 mois)", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     for start, end in recessions_ca:
@@ -1476,13 +1530,14 @@ def inflation_headline_core_canada():
 
     fig, ax = new_figure()
 
-    # BoC target band (1–3%)
+    # BoC target band (1-3%)
     ax.axhspan(0.01, 0.03, color=palette[1], alpha=0.12, linewidth=0)
     ax.axhline(y=0.02, color=palette[1], linestyle=':', linewidth=1.5,
-               label='BoC 2\\% target')
+               label=r"Cible de 2\% de la BdC")
 
-    ax.plot(headline, color=palette[0], linewidth=2, label='Headline CPI')
-    ax.plot(core, color=palette[2], linewidth=2, label='Core CPI (ex.\ food \\& energy)')
+    ax.plot(headline, color=palette[0], linewidth=2, label='IPC global')
+    ax.plot(core, color=palette[2], linewidth=2,
+            label=r"IPC de base (hors alim. \& \'{e}nergie)")
 
     last_date = min(headline.dropna().index[-1], core.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
@@ -1493,7 +1548,7 @@ def inflation_headline_core_canada():
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
                        fontsize=12)
-    ax.set_ylabel('CPI inflation (year-over-year)', fontsize=12,
+    ax.set_ylabel(r"Inflation IPC (sur 12 mois)", fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1530,9 +1585,9 @@ def inflation_highfreq_cavallo():
 
     # Raw daily data
     ax.plot(df['date'], dom_pct, color=palette[0], linewidth=2,
-            label='Domestic goods')
+            label='Biens domestiques')
     ax.plot(df['date'], imp_pct, color=palette[2], linewidth=2,
-            label='Imported goods')
+            label=r"Biens import\'{e}s")
 
     ax.axhline(y=0, color='black', linewidth=0.5)
 
@@ -1542,7 +1597,7 @@ def inflation_highfreq_cavallo():
     xticks = pd.date_range(first_date.replace(day=1), last_date, freq='2MS')
     ax.set_xlim(first_date, last_date)
     ax.set_xticks(xticks)
-    ax.set_xticklabels([d.strftime('%b\n%Y') for d in xticks], fontsize=11)
+    ax.set_xticklabels([french_date_label(d) for d in xticks], fontsize=11)
 
     # y-axis
     ymin = int(np.floor(min(dom_pct.min(), imp_pct.min())))
@@ -1551,7 +1606,8 @@ def inflation_highfreq_cavallo():
     yticks = np.arange(ymin, ymax + 0.1, 1)
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'{x:+.0f}' + r'\%' for x in yticks], fontsize=12)
-    ax.set_ylabel('Cumulative price change', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"Variation cumul\'{e}e des prix", fontsize=12,
+                  rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
@@ -1591,9 +1647,9 @@ def hdi_vs_gdp_per_capita():
 
     # Highlight countries
     highlights = {
-        'USA': 'United States', 'CAN': 'Canada', 'CHN': 'China',
-        'IND': 'India', 'BRA': 'Brazil', 'NGA': 'Nigeria',
-        'NOR': 'Norway', 'JPN': 'Japan',
+        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'BRA': r"Br\'{e}sil", 'NGA': r"Nig\'{e}ria",
+        'NOR': r"Norv\`{e}ge", 'JPN': 'Japon',
     }
 
     fig, ax = new_figure()
@@ -1633,13 +1689,13 @@ def hdi_vs_gdp_per_capita():
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
     ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
-    ax.set_xlabel('Real GDP per capita (PPP)', fontsize=12)
+    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12)
 
     ax.set_ylim(0.3, 1.0)
     ax.set_yticks(np.arange(0.3, 1.01, 0.1))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.3, 1.01, 0.1)],
                        fontsize=12)
-    ax.set_ylabel('HDI', fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel('IDH', fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
@@ -1688,7 +1744,7 @@ def beyond_gdp():
         'Slovak Republic': 'Slovakia',
         'Kyrgyz Republic': 'Kyrgyzstan',
         'Congo, Dem. Rep.': 'Congo, Democratic Republic of',
-        'Cote d\'Ivoire': "Côte d'Ivoire",
+        'Cote d\'Ivoire': "C\u00f4te d'Ivoire",
     }
     df['pop'] = df['country'].apply(
         lambda c: pop_by_name.get(c.strip())
@@ -1731,7 +1787,8 @@ def beyond_gdp():
     ax.set_xticks(xticks)
     ax.set_xticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2',
                          '1', '2'], fontsize=12)
-    ax.set_xlabel('Real GDP per capita (relative to U.S.)', fontsize=12)
+    ax.set_xlabel(r"PIB r\'{e}el par habitant (relatif aux \'{E}.-U.)",
+                  fontsize=12)
 
     ax.set_yscale('log', base=2)
     ax.set_ylim(1 / 100, 2)
@@ -1753,7 +1810,7 @@ def beyond_gdp():
 # Main
 # =====================================================================
 if __name__ == '__main__':
-    print('Generating Session 1 figures...')
+    print('Generating Session 1 figures (French)...')
     print(f'Output: {FIGURES_DIR}\n')
 
     figures = [
@@ -1790,10 +1847,10 @@ if __name__ == '__main__':
         try:
             fn()
         except Exception as e:
-            print(f'  ✗ {fn.__name__}: {e}')
+            print(f'  \u2717 {fn.__name__}: {e}')
             failed.append(fn.__name__)
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
     else:
-        print('\nDone — all figures generated.')
+        print('\nDone \u2014 all figures generated.')

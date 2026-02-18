@@ -1,0 +1,1078 @@
+\documentclass[aspectratio=169]{beamer}
+\input{../preamble.tex}
+
+\title{Langage et concepts macroéconomiques}
+\author{Jean-Félix Brouillette}
+\date{Séance 1}
+
+\begin{document}
+
+% ============================================================================
+\titleframe
+% ============================================================================
+
+% --- Slide 1: Qu'est-ce que la macroéconomie?
+\begin{frame}{Qu'est-ce que la macroéconomie?}
+   \textbf{La macroéconomie s'intéresse aux\ldots}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Phénomènes économiques globaux : la \textbf{vue d'ensemble}
+      \item \textbf{Interconnexions} entre agents (consommateurs, entreprises, gouv.)
+      \item Tendances \textbf{long terme}, fluctuations \textbf{court terme}, \textbf{politiques} économiques
+   \end{itemize}
+   \vspace{0.4cm}
+   \textbf{Liée à plusieurs domaines :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Politique et géopolitique
+      \item Psychologie et sociologie
+      \item Finance
+      \item Environnement, technologie, etc.
+   \end{itemize}
+\end{frame}
+
+% --- Slide 2: Macro vs. micro ---
+\begin{frame}{Macroéconomie vs.\ microéconomie}
+   La \textbf{microéconomie} offre d'excellents outils pour étudier les décisions individuelles, mais pas comment elles s'\textbf{agrègent} au niveau de l'économie\ldots
+   \\[6pt]
+   \ldots par contre, cette agrégation compte en retour \textbf{énormément} pour les décisions individuelles!
+   \vspace{0.5cm}
+
+   \textbf{Quand la rationalité individuelle mène à la folie collective\ldots}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Le paradoxe de l'épargne :} tout le monde épargne davantage en récession
+      \item \textbf{L'argent hélicoptère :} trop de dollars à la poursuite de trop peu de biens
+      \item \textbf{Le sophisme de composition :} se lever à un match de hockey
+   \end{itemize}
+\end{frame}
+
+% --- Slide 3: Pourquoi la macroéconomie vous concerne-t-elle? ---
+\begin{frame}{Pourquoi la macroéconomie \textit{vous} concerne-t-elle?}
+   Le succès de toute décision d'affaires repose en partie sur les \textbf{conditions macro} \\
+   \vspace{0.3cm}
+
+   Les événements, forces et tendances macroéconomiques\ldots
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \ldots perturbent les \textbf{stratégies d'affaires}
+      \item \ldots influencent les \textbf{coûts, salaires, taux d'intérêt} et la \textbf{concurrence}
+      \item \ldots sont sources de \textbf{risque}, mais aussi d'\textbf{opportunité}
+      \item \ldots façonnent les \textbf{marchés} à l'échelle mondiale \\
+   \end{enumerate}
+   \vspace{0.3cm}
+
+   \ldots et le \textbf{jargon macro} sera au cœur de vos conversations de gestionnaires
+\end{frame}
+
+% --- Slides 4--5: Collage de manchettes + superposition "Où en sommes-nous?" ---
+\begin{frame}{Un monde complexe et incertain}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[economist]{The Economist}{``Who wrangled the best trade deal from Donald Trump?''}
+      \newsheadline[bloomberg]{Bloomberg}{``Kevin Warsh's Fed Job Already Looks Impossible''}
+      \newsheadline[ft]{Financial Times}{``Gold rips past \$5,000 on fears of global turmoil''}
+      \newsheadline[lapresse]{La Presse}{``Les exportations du Québec en forte baisse''}
+      \newsheadline[globeandmail]{The Globe and Mail}{``Mark Carney's speech got the world's attention---but was it the right message?''}
+      \newsheadline[wsj]{The Wall Street Journal}{``The Big Money in Today's Economy Is Going to Capital, Not Labor''}
+      \headlinesoverlay{Où en sommes-nous?}
+   \end{tikzpicture}
+\end{frame}
+
+% --- Arc narratif : 7 diapositives après "Où en sommes-nous?" ---
+
+% Slide N1: Après une récession très inhabituelle...
+\begin{frame}{Après une récession très inhabituelle\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{can_unemployment.png}
+   \end{figure}
+\end{frame}
+
+% Slide N2: Un vieil ennemi de retour...
+\begin{frame}{Un vieil ennemi est de retour\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{can_inflation_longrun.png}
+   \end{figure}
+\end{frame}
+
+% Slide N3: Une réponse vigoureuse...
+\begin{frame}{Une réponse vigoureuse\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{policy_rates.png}
+   \end{figure}
+\end{frame}
+
+% Slide N4: Un retour à la normale...
+\begin{frame}{Et finalement, un retour à la normale\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{canada_inflation_recent.png}
+   \end{figure}
+\end{frame}
+
+% Slide N5: Le retour du protectionnisme
+\begin{frame}{Le retour du protectionnisme\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{us_tariff_rate.png}
+   \end{figure}
+\end{frame}
+
+% Slide N6: Un avenir incertain...
+\begin{frame}{Un avenir incertain\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{canada_employment_exports.png}
+   \end{figure}
+\end{frame}
+
+% Slide N7: Et le très long terme...
+\begin{frame}{Et le très long terme?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{hockey_stick_world.png}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item \textbf{Aperçu du cours et logistique}
+      \item Mesurer l'économie : le PIB
+      \item Comparer le PIB dans le temps
+      \item Comparer le PIB entre pays
+      \item Au-delà du PIB
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Aperçu du cours et logistique}
+% ============================================================================
+
+\begin{frame}{Objectifs du cours}
+   \textbf{Non, je ne ferai pas de vous des économistes\ldots mais à la fin du cours, vous :}
+   \vspace{0.3cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item Serez \textbf{moins intimidé(e)s} par le jargon macro
+      \item Serez capables d'\textbf{interpréter les nouvelles économiques} de manière critique (entraîner votre détecteur de \guillemotleft~BS~\guillemotright)
+      \item Serez familier avec les grandes \textbf{tendances macro}
+      \item Aurez des conversations \textbf{objectives et cohérentes} sur la macro
+   \end{enumerate}
+   \vspace{0.25cm}
+   \begin{defbox}[Ce que ce cours n'est \textbf{pas} !]
+      Technique. Abstrait. Idéologique.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Thèmes abordés}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item \textbf{Croissance de long terme} \\
+      {\small Pourquoi certains pays sont-ils plus ou moins riches?}
+      \item \textbf{Marché du travail} \\
+      {\small Inégalités, technologie et IA}
+      \item \textbf{Cycles économiques} \\
+      {\small Pourquoi y a-t-il des expansions et des récessions?}
+      \item \textbf{Politique monétaire \& budgétaire} \\
+      {\small Pourquoi et comment combattre les récessions?}
+      \item \textbf{Commerce international et déséquilibres mondiaux} \\
+      {\small (Dé)mondialisation, tarifs, etc.}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Équipe enseignante}
+   \begin{columns}[c]
+      \begin{column}{0.35\textwidth}
+         \begin{center}
+            \includegraphics[width=1.0\textwidth]{headshot}
+         \end{center}
+      \end{column}
+      \hspace{-1cm}
+      \begin{column}{0.65\textwidth}
+         \textbf{Jean-Félix Brouillette} \\[0.15cm]
+         Professeur adjoint en économie appliquée \\[0.3cm]
+         {\small B.A.A.\ et M.Sc.\ en économie, HEC Montréal \\
+         Ph.D.\ en économie, Stanford University} \\[0.3cm]
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Courriel : {\small \href{mailto:jean-felix.brouillette@hec.ca}{jean-felix.brouillette@hec.ca}}
+            \item Heures de bureau : à déterminer
+            \item Bureau : 4.148 (CSC)
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Matériel pédagogique}
+   \textbf{ZoneCours (ZC)}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Diapositives et articles publiés avant chaque séance
+      \item Exercices et solutions
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{Manuel}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Vincent \& Yared (Pearson Revel) : non obligatoire
+      \item ZC : référence pour les cours + exercices
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{Suivez l'actualité macroéconomique}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \item \textit{The Economist, The Financial Times, The Wall Street Journal, Bloomberg, La Presse Affaires, Reuters, Les Échos, etc.}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Évaluation}
+   \vspace{0.3cm}
+   \begin{tabular}{l r}
+      \textbf{Projet d'équipe} (deux parties) & \textbf{30\%} \\[0.2cm]
+      \textbf{Quiz} (séance 4, $\sim$15 minutes, choix multiples) & \textbf{10\%} \\[0.2cm]
+      \textbf{Examen final} (30 mars) & \textbf{50\%} \\[0.2cm]
+      \textbf{Contribution et professionnalisme} & \textbf{10\%} \\
+   \end{tabular}
+   \vspace{0.4cm}
+   \begin{defbox}[Détails]
+      Les détails du projet d'équipe sont sur ZC. Des exemples de questions de quiz seront fournis.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Contribution et professionnalisme}
+   \small
+   \textbf{Critères :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Présence et ponctualité} --- selon les exigences du programme
+      \item \textbf{Participation active} --- qualité et pertinence des interventions
+      \item \textbf{Professionnalisme} --- autonomie, jugement, collégialité
+   \end{enumerate}
+   \vspace{0.4cm}
+   \textbf{Pour favoriser l'apprentissage actif :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Cartons d'identification} --- apportez le vôtre à chaque cours
+      \item \textbf{Pas d'ordinateurs portables} en classe (exception : tablettes à plat)
+      \item \textbf{Limiter les allées et venues} pendant le cours
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Aperçu du cours et logistique}
+      \item \textbf{Mesurer l'économie : le PIB}
+      \item Comparer le PIB dans le temps
+      \item Comparer le PIB entre pays
+      \item Au-delà du PIB
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Mesurer l'économie : le PIB}
+% ============================================================================
+
+\begin{frame}{Qu'est-ce que le PIB?}
+   \begin{defbox}[Produit intérieur brut (PIB)]
+      \textbf{Valeur marchande} totale de tous les biens et services \textbf{finaux} produits \textbf{dans un pays} au cours d'une \textbf{période donnée}.
+   \end{defbox}
+   \vspace{0.3cm}
+   \textbf{Mots clés :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Valeur marchande :} mesurée en dollars (ou dans une autre devise)
+      \item \textbf{Finaux :} exclut les biens intermédiaires (évite le double comptage)
+      \item \textbf{Dans un pays :} production en sol canadien
+      \item \textbf{Période donnée :} un flux, pas un stock (trimestriel ou annuel)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Trois façons de mesurer le PIB}
+
+   \small
+   \noindent%
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{1. Dépenses}}\\[4pt]
+      Qui achète?
+      \vspace{-0.2cm}
+      \begin{equation*}
+         Y = C + I + G + NX
+      \end{equation*}
+      \vspace{-0.8cm}
+      \begin{itemize}
+         \footnotesize
+         \item $C$ : consommation
+         \item $I$ : investissement
+         \item $G$ : dép.\ gouv.
+         \item $NX$ : export.\ nettes
+      \end{itemize}
+   \end{minipage}%
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{2. Revenus}}\\[4pt]
+      Qui gagne?
+      \vspace{0.1cm}
+      \begin{itemize}
+         \footnotesize
+         \item Salaires
+         \item Profits des entreprises
+         \item Revenus locatifs
+         \item Revenus d'intérêts
+      \end{itemize}
+   \end{minipage}%
+   \hspace{-0.5cm}
+   \begin{minipage}[t]{0.33\textwidth}
+      \textbf{\textcolor{HECnavy}{3. Valeur ajoutée}}\\[4pt]
+      Qui produit?
+      \vspace{0.1cm}
+      \begin{itemize}
+         \footnotesize
+         \item Valeur ajoutée par étape
+         \item Revenus $-$ intrants
+      \end{itemize}
+   \end{minipage}
+   \vspace{0.2cm}
+   \begin{keyinsight}
+      Chaque dollar dépensé est un dollar gagné est un dollar de valeur créée
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Exemple : la valeur ajoutée évite le double comptage}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Exemple}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      Une entreprise embauche des employés pour travailler dans une usine d'engrais qui verse 0,50\,\$ en salaires. L'entreprise vend l'engrais à Dwight, un agriculteur, pour 0,80\,\$. Dwight l'utilise pour produire des betteraves, qu'il vend à Jim pour 1\,\$. Jim mange les betteraves.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Revenus} & & \textbf{Dépenses} & \\
+         \hline
+         Manuf.\ & 0,80 & Salaires & 0,50 & Consommation & 1,00 \\
+         Agriculture & 0,20 & Profits & 0,30 & & \\
+         & & Rev.\ d'entreprise & 0,20 & & \\
+         \hline
+         \textbf{Total} & \textbf{1,00} & \textbf{Total} & \textbf{1,00} & \textbf{Total} & \textbf{1,00}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.02cm}
+   \begin{keyinsight}
+      Production $=$ \textbf{valeur ajoutée} (recettes $-$ intrants interm.), pas le chiffre d'affaires.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{L'approche par les dépenses : $Y = C + I + G + NX$}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.8\textheight]{gdp_decomposition_canada.png}
+   \end{figure}
+\end{frame}
+
+% ── Consommation ───────────────────────────────────────────────────────
+
+\begin{frame}[t]{Consommation ($C$)}
+   \textbf{Dépenses des ménages} en biens et services finaux :
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Biens durables} --- voitures, meubles, électroménagers (longue vie utile)
+      \item \textbf{Biens non durables} --- alimentation, vêtements, essence (courte vie utile)
+      \item \textbf{Services} --- loyer, soins de santé, coiffure, éducation
+   \end{itemize}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      Les services représentent plus de 60\,\% de la consommation au Canada. Ce virage vers les services caractérise les économies avancées.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Part de la consommation dans le PIB au Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{consumption_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize La consommation est la \textbf{plus grande composante} ($\sim$60\,\%), en hausse au fil du temps.
+\end{frame}
+
+% ── Investissement ────────────────────────────────────────────────────
+
+\begin{frame}[t]{Investissement ($I$)}
+   \textbf{Dépenses en biens destinés à produire dans le futur :}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Capital fixe des entreprises} --- machines, équipements, usines, logiciels
+      \item \textbf{Résidentiel} --- construction de nouveaux logements
+      \item \textbf{Stocks} --- biens invendus entreposés
+   \end{itemize}
+   \vspace{0.3cm}
+   \begin{warning}[Confusion fréquente]
+      En économie, \guillemotleft~investissement~\guillemotright\ $=$ \textbf{formation de capital physique}, pas l'achat de titres financiers. Acheter un camion de livraison $=$ investissement; acheter des actions de Tesla, non.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Exemple : investissement}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Exemple}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      General Motors produit une fourgonnette, qu'elle vend pour 1\,000\,\$ à la Michael Scott Paper Company. Le coût de production comprend des salaires de 600\,\$.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Revenus} & & \textbf{Dépenses} & \\
+         \hline
+         Manuf.\ & 1\,000 & Salaires & 600 & Investissement & 1\,000 \\
+         & & Profits & 400 & & \\
+         \hline
+         \textbf{Total} & \textbf{1\,000} & \textbf{Total} & \textbf{1\,000} & \textbf{Total} & \textbf{1\,000}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Une entreprise qui achète un bien en capital $=$ \textbf{investissement}, pas de la consommation.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Exemple : stocks (année 1)}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Exemple}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      Dunder Mifflin produit 500 tonnes de papier d'une valeur de 400\,\$ et les entrepose en attendant des acheteurs. Le coût de production comprend 500\,\$ en salaires.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Revenus} & & \textbf{Dépenses} & \\
+         \hline
+         Manuf.\ & 400 & Salaires & 500 & Investissement & 400 \\
+         & & Profits & (100) & & \\
+         \hline
+         \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Biens invendus $=$ \textbf{investissement en inventaires}. Le PIB capte toute la production, même sans qu'une vente ait lieu.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Exemple : stocks (année 2)}
+   \footnotesize
+   \begin{tcolorbox}[
+      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
+      title=\textbf{Exemple}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
+      top=3pt, bottom=3pt, left=6pt, right=6pt
+   ]
+      L'année suivante, Dunder Mifflin vend finalement son papier d'une valeur de 400\,\$.
+      \vspace{0.1cm}
+
+      \renewcommand{\arraystretch}{1.1}
+      \centering
+      \begin{tabularx}{\linewidth}{X r >{\hspace{0.15cm}}X r >{\hspace{0.15cm}}X r}
+         \rowcolor{HECnavy!10}
+         \textbf{Production} & & \textbf{Revenus} & & \textbf{Dépenses} & \\
+         \hline
+         & & & & Consommation & 400 \\
+         & & & & Investissement & (400) \\
+         \hline
+         \textbf{Total} & \textbf{0} & \textbf{Total} & \textbf{0} & \textbf{Total} & \textbf{0}
+      \end{tabularx}
+   \end{tcolorbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Vente à partir des stocks : $C$ augmente, $I$ diminue $\to$ PIB $=$ 0. La production avait déjà été comptée à l'année~1.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Part de l'investissement dans le PIB au Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{investment_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize L'investissement est la composante la plus \textbf{volatile} --- il chute fortement en récession.
+\end{frame}
+
+% ── Dépenses gouvernementales ───────────────────────────────────────────────
+
+\begin{frame}[t]{Dépenses gouvernementales ($G$)}
+   \small
+   Le gouvernement est un producteur \textbf{majeur} de biens et services :
+   \vspace{0.1cm}
+   \begin{itemize}
+      \footnotesize
+      \setlength\itemsep{0.05cm}
+      \item Défense, éducation, santé, infrastructures (routes, ponts, transport en commun)
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{defbox}[Évalué au coût]
+      Souvent sans prix de marché, donc $G$ est mesuré par le \textbf{coût des intrants}.
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{warning}[Transferts $\neq$ dépenses gouvernementales]
+      Les transferts (assurance-emploi, pensions, aide sociale) ne font \textbf{pas} partie de $G$ : ils redistribuent le revenu existant, sans nouvelle production.
+   \end{warning}
+\end{frame}
+
+\begin{frame}{Part de $G$ dans le PIB au Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{government_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Dépenses en hausse lors des récessions, mais en baisse tendancielle depuis les années 1990.
+\end{frame}
+
+% ── Exportations et importations ───────────────────────────────────────────────
+
+\begin{frame}[t]{Exportations et importations ($NX$)}
+   $C$, $I$ et $G$ incluent les dépenses en biens \textbf{étrangers} (importations).\\[4pt]
+   Puisque le PIB mesure la production \textit{intérieure}, il faut une correction :
+   \vspace{0.1cm}
+   \begin{equation*}
+      Y = \underbrace{C + I + G}_{\text{dépenses totales}} + \underbrace{X - M}_{\text{export.\ nettes}}
+   \end{equation*}
+   \vspace{-0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item $X$ (exportations) : production intérieure vendue à l'étranger
+      \item $M$ (importations) : production étrangère déjà comptée dans $C$, $I$, $G$
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{defbox}[Ouverture commerciale]
+      $(X + M) / Y$ mesure l'importance du commerce pour une économie.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Part du commerce dans le PIB au Canada}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{trade_share_gdp.png}
+   \end{figure}
+   \vspace{-0.4cm}
+   \footnotesize Le Canada est très ouvert. Le commerce a culminé avec l'ALENA (1994), puis légèrement diminué.
+\end{frame}
+
+\begin{frame}[t]{Entraîner votre détecteur de \guillemotleft~BS~\guillemotright}
+   \footnotesize
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.42\textwidth}
+         \includegraphics[width=\linewidth, height=0.65\textheight, keepaspectratio]{misleading_GDP_accounting.png}\\[-2pt]
+         {\scriptsize\textcolor{HECgray}{Source: \textit{The Economist}, 2025}}
+      \end{column}
+      \hspace{-2cm}
+      \begin{column}{0.54\textwidth}
+         Au T1 2025, le PIB américain a reculé. On a blâmé les importations : \guillemotleft~le déficit commercial a retranché 5~pp à la croissance~\guillemotright.
+         \vspace{0.15cm}
+         \begin{warning}[C'est trompeur]
+            \footnotesize
+            Les importations entrent dans le calcul du PIB \textbf{deux fois} : \textit{ajoutées} dans $C$/$I$/$G$, puis \textit{soustraites} dans $NX$.\\[8pt]
+            Les consommateurs et entreprises qui devancent leurs importations avant les tarifs : $\uparrow C/I$, $\downarrow NX$. Les deux s'annulent.
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{PIB par les dépenses : comparaison internationale}
+   \vspace{-0.15cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.62\textheight, keepaspectratio]{gdp_decomposition_4countries.png}
+   \end{figure}
+   \vspace{-0.25cm}
+   \begin{keyinsight}[Différents modèles de croissance]
+      Chine : investissement ($I$ = 41\,\%). É.-U.\ : consommation ($C$ = 68\,\%).
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Ce que le PIB ne mesure \textit{pas}}
+   Le PIB ne comptabilise que les \textbf{transactions marchandes}. Beaucoup d'activité économique est omise :
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Production domestique} --- cuisine, garde d'enfants, réparations à domicile
+      \item \textbf{Bénévolat} --- services communautaires, organismes de bienfaisance
+      \item \textbf{Économie souterraine} --- revenus non déclarés, travail informel
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{keyinsight}[Sexe, drogues et PIB]
+      En 2014, l'UE a exigé l'inclusion des activités illégales (drogues, prostitution) dans le PIB. Le PIB de l'Italie a bondi de 18\,\% du jour au lendemain\ldots
+      \hfill{\scriptsize\textit{\color{black!50}The Economist, 2014}}
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Peut-on se fier aux chiffres du PIB?}
+   \centering
+   \includegraphics[height=0.75\textheight, keepaspectratio]{china_transparency.png}
+\end{frame}
+
+\begin{frame}[t]{Manipulation du PIB : trois mises en garde}
+   \small
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item \textbf{Chine :} séries statistiques discontinuées, provinces alignant leurs chiffres sur les cibles centrales\ldots Les autocraties surestiment la croissance de $\sim$35\,\% en moyenne.
+         \\{\scriptsize\textcolor{HECgray}{Martinez, ``How Much Should We Trust the Dictator's GDP Growth Estimates?'' \textit{JPE}, 2022}}
+      \item \textbf{Venezuela :} banque centrale muette sur le PIB et l'inflation de 2016 à 2019; à la reprise, elle a révélé une contraction cumulative de $\sim$47\,\%
+         \\{\scriptsize\textcolor{HECgray}{IMF World Economic Outlook; Banco Central de Venezuela, 2019}}
+      \item \textbf{Grèce :} déficit de 2009 déclaré à 3,7\,\% du PIB, révisé à 15,4\,\% --- 4$\times$ le chiffre initial, déclenchant la crise de la dette européenne
+         \\{\scriptsize\textcolor{HECgray}{European Commission, Report on Greek Government Deficit and Debt Statistics, 2010}}
+   \end{itemize}
+   \begin{bizimplication}[Vérification diligente]
+      \footnotesize Restez critiques des statistiques officielles. Vérifiez avec des données alternatives.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}[t]{Quand les données manquent à l'appel\ldots}
+   \footnotesize
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Lumières nocturnes par satellite :} luminosité $\approx$ activité économique --- aussi informatif que le PIB officiel pour les pays aux données lacunaires,
+         {\scriptsize\textcolor{HECgray}{(Henderson et al., \textit{AER}, 2012).}}
+      \item \textbf{Données portuaires :} volumes d'expédition, tirant d'eau AIS, douanes, débit de conteneurs révèlent des flux que les statistiques sous-estiment.
+      \item \textbf{Apprentissage automatique :} algorithmes détectant les pétroliers qui coupent leurs transpondeurs pour contourner les sanctions (\guillemotleft~dark shipping~\guillemotright),
+         {\scriptsize\textcolor{HECgray}{(Fernández-Villaverde et al., NBER WP 33486, 2025).}}
+      \item \textbf{Prix en ligne :} prix de détail collectés sur le web, suivant l'inflation au quotidien --- ont révélé la manipulation de l'IPC argentin,
+         {\scriptsize\textcolor{HECgray}{(Cavallo \& Rigobon, \textit{JEP}, 2016).}}
+      \item \textbf{Téléphonie mobile :} densité des appels et achats de temps d'antenne $\approx$ consommation dans les pays en développement.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Quand l'obscurité nous éclaire\ldots}
+   \centering
+   \includegraphics[height=0.75\textheight, keepaspectratio]{korea_space.png}
+\end{frame}
+
+\begin{frame}[t]{Quand l'obscurité nous éclaire\ldots}
+   \centering
+   \includegraphics[height=0.8\textheight, keepaspectratio]{gdp_manipulation.png}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Aperçu du cours et logistique}
+      \item {\color{gray!50}Mesurer l'économie : le PIB}
+      \item \textbf{Comparer le PIB dans le temps}
+      \item Comparer le PIB entre pays
+      \item Au-delà du PIB
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Comparer le PIB dans le temps}
+% ============================================================================
+
+\begin{frame}{Croissance du PIB nominal au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_nominal_canada.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{PIB et prix}
+   \begin{defbox}
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{PIB nominal} = production évaluée aux prix \textit{courants}
+         \item \textbf{PIB réel} = production évaluée à prix \textit{constants} (année de référence)
+         \item \textbf{Déflateur du PIB} = $\frac{\text{PIB nominal}}{\text{PIB réel}} \times 100$
+      \end{itemize}
+   \end{defbox}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      Le PIB nominal est contaminé par les variations de prix. Le PIB réel isole les variations de quantité, mesurant la vraie croissance de la \textit{production}.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Et si la hausse des prix reflète une qualité supérieure?}
+   \small
+   Quand un bien/service \textbf{s'améliore}, une partie de la hausse de prix reflète sa qualité :
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Voitures neuves :} prix moyen de $\sim$23K\,\$ (2005) à $\sim$48K\,\$ (2024) --- mais 10+ coussins gonflables, conduite assistée, caméra de recul, durée de vie doublée
+      \item \textbf{Médicaments anticancer :} de $\sim$10K\,\$/an (2000) à $>$100K\,\$ (immunothérapies) --- mais mortalité par cancer $-$34\,\% depuis 1991
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{keyinsight}
+      Les agences statistiques ajustent pour cela (\textbf{prix hédoniques}), mais l'amélioration de qualité réelle est $\sim$\textbf{3$\times$} ce qu'elles mesurent. Surestimer l'inflation $=$ sous-estimer la croissance du PIB réel\ldots
+      \hfill{\scriptsize\textcolor{HECgray}{Bils \& Klenow, \textit{AER}, 2001}}
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{L'inflation est de retour\ldots}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[bloomberg]{Bloomberg}{``The Affordability Crisis Should Have Been Over By Now''}
+      \newsheadline[washpost]{The Washington Post}{``Rising prices fueled by tariffs, delayed inflation report shows''}
+      \newsheadline[globeandmail]{The Globe and Mail}{``Canada's inflation rate rises to 2.4\% as grocery prices surge''}
+      \newsheadline[ledevoir]{Le Devoir}{``Vers une nouvelle hausse du prix des aliments en 2026''}
+      \newsheadline[wsj]{The Wall Street Journal}{``Trump's Tariffs Cost the Average Household \$1,000 Last Year''}
+      \newsheadline[lapresse]{La Presse}{``L'inflation alimentaire ne disparaîtra pas de sitôt''}
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Qu'est-ce que l'inflation?}
+   \begin{defbox}[Inflation]
+      Le taux de variation en \% du \textbf{niveau général des prix} entre deux périodes.
+   \end{defbox}
+
+   \begin{equation*}
+      \pi_t = \frac{P_t - P_{t-1}}{P_{t-1}} = \%\Delta P \quad \text{où $P_t =$ niveau des prix au temps $t$}
+   \end{equation*}
+
+   \vspace{0.3cm}
+
+   \textbf{Question clé :} comment mesurer $P_t$?
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Déflateur du PIB :} prix de tous les biens produits domestiquement (large)
+      \item \textbf{Indice des prix à la consommation (IPC) :} prix d'un panier de biens de consommation (le plus courant)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Inflation récente au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_cpi_deflator_canada.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Inflation globale vs.\ de base}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_headline_core_canada.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Indicateurs d'inflation à haute fréquence}
+   \small
+   Collecter \textbf{des millions de prix en ligne chaque jour} : alternative en temps réel à l'IPC
+   \vspace{0.1cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.92\textwidth, height=0.72\textheight, keepaspectratio]{inflation_highfreq_cavallo.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Biais des nouveaux produits et le prix de la lumière}
+   \small
+   Quand un \textbf{nouveau} produit apparaît, il n'a pas de prédécesseur. Comment mesurer sa contribution à l'inflation?
+   \vspace{0.25cm}
+   \begin{keyinsight}[Le prix de la lumière (Nordhaus, 1997)]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \item Qu'achetons-nous avec une bougie, une lampe à kérosène, une ampoule?
+         \item Nous achetons de la \textbf{lumière} --- des lumens!
+         \item Des bougies aux DEL, le vrai coût par lumen a été divisé par $\sim$500.
+         \item Mais les prix suivent les \textbf{produits} (bougies, lampes), pas les lumens.
+         \item Chaque saut technologique \textbf{réinitialise} la comparaison; révolution invisible.
+      \end{itemize}
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Aperçu du cours et logistique}
+      \item {\color{gray!50}Mesurer l'économie : le PIB}
+      \item {\color{gray!50}Comparer le PIB dans le temps}
+      \item \textbf{Comparer le PIB entre pays}
+      \item Au-delà du PIB
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Comparer le PIB entre pays}
+% ============================================================================
+
+\begin{frame}{L'économie mondiale en un coup d'œil}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.75\textheight, keepaspectratio]{gdp_ppp_world.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize La Chine a dépassé les É.-U.\ en termes de PPA --- mais que signifie \guillemotleft~PPA~\guillemotright?
+\end{frame}
+
+\begin{frame}[t]{Comment comparer des unités différentes?}
+   \small
+
+   \textbf{Deux façons de convertir le PIB en devise commune :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Taux de change du marché :}  $\smallquad e^N = \mathdollar_D / \mathdollar_F$
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Largement disponibles et mis à jour fréquemment
+         \item Problème : très volatils, et ignorent les différences de niveaux de prix
+      \end{itemize}
+      \item \textbf{Parité de pouvoir d'achat (PPA) :} $\smallquad e^{PPA} = P_D / P_F$
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Meilleures comparaisons de niveaux de vie
+         \item Un dollar achète plus à Lagos qu'à New York
+         \item Les biens/services sont-ils comparables d'un pays à l'autre?
+         \item Mis à jour moins fréquemment
+         \item Taux de change réel : $e^R = e^N / e^{PPA}$
+      \end{itemize}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Prix plus élevés dans les pays riches (effet Balassa-Samuelson)}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{L'indice Big Mac}
+   \small
+   \vspace{-0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.6\textwidth}
+         \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth, height=0.82\textheight, keepaspectratio]{big_mac_index.png}
+         \end{figure}
+      \end{column}
+      \begin{column}{0.37\textwidth}
+         Un Big Mac est (grosso modo) le même produit partout $\to$ mesure grossière de la PPA
+         \vspace{0.2cm}
+
+         \textbf{Exemple (Suisse) :}
+         \vspace{0.05cm}
+         \begin{itemize}
+            \setlength\itemsep{0.05cm}
+            \footnotesize
+            \item En Suisse : 6,90 CHF
+            \item Aux É.-U.\ : 5,69\,\$
+            \item PPA : $\frac{6{,}90}{5{,}69} = 1{,}21 \text{ CHF} / \mathdollar$
+            \item Taux du marché $\approx 0{,}88 \text{ CHF} / \mathdollar$
+            \item Le CHF est \textbf{surévalué}
+         \end{itemize}
+         \vspace{0.15cm}
+         {\footnotesize Publié par \textit{The Economist} depuis 1986 --- mi-sérieux, mi-amusant}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
+   \small
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Le \textbf{PIB réel} mesure la taille totale de l'économie
+      \item Le \textbf{PIB réel par habitant} mesure le niveau de vie moyen
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Stratégie de marché]
+      \small Vous vendez des sacs à main de luxe. Viser un pays au PIB élevé ou au PIB par habitant élevé? Et si vous vendez des biens abordables à faibles marges?
+   \end{bizimplication}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Rémunération]
+      \small Vos employés demandent une hausse car \guillemotleft~l'économie croît~\guillemotright. Le PIB a progressé de 15\,\% en 10 ans. Bon argument pour de meilleurs salaires?
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_canada_usa.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_per_capita_canada_usa.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{PIB vs.\ PIB par habitant à travers le monde}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{gdp_vs_gdp_per_capita.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize Grande économie $\neq$ population riche. L'Inde a un PIB massif mais un PIB par habitant modeste.
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.35cm}
+      \item {\color{gray!50}Aperçu du cours et logistique}
+      \item {\color{gray!50}Mesurer l'économie : le PIB}
+      \item {\color{gray!50}Comparer le PIB dans le temps}
+      \item {\color{gray!50}Comparer le PIB entre pays}
+      \item \textbf{Au-delà du PIB}
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Au-delà du PIB}
+% ============================================================================
+
+\begin{frame}[t]{Tout ce qui est comptable sauf ce qui compte?}
+   \small
+   Le PIB est utile mais incomplet. Il omet :
+   \vspace{0.25cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Inégalités :} le PIB peut croître même si la majorité s'appauvrit
+      \item \textbf{Loisir :} travailler 80h/sem.\ augmente le PIB, peut-être pas le bien-être
+      \item \textbf{Santé :} espérance de vie, santé mentale, morbidité
+      \item \textbf{Environnement :} pollution, épuisement des ressources, climat
+      \item \textbf{Liberté politique :} démocratie, droits de la personne, corruption
+      \item \textbf{Sécurité :} criminalité, conflits, terrorisme
+      \item \textbf{Autres dimensions?}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+   \small
+   \begin{quotation}
+      Our gross national product, now, is over \$800 billion dollars a year, but that gross national product–if we judge the United States of America by that–that gross national product counts air pollution and cigarette advertising, and ambulances to clear our highways of carnage. It counts special locks for our doors and the jails for the people who break them. It counts the destruction of the redwood and the loss of our natural wonder in chaotic sprawl. It counts napalm and counts nuclear warheads and armored cars for the police to fight the riots in our cities. It counts Whitman's rifle and Speck's knife, and the television programs which glorify violence in order to sell toys to our children. Yet the gross national product does not allow for the health of our children, the quality of their education or the joy of their play. It does not include the beauty of our poetry or the strength of our marriages, the intelligence of our public debate or the integrity of our public officials. It measures neither our wit nor our courage, neither our wisdom nor our learning, neither our compassion nor our devotion to our country, it measures everything in short, except that which makes life worthwhile. And it can tell us everything about America except why we are proud that we are Americans.
+      \hfill{\scriptsize\textcolor{HECgray}{Robert F. Kennedy, 1968}}
+   \end{quotation}
+\end{frame}
+
+\begin{frame}{Indice de développement humain (IDH)}
+   Indice développé par l'ONU avec trois ingrédients :
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Santé :} espérance de vie à la naissance
+      \item \textbf{Éducation :} scolarité moyenne (adultes) + scolarité attendue (enfants)
+      \item \textbf{Niveau de vie :} RNB par habitant (ajusté en PPA)
+   \end{itemize}
+   \vspace{0.5cm}
+   Quels sont les \textbf{avantages et inconvénients} vs.\ le PIB par habitant?
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Capte plus de dimensions du bien-être, pas seulement le revenu
+      \item Pondération et échelle arbitraires
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{IDH vs.\ PIB par habitant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{hdi_vs_gdp_per_capita.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Au-delà du PIB : Jones \& Klenow (2016)}
+   \small
+   \textbf{Idée clé :} le PIB par habitant omet des dimensions importantes du bien-être
+   \vspace{0.05cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Combien de conso. supp. faut-il aux É.-U.\ pour égaler le bien-être du pays $X$?
+      \item Intègre \textbf{consommation}, \textbf{espérance de vie}, \textbf{loisir} et \textbf{inégalités} en unités équiv.
+      \item Fondé sur la théorie économique, pas sur des pondérations ad hoc
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{keyinsight}[Résultats clés]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item \textbf{Europe de l'Ouest : bien-être plus proche des É.-U.\ que le PIB} \\
+         {\small Loisirs, longue vie, égalité}
+         \item \textbf{Pays pauvres : bien-être \textit{encore plus faible} que le PIB} \\
+         {\small Vie courte, faible conso./loisir, inégalités}
+      \end{itemize}
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Au-delà du PIB : bien-être vs.\ PIB par habitant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{beyond_gdp.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \footnotesize Au-dessus de la droite à 45$^\circ$ $\to$ bien-être supérieur au PIB. En dessous $\to$ bien-être inférieur.
+\end{frame}
+
+\begin{frame}{}
+   \centering
+   \vspace{1.5cm}
+   {\Large\textbf{Qu'est-ce que vous retenez de cette séance?}}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Et pour la suite?}
+% ============================================================================
+
+\begin{frame}{Thèmes et séances à venir}
+   \renewcommand{\arraystretch}{1.5}
+   \centering
+   \small
+   \begin{tabularx}{\textwidth}{>{\bfseries}X l}
+      \toprule
+      \textbf{Thème} & \textbf{Séance} \\
+      \midrule
+      Pourquoi certains pays sont-ils plus riches? & S2 : Croissance de long terme \\
+      Quels sont les moteurs des inégalités? & S3 : Marché du travail \\
+      Pourquoi l'économie connaît des hauts et des bas? & S4 : Cycles économiques \\
+      Pourquoi/comment combattre les récessions? & S5 : Pol.\ mon.\ et budgétaire \\
+      Quel avenir pour la mondialisation? & S6 : Commerce international \\
+      \bottomrule
+   \end{tabularx}
+\end{frame}
+
+\end{document}

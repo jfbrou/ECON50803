@@ -60,7 +60,7 @@
    \vspace{0.05cm}%
    \hbox to \paperwidth{%
       \hspace{1.2cm}%
-      {\scriptsize\textcolor{HECgray}{ECON 50803\enspace\textbar\enspace Macroeconomic environment}}%
+      {\scriptsize\textcolor{HECgray}{ECON 50803\enspace\textbar\enspace Environnement macroéconomique}}%
       \hfill%
       {\scriptsize\textcolor{HECgray}{\insertframenumber}}%
       \hspace{1.2cm}%
@@ -91,7 +91,7 @@
 \apptocmd{\frame}{}{\justifying}
 
 % --- Paths ------------------------------------------------------------------
-\graphicspath{{../Figures_EN/}}
+\graphicspath{{../Figures/}}
 \newcommand*\includetables[1]{\input{../Tables/#1.tex}}
 
 % --- Mathematical commands --------------------------------------------------
@@ -162,7 +162,7 @@
 % ============================================================================
 
 % Key Insight (green accent)
-\newtcolorbox{keyinsight}[1][Key insight]{%
+\newtcolorbox{keyinsight}[1][Point clé]{%
    colback=HECgreen!5,
    colframe=HECgreen,
    boxrule=0pt,
@@ -176,7 +176,7 @@
 }
 
 % Business Implication (navy accent)
-\newtcolorbox{bizimplication}[1][Business implication]{%
+\newtcolorbox{bizimplication}[1][Implication d'affaires]{%
    colback=HECnavy!5,
    colframe=HECnavy,
    boxrule=0pt,
@@ -204,7 +204,7 @@
 }
 
 % Definition (gray background)
-\newtcolorbox{defbox}[1][Definition]{%
+\newtcolorbox{defbox}[1][Définition]{%
    colback=HEClightgray,
    colframe=HEClightgray,
    boxrule=0pt,
@@ -218,7 +218,7 @@
 }
 
 % In-Class Exercise (coral accent)
-\newtcolorbox{exercise}[1][Exercise]{%
+\newtcolorbox{exercise}[1][Exercice]{%
    colback=HECcoral!5,
    colframe=HECcoral,
    boxrule=0pt,
@@ -241,7 +241,7 @@
 %
 % Headlines are auto-positioned in a 2×3 staggered grid (left/right alternating).
 %
-% Logo support: place PNG files in Figures_EN/logos/ (e.g., ft.png, economist.png).
+% Logo support: place PNG files in Figures/logos/ (e.g., ft.png, economist.png).
 % Use the optional argument to specify the logo file (without extension):
 %   \newsheadline[ft]{Financial Times}{Headline text}   % logo + bold headline
 %   \newsheadline{The Economist}{``Headline text''}      % text-only fallback
