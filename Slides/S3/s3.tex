@@ -1,0 +1,862 @@
+\documentclass[aspectratio=169]{beamer}
+\input{../preamble.tex}
+
+\title{Marché du travail, inégalités et IA}
+\author{Jean-Félix Brouillette}
+\date{Séance 3}
+
+\begin{document}
+
+% ============================================================================
+\titleframe
+% ============================================================================
+
+% --- Opening Hook: Headlines ---
+{
+\setbeamertemplate{footline}{}
+\begin{frame}[plain]
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline{Radio-Canada}{\guillemotleft~Le taux de chômage atteint 6,8\,\% au Canada --- le plus haut depuis 2017~\guillemotright}
+      \newsheadline{Financial Times}{\guillemotleft~US labor shortages persist in healthcare and construction~\guillemotright}
+      \newsheadline{Le Devoir}{\guillemotleft~L'IA pourrait toucher 40\,\% des emplois selon le FMI~\guillemotright}
+      \newsheadline{The Economist}{\guillemotleft~Immigration is reshaping rich-world labor markets~\guillemotright}
+      \newsheadline{La Presse}{\guillemotleft~Les inégalités de revenus au Canada n'ont jamais été aussi élevées~\guillemotright}
+      \newsheadline{Bloomberg}{\guillemotleft~AI is coming for white-collar jobs this time~\guillemotright}
+      \headlinesoverlay{Qui gagne, qui perd?}
+   \end{tikzpicture}
+\end{frame}
+}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Indicateurs du marché du travail}
+      \item Un modèle simple d'offre et de demande
+      \item Applications
+      \item Inégalités et mondialisation
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Indicateurs du marché du travail}
+% ============================================================================
+
+\begin{frame}[t]{Trois catégories}
+   \small
+   La population en âge de travailler se divise en trois groupes :
+   \vspace{0.2cm}
+   \begin{center}
+   \begin{tikzpicture}[
+      node distance=1.5cm,
+      box/.style={draw=HECnavy, rounded corners=6pt, thick, minimum width=3cm,
+                  minimum height=1cm, align=center, font=\small\bfseries},
+      arr/.style={-{Stealth[length=5pt]}, thick, HECgray}
+   ]
+      \node[box, fill=HECgreen!10] (E) {Employés\\($E$)};
+      \node[box, fill=HECcoral!10, right=2.5cm of E] (U) {Chômeurs\\($U$)};
+      \node[box, fill=HEClightgray, below=1.5cm of $(E)!0.5!(U)$] (I) {Inactifs\\($I$)};
+
+      \draw[arr, bend left=15] (E) to node[above, font=\scriptsize] {licenciement} (U);
+      \draw[arr, bend left=15] (U) to node[below, font=\scriptsize] {embauche} (E);
+      \draw[arr, bend left=15] (U) to node[right, font=\scriptsize] {retrait} (I);
+      \draw[arr, bend left=15] (I) to node[left, font=\scriptsize] {recherche} (U);
+      \draw[arr, bend right=15] (E) to node[left, font=\scriptsize] {retraite} (I);
+      \draw[arr, bend right=15] (I) to node[right, font=\scriptsize] {retour} (E);
+   \end{tikzpicture}
+   \end{center}
+   \vspace{0.1cm}
+   \begin{defbox}
+      \textbf{Chômeur} = sans emploi, disponible et en \textbf{recherche active}. Quelqu'un qui ne cherche pas n'est pas chômeur --- il est \textbf{inactif}.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}[t]{Trois ratios essentiels}
+   \small
+   \begin{defbox}[Indicateurs du marché du travail]
+      \begin{align*}
+         \text{Taux de participation} &= \frac{E + U}{\text{Pop.\ en âge de travailler}} \times 100 \\[4pt]
+         \text{Taux d'emploi} &= \frac{E}{\text{Pop.\ en âge de travailler}} \times 100 \\[4pt]
+         \text{Taux de chômage} &= \frac{U}{E + U} \times 100
+      \end{align*}
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{keyinsight}
+      Le taux de chômage seul ne suffit pas : il ne capte ni les travailleurs \textbf{découragés} ni le sous-emploi. Il faut regarder les trois indicateurs ensemble.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Le marché du travail américain}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{labor_market_indicators_us.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Attention aux données}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \textbf{Deux enquêtes, deux réponses :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item \textbf{Enquête auprès des ménages} : participation, chômage (auto-déclaré)
+            \item \textbf{Enquête auprès des établissements} : emplois salariés (paie)
+            \item Les deux ne donnent pas toujours le \textbf{même signal}
+         \end{itemize}
+         \vspace{0.15cm}
+         \textbf{Ajustements saisonniers :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Noël, construction d'été, rentrée scolaire
+            \item Les chiffres \textit{bruts} peuvent induire en erreur
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \vspace{0.2cm}
+         \centering
+         \includegraphics[width=\textwidth, keepaspectratio]{jobs_report_response.png}\\[4pt]
+         {\footnotesize\textcolor{HECgray}{Les marchés réagissent en secondes au rapport mensuel sur l'emploi}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas?}
+   \footnotesize
+   \begin{warning}[Limites du taux de chômage]
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item \textbf{Travailleurs découragés :} ont cessé de chercher $\to$ classés inactifs, pas chômeurs
+         \item \textbf{Sous-emploi :} travaillent à temps partiel faute de trouver un emploi à temps plein
+         \item \textbf{Qualité des emplois :} le taux ne distingue pas un emploi précaire d'un emploi stable
+         \item \textbf{Effet de composition :} une baisse du chômage peut refléter des \textit{retraits} du marché, pas des embauches
+      \end{itemize}
+   \end{warning}
+   \vspace{0.1cm}
+   \begin{bizimplication}
+      Pour évaluer la santé réelle du marché du travail, regardez le taux de participation, le ratio emploi/population \textbf{et} les mesures de sous-emploi (U-6 aux États-Unis).
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{Transition}
+   Nous pouvons \textit{mesurer} le marché du travail avec précision.
+   \vspace{0.3cm}
+
+   Mais qu'est-ce qui \textbf{détermine} le niveau d'emploi et les salaires?
+   \vspace{0.3cm}
+
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Pourquoi certains pays ont-ils plus de chômage que d'autres?
+      \item Qu'arrive-t-il aux salaires quand la population augmente?
+      \item Comment l'immigration affecte-t-elle le marché du travail?
+   \end{itemize}
+   \vspace{0.3cm}
+   Pour répondre, il nous faut un modèle $\to$ \textbf{offre et demande de travail}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Indicateurs du marché du travail}
+      \item \textbf{Un modèle simple d'offre et de demande}
+      \item Applications
+      \item Inégalités et mondialisation
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Un modèle simple d'offre et de demande}
+% ============================================================================
+
+\begin{frame}[t]{L'offre de travail}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{Pente positive :} un salaire plus élevé incite davantage de personnes à travailler.
+         \vspace{0.15cm}
+
+         \textbf{Déterminants (déplacements) :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item \textbf{Population} : immigration, démographie
+            \item \textbf{Préférences} : participation des femmes, retraite
+            \item \textbf{Revenu hors travail} : transferts sociaux, patrimoine
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.85]
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
+            \draw[HECgreen, very thick, dashed] (1.5,0.5) -- (5,3.5)
+               node[right, font=\small] {$N^{S\prime}$};
+            \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
+         \end{tikzpicture}
+         \vspace{0.1cm}
+
+         {\footnotesize\textcolor{HECgray}{$\uparrow$ population $\to$ $N^S$ se déplace à droite}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{La demande de travail}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{Pente négative :} les entreprises embauchent tant que le \textbf{produit marginal} $\geq$ salaire.
+         \vspace{0.15cm}
+
+         \begin{defbox}[Règle d'embauche]
+            Embaucher tant que $\text{PML} = w/P$
+         \end{defbox}
+         \vspace{0.1cm}
+
+         \textbf{Déterminants (déplacements) :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item \textbf{Productivité} ($A$) : technologie
+            \item \textbf{Capital} ($K$) : machines, équipement
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.85]
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            \draw[HECgreen, very thick, dashed] (1.5,4.5) -- (5.5,1)
+               node[right, font=\small] {$N^{D\prime}$};
+            \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
+         \end{tikzpicture}
+         \vspace{0.1cm}
+
+         {\footnotesize\textcolor{HECgray}{$\uparrow$ productivité $\to$ $N^D$ se déplace à droite}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{L'équilibre}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         L'intersection donne :
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $N^*$ = emploi d'équilibre
+            \item $w^*$ = salaire d'équilibre
+         \end{itemize}
+         \vspace{0.2cm}
+         \begin{keyinsight}
+            À l'équilibre, le salaire reflète la \textbf{productivité marginale} du dernier travailleur embauché.
+         \end{keyinsight}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.85]
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            % Intersection
+            \filldraw[HECgreen] (2.35,2.15) circle (3pt);
+            \draw[dashed, HECgray] (2.35,0) node[below] {$N^*$} -- (2.35,2.15);
+            \draw[dashed, HECgray] (0,2.15) node[left] {$w^*$} -- (2.35,2.15);
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Deux horizons temporels}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{Court terme ($\sim$1 an)}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Le capital ($K$) est \textbf{fixe}
+            \item Seul le travail s'ajuste
+            \item Un choc d'offre (ex.\ immigration) modifie $w$ et $N$
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECnavy}{Long terme ($\sim$5+ ans)}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Le capital \textbf{s'ajuste} (Solow!)
+            \item Plus de travailleurs $\to$ rendement du capital $\uparrow$ $\to$ investissement $\uparrow$
+            \item $K \uparrow$ $\to$ $N^D$ se déplace à droite
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \begin{defbox}
+      \textbf{Court terme :} $K$ fixe, seul $N$ s'ajuste.\\
+      \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow $\to$ nouvel équilibre.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{Le modèle en action}
+   Nous allons maintenant utiliser ce modèle pour analyser quatre phénomènes réels :
+   \vspace{0.3cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item La participation des femmes au marché du travail
+      \item Le vieillissement démographique
+      \item L'immigration (court terme vs long terme)
+      \item Le déclin de la participation masculine
+   \end{enumerate}
+   \vspace{0.3cm}
+   Dans chaque cas : quel choc? Quelle courbe se déplace? Quel effet sur $w$ et $N$?
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Indicateurs du marché du travail}
+      \item {\color{gray!50}Un modèle simple d'offre et de demande}
+      \item \textbf{Applications}
+      \item Inégalités et mondialisation
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Applications}
+% ============================================================================
+
+\begin{frame}[t]{La participation des femmes}
+   \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+         \vspace{-0.2cm}
+         \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{participation_gender.png}
+         \end{figure}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \small
+         \textbf{Le choc :} déplacement massif de $N^S$ vers la droite (1960--2000).
+         \vspace{0.15cm}
+
+         \textbf{Court terme :}
+         \begin{itemize}
+            \setlength\itemsep{0.05cm}
+            \item Plus de travailleurs $\to$ $N \uparrow$
+            \item Pression à la baisse sur $w$
+         \end{itemize}
+         \vspace{0.1cm}
+
+         \textbf{Long terme :}
+         \begin{itemize}
+            \setlength\itemsep{0.05cm}
+            \item $K$ s'ajuste $\to$ $N^D$ se déplace
+            \item Les salaires se rétablissent
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le vieillissement démographique}
+   \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+         \vspace{-0.2cm}
+         \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{aging_population.png}
+         \end{figure}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \small
+         \textbf{Le choc :} déplacement de $N^S$ vers la \textbf{gauche} (moins de travailleurs en âge actif).
+         \vspace{0.15cm}
+
+         \textbf{Conséquences :}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Pression haussière sur les salaires
+            \item Pénuries de main-d'œuvre
+            \item Pression sur les finances publiques (retraites, santé)
+         \end{itemize}
+         \vspace{0.1cm}
+         \begin{warning}[Défi]
+            Le Japon et l'Italie montrent l'avenir du Canada : qui paiera les retraites?
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Immigration : le court terme}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \centering
+         \textbf{Court terme ($K$ fixe)}
+         \vspace{0.2cm}
+
+         \begin{tikzpicture}[scale=0.85]
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+            % Original equilibrium
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            \filldraw[HECgray] (2.35,2.15) circle (2pt);
+            \draw[dashed, HECgray, thin] (0,2.15) node[left, font=\small] {$w^*$} -- (2.35,2.15);
+            % Shifted supply
+            \draw[HECnavy, very thick, dashed] (1.5,0.5) -- (5,3.5)
+               node[right, font=\small] {$N^{S\prime}$};
+            % New equilibrium
+            \filldraw[HECgreen] (2.85,1.75) circle (3pt);
+            \draw[dashed, HECgreen] (0,1.75) node[left, font=\small, text=HECgreen] {$w_1$} -- (2.85,1.75);
+            % Arrow showing wage drop
+            \draw[-{Stealth}, HECcoral, thick] (0.15,2.05) -- (0.15,1.85);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \vspace{0.3cm}
+         \small
+         L'immigration augmente l'offre de travail :
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $N^S$ se déplace à \textbf{droite}
+            \item Emploi $\uparrow$, salaires $\downarrow$
+            \item Le capital n'a pas eu le temps de s'ajuster
+         \end{itemize}
+         \vspace{0.15cm}
+         C'est l'effet que redoutent les opposants à l'immigration.
+
+         \vspace{0.15cm}
+         \textbf{Mais est-ce la fin de l'histoire?}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Immigration : le long terme}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \centering
+         \textbf{Long terme ($K$ s'ajuste)}
+         \vspace{0.2cm}
+
+         \begin{tikzpicture}[scale=0.85]
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+            % Shifted supply (now the baseline)
+            \draw[HECnavy, very thick] (1.5,0.5) -- (5,3.5) node[right] {$N^{S\prime}$};
+            % Original demand
+            \draw[HECgray, thick, dashed] (0.5,4) -- (4.5,0.5)
+               node[right, font=\small, text=HECgray] {$N^D$};
+            % SR equilibrium
+            \filldraw[HECgray] (2.85,1.75) circle (2pt);
+            \draw[dashed, HECgray, thin] (0,1.75) node[left, font=\small, text=HECgray] {$w_1$} -- (2.85,1.75);
+            % Shifted demand (K adjusts)
+            \draw[HECcoral, very thick] (1.5,4.5) -- (5.5,1)
+               node[right, font=\small] {$N^{D\prime}$};
+            % New LR equilibrium
+            \filldraw[HECgreen] (3.35,2.15) circle (3pt);
+            \draw[dashed, HECgreen] (0,2.15) node[left, font=\small, text=HECgreen] {$w^{**}$} -- (3.35,2.15);
+            % Arrow showing K adjustment
+            \draw[-{Stealth}, HECgreen, thick] (3.2,2.8) -- (4.0,2.8)
+               node[right, font=\scriptsize] {$K \uparrow$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \vspace{0.1cm}
+         \footnotesize
+         \textbf{Mécanisme d'ajustement (Solow) :}
+         \vspace{0.05cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.05cm}
+            \item Salaires $\downarrow$ $\to$ produit marginal du capital $\uparrow$
+            \item Investissement devient plus rentable
+            \item $K \uparrow$ $\to$ $N^D$ se déplace à droite
+            \item Salaires remontent vers $w^{**} \approx w^*$
+         \end{enumerate}
+         \vspace{0.1cm}
+         \begin{keyinsight}
+            À long terme, l'immigration \textbf{ne déprime pas} les salaires de façon permanente. Le capital s'ajuste.
+         \end{keyinsight}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le déclin de la participation (États-Unis)}
+   \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+         \vspace{-0.2cm}
+         \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{participation_decline_us.png}
+         \end{figure}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \small
+         Le taux de participation des hommes de 25--54 ans aux États-Unis décline depuis 1960.
+         \vspace{0.15cm}
+
+         \textbf{Facteurs :}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Crise des opioïdes
+            \item Invalidité (disability)
+            \item Incarcération de masse
+            \item Déclin du secteur manufacturier
+         \end{itemize}
+         \vspace{0.1cm}
+         \begin{warning}
+            \footnotesize Ce phénomène réduit l'offre effective de travail \textbf{sans} augmenter les salaires --- les travailleurs sortent du marché, pas vers de meilleurs emplois.
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Les conséquences du chômage}
+   \small
+   Le chômage a des coûts \textbf{bien au-delà} de la perte de revenu immédiate :
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Perte de revenus à vie :} 10--20\,\% de revenus en moins sur 15--20 ans après un licenciement (Jacobson, LaLonde \& Sullivan, 1993)
+      \item \textbf{Effets sur la santé :} risque accru de mortalité, dépression, stress chronique (Sullivan \& von Wachter, 2009)
+      \item \textbf{Perte de capital humain :} compétences qui se déprécient, difficulté de réinsertion
+      \item \textbf{Effets intergénérationnels :} les enfants de chômeurs ont de moins bons résultats scolaires et professionnels
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{bizimplication}
+      Le coût social du chômage justifie des politiques actives du marché du travail : formation, aide à la recherche d'emploi, assurance-emploi généreuse mais incitative.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{Transition}
+   Le marché du travail détermine les salaires et l'emploi\ldots
+   \vspace{0.3cm}
+
+   Mais \textbf{tous les travailleurs ne sont pas égaux} face au marché.
+   \vspace{0.3cm}
+
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Pourquoi les inégalités augmentent-elles dans les pays riches?
+      \item Quel rôle joue la mondialisation?
+      \item Le progrès technique profite-t-il à tout le monde?
+   \end{itemize}
+   \vspace{0.3cm}
+   $\to$ Les \textbf{inégalités} et leurs déterminants
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Indicateurs du marché du travail}
+      \item {\color{gray!50}Un modèle simple d'offre et de demande}
+      \item {\color{gray!50}Applications}
+      \item \textbf{Inégalités et mondialisation}
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Inégalités et mondialisation}
+% ============================================================================
+
+\begin{frame}{Les inégalités augmentent dans les pays riches}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth, height=0.75\textheight, keepaspectratio]{inequality_within_countries.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La courbe de l'éléphant}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.85\textwidth, height=0.55\textheight, keepaspectratio]{elephant.png}
+   \end{figure}
+   \vspace{-0.2cm}
+   \begin{keyinsight}
+      \small Les grands gagnants de la mondialisation : les classes moyennes des pays émergents et les très riches. Les grands perdants : les classes moyennes et ouvrières des pays avancés.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Explication 1 : le progrès technique biaisé}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.53\textwidth}
+         Le changement technologique depuis les années 1980 favorise les travailleurs \textbf{qualifiés} :
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Les TIC augmentent la demande de compétences cognitives non routinières
+            \item Les tâches \textbf{routinières} (manufacturières, administratives) sont automatisées
+            \item $N^D_{\text{qualifiés}} \uparrow$ et $N^D_{\text{non-qualifiés}} \downarrow$
+         \end{itemize}
+         \vspace{0.1cm}
+         $\to$ Écart salarial croissant entre qualifiés et non-qualifiés
+      \end{column}
+      \begin{column}{0.44\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, keepaspectratio]{routine_vs_nonroutine_jobs.jpg}\\[4pt]
+         {\footnotesize\textcolor{HECgray}{Emplois routiniers vs non routiniers}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Le \textit{skill premium}}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth, height=0.75\textheight, keepaspectratio]{inequality_skill_premium.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Explication 2 : la mondialisation et le choc chinois}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.53\textwidth}
+         \textbf{Autor, Dorn \& Hanson (2013)} : l'entrée de la Chine à l'OMC (2001) a provoqué un choc massif sur les marchés du travail américains.
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Régions exposées aux importations chinoises : chômage $\uparrow$, salaires $\downarrow$, transferts sociaux $\uparrow$
+            \item Effets \textbf{persistants} sur 15+ ans
+            \item Les travailleurs déplacés ne se reconvertissent pas facilement
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.44\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, keepaspectratio]{china_shock.png}\\[4pt]
+         {\footnotesize\textcolor{HECgray}{Le \guillemotleft~choc chinois~\guillemotright\ sur l'emploi manufacturier}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Explication 3 : l'érosion des institutions}
+   \begin{warning}[Facteurs institutionnels]
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{Déclin de la syndicalisation :} de $\sim$35\,\% dans les années 1950 à $\sim$10\,\% aujourd'hui (États-Unis). Moins de pouvoir de négociation pour les bas salaires.
+         \item \textbf{Salaire minimum stagnant :} en termes réels, le salaire minimum fédéral américain est plus bas qu'en 1968.
+         \item \textbf{Fiscalité régressive :} taux marginaux supérieurs en baisse depuis les années 1980 (de 70\,\% à 37\,\% aux États-Unis).
+         \item \textbf{Concentration du marché :} moins de concurrence $\to$ rentes captées par les entreprises dominantes.
+      \end{itemize}
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{La courbe de Gatsby}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth, height=0.5\textheight, keepaspectratio]{gatsby.png}
+   \end{figure}
+   \vspace{-0.2cm}
+   \begin{keyinsight}
+      \small Plus les inégalités de \textbf{revenus} sont élevées dans un pays, plus la \textbf{mobilité intergénérationnelle} est faible. L'inégalité des résultats et l'inégalité des chances sont \textbf{liées}.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{La part du travail dans le PIB diminue}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.85\textwidth, height=0.5\textheight, keepaspectratio]{labor_share_canada_usa.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \small
+   La part du revenu national versée au travail a diminué de $\sim$5 points de pourcentage depuis 1980. Cette baisse est concentrée dans le secteur manufacturier et reflète la réallocation vers des entreprises à faible part du travail (Kehrig \& Vincent, 2021).
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Indicateurs du marché du travail}
+      \item {\color{gray!50}Un modèle simple d'offre et de demande}
+      \item {\color{gray!50}Applications}
+      \item {\color{gray!50}Inégalités et mondialisation}
+      \item \textbf{IA et l'avenir du travail}
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{IA et l'avenir du travail}
+% ============================================================================
+
+\begin{frame}[t]{L'IA va-t-elle tout changer?}
+   \small
+   L'IA est la dernière vague d'une longue histoire d'automatisation :
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Métiers à tisser} (XIXe s.) : les Luddites craignaient la fin du travail
+      \item \textbf{Guichets automatiques} (1970s) : n'ont \textit{pas} éliminé les caissiers de banque --- ils ont transformé leur rôle (vers le conseil et la vente)
+      \item \textbf{Robots industriels} (1990s) : ont remplacé des emplois manufacturiers mais créé des emplois en maintenance et programmation
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      Historiquement, la technologie \textbf{transforme} les emplois plus qu'elle ne les \textbf{détruit}. Mais la vitesse et l'ampleur de l'IA pourraient être différentes.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Tâches routinières vs non routinières}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{Automatisable :}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Routinier \textbf{manuel} : assemblage, tri, conduite
+            \item Routinier \textbf{cognitif} : comptabilité, saisie de données, traduction simple
+         \end{itemize}
+         \vspace{0.2cm}
+         $\to$ L'IA touche désormais les tâches \textbf{cognitives}, pas seulement manuelles
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECnavy}{Difficilement automatisable :}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Non routinier \textbf{cognitif} : créativité, jugement, stratégie
+            \item Non routinier \textbf{manuel} : soins, construction, réparation
+         \end{itemize}
+         \vspace{0.2cm}
+         $\to$ Compétences de \textbf{résolution de problèmes} et d'\textbf{interaction humaine}
+      \end{column}
+   \end{columns}
+   \vspace{0.2cm}
+   \begin{warning}
+      Les emplois \guillemotleft~du milieu~\guillemotright\ disparaissent : c'est la \textbf{polarisation} du marché du travail.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Les gagnants et les perdants}
+   \footnotesize
+   \textbf{Qui bénéficie de l'IA?}
+   \vspace{0.05cm}
+   \begin{itemize}
+      \setlength\itemsep{0.05cm}
+      \item Travailleurs hautement qualifiés qui \textbf{complémentent} l'IA (analystes, ingénieurs, chercheurs)
+      \item Entreprises qui adoptent l'IA rapidement (avantage concurrentiel)
+      \item Consommateurs (baisse de prix, nouveaux produits)
+   \end{itemize}
+   \vspace{0.1cm}
+
+   \textbf{Qui est à risque?}
+   \vspace{0.05cm}
+   \begin{itemize}
+      \setlength\itemsep{0.05cm}
+      \item Travailleurs de compétences moyennes dans des tâches \textbf{routinières cognitives}
+      \item Secteurs entiers : centres d'appels, comptabilité de base, traduction
+      \item Régions dépendantes d'un seul secteur exposé
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{keyinsight}
+      L'IA ne remplace pas des \textbf{métiers} entiers --- elle remplace des \textbf{tâches}. Les travailleurs qui s'adaptent en seront les gagnants.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Capital et travail à l'ère de l'IA}
+   \small
+   \textbf{Moll, Rachel \& Restrepo (2022)} posent la question centrale :
+   \vspace{0.15cm}
+
+   Si l'IA peut \textbf{substituer} le travail à grande échelle, les gains de productivité iront principalement au \textbf{capital} (les propriétaires des systèmes d'IA).
+   \vspace{0.2cm}
+
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{Scénario optimiste :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item IA = outil qui \textbf{augmente} la productivité des travailleurs
+            \item Nouveaux emplois créés
+            \item Gains partagés
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{Scénario pessimiste :}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item IA = \textbf{substitut} au travail humain
+            \item Part du travail $\downarrow\downarrow$
+            \item Inégalités capital/travail explosent
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.15cm}
+   \begin{warning}
+      Si l'IA se substitue au travail, la majorité des gains pourraient revenir aux \textbf{propriétaires du capital}. La question distributive est au cœur du débat.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Le rôle des politiques publiques}
+   \small
+   \begin{bizimplication}[Préparer la transition]
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item \textbf{Éducation et formation :} compétences complémentaires à l'IA (créativité, jugement, résolution de problèmes)
+         \item \textbf{Filets de sécurité :} assurance-emploi adaptée, formation continue financée
+         \item \textbf{Politique de concurrence :} éviter les monopoles de l'IA
+         \item \textbf{Fiscalité :} repenser la taxation du capital vs le travail
+      \end{itemize}
+   \end{bizimplication}
+   \vspace{0.1cm}
+   \begin{keyinsight}
+      Les entreprises qui investissent dans la \textbf{requalification} de leurs employés auront un avantage concurrentiel dans la transition vers l'IA.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+\begin{frame}[t]{Résumé}
+   \begin{keyinsight}[Les leçons du marché du travail]
+      \begin{enumerate}
+         \setlength\itemsep{0.15cm}
+         \item Le marché du travail s'analyse comme tout marché : \textbf{offre}, \textbf{demande}, \textbf{équilibre}
+         \item Le capital s'ajuste à long terme --- l'immigration \textbf{ne déprime pas} les salaires de façon permanente
+         \item Les inégalités croissantes reflètent le progrès technique biaisé, la mondialisation et l'érosion des institutions
+         \item L'IA va transformer le marché du travail --- les gagnants seront ceux qui \textbf{complémentent} la technologie
+      \end{enumerate}
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Avant la prochaine séance}
+% ============================================================================
+
+\begin{frame}[t]{Avant la prochaine séance}
+   \textbf{Lectures suggérées :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Autor, \guillemotleft~Work of the Past, Work of the Future~\guillemotright\ (2019)
+      \item \textit{The Economist}, \guillemotleft~AI and the future of work~\guillemotright
+      \item Branko Milanovic, \textit{Global Inequality} (chapitres 1--2)
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{Question de réflexion :}
+   \vspace{0.15cm}
+
+   \begin{tcolorbox}[
+      colback=HECnavy!5, colframe=HECnavy, arc=8pt,
+      leftrule=3pt, boxrule=0pt,
+      left=10pt, right=10pt, top=6pt, bottom=6pt
+   ]
+      L'IA générative (ChatGPT, Claude, etc.) remplace-t-elle surtout des tâches \textbf{routinières cognitives} ou des tâches \textbf{non routinières cognitives}? Quelles implications pour le marché du travail canadien?
+   \end{tcolorbox}
+   \vspace{0.3cm}
+   \textbf{Prochaine séance :} Monnaie, inflation et cycles économiques
+\end{frame}
+
+\end{document}
