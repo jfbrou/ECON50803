@@ -52,6 +52,16 @@ jobs:
             fi
           done
 
+          # Collect articles
+          if [ -d Articles ]; then
+            mkdir -p _site/articles
+            for f in Articles/*.pdf; do
+              [ -f "$f" ] || continue
+              cp "$f" _site/articles/
+              echo "Collected article: $(basename "$f")"
+            done
+          fi
+
           # Build ordered list of session links
           pdf_links=""
           for f in _site/s*.pdf; do
@@ -59,6 +69,15 @@ jobs:
             name=$(basename "$f" .pdf)
             num="${name#s}"
             pdf_links="${pdf_links}<li><a href=\"${name}.pdf\">Séance ${num}</a></li>"
+          done
+
+          # Build ordered list of article links
+          article_links=""
+          for f in _site/articles/*.pdf; do
+            [ -f "$f" ] || continue
+            name=$(basename "$f")
+            label=$(echo "${name%.pdf}" | tr '-' ' ' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+            article_links="${article_links}<li><a href=\"articles/${name}\">${label}</a></li>"
           done
 
           # Generate landing page
@@ -80,6 +99,8 @@ jobs:
           .container { max-width: 640px; width: 100%; }
           h1 { font-size: 1.5rem; font-weight: 700; color: #002855; margin-bottom: 0.25rem; }
           .subtitle { font-size: 0.95rem; color: #64748b; margin-bottom: 2rem; }
+          h2 { font-size: 1.1rem; font-weight: 600; color: #002855; margin-bottom: 0.75rem; }
+          h2 + ul { margin-bottom: 2rem; }
           ul { list-style: none; }
           li { margin-bottom: 0.5rem; }
           a {
@@ -97,7 +118,10 @@ jobs:
           <div class="container">
             <h1>ECON 50803</h1>
             <p class="subtitle">Environnement macroéconomique — HEC Montréal</p>
+            <h2>Diapositives</h2>
             <ul>%%LINKS%%</ul>
+            <h2>Articles</h2>
+            <ul>%%ARTICLES%%</ul>
             <p class="footer">Dernière mise à jour : %%DATE%%</p>
           </div>
           </body>
@@ -105,6 +129,7 @@ jobs:
           ENDHTML
 
           sed -i "s|%%LINKS%%|${pdf_links}|" _site/index.html
+          sed -i "s|%%ARTICLES%%|${article_links}|" _site/index.html
           sed -i "s|%%DATE%%|$(date -u +%Y-%m-%d)|" _site/index.html
 
       - name: Upload Pages artifact
