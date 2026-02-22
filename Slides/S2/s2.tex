@@ -11,112 +11,72 @@
 \titleframe
 % ============================================================================
 
-% --- Opening Hook: Shanghai 1987 ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}[plain]
-   \begin{tikzpicture}[remember picture, overlay]
-      \node[anchor=center, inner sep=0pt] at (current page.center) {%
-         \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{shanghai_1987.png}%
-      };
-      \node[anchor=south west, fill=black, fill opacity=0.5, text opacity=1, inner sep=6pt]
-         at ([shift={(0.3cm,0.3cm)}]current page.south west)
-         {\large\bfseries\textcolor{white}{Shanghai, 1987}};
-   \end{tikzpicture}
-\end{frame}
-}
-
-% --- Opening Hook: Shanghai 2013 ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}[plain]
-   \begin{tikzpicture}[remember picture, overlay]
-      \node[anchor=center, inner sep=0pt] at (current page.center) {%
-         \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{shanghai_2013.png}%
-      };
-      \node[anchor=south west, fill=black, fill opacity=0.5, text opacity=1, inner sep=6pt]
-         at ([shift={(0.3cm,0.3cm)}]current page.south west)
-         {\large\bfseries\textcolor{white}{Shanghai, 2013}};
-   \end{tikzpicture}
-\end{frame}
-}
-
-% --- Opening Hook: Manhattan ---
-\begin{frame}{Manhattan, de 1876 à 2013}
-   % TODO: Replace placeholder with 4-era photo montage (Vincent sl.27 or similar)
-   \begin{tcolorbox}[
-      colback=HEClightgray, colframe=HEClightgray, arc=8pt,
-      width=\textwidth, height=0.7\textheight,
-      halign=center, valign=center
-   ]
-      {\large\itshape\textcolor{HECgray}{Photo montage : Manhattan à travers les époques}}\\[6pt]
-      {\small\textcolor{HECgray}{1876 -- 1932 -- 1988 -- 2013}}
-   \end{tcolorbox}
-\end{frame}
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item \textbf{La croissance est un phénomène récent}
-      \item La fonction de production
-      \item Décomposer la croissance
-      \item Le modèle de Solow
-      \item Convergence
-      \item Le vrai moteur de la croissance
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{La croissance est un phénomène récent}
-% ============================================================================
-
+% --- Opening Hook: Hockey Stick ---
 \begin{frame}{La croissance est un phénomène récent}
    \begin{figure}
       \centering
-      \includegraphics[width=0.9\textwidth]{hockey_stick_world.png}
+      \includegraphics[width=0.95\textwidth]{hockey_stick_world.png}
    \end{figure}
 \end{frame}
 
+% --- Opening Hook: Shanghai 1987 ---
+\begin{frame}{Shanghai en 1987}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.75\textwidth]{shanghai_1987.png}
+   \end{figure}
+\end{frame}
+
+% --- Opening Hook: Shanghai 2013 ---
+\begin{frame}{Shanghai en 2013}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.75\textwidth]{shanghai_2013.png}
+   \end{figure}
+\end{frame}
+
+
+% --- Opening Hook: Shenzhen ---
+\begin{frame}{Shenzhen : d'un village de pêcheurs à une mégapole}
+   \begin{figure}
+      \centering
+      \begin{tikzpicture}
+         \node[rounded corners=4pt, inner sep=0pt, clip] {%
+            \includegraphics[width=0.75\textwidth]{shenzhen_before_after.jpg}%
+         };
+      \end{tikzpicture}
+   \end{figure}
+\end{frame}
+
+% --- Opening Hook: Regional divergence ---
 \begin{frame}{Des expériences très différentes}
    \begin{figure}
       \centering
-      \includegraphics[width=0.9\textwidth]{regional_divergence.png}
+      \includegraphics[width=0.95\textwidth]{regional_divergence.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Trois faits stylisés sur la croissance}
-   \small
-   L'économiste Nicholas Kaldor a identifié des régularités empiriques remarquables :
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item Le \textbf{PIB par habitant} croît à un rythme approximativement \textbf{constant} dans les pays avancés (en échelle logarithmique : une droite)
-      \item Le ratio \textbf{capital/PIB} ($K/Y$) est approximativement \textbf{constant} à long terme
-      \item Les \textbf{parts du revenu} versées au capital ($\sim$30\,\%) et au travail ($\sim$70\,\%) sont approximativement \textbf{constantes}
-   \end{enumerate}
-   \vspace{0.2cm}
-   \begin{keyinsight}
-      Tout bon modèle de croissance devrait être capable de reproduire ces régularités.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{Croissance et stratégies d'affaires}
-   \small
-   La croissance de long terme façonne les opportunités d'affaires :
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Pénétration de marché :} taille du marché, démographie, distribution des revenus
-      \item \textbf{Investissement direct étranger :} infrastructure, productivité, environnement politique
-      \item \textbf{Chaînes d'approvisionnement :} main-d'œuvre qualifiée, stabilité, logistique
-   \end{itemize}
-   \vspace{0.15cm}
+% --- Opening Hook: Business relevance ---
+\begin{frame}{Croissance de long terme et stratégies d'affaires}
    \begin{bizimplication}
-      Comprendre les \textbf{déterminants} de la croissance vous aide à identifier les marchés porteurs, à évaluer les risques pays et à anticiper les tendances à long terme.
+      Plusieurs décisions d'affaires dépendent non seulement du revenu actuel d'un pays, mais aussi de ses perspectives de croissance à long terme.
    \end{bizimplication}
+   \vspace{0.2cm}
+   \textbf{Pénétration de marché} (exportations)
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Potentiel de taille de marché
+      \item Croissance démographique
+      \item Évolution et distribution des revenus
+   \end{itemize}
+   \vspace{0.2cm}
+   \textbf{Décisions d'investissement} (IDE)
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Infrastructure, productivité, main-d'œuvre, environnement politique, etc.
+   \end{itemize}
 \end{frame}
 
 \begin{frame}{D'où vient la croissance?}
@@ -129,24 +89,22 @@
       \setlength\itemsep{0.2cm}
       \item Quels sont les \textbf{ingrédients} de la production?
       \item Comment ces ingrédients se \textbf{combinent-ils?}
-      \item Pourquoi certains pays en ont-ils \textbf{plus} que d'autres?
+      \item Pourquoi certains pays produisent-ils \textbf{plus} que d'autres?
    \end{itemize}
    \vspace{0.3cm}
-   Pour répondre, il nous faut un modèle de production $\to$ la \textbf{fonction de production}
+   Pour y répondre, il nous faut un modèle de production\ldots
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
+      \setlength\itemsep{0.3cm}
       \item \textbf{La fonction de production}
-      \item Décomposer la croissance
+      \item La comptabilité de la croissance
+      \item La comptabilité du développement
       \item Le modèle de Solow
-      \item Convergence
       \item Le vrai moteur de la croissance
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
+      \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
 
@@ -154,69 +112,116 @@
 \sectionframe{La fonction de production}
 % ============================================================================
 
-\begin{frame}[t]{Qu'est-ce qui détermine la production?}
+\begin{frame}[t]{La fonction de production}
    \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         La production dépend de trois ingrédients :
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $K$ = \textbf{Capital} : machines, équipements, bâtiments, infrastructures
-            \item $N$ = \textbf{Travail} : heures travaillées, nombre d'employés
-            \item $A$ = \textbf{Productivité} (PTF) : technologie, savoir-faire, organisation
-         \end{itemize}
-         \vspace{0.15cm}
-         \begin{defbox}[Fonction de production]
-            $Y = A \cdot F(K, N)$\\[4pt]
-            Comment les intrants se combinent pour produire $Y$
-         \end{defbox}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item L'outil nécessaire afin d'étudier la croissance
+      \item Relie les \textbf{facteurs de production} (intrants) aux extrants
+   \end{itemize}
+   \vspace{0.6cm}
+   \centering
+   \begin{tikzpicture}[
+      arrow/.style={-{Stealth[length=7pt, width=5pt]}, line width=1.2pt, HECnavy},
+      box/.style={rounded corners=6pt, minimum height=1.6cm, minimum width=2.8cm,
+                  inner sep=8pt, font=\large\bfseries, align=center}
+   ]
+      % Intrants (left)
+      \node[box, draw=HECcoral, line width=1.2pt, text=HECcoral] (inputs) {Intrants\,?};
+      % Black box (center)
+      \node[box, fill=HECnavy, text=white, right=1.8cm of inputs] (box) {$f(\cdot)$};
+      % Production (right)
+      \node[box, fill=HEClightgray, text=HECnavy, right=1.8cm of box] (output) {Production};
+      % Arrows
+      \draw[arrow] (inputs) -- (box);
+      \draw[arrow] (box) -- (output);
+      % Label under black box
+      \draw[decorate, decoration={brace, mirror, amplitude=6pt}, line width=0.8pt]
+         ([yshift=-3pt]box.south west) -- ([yshift=-3pt]box.south east)
+         node[midway, below=8pt, font=\small\bfseries, align=center, text=HECnavy]
+         {La fonction de\\[-1pt] production};
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}[t]{Qu'est-ce qui détermine la production?}
+   \vfill
+   \begin{columns}[c]
+      \begin{column}{0.30\textwidth}
          \centering
-         \includegraphics[width=\textwidth, keepaspectratio]{terminator.png}\\[4pt]
-         {\footnotesize\textcolor{HECgray}{Capital ($K$) + Travail ($N$)}}
+         {\large\textbf{\textcolor{HECnavy}{Capital ($K$)}}}\\[8pt]
+         \footnotesize
+         Machines, équipements,\\bâtiments, infrastructures
+      \end{column}
+      \begin{column}{0.40\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, keepaspectratio]{terminator.png}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \centering
+         {\large\textbf{\textcolor{HECnavy}{Travail ($L$)}}}\\[8pt]
+         \footnotesize
+         Heures travaillées,\\nombre d'employés
+      \end{column}
+   \end{columns}
+   \vfill
+\end{frame}
+
+\begin{frame}[t]{La fonction de production Cobb-Douglas}
+   La forme fonctionnelle la plus utilisée en macroéconomie :
+   \begin{equation*}
+      Y = A \cdot K^{\alpha} \cdot L^{1-\alpha} \quad \text{avec} \quad \alpha \approx 0.3
+   \end{equation*}
+   \vspace{-0.5cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item $Y =$ quantité produite au cours d'une année (PIB réel)
+      \item $K =$ stock de capital
+      \item $L =$ main-d'œuvre (nombre de travailleurs)
+      \item $A =$ productivité totale des facteurs (PTF) --- mesure d'efficience
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      Les exposants $\alpha$ et $1-\alpha$ correspondent aux \textbf{parts du revenu} versées au capital ($\sim$30\,\%) et au travail ($\sim$70\,\%)
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Rendements décroissants : travail}
+   \begin{columns}[c]
+      \begin{column}{0.58\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{production_function.png}
+      \end{column}
+      \begin{column}{0.40\textwidth}
+         \small
+         À capital fixe, chaque travailleur supplémentaire \textbf{ajoute de moins en moins} à la production.
+         \vspace{0.3cm}
+
+         \textbf{Analogie :} le 10\textsuperscript{e} cuisinier dans une cuisine est beaucoup moins productif que le 1\textsuperscript{er}!
+         \vspace{0.3cm}
+
+         \begin{warning}
+            \small Plus de $L$ $\to$ plus de $Y$, mais à un rythme \textbf{décroissant}
+         \end{warning}
       \end{column}
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{La fonction Cobb-Douglas}
-   La forme fonctionnelle la plus utilisée en macroéconomie :
-   \vspace{0.2cm}
-   \begin{equation*}
-      \boxed{Y = A \cdot K^{\alpha} \cdot N^{1-\alpha}} \qquad \text{avec } \alpha \approx 0{,}3
-   \end{equation*}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item $A$ = \textbf{productivité totale des facteurs} (PTF)
-      \item $K^{\alpha}$ = contribution du capital (part $\alpha \approx 30\,\%$ du revenu)
-      \item $N^{1-\alpha}$ = contribution du travail (part $1-\alpha \approx 70\,\%$)
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      Les exposants $\alpha$ et $1-\alpha$ correspondent aux \textbf{parts du revenu} versées au capital et au travail --- exactement ce que Kaldor a observé!
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{Rendements décroissants}
+\begin{frame}[t]{Rendements décroissants : capital}
    \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{production_function.png}
-         \end{figure}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{production_function_capital.png}
       \end{column}
-      \begin{column}{0.42\textwidth}
-         À capital fixe, chaque travailleur supplémentaire \textbf{ajoute de moins en moins} à la production.
-         \vspace{0.2cm}
+      \begin{column}{0.40\textwidth}
+         \small
+         À travail fixe, chaque machine supplémentaire \textbf{ajoute de moins en moins} à la production.
+         \vspace{0.3cm}
 
-         \textbf{Analogie :} mettre 10 cuisiniers dans une seule cuisine --- le 10\textsuperscript{e} est beaucoup moins productif que le 1\textsuperscript{er}!
-         \vspace{0.2cm}
+         \textbf{Analogie :} donner 10 ordinateurs à un seul employé --- le 10\textsuperscript{e} n'aide plus du tout!
+         \vspace{0.3cm}
 
-         \begin{warning}[Attention]
-            Plus de $N$ $\to$ plus de $Y$, mais à un rythme \textbf{décroissant}
+         \begin{warning}
+            \small Plus de $K$ $\to$ plus de $Y$, mais à un rythme \textbf{décroissant}
          \end{warning}
       \end{column}
    \end{columns}
@@ -226,162 +231,457 @@
    Si on \textbf{double} tous les intrants, la production \textbf{double} :
    \vspace{0.1cm}
    \begin{equation*}
-      A \cdot (2K)^{\alpha} \cdot (2N)^{1-\alpha} = 2^{\alpha} \cdot 2^{1-\alpha} \cdot A K^{\alpha} N^{1-\alpha} = 2Y
+      A \cdot (2K)^{\alpha} \cdot (2L)^{1-\alpha} = 2^{\alpha} \cdot 2^{1-\alpha} \cdot A K^{\alpha} L^{1-\alpha} = 2Y
    \end{equation*}
-   \vspace{0.1cm}
-   \textbf{Intuition :} cloner l'usine avec les mêmes machines et le même nombre de travailleurs $\to$ on produit exactement le double.
+   \\ \vspace{0.2cm}
+   \textbf{L'argument de réplication :} comment doubler la production d'une usine? En construire une autre identique l'autre côté de la rue!
    \vspace{0.2cm}
    \begin{keyinsight}
-      La \textbf{taille} d'un pays ne détermine pas son niveau de vie. Ce qui compte, c'est le capital \textbf{par travailleur} ($K/N$) et la productivité ($A$).
+      La \textbf{taille} d'un pays ne détermine pas son \textbf{niveau de vie}. Le Liechtenstein, Singapour, et le Luxembourg sont tous petits, mais très riches.
    \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{La PTF : le facteur mystérieux}
-   \small
-   La \textbf{productivité totale des facteurs} ($A$) capte tout ce qui n'est pas $K$ ou $N$ :
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Technologie et innovation
-      \item Qualité des institutions (droits de propriété, état de droit)
-      \item Qualité du management et de l'organisation
-      \item Éducation et capital humain
-      \item Infrastructure publique
-   \end{itemize}
-   \vspace{0.15cm}
-   C'est un \textbf{résidu} : tout ce que $K$ et $N$ ne peuvent pas expliquer.
-   \vspace{0.1cm}
-   \begin{defbox}
-      \guillemotleft~La productivité totale des facteurs est une mesure de notre ignorance.~\guillemotright
-      \hfill {\small --- Moses Abramovitz (1956)}
-   \end{defbox}
-\end{frame}
-
-\begin{frame}[t]{Exercice : propriétés de la Cobb-Douglas}
-   \begin{exercise}
-      Soit $Y = A K^{0{,}3} N^{0{,}7}$.
-      \vspace{0.15cm}
-      \begin{enumerate}
-         \setlength\itemsep{0.25cm}
-         \item \textbf{Rendements décroissants :} Montrez que le produit marginal du travail ($\partial Y / \partial N$) diminue lorsque $N$ augmente (à $K$ fixe).
-         \item \textbf{Rendements d'échelle constants :} Montrez que si on multiplie $K$ et $N$ par $\lambda$, la production est multipliée par $\lambda$.
-         \item \textbf{Rôle de la productivité :} Si $A$ double, qu'arrive-t-il à $Y$?
-      \end{enumerate}
-   \end{exercise}
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
-      \item \textbf{Décomposer la croissance}
+      \item \textbf{La comptabilité de la croissance}
+      \item La comptabilité du développement
       \item Le modèle de Solow
-      \item Convergence
       \item Le vrai moteur de la croissance
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
+      \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Décomposer la croissance}
+\sectionframe{La comptabilité de la croissance}
 % ============================================================================
 
 \begin{frame}[t]{Comptabilité de la croissance}
-   On peut décomposer la croissance du PIB en contributions de chaque source :
-   \vspace{0.2cm}
+   \small
+   En partant de la fonction de production :
+   \begin{equation*}
+      Y = A \cdot K^{\alpha} \cdot L^{1-\alpha}
+   \end{equation*}
+   on prend le \textbf{taux de croissance} de chaque côté :
    \begin{defbox}[Décomposition de Solow]
+      \vspace{-0.1cm}
       \begin{equation*}
-         \underbrace{\pctchg{Y}}_{\text{croissance du PIB}} \;\approx\; \underbrace{\pctchg{A}}_{\text{productivité}} \;+\; \underbrace{0{,}3 \cdot \pctchg{K}}_{\text{capital}} \;+\; \underbrace{0{,}7 \cdot \pctchg{N}}_{\text{travail}}
+         \underbrace{\pctchg{Y}}_{\text{croissance du PIB}} \;\approx\; \underbrace{\pctchg{A}}_{\text{productivité}} \;+\; \underbrace{0.3 \cdot \pctchg{K}}_{\text{capital}} \;+\; \underbrace{0.7 \cdot \pctchg{L}}_{\text{travail}}
       \end{equation*}
    \end{defbox}
-   \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item On observe $\pctchg{Y}$, $\pctchg{K}$ et $\pctchg{N}$
-      \item On \textbf{déduit} $\pctchg{A}$ comme résidu : $\pctchg{A} = \pctchg{Y} - 0{,}3 \cdot \pctchg{K} - 0{,}7 \cdot \pctchg{N}$
+      \item On observe $\pctchg{Y}$, $\pctchg{K}$ et $\pctchg{L}$
+      \item On \textbf{déduit} $\pctchg{A}$ comme résidu : $\pctchg{A} = \pctchg{Y} - 0.3 \cdot \pctchg{K} - 0.7 \cdot \pctchg{L}$
    \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Le miracle asiatique}
-   \footnotesize
-   \vspace{0.1cm}
-   \begin{tcolorbox}[
-      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
-      title=\textbf{Comptabilité de la croissance (1966--1990)}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
-      top=3pt, bottom=3pt, left=6pt, right=6pt
-   ]
-      \renewcommand{\arraystretch}{1.2}
+\begin{frame}{Canada vs États-Unis : croissance du PIB}
+   \begin{figure}
       \centering
-      \begin{tabularx}{\linewidth}{X r r r r}
-         \rowcolor{HECnavy!10}
-         \textbf{Pays} & \textbf{$\pctchg{Y}$} & \textbf{Capital} & \textbf{Travail} & \textbf{PTF} \\
-         \hline
-         Hong Kong & 7,3\,\% & 3,0 & 2,0 & 2,3 \\
-         Singapour & 8,7\,\% & 5,6 & 2,9 & 0,2 \\
-         Corée du Sud & 10,3\,\% & 4,1 & 4,5 & 1,7 \\
-         Taïwan & 9,4\,\% & 3,8 & 3,6 & 2,0 \\
-         \hline
-         États-Unis & 3,1\,\% & 0,9 & 1,2 & 1,0 \\
-      \end{tabularx}
-      \vspace{2pt}
-      {\scriptsize\textcolor{HECgray}{Source : Young (1992, 1995); Hsieh (2002)}}
-   \end{tcolorbox}
-   \vspace{0.1cm}
-   \begin{keyinsight}
-      \small Le \guillemotleft~miracle~\guillemotright\ de Singapour repose presque entièrement sur l'accumulation de capital --- très peu de gains de productivité. Hong Kong : davantage de PTF.
-   \end{keyinsight}
+      \includegraphics[width=0.95\textwidth]{growth_decomp_canada_us_total.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Chine et Inde (2000--2019)}
-   \footnotesize
-   \vspace{0.1cm}
-   \begin{tcolorbox}[
-      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
-      title=\textbf{Comptabilité de la croissance (2000--2019)}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
-      top=3pt, bottom=3pt, left=6pt, right=6pt
-   ]
-      \renewcommand{\arraystretch}{1.2}
-      \centering
-      \begin{tabularx}{\linewidth}{X r r r r}
-         \rowcolor{HECnavy!10}
-         \textbf{Pays} & \textbf{$\pctchg{Y}$} & \textbf{Capital} & \textbf{Travail} & \textbf{PTF} \\
-         \hline
-         Chine & 8,9\,\% & 5,5 & 0,3 & 3,1 \\
-         Inde & 6,4\,\% & 3,3 & 0,8 & 2,3 \\
-      \end{tabularx}
-      \vspace{2pt}
-      {\scriptsize\textcolor{HECgray}{Source : Penn World Tables 10.01}}
-   \end{tcolorbox}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      La Chine et l'Inde ont des taux de croissance comparables, mais des \textbf{moteurs très différents}. La Chine mise sur le capital; l'Inde sur la productivité. Cette distinction a des implications majeures pour la \textbf{soutenabilité} de la croissance.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{Du PIB au PIB par habitant}
-   Pour comparer les niveaux de vie, on s'intéresse au PIB \textbf{par habitant} :
-   \vspace{0.2cm}
+\begin{frame}[t]{Du PIB total au PIB par habitant}
+   \small
+   Diviser par la population ($N$) donne :
    \begin{equation*}
-      \underbrace{\frac{Y}{\text{Pop}}}_{\text{PIB/hab.}} = A \cdot \left(\frac{K}{N}\right)^{\alpha} \cdot \underbrace{\frac{N}{\text{Pop}}}_{\text{taux d'emploi}}
+      \frac{Y}{N} = \frac{A \cdot K^{\alpha} \cdot L^{1-\alpha}}{N} \quad \to \quad \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N}
    \end{equation*}
-   \vspace{0.2cm}
    \textbf{Trois déterminants du niveau de vie :}
    \vspace{0.1cm}
    \begin{enumerate}
+      \setlength\itemsep{0.1cm}
+      \item $A =$ productivité (PTF)
+      \item $K/L =$ capital par travailleur
+      \item $L/N =$ taux d'emploi (démographie + participation)
+   \end{enumerate}
+   \vspace{0.5cm}
+   Mais il y a un problème avec cette décomposition\ldots
+\end{frame}
+
+\begin{frame}[t]{Capital ou productivité?}
+   \small
+   Quand une économie devient plus efficiente ($A \uparrow$) :
+   \vspace{0.15cm}
+   \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item $A$ = productivité (PTF)
-      \item $K/N$ = capital par travailleur (intensité capitalistique)
-      \item $N/\text{Pop}$ = taux d'emploi (démographie + participation)
+      \item La production augmente ($Y \uparrow$)
+      \item Les entreprises investissent davantage ($K \uparrow$)
+      \item $K/L$ augmente $\to$ la décomposition naïve \textbf{attribue le mérite au capital!} \\
+   \end{itemize}
+   \vspace{0.25cm}
+   En réécrivant la fonction de production :
+   \begin{equation*}
+      \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{L}\right)^{\alpha} \cdot \frac{L}{N}
+   \end{equation*}
+   Encore un peu d'algèbre\ldots
+   \begin{equation*}
+      \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}} \cdot \frac{L}{N}
+   \end{equation*}
+\end{frame}
+
+\begin{frame}[t]{Rendre à César ce qui est à César}
+   Fonction de \textbf{productivité :}
+   \begin{equation*}
+      \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}} \cdot \frac{L}{N}
+   \end{equation*}
+   \textbf{Trois déterminants du niveau de vie :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.15cm}
+      \item $A =$ productivité (PTF)
+      \item $K/Y =$ profondeur du capital
+      \item $L/N =$ taux d'emploi (démographie + participation) \\
+   \end{enumerate}
+   \vspace{0.35cm}
+   On mesure $Y / N$, $K / Y$, et $L / N$ \textbf{directement}, et on en déduit $A$.
+   \begin{itemize}
+      \item $A$ : mesure de notre ignorance\ldots
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Le capital comme amplificateur de productivité}
+   Décomposer la \textbf{croissance} du PIB par habitant :
+   \begin{equation*}
+      \underbrace{\pctchg{(Y/N)}}_{\text{PIB/hab.}} \;\approx\; \underbrace{\tfrac{1}{1 - \alpha} \cdot \pctchg{A}}_{\text{productivité}} \;+\; \underbrace{\tfrac{\alpha}{1 - \alpha} \cdot \pctchg{(K/Y)}}_{\text{capital/PIB}} \;+\; \underbrace{\pctchg{(L/N)}}_{\text{taux d'emploi}}
+   \end{equation*}
+   \begin{keyinsight}
+      Le coefficient $\frac{1}{1 - \alpha}$ devant $A$ est un \textbf{amplificateur} : $A \uparrow \;\to\; \underbrace{Y \uparrow \;\to\; K \uparrow \;\to\; Y \uparrow}_{\text{amplification}}$. \\
+      
+      Quand $A$ augmente de 1\,\%, le PIB/hab. augmente de $\frac{1}{1 - \alpha} \approx 1.4$\,\%.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Canada vs États-Unis : PIB par habitant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{growth_decomp_canada_us.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Le miracle asiatique}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{catchup_growth.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Le miracle asiatique (1970--1990)}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{growth_decomp_asian_tigers.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Miracle vs.\ stagnation\ldots pourquoi?}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{miracle_vs_stagnation.png}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item {\color{gray!50}La fonction de production}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item \textbf{La comptabilité du développement}
+      \item Le modèle de Solow
+      \item Le vrai moteur de la croissance
+      \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
 
-\begin{frame}{Chine vs États-Unis}
+% ============================================================================
+\sectionframe{La comptabilité du développement}
+% ============================================================================
+
+\begin{frame}[t]{D'où viennent les différences de revenus?}
+   Qu'est-ce qui explique les massifs écarts de revenus \textbf{entre pays}?
+   \begin{equation*}
+      \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}} \cdot \frac{L}{N}
+   \end{equation*}
+   \textbf{Décomposer} le PIB/hab. de chaque pays $i$ relativement aux États-Unis :
+   \begin{equation*}
+      \frac{(Y/N)_i}{(Y/N)_{\text{É.-U.}}} = \underbrace{\frac{A_i^{1/(1-\alpha)}}{A_{\text{É.-U.}}^{1/(1-\alpha)}}}_{\text{productivité}} \cdot \underbrace{\frac{(K/Y)_i^{\alpha/(1-\alpha)}}{(K/Y)_{\text{É.-U.}}^{\alpha/(1-\alpha)}}}_{\text{capital}} \cdot \underbrace{\vphantom{\frac{A_i^{1/(1-\alpha)}}{A_{\text{É.-U.}}^{1/(1-\alpha)}}}\frac{(L/N)_i}{(L/N)_{\text{É.-U.}}}}_{\text{emploi}}
+   \end{equation*}
+\end{frame}
+
+\begin{frame}{Le rôle du capital\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{growth_decomp_china_us.png}
+      \includegraphics[width=0.95\textwidth]{development_accounting_capital.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Le rôle du travail\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_labor.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La productivité explique $\sim$50\,\% des écarts de revenus entre pays}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_tfp.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Bilan : les déterminants du PIB par habitant}
+   \begin{equation*}
+      \underbrace{\vphantom{\left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}}}\frac{Y}{N}}_{\text{PIB/hab.}} \;=\; \underbrace{\vphantom{\left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}}}A^{\frac{1}{1 - \alpha}}}_{\text{productivité}} \;\cdot\; \underbrace{\left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}}}_{\text{capital/PIB}} \;\cdot\; \underbrace{\vphantom{\left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}}}\frac{L}{N}}_{\text{taux d'emploi}}
+   \end{equation*}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.35cm}
+      \item \textbf{Taux d'emploi} ($L/N$) $\to$ borné entre 0 et 1; varie peu entre pays. \\ \textcolor{HECgray}{Potentiel de croissance \textbf{mécaniquement limité}.}
+      \item \textbf{Productivité} ($A$) $\to$ explique l'essentiel des écarts (croissance \textbf{et} niveau). \\ \textcolor{HECgray}{C'est \textbf{le} facteur dominant.}
+      \item \textbf{Ratio capital/PIB} ($K/Y$) $\to$ contribution limitée\ldots \\ \textcolor{HECcoral}{\textit{Pourquoi l'investissement a si peu de pouvoir explicatif? Modèle de \textbf{Solow}!}}
+   \end{itemize}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item {\color{gray!50}La fonction de production}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item {\color{gray!50}La comptabilité du développement}
+      \item \textbf{Le modèle de Solow}
+      \item Le vrai moteur de la croissance
+      \item La croissance et ses conséquences
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Le modèle de Solow}
+% ============================================================================
+
+\begin{frame}[t]{Robert Solow (1924--2023)}
+   \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+         \begin{itemize}
+            \setlength\itemsep{0.4cm}
+            \item Admis à Harvard à 16 ans
+            \item Rejoint l’armée américaine en 1942
+            \item Sert en Italie à la fin de la 2\textsuperscript{e} Guerre mondiale
+            \item Retourne à Harvard en 1945
+            \item Économiste au MIT en 1949
+            \item Prix Nobel en 1987
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, keepaspectratio]{solow.png}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Mon arrière-grand-père académique}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth, height=0.78\textheight, keepaspectratio]{advisors.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Ce que Solow voit pendant la guerre\ldots}
+   \vfill
+   \begin{columns}[T]
+      \begin{column}{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height=0.65\textheight, keepaspectratio]{italy_1.png}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth, height=0.65\textheight, keepaspectratio]{italy_2.png}
+      \end{column}
+   \end{columns}
+   \vfill
+\end{frame}
+
+\begin{frame}{Ce que Solow voit après la guerre\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{ww2_recovery.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Le modèle de Solow}
+   \textbf{Question clé :} les pays peuvent-ils croître en accumulant plus de capital?
+   \vspace{0.25cm}
+
+   \textbf{Ingrédients du modèle :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Fonction de production (rendements décroissants du capital)
+      \item Accumulation de capital (investissement $-$ dépréciation)
+   \end{itemize}
+   \vspace{0.25cm}
+
+   \textbf{Hypothèses simplificatrices :} $Y = C + I$
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Pas de gouvernement ($G = 0$) $+$ économie fermée ($XN = 0$)
+   \end{itemize}
+   \vspace{0.25cm}
+
+   \textbf{Conclusions surprenantes :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Le capital est crucial au \textbf{niveau} de vie\ldots
+      \item \ldots mais l’investissement ne peut propulser la \textbf{croissance} à long terme!
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{L'analogie de la baignoire}
+   \footnotesize
+   Imaginez le stock de capital par travailleur ($K/L$) comme le \textbf{niveau d'eau} dans une baignoire :
+   \vspace{0.25cm}
+   \begin{columns}[T, totalwidth=\textwidth]
+      \begin{column}{0.6\textwidth}
+         \vspace{0.25cm}
+         \begin{itemize}
+            \setlength\itemsep{0.25cm}
+            \item \textcolor{HECgreen}{\textbf{Robinet}} = investissement \\ Débit : 5 litres/minute
+            \item \textcolor{HECcoral}{\textbf{Drain}} = dépréciation $+$ croissance de la population \\ Taux : 10\,\%/minute du stock
+            \item \textbf{Capacité} : 100 litres
+         \end{itemize}
+      \end{column}
+      \hspace{-1cm}
+      \begin{column}{0.4\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.6]
+            % Bathtub body
+            \draw[thick, HECnavy] (0,0) -- (0,3.5) (4,0) -- (4,3.5);
+            \draw[thick, HECnavy] (0,0) arc (180:360:2 and 0.3);
+            % Water
+            \fill[HEClightblue, opacity=0.5] (0,0) arc (180:360:2 and 0.3) -- (4,2) -- (0,2) -- cycle;
+            \draw[HECnavy, dashed] (0,2) -- (4,2);
+            \node[HECnavy, font=\footnotesize] at (2,1) {$K/L$};
+            % Faucet
+            \draw[thick, HECgreen] (-0.5,4) -- (-0.5,3.8) -- (1,3.8) -- (1,3.5);
+            \draw[->, HECgreen, thick] (1,3.5) -- (1,2.5);
+            \node[HECgreen, font=\footnotesize, left] at (-0.5,4) {$I$};
+            % Drain
+            \draw[->, HECcoral, thick] (2,-0.3) -- (2,-1.2);
+            \node[HECcoral, font=\footnotesize] at (2,-1.5) {$\delta + n$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+   \vspace{0.1cm}
+   \begin{exercise}[Baignoire]
+      Si le niveau initial est de 10\,L, que se passe-t-il? Et s'il est de 90\,L? À quel niveau l'eau se stabilise-t-elle?
+   \end{exercise}
+\end{frame}
+
+\begin{frame}[t]{Les limites de l'analogie}
+   L'analogie de la baignoire est utile et permet de comprendre l'essentiel\ldots
+   \vspace{0.15cm}
+   \begin{itemize}
+      \item \ldots mais ça reste une analogie!
+   \end{itemize}
+   \begin{columns}[T, totalwidth=\textwidth]
+      \begin{column}{0.45\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HECgray, boxrule=0.5pt, arc=8pt, title=\textbf{Baignoire}, fonttitle=\small, colbacktitle=HECgray, coltitle=white, top=4pt, bottom=4pt]
+            \small
+            Investissement \textbf{constant} \\ (5\,L/min, peu importe le stock)
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.5\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HECnavy, boxrule=0.5pt, arc=8pt, title=\textbf{Économie réelle}, fonttitle=\small, colbacktitle=HECnavy, coltitle=white, top=4pt, bottom=4pt]
+            \small
+            $Y = C + I$, donc $Y \uparrow$ $\to$ $I \uparrow$ \\ (plus de $K$ $\to$ plus de $Y$ $\to$ plus de $I$)
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
+   \vspace{0.75cm}
+   Que se passe-t-il si l'investissement \textbf{croît avec la taille de l'économie}?
+   \vspace{0.15cm}
+   \begin{itemize}
+      \item \textcolor{HECcoral}{Peut-on accumuler du capital \textbf{indéfiniment}?}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Croissance explosive?}
+   \vspace{0.2cm}
+   \centering
+   \begin{tikzpicture}[scale=0.85,
+      box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
+                  fill=HEClightgray, minimum width=2.8cm, minimum height=0.85cm,
+                  align=center, font=\small, inner sep=5pt},
+      arr/.style={->, HECnavy, >=stealth, line width=1.2pt}
+   ]
+      % Horizontal layout: K -- Y on top, I centered below
+      \node[box] (K) at (-3,0) {Plus de capital\\[1pt]$K \uparrow$};
+      \node[box] (Y) at (3,0) {Plus de production\\[1pt]$Y \uparrow$};
+      \node[box] (I) at (0,-2.8) {Plus d'investissement\\[1pt]$I \uparrow$};
+
+      % Arrows: short, tidy bends
+      \draw[arr] (K) -- (Y);
+      \draw[arr] (Y) -- (I);
+      \draw[arr] (I) -- (K);
+
+      % Center question mark
+      \node[font=\fontsize{30}{30}\selectfont, HECgray!30] at (0,-0.9) {?};
+   \end{tikzpicture}
+   \vspace{0.3cm}
+
+   {\large \textcolor{HECcoral}{\textbf{Ce cycle ne s'arrête-t-il jamais?}}}
+\end{frame}
+
+\begin{frame}[t]{Les rendements décroissants limitent l'accumulation}
+   Plus de $K$ $\to$ plus de $Y$ $\to$ plus de $I$\ldots mais \textbf{de moins en moins}.
+   \vspace{0.2cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item $K$ augmente $\to$ $Y$ augmente (mais à un rythme décroissant)
+      \item $I$ augmente aussi, mais de moins en moins vite
+      \item Le drain ($\delta \cdot K$) augmente \textbf{proportionnellement} à $K$
+      \item À un moment : investissement $=$ dépréciation $\to$ \textbf{état stationnaire}
+   \end{enumerate}
+   \vspace{0.2cm}
+   \begin{defbox}[État stationnaire]
+      Le niveau de capital par travailleur où l'investissement compense exactement la dépréciation et la croissance de la population. Le capital $K/L$ et la production $Y/L$ par travailleur ne changent plus.
+   \end{defbox}
+\end{frame}
+
+\begin{frame}[t]{Le profil de croissance selon Solow}
+   \textbf{Phase de rattrapage} \textcolor{HECgray}{(capital sous son état stationnaire)}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Croissance \textbf{rapide} tirée par l'accumulation de $K$
+      \item Ex. : Allemagne/Japon après-guerre, Chine 1980--2010
+   \end{itemize}
+   \vspace{0.25cm}
+   \textbf{État stationnaire} \textcolor{HECgray}{(long terme)}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Les rendements décroissants épuisent le potentiel du capital
+      \item La croissance de long terme ne peut provenir que de la \textbf{productivité} ($A$)
+   \end{itemize}
+   \vspace{0.25cm}
+   \begin{keyinsight}
+      Le capital propulse la croissance \textbf{temporairement}, mais pas \textbf{indéfiniment}.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{La phase de rattrapage en action}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{catchup_growth.png}
    \end{figure}
 \end{frame}
 
@@ -392,335 +692,114 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{La PTF explique $\sim$50\,\% des différences de revenus}
-   \vspace{-0.2cm}
+\begin{frame}{La Chine ralentit\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.85\textwidth, height=0.55\textheight, keepaspectratio]{development_accounting.png}
-   \end{figure}
-   \vspace{-0.3cm}
-   \begin{keyinsight}
-      \small Le capital et le travail n'expliquent qu'environ la \textbf{moitié} des différences de revenus entre pays. Le reste : la productivité. Comprendre $A$ est \textbf{la} question centrale.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{Qu'est-ce qui détermine $K/N$?}
-   On peut \textit{mesurer} les sources de la croissance. Mais qu'est-ce qui \textbf{détermine} l'accumulation de capital?
-   \vspace{0.3cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Pourquoi certains pays investissent-ils plus que d'autres?
-      \item L'investissement massif peut-il à lui seul assurer la croissance?
-      \item Y a-t-il des \textbf{limites} à l'accumulation de capital?
-   \end{itemize}
-   \vspace{0.3cm}
-   Pour répondre, nous avons besoin d'un modèle qui décrit la \textbf{dynamique} du capital $\to$ le \textbf{modèle de Solow}
-\end{frame}
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
-      \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}Décomposer la croissance}
-      \item \textbf{Le modèle de Solow}
-      \item Convergence
-      \item Le vrai moteur de la croissance
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Le modèle de Solow}
-% ============================================================================
-
-\begin{frame}[t]{Robert Solow (1924--2023)}
-   \begin{columns}[T]
-      \begin{column}{0.6\textwidth}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Admis à Harvard à 16 ans
-            \item Service militaire en Italie pendant la Seconde Guerre mondiale
-            \item Professeur au MIT pendant plus de 50 ans
-            \item \textbf{Prix Nobel d'économie} en 1987
-            \item Son modèle (1956) reste \textit{le} cadre de référence pour analyser la croissance de long terme
-         \end{itemize}
-         \vspace{0.15cm}
-         {\small\textcolor{HECgray}{\guillemotleft~Everything reminds Milton [Friedman] of the money supply. Well, everything reminds me of sex, but I keep it out of the paper.~\guillemotright}}
-      \end{column}
-      \begin{column}{0.35\textwidth}
-         \centering
-         \includegraphics[width=\textwidth, keepaspectratio]{solow.png}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{L'expérience de guerre de Solow}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \centering
-         \includegraphics[width=\textwidth, height=0.65\textheight, keepaspectratio]{italy_1.png}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \centering
-         \includegraphics[width=\textwidth, height=0.65\textheight, keepaspectratio]{italy_2.png}
-      \end{column}
-   \end{columns}
-   \vspace{0.2cm}
-   \centering
-   {\small Le capital a été \textbf{massivement détruit}\ldots mais les pays se sont \textbf{entièrement remis}.\\Qu'est-ce qui détermine la reprise?}
-\end{frame}
-
-\begin{frame}{La reprise d'après-guerre}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.9\textwidth]{ww2_recovery.png}
+      \includegraphics[width=0.95\textwidth]{china_gdp_growth.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Les conclusions surprenantes de Solow}
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.4cm}
-      \item Le capital est \textbf{crucial} pour le niveau de vie\ldots
-      \item \ldots mais l'accumulation de capital \textbf{seule} ne peut pas soutenir la croissance à long terme!
-   \end{enumerate}
-   \vspace{0.3cm}
-   \begin{warning}
-      Investir massivement vous rend plus \textbf{riche}, mais ne vous fait pas croître plus \textbf{vite} indéfiniment. Les rendements décroissants finissent toujours par dominer.
-   \end{warning}
+\begin{frame}{Le Japon : du miracle à la stagnation\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{japan_growth.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{L'analogie de la baignoire}
+\begin{frame}[t]{Leçons du modèle de Solow}
    \small
-   Imaginez le stock de capital par travailleur ($K/N$) comme le niveau d'eau dans une baignoire :
-   \vspace{0.2cm}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECnavy}{Le robinet (entrée)}}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Investissement = $s \cdot Y$
-            \item $s$ = taux d'épargne/investissement
-            \item Plus la baignoire est vide, plus le débit est \guillemotleft~utile~\guillemotright
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECcoral}{Le drain (sortie)}}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Dépréciation = $\delta \cdot K$
-            \item Croissance de la population = $n$
-            \item Plus le niveau est élevé, plus le drain est fort
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.2cm}
-   \begin{defbox}[Équilibre de long terme]
-      Quand entrée $=$ sortie, le niveau se stabilise. C'est l'\textbf{état stationnaire} : $K/N$ ne change plus.
-   \end{defbox}
-\end{frame}
-
-\begin{frame}[t]{La baignoire : exercice}
-   \small
-   \begin{exercise}
-      Une baignoire a une capacité de 100 litres. Le robinet coule à 5\,L/min. Le drain évacue 10\,\% du contenu par minute.
-      \vspace{0.15cm}
-      \begin{enumerate}
-         \setlength\itemsep{0.15cm}
-         \item Si le niveau initial est de \textbf{10 litres}, que se passe-t-il? (drain = 1\,L/min $<$ 5\,L/min $\to$ le niveau \textbf{monte})
-         \item Si le niveau initial est de \textbf{90 litres}? (drain = 9\,L/min $>$ 5\,L/min $\to$ le niveau \textbf{baisse})
-         \item Quel est le \textbf{niveau d'équilibre}? (quand drain = robinet : $0{,}10 \times K = 5 \to K = 50$)
-         \item Le niveau initial \textbf{affecte-t-il} l'équilibre de long terme?
-      \end{enumerate}
-   \end{exercise}
-\end{frame}
-
-\begin{frame}[t]{Les enseignements de Solow}
-   \small
+   Pour des économies aux \textbf{fondamentaux identiques}, le modèle de Solow prédit que :
+   \vspace{0.25cm}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
       \item \textbf{Le point de départ n'a pas d'importance à long terme}\\
-      {\small Peu importe que $K/N$ soit faible ou élevé --- l'économie converge vers le même état stationnaire}
-      \item \textbf{Plus d'investissement $\to$ plus riche, mais PAS une croissance plus rapide}\\
-      {\small Un taux d'épargne plus élevé ($s \uparrow$) élève le niveau de $K/N$, mais la croissance s'arrête au nouvel état stationnaire}
-      \item \textbf{Plus de croissance démographique $\to$ moins riche}\\
-      {\small Le capital doit être réparti entre plus de travailleurs ($n \uparrow \to K/N \downarrow$)}
+      L'économie converge vers le même état stationnaire $\to$ la reprise d'après-guerre
+      \item \textbf{Plus d'investissement $\to$ plus riche, mais pas de croissance permanente}\\
+      Les rendements marginaux décroissants l'emportent toujours
+      \item \textbf{Plus de croissance démographique $\to$ pays plus pauvre}\\
+      Le drain de la baignoire coule plus vite $\to$ l'état stationnaire est plus bas
+      \item \textbf{Seule la productivité ($A$) soutient la croissance de long terme}\\
+      Le capital explique le \textit{niveau}, la productivité explique la \textit{croissance}
    \end{enumerate}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      Tous ces résultats sont des résultats \textit{ceteris paribus} et de \textit{long terme}.
-   \end{keyinsight}
 \end{frame}
 
-\begin{frame}[t]{Application : la Chine ralentit}
+\begin{frame}[t]{Les pays pauvres rattraperont-ils les pays riches?}
+   \textbf{Prédiction de Solow :} les pays pauvres devraient croître \textbf{plus rapidement}
+   \vspace{0.5cm}
+   \begin{columns}[T, totalwidth=\textwidth]
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgreen}{\large\textbf{Pays pauvre}}\\[6pt]
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Faible $K/L$
+            \item Rendement marginal \textbf{élevé}
+            \item Robinet $\gg$ drain
+            \item \textbf{Croissance rapide}
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.06\textwidth}
+         \centering
+         \vspace{1.5cm}
+         {\Large\textcolor{HECgray}{vs}}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECnavy}{\large\textbf{Pays riche}}\\[6pt]
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Élevé $K/L$
+            \item Rendement marginal \textbf{faible}
+            \item Robinet $\approx$ drain
+            \item \textbf{Croissance lente}
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.5cm}
+   Les pays pauvres devraient \textbf{converger} vers les pays riches. Est-ce le cas?
+\end{frame}
+
+\begin{frame}{Convergence entre les États américains}
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.85\textwidth, height=0.55\textheight, keepaspectratio]{china_gdp_growth.png}
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{convergence_us_states.png}
    \end{figure}
-   \vspace{-0.3cm}
-   \begin{bizimplication}
-      \footnotesize La croissance chinoise a été tirée par l'accumulation massive de capital. Solow prédit que cette stratégie atteint ses limites --- les rendements décroissants finissent par dominer.
-   \end{bizimplication}
 \end{frame}
 
-\begin{frame}[t]{Application : une croissance sur la dette}
-   % TODO: Replace with actual chart of China fiscal deficit (official vs augmented)
-   \begin{tcolorbox}[
-      colback=HEClightgray, colframe=HEClightgray, arc=8pt,
-      width=\textwidth, height=0.45\textheight,
-      halign=center, valign=center
-   ]
-      {\large\itshape\textcolor{HECgray}{Graphique : déficit fiscal chinois (officiel vs.\ augmenté)}}\\[6pt]
-      {\small\textcolor{HECgray}{Source : IMF, Rhodium Group}}
-   \end{tcolorbox}
-   \vspace{0.05cm}
-   \begin{warning}
-      \footnotesize La Chine a financé son accumulation de capital par un endettement massif. \guillemotleft~850 milliards de nouvelle dette en un trimestre.~\guillemotright\ Quand l'investissement est alimenté par la dette plutôt que l'épargne, les risques s'accumulent.
-   \end{warning}
+\begin{frame}{Convergence entre pays de l'OCDE}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{convergence_oecd.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Application : la destruction de capital}
-   \small
-   La Seconde Guerre mondiale a détruit une part massive du stock de capital en Europe et au Japon.
-   \vspace{0.15cm}
+\begin{frame}{Convergence entre pays asiatiques}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{convergence_asia.png}
+   \end{figure}
+\end{frame}
 
-   Pourtant, ces économies ont retrouvé leur trajectoire de croissance en 15--20 ans.
-   \vspace{0.15cm}
-
-   \textbf{Pourquoi?} Solow a la réponse :
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.08cm}
-      \item La destruction de capital éloigne l'économie de son état stationnaire
-      \item Mais les \textbf{paramètres fondamentaux} ($s$, $n$, $\delta$, $A$) n'ont pas changé
-      \item Le mécanisme de la baignoire ramène l'économie à l'équilibre
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{defbox}[Implication clé]
-      L'équilibre de long terme dépend des \textbf{paramètres} ($s$, $n$, $\delta$, $A$), pas du point de départ.
-   \end{defbox}
+\begin{frame}{Mais la convergence n'est pas universelle\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{convergence_global.png}
+   \end{figure}
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}Décomposer la croissance}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item {\color{gray!50}La comptabilité du développement}
       \item {\color{gray!50}Le modèle de Solow}
-      \item \textbf{Convergence}
-      \item Le vrai moteur de la croissance
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Convergence}
-% ============================================================================
-
-\begin{frame}[t]{Les pays pauvres rattrapent-ils les pays riches?}
-   \textbf{Prédiction de Solow :} les pays pauvres devraient croître \textbf{plus vite}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Pays pauvre $\to$ faible $K/N$ $\to$ rendement marginal du capital \textbf{élevé}
-      \item Chaque dollar investi génère plus de production
-      \item L'écart entre le robinet et le drain est \textbf{maximal}
-   \end{itemize}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Pays riche $\to$ élevé $K/N$ $\to$ rendement marginal \textbf{faible}
-      \item Le drain est presque aussi fort que le robinet
-      \item La croissance ralentit naturellement
-   \end{itemize}
-   \vspace{0.2cm}
-   $\to$ Les pays pauvres devraient \textbf{converger} vers les pays riches. Est-ce le cas?
-\end{frame}
-
-\begin{frame}{Convergence entre États américains}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.9\textwidth, height=0.78\textheight, keepaspectratio]{convergence_us_states.png}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Convergence entre économies avancées}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.9\textwidth, height=0.78\textheight, keepaspectratio]{convergence_oecd.png}
-   \end{figure}
-\end{frame}
-
-\begin{frame}[t]{Convergence mondiale : un portrait nuancé}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.85\textwidth, height=0.55\textheight, keepaspectratio]{convergence_global.png}
-   \end{figure}
-   \vspace{-0.3cm}
-   \begin{warning}
-      \small La convergence \textbf{n'est pas automatique}. Elle s'observe entre économies aux paramètres similaires (\textbf{convergence conditionnelle}), mais pas nécessairement à l'échelle mondiale.
-   \end{warning}
-\end{frame}
-
-% --- Korea satellite photo ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}[plain]
-   \begin{tikzpicture}[remember picture, overlay]
-      \node[anchor=center, inner sep=0pt] at (current page.center) {%
-         \includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{korea_satellite.png}%
-      };
-      \node[anchor=south, fill=black, fill opacity=0.6, text opacity=1, inner sep=8pt,
-            text width=0.7\paperwidth, align=center]
-         at ([yshift=0.5cm]current page.south)
-         {\normalsize\textcolor{white}{Corée du Nord vs Corée du Sud --- même géographie, même culture, même histoire jusqu'en 1945. \textbf{Des institutions radicalement différentes.}}};
-   \end{tikzpicture}
-\end{frame}
-}
-
-\begin{frame}[t]{Pourquoi certains pays ne convergent-ils pas?}
-   \small
-   Dans le modèle de Solow, la convergence suppose des \textbf{paramètres identiques}. En réalité :
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Institutions} différentes $\to$ différents $A$, $s$
-      \item \textbf{Gouvernance} déficiente $\to$ faible $s$ effectif (corruption, détournement)
-      \item \textbf{Conflits} et instabilité $\to$ destruction de capital récurrente
-      \item \textbf{Géographie} et santé $\to$ productivité réduite
-   \end{itemize}
-   \vspace{0.15cm}
-   Même modèle de Solow, mais des \textbf{paramètres différents} $\to$ des équilibres différents
-   \vspace{0.1cm}
-   \begin{bizimplication}
-      Identifier les économies qui \textbf{convergent} (amélioration institutionnelle, ouverture, stabilité) = identifier les opportunités d'investissement de long terme.
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
-      \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}Décomposer la croissance}
-      \item {\color{gray!50}Le modèle de Solow}
-      \item {\color{gray!50}Convergence}
       \item \textbf{Le vrai moteur de la croissance}
-      \item Le casse-tête canadien de la productivité
-      \item Croissance et environnement
+      \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
 
@@ -728,32 +807,15 @@
 \sectionframe{Le vrai moteur de la croissance}
 % ============================================================================
 
-\begin{frame}[t]{Le résultat négatif de Solow}
-   À l'état stationnaire de la baignoire, $K/N$ est stable $\to$ $Y/N$ est stable.
-   \vspace{0.3cm}
-
-   \textbf{Problème :} on observe une croissance \textit{soutenue} du PIB par habitant depuis 200+ ans!
-   \vspace{0.3cm}
-
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Le hockey stick n'est \textbf{pas} expliqué par le capital seul
-      \item L'accumulation de capital a des rendements décroissants
-      \item Quelque chose d'\textbf{autre} doit tirer la croissance de long terme
-   \end{itemize}
-   \vspace{0.3cm}
-   Qu'est-ce qui manque au modèle?
-\end{frame}
-
 \begin{frame}[t]{Le seul moteur de long terme : la productivité}
    \textbf{Quand $A$ augmente}, toute la fonction de production se déplace vers le haut :
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item Chaque unité de $K$ et $N$ produit \textbf{davantage}
-      \item L'investissement par travailleur ($s \cdot Y/N$) augmente
+      \item Chaque unité de $K$ et $L$ produit \textbf{davantage}
+      \item L'investissement par travailleur augmente
       \item La baignoire \guillemotleft~grossit~\guillemotright\ --- un \textbf{nouvel} état stationnaire, plus élevé
-      \item Si $A$ croît en permanence, $K/N$ et $Y/N$ croissent en permanence
+      \item Si $A$ croît en permanence, $K/L$ et $Y/L$ croissent en permanence
    \end{itemize}
    \vspace{0.2cm}
    \begin{keyinsight}
@@ -770,7 +832,7 @@
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item Pour les \textbf{objets} (K, N) : rendements d'échelle constants ($2K + 2N \to 2Y$)
+      \item Pour les \textbf{objets} (K, L) : rendements d'échelle constants ($2K + 2L \to 2Y$)
       \item Pour les \textbf{objets + idées} : rendements d'échelle \textbf{croissants}!
    \end{itemize}
    \vspace{0.15cm}
@@ -819,7 +881,7 @@
 \begin{frame}{Sommes-nous à bout de souffle?}
    \begin{figure}
       \centering
-      \includegraphics[width=0.9\textwidth]{tfp_growth_advanced.png}
+      \includegraphics[width=0.95\textwidth]{tfp_growth_advanced.png}
    \end{figure}
    \vspace{-0.2cm}
    \footnotesize La croissance de la PTF ralentit dans les économies avancées depuis les années 2000. Mais l'IA et l'innovation dans les marchés émergents offrent des raisons d'être optimistes.
@@ -828,27 +890,25 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}Décomposer la croissance}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item {\color{gray!50}La comptabilité du développement}
       \item {\color{gray!50}Le modèle de Solow}
-      \item {\color{gray!50}Convergence}
       \item {\color{gray!50}Le vrai moteur de la croissance}
-      \item \textbf{Le casse-tête canadien de la productivité}
-      \item Croissance et environnement
+      \item \textbf{La croissance et ses conséquences}
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Le casse-tête canadien de la productivité}
+\sectionframe{La croissance et ses conséquences}
 % ============================================================================
 
 \begin{frame}{Le Canada décroche}
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.9\textwidth, height=0.55\textheight, keepaspectratio]{gdp_per_capita_canada_usa.png}
+      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{gdp_per_capita_canada_usa.png}
    \end{figure}
    \vspace{-0.3cm}
    Le PIB par habitant du Canada \textbf{diminue} par rapport aux États-Unis depuis $\sim$2015. En 2024, l'écart est à son plus haut niveau depuis les années 1980.
@@ -858,7 +918,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.9\textwidth, height=0.55\textheight, keepaspectratio]{oecd_business_investment.png}
+      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{oecd_business_investment.png}
    \end{figure}
    \vspace{-0.3cm}
    L'investissement des entreprises canadiennes en \% du PIB est \textbf{systématiquement inférieur} à celui des États-Unis et de la moyenne OCDE. Moins de capital $\to$ moins de productivité.
@@ -872,7 +932,7 @@
    \end{figure}
    \vspace{-0.3cm}
    \begin{warning}
-      \footnotesize De 2005 à 2019, la croissance de la PTF au Canada a été \textbf{négative} ($-1{,}26\,\%$/an). Le Canada ne souffre pas seulement d'un manque de capital --- il souffre d'un problème de \textbf{productivité}.
+      \footnotesize De 2005 à 2019, la croissance de la PTF au Canada a été \textbf{négative} ($-1.26\,\%$/an). Le Canada ne souffre pas seulement d'un manque de capital --- il souffre d'un problème de \textbf{productivité}.
    \end{warning}
 \end{frame}
 
@@ -887,7 +947,7 @@
       arr/.style={-{Stealth[length=6pt]}, thick, HECnavy}
    ]
       \node (invest) {\textbf{Faible}\\\textbf{investissement}};
-      \node (kn) [right=of invest] {Faible $K/N$};
+      \node (kn) [right=of invest] {Faible $K/L$};
       \node (prod) [right=of kn] {Faible\\productivité};
       \node (wages) [below=of prod] {Faibles\\salaires};
       \node (brain) [below=of kn] {Fuite des\\cerveaux};
@@ -900,7 +960,7 @@
    \end{center}
    \vspace{0.1cm}
    \begin{warning}
-      Le Canada investit moins en R\&D que presque tous ses pairs du G7. En 2023 : 1,7\,\% du PIB vs 3,5\,\% aux États-Unis.
+      Le Canada investit moins en R\&D que presque tous ses pairs du G7. En 2023 : 1.7\,\% du PIB vs 3.5\,\% aux États-Unis.
    \end{warning}
 \end{frame}
 
@@ -922,32 +982,13 @@
    $\to$ La croissance peut-elle être \textbf{soutenable} sur le plan environnemental?
 \end{frame}
 
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}La croissance est un phénomène récent}
-      \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}Décomposer la croissance}
-      \item {\color{gray!50}Le modèle de Solow}
-      \item {\color{gray!50}Convergence}
-      \item {\color{gray!50}Le vrai moteur de la croissance}
-      \item {\color{gray!50}Le casse-tête canadien de la productivité}
-      \item \textbf{Croissance et environnement}
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Croissance et environnement}
-% ============================================================================
-
 \begin{frame}[t]{L'identité de Kaya}
    \small
    Comment relier croissance économique et émissions de CO$_2$?
    \vspace{0.2cm}
    \begin{defbox}[Identité de Kaya]
       \begin{equation*}
-         \underbrace{\text{CO}_2}_{\text{émissions}} \;=\; \underbrace{\text{Pop}}_{\text{population}} \;\times\; \underbrace{\frac{Y}{\text{Pop}}}_{\text{niveau de vie}} \;\times\; \underbrace{\frac{E}{Y}}_{\text{intensité}\\\text{énergétique}} \;\times\; \underbrace{\frac{\text{CO}_2}{E}}_{\text{intensité}\\\text{carbone}}
+         \underbrace{\text{CO}_2}_{\text{émissions}} \;=\; \underbrace{N}_{\text{population}} \;\times\; \underbrace{\frac{Y}{N}}_{\text{niveau de vie}} \;\times\; \underbrace{\frac{E}{Y}}_{\text{intensité}\\\text{énergétique}} \;\times\; \underbrace{\frac{\text{CO}_2}{E}}_{\text{intensité}\\\text{carbone}}
       \end{equation*}
    \end{defbox}
    \vspace{0.1cm}

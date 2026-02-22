@@ -17,7 +17,7 @@
 \begin{frame}[plain]
    \begin{tikzpicture}[remember picture, overlay]
       \setcounter{newshl}{0}
-      \newsheadline{Radio-Canada}{\guillemotleft~Le taux de chômage atteint 6,8\,\% au Canada --- le plus haut depuis 2017~\guillemotright}
+      \newsheadline{Radio-Canada}{\guillemotleft~Le taux de chômage atteint 6.8\,\% au Canada --- le plus haut depuis 2017~\guillemotright}
       \newsheadline{Financial Times}{\guillemotleft~US labor shortages persist in healthcare and construction~\guillemotright}
       \newsheadline{Le Devoir}{\guillemotleft~L'IA pourrait toucher 40\,\% des emplois selon le FMI~\guillemotright}
       \newsheadline{The Economist}{\guillemotleft~Immigration is reshaping rich-world labor markets~\guillemotright}
@@ -193,16 +193,16 @@
       \begin{column}{0.48\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
             \draw[HECgreen, very thick, dashed] (1.5,0.5) -- (5,3.5)
-               node[right, font=\small] {$N^{S\prime}$};
+               node[right, font=\small] {$L^{S\prime}$};
             \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
          \end{tikzpicture}
          \vspace{0.1cm}
 
-         {\footnotesize\textcolor{HECgray}{$\uparrow$ population $\to$ $N^S$ se déplace à droite}}
+         {\footnotesize\textcolor{HECgray}{$\uparrow$ population $\to$ $L^S$ se déplace à droite}}
       \end{column}
    \end{columns}
 \end{frame}
@@ -229,16 +229,16 @@
       \begin{column}{0.48\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
             \draw[HECgreen, very thick, dashed] (1.5,4.5) -- (5.5,1)
-               node[right, font=\small] {$N^{D\prime}$};
+               node[right, font=\small] {$L^{D\prime}$};
             \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
          \end{tikzpicture}
          \vspace{0.1cm}
 
-         {\footnotesize\textcolor{HECgray}{$\uparrow$ productivité $\to$ $N^D$ se déplace à droite}}
+         {\footnotesize\textcolor{HECgray}{$\uparrow$ productivité $\to$ $L^D$ se déplace à droite}}
       \end{column}
    \end{columns}
 \end{frame}
@@ -250,7 +250,7 @@
          \vspace{0.1cm}
          \begin{itemize}
             \setlength\itemsep{0.15cm}
-            \item $N^*$ = emploi d'équilibre
+            \item $L^*$ = emploi d'équilibre
             \item $w^*$ = salaire d'équilibre
          \end{itemize}
          \vspace{0.2cm}
@@ -261,13 +261,13 @@
       \begin{column}{0.48\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
             % Intersection
             \filldraw[HECgreen] (2.35,2.15) circle (3pt);
-            \draw[dashed, HECgray] (2.35,0) node[below] {$N^*$} -- (2.35,2.15);
+            \draw[dashed, HECgray] (2.35,0) node[below] {$L^*$} -- (2.35,2.15);
             \draw[dashed, HECgray] (0,2.15) node[left] {$w^*$} -- (2.35,2.15);
          \end{tikzpicture}
       \end{column}
@@ -283,7 +283,7 @@
             \setlength\itemsep{0.1cm}
             \item Le capital ($K$) est \textbf{fixe}
             \item Seul le travail s'ajuste
-            \item Un choc d'offre (ex.\ immigration) modifie $w$ et $N$
+            \item Un choc d'offre (ex.\ immigration) modifie $w$ et $L$
          \end{itemize}
       \end{column}
       \begin{column}{0.48\textwidth}
@@ -293,13 +293,13 @@
             \setlength\itemsep{0.1cm}
             \item Le capital \textbf{s'ajuste} (Solow!)
             \item Plus de travailleurs $\to$ rendement du capital $\uparrow$ $\to$ investissement $\uparrow$
-            \item $K \uparrow$ $\to$ $N^D$ se déplace à droite
+            \item $K \uparrow$ $\to$ $L^D$ se déplace à droite
          \end{itemize}
       \end{column}
    \end{columns}
    \vspace{0.3cm}
    \begin{defbox}
-      \textbf{Court terme :} $K$ fixe, seul $N$ s'ajuste.\\
+      \textbf{Court terme :} $K$ fixe, seul $L$ s'ajuste.\\
       \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow $\to$ nouvel équilibre.
    \end{defbox}
 \end{frame}
@@ -315,7 +315,7 @@
       \item Le déclin de la participation masculine
    \end{enumerate}
    \vspace{0.3cm}
-   Dans chaque cas : quel choc? Quelle courbe se déplace? Quel effet sur $w$ et $N$?
+   Dans chaque cas : quel choc? Quelle courbe se déplace? Quel effet sur $w$ et $L$?
 \end{frame}
 
 % ============================================================================
@@ -345,13 +345,13 @@
       \end{column}
       \begin{column}{0.47\textwidth}
          \small
-         \textbf{Le choc :} déplacement massif de $N^S$ vers la droite (1960--2000).
+         \textbf{Le choc :} déplacement massif de $L^S$ vers la droite (1960--2000).
          \vspace{0.15cm}
 
          \textbf{Court terme :}
          \begin{itemize}
             \setlength\itemsep{0.05cm}
-            \item Plus de travailleurs $\to$ $N \uparrow$
+            \item Plus de travailleurs $\to$ $L \uparrow$
             \item Pression à la baisse sur $w$
          \end{itemize}
          \vspace{0.1cm}
@@ -359,7 +359,7 @@
          \textbf{Long terme :}
          \begin{itemize}
             \setlength\itemsep{0.05cm}
-            \item $K$ s'ajuste $\to$ $N^D$ se déplace
+            \item $K$ s'ajuste $\to$ $L^D$ se déplace
             \item Les salaires se rétablissent
          \end{itemize}
       \end{column}
@@ -377,7 +377,7 @@
       \end{column}
       \begin{column}{0.47\textwidth}
          \small
-         \textbf{Le choc :} déplacement de $N^S$ vers la \textbf{gauche} (moins de travailleurs en âge actif).
+         \textbf{Le choc :} déplacement de $L^S$ vers la \textbf{gauche} (moins de travailleurs en âge actif).
          \vspace{0.15cm}
 
          \textbf{Conséquences :}
@@ -403,16 +403,16 @@
          \vspace{0.2cm}
 
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
             % Original equilibrium
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$N^S$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$N^D$};
+            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
+            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
             \filldraw[HECgray] (2.35,2.15) circle (2pt);
             \draw[dashed, HECgray, thin] (0,2.15) node[left, font=\small] {$w^*$} -- (2.35,2.15);
             % Shifted supply
             \draw[HECnavy, very thick, dashed] (1.5,0.5) -- (5,3.5)
-               node[right, font=\small] {$N^{S\prime}$};
+               node[right, font=\small] {$L^{S\prime}$};
             % New equilibrium
             \filldraw[HECgreen] (2.85,1.75) circle (3pt);
             \draw[dashed, HECgreen] (0,1.75) node[left, font=\small, text=HECgreen] {$w_1$} -- (2.85,1.75);
@@ -427,7 +427,7 @@
          \vspace{0.1cm}
          \begin{itemize}
             \setlength\itemsep{0.15cm}
-            \item $N^S$ se déplace à \textbf{droite}
+            \item $L^S$ se déplace à \textbf{droite}
             \item Emploi $\uparrow$, salaires $\downarrow$
             \item Le capital n'a pas eu le temps de s'ajuster
          \end{itemize}
@@ -448,19 +448,19 @@
          \vspace{0.2cm}
 
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$N$};
+            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
             % Shifted supply (now the baseline)
-            \draw[HECnavy, very thick] (1.5,0.5) -- (5,3.5) node[right] {$N^{S\prime}$};
+            \draw[HECnavy, very thick] (1.5,0.5) -- (5,3.5) node[right] {$L^{S\prime}$};
             % Original demand
             \draw[HECgray, thick, dashed] (0.5,4) -- (4.5,0.5)
-               node[right, font=\small, text=HECgray] {$N^D$};
+               node[right, font=\small, text=HECgray] {$L^D$};
             % SR equilibrium
             \filldraw[HECgray] (2.85,1.75) circle (2pt);
             \draw[dashed, HECgray, thin] (0,1.75) node[left, font=\small, text=HECgray] {$w_1$} -- (2.85,1.75);
             % Shifted demand (K adjusts)
             \draw[HECcoral, very thick] (1.5,4.5) -- (5.5,1)
-               node[right, font=\small] {$N^{D\prime}$};
+               node[right, font=\small] {$L^{D\prime}$};
             % New LR equilibrium
             \filldraw[HECgreen] (3.35,2.15) circle (3pt);
             \draw[dashed, HECgreen] (0,2.15) node[left, font=\small, text=HECgreen] {$w^{**}$} -- (3.35,2.15);
@@ -478,7 +478,7 @@
             \setlength\itemsep{0.05cm}
             \item Salaires $\downarrow$ $\to$ produit marginal du capital $\uparrow$
             \item Investissement devient plus rentable
-            \item $K \uparrow$ $\to$ $N^D$ se déplace à droite
+            \item $K \uparrow$ $\to$ $L^D$ se déplace à droite
             \item Salaires remontent vers $w^{**} \approx w^*$
          \end{enumerate}
          \vspace{0.1cm}
@@ -598,7 +598,7 @@
             \setlength\itemsep{0.1cm}
             \item Les TIC augmentent la demande de compétences cognitives non routinières
             \item Les tâches \textbf{routinières} (manufacturières, administratives) sont automatisées
-            \item $N^D_{\text{qualifiés}} \uparrow$ et $N^D_{\text{non-qualifiés}} \downarrow$
+            \item $L^D_{\text{qualifiés}} \uparrow$ et $L^D_{\text{non-qualifiés}} \downarrow$
          \end{itemize}
          \vspace{0.1cm}
          $\to$ Écart salarial croissant entre qualifiés et non-qualifiés

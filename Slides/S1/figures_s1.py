@@ -133,6 +133,27 @@ def get_valet_series(series_id, start='2000-01-01'):
     return df["value"]
 
 
+# ── OWID Maddison helper ──────────────────────────────────────────────
+def _get_owid_maddison():
+    """Fetch Maddison GDP per capita from the OWID API (2023 edition, data to 2022)."""
+    import json, urllib.request
+    url_data = 'https://api.ourworldindata.org/v1/indicators/900793.data.json'
+    url_meta = 'https://api.ourworldindata.org/v1/indicators/900793.metadata.json'
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    data = json.loads(urllib.request.urlopen(
+        urllib.request.Request(url_data, headers=headers)).read())
+    meta = json.loads(urllib.request.urlopen(
+        urllib.request.Request(url_meta, headers=headers)).read())
+    entity_map = {e['id']: e['name']
+                  for e in meta['dimensions']['entities']['values']}
+    df = pd.DataFrame({
+        'Entity': [entity_map[eid] for eid in data['entities']],
+        'Year': data['years'],
+        'GDP per capita': data['values'],
+    })
+    return df
+
+
 # ── Shared plot helpers ─────────────────────────────────────────────────
 def new_figure():
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -508,13 +529,8 @@ def canada_employment_exports():
 # =====================================================================
 def hockey_stick_world():
     print('Figure 6: Hockey stick (GDP per capita, long-run)')
-    # Download Maddison-based GDP per capita from Our World in Data (GitHub)
-    url = ('https://raw.githubusercontent.com/owid/owid-datasets/master/'
-           'datasets/Maddison%20Project%20Database%202020%20'
-           '(Bolt%20and%20van%20Zanden%20(2020))/'
-           'Maddison%20Project%20Database%202020%20'
-           '(Bolt%20and%20van%20Zanden%20(2020)).csv')
-    df = pd.read_csv(url)
+    # Download Maddison GDP per capita from OWID API (Maddison 2023 edition, data to 2022)
+    df = _get_owid_maddison()
 
     fig, ax = new_figure()
 
@@ -536,9 +552,9 @@ def hockey_stick_world():
     ax.set_xlim(0, max_year + 5)
     ax.set_xticks(range(0, max_year + 1, 250))
     ax.set_xticklabels(range(0, max_year + 1, 250), fontsize=12)
-    ax.set_ylim(0, 70000)
-    ax.set_yticks(range(0, 70000 + 1, 10000))
-    ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 70 + 1, 10)],
+    ax.set_ylim(0, 60000)
+    ax.set_yticks(range(0, 60000 + 1, 10000))
+    ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 60 + 1, 10)],
                        fontsize=12)
     ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
@@ -546,7 +562,7 @@ def hockey_stick_world():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left',
               bbox_to_anchor=(0.02, 1.0))
-    add_source(ax, 'Source: Maddison Project Database (via Our World in Data)')
+    add_source(ax, 'Source: Maddison Project Database 2023 (via Our World in Data)')
     save(fig, 'hockey_stick_world.png')
 
 
