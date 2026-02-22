@@ -1,0 +1,124 @@
+name: Build Slides & Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX slides
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: s1.tex
+          working_directory: Slides/S1
+          pre_compile: |
+            # Compile all sessions except S1 (which the main action handles)
+            for dir in "$GITHUB_WORKSPACE"/Slides/S*/; do
+              num=$(basename "$dir" | sed 's/S//')
+              tex="s${num}.tex"
+              if [ -f "${dir}${tex}" ] && [ "$num" != "1" ]; then
+                echo "::group::Compiling S${num}"
+                (cd "$dir" && latexmk -pdf -interaction=nonstopmode "$tex") \
+                  || echo "::warning::S${num} failed to compile"
+                echo "::endgroup::"
+              fi
+            done
+
+      - name: Collect PDFs and generate landing page
+        run: |
+          mkdir -p _site
+
+          # Collect all compiled PDFs
+          for dir in Slides/S*/; do
+            num=$(basename "$dir" | sed 's/S//')
+            pdf="${dir}s${num}.pdf"
+            if [ -f "$pdf" ]; then
+              cp "$pdf" "_site/s${num}.pdf"
+              echo "Collected s${num}.pdf"
+            fi
+          done
+
+          # Build ordered list of session links
+          pdf_links=""
+          for f in _site/s*.pdf; do
+            [ -f "$f" ] || continue
+            name=$(basename "$f" .pdf)
+            num="${name#s}"
+            pdf_links="${pdf_links}<li><a href=\"${name}.pdf\">Séance ${num}</a></li>"
+          done
+
+          # Generate landing page
+          cat > _site/index.html << 'ENDHTML'
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>ECON 50803 — Environnement macroéconomique</title>
+          <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f8fafc; color: #1e293b;
+            min-height: 100vh; display: flex; justify-content: center;
+            padding: 3rem 1rem;
+          }
+          .container { max-width: 640px; width: 100%; }
+          h1 { font-size: 1.5rem; font-weight: 700; color: #002855; margin-bottom: 0.25rem; }
+          .subtitle { font-size: 0.95rem; color: #64748b; margin-bottom: 2rem; }
+          ul { list-style: none; }
+          li { margin-bottom: 0.5rem; }
+          a {
+            display: block; padding: 0.75rem 1rem;
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+            color: #002855; text-decoration: none; font-weight: 500;
+            transition: border-color 0.15s, box-shadow 0.15s;
+          }
+          a:hover { border-color: #26d07c; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+          a::after { content: " \2197"; font-size: 0.85em; color: #94a3b8; }
+          .footer { margin-top: 2.5rem; font-size: 0.8rem; color: #94a3b8; }
+          </style>
+          </head>
+          <body>
+          <div class="container">
+            <h1>ECON 50803</h1>
+            <p class="subtitle">Environnement macroéconomique — HEC Montréal</p>
+            <ul>%%LINKS%%</ul>
+            <p class="footer">Dernière mise à jour : %%DATE%%</p>
+          </div>
+          </body>
+          </html>
+          ENDHTML
+
+          sed -i "s|%%LINKS%%|${pdf_links}|" _site/index.html
+          sed -i "s|%%DATE%%|$(date -u +%Y-%m-%d)|" _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
