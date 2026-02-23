@@ -328,6 +328,50 @@ def inequality_skill_premium():
 
 
 # =====================================================================
+# Figure 7: R&D as share of GDP — US private vs public (FRED)
+# =====================================================================
+def rd_gdp_share():
+    """Stacked area: private and public R&D as share of US GDP."""
+    print('Figure 7: R&D / GDP — US private vs public')
+
+    private = get_fred_data('Y006RC1Q027SBEA') / get_fred_data('GDP')
+    public  = get_fred_data('Y057RC1Q027SBEA') / get_fred_data('GDP')
+
+    # Align on common index and drop NaN
+    combined = pd.concat([private.rename('priv'), public.rename('pub')],
+                         axis=1).dropna()
+
+    fig, ax = new_figure(8, 4.5)
+
+    ax.stackplot(combined.index, 100 * combined['priv'].values,
+                 100 * combined['pub'].values,
+                 colors=[palette[0], palette[1]],
+                 edgecolor='k', linewidth=0.5)
+
+    ax.set_xlim(pd.to_datetime('1950'), combined.index.max())
+    ax.set_xticks([pd.to_datetime(str(y)) for y in range(1950, 2021, 10)])
+    ax.set_xticklabels(range(1950, 2021, 10), fontsize=11)
+    ax.set_ylim(0, 4)
+    ax.set_yticks(np.arange(0, 4.1, 0.5))
+    ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(0, 4.1, 0.5)],
+                       fontsize=11)
+    ax.set_ylabel(r"Part du PIB am\'{e}ricain (\%)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+
+    # In-chart labels
+    ax.text(pd.to_datetime('2005'), 0.7, r"R\&D priv\'{e}e",
+            fontsize=14, color='white', ha='center', va='center')
+    ax.text(pd.to_datetime('1970'), 1.6, r"R\&D publique",
+            fontsize=14, color='k', ha='center', va='center')
+
+    add_source(ax, r"Source: FRED (Y006RC, Y057RC, GDP) --- \'{E}tats-Unis")
+    save(fig, 'rd_gdp_share.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -341,6 +385,7 @@ if __name__ == '__main__':
         participation_decline_us,
         labor_share_decline,
         inequality_skill_premium,
+        rd_gdp_share,
     ]
 
     failed = []

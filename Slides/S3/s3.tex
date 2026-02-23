@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \input{../preamble.tex}
 
-\title{Marché du travail, inégalités et IA}
+\title{Productivité, travail et inégalités}
 \author{Jean-Félix Brouillette}
 \date{Séance 3}
 
@@ -11,7 +11,209 @@
 \titleframe
 % ============================================================================
 
-% --- Opening Hook: Headlines ---
+% --- Opening Hook: Canada Productivity Puzzle ---
+\begin{frame}{Le Canada décroche}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{gdp_per_capita_canada_usa.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   Le PIB par habitant du Canada \textbf{diminue} par rapport aux États-Unis depuis $\sim$2015. En 2024, l'écart est à son plus haut niveau depuis les années 1980.
+\end{frame}
+
+\begin{frame}[t]{Un problème d'investissement?}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{oecd_business_investment.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   L'investissement des entreprises canadiennes en \% du PIB est \textbf{systématiquement inférieur} à celui des États-Unis et de la moyenne OCDE. Moins de capital $\to$ moins de productivité.
+\end{frame}
+
+\begin{frame}[t]{Productivité : le diagnostic}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.85\textwidth, height=0.5\textheight, keepaspectratio]{canada_productivity_growth.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \begin{warning}
+      \footnotesize De 2005 à 2019, la croissance de la PTF au Canada a été \textbf{négative} ($-1.26\,\%$/an). Le Canada ne souffre pas seulement d'un manque de capital --- il souffre d'un problème de \textbf{productivité}.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Le cercle vicieux}
+   \small
+   Le Canada est pris dans un cercle vicieux :
+   \vspace{0.2cm}
+   \begin{center}
+   \begin{tikzpicture}[
+      node distance=1.4cm and 2.5cm,
+      every node/.style={align=center, font=\small},
+      arr/.style={-{Stealth[length=6pt]}, thick, HECnavy}
+   ]
+      \node (invest) {\textbf{Faible}\\\textbf{investissement}};
+      \node (kn) [right=of invest] {Faible $K/L$};
+      \node (prod) [right=of kn] {Faible\\productivité};
+      \node (wages) [below=of prod] {Faibles\\salaires};
+      \node (brain) [below=of kn] {Fuite des\\cerveaux};
+      \draw[arr] (invest) -- (kn);
+      \draw[arr] (kn) -- (prod);
+      \draw[arr] (prod) -- (wages);
+      \draw[arr] (wages) -- (brain);
+      \draw[arr] (brain) -- (invest);
+   \end{tikzpicture}
+   \end{center}
+   \vspace{0.1cm}
+   Le Canada investit moins en R\&D que presque tous ses pairs du G7. En 2023 : 1.7\,\% du PIB vs 3.5\,\% aux États-Unis.
+
+   \vspace{0.15cm}
+   Mais qu'est-ce que la productivité, exactement? Et \textbf{d'où vient-elle?}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Théories de la productivité}
+      \item Indicateurs du marché du travail
+      \item Un modèle simple d'offre et de demande
+      \item Applications
+      \item Inégalités et mondialisation
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Théories de la productivité}
+% ============================================================================
+
+\begin{frame}[t]{Le seul moteur de long terme : la productivité}
+   En séance 2, le modèle de Solow nous a enseigné que le capital ne peut pas soutenir la croissance indéfiniment (rendements décroissants). \textbf{Quand $A$ augmente} :
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Chaque unité de $K$ et $L$ produit \textbf{davantage}
+      \item La baignoire \guillemotleft~grossit~\guillemotright\ --- un \textbf{nouvel} état stationnaire, plus élevé
+      \item Si $A$ croît en permanence, le niveau de vie croît en permanence
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      La \textbf{productivité} (PTF) est le seul facteur capable de soutenir une croissance \textit{indéfinie} du niveau de vie. Le capital suit, mais ne mène pas.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Les idées ne sont pas comme les objets}
+   \small
+   \textbf{Non-rivalité des idées :} quand j'utilise le calcul différentiel, cela ne vous empêche pas de l'utiliser. Personne n'est \guillemotleft~privé~\guillemotright\ d'une idée parce qu'un autre s'en sert.
+   \vspace{0.2cm}
+
+   \textbf{Conséquence pour la production :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Pour les \textbf{objets} (K, L) : rendements d'échelle constants ($2K + 2L \to 2Y$)
+      \item Pour les \textbf{objets + idées} : rendements d'échelle \textbf{croissants}!
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      Pour cloner une usine, il faut doubler les machines et les travailleurs --- mais \textbf{pas} réinventer les plans techniques. Les idées se répliquent à coût nul, ce qui crée des rendements croissants.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{L'innovation n'est pas un accident}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.85\textwidth, height=0.5\textheight, keepaspectratio]{rd_gdp_share.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \small
+   L'innovation est le résultat d'\textbf{investissements délibérés} en R\&D. Le Canada investit significativement moins que ses pairs.
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{Innovation de produit :}\\
+         {\footnotesize Nouveaux biens/services, amélioration de la qualité}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{Innovation de procédé :}\\
+         {\footnotesize Réduction des coûts de production, gains d'efficacité}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{La diffusion des technologies}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.85\textwidth, height=0.6\textheight, keepaspectratio]{technology_adoption_1.png}
+   \end{figure}
+   \vspace{-0.3cm}
+   \begin{bizimplication}
+      \footnotesize L'\textbf{adoption} des technologies existantes explique souvent davantage les écarts de productivité entre entreprises que l'\textbf{invention} de nouvelles technologies.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}[t]{Le rôle crucial des institutions}
+   \small
+   \textbf{Acemoglu, Johnson \& Robinson} (Prix Nobel 2024) : les institutions expliquent les différences persistantes de revenus entre pays.
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item \textbf{Institutions inclusives :} droits de propriété, état de droit, concurrence $\to$ innovation
+      \item \textbf{Institutions extractives :} monopole, corruption, expropriation $\to$ stagnation
+   \end{itemize}
+   \vspace{0.15cm}
+   \textbf{Mauvaise allocation des ressources :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Si $\text{PMK}_{\text{Apple}} > \text{PMK}_{\text{Nokia}}$, \textbf{réallouer} du capital de Nokia vers Apple augmente la production \textbf{sans investissement additionnel}
+      \item Monopoles, réglementation excessive, barrières à l'entrée $\to$ mauvaise allocation $\to$ faible PTF
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Sommes-nous à bout de souffle?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{tfp_growth_advanced.png}
+   \end{figure}
+   \vspace{-0.2cm}
+   \footnotesize La croissance de la PTF ralentit dans les économies avancées depuis les années 2000. Mais l'IA et l'innovation dans les marchés émergents offrent des raisons d'être optimistes.
+\end{frame}
+
+\begin{frame}[t]{Que faire pour le Canada?}
+   \small
+   \begin{bizimplication}[Pistes de solution]
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item \textbf{Incitatifs à la R\&D :} crédits d'impôt, financement de la recherche fondamentale
+         \item \textbf{Immigration qualifiée :} attirer les talents en technologie et en sciences
+         \item \textbf{Allègement réglementaire :} réduire les barrières à l'entrée et à la concurrence
+         \item \textbf{Politique de concurrence :} briser les oligopoles (télécoms, banques, transport aérien)
+      \end{itemize}
+   \end{bizimplication}
+   \vspace{0.1cm}
+   La productivité est \textbf{le} moteur de la croissance. Mais ses gains ne se distribuent pas également --- ils passent par le \textbf{marché du travail}.
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Théories de la productivité}
+      \item \textbf{Indicateurs du marché du travail}
+      \item Un modèle simple d'offre et de demande
+      \item Applications
+      \item Inégalités et mondialisation
+      \item IA et l'avenir du travail
+   \end{enumerate}
+\end{frame}
+
+% --- Headlines as labor market hook ---
 {
 \setbeamertemplate{footline}{}
 \begin{frame}[plain]
@@ -27,18 +229,6 @@
    \end{tikzpicture}
 \end{frame}
 }
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item \textbf{Indicateurs du marché du travail}
-      \item Un modèle simple d'offre et de demande
-      \item Applications
-      \item Inégalités et mondialisation
-      \item IA et l'avenir du travail
-   \end{enumerate}
-\end{frame}
 
 % ============================================================================
 \sectionframe{Indicateurs du marché du travail}
@@ -163,6 +353,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
       \item \textbf{Un modèle simple d'offre et de demande}
       \item Applications
@@ -322,6 +513,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
       \item {\color{gray!50}Un modèle simple d'offre et de demande}
       \item \textbf{Applications}
@@ -557,6 +749,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
       \item {\color{gray!50}Un modèle simple d'offre et de demande}
       \item {\color{gray!50}Applications}
@@ -678,6 +871,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
+      \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
       \item {\color{gray!50}Un modèle simple d'offre et de demande}
       \item {\color{gray!50}Applications}
@@ -820,11 +1014,13 @@
 % ============================================================================
 
 \begin{frame}[t]{Résumé}
-   \begin{keyinsight}[Les leçons du marché du travail]
+   \footnotesize
+   \begin{keyinsight}[Productivité, travail et inégalités]
       \begin{enumerate}
-         \setlength\itemsep{0.15cm}
-         \item Le marché du travail s'analyse comme tout marché : \textbf{offre}, \textbf{demande}, \textbf{équilibre}
-         \item Le capital s'ajuste à long terme --- l'immigration \textbf{ne déprime pas} les salaires de façon permanente
+         \setlength\itemsep{0.1cm}
+         \item La \textbf{productivité} est le seul moteur de la croissance de long terme --- le Canada souffre d'un déficit chronique
+         \item Les \textbf{idées} (non rivales) et les \textbf{institutions} sont les déterminants profonds de la PTF
+         \item Le marché du travail s'analyse par \textbf{offre et demande} --- le capital s'ajuste à long terme
          \item Les inégalités croissantes reflètent le progrès technique biaisé, la mondialisation et l'érosion des institutions
          \item L'IA va transformer le marché du travail --- les gagnants seront ceux qui \textbf{complémentent} la technologie
       \end{enumerate}
@@ -842,7 +1038,7 @@
       \setlength\itemsep{0.15cm}
       \item Autor, \guillemotleft~Work of the Past, Work of the Future~\guillemotright\ (2019)
       \item \textit{The Economist}, \guillemotleft~AI and the future of work~\guillemotright
-      \item Branko Milanovic, \textit{Global Inequality} (chapitres 1--2)
+      \item OECD, \guillemotleft~Objectif croissance~\guillemotright, fiche Canada (2024)
    \end{itemize}
    \vspace{0.3cm}
    \textbf{Question de réflexion :}
@@ -853,7 +1049,7 @@
       leftrule=3pt, boxrule=0pt,
       left=10pt, right=10pt, top=6pt, bottom=6pt
    ]
-      L'IA générative (ChatGPT, Claude, etc.) remplace-t-elle surtout des tâches \textbf{routinières cognitives} ou des tâches \textbf{non routinières cognitives}? Quelles implications pour le marché du travail canadien?
+      Le Canada peut-il utiliser l'IA pour combler son déficit de productivité? Quels secteurs canadiens seraient les plus transformés? Utilisez le cadre de la mauvaise allocation des ressources pour structurer votre réponse.
    \end{tcolorbox}
    \vspace{0.3cm}
    \textbf{Prochaine séance :} Monnaie, inflation et cycles économiques

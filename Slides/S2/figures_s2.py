@@ -129,6 +129,20 @@ def _load_pwt():
     return _pwt_cache
 
 
+# ── OWID CO2 loader (cached) ────────────────────────────────────────────
+_owid_co2_cache = None
+
+
+def _load_owid_co2():
+    """Load the OWID comprehensive CO2 dataset (cached)."""
+    global _owid_co2_cache
+    if _owid_co2_cache is None:
+        url = ('https://raw.githubusercontent.com/owid/co2-data/'
+               'master/owid-co2-data.csv')
+        _owid_co2_cache = pd.read_csv(url)
+    return _owid_co2_cache
+
+
 # ── FRED helper ─────────────────────────────────────────────────────────
 def get_fred_data(series_id, frequency=None, aggregation_method=None):
     """Retrieve a FRED series as a pandas Series."""
@@ -1231,16 +1245,40 @@ def canada_productivity_growth():
 def kaya_decomposition():
     print('Figure 14: Kaya decomposition — global CO2')
 
-    # Decomposition of global CO2 emissions growth by Kaya component
-    # Average annual growth rates (%) by decade
-    # Source: IEA; Our World in Data; Global Carbon Project
-    decades = ['1970s', '1980s', '1990s', '2000s', '2010s']
-    population = [1.9, 1.7, 1.5, 1.2, 1.1]
-    gdp_per_cap = [1.8, 1.5, 1.3, 2.5, 1.8]
-    energy_int = [-0.8, -1.5, -1.2, -1.0, -1.8]
-    carbon_int = [-0.2, -0.1, -0.2, 0.1, -0.5]
+    df = _load_owid_co2()
+    w = df[df['country'] == 'World'].set_index('year')
 
-    x = np.arange(len(decades))
+    # Compute average annual growth rates (%) by decade using log differences
+    # Kaya identity: CO2 = N × (Y/N) × (E/Y) × (CO2/E)
+    decade_starts = [1970, 1980, 1990, 2000, 2010]
+    decade_ends   = [1980, 1990, 2000, 2010, 2019]
+    decade_labels = ['1970s', '1980s', '1990s', '2000s', '2010--19']
+
+    population, gdp_per_cap, energy_int, carbon_int = [], [], [], []
+    for y0, y1 in zip(decade_starts, decade_ends):
+        n = y1 - y0
+        # Population growth
+        g_pop = (np.log(w.loc[y1, 'population'])
+                 - np.log(w.loc[y0, 'population'])) / n * 100
+        # GDP/capita growth
+        gdppc0 = w.loc[y0, 'gdp'] / w.loc[y0, 'population']
+        gdppc1 = w.loc[y1, 'gdp'] / w.loc[y1, 'population']
+        g_gdppc = (np.log(gdppc1) - np.log(gdppc0)) / n * 100
+        # Energy intensity (E/Y) growth
+        ey0 = w.loc[y0, 'primary_energy_consumption'] / w.loc[y0, 'gdp']
+        ey1 = w.loc[y1, 'primary_energy_consumption'] / w.loc[y1, 'gdp']
+        g_ey = (np.log(ey1) - np.log(ey0)) / n * 100
+        # Carbon intensity (CO2/E) growth
+        ce0 = w.loc[y0, 'co2'] / w.loc[y0, 'primary_energy_consumption']
+        ce1 = w.loc[y1, 'co2'] / w.loc[y1, 'primary_energy_consumption']
+        g_ce = (np.log(ce1) - np.log(ce0)) / n * 100
+
+        population.append(g_pop)
+        gdp_per_cap.append(g_gdppc)
+        energy_int.append(g_ey)
+        carbon_int.append(g_ce)
+
+    x = np.arange(len(decade_labels))
     width = 0.55
 
     fig, ax = new_figure(9, 4.5)
@@ -1252,9 +1290,9 @@ def kaya_decomposition():
 
     # Negative contributions (stacked downward)
     ax.bar(x, energy_int, width,
-           label=r"Intensit\'{e} \'{e}nerg\'{e}tique ($E/Y$)", color=palette[1])
+           label=r"Intensit\'{e} \'{e}nerg\'{e}tique", color=palette[1])
     ax.bar(x, carbon_int, width, bottom=energy_int,
-           label=r"Intensit\'{e} carbone (CO$_2$/$E$)", color=palette[4])
+           label=r"Intensit\'{e} carbone", color=palette[4])
 
     # Net CO2 growth line
     net = [p + g + e + c for p, g, e, c in
@@ -1264,7 +1302,7 @@ def kaya_decomposition():
 
     ax.axhline(y=0, color='gray', linewidth=0.8)
     ax.set_xticks(x)
-    ax.set_xticklabels(decades, fontsize=12)
+    ax.set_xticklabels(decade_labels, fontsize=12)
     ax.set_ylabel(r"Taux de croissance annuel moyen (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
@@ -1273,10 +1311,108 @@ def kaya_decomposition():
     ax.set_yticklabels([f'{y}' + r'\%' for y in range(-3, 6)], fontsize=11)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=9, loc='upper right',
-              bbox_to_anchor=(1.0, 1.0), ncol=2)
-    add_source(ax, 'Source: AIE; Global Carbon Project')
+    ax.legend(frameon=False, fontsize=9, loc='upper center',
+              bbox_to_anchor=(0.5, 1.0), ncol=3)
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
     save(fig, 'kaya_decomposition.png')
+
+
+# =====================================================================
+# Figure: Kaya decomposition by country (2000–2020)
+# =====================================================================
+def kaya_decomposition_countries():
+    """Kaya decomposition for Canada, USA, China, India, EU-27 (2000–2019)."""
+    print('Figure: Kaya decomposition by country (2000–2019)')
+
+    df = _load_owid_co2()
+
+    # EU-27: aggregate GDP and energy; CO2 and population available directly
+    eu27_members = [
+        'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia',
+        'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece',
+        'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg',
+        'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia',
+        'Slovenia', 'Spain', 'Sweden']
+
+    countries = [
+        ('Canada',                  'Canada'),
+        ('United States',           r"\'{E}.-U."),
+        ('_EU27',                   'UE-27'),
+        ('China',                   'Chine'),
+        ('India',                   'Inde'),
+    ]
+
+    y0, y1 = 2000, 2019
+    n = y1 - y0
+
+    population, gdp_per_cap, energy_int, carbon_int, net_co2 = [], [], [], [], []
+
+    for entity, _ in countries:
+        if entity == '_EU27':
+            eu = df[df['country'] == 'European Union (27)'].set_index('year')
+            eu_gdp = (df[df['country'].isin(eu27_members)]
+                      .groupby('year')['gdp'].sum())
+            pop0, pop1 = eu.loc[y0, 'population'], eu.loc[y1, 'population']
+            gdp0, gdp1 = eu_gdp.loc[y0], eu_gdp.loc[y1]
+            nrg0, nrg1 = eu.loc[y0, 'primary_energy_consumption'], eu.loc[y1, 'primary_energy_consumption']
+            co2_0, co2_1 = eu.loc[y0, 'co2'], eu.loc[y1, 'co2']
+        else:
+            c = df[df['country'] == entity].set_index('year')
+            pop0, pop1 = c.loc[y0, 'population'], c.loc[y1, 'population']
+            gdp0, gdp1 = c.loc[y0, 'gdp'], c.loc[y1, 'gdp']
+            nrg0, nrg1 = c.loc[y0, 'primary_energy_consumption'], c.loc[y1, 'primary_energy_consumption']
+            co2_0, co2_1 = c.loc[y0, 'co2'], c.loc[y1, 'co2']
+
+        g_pop = (np.log(pop1) - np.log(pop0)) / n * 100
+        gdppc0, gdppc1 = gdp0 / pop0, gdp1 / pop1
+        g_gdppc = (np.log(gdppc1) - np.log(gdppc0)) / n * 100
+        ey0v, ey1v = nrg0 / gdp0, nrg1 / gdp1
+        g_ey = (np.log(ey1v) - np.log(ey0v)) / n * 100
+        ce0v, ce1v = co2_0 / nrg0, co2_1 / nrg1
+        g_ce = (np.log(ce1v) - np.log(ce0v)) / n * 100
+
+        population.append(g_pop)
+        gdp_per_cap.append(g_gdppc)
+        energy_int.append(g_ey)
+        carbon_int.append(g_ce)
+        net_co2.append(g_pop + g_gdppc + g_ey + g_ce)
+
+    labels = [lbl for _, lbl in countries]
+    x = np.arange(len(countries))
+    width = 0.55
+
+    fig, ax = new_figure(9, 4.5)
+
+    # Positive components stacked upward
+    ax.bar(x, population, width, label='Population', color=palette[3])
+    ax.bar(x, gdp_per_cap, width, bottom=population,
+           label='PIB/habitant', color=palette[0])
+
+    # Negative components stacked downward
+    ax.bar(x, energy_int, width,
+           label=r"Intensit\'{e} \'{e}nerg\'{e}tique", color=palette[1])
+    ax.bar(x, carbon_int, width, bottom=energy_int,
+           label=r"Intensit\'{e} carbone", color=palette[4])
+
+    # Net CO2 growth markers
+    ax.plot(x, net_co2, 'o', color=palette[2], markersize=10,
+            label=r"Croissance nette CO$_2$", zorder=5)
+
+    ax.axhline(y=0, color='gray', linewidth=0.8)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, fontsize=12)
+    ax.set_ylabel(r"Taux de croissance annuel moyen, 2000--2019 (\%)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(-4, 8)
+    ax.set_yticks(range(-4, 9, 2))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(-4, 9, 2)], fontsize=11)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=9, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=3)
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    save(fig, 'kaya_decomposition_countries.png')
 
 
 # =====================================================================
@@ -1285,53 +1421,167 @@ def kaya_decomposition():
 def decoupling():
     print('Figure 15: Decoupling — GDP vs CO2')
 
-    # GDP and CO2 indices (base 100 = 1990) for US + EU + Japan aggregate
-    # Source: World Bank; IEA; Global Carbon Project
-    years = list(range(1990, 2024))
-    # US GDP index (base 100)
-    us_gdp = [100 + i * 2.2 + (i**1.05 * 0.1) for i in range(len(years))]
-    # EU GDP index
-    eu_gdp = [100 + i * 1.5 + (i**1.02 * 0.05) for i in range(len(years))]
-    # US CO2 index — peaked around 2005, then declined
-    us_co2 = [100 + min(i, 15) * 1.0 - max(0, i - 15) * 1.5 for i in range(len(years))]
-    # EU CO2 index — declining since 1990
-    eu_co2 = [100 - i * 1.2 for i in range(len(years))]
+    df = _load_owid_co2()
+
+    # --- Countries/regions to plot ---
+    regions = [
+        ('United States',           r"\'{E}.-U.",  palette[4]),   # blue
+        ('European Union (27)',     'UE-27',       palette[1]),   # green
+        ('Canada',                  'Canada',      palette[2]),   # coral
+    ]
+
+    # EU-27 GDP must be summed from member states (OWID stores CO2 but not GDP)
+    eu27_members = [
+        'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia',
+        'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece',
+        'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg',
+        'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia',
+        'Slovenia', 'Spain', 'Sweden']
+    eu_gdp_raw = (df[df['country'].isin(eu27_members)]
+                  .groupby('year')['gdp'].sum())
+
+    yr_min, yr_max = 1990, 2022
+    yrs = list(range(yr_min, yr_max + 1))
 
     fig, ax = new_figure(9, 4.5)
 
-    ax.plot(years, us_gdp, color=palette[0], linewidth=2.5,
-            label=r"PIB --- \'{E}.-U.")
-    ax.plot(years, eu_gdp, color=palette[4], linewidth=2.5,
-            label='PIB --- UE')
-    ax.plot(years, us_co2, color=palette[0], linewidth=2, linestyle='--',
-            alpha=0.6, label=r"CO$_2$ --- \'{E}.-U.")
-    ax.plot(years, eu_co2, color=palette[4], linewidth=2, linestyle='--',
-            alpha=0.6, label=r"CO$_2$ --- UE")
+    for entity, label, color in regions:
+        sub = df[df['country'] == entity].set_index('year')
+        co2_s = sub.loc[yrs, 'co2']
+
+        if entity == 'European Union (27)':
+            gdp_s = eu_gdp_raw.loc[yrs]
+        else:
+            gdp_s = sub.loc[yrs, 'gdp']
+
+        gdp_idx = gdp_s / gdp_s.iloc[0] * 100
+        co2_idx = co2_s / co2_s.iloc[0] * 100
+
+        ax.plot(yrs, gdp_idx, color=color, linewidth=2.5,
+                label=f'PIB --- {label}')
+        ax.plot(yrs, co2_idx, color=color, linewidth=1.8, linestyle=':',
+                alpha=0.7, label=f'CO$_2$ --- {label}')
 
     ax.axhline(y=100, color='gray', linewidth=0.5, linestyle=':')
 
-    ax.set_xlim(1990, 2023)
-    ax.set_xticks(range(1990, 2024, 5))
-    ax.set_xticklabels(range(1990, 2024, 5), fontsize=11)
+    ax.set_xlim(yr_min, yr_max)
+    ax.set_xticks(range(yr_min, yr_max + 1, 5))
+    ax.set_xticklabels(range(yr_min, yr_max + 1, 5), fontsize=11)
     ax.set_ylabel(r"Indice (base 100 = 1990)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
-    yticks = [60, 80, 100, 120, 140, 160, 180, 200]
+    ax.set_ylim(None, 220)
+    yticks = [60, 80, 100, 120, 140, 160, 180, 200, 220]
     ax.set_yticks(yticks)
     ax.set_yticklabels([str(y) for y in yticks], fontsize=11)
 
-    # Annotation
-    ax.annotate(r'D\'{e}couplage',
-                xy=(2015, 130), xytext=(2005, 175),
-                fontsize=12, color=palette[1], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=9, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=3)
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    save(fig, 'decoupling.png')
+
+
+# =====================================================================
+# Figure: CO2/capita growth vs GDP/capita growth scatter (2000–2019)
+# =====================================================================
+def gdp_vs_co2_growth():
+    """Scatter of avg annual CO2/cap growth vs GDP/cap growth (2000–2019)."""
+    print('Figure: CO2/capita growth vs GDP/capita growth scatter (2000–2019)')
+
+    df = _load_owid_co2()
+
+    y0, y1 = 2000, 2019
+    n = y1 - y0
+
+    # Exclude aggregates
+    aggregates = {
+        'World', 'Africa', 'Asia', 'Europe', 'North America', 'South America',
+        'Oceania', 'European Union (27)', 'European Union (28)',
+        'High-income countries', 'Upper-middle-income countries',
+        'Lower-middle-income countries', 'Low-income countries',
+        'Asia (excl. China and India)', 'Europe (excl. EU-27)',
+        'Europe (excl. EU-28)', 'North America (excl. USA)',
+        'International transport',
+    }
+
+    # IMF advanced economies
+    advanced = {
+        'United States', 'Canada', 'United Kingdom', 'France', 'Germany',
+        'Italy', 'Japan', 'Australia', 'New Zealand', 'South Korea',
+        'Spain', 'Netherlands', 'Belgium', 'Austria', 'Switzerland',
+        'Sweden', 'Norway', 'Denmark', 'Finland', 'Ireland', 'Portugal',
+        'Greece', 'Israel', 'Singapore', 'Hong Kong', 'Taiwan',
+        'Iceland', 'Luxembourg', 'Czech Republic', 'Czechia', 'Slovenia',
+        'Slovakia', 'Estonia', 'Latvia', 'Lithuania', 'Cyprus', 'Malta',
+    }
+
+    results = []
+    for country, grp in df.groupby('country'):
+        if country in aggregates:
+            continue
+        grp = grp.set_index('year')
+        if y0 not in grp.index or y1 not in grp.index:
+            continue
+        r0, r1 = grp.loc[y0], grp.loc[y1]
+        gdp0, gdp1 = r0.get('gdp'), r1.get('gdp')
+        pop0, pop1 = r0.get('population'), r1.get('population')
+        co2pc0, co2pc1 = r0.get('co2_per_capita'), r1.get('co2_per_capita')
+        if any(pd.isna(v) or v <= 0
+               for v in [gdp0, gdp1, pop0, pop1, co2pc0, co2pc1]):
+            continue
+        gdppc0, gdppc1 = gdp0 / pop0, gdp1 / pop1
+        g_gdppc = (np.log(gdppc1) - np.log(gdppc0)) / n * 100
+        g_co2pc = (np.log(co2pc1) - np.log(co2pc0)) / n * 100
+        is_adv = country in advanced
+        results.append((country, g_gdppc, g_co2pc, is_adv, pop1))
+
+    rdf = pd.DataFrame(results, columns=['country', 'g_gdppc', 'g_co2pc',
+                                          'advanced', 'pop'])
+    # Drop conflict/crisis states
+    rdf = rdf[~rdf['country'].isin({'Syria', 'Venezuela', 'Yemen', 'Afghanistan'})]
+    adv = rdf[rdf['advanced']]
+    dev = rdf[~rdf['advanced']]
+
+    fig, ax = new_figure(9, 4.5)
+
+    # Size by population (sqrt scale so area ∝ population)
+    pop_max = rdf['pop'].max()
+    def _size(pop):
+        return 20 + 600 * np.sqrt(pop / pop_max)
+
+    # Scatter: advanced (navy) vs developing (coral)
+    ax.scatter(adv['g_gdppc'], adv['g_co2pc'],
+               color=palette[0], alpha=0.7, s=_size(adv['pop']), zorder=2,
+               edgecolors='#001a3a', linewidths=0.5,
+               label=r"\'{E}conomies avanc\'{e}es")
+    ax.scatter(dev['g_gdppc'], dev['g_co2pc'],
+               color=palette[2], alpha=0.7, s=_size(dev['pop']), zorder=2,
+               edgecolors='#992e30', linewidths=0.5,
+               label=r"\'{E}conomies en d\'{e}veloppement")
+
+    ax.axhline(y=0, color='gray', linewidth=0.8, zorder=1)
+
+    ax.set_xlim(-2, 9)
+    ax.set_ylim(-4, 16)
+    ax.set_xticks(range(-2, 10, 1))
+    ax.set_xticklabels([f'{v}' + r'\%' for v in range(-2, 10, 1)], fontsize=10)
+    ax.set_yticks(range(-4, 17, 4))
+    ax.set_yticklabels([f'{v}' + r'\%' for v in range(-4, 17, 4)], fontsize=11)
+
+    ax.set_xlabel(r"Croissance du PIB/hab. (\%/an, 2000--2019)", fontsize=11)
+    ax.set_ylabel(r"Croissance CO$_2$/hab. (\%/an, 2000--2019)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper left',
-              bbox_to_anchor=(0.0, 1.0), ncol=2)
-    add_source(ax, 'Source: Banque mondiale; AIE; Global Carbon Project')
-    save(fig, 'decoupling.png')
+    leg = ax.legend(frameon=False, fontsize=10, loc='upper left',
+                    bbox_to_anchor=(0.0, 1.0), markerscale=1.0)
+    for handle in leg.legend_handles:
+        handle.set_sizes([60])
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    save(fig, 'gdp_vs_co2_growth.png')
 
 
 # =====================================================================
@@ -1788,6 +2038,431 @@ def development_accounting_tfp():
 
 
 # =====================================================================
+# Malthusian trap — Real wages vs population, England 1250–1860
+# =====================================================================
+def malthusian_trap():
+    """Scatter of real wages vs population showing Malthusian trap & escape.
+
+    Data: Clark (2005) "The Condition of the Working Class in England,
+    1209-2004", JPE 113(6).  Decadal averages from the author's
+    spreadsheets (faculty.econ.ucdavis.edu/faculty/gclark/data.html):
+      - Real Building Craftsman Wage (1860s = 100)  [Wages 2014.xlsx]
+      - Population of England (millions)            [England NNI 2015.xlsx]
+    """
+    print('Figure: Malthusian trap — England (Clark 2005)')
+
+    # Clark (2005) decadal data: (decade, pop_england_M, real_craft_wage)
+    # Source: Wages 2014.xlsx (Decadal) + England NNI - Clark - 2015.xlsx
+    clark = [
+        (1250,  3.838,  66.6),
+        (1300,  5.315,  51.3),
+        (1350,  3.545,  59.3),
+        (1400,  2.640,  73.9),
+        (1450,  2.280,  86.7),
+        (1500,  2.560,  78.9),
+        (1550,  3.241,  56.4),
+        (1600,  4.401,  46.3),
+        (1650,  5.613,  51.4),
+        (1700,  5.510,  60.8),
+        (1750,  6.263,  59.9),
+        (1800,  9.094,  55.9),
+        (1810, 10.309,  60.8),
+        (1820, 11.982,  72.5),
+        (1830, 13.773,  80.3),
+        (1840, 15.636,  83.4),
+        (1850, 17.590,  91.3),
+        (1860, 19.722, 100.0),
+    ]
+    decades = [r[0] for r in clark]
+    pop     = [r[1] for r in clark]
+    wages   = [r[2] for r in clark]
+
+    cutoff = 1750  # shared transition point
+    mal_idx = [i for i, d in enumerate(decades) if d <= cutoff]
+    mod_idx = [i for i, d in enumerate(decades) if d >= cutoff]  # includes 1750
+
+    fig, ax = new_figure(9, 4.5)
+
+    # Malthusian period (up to and including 1750)
+    ax.plot([pop[i] for i in mal_idx], [wages[i] for i in mal_idx], '-o',
+            color=palette[0], linewidth=2, markersize=6,
+            markeredgecolor='white', markeredgewidth=0.5,
+            label=r"Pi\`{e}ge malthusien (1250--1750)", zorder=3)
+
+    # Industrial period (from 1750 onward — shares the 1750 point)
+    ax.plot([pop[i] for i in mod_idx], [wages[i] for i in mod_idx], '-o',
+            color=palette[1], linewidth=2.5, markersize=6,
+            markeredgecolor='white', markeredgewidth=0.5,
+            label=r"R\'{e}volution industrielle (1750--1860)", zorder=3)
+
+    # Year labels — only label a subset to avoid clutter
+    # Position each label away from lines
+    labels = {
+        1250: (0, 10),    # above — top of early cluster
+        1300: (0, -12),   # below — dip
+        1400: (8, 0),     # right
+        1450: (0, 10),    # above — peak
+        1550: (0, -12),   # below — dip
+        1600: (0, -12),   # below — trough
+        1700: (0, 10),    # above
+        1750: (0, -12),   # below — transition
+        1800: (-8, -10),  # left-below — away from green line
+        1830: (0, -12),   # below
+        1860: (0, 10),    # above — endpoint
+    }
+    for i, d in enumerate(decades):
+        if d not in labels:
+            continue
+        dx, dy = labels[d]
+        va = 'top' if dy < 0 else ('bottom' if dy > 0 else 'center')
+        ha = 'left' if dx > 0 else ('right' if dx < 0 else 'center')
+        ax.annotate(f'{d}s',
+                    (pop[i], wages[i]),
+                    textcoords='offset points', xytext=(dx, dy),
+                    fontsize=8.5, color=palette[7], ha=ha, va=va,
+                    zorder=5)
+
+    # Legend
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0))
+
+    # Axes
+    ax.set_xlabel("Population de l'Angleterre (millions)", fontsize=11)
+    ax.set_ylabel(r"Salaires r\'{e}els des artisans (1860 = 100)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    ax.set_xlim(0, 20)
+    ax.set_xticks(range(0, 21, 5))
+    ax.set_xticklabels(range(0, 21, 5), fontsize=11)
+
+    ax.set_ylim(40, 110)
+    ax.set_yticks(range(40, 101, 20))
+    ax.set_yticklabels(range(40, 101, 20), fontsize=11)
+
+    style_axes(ax)
+    add_source(ax, 'Source: Clark (2005), JPE 113(6)')
+    save(fig, 'malthusian_trap.png')
+
+
+# =====================================================================
+# Extreme poverty share — World, 1820–2018
+# =====================================================================
+def poverty():
+    """Share of world population living in extreme poverty over time."""
+    print('Figure: Extreme poverty share (OWID)')
+
+    df = pd.read_csv(
+        "https://ourworldindata.org/grapher/share-of-population-living-in-extreme-poverty-cost-of-basic-needs"
+        ".csv?v=1&csvType=full&useColumnShortNames=true",
+        storage_options={'User-Agent': 'Our World In Data data fetch/1.0'})
+    df = df[df['entity'] == 'World']
+    df['share'] = df['headcount_cbn'] / (df['headcount_above_cbn'] + df['headcount_cbn'])
+
+    fig, ax = new_figure()
+
+    ax.plot(df['year'], 100 * df['share'], color=palette[0], linewidth=2.5)
+    ax.fill_between(df['year'], 100 * df['share'], alpha=0.08, color=palette[0])
+
+    last_year = int(df['year'].max())
+    ax.set_xlim(1820, last_year)
+    ax.set_xticks(range(1820, last_year + 1, 20))
+    ax.set_xticklabels(range(1820, last_year + 1, 20), fontsize=12)
+    ax.set_ylim(0, 80)
+    ax.set_yticks(range(0, 81, 20))
+    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 81, 20)], fontsize=12)
+    ax.set_ylabel(r"Part de la population en pauvret\'{e} extr\^{e}me",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, 'Source: Our World in Data')
+    save(fig, 'poverty.png')
+
+
+# =====================================================================
+# Life expectancy by world region, 1770–2023
+# =====================================================================
+def life_expectancy():
+    """Life expectancy at birth by world region."""
+    print('Figure: Life expectancy by region (OWID)')
+
+    df = pd.read_csv(
+        "https://ourworldindata.org/grapher/life-expectancy"
+        ".csv?v=1&csvType=full&useColumnShortNames=true",
+        storage_options={'User-Agent': 'Our World In Data data fetch/1.0'})
+    df = df[df['entity'].isin(['World', 'Oceania', 'Europe',
+                                'Americas', 'Asia', 'Africa'])]
+
+    regions = [
+        ('Oceania',  r"Oc\'{e}anie",   palette[0]),
+        ('Europe',   'Europe',          palette[4]),
+        ('Americas', r"Am\'{e}riques",  palette[1]),
+        ('Asia',     'Asie',            palette[3]),
+        ('World',    'Monde',           palette[7]),
+        ('Africa',   'Afrique',         palette[2]),
+    ]
+
+    fig, ax = new_figure()
+    for entity, label, color in regions:
+        sub = df[df['entity'] == entity]
+        ax.plot(sub['year'],
+                sub['life_expectancy_0'],
+                label=label, color=color, linewidth=2)
+
+    last_year = int(df['year'].max())
+    ax.set_xlim(1770, last_year)
+    ax.set_xticks(range(1800, last_year + 1, 50))
+    ax.set_xticklabels(range(1800, last_year + 1, 50), fontsize=12)
+    ax.set_ylim(25, 80)
+    ax.set_yticks(range(30, 81, 10))
+    ax.set_yticklabels(range(30, 81, 10), fontsize=12)
+    ax.set_ylabel(r"Esp\'{e}rance de vie \`{a} la naissance (ann\'{e}es)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=2)
+    add_source(ax, 'Source: Our World in Data (2023)')
+    save(fig, 'life_expectancy.png')
+
+
+# =====================================================================
+# Figure: CO2 emissions by region (1900–2024)
+# =====================================================================
+def co2_emissions_by_region():
+    """Line chart of CO2 emissions (Gt) by major region, 1900–2024."""
+    print('Figure: CO2 emissions by region')
+
+    df = _load_owid_co2()
+
+    regions = {
+        'China':         ('Chine',                    palette[2], 2.5),
+        'United States': (r"\'{E}tats-Unis",          palette[0], 2.0),
+        'European Union (27)': ('UE-27',              palette[4], 2.0),
+        'India':         ('Inde',                     palette[3], 2.0),
+        'Africa':        ('Afrique',                  palette[7], 1.5),
+        'South America': (r"Am\'{e}rique du Sud",     palette[1], 1.5),
+    }
+
+    fig, ax = new_figure(9, 4.5)
+
+    for entity, (label, color, lw) in regions.items():
+        sub = df[(df['country'] == entity) & df['co2'].notna()]
+        sub = sub[sub['year'].between(1900, 2024)]
+        ax.plot(sub['year'], sub['co2'] / 1000, color=color,
+                label=label, linewidth=lw)
+
+    ax.set_xlim(1900, 2024)
+    ax.set_xticks(range(1900, 2025, 20))
+    ax.set_xticklabels(range(1900, 2025, 20), fontsize=11)
+    ax.set_ylabel(r"\'{E}missions de CO$_2$ (Gt/an)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(0, None)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=2)
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
+    save(fig, 'co2_emissions_by_region.png')
+
+
+# =====================================================================
+# Figure: Production vs consumption CO2 per capita
+# =====================================================================
+def production_vs_consumption_co2():
+    """Grouped bar chart: production vs consumption CO2/capita."""
+    print('Figure: Production vs consumption CO2 per capita')
+
+    df = _load_owid_co2()
+
+    countries = ['United States', 'Canada', 'Germany', 'United Kingdom',
+                 'France', 'Russia', 'China', 'India']
+    labels_fr = [r"\'{E}.-U.", 'Canada', 'Allemagne', 'R.-U.',
+                 'France', 'Russie', 'Chine', 'Inde']
+
+    # Use 2022 data, fall back to 2021
+    prod_vals, cons_vals = [], []
+    for c in countries:
+        sub = df[df['country'] == c].set_index('year')
+        for yr in [2022, 2021, 2020]:
+            if yr in sub.index:
+                p = sub.loc[yr, 'co2_per_capita']
+                cc = sub.loc[yr, 'consumption_co2_per_capita']
+                if pd.notna(p) and pd.notna(cc):
+                    prod_vals.append(p)
+                    cons_vals.append(cc)
+                    break
+
+    x = np.arange(len(countries))
+    width = 0.35
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.bar(x - width / 2, prod_vals, width, color=palette[0],
+           label='Production (territoriale)')
+    ax.bar(x + width / 2, cons_vals, width, color=palette[1],
+           label='Consommation (empreinte)')
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels_fr, fontsize=11)
+    ax.set_ylabel(r"Tonnes CO$_2$ par habitant",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(0, 18)
+    ax.set_yticks(range(0, 19, 2))
+    ax.set_yticklabels([str(v) for v in range(0, 19, 2)], fontsize=11)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper right')
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
+    save(fig, 'production_vs_consumption_co2.png')
+
+
+# =====================================================================
+# Figure: World map — share of CO2 embedded in trade
+# =====================================================================
+def co2_embedded_in_trade_map():
+    """Choropleth: share of CO2 emissions embedded in trade (2022)."""
+    print('Figure: CO2 embedded in trade — world map (2022)')
+
+    import geopandas as gpd
+    from matplotlib.colors import TwoSlopeNorm
+
+    # Data
+    df = pd.read_csv(
+        'https://ourworldindata.org/grapher/share-co2-embedded-in-trade'
+        '.csv?v=1&csvType=full&useColumnShortNames=true',
+        storage_options={'User-Agent': 'Our World In Data data fetch/1.0'})
+    df = df[(df['year'] == 2022) & df['code'].notna()]
+
+    # World shapefile from Natural Earth
+    url_ne = ('https://naciscdn.org/naturalearth/110m/cultural/'
+              'ne_110m_admin_0_countries.zip')
+    world = gpd.read_file(url_ne)
+    world = world[world['NAME'] != 'Antarctica']
+
+    # Merge on ISO-A3
+    world = world.merge(df[['code', 'pct_traded_emissions']],
+                        left_on='ISO_A3', right_on='code', how='left')
+
+    # Clip to ±50% for visual clarity (extreme small states distort scale)
+    world['pct_clipped'] = world['pct_traded_emissions'].clip(-50, 50)
+
+    # Diverging colormap: green (net exporter) ← 0 → red (net importer)
+    # Negative = net exporter of CO2 (produces more than consumes)
+    # Positive = net importer of CO2 (consumes more than produces)
+    from matplotlib.colors import LinearSegmentedColormap
+    # Blue (#002855) for exporters, Red (#ff585d) for importers
+    colors_list = ['#002855', '#6680aa', '#f7f7f7', '#ff9a9c', '#ff585d']
+    cmap = LinearSegmentedColormap.from_list('BlRd', colors_list, N=256)
+    norm = TwoSlopeNorm(vmin=-50, vcenter=0, vmax=50)
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+
+    # Countries without data
+    world[world['pct_clipped'].isna()].plot(
+        ax=ax, color='#e0e0e0', edgecolor='black', linewidth=0.2)
+
+    # Countries with data
+    world.dropna(subset=['pct_clipped']).plot(
+        column='pct_clipped', ax=ax, cmap=cmap, norm=norm,
+        edgecolor='black', linewidth=0.2, alpha=1.0)
+
+    # Colorbar
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, orientation='horizontal',
+                        fraction=0.05, pad=0.02, aspect=40,
+                        shrink=0.6)
+    cbar.set_ticks([-50, -25, 0, 25, 50])
+    cbar.set_ticklabels([r'$-50$\%', r'$-25$\%', r'$0$\%',
+                         r'$+25$\%', r'$+50$\%'])
+    cbar.ax.tick_params(labelsize=9)
+    cbar.set_label(
+        r"$\leftarrow$ Exportateur net de CO$_2$"
+        r" \hspace{2cm} "
+        r"Importateur net de CO$_2$ $\rightarrow$",
+        fontsize=10)
+
+    ax.set_axis_off()
+    add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
+    save(fig, 'co2_embedded_in_trade_map.png')
+
+
+# =====================================================================
+# Figure: Renewable cost decline (solar PV + Li-ion batteries)
+# =====================================================================
+def solar_pv_cost():
+    """Solar PV module prices ($/W, log scale, 1976–2024)."""
+    print('Figure: Solar PV module cost decline')
+
+    import json, urllib.request
+    url_data = 'https://api.ourworldindata.org/v1/indicators/1104669.data.json'
+    url_meta = 'https://api.ourworldindata.org/v1/indicators/1104669.metadata.json'
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    data = json.loads(urllib.request.urlopen(
+        urllib.request.Request(url_data, headers=headers)).read())
+    meta = json.loads(urllib.request.urlopen(
+        urllib.request.Request(url_meta, headers=headers)).read())
+    entity_map = {e['id']: e['name']
+                  for e in meta['dimensions']['entities']['values']}
+    solar_df = pd.DataFrame({
+        'Entity': [entity_map[eid] for eid in data['entities']],
+        'Year': data['years'],
+        'Price': data['values'],
+    })
+    solar = solar_df[solar_df['Entity'] == 'World'].sort_values('Year')
+
+    fig, ax = new_figure(5, 4)
+
+    ax.semilogy(solar['Year'], solar['Price'], color=palette[0], linewidth=2.5)
+    ax.set_xlim(1976, 2024)
+    ax.set_xticks(range(1980, 2025, 10))
+    ax.set_xticklabels(range(1980, 2025, 10), fontsize=10)
+    ax.set_ylim(0.1, 100)
+    ax.set_ylabel(r"\$/watt (log)", fontsize=10, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.grid(True, which='minor', axis='y', color='gray',
+            linestyle=':', linewidth=0.3)
+    add_source(ax, 'Source: IRENA (via Our World in Data)')
+    save(fig, 'solar_pv_cost.png')
+
+
+def battery_cost():
+    """Li-ion battery pack prices ($/kWh, 2013–2024)."""
+    print('Figure: Li-ion battery cost decline')
+
+    # BloombergNEF battery pack price survey ($/kWh, real 2023$)
+    battery_years = list(range(2013, 2025))
+    battery_prices = [684, 592, 381, 303, 226, 185, 161, 140,
+                      141, 151, 139, 115]
+
+    fig, ax = new_figure(5, 4)
+
+    ax.plot(battery_years, battery_prices, 'o-', color=palette[0],
+            linewidth=2.5, markersize=5)
+    ax.set_xlim(2013, 2024)
+    ax.set_xticks(range(2013, 2025, 2))
+    ax.set_xticklabels(range(2013, 2025, 2), fontsize=10)
+    ax.set_ylim(0, 700)
+    ax.set_yticks(range(0, 701, 100))
+    ax.set_yticklabels([str(v) for v in range(0, 701, 100)], fontsize=10)
+    ax.set_ylabel(r"\$/kWh", fontsize=10, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, 'Source: BloombergNEF')
+    save(fig, 'battery_cost.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -1820,8 +2495,18 @@ if __name__ == '__main__':
         tfp_growth_advanced,
         oecd_business_investment,
         canada_productivity_growth,
+        malthusian_trap,
+        poverty,
+        life_expectancy,
         kaya_decomposition,
+        kaya_decomposition_countries,
         decoupling,
+        gdp_vs_co2_growth,
+        co2_emissions_by_region,
+        production_vs_consumption_co2,
+        co2_embedded_in_trade_map,
+        solar_pv_cost,
+        battery_cost,
     ]
 
     failed = []
