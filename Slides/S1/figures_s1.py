@@ -241,9 +241,9 @@ def can_unemployment():
     ax.set_xlim(pd.to_datetime(str(first_year)), last_date + pd.DateOffset(months=3))
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(first_year, last_date.year + 1, 10)])
     ax.set_xticklabels(range(first_year, last_date.year + 1, 10), fontsize=12)
-    ax.set_ylim(0, 16)
-    ax.set_yticks(range(0, 16 + 1, 2))
-    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 16 + 1, 2)], fontsize=12)
+    ax.set_ylim(2, 16)
+    ax.set_yticks(range(2, 16 + 1, 2))
+    ax.set_yticklabels([str(x) + r'\%' for x in range(2, 16 + 1, 2)], fontsize=12)
     ax.set_ylabel(r"Taux de ch\^{o}mage", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -284,7 +284,7 @@ def can_inflation_longrun():
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(1965, last_date.year + 1, 5)])
     ax.set_xticklabels(range(1965, last_date.year + 1, 5), fontsize=12,
                        rotation=45, ha='right')
-    ax.set_ylim(-0.03, 0.14)
+    ax.set_ylim(-0.02, 0.14)
     ax.set_yticks(np.arange(-0.02, 0.14 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 14 + 0.1, 2)],
                        fontsize=12)
@@ -572,7 +572,7 @@ def hockey_stick_world():
 def us_tariff_rate():
     print('Figure 7: US effective tariff rate since 1790')
     # Data from Yale Budget Lab "State of U.S. Tariffs: January 19, 2026"
-    xlsx = os.path.join(Path(__file__).resolve().parent.parent.parent, 'Data', 'tariff_data.xlsx')
+    xlsx = os.path.join(Path(__file__).resolve().parent.parent, 'Data', 'tariff_data.xlsx')
     df = pd.read_excel(xlsx, sheet_name='F1', header=None,
                        skiprows=5,  # skip title/subtitle/source/blank/header
                        names=['Year', 'ETR', 'proj_post', 'cur_post',
@@ -616,33 +616,35 @@ def us_tariff_rate():
             color=palette[1], linewidth=2, linestyle=':')
     ax.plot(2025, etr_2025_canada, 'o', color=palette[1], markersize=8, zorder=5)
 
-    # Annotations — short arrows
+    # Annotations — equal-length arrows
+    # Figure is 8×4 in, axes span 97 yr × 20 pp → x_scale=0.0825 in/yr, y_scale=0.2 in/pp
+    # Target visual arrow length ≈ 1.5 in for all three
     ax.annotate(f'{etr_2025_overall:.1f}\\%  global',
                 xy=(2025, etr_2025_overall),
-                xytext=(2015, 20),
+                xytext=(2007, 19),
                 fontsize=11, color=palette[2], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
     ax.annotate(f'{etr_2025_canada:.1f}\\%  Canada',
                 xy=(2025, etr_2025_canada),
-                xytext=(2005, 11),
+                xytext=(2008, 11),
                 fontsize=11, color=palette[1], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
 
-    # Key historical annotations (subtle, in gray)
+    # Smoot-Hawley (shrinkB=12pt ≈ 0.17 in gap before data line)
     etr_1932 = hist.loc[hist['Year'] == 1932, 'ETR'].iloc[0]
     ax.annotate('Smoot-Hawley' + '\n' + f'({etr_1932:.0f}\\%)',
                 xy=(1932, etr_1932),
-                xytext=(1940, 23),
+                xytext=(1949, 15.5),
                 fontsize=9, color=palette[7], ha='center',
                 arrowprops=dict(arrowstyle='->', color=palette[7],
-                                lw=1, alpha=0.6))
+                                lw=1, alpha=0.6, shrinkB=12))
 
     ax.set_xlim(1930, 2027)
     ax.set_xticks(range(1930, 2020 + 1, 10))
     ax.set_xticklabels(range(1930, 2020 + 1, 10), fontsize=12)
-    ax.set_ylim(0, 25)
-    ax.set_yticks(range(0, 25 + 1, 5))
-    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 25 + 1, 5)],
+    ax.set_ylim(0, 20)
+    ax.set_yticks(range(0, 20 + 1, 5))
+    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 20 + 1, 5)],
                        fontsize=12)
     ax.set_ylabel(r"Taux tarifaire effectif am\'{e}ricain", fontsize=12,
                   rotation=0, ha='left')
