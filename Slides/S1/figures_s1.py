@@ -711,14 +711,13 @@ def gdp_decomposition_canada():
     year = df['REF_DATE'].dt.year.max()
     dy = df[df['REF_DATE'].dt.year == year]
 
-    # Components (consistent with time-series definitions)
+    # Components (World Bank convention: G = gov consumption only,
+    # I = all capital formation including government investment)
     C = (dy['Final consumption expenditure'].mean()
          - dy['General governments final consumption expenditure'].mean())
-    G = (dy['General governments final consumption expenditure'].mean()
-         + dy['General governments gross fixed capital formation'].mean())
+    G = dy['General governments final consumption expenditure'].mean()
     I = (dy['Gross fixed capital formation'].mean()
-         + dy['Investment in inventories'].mean()
-         - dy['General governments gross fixed capital formation'].mean())
+         + dy['Investment in inventories'].mean())
     X = dy['Exports of goods and services'].mean()
     M = dy['Less: imports of goods and services'].mean()
     NX = X - M
@@ -865,12 +864,11 @@ def investment_share_gdp():
     print('Figure 9: Investment share of GDP')
     df = _load_gdp_accounts()
     df['Investment'] = (df['Gross fixed capital formation']
-                        + df['Investment in inventories']
-                        - df['General governments gross fixed capital formation'])
+                        + df['Investment in inventories'])
     ratio = df['Investment'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$I / Y$',
-                    ylim=(0.125, 0.24), ytick_step=0.02,
+                    ylim=(0.15, 0.28), ytick_step=0.02,
                     fname='investment_share_gdp.png')
 
 
@@ -880,12 +878,11 @@ def investment_share_gdp():
 def government_share_gdp():
     print('Figure 10: Government spending share of GDP')
     df = _load_gdp_accounts()
-    df['Government'] = (df['General governments final consumption expenditure']
-                        + df['General governments gross fixed capital formation'])
+    df['Government'] = df['General governments final consumption expenditure']
     ratio = df['Government'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$G / Y$',
-                    ylim=(0.23, 0.34), ytick_step=0.02,
+                    ylim=(0.20, 0.31), ytick_step=0.02,
                     fname='government_share_gdp.png')
 
 
