@@ -11,7 +11,6 @@
 \titleframe
 % ============================================================================
 
-% --- Opening Hook: Hockey Stick ---
 \begin{frame}{La croissance est un phénomène récent}
    \begin{figure}
       \centering
@@ -19,7 +18,6 @@
    \end{figure}
 \end{frame}
 
-% --- Opening Hook: Shanghai 1987 ---
 \begin{frame}{Shanghai en 1987}
    \begin{figure}
       \centering
@@ -27,7 +25,6 @@
    \end{figure}
 \end{frame}
 
-% --- Opening Hook: Shanghai 2013 ---
 \begin{frame}{Shanghai en 2013}
    \begin{figure}
       \centering
@@ -35,8 +32,6 @@
    \end{figure}
 \end{frame}
 
-
-% --- Opening Hook: Shenzhen ---
 \begin{frame}{Shenzhen : d'un village de pêcheurs à une mégapole}
    \begin{figure}
       \centering
@@ -48,15 +43,13 @@
    \end{figure}
 \end{frame}
 
-% --- Opening Hook: Regional divergence ---
-\begin{frame}{Des expériences très différentes}
+\begin{frame}{Des expériences de croissance très différentes}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth]{regional_divergence.png}
    \end{figure}
 \end{frame}
 
-% --- Opening Hook: Business relevance ---
 \begin{frame}{Croissance de long terme et stratégies d'affaires}
    \begin{bizimplication}
       Plusieurs décisions d'affaires dépendent non seulement du revenu actuel d'un pays, mais aussi de ses perspectives de croissance à long terme.
@@ -89,7 +82,7 @@
       \setlength\itemsep{0.2cm}
       \item Quels sont les \textbf{ingrédients} de la production?
       \item Comment ces ingrédients se \textbf{combinent-ils?}
-      \item Pourquoi certains pays produisent-ils \textbf{plus} que d'autres?
+      \item Pourquoi certains pays produisent-ils autant \textbf{plus} que d'autres?
    \end{itemize}
    \vspace{0.3cm}
    Pour y répondre, il nous faut un modèle de production\ldots
@@ -184,6 +177,43 @@
    \end{keyinsight}
 \end{frame}
 
+\begin{frame}[t]{Qu'est-ce que la PTF ($A$)?}
+   \small
+   Deux boulangeries avec les \textbf{mêmes ingrédients} (farine, beurre, œufs, employés).
+   \vspace{0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgray}{\large\textbf{Boulangerie \#1}}\\[3pt]
+         \textcolor{HECgray}{PTF faible}\\[4pt]
+         \footnotesize
+         Recettes de base\\
+         Fours mal calibrés\\
+         Organisation chaotique\\[4pt]
+         $\to$ 100 pains / jour
+      \end{column}
+      \begin{column}{0.06\textwidth}
+         \centering
+         \vspace{0.8cm}
+         {\Large\textcolor{HECgray}{vs}}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgreen}{\large\textbf{Boulangerie \#2}}\\[3pt]
+         \textcolor{HECgreen}{PTF élevée}\\[4pt]
+         \footnotesize
+         Techniques de levain maîtrisées\\
+         Fours optimisés\\
+         Processus rodé\\[4pt]
+         $\to$ 200 pains / jour
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \begin{keyinsight}
+      La PTF ($A$) capte \textbf{tout ce qui n'est pas $K$ ou $L$} : technologie, savoir-faire, organisation\ldots\ C'est la capacité à faire \textbf{plus avec les mêmes ressources}.
+   \end{keyinsight}
+\end{frame}
+
 \begin{frame}[t]{Rendements décroissants : travail}
    \begin{columns}[c]
       \begin{column}{0.58\textwidth}
@@ -266,17 +296,17 @@
    \begin{defbox}[Décomposition de Solow]
       \vspace{-0.1cm}
       \begin{equation*}
-         \underbrace{\pctchg{Y}}_{\text{croissance du PIB}} \;\approx\; \underbrace{\pctchg{A}}_{\text{productivité}} \;+\; \underbrace{0.3 \cdot \pctchg{K}}_{\text{capital}} \;+\; \underbrace{0.7 \cdot \pctchg{L}}_{\text{travail}}
+         \underbrace{\pctchg{Y}}_{\text{croissance du PIB}} \;\approx\; \underbrace{\pctchg{A}}_{\text{PTF}} \;+\; \underbrace{\alpha \cdot \pctchg{K}}_{\text{capital}} \;+\; \underbrace{(1 - \alpha) \cdot \pctchg{L}}_{\text{travail}}
       \end{equation*}
    \end{defbox}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item On observe $\pctchg{Y}$, $\pctchg{K}$ et $\pctchg{L}$
-      \item On \textbf{déduit} $\pctchg{A}$ comme résidu : $\pctchg{A} = \pctchg{Y} - 0.3 \cdot \pctchg{K} - 0.7 \cdot \pctchg{L}$
+      \item On observe $\pctchg{Y}$, $\pctchg{K}$ et $\pctchg{L}$ $+$ on connaît $\alpha$ (part du capital dans le revenu)
+      \item On \textbf{déduit} $\pctchg{A}$ comme résidu : $\pctchg{A} = \pctchg{Y} - \alpha \cdot \pctchg{K} - (1 - \alpha) \cdot \pctchg{L}$
    \end{itemize}
 \end{frame}
 
-\begin{frame}{Canada vs États-Unis : croissance du PIB}
+\begin{frame}{Canada vs.\ États-Unis : croissance du PIB}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth]{growth_decomp_canada_us_total.png}
@@ -287,7 +317,7 @@
    \small
    Diviser par la population ($N$) donne :
    \begin{equation*}
-      \frac{Y}{N} = \frac{A \cdot K^{\alpha} \cdot L^{1-\alpha}}{N} \quad \to \quad \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N}
+      \frac{Y}{N} = \frac{A \cdot K^{\alpha} \cdot L^{1 - \alpha}}{N} \quad \to \quad \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N}
    \end{equation*}
    \textbf{Trois déterminants du niveau de vie :}
    \vspace{0.1cm}
@@ -308,13 +338,13 @@
    \begin{itemize}
       \setlength\itemsep{0.15cm}
       \item La production augmente ($Y \uparrow$)
-      \item Les entreprises investissent davantage ($K \uparrow$)
+      \item Les entreprises investissent davantage ($I \uparrow$ et donc $K \uparrow$)
       \item $K/L$ augmente $\to$ la décomposition naïve \textbf{attribue le mérite au capital!} \\
    \end{itemize}
    \vspace{0.25cm}
    En réécrivant la fonction de production :
    \begin{equation*}
-      \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{L}\right)^{\alpha} \cdot \frac{L}{N}
+      \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{N} \cdot \frac{N}{L}\right)^{\alpha} \cdot \frac{L}{N}
    \end{equation*}
    Encore un peu d'algèbre\ldots
    \begin{equation*}
@@ -323,7 +353,7 @@
 \end{frame}
 
 \begin{frame}[t]{Rendre à César ce qui est à César}
-   Fonction de \textbf{productivité :}
+   Fonction de \textbf{niveau de vie :}
    \begin{equation*}
       \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}} \cdot \frac{L}{N}
    \end{equation*}
@@ -354,7 +384,7 @@
    \end{keyinsight}
 \end{frame}
 
-\begin{frame}{Canada vs États-Unis : PIB par habitant}
+\begin{frame}{Canada vs.\ États-Unis : PIB par habitant}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth]{growth_decomp_canada_us.png}
@@ -372,6 +402,13 @@
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth]{growth_decomp_asian_tigers.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Capital ou productivité? (1970--1990)}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{growth_decomp_asian_tigers_comparison.png}
    \end{figure}
 \end{frame}
 
@@ -737,7 +774,7 @@
       \begin{column}{0.06\textwidth}
          \centering
          \vspace{1.5cm}
-         {\Large\textcolor{HECgray}{vs}}
+         {\Large\textcolor{HECgray}{vs.}}
       \end{column}
       \begin{column}{0.47\textwidth}
          \centering
@@ -801,13 +838,6 @@
 % ============================================================================
 \sectionframe{La croissance et ses conséquences}
 % ============================================================================
-
-\begin{frame}[t]{Échapper au piège malthusien}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{malthusian_trap.png}
-   \end{figure}
-\end{frame}
 
 \begin{frame}{La croissance a sorti des millions de personnes de la pauvreté\ldots}
    \begin{figure}

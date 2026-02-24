@@ -268,33 +268,44 @@ def _diminishing_returns(xlabel, fixed_label, filename):
     fig, ax = new_figure(6, 5)
     ax.plot(x, f(x), color=palette[0], linewidth=3)
 
-    pts = [10, 30, 60, 90]
+    GREEN = '#26d07c'
+    pts = [30, 60, 90]
     for i, v in enumerate(pts):
         y_val = f(v)
         ax.plot(v, y_val, 'o', color=palette[2], markersize=10, zorder=5)
         ax.plot([v, v], [0, y_val], '--', color=palette[7], lw=0.8, zorder=1)
-        if i < len(pts) - 1:
-            v_next = pts[i + 1]
-            y_next = f(v_next)
-            ax.annotate('', xy=(v_next, y_next), xytext=(v_next, y_val),
-                        arrowprops=dict(arrowstyle='<->', color=palette[1],
-                                        lw=2))
-            ax.text(v_next + 2.5, (y_val + y_next) / 2,
-                    rf'$\Delta Y_{i+1}$',
-                    fontsize=14, color=palette[1], va='center')
-            ax.plot([0, v_next], [y_val, y_val], ':', color=palette[1],
-                    lw=0.8, zorder=1)
-            ax.plot([0, v_next], [y_next, y_next], ':', color=palette[1],
-                    lw=0.8, zorder=1)
+
+    # First increment: 0 → 30 (in green)
+    y0, y1 = f(0), f(pts[0])
+    ax.annotate('', xy=(pts[0], y1), xytext=(pts[0], y0),
+                arrowprops=dict(arrowstyle='<->', color=GREEN, lw=2))
+    ax.text(pts[0] + 2.5, (y0 + y1) / 2,
+            r'$\Delta Y_1$', fontsize=14, color=GREEN, va='center')
+    ax.plot([0, pts[0]], [y1, y1], ':', color=GREEN, lw=0.8, zorder=1)
+
+    # Subsequent increments: 30→60, 60→90
+    for i in range(len(pts) - 1):
+        v, v_next = pts[i], pts[i + 1]
+        y_val, y_next = f(v), f(v_next)
+        ax.annotate('', xy=(v_next, y_next), xytext=(v_next, y_val),
+                    arrowprops=dict(arrowstyle='<->', color=palette[1],
+                                    lw=2))
+        ax.text(v_next + 2.5, (y_val + y_next) / 2,
+                rf'$\Delta Y_{i+2}$',
+                fontsize=14, color=palette[1], va='center')
+        ax.plot([0, v_next], [y_val, y_val], ':', color=palette[1],
+                lw=0.8, zorder=1)
+        ax.plot([0, v_next], [y_next, y_next], ':', color=palette[1],
+                lw=0.8, zorder=1)
 
     ax.set_xlabel(xlabel, fontsize=16)
     ax.set_ylabel('Production ($Y$)', fontsize=16, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.08)
+    ax.yaxis.set_label_coords(0, 1.03)
     ax.set_xlim(0, 105)
     ax.set_ylim(0, None)
     ax.set_yticks([])
-    ax.set_xticks([0, 10, 30, 60, 90])
-    ax.set_xticklabels([0, 10, 30, 60, 90], fontsize=14)
+    ax.set_xticks([0, 30, 60, 90])
+    ax.set_xticklabels([0, 30, 60, 90], fontsize=14)
 
     ax.text(68, f(68) + 12, r'$F(K, L)$',
             fontsize=17, color=palette[0], fontstyle='italic')
@@ -303,15 +314,6 @@ def _diminishing_returns(xlabel, fixed_label, filename):
             transform=ax.transAxes)
 
     style_axes(ax)
-
-    # Add arrows at axis tips
-    ax.annotate('', xy=(1.02, 0), xycoords='axes fraction',
-                xytext=(0.98, 0), textcoords='axes fraction',
-                arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
-    ax.annotate('', xy=(0, 1.05), xycoords='axes fraction',
-                xytext=(0, 0.95), textcoords='axes fraction',
-                arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
-
     save(fig, filename)
 
 
@@ -1041,9 +1043,9 @@ def convergence_global():
     non_oecd = df[~df['is_oecd']]
     oecd_df = df[df['is_oecd']]
     ax.scatter(non_oecd['y_ratio'], non_oecd['growth'],
-               s=50, color=palette[0])
+               s=50, color=palette[0], alpha=0.7)
     ax.scatter(oecd_df['y_ratio'], oecd_df['growth'],
-               s=50, color=palette[1], edgecolors='k', linewidth=0.5)
+               s=50, color=palette[1], edgecolors='k', linewidth=0.5, alpha=0.7)
 
     # Label all countries with ISO3 codes
     for _, row in df.iterrows():
@@ -1790,10 +1792,10 @@ def growth_decomp_asian_tigers():
 
     fig, ax = new_figure(9, 4.5)
 
-    ax.bar(x, A_vals, width, label='$A$', color=palette[0])
-    ax.bar(x, KY_vals, width, bottom=A_vals, label='$K/Y$', color=palette[1])
+    ax.bar(x, A_vals, width, label='PTF', color=palette[0])
+    ax.bar(x, KY_vals, width, bottom=A_vals, label='Capital', color=palette[1])
     ak_bottom = [a + k for a, k in zip(A_vals, KY_vals)]
-    ax.bar(x, LN_vals, width, bottom=ak_bottom, label='$L/N$', color=palette[2])
+    ax.bar(x, LN_vals, width, bottom=ak_bottom, label='Travail', color=palette[2])
 
     for i in range(len(codes)):
         total = A_vals[i] + KY_vals[i] + LN_vals[i]
@@ -1816,6 +1818,119 @@ def growth_decomp_asian_tigers():
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
     save(fig, 'growth_decomp_asian_tigers.png')
+
+
+def growth_decomp_asian_tigers_comparison():
+    print('Figure: Growth decomposition — Asian tigers comparison (K/L naive vs K/Y)')
+
+    df = _load_pwt()
+    alpha = 1 / 3
+    amp_ky = alpha / (1 - alpha)
+
+    codes = [('USA', r"\'{E}.-U."), ('HKG', 'Hong Kong'),
+             ('KOR', r"Cor\'{e}e du S."), ('SGP', 'Singapour'),
+             ('TWN', r"Ta\"{i}wan")]
+    y0, y1, T = 1970, 1990, 20
+
+    # Compute both decompositions
+    naive_A, naive_K, naive_L = [], [], []
+    correct_A, correct_K, correct_L = [], [], []
+    labels = []
+
+    for code, label in codes:
+        c = df[df['countrycode'] == code].set_index('year')
+        yn0 = c.loc[y0, 'rgdpna'] / c.loc[y0, 'pop']
+        yn1 = c.loc[y1, 'rgdpna'] / c.loc[y1, 'pop']
+        kl0 = c.loc[y0, 'rkna'] / c.loc[y0, 'emp']
+        kl1 = c.loc[y1, 'rkna'] / c.loc[y1, 'emp']
+        ky0 = c.loc[y0, 'rkna'] / c.loc[y0, 'rgdpna']
+        ky1 = c.loc[y1, 'rkna'] / c.loc[y1, 'rgdpna']
+        ln0 = c.loc[y0, 'emp'] / c.loc[y0, 'pop']
+        ln1 = c.loc[y1, 'emp'] / c.loc[y1, 'pop']
+
+        g_yn = ((yn1 / yn0) ** (1 / T) - 1) * 100
+        g_kl = ((kl1 / kl0) ** (1 / T) - 1) * 100
+        g_ky = ((ky1 / ky0) ** (1 / T) - 1) * 100
+        g_ln = ((ln1 / ln0) ** (1 / T) - 1) * 100
+
+        # Naive K/L: %Δ(Y/N) = %ΔA + α·%Δ(K/L) + %Δ(L/N)
+        n_k = alpha * g_kl
+        n_l = g_ln
+        n_a = g_yn - n_k - n_l
+        naive_A.append(n_a)
+        naive_K.append(n_k)
+        naive_L.append(n_l)
+
+        # Correct K/Y: %Δ(Y/N) = (1/(1-α))·%ΔA + (α/(1-α))·%Δ(K/Y) + %Δ(L/N)
+        c_k = amp_ky * g_ky
+        c_l = g_ln
+        c_a = g_yn - c_k - c_l
+        correct_A.append(c_a)
+        correct_K.append(c_k)
+        correct_L.append(c_l)
+
+        labels.append(label)
+
+    n = len(codes)
+    x = np.arange(n)
+    width = 0.35
+    gap = 0.03
+    faded = 0.4  # alpha for naive bars
+
+    fig, ax = new_figure(10, 4.5)
+
+    # --- Naive bars (left, faded) ---
+    ax.bar(x - width/2 - gap/2, naive_A, width,
+           color=palette[0], alpha=faded, label='PTF ($K/L$)')
+    ax.bar(x - width/2 - gap/2, naive_K, width, bottom=naive_A,
+           color=palette[1], alpha=faded, label='Capital ($K/L$)')
+    naive_ak = [a + k for a, k in zip(naive_A, naive_K)]
+    ax.bar(x - width/2 - gap/2, naive_L, width, bottom=naive_ak,
+           color=palette[2], alpha=faded, label='Travail ($K/L$)')
+
+    # --- Correct bars (right, full opacity) ---
+    ax.bar(x + width/2 + gap/2, correct_A, width,
+           color=palette[0], label='PTF ($K/Y$)')
+    ax.bar(x + width/2 + gap/2, correct_K, width, bottom=correct_A,
+           color=palette[1], label='Capital ($K/Y$)')
+    correct_ak = [a + k for a, k in zip(correct_A, correct_K)]
+    ax.bar(x + width/2 + gap/2, correct_L, width, bottom=correct_ak,
+           color=palette[2], label='Travail ($K/Y$)')
+
+    # Method labels above bars
+    for i in range(n):
+        n_top = naive_A[i] + naive_K[i] + naive_L[i]
+        c_top = correct_A[i] + correct_K[i] + correct_L[i]
+        ax.text(i - width/2 - gap/2, n_top + 0.15, '$K/L$',
+                ha='center', fontsize=9, color=palette[7], style='italic')
+        ax.text(i + width/2 + gap/2, c_top + 0.15, '$K/Y$',
+                ha='center', fontsize=9, fontweight='bold', color=palette[0])
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, fontsize=12)
+    ax.set_ylabel(r"Croissance du PIB/hab. (pp, moy. annuelle)",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(0, 9.5)
+    yticks = range(0, 10, 2)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{y}' + r'\%' for y in yticks], fontsize=12)
+    ax.axhline(y=0, color='black', linewidth=0.5)
+
+    style_axes(ax)
+
+    # Custom legend: one entry per component (full opacity), with note
+    from matplotlib.patches import Patch
+    legend_elements = [
+        Patch(facecolor=palette[0], label='PTF'),
+        Patch(facecolor=palette[1], label='Capital'),
+        Patch(facecolor=palette[2], label='Travail'),
+    ]
+    ax.legend(handles=legend_elements, frameon=False, fontsize=11,
+              loc='upper left', bbox_to_anchor=(0.0, 1.0))
+
+    add_source(ax, 'Source: Penn World Tables 10.01')
+    save(fig, 'growth_decomp_asian_tigers_comparison.png')
 
 
 # =====================================================================
@@ -2476,6 +2591,7 @@ if __name__ == '__main__':
         growth_decomp_canada_us_total,
         growth_decomp_canada_us,
         growth_decomp_asian_tigers,
+        growth_decomp_asian_tigers_comparison,
         catchup_growth,
         miracle_vs_stagnation,
         growth_decomp_china_us,
