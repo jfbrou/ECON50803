@@ -1379,13 +1379,12 @@ def big_mac_index():
     # Zero line
     ax.axvline(x=0, color='black', linewidth=0.8)
 
-    # Price labels on the right margin
-    xmax = rdf['pct_latest'].max()
-    price_x = 52
+    # Price labels on the right margin (right-aligned)
+    price_x = 64
     for i, row in rdf.iterrows():
         idx = rdf.index.get_loc(i)
         ax.text(price_x, idx, f'\\${row["price_latest"]:.2f}',
-                va='center', fontsize=9, color=palette[7])
+                va='center', ha='right', fontsize=9, color=palette[7])
 
     # Country names on the left (French)
     ax.set_yticks(y)
@@ -1400,10 +1399,10 @@ def big_mac_index():
     ax.set_xlabel(r"\'{E}valuation de la monnaie locale face au dollar, \%",
                   fontsize=10)
 
-    # Price column header — right-aligned above the price column
-    ax.text(price_x + 8, len(rdf) + 0.3,
+    # Price column header — right-aligned, same x as price labels
+    ax.text(price_x, len(rdf) + 0.3,
             'Prix, \\$', fontsize=9, fontweight='bold',
-            va='bottom', ha='center', color=palette[0])
+            va='bottom', ha='right', color=palette[0])
 
     # Horizontal grid lines
     for yi in y:
@@ -1417,7 +1416,10 @@ def big_mac_index():
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2,
               markerscale=1.2)
-    add_source(ax, r"Source: \textit{The Economist}, Big Mac Index")
+    # Source top-left (below legend) to avoid collision with price column
+    ax.text(0, 1.01, r"Source: \textit{The Economist}, Big Mac Index",
+            fontsize=8, color='k', ha='left', va='bottom',
+            transform=ax.transAxes)
     save(fig, 'big_mac_index.png')
 
 
@@ -1822,6 +1824,103 @@ def beyond_gdp():
 
 
 # =====================================================================
+# Figure: GDP / GNI ratio — horizontal bar chart (Ireland outlier)
+# =====================================================================
+def gdp_gni_ratio():
+    print('Figure: GDP / GNI ratio — cross-country comparison')
+
+    # GDP/GNI ratios from World Bank WDI (NY.GDP.MKTP.CD / NY.GNP.MKTP.CD)
+    # Cached values; try live API first, fall back to cache if unavailable.
+    # Cache: 2023 data from World Bank WDI (accessed Feb 2026)
+    _CACHE_YEAR = 2023
+    _CACHE = {
+        'Irlande':                 1.61,   # IRL — multinationals inflate GDP
+        'Singapour':               1.10,   # SGP — financial hub, foreign profits
+        'Canada':                  0.98,   # CAN
+        r"\'{E}tats-Unis":         1.01,   # USA
+        'Allemagne':               1.01,   # DEU
+        'France':                  0.99,   # FRA
+        'Japon':                   0.97,   # JPN — large overseas investment income
+        'Royaume-Uni':             1.00,   # GBR
+        r"Br\'{e}sil":            1.00,   # BRA
+        'Chine':                   1.01,   # CHN
+        'Inde':                    0.98,   # IND
+        'Philippines':             0.91,   # PHL — large remittance inflows → GNI > GDP
+    }
+
+    countries = {
+        'IRL': 'Irlande',
+        'SGP': 'Singapour',
+        'CAN': 'Canada',
+        'USA': r"\'{E}tats-Unis",
+        'DEU': 'Allemagne',
+        'FRA': 'France',
+        'JPN': 'Japon',
+        'GBR': 'Royaume-Uni',
+        'BRA': r"Br\'{e}sil",
+        'CHN': 'Chine',
+        'IND': 'Inde',
+        'PHL': 'Philippines',
+    }
+
+    # Try live World Bank API; fall back to cache on failure
+    gdp_ind = 'NY.GDP.MKTP.CD'   # GDP (current US$)
+    gni_ind = 'NY.GNP.MKTP.CD'   # GNI (current US$)
+    ratios = {}
+    year_used = _CACHE_YEAR
+    try:
+        for iso, name_fr in countries.items():
+            gdp = _get_worldbank(gdp_ind, iso, start=2019, end=2025)
+            gni = _get_worldbank(gni_ind, iso, start=2019, end=2025)
+            common = gdp.index.intersection(gni.index)
+            if len(common) > 0:
+                yr = common[-1]
+                ratios[name_fr] = gdp.loc[yr] / gni.loc[yr]
+                year_used = yr.year
+    except Exception as e:
+        print(f'  World Bank API unavailable ({e.__class__.__name__}), '
+              f'using cached {_CACHE_YEAR} data')
+        ratios = dict(_CACHE)
+
+    # Sort by ratio (ascending for horizontal bars)
+    ratios = dict(sorted(ratios.items(), key=lambda x: x[1], reverse=False))
+
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+
+    names = list(ratios.keys())
+    values = list(ratios.values())
+    colors = [palette[3] if n == 'Irlande' else
+              palette[1] if n == 'Canada' else
+              palette[0] for n in names]
+
+    bars = ax.barh(names, values, color=colors, height=0.65,
+                   edgecolor='white', linewidth=0.5)
+
+    # Value labels
+    for bar, val in zip(bars, values):
+        label = f'{val:.2f}'
+        ax.text(val + 0.005, bar.get_y() + bar.get_height() / 2,
+                label, va='center', fontsize=10, color=palette[7])
+
+    # Reference line at 1.0
+    ax.axvline(1.0, color=palette[7], linewidth=0.8, linestyle='--', alpha=0.5)
+
+    ax.set_xlim(min(values) - 0.05, max(values) + 0.08)
+    ax.tick_params(axis='y', labelsize=11)
+    ax.tick_params(axis='x', labelsize=10)
+    ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.2f}'))
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.invert_yaxis()
+
+    ax.set_title('Ratio PIB / RNB', fontsize=12, loc='left', pad=10)
+    add_source(ax, f'Source: World Bank, WDI ({year_used})')
+    save(fig, 'gdp_gni_ratio.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -1848,6 +1947,7 @@ if __name__ == '__main__':
         gdp_canada_usa,
         gdp_per_capita_canada_usa,
         gdp_vs_gdp_per_capita,
+        gdp_gni_ratio,
         gdp_nominal_canada,
         gdp_nominal_real_canada,
         inflation_cpi_deflator_canada,
