@@ -19,6 +19,9 @@
 Evaluations/
 Resources/
 
+# Large data files
+Slides/Data/PatentSimilarityImportanceBreakthrough_forPost2022.csv
+
 # Python
 __pycache__/
 *.h5
