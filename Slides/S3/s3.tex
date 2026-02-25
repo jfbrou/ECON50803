@@ -11,78 +11,127 @@
 \titleframe
 % ============================================================================
 
-% --- Opening Hook: Canada Productivity Puzzle ---
 \begin{frame}{Le Canada décroche}
-   \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{gdp_per_capita_canada_usa.png}
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{gdp_per_capita_canada_usa.png}
    \end{figure}
-   \vspace{-0.3cm}
-   Le PIB par habitant du Canada \textbf{diminue} par rapport aux États-Unis depuis $\sim$2015. En 2024, l'écart est à son plus haut niveau depuis les années 1980.
 \end{frame}
 
-\begin{frame}[t]{Un problème d'investissement?}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.55\textheight, keepaspectratio]{oecd_business_investment.png}
-   \end{figure}
-   \vspace{-0.3cm}
-   L'investissement des entreprises canadiennes en \% du PIB est \textbf{systématiquement inférieur} à celui des États-Unis et de la moyenne OCDE. Moins de capital $\to$ moins de productivité.
-\end{frame}
-
-\begin{frame}[t]{Productivité : le diagnostic}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.85\textwidth, height=0.5\textheight, keepaspectratio]{canada_productivity_growth.png}
-   \end{figure}
-   \vspace{-0.3cm}
-   \begin{warning}
-      \footnotesize De 2005 à 2019, la croissance de la PTF au Canada a été \textbf{négative} ($-1.26\,\%$/an). Le Canada ne souffre pas seulement d'un manque de capital --- il souffre d'un problème de \textbf{productivité}.
-   \end{warning}
-\end{frame}
-
-\begin{frame}[t]{Le cercle vicieux}
-   \small
-   Le Canada est pris dans un cercle vicieux :
-   \vspace{0.2cm}
-   \begin{center}
-   \begin{tikzpicture}[
-      node distance=1.4cm and 2.5cm,
-      every node/.style={align=center, font=\small},
-      arr/.style={-{Stealth[length=6pt]}, thick, HECnavy}
-   ]
-      \node (invest) {\textbf{Faible}\\\textbf{investissement}};
-      \node (kn) [right=of invest] {Faible $K/L$};
-      \node (prod) [right=of kn] {Faible\\productivité};
-      \node (wages) [below=of prod] {Faibles\\salaires};
-      \node (brain) [below=of kn] {Fuite des\\cerveaux};
-      \draw[arr] (invest) -- (kn);
-      \draw[arr] (kn) -- (prod);
-      \draw[arr] (prod) -- (wages);
-      \draw[arr] (wages) -- (brain);
-      \draw[arr] (brain) -- (invest);
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{Le Canada a un problème de productivité}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Productivity is an urgent problem for Canada. The response? A 15-year study~\guillemotright}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Bank of Canada's Rogers Flags Weak Productivity `Emergency'~\guillemotright}
+      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~La productivité en chute fait craindre pour le niveau de vie des Canadiens~\guillemotright}
+      \newsheadline[lapresse]{La Presse}{\guillemotleft~Urgence productivité : pourquoi notre niveau de vie prend le bord?~\guillemotright}
+      \newsheadline[ledevoir]{Le Devoir}{\guillemotleft~Le très mauvais bilan du Canada et du Québec en matière de productivité~\guillemotright}
+      \newsheadline[nationalpost]{National Post}{\guillemotleft~Businesses rank being `stifled by red tape' as more of a threat than Trump tariffs~\guillemotright}
    \end{tikzpicture}
-   \end{center}
-   \vspace{0.1cm}
-   Le Canada investit moins en R\&D que presque tous ses pairs du G7. En 2023 : 1.7\,\% du PIB vs 3.5\,\% aux États-Unis.
+\end{frame}
+}
 
-   \vspace{0.15cm}
-   Mais qu'est-ce que la productivité, exactement? Et \textbf{d'où vient-elle?}
+\begin{frame}[t]{Un problème de productivité?}
+   \small
+   Le PIB par habitant du Canada tire de la patte. Est-ce un problème de \textbf{productivité}?
+   \vspace{0.2cm}
+
+   \begin{defbox}[Deux mesures de la productivité]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{Productivité du travail :} $Y / L = A^{\frac{1}{1 - \alpha}} \cdot (K / Y)^{\frac{\alpha}{1 - \alpha}}$
+         
+         Fonction de $A$ et de $K/Y$. Mesure la plus souvent citée dans les médias.
+
+         \item \textbf{Productivité totale des facteurs (PTF) :} $A$
+
+         L'efficacité \guillemotleft~pure~\guillemotright\ avec laquelle on combine $K$ et $L$
+      \end{itemize}
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{keyinsight}[Rappel]
+      On peut décomposer le PIB par habitant: $Y / N = (Y / L) \cdot (L / N)$. Où est le problème?
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Décomposition de la croissance canadienne}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Le Canada en comparaison internationale}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.82\textheight, keepaspectratio]{canada_gdp_decomposition_countries.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La productivité explique $\sim$50\,\% des écarts de revenus entre pays}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_tfp.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Qu'est-ce qui se cache derrière la PTF\,?}
+   \vspace{0.8cm}
+   \centering
+   \begin{tikzpicture}[
+      op/.style={font=\LARGE, text=HECgray},
+      lbl/.style={font=\small, text=HECgray, align=center},
+   ]
+      % Y/N
+      \node[anchor=base] (yn) at (0,0) {\Large$\dfrac{Y}{N}$};
+      \node[lbl, anchor=north] at (0,-1.1) {PIB par\\habitant};
+
+      % =
+      \node[anchor=base, op] at (1.2,0) {$=$};
+
+      % A (highlighted)
+      \node[anchor=base, rounded corners=8pt, fill=HECcoral!8, draw=HECcoral,
+            line width=1pt, inner sep=12pt] (A) at (3.2,0)
+         {\Large\textcolor{HECcoral}{$\bm{A}^{\frac{1}{1-\alpha}}$}};
+      \node[lbl, anchor=north, text=HECcoral, font=\small\bfseries] (lA) at (3.2,-1.1)
+         {Productivité totale\\des facteurs};
+
+      % ·
+      \node[anchor=base, op] at (5.2,0) {$\boldsymbol{\cdot}$};
+
+      % (K/Y)^(α/(1-α))
+      \node[anchor=base] (ky) at (7.0,0) {\Large$\left(\dfrac{K}{Y}\right)^{\!\frac{\alpha}{1-\alpha}}$};
+      \node[lbl, anchor=north] at (7.0,-1.1) {Intensité\\capitalistique};
+
+      % ·
+      \node[anchor=base, op] at (8.8,0) {$\boldsymbol{\cdot}$};
+
+      % L/N
+      \node[anchor=base] (ln) at (10.0,0) {\Large$\dfrac{L}{N}$};
+      \node[lbl, anchor=north] at (10.0,-1.1) {Taux\\d'emploi};
+
+      % Downward arrow from A
+      \draw[-{Stealth[length=7pt, width=5pt]}, line width=0.8pt, HECcoral]
+         ([yshift=-0.2cm]lA.south) -- ++(0,-0.9cm);
+
+      % Question mark
+      \node[font=\fontsize{36}{42}\selectfont\bfseries, text=HECcoral]
+         at ([yshift=-1.7cm]lA.south) {?};
+   \end{tikzpicture}
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
+      \setlength\itemsep{0.5cm}
       \item \textbf{Théories de la productivité}
       \item Indicateurs du marché du travail
-      \item Un modèle simple d'offre et de demande
-      \item Applications
-      \item Inégalités et mondialisation
-      \item IA et l'avenir du travail
+      \item Un modèle simple du marché du travail
+      \item Applications du modèle
+      \item Technologie, IA, et inégalités
    \end{enumerate}
 \end{frame}
 
@@ -90,149 +139,340 @@
 \sectionframe{Théories de la productivité}
 % ============================================================================
 
-\begin{frame}[t]{Le seul moteur de long terme : la productivité}
-   En séance 2, le modèle de Solow nous a enseigné que le capital ne peut pas soutenir la croissance indéfiniment (rendements décroissants). \textbf{Quand $A$ augmente} :
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Chaque unité de $K$ et $L$ produit \textbf{davantage}
-      \item La baignoire \guillemotleft~grossit~\guillemotright\ --- un \textbf{nouvel} état stationnaire, plus élevé
-      \item Si $A$ croît en permanence, le niveau de vie croît en permanence
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      La \textbf{productivité} (PTF) est le seul facteur capable de soutenir une croissance \textit{indéfinie} du niveau de vie. Le capital suit, mais ne mène pas.
-   \end{keyinsight}
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item \textbf{Technologie et idées}
+      \item Géographie, climat, et culture
+      \item Capital humain
+      \item Institutions
+   \end{enumerate}
 \end{frame}
 
-\begin{frame}[t]{Les idées ne sont pas comme les objets}
-   \small
-   \textbf{Non-rivalité des idées :} quand j'utilise le calcul différentiel, cela ne vous empêche pas de l'utiliser. Personne n'est \guillemotleft~privé~\guillemotright\ d'une idée parce qu'un autre s'en sert.
-   \vspace{0.2cm}
+% --- 1. Technologie et idées ------------------------------------------------
 
-   \textbf{Conséquence pour la production :}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Pour les \textbf{objets} (K, L) : rendements d'échelle constants ($2K + 2L \to 2Y$)
-      \item Pour les \textbf{objets + idées} : rendements d'échelle \textbf{croissants}!
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      Pour cloner une usine, il faut doubler les machines et les travailleurs --- mais \textbf{pas} réinventer les plans techniques. Les idées se répliquent à coût nul, ce qui crée des rendements croissants.
-   \end{keyinsight}
+\begin{frame}{La croissance coïncide avec les nouvelles idées}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{kelly_et_al_2021.png}
+   \end{figure}
 \end{frame}
 
 \begin{frame}[t]{L'innovation n'est pas un accident}
-   \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.85\textwidth, height=0.5\textheight, keepaspectratio]{rd_gdp_share.png}
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{rd_gdp_share.png}
    \end{figure}
-   \vspace{-0.3cm}
-   \small
-   L'innovation est le résultat d'\textbf{investissements délibérés} en R\&D. Le Canada investit significativement moins que ses pairs.
-   \vspace{0.1cm}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Innovation de produit :}\\
-         {\footnotesize Nouveaux biens/services, amélioration de la qualité}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{Innovation de procédé :}\\
-         {\footnotesize Réduction des coûts de production, gains d'efficacité}
-      \end{column}
-   \end{columns}
+\end{frame}
+
+\begin{frame}{La R\&D est un effort mondial}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{rd_spending_global.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La loi de Moore : un progrès exponentiel}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{moores_law.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Trois types de progrès technologique}
+   \vspace{0.2cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.4cm}
+      \item \textbf{Innovation de produit} --- Créer quelque chose de nouveau
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item iPhone, vaccin ARNm, ChatGPT
+         \item Retombées technologiques élevées (rétro-ingénierie)
+      \end{itemize}
+      \item \textbf{Innovation de procédé} --- Produire mieux ou moins cher
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item Chaîne de montage (Ford), conteneurisation, loi de Moore
+         \item Retombées technologiques faibles (secret industriel)
+      \end{itemize}
+      \item \textbf{Adoption et diffusion} --- Déployer ce qui existe déjà
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item Électrification des usines (40 ans!), Solow paradox
+         \item La plupart des pays croissent en adoptant, pas en inventant
+      \end{itemize}
+   \end{enumerate}
 \end{frame}
 
 \begin{frame}{La diffusion des technologies}
-   \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.85\textwidth, height=0.6\textheight, keepaspectratio]{technology_adoption_1.png}
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{technology_adoption_1.png}
    \end{figure}
-   \vspace{-0.3cm}
+\end{frame}
+
+\begin{frame}{Les technologies se diffusent plus rapidement que par le passé}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.8\textheight, keepaspectratio]{technology_adoption_2.jpeg}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Pourquoi si peu de diffusion technologique?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{dai.png}
+   \end{figure}
+\end{frame}
+
+% --- 2. Géographie, climat, et culture ------------------------------------------------------
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item \textbf{Géographie, climat, et culture}
+      \item Capital humain
+      \item Institutions
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{La plupart des pays pauvres sont dans les tropiques}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{tropics.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Géographie, climat, et culture}
+   \small
+   \textbf{Pourquoi les pays chauds sont-ils plus pauvres?}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Rendements agricoles plus faibles à haute température
+      \item Maladies endémiques (malaria, parasites tropicaux)
+   \end{itemize}
+   \vspace{0.2cm}
+   \textbf{Autres facteurs?}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Ressources naturelles (maladie hollandaise)
+      \item Pays enclavés (sans accès à la mer)
+      \item Culture, religion, valeurs
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{warning}[Limites de ces explications]
+      Le secteur primaire ne représente qu'une faible part du PIB dans les pays riches\ldots
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Mais comment expliquer ces différences?}
+   \vfill
+   \begin{columns}[T,onlytextwidth]
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Corée du Nord vs. Sud}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{korea_satellite.png}
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Allemagne Ouest vs. Est}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{germany_wage.png}
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Amérique du Nord vs. Sud}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{fortune_reversal.png}
+   \end{columns}
+   \vfill
+\end{frame}
+
+\begin{frame}{Zimbabwe vs.\ Botswana}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{zimbabwe_botswana.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item {\color{gray!50}Géographie, climat, et culture}
+      \item \textbf{Capital humain}
+      \item Institutions
+   \end{enumerate}
+\end{frame}
+
+% --- 3. Capital humain ------------------------------------------------------
+
+\begin{frame}{Éducation $\to$ prospérité?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{schooling.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Qu'est-ce que le capital humain?}
+   \small
+   \textbf{Productivité incarnée dans les connaissances, compétences et talents des individus.}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Accumulé par l'\textbf{éducation} et la \textbf{formation}
+      \item Preuve empirique : des travailleurs différents reçoivent des salaires très différents
+      \item Augmenter le capital humain ($H$) $\to$ augmenter la PTF \textbf{effective}
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{warning}[Corrélation $\neq$ causalité]
+      Les pays riches ont plus de capital humain, mais la causalité peut être \textbf{inversée} : la richesse permet d'investir davantage en éducation. \\
+
+      Le lien causal éducation $\to$ prospérité n'explique qu'un tiers de la corrélation\ldots\\
+      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Bils \& Klenow, \textit{AER}, 2000}}
+   \end{warning}
+\end{frame}
+
+\begin{frame}{Le capital humain a très peu de pouvoir explicatif\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_human_capital.png}
+   \end{figure}
+\end{frame}
+
+% --- 4. Institutions ---------------------------------------------------------
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item {\color{gray!50}Géographie, climat, et culture}
+      \item {\color{gray!50}Capital humain}
+      \item \textbf{Institutions}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Les institutions comme \guillemotleft~règles du jeu~\guillemotright}
+   \small
+   \textbf{Institutions politiques et juridiques :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item État de droit (droits de propriété)
+      \item Idéologie (méritocratie)
+      \item Bureaucratie (\guillemotleft~paperasserie~\guillemotright)
+      \item Stabilité politique
+      \item Corruption
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{keyinsight}
+      Les règles du jeu façonnent les \textbf{incitations} à participer aux activités productives.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Acemoglu, Johnson \& Robinson (Prix Nobel 2024)}
+   \vspace{-0.1cm}
+   \begin{center}
+      \includegraphics[height=5cm, keepaspectratio]{nobel_2024.png}%
+      \hspace{0.4cm}%
+      \includegraphics[height=5cm, keepaspectratio]{why_nations_fail_book.png}
+   \end{center}
+   \begin{itemize}
+      \small
+      \setlength\itemsep{0.1cm}
+      \item \textbf{Institutions inclusives :} état de droit $+$ concurrence $\to$ innovation
+      \item \textbf{Institutions extractives :} corruption $+$ expropriation $\to$ stagnation
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Sommaire : théories de la productivité}
+   \small
+   \vspace{0.1cm}
+   La croissance à l'échelle mondiale peut être caractérisée par\ldots
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECgreen!8, colframe=HECgreen, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies matures}\\[3pt]
+            En ralentissement\ldots
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!8, colframe=HECnavy, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies émergentes}\\[3pt]
+            En rattrapage\ldots
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECcoral!8, colframe=HECcoral, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies stagnantes}\\[3pt]
+            Peinent à décoller\ldots
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   Le succès repose sur des \textbf{conditions appropriées} :
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item La prospérité coïncide rarement avec un contexte institutionnel faible
+      \item Des institutions inclusives encouragent l'innovation et la productivité
+   \end{itemize}
    \begin{bizimplication}
-      \footnotesize L'\textbf{adoption} des technologies existantes explique souvent davantage les écarts de productivité entre entreprises que l'\textbf{invention} de nouvelles technologies.
+      \footnotesize Pour un gestionnaire, comprendre le cadre institutionnel d'une économie est aussi important que de comprendre ses fondamentaux macroéconomiques.
    \end{bizimplication}
 \end{frame}
 
-\begin{frame}[t]{Le rôle crucial des institutions}
-   \small
-   \textbf{Acemoglu, Johnson \& Robinson} (Prix Nobel 2024) : les institutions expliquent les différences persistantes de revenus entre pays.
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item \textbf{Institutions inclusives :} droits de propriété, état de droit, concurrence $\to$ innovation
-      \item \textbf{Institutions extractives :} monopole, corruption, expropriation $\to$ stagnation
-   \end{itemize}
-   \vspace{0.15cm}
-   \textbf{Mauvaise allocation des ressources :}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Si $\text{PMK}_{\text{Apple}} > \text{PMK}_{\text{Nokia}}$, \textbf{réallouer} du capital de Nokia vers Apple augmente la production \textbf{sans investissement additionnel}
-      \item Monopoles, réglementation excessive, barrières à l'entrée $\to$ mauvaise allocation $\to$ faible PTF
-   \end{itemize}
-\end{frame}
-
-\begin{frame}{Sommes-nous à bout de souffle?}
+\begin{frame}[t]{La main d'{\oe}uvre comme source de croissance}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{tfp_growth_advanced.png}
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition_5y.png}
    \end{figure}
-   \vspace{-0.2cm}
-   \footnotesize La croissance de la PTF ralentit dans les économies avancées depuis les années 2000. Mais l'IA et l'innovation dans les marchés émergents offrent des raisons d'être optimistes.
-\end{frame}
-
-\begin{frame}[t]{Que faire pour le Canada?}
-   \small
-   \begin{bizimplication}[Pistes de solution]
-      \begin{itemize}
-         \setlength\itemsep{0.1cm}
-         \item \textbf{Incitatifs à la R\&D :} crédits d'impôt, financement de la recherche fondamentale
-         \item \textbf{Immigration qualifiée :} attirer les talents en technologie et en sciences
-         \item \textbf{Allègement réglementaire :} réduire les barrières à l'entrée et à la concurrence
-         \item \textbf{Politique de concurrence :} briser les oligopoles (télécoms, banques, transport aérien)
-      \end{itemize}
-   \end{bizimplication}
-   \vspace{0.1cm}
-   La productivité est \textbf{le} moteur de la croissance. Mais ses gains ne se distribuent pas également --- ils passent par le \textbf{marché du travail}.
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
+      \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Théories de la productivité}
       \item \textbf{Indicateurs du marché du travail}
-      \item Un modèle simple d'offre et de demande
-      \item Applications
-      \item Inégalités et mondialisation
-      \item IA et l'avenir du travail
+      \item Un modèle simple du marché du travail
+      \item Applications du modèle
+      \item Technologie, IA, et inégalités
    \end{enumerate}
 \end{frame}
-
-% --- Headlines as labor market hook ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}[plain]
-   \begin{tikzpicture}[remember picture, overlay]
-      \setcounter{newshl}{0}
-      \newsheadline{Radio-Canada}{\guillemotleft~Le taux de chômage atteint 6.8\,\% au Canada --- le plus haut depuis 2017~\guillemotright}
-      \newsheadline{Financial Times}{\guillemotleft~US labor shortages persist in healthcare and construction~\guillemotright}
-      \newsheadline{Le Devoir}{\guillemotleft~L'IA pourrait toucher 40\,\% des emplois selon le FMI~\guillemotright}
-      \newsheadline{The Economist}{\guillemotleft~Immigration is reshaping rich-world labor markets~\guillemotright}
-      \newsheadline{La Presse}{\guillemotleft~Les inégalités de revenus au Canada n'ont jamais été aussi élevées~\guillemotright}
-      \newsheadline{Bloomberg}{\guillemotleft~AI is coming for white-collar jobs this time~\guillemotright}
-      \headlinesoverlay{Qui gagne, qui perd?}
-   \end{tikzpicture}
-\end{frame}
-}
 
 % ============================================================================
 \sectionframe{Indicateurs du marché du travail}
 % ============================================================================
+
+\begin{frame}[t]{Comment mesure-t-on le marché du travail?}
+   Les statistiques sur l'emploi proviennent de deux enquêtes complémentaires :
+   \vspace{0.25cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Enquête auprès des ménages} (Canada : \textbf{EPA}; É.-U.\ : \textbf{CPS})
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item $\sim$50K ménages contactés chaque mois au Canada
+         \item Questions sur le statut d'emploi durant la \textit{semaine de référence}
+      \end{itemize}
+      \item \textbf{Enquête auprès des établissements} (Canada : \textbf{EERH}; É.-U.\ : \textbf{CES})
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item Compte les emplois à partir des \textbf{registres de paie} des entreprises
+         \item Plus fiable pour le \textit{nombre} d'emplois, mais publiée avec délai
+      \end{itemize}
+   \end{enumerate}
+   \vspace{0.25cm}
+   Les marchés financiers réagissent fortement aux rapports mensuels sur l'emploi\ldots
+\end{frame}
 
 \begin{frame}[t]{Trois catégories}
    \small
@@ -249,90 +489,76 @@
       \node[box, fill=HECcoral!10, right=2.5cm of E] (U) {Chômeurs\\($U$)};
       \node[box, fill=HEClightgray, below=1.5cm of $(E)!0.5!(U)$] (I) {Inactifs\\($I$)};
 
-      \draw[arr, bend left=15] (E) to node[above, font=\scriptsize] {licenciement} (U);
-      \draw[arr, bend left=15] (U) to node[below, font=\scriptsize] {embauche} (E);
-      \draw[arr, bend left=15] (U) to node[right, font=\scriptsize] {retrait} (I);
-      \draw[arr, bend left=15] (I) to node[left, font=\scriptsize] {recherche} (U);
+      \draw[arr, bend left=15] (E) to node[above, font=\scriptsize] {licenciement/départ} (U);
+      \draw[arr, bend left=15] (U) to node[above, font=\scriptsize] {embauche} (E);
+      \draw[arr, bend left=15] (U) to node[right, font=\scriptsize] {découragement} (I);
+      \draw[arr, bend left=15] (I) to node[left, font=\scriptsize] {retour} (U);
       \draw[arr, bend right=15] (E) to node[left, font=\scriptsize] {retraite} (I);
-      \draw[arr, bend right=15] (I) to node[right, font=\scriptsize] {retour} (E);
    \end{tikzpicture}
    \end{center}
-   \vspace{0.1cm}
    \begin{defbox}
-      \textbf{Chômeur} = sans emploi, disponible et en \textbf{recherche active}. Quelqu'un qui ne cherche pas n'est pas chômeur --- il est \textbf{inactif}.
+      \textbf{Chômeur :} sans emploi, disponible et en \textbf{recherche active}.
    \end{defbox}
 \end{frame}
 
 \begin{frame}[t]{Trois ratios essentiels}
-   \small
    \begin{defbox}[Indicateurs du marché du travail]
+      \vspace{-0.5cm}
       \begin{align*}
-         \text{Taux de participation} &= \frac{E + U}{\text{Pop.\ en âge de travailler}} \times 100 \\[4pt]
-         \text{Taux d'emploi} &= \frac{E}{\text{Pop.\ en âge de travailler}} \times 100 \\[4pt]
+         \text{Taux de participation} &= \frac{E + U}{\text{Pop.\ en âge de travailler}} \times 100 \\[5pt]
+         \text{Taux d'emploi} &= \frac{E}{\text{Pop.\ en âge de travailler}} \times 100 \\[5pt]
          \text{Taux de chômage} &= \frac{U}{E + U} \times 100
       \end{align*}
    \end{defbox}
-   \vspace{0.1cm}
-   \begin{keyinsight}
-      Le taux de chômage seul ne suffit pas : il ne capte ni les travailleurs \textbf{découragés} ni le sous-emploi. Il faut regarder les trois indicateurs ensemble.
-   \end{keyinsight}
 \end{frame}
 
-\begin{frame}{Le marché du travail américain}
+\begin{frame}{Le marché du travail canadien}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{labor_market_indicators_us.png}
+      \includegraphics[width=0.95\textwidth]{labor_market_indicators_ca.png}
    \end{figure}
-\end{frame}
-
-\begin{frame}[t]{Attention aux données}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{Deux enquêtes, deux réponses :}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item \textbf{Enquête auprès des ménages} : participation, chômage (auto-déclaré)
-            \item \textbf{Enquête auprès des établissements} : emplois salariés (paie)
-            \item Les deux ne donnent pas toujours le \textbf{même signal}
-         \end{itemize}
-         \vspace{0.15cm}
-         \textbf{Ajustements saisonniers :}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Noël, construction d'été, rentrée scolaire
-            \item Les chiffres \textit{bruts} peuvent induire en erreur
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \vspace{0.2cm}
-         \centering
-         \includegraphics[width=\textwidth, keepaspectratio]{jobs_report_response.png}\\[4pt]
-         {\footnotesize\textcolor{HECgray}{Les marchés réagissent en secondes au rapport mensuel sur l'emploi}}
-      \end{column}
-   \end{columns}
 \end{frame}
 
 \begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas?}
    \footnotesize
+   \vspace{-0.2cm}
    \begin{warning}[Limites du taux de chômage]
+      \vspace{-0.4cm}
       \begin{itemize}
-         \setlength\itemsep{0.1cm}
-         \item \textbf{Travailleurs découragés :} ont cessé de chercher $\to$ classés inactifs, pas chômeurs
-         \item \textbf{Sous-emploi :} travaillent à temps partiel faute de trouver un emploi à temps plein
-         \item \textbf{Qualité des emplois :} le taux ne distingue pas un emploi précaire d'un emploi stable
-         \item \textbf{Effet de composition :} une baisse du chômage peut refléter des \textit{retraits} du marché, pas des embauches
+         \setlength\itemsep{0.07cm}
+         \item \textbf{Travailleurs découragés :} une baisse du chômage peut refléter des \textit{retraits} du marché, non pas des embauches
+         \item \textbf{Sous-emploi :} travail à temps partiel faute de trouver un emploi à temps plein
+         \item \textbf{Qualité des emplois :} un taux très faible peut signifier que les travailleurs n'ont pas les ressources pour chercher assez longtemps afin de trouver un bon \textit{match}
+         \item \textbf{Démographie :} le vieillissement fait baisser le chômage (les retraités quittent la population active) sans amélioration réelle du marché du travail
       \end{itemize}
    \end{warning}
-   \vspace{0.1cm}
+   \vspace{0.05cm}
    \begin{bizimplication}
-      Pour évaluer la santé réelle du marché du travail, regardez le taux de participation, le ratio emploi/population \textbf{et} les mesures de sous-emploi (U-6 aux États-Unis).
+      Pour évaluer la santé réelle du marché du travail, regardez le taux de participation, le taux d'emploi \textbf{et} les mesures de sous-emploi (U-6 aux États-Unis).
    \end{bizimplication}
 \end{frame}
 
-\begin{frame}{Transition}
+\begin{frame}[t]{Les conséquences du chômage}
+   \small
+   Perdre son emploi est très \textbf{coûteux} :
+   \vspace{0.25cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item 10--20\% de pertes de \textbf{revenus à vie} et risque accru de mortalité accru
+      \item Principalement dû à des \textbf{salaires plus bas}, moins à une baisse de l’emploi
+      \item Particulièrement coûteux en \textbf{récession}
+   \end{itemize}
+   \vspace{0.5cm}
+   \textbf{Pourquoi} le chômage est-il si coûteux?
+   \vspace{0.25cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item Perte de \textbf{capital humain} spécifique à l’entreprise
+      \item Perte de \textbf{sécurité d’emploi} (le chômage engendre le chômage)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{De la mesure à l'interprétation}
    Nous pouvons \textit{mesurer} le marché du travail avec précision.
    \vspace{0.3cm}
 
@@ -341,8 +567,9 @@
 
    \begin{itemize}
       \setlength\itemsep{0.2cm}
-      \item Pourquoi certains pays ont-ils plus de chômage que d'autres?
-      \item Qu'arrive-t-il aux salaires quand la population augmente?
+      \item Devrait-on augmenter le salaire minimum?
+      \item Quelles sont les causes de l'augmentation des inégalités salariales?
+      \item Est-ce que les impôts sur le revenu sont trop élevés?
       \item Comment l'immigration affecte-t-elle le marché du travail?
    \end{itemize}
    \vspace{0.3cm}
@@ -352,42 +579,41 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
+      \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
-      \item \textbf{Un modèle simple d'offre et de demande}
-      \item Applications
-      \item Inégalités et mondialisation
-      \item IA et l'avenir du travail
+      \item \textbf{Un modèle simple du marché du travail}
+      \item Applications du modèle
+      \item Technologie, IA, et inégalités
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Un modèle simple d'offre et de demande}
+\sectionframe{Un modèle simple du marché du travail}
 % ============================================================================
 
 \begin{frame}[t]{L'offre de travail}
    \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Pente positive :} un salaire plus élevé incite davantage de personnes à travailler.
-         \vspace{0.15cm}
+      \begin{column}{0.5\textwidth}
+         \vspace{0.5cm}
+         \textbf{Pente positive :} un salaire réel plus élevé incite au travail (ceteris paribus). \\ \vspace{0.5cm}
 
          \textbf{Déterminants (déplacements) :}
-         \vspace{0.1cm}
+         \vspace{0.15cm}
          \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item \textbf{Population} : immigration, démographie
-            \item \textbf{Préférences} : participation des femmes, retraite
-            \item \textbf{Revenu hors travail} : transferts sociaux, patrimoine
+            \setlength\itemsep{0.15cm}
+            \item \textbf{Démographie}
+            \item \textbf{Impôts sur le revenu}
+            \item \textbf{Richesse} (effet de revenu)
          \end{itemize}
       \end{column}
-      \begin{column}{0.48\textwidth}
+      \begin{column}{0.46\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.85]
             \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
             \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-            \draw[HECgreen, very thick, dashed] (1.5,0.5) -- (5,3.5)
+            \draw[HECgreen, very thick, dotted] (1.75,0.5) -- (5.25,3.5)
                node[right, font=\small] {$L^{S\prime}$};
             \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
          \end{tikzpicture}
@@ -400,32 +626,29 @@
 
 \begin{frame}[t]{La demande de travail}
    \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Pente négative :} les entreprises embauchent tant que le \textbf{produit marginal} $\geq$ salaire.
-         \vspace{0.15cm}
-
-         \begin{defbox}[Règle d'embauche]
-            Embaucher tant que $\text{PML} = w/P$
-         \end{defbox}
-         \vspace{0.1cm}
+      \begin{column}{0.5\textwidth}
+         \vspace{0.5cm}
+         \textbf{Pente négative :} un salaire réel plus élevé réduit la demande de travail. \\ \vspace{0.5cm}
 
          \textbf{Déterminants (déplacements) :}
-         \vspace{0.1cm}
+         \vspace{0.15cm}
          \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item \textbf{Productivité} ($A$) : technologie
-            \item \textbf{Capital} ($K$) : machines, équipement
+            \setlength\itemsep{0.15cm}
+            \item \textbf{Cycle économique}
+            \item \textbf{Impôts sur la masse salariale}
+            \item \textbf{Coût du capital}
+            \item \textbf{Productivité de la main d'{\oe}uvre}
          \end{itemize}
       \end{column}
-      \begin{column}{0.48\textwidth}
+      \begin{column}{0.46\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
-            \draw[HECgreen, very thick, dashed] (1.5,4.5) -- (5.5,1)
+            \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
+            \draw[HECgreen, very thick, dotted] (1.75,3.75) -- (5.25,0.5)
                node[right, font=\small] {$L^{D\prime}$};
-            \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
+            \draw[-{Stealth}, HECgreen, thick] (2.2,2.2) -- (3.3,2.2);
          \end{tikzpicture}
          \vspace{0.1cm}
 
@@ -434,36 +657,80 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{L'équilibre}
+\begin{frame}[t]{L'équilibre de plein emploi}
    \begin{columns}[T]
       \begin{column}{0.48\textwidth}
          L'intersection donne :
-         \vspace{0.1cm}
+         \vspace{0.15cm}
          \begin{itemize}
             \setlength\itemsep{0.15cm}
-            \item $L^*$ = emploi d'équilibre
-            \item $w^*$ = salaire d'équilibre
+            \item $L^* =$ emploi d'équilibre
+            \item $w^* =$ salaire \textit{réel} d'équilibre
          \end{itemize}
          \vspace{0.2cm}
          \begin{keyinsight}
-            À l'équilibre, le salaire reflète la \textbf{productivité marginale} du dernier travailleur embauché.
+            À l'équilibre, le salaire s'ajuste de sorte que ceux qui veulent travailler trouvent un emploi.
          \end{keyinsight}
       \end{column}
       \begin{column}{0.48\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.85]
+         \begin{tikzpicture}[scale=1]
             \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
             \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
-            % Intersection
-            \filldraw[HECgreen] (2.35,2.15) circle (3pt);
-            \draw[dashed, HECgray] (2.35,0) node[below] {$L^*$} -- (2.35,2.15);
-            \draw[dashed, HECgray] (0,2.15) node[left] {$w^*$} -- (2.35,2.15);
+            \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
+            % Intersection at (2.32, 2.06)
+            \draw[dotted, very thick, HECgray] (2.32,0) node[below] {$L^*$} -- (2.32,2.06);
+            \draw[dotted, very thick, HECgray] (0,2.06) node[left] {$w^*$} -- (2.32,2.06);
+            \filldraw[HECgreen] (2.32,2.06) circle (3pt);
          \end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
+
+\begin{frame}{À quoi correspond le chômage?}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
+      \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
+      \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
+      % Intersection at (2.32, 2.06)
+      \draw[dotted, very thick, HECgray] (2.32,0) node[below] {$L^*$} -- (2.32,2.06);
+      \draw[dotted, very thick, HECgray] (0,2.06) node[left] {$w^*$} -- (2.32,2.06);
+      \filldraw[HECgreen] (2.32,2.06) circle (3pt);
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Le modèle en action}
+   On utilise maintenant ce modèle pour analyser quatre phénomènes réels :
+   \vspace{0.3cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item La participation des femmes au marché du travail
+      \item Le vieillissement démographique
+      \item L'immigration (court terme vs.\ long terme)
+      \item Une récession avec des salaires rigides à la baisse
+   \end{enumerate}
+   \vspace{0.3cm}
+   Dans chaque cas : Quelle courbe se déplace? Quel effet sur $w$ et $L$? CT vs.\ LT?
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Théories de la productivité}
+      \item {\color{gray!50}Indicateurs du marché du travail}
+      \item {\color{gray!50}Un modèle simple du marché du travail}
+      \item \textbf{Applications du modèle}
+      \item Technologie, IA, et inégalités
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Applications du modèle}
+% ============================================================================
 
 \begin{frame}[t]{Deux horizons temporels}
    \begin{columns}[T]
@@ -474,7 +741,7 @@
             \setlength\itemsep{0.1cm}
             \item Le capital ($K$) est \textbf{fixe}
             \item Seul le travail s'ajuste
-            \item Un choc d'offre (ex.\ immigration) modifie $w$ et $L$
+            \item Un choc d'offre sur $L^S$ (ex.\ immigration) n'affecte pas $L^D$
          \end{itemize}
       \end{column}
       \begin{column}{0.48\textwidth}
@@ -489,277 +756,26 @@
       \end{column}
    \end{columns}
    \vspace{0.3cm}
-   \begin{defbox}
-      \textbf{Court terme :} $K$ fixe, seul $L$ s'ajuste.\\
-      \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow $\to$ nouvel équilibre.
+   \begin{defbox}[Horizon d'ajustement]
+      \textbf{Court terme :} $K$ est fixe, seul $L$ s'ajuste. \\
+      \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow.
    \end{defbox}
 \end{frame}
 
-\begin{frame}{Le modèle en action}
-   Nous allons maintenant utiliser ce modèle pour analyser quatre phénomènes réels :
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item La participation des femmes au marché du travail
-      \item Le vieillissement démographique
-      \item L'immigration (court terme vs long terme)
-      \item Le déclin de la participation masculine
-   \end{enumerate}
-   \vspace{0.3cm}
-   Dans chaque cas : quel choc? Quelle courbe se déplace? Quel effet sur $w$ et $L$?
-\end{frame}
-
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.25cm}
+      \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Théories de la productivité}
       \item {\color{gray!50}Indicateurs du marché du travail}
-      \item {\color{gray!50}Un modèle simple d'offre et de demande}
-      \item \textbf{Applications}
-      \item Inégalités et mondialisation
-      \item IA et l'avenir du travail
+      \item {\color{gray!50}Un modèle simple du marché du travail}
+      \item {\color{gray!50}Applications du modèle}
+      \item \textbf{Technologie, IA, et inégalités}
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Applications}
-% ============================================================================
-
-\begin{frame}[t]{La participation des femmes}
-   \begin{columns}[T]
-      \begin{column}{0.5\textwidth}
-         \vspace{-0.2cm}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{participation_gender.png}
-         \end{figure}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \small
-         \textbf{Le choc :} déplacement massif de $L^S$ vers la droite (1960--2000).
-         \vspace{0.15cm}
-
-         \textbf{Court terme :}
-         \begin{itemize}
-            \setlength\itemsep{0.05cm}
-            \item Plus de travailleurs $\to$ $L \uparrow$
-            \item Pression à la baisse sur $w$
-         \end{itemize}
-         \vspace{0.1cm}
-
-         \textbf{Long terme :}
-         \begin{itemize}
-            \setlength\itemsep{0.05cm}
-            \item $K$ s'ajuste $\to$ $L^D$ se déplace
-            \item Les salaires se rétablissent
-         \end{itemize}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Le vieillissement démographique}
-   \begin{columns}[T]
-      \begin{column}{0.5\textwidth}
-         \vspace{-0.2cm}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{aging_population.png}
-         \end{figure}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \small
-         \textbf{Le choc :} déplacement de $L^S$ vers la \textbf{gauche} (moins de travailleurs en âge actif).
-         \vspace{0.15cm}
-
-         \textbf{Conséquences :}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Pression haussière sur les salaires
-            \item Pénuries de main-d'œuvre
-            \item Pression sur les finances publiques (retraites, santé)
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{warning}[Défi]
-            Le Japon et l'Italie montrent l'avenir du Canada : qui paiera les retraites?
-         \end{warning}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Immigration : le court terme}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \centering
-         \textbf{Court terme ($K$ fixe)}
-         \vspace{0.2cm}
-
-         \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            % Original equilibrium
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-            \draw[HECcoral, very thick] (0.5,4) -- (4.5,0.5) node[right] {$L^D$};
-            \filldraw[HECgray] (2.35,2.15) circle (2pt);
-            \draw[dashed, HECgray, thin] (0,2.15) node[left, font=\small] {$w^*$} -- (2.35,2.15);
-            % Shifted supply
-            \draw[HECnavy, very thick, dashed] (1.5,0.5) -- (5,3.5)
-               node[right, font=\small] {$L^{S\prime}$};
-            % New equilibrium
-            \filldraw[HECgreen] (2.85,1.75) circle (3pt);
-            \draw[dashed, HECgreen] (0,1.75) node[left, font=\small, text=HECgreen] {$w_1$} -- (2.85,1.75);
-            % Arrow showing wage drop
-            \draw[-{Stealth}, HECcoral, thick] (0.15,2.05) -- (0.15,1.85);
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \vspace{0.3cm}
-         \small
-         L'immigration augmente l'offre de travail :
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $L^S$ se déplace à \textbf{droite}
-            \item Emploi $\uparrow$, salaires $\downarrow$
-            \item Le capital n'a pas eu le temps de s'ajuster
-         \end{itemize}
-         \vspace{0.15cm}
-         C'est l'effet que redoutent les opposants à l'immigration.
-
-         \vspace{0.15cm}
-         \textbf{Mais est-ce la fin de l'histoire?}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Immigration : le long terme}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \centering
-         \textbf{Long terme ($K$ s'ajuste)}
-         \vspace{0.2cm}
-
-         \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            % Shifted supply (now the baseline)
-            \draw[HECnavy, very thick] (1.5,0.5) -- (5,3.5) node[right] {$L^{S\prime}$};
-            % Original demand
-            \draw[HECgray, thick, dashed] (0.5,4) -- (4.5,0.5)
-               node[right, font=\small, text=HECgray] {$L^D$};
-            % SR equilibrium
-            \filldraw[HECgray] (2.85,1.75) circle (2pt);
-            \draw[dashed, HECgray, thin] (0,1.75) node[left, font=\small, text=HECgray] {$w_1$} -- (2.85,1.75);
-            % Shifted demand (K adjusts)
-            \draw[HECcoral, very thick] (1.5,4.5) -- (5.5,1)
-               node[right, font=\small] {$L^{D\prime}$};
-            % New LR equilibrium
-            \filldraw[HECgreen] (3.35,2.15) circle (3pt);
-            \draw[dashed, HECgreen] (0,2.15) node[left, font=\small, text=HECgreen] {$w^{**}$} -- (3.35,2.15);
-            % Arrow showing K adjustment
-            \draw[-{Stealth}, HECgreen, thick] (3.2,2.8) -- (4.0,2.8)
-               node[right, font=\scriptsize] {$K \uparrow$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \vspace{0.1cm}
-         \footnotesize
-         \textbf{Mécanisme d'ajustement (Solow) :}
-         \vspace{0.05cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.05cm}
-            \item Salaires $\downarrow$ $\to$ produit marginal du capital $\uparrow$
-            \item Investissement devient plus rentable
-            \item $K \uparrow$ $\to$ $L^D$ se déplace à droite
-            \item Salaires remontent vers $w^{**} \approx w^*$
-         \end{enumerate}
-         \vspace{0.1cm}
-         \begin{keyinsight}
-            À long terme, l'immigration \textbf{ne déprime pas} les salaires de façon permanente. Le capital s'ajuste.
-         \end{keyinsight}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Le déclin de la participation (États-Unis)}
-   \begin{columns}[T]
-      \begin{column}{0.5\textwidth}
-         \vspace{-0.2cm}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{participation_decline_us.png}
-         \end{figure}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \small
-         Le taux de participation des hommes de 25--54 ans aux États-Unis décline depuis 1960.
-         \vspace{0.15cm}
-
-         \textbf{Facteurs :}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Crise des opioïdes
-            \item Invalidité (disability)
-            \item Incarcération de masse
-            \item Déclin du secteur manufacturier
-         \end{itemize}
-         \vspace{0.1cm}
-         \begin{warning}
-            \footnotesize Ce phénomène réduit l'offre effective de travail \textbf{sans} augmenter les salaires --- les travailleurs sortent du marché, pas vers de meilleurs emplois.
-         \end{warning}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Les conséquences du chômage}
-   \small
-   Le chômage a des coûts \textbf{bien au-delà} de la perte de revenu immédiate :
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Perte de revenus à vie :} 10--20\,\% de revenus en moins sur 15--20 ans après un licenciement (Jacobson, LaLonde \& Sullivan, 1993)
-      \item \textbf{Effets sur la santé :} risque accru de mortalité, dépression, stress chronique (Sullivan \& von Wachter, 2009)
-      \item \textbf{Perte de capital humain :} compétences qui se déprécient, difficulté de réinsertion
-      \item \textbf{Effets intergénérationnels :} les enfants de chômeurs ont de moins bons résultats scolaires et professionnels
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{bizimplication}
-      Le coût social du chômage justifie des politiques actives du marché du travail : formation, aide à la recherche d'emploi, assurance-emploi généreuse mais incitative.
-   \end{bizimplication}
-\end{frame}
-
-\begin{frame}{Transition}
-   Le marché du travail détermine les salaires et l'emploi\ldots
-   \vspace{0.3cm}
-
-   Mais \textbf{tous les travailleurs ne sont pas égaux} face au marché.
-   \vspace{0.3cm}
-
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Pourquoi les inégalités augmentent-elles dans les pays riches?
-      \item Quel rôle joue la mondialisation?
-      \item Le progrès technique profite-t-il à tout le monde?
-   \end{itemize}
-   \vspace{0.3cm}
-   $\to$ Les \textbf{inégalités} et leurs déterminants
-\end{frame}
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item {\color{gray!50}Théories de la productivité}
-      \item {\color{gray!50}Indicateurs du marché du travail}
-      \item {\color{gray!50}Un modèle simple d'offre et de demande}
-      \item {\color{gray!50}Applications}
-      \item \textbf{Inégalités et mondialisation}
-      \item IA et l'avenir du travail
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Inégalités et mondialisation}
+\sectionframe{Technologie, IA, et inégalités}
 % ============================================================================
 
 \begin{frame}{Les inégalités augmentent dans les pays riches}

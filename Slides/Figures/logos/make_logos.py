@@ -263,6 +263,63 @@ def make_washpost():
     save(img, "washpost")
 
 
+# ── Radio-Canada ─────────────────────────────────────────────────────────
+# Light gray background, red CBC gem logo (from source image radiocanada_source.png)
+def make_radiocanada():
+    from PIL import ImageOps
+    import numpy as np
+    src_path = os.path.join(OUTDIR, "radiocanada_source.png")
+    if not os.path.exists(src_path):
+        print("  SKIP radiocanada.png (no radiocanada_source.png found)")
+        return
+    src = Image.open(src_path).convert("RGBA")
+    # White rounded rect background
+    img, draw = new_logo((255, 255, 255))  # white
+    # Flatten source onto white to isolate the red logo
+    white_bg = Image.new("RGBA", src.size, (255, 255, 255, 255))
+    white_bg.paste(src, (0, 0), src)
+    arr = np.array(white_bg)
+    r, g, b = arr[:,:,0], arr[:,:,1], arr[:,:,2]
+    # Detect red-ish pixels (the logo) — ignore gray/white background
+    is_content = (r > 150) & (g < 100) & (b < 100)
+    # Trim to bounding box
+    rows = np.any(is_content, axis=1)
+    cols = np.any(is_content, axis=0)
+    if not rows.any():
+        print("  SKIP radiocanada.png (no content detected)")
+        return
+    rmin, rmax = np.where(rows)[0][[0, -1]]
+    cmin, cmax = np.where(cols)[0][[0, -1]]
+    cropped = white_bg.crop((cmin, rmin, cmax + 1, rmax + 1))
+    # Resize to fit with padding
+    pad = 30
+    target = SIZE - 2 * pad
+    cw, ch = cropped.size
+    scale = min(target / cw, target / ch)
+    new_w, new_h = int(cw * scale), int(ch * scale)
+    resized = cropped.resize((new_w, new_h), Image.LANCZOS)
+    # Create mask: non-gray/white pixels are opaque
+    res_arr = np.array(resized)
+    rr, gg, bb = res_arr[:,:,0], res_arr[:,:,1], res_arr[:,:,2]
+    mask_arr = ((rr > 150) & (gg < 120) & (bb < 120)).astype(np.uint8) * 255
+    mask = Image.fromarray(mask_arr, mode='L')
+    resized.putalpha(mask)
+    # Center on background
+    x_off = (SIZE - new_w) // 2
+    y_off = (SIZE - new_h) // 2
+    img.paste(resized, (x_off, y_off), resized)
+    save(img, "radiocanada")
+
+
+# ── National Post ────────────────────────────────────────────────────────
+# Gold/yellow background, dark serif "NP"
+def make_nationalpost():
+    img, draw = new_logo((243, 199, 43))  # #F3C72B gold yellow
+    font = ImageFont.truetype(FONTS + "Times New Roman Bold.ttf", 220)
+    center_text(draw, "NP", font, 65, color=(40, 40, 40))  # near-black
+    save(img, "nationalpost")
+
+
 if __name__ == "__main__":
     print("Generating logos...")
     make_economist()
@@ -276,4 +333,6 @@ if __name__ == "__main__":
     make_lesechos()
     make_reuters()
     make_washpost()
+    make_radiocanada()
+    make_nationalpost()
     print("Done.")
