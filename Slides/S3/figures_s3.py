@@ -277,34 +277,30 @@ def aging_population():
     print('Figure 3: Aging population — old-age dependency ratio')
 
     # Old-age dependency ratio (65+ / 15-64) * 100
-    # Source: World Bank (SP.POP.DPND.OL)
-    # Hardcoded representative data points for key countries
-    years = [1960, 1970, 1980, 1990, 2000, 2010, 2020, 2023]
-    japan = [9.5, 10.3, 13.4, 17.1, 25.2, 35.5, 48.4, 50.4]
-    italy = [14.4, 16.9, 20.3, 21.6, 26.8, 31.2, 36.0, 38.3]
-    canada = [13.0, 12.4, 14.0, 16.7, 18.2, 20.3, 27.6, 30.1]
-    us = [15.4, 15.6, 17.1, 18.9, 18.6, 19.4, 25.6, 27.2]
+    # Source: World Bank API (SP.POP.DPND.OL)
+    countries = [
+        ('JPN', 'Japon', palette[0], 2.5),          # HECnavy
+        ('ITA', 'Italie', palette[1], 2.5),          # HECgreen
+        ('CAN', 'Canada', palette[2], 3.0),          # HECcoral
+        ('USA', r"\'{E}tats-Unis", palette[3], 2.0), # yellow
+    ]
 
     fig, ax = new_figure(9, 4.5)
 
-    ax.plot(years, japan, 'o-', color=palette[2], linewidth=2.5,
-            markersize=5, label='Japon')
-    ax.plot(years, italy, 'o-', color=palette[3], linewidth=2.5,
-            markersize=5, label='Italie')
-    ax.plot(years, canada, 'o-', color=palette[0], linewidth=2.5,
-            markersize=5, label='Canada')
-    ax.plot(years, us, 'o-', color=palette[4], linewidth=2,
-            markersize=4, label=r"\'{E}tats-Unis")
+    for iso, label, color, lw in countries:
+        s = _get_worldbank('SP.POP.DPND.OL', iso)
+        s = s[s.index >= 1960]
+        ax.plot(s.index, s.values, color=color, linewidth=lw, label=label)
 
-    ax.set_xlim(1958, 2025)
+    ax.set_xlim(1960, 2025)
     ax.set_xticks(range(1960, 2030, 10))
     ax.set_xticklabels(range(1960, 2030, 10), fontsize=11)
     ax.set_ylabel(r"Ratio de d\'{e}pendance des a\^{i}n\'{e}s (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 55)
-    ax.set_yticks(range(0, 56, 10))
-    ax.set_yticklabels([f'{y}' + r'\%' for y in range(0, 56, 10)], fontsize=11)
+    ax.set_ylim(5, 55)
+    ax.set_yticks(range(5, 56, 10))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(5, 56, 10)], fontsize=11)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
@@ -1347,6 +1343,245 @@ def canada_gdp_decomposition_5y():
 
 
 # =====================================================================
+# Figure 20: Participation rate by gender (Canada, 1976–present)
+# =====================================================================
+def participation_gender_ca():
+    """Participation rate by gender + total employment rate — Canada."""
+    print('Figure 20: Participation & employment by gender (Canada)')
+
+    from stats_can import StatsCan
+    sc = StatsCan()
+
+    df = sc.table_to_df('14-10-0287-01')
+    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
+
+    # Keep seasonally adjusted, 15+, estimate only
+    df = df[df['Data type'] == 'Seasonally adjusted']
+    df = df[df['Age group'] == '15 years and over']
+    df = df[df['Statistics'] == 'Estimate']
+
+    # Participation rates by gender
+    part = df[df['Labour force characteristics'] == 'Participation rate']
+    male = part[part['Gender'] == 'Men+'].set_index('REF_DATE')['VALUE']
+    female = part[part['Gender'] == 'Women+'].set_index('REF_DATE')['VALUE']
+    male = male[~male.index.duplicated(keep='first')].sort_index()
+    female = female[~female.index.duplicated(keep='first')].sort_index()
+
+    # Overall employment rate
+    emp = df[df['Labour force characteristics'] == 'Employment rate']
+    emp_total = emp[emp['Gender'] == 'Total - Gender'].set_index('REF_DATE')['VALUE']
+    emp_total = emp_total[~emp_total.index.duplicated(keep='first')].sort_index()
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(male.index, male.values, color=palette[0],
+            linewidth=2, label='Participation --- Hommes')
+    ax.plot(female.index, female.values, color=palette[2],
+            linewidth=2, label='Participation --- Femmes')
+    ax.plot(emp_total.index, emp_total.values, color=palette[1],
+            linewidth=2, linestyle='--', label="Emploi --- Total")
+
+    import matplotlib.dates as mdates
+    ax.set_xlim(pd.Timestamp('1976-01-01'), pd.Timestamp('2010-12-31'))
+    tick_years = range(1980, 2011, 10)
+    tick_dates = [pd.Timestamp(f'{y}-01-01') for y in tick_years]
+    ax.set_xticks(tick_dates)
+    ax.set_xticklabels([str(y) for y in tick_years], fontsize=11)
+    ax.set_ylabel(r"Pourcentage (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(45, 80)
+    ax.set_yticks(range(45, 81, 5))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(45, 81, 5)], fontsize=11)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper right')
+    add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
+    save(fig, 'participation_gender_ca.png')
+
+
+# =====================================================================
+# Figure 22: Unemployment rate (Canada, 1976–present)
+# =====================================================================
+def unemployment_ca():
+    """Unemployment rate — Canada (StatsCan 14-10-0287-01)."""
+    print('Figure 22: Unemployment rate (Canada)')
+
+    from stats_can import StatsCan
+    sc = StatsCan()
+
+    df = sc.table_to_df('14-10-0287-01')
+    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
+
+    df = df[df['Data type'] == 'Seasonally adjusted']
+    df = df[df['Gender'] == 'Total - Gender']
+    df = df[df['Age group'] == '15 years and over']
+    df = df[df['Statistics'] == 'Estimate']
+    df = df[df['Labour force characteristics'] == 'Unemployment rate']
+
+    unemp = df.set_index('REF_DATE')['VALUE']
+    unemp = unemp[~unemp.index.duplicated(keep='first')].sort_index()
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(unemp.index, unemp.values, color=palette[2], linewidth=2)
+
+    # Recession shading
+    for start, end in recessions_ca:
+        ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+
+    # Annotate major peaks
+    annotations = [
+        (pd.Timestamp('1982-12-01'), 13.1, '1982\n$\\sim$13\\%'),
+        (pd.Timestamp('1992-11-01'), 11.8, '1992\n$\\sim$12\\%'),
+        (pd.Timestamp('2009-06-01'), 8.7, '2009\n$\\sim$9\\%'),
+        (pd.Timestamp('2020-05-01'), 13.7, 'COVID\n$\\sim$14\\%'),
+    ]
+    for date, peak, label in annotations:
+        ax.annotate(label,
+                    xy=(date, peak), xytext=(0, 15),
+                    textcoords='offset points',
+                    fontsize=9, color=palette[0], fontweight='bold',
+                    ha='center', va='bottom')
+
+    import matplotlib.dates as mdates
+    ax.set_xlim(pd.Timestamp('1976-01-01'), unemp.index.max())
+    tick_years = range(1980, unemp.index.max().year + 1, 10)
+    tick_dates = [pd.Timestamp(f'{y}-01-01') for y in tick_years]
+    ax.set_xticks(tick_dates)
+    ax.set_xticklabels([str(y) for y in tick_years], fontsize=11)
+    ax.set_ylabel(r"Taux de ch\^{o}mage (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(4, 16)
+    ax.set_yticks(range(4, 17, 2))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(4, 17, 2)], fontsize=11)
+
+    style_axes(ax)
+    add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
+    save(fig, 'unemployment_ca.png')
+
+
+# =====================================================================
+# Figure 22b: Participation rate decline (Canada, total)
+# =====================================================================
+def participation_rate_ca():
+    """Total participation rate — Canada (StatsCan 14-10-0287-01)."""
+    print('Figure 22b: Participation rate decline (Canada)')
+
+    from stats_can import StatsCan
+    sc = StatsCan()
+
+    df = sc.table_to_df('14-10-0287-01')
+    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
+
+    df = df[df['Data type'] == 'Seasonally adjusted']
+    df = df[df['Gender'] == 'Total - Gender']
+    df = df[df['Age group'] == '15 years and over']
+    df = df[df['Statistics'] == 'Estimate']
+    df = df[df['Labour force characteristics'] == 'Participation rate']
+
+    part = df.set_index('REF_DATE')['VALUE']
+    part = part[~part.index.duplicated(keep='first')].sort_index()
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(part.index, part.values, color=palette[0], linewidth=2.5)
+
+    # Recession shading
+    for start, end in recessions_ca:
+        ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+
+    import matplotlib.dates as mdates
+    ax.set_xlim(pd.Timestamp('1976-01-01'), pd.Timestamp('2020-01-01'))
+    tick_years = list(range(1980, 2020, 10)) + [2020]
+    tick_dates = [pd.Timestamp(f'{y}-01-01') for y in tick_years]
+    ax.set_xticks(tick_dates)
+    ax.set_xticklabels([str(y) for y in tick_years], fontsize=11)
+    ax.set_ylabel(r"Taux de participation (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(60, 68)
+    ax.set_yticks(range(60, 69, 2))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(60, 69, 2)], fontsize=11)
+
+    style_axes(ax)
+    add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
+    save(fig, 'participation_rate_ca.png')
+
+
+# =====================================================================
+# Figure 23: Immigration to Canada — PR + temporary as % of population
+# =====================================================================
+def immigration_ca():
+    """Stacked area: immigrants (PR) and net non-permanent residents as % of population."""
+    print('Figure 23: Immigration to Canada (% of population)')
+
+    from stats_can import StatsCan
+    sc = StatsCan()
+
+    # ── Migration data: StatsCan 17-10-0014-01 ───────────────────────
+    mig = sc.table_to_df('17-10-0014-01')
+    mig = mig[mig['GEO'] == 'Canada']
+    mig = mig[mig['Age group'] == 'All ages']
+    mig = mig[mig['Gender'] == 'Total - gender']
+
+    # REF_DATE format is '1971/1972' — extract first year
+    mig['year'] = mig['REF_DATE'].str.split('/').str[0].astype(int)
+
+    immigrants = (mig[mig['Type of migrant'] == 'Immigrants']
+                  .set_index('year')['VALUE'])
+    net_npr = (mig[mig['Type of migrant'] == 'Net non-permanent residents']
+               .set_index('year')['VALUE'])
+    immigrants = immigrants[~immigrants.index.duplicated(keep='first')].sort_index()
+    net_npr = net_npr[~net_npr.index.duplicated(keep='first')].sort_index()
+
+    # ── Population: StatsCan 17-10-0005-01 ────────────────────────────
+    pop = sc.table_to_df('17-10-0005-01')
+    pop = pop[pop['GEO'] == 'Canada']
+    pop = pop[pop['Age group'] == 'All ages']
+    pop = pop[pop['Gender'] == 'Total - gender']
+    pop['REF_DATE'] = pd.to_datetime(pop['REF_DATE'])
+    pop['year'] = pop['REF_DATE'].dt.year
+    pop = pop.set_index('year')['VALUE']
+    pop = pop[~pop.index.duplicated(keep='first')].sort_index()
+
+    # ── Compute as % of population ────────────────────────────────────
+    common = immigrants.index.intersection(net_npr.index).intersection(pop.index)
+    imm_pct = (immigrants[common] / pop[common]) * 100
+    npr_pct = (net_npr[common] / pop[common]) * 100
+    # Clip negative NPR values to 0 for stacked area display
+    npr_pct_pos = npr_pct.clip(lower=0)
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.stackplot(imm_pct.index, imm_pct.values, npr_pct_pos.values,
+                 colors=[palette[0], palette[1]],
+                 labels=[r'R\'{e}sidents permanents',
+                         r'R\'{e}sidents temporaires (net)'],
+                 edgecolor='k', linewidth=0.5)
+
+    ax.set_xlim(imm_pct.index.min(), imm_pct.index.max())
+    xticks = list(range(((imm_pct.index.min() // 10) + 1) * 10,
+                        imm_pct.index.max() + 1, 10))
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([str(y) for y in xticks], fontsize=11)
+    ax.set_ylabel(r"Immigration (\% de la population)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.set_ylim(0, 3.5)
+    ax.set_yticks(np.arange(0, 3.6, 0.5))
+    ax.set_yticklabels([f'{y:.1f}' + r'\%' for y in np.arange(0, 3.6, 0.5)],
+                       fontsize=11)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0))
+    add_source(ax, r"Source: Statistique Canada, tableaux 17-10-0014-01 et 17-10-0005-01")
+    save(fig, 'immigration_ca.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -1374,6 +1609,10 @@ if __name__ == '__main__':
         education_prosperity,
         digital_adoption_index,
         canada_gdp_decomposition_5y,
+        participation_gender_ca,
+        unemployment_ca,
+        participation_rate_ca,
+        immigration_ca,
     ]
 
     failed = []

@@ -691,26 +691,55 @@
 \begin{frame}{À quoi correspond le chômage?}
    \centering
    \begin{tikzpicture}[scale=1.3]
-      \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-      \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-      \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
-      % Intersection at (2.32, 2.06)
-      \draw[dotted, very thick, HECgray] (2.32,0) node[below] {$L^*$} -- (2.32,2.06);
-      \draw[dotted, very thick, HECgray] (0,2.06) node[left] {$w^*$} -- (2.32,2.06);
-      \filldraw[HECgreen] (2.32,2.06) circle (3pt);
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,3.8) node[above] {$w$};
+      \draw[HECnavy, very thick] (0.5,0.3) -- (5.5,3.3) node[right] {$L^S$};
+      \draw[HECnavy, very thick] (0.5,3.3) -- (5.5,0.3) node[right] {$L^D$};
+      % Intersection at (3.0, 1.8)
+      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$L^*$} -- (3.0,1.8);
+      \draw[dotted, very thick, HECgray] (0,1.8) node[left] {$w^*$} -- (3.0,1.8);
+      \filldraw[HECgreen] (3.0,1.8) circle (3pt);
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{À quoi correspond le chômage?}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,3.8) node[above] {$w$};
+      % Supply curve
+      \draw[HECnavy, very thick] (0.5,0.3) -- (5.5,3.3) node[right] {$L^S$};
+      % Original demand (faded dashed)
+      \draw[HECnavy!20, very thick] (0.5,3.3) -- (5.5,0.3) node[right] {$L^D$};
+      % Shifted demand (left by 1.2): w = 2.88 - 0.6L
+      \draw[HECcoral, very thick] (0,2.88) -- (4.3,0.3) node[right] {$L^{D\prime}$};
+      % Shift arrow between the two demand curves
+      \draw[-{Stealth}, HECcoral, thick] (3.9,1.2) -- (2.9,1.2);
+      % Rigid wage: horizontal dashed line at w*
+      \draw[HECgray, dotted, very thick] (0,1.8) node[left] {$w^*$} -- (3.2,1.8);
+      % Intersection points at w*
+      \filldraw[HECcoral] (1.8,1.8) circle (2.5pt);   % on new demand: L_D = 1.8
+      \filldraw[HECnavy] (3.0,1.8) circle (2.5pt);    % on supply: L_S = 3.0
+      % Vertical dotted lines to x-axis
+      \draw[dotted, very thick, HECgray] (1.8,1.8) -- (1.8,0);
+      \draw[dotted, very thick, HECgray] (3.0,1.8) -- (3.0,0);
+      % Underbrace for unemployment gap
+      \draw [decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
+         (1.8, -0.1) -- (3.0, -0.1)
+         node [midway, below=10pt, HECcoral] {\textbf{Chômage}};
    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Le modèle en action}
-   On utilise maintenant ce modèle pour analyser quatre phénomènes réels :
+   On utilise maintenant ce modèle pour analyser \textbf{quatre phénomènes réels} :
    \vspace{0.3cm}
    \begin{enumerate}
-      \setlength\itemsep{0.3cm}
+      \setlength\itemsep{0.25cm}
       \item La participation des femmes au marché du travail
       \item Le vieillissement démographique
-      \item L'immigration (court terme vs.\ long terme)
-      \item Une récession avec des salaires rigides à la baisse
+      \item L'immigration
+      \item Le rôle de l'inflation en récession
    \end{enumerate}
    \vspace{0.3cm}
    Dans chaque cas : Quelle courbe se déplace? Quel effet sur $w$ et $L$? CT vs.\ LT?
@@ -735,7 +764,7 @@
 \begin{frame}[t]{Deux horizons temporels}
    \begin{columns}[T]
       \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECcoral}{Court terme ($\sim$1 an)}}
+         \textbf{\textcolor{HECcoral}{\quad Court terme ($\sim$1 an)}}
          \vspace{0.1cm}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
@@ -745,7 +774,7 @@
          \end{itemize}
       \end{column}
       \begin{column}{0.48\textwidth}
-         \textbf{\textcolor{HECnavy}{Long terme ($\sim$5+ ans)}}
+         \textbf{\textcolor{HECnavy}{\quad Long terme ($\sim$5+ ans)}}
          \vspace{0.1cm}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
@@ -760,6 +789,386 @@
       \textbf{Court terme :} $K$ est fixe, seul $L$ s'ajuste. \\
       \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow.
    \end{defbox}
+\end{frame}
+
+% --- Application 1 : La participation des femmes ----------------------------
+
+\begin{frame}{La révolution silencieuse}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{participation_gender_ca.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Participation des femmes : le modèle}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
+         \par\smallskip
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray): y = 0.75x + 0.125
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[above, font=\footnotesize] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875
+            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625
+            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1: (3.0, 1.625)
+            \filldraw[HECgreen] (3.0,1.625) circle (3pt);
+            % Dotted lines to x-axis
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (3.0,0) -- (3.0,1.625);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (3.0,0) {$L_1$};
+            % Dotted lines to y-axis (wages)
+            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (0,1.625) -- (3.0,1.625);
+            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            % Thin shift arrow
+            \draw[-{Stealth[length=4pt]}, HECgreen] (3.7,2.8) -- (4.4,2.8);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
+         \par\smallskip
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[above, font=\footnotesize] {$L^S$};
+            % Original demand (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
+               node[below, font=\footnotesize] {$L^D$};
+            % Shifted supply (green): y = 0.75x - 0.625
+            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % Shifted demand (navy): y = -0.75x + 4.625
+            \draw[HECnavy, very thick] (1.5,3.5) -- (5.5,0.5)
+               node[right, font=\footnotesize] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (3.0, 1.625)
+            \filldraw[HECgreen, opacity=0.3] (3.0,1.625) circle (2pt);
+            % E2: (3.5, 2.0)
+            \filldraw[HECnavy] (3.5,2.0) circle (3pt);
+            % Dotted lines
+            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (3.5,2.0);
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (3.5,0) -- (3.5,2.0);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (3.5,0) {$L_2$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% --- Application 2 : Le vieillissement démographique -------------------------
+
+\begin{frame}{Le vieillissement de la population}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{aging_population.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{L'effet sur le marché du travail}
+   \framesubtitle{Le taux de participation plafonne puis décline}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{participation_rate_ca.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Vieillissement : le modèle}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray): y = 0.75x + 0.125
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[right, font=\footnotesize] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875
+            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875
+            \draw[HECcoral, very thick] (0,0.875) -- (3.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1: (2.0, 2.375)
+            \filldraw[HECcoral] (2.0,2.375) circle (3pt);
+            % Dotted lines to x-axis
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (2.0,0) -- (2.0,2.375);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (2.0,0) {$L_1$};
+            % Dotted lines to y-axis (wages)
+            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (0,2.375) -- (2.0,2.375);
+            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            \node[font=\footnotesize, left] at (0,2.375) {$w_1$};
+            % Thin shift arrow
+            \draw[-{Stealth[length=4pt]}, HECcoral] (3.4,2.8) -- (2.7,2.8);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[right, font=\footnotesize] {$L^S$};
+            % Original demand (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted supply (coral, -1.0 left): clipped at x=0
+            \draw[HECcoral, very thick] (0,0.875) -- (3.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % Shifted demand (navy, -1.0 left): clipped at x=0
+            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
+               node[right, font=\footnotesize] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (2.0, 2.375)
+            \filldraw[HECcoral, opacity=0.3] (2.0,2.375) circle (2pt);
+            % E2: (1.5, 2.0)
+            \filldraw[HECnavy] (1.5,2.0) circle (3pt);
+            % Dotted lines
+            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (1.5,0) -- (1.5,2.0);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (1.5,0) {$L_2$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% --- Application 3 : L'immigration -------------------------------------------
+
+\begin{frame}{L'immigration au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{immigration_ca.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Immigration : le modèle}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray): y = 0.75x + 0.125
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[above, font=\footnotesize] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875
+            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625
+            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1: (3.0, 1.625)
+            \filldraw[HECgreen] (3.0,1.625) circle (3pt);
+            % Dotted lines to x-axis
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (3.0,0) -- (3.0,1.625);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (3.0,0) {$L_1$};
+            % Dotted lines to y-axis (wages)
+            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (0,1.625) -- (3.0,1.625);
+            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            % Thin shift arrow
+            \draw[-{Stealth[length=4pt]}, HECgreen] (3.7,2.8) -- (4.4,2.8);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.85]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Original supply (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
+               node[above, font=\footnotesize] {$L^S$};
+            % Original demand (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
+               node[below, font=\footnotesize] {$L^D$};
+            % Shifted supply (green): y = 0.75x - 0.625
+            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
+               node[right, font=\footnotesize] {$L^{S\prime}$};
+            % Shifted demand (navy): y = -0.75x + 4.625
+            \draw[HECnavy, very thick] (1.5,3.5) -- (5.5,0.5)
+               node[right, font=\footnotesize] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (3.0, 1.625)
+            \filldraw[HECgreen, opacity=0.3] (3.0,1.625) circle (2pt);
+            % E2: (3.5, 2.0)
+            \filldraw[HECnavy] (3.5,2.0) circle (3pt);
+            % Dotted lines
+            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (3.5,2.0);
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (3.5,0) -- (3.5,2.0);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (3.5,0) {$L_2$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% --- Application 4 : L'inflation en récession --------------------------------
+
+\begin{frame}{Récessions et chômage au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{unemployment_ca.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Pourquoi les salaires ne baissent-ils pas?}
+   \vspace{-0.5cm}
+   \begin{defbox}[Rigidité nominale des salaires]
+      Les salaires nominaux résistent fortement à la baisse, même en récession.
+   \end{defbox}
+   \vspace{0.3cm}
+   Trois raisons principales :
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Conventions collectives} --- les salaires sont fixés par contrat pour 2--3 ans
+      \item \textbf{Contrats implicites} --- baisser les salaires détruit le moral et la productivité
+      \item \textbf{Normes sociales} --- une baisse de salaire est perçue comme une injustice
+   \end{itemize}
+   \vspace{0.3cm}
+   Résultat : les entreprises préfèrent \textbf{licencier} que baisser les salaires.
+\end{frame}
+
+\begin{frame}{Pourquoi l'inflation aide en récession}
+   Si les salaires nominaux ne peuvent pas baisser, comment rétablir l'équilibre?
+   \vspace{0.3cm}
+
+   \textbf{L'inflation} offre une solution élégante :
+   \vspace{0.2cm}
+   \begin{center}
+      $\displaystyle w_{\text{réel}} = \frac{w_{\text{nominal}}}{P}$
+   \end{center}
+   \vspace{0.2cm}
+   Si $P \uparrow$ et $w_{\text{nominal}}$ reste fixe $\to$ $w_{\text{réel}} \downarrow$ $\to$ retour vers l'équilibre.
+   \vspace{0.3cm}
+
+   Les travailleurs acceptent plus facilement une \textbf{stagnation} salariale avec 2\% d'inflation (baisse réelle invisible) qu'une \textbf{baisse nominale} de 2\%.
+\end{frame}
+
+\begin{frame}{Rigidité salariale : le modèle}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECcoral}{Récession} --- $w$ rigide}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.95]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Supply (solid): y = 0.75x + 0.125
+            \draw[HECgray, thick] (0.5,0.5) -- (4.5,3.5)
+               node[right, font=\footnotesize] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875
+            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125
+            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
+               node[right, font=\footnotesize] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+            % Rigid wage line at w0 = 2.0, from y-axis to L^S at w0 (x=2.5)
+            \draw[HECcoral, thick, dotted] (0,2.0) -- (2.5,2.0);
+            % At w0 on L^D': -0.75x + 3.125 = 2.0 → x = 1.5
+            \filldraw[HECcoral] (1.5,2.0) circle (3pt);
+            % Dotted lines to x-axis
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (1.5,0) -- (1.5,2.0);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (1.5,0) {$L_1$};
+            % Wage label on y-axis
+            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            % Unemployment bracket
+            \draw[HECcoral, thick, {Stealth[length=3pt]}-{Stealth[length=3pt]}]
+               (1.55,0.35) -- (2.45,0.35)
+               node[midway, above=1pt, font=\footnotesize, HECcoral]
+               {ch\^{o}mage};
+            % Shift arrow (between L^D and L^D' at y=1.2)
+            \draw[-{Stealth[length=4pt]}, HECnavy] (3.4,1.2) -- (2.7,1.2);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.52\textwidth}
+         \centering
+         {\small\textbf{\textcolor{HECnavy}{Avec inflation} --- $w_{\text{réel}} \downarrow$}}
+         \par\vspace{1pt}
+         \begin{tikzpicture}[scale=0.95]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
+            % Supply (solid): y = 0.75x + 0.125
+            \draw[HECgray, thick] (0.5,0.5) -- (4.5,3.5)
+               node[right, font=\footnotesize] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875
+            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
+               node[right, font=\footnotesize] {$L^D$};
+            % Shifted demand (navy): y = -0.75x + 3.125
+            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
+               node[right, font=\footnotesize] {$L^{D\prime}$};
+            % E0 faded: (2.5, 2.0)
+            \filldraw[HECgray, opacity=0.3] (2.5,2.0) circle (2pt);
+            % New equilibrium: L^S = L^D' → (2.0, 1.625)
+            \filldraw[HECgreen] (2.0,1.625) circle (3pt);
+            % Dotted lines to x-axis
+            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (2.0,0) -- (2.0,1.625);
+            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
+            \node[font=\footnotesize, below] at (2.0,0) {$L_1$};
+            % Dotted lines to y-axis
+            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
+            \draw[dotted, thick, HECgray] (0,1.625) -- (2.0,1.625);
+            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            % Arrow on y-axis: inflation lowers real wage
+            \draw[-{Stealth[length=4pt]}, HECgreen, thick]
+               (0.15,1.95) -- (0.15,1.675);
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
 \end{frame}
 
 % ============================================================================
