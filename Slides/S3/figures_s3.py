@@ -56,6 +56,14 @@ recessions_ca = [
     (datetime(1974, 11, 1), datetime(1975, 3, 1)),
 ]
 
+recessions_us = [
+    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
+    (datetime(2007, 12, 1), datetime(2009, 6, 1)),
+    (datetime(2001, 3, 1), datetime(2001, 11, 1)),
+    (datetime(1990, 7, 1), datetime(1991, 3, 1)),
+    (datetime(1981, 7, 1), datetime(1982, 11, 1)),
+]
+
 
 # ── FRED helper ─────────────────────────────────────────────────────────
 def get_fred_data(series_id, frequency=None, aggregation_method=None):
@@ -350,37 +358,34 @@ def participation_decline_us():
 # Figure 5: Labor share of GDP decline
 # =====================================================================
 def labor_share_decline():
-    print('Figure 5: Labor share of GDP (US)')
+    """Labor share of GDP for Canada, 1950-2023 (Penn World Table via FRED)."""
+    print('  labor_share_decline ...', end=' ', flush=True)
 
-    labor_share = get_fred_data('PRS85006173', frequency='a',
-                                aggregation_method='avg')
+    # FRED: Share of Labour Compensation in GDP (Canada, PWT)
+    ls = get_fred_data('LABSHPCAA156NRUG')
+    ls = ls.dropna() * 100  # convert ratio to %
+
+    ls = ls[ls.index.year >= 1960]
 
     fig, ax = new_figure(9, 4.5)
 
-    ax.plot(labor_share.index.year, labor_share.values, color=palette[0],
-            linewidth=2.5)
-    ax.fill_between(labor_share.index.year, labor_share.values,
-                    labor_share.values.min() - 1, alpha=0.08, color=palette[0])
+    ax.plot(ls.index.year, ls.values, color=palette[0], linewidth=2.5)
+    ax.fill_between(ls.index.year, ls.values, 61,
+                    alpha=0.08, color=palette[0])
 
-    # Trend line
-    valid = labor_share.dropna()
-    years_num = valid.index.year.values.astype(float)
-    from scipy import stats as sp_stats
-    slope, intercept, _, _, _ = sp_stats.linregress(years_num, valid.values)
-    ax.plot(years_num, slope * years_num + intercept, color=palette[2],
-            linewidth=2, linestyle='--', alpha=0.7, label='Tendance')
-
-    ax.set_xlim(1950, 2024)
-    ax.set_xticks(range(1950, 2025, 10))
-    ax.set_xticklabels(range(1950, 2025, 10), fontsize=11)
-    ax.set_ylabel(r"Part du travail dans le revenu (indice)",
-                  fontsize=11, rotation=0, ha='left')
+    ax.set_xlim(1960, 2024)
+    ax.set_xticks(range(1960, 2025, 10))
+    ax.set_xticklabels(range(1960, 2025, 10), fontsize=12)
+    ax.set_ylim(61, 76)
+    ax.set_yticks(range(61, 77, 3))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(61, 77, 3)], fontsize=12)
+    ax.set_ylabel(r"Part du travail dans le PIB",
+                  fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper right')
-    add_source(ax, r"Source: FRED (PRS85006173) --- \'{E}tats-Unis")
-    save(fig, 'labor_share_decline.png')
+    add_source(ax, r'Source: Penn World Table 10.01 (via FRED)')
+    save(fig, 'labor_share_canada.png')
 
 
 # =====================================================================
@@ -1581,6 +1586,210 @@ def immigration_ca():
     save(fig, 'immigration_ca.png')
 
 
+def elephant_curve():
+    """Elephant curve of global inequality, 1980-2020 (WIR 2022)."""
+    print('  elephant_curve ...', end=' ', flush=True)
+
+    # ── Data from World Inequality Report 2022, Figure 2.10 ──────────
+    url = ('https://wir2022.wid.world/www-site/uploads/2022/03/'
+           'WIR2022TablesFigures-Chapter.zip')
+    import zipfile, io
+    resp = requests.get(url, timeout=60)
+    resp.raise_for_status()
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+        with zf.open('WIR2022TablesFigures-Chapter/'
+                     'WIR2022TablesFigures-Chapter2.xlsx') as f:
+            df = pd.read_excel(f, sheet_name='data-F2.10')
+
+    # Values are cumulative growth rates (divided by 100)
+    df.columns = ['percentile', 'growth_raw']
+    df['growth_pct'] = df['growth_raw'] * 100
+
+    # Keep only the main curve (p10-p99) for clarity on a linear x-axis.
+    main = df[df['percentile'] <= 99].copy()
+
+    fig, ax = new_figure(8, 4)
+
+    ax.plot(main['percentile'], main['growth_pct'],
+            color=palette[0], linewidth=2.5, zorder=3)
+    ax.fill_between(main['percentile'], 50, main['growth_pct'],
+                    color=palette[0], alpha=0.08, zorder=2)
+
+    # ── Axes ─────────────────────────────────────────────────────
+    ax.set_xlim(10, 100)
+    ax.set_xticks(range(10, 101, 10))
+    ax.set_xticklabels([str(x) for x in range(10, 101, 10)], fontsize=13)
+    ax.set_xlabel(r'Centile de la distribution mondiale du revenu',
+                  fontsize=13)
+
+    ax.set_ylim(50, 210)
+    yticks = list(range(50, 211, 50))
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{y}' + r'\%' for y in yticks], fontsize=13)
+    ax.set_ylabel(r"Croissance cumul\'{e}e du revenu r\'{e}el, 1980--2020",
+                  fontsize=13, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, r'Source: World Inequality Report 2022 (Chancel et al.)')
+    save(fig, 'elephant.png')
+
+
+def inequality_top1_share():
+    """Top 1% pre-tax income share for 8 countries (WID via OWID)."""
+    print('  inequality_top1_share ...', end=' ', flush=True)
+
+    df = pd.read_csv(
+        "https://ourworldindata.org/grapher/income-share-top-1-before-tax-wid"
+        ".csv?v=1&csvType=full&useColumnShortNames=true",
+        storage_options={'User-Agent': 'Our World In Data data fetch/1.0'},
+    )
+
+    codes    = ['USA', 'AUS', 'CAN', 'GBR', 'CHN', 'FRA', 'IND', 'DEU']
+    labels   = [r'\'{E}tats-Unis', 'Australie', 'Canada', 'Royaume-Uni',
+                'Chine', 'France', 'Inde', 'Allemagne']
+    colors   = [palette[0], palette[1], palette[2], palette[3],
+                palette[4], palette[5], palette[6], palette[7]]
+
+    val_col = [c for c in df.columns if c not in ('entity', 'code', 'year')][0]
+    df = df[df['code'].isin(codes)]
+
+    fig, ax = new_figure(8, 4)
+
+    for code, label, color in zip(codes, labels, colors):
+        sub = df[df['code'] == code].sort_values('year')
+        ax.plot(sub['year'], sub[val_col],
+                label=label, color=color, linewidth=2)
+
+    latest = int(df['year'].max())
+    ax.set_xlim(1950, latest)
+    ax.set_xticks(range(1950, 2020 + 1, 10))
+    ax.set_xticklabels(range(1950, 2020 + 1, 10), fontsize=12)
+
+    ax.set_ylim(4, 28)
+    ax.set_yticks(range(4, 28 + 1, 4))
+    ax.set_yticklabels([f'{x}' + r'\%' for x in range(4, 28 + 1, 4)],
+                        fontsize=12)
+    ax.set_ylabel(r"Part du revenu du 1\% le plus riche (avant imp\^{o}t)",
+                  fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.01)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(-0.01, 1.0))
+    add_source(ax, 'Source: World Inequality Database (2025)')
+    save(fig, 'inequality_within_countries.png')
+
+
+# =====================================================================
+# Outsourcing: within vs between firm inequality (Song et al. 2019)
+# =====================================================================
+def outsourcing_inequality():
+    """Between- vs within-firm decomposition of earnings inequality growth."""
+    print('  outsourcing_inequality ...', end=' ', flush=True)
+
+    # Data from Song, Price, Guvenen, Bloom & von Wachter (QJE, 2019)
+    # Change in variance of log earnings, US, 1981-2013
+    categories = [r'\textbf{Entre} les' + '\n' + r'entreprises',
+                  r'\textbf{Au sein} des' + '\n' + r'entreprises']
+    shares = [2/3, 1/3]       # fraction of total increase
+    total_increase = 100       # normalised to 100%
+    values = [s * total_increase for s in shares]
+
+    fig, ax = new_figure(6, 4.5)
+
+    bars = ax.bar(categories, values, width=0.55,
+                  color=[palette[0], palette[1]], edgecolor='none', zorder=3)
+
+    # Value labels on bars
+    for bar, v in zip(bars, values):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1.5,
+                f'{v:.0f}' + r'\%', ha='center', va='bottom',
+                fontsize=14, fontweight='bold',
+                color=palette[0] if v > 50 else palette[1])
+
+    ax.set_ylim(0, 85)
+    ax.set_yticks([])
+    ax.tick_params(axis='x', labelsize=13)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+
+    ax.set_ylabel(r"Contribution \`{a} la hausse des in\'{e}galit\'{e}s salariales",
+                  fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.05)
+
+    add_source(ax, r'Source: Song, Price, Guvenen, Bloom \& von Wachter (QJE, 2019)')
+    save(fig, 'outsourcing_inequality.png')
+
+
+# =====================================================================
+# Job polarization: routine vs nonroutine employment (US, 1983-2024)
+# =====================================================================
+def job_polarization():
+    """Employment by occupational group (routine vs nonroutine, US)."""
+    print('  job_polarization ...', end=' ', flush=True)
+
+    # FRED series (CPS Table A-13, annual averages)
+    nrc = get_fred_data('LNU02032201', frequency='a', aggregation_method='avg')  # Mgmt/Prof
+    nrm = get_fred_data('LNU02032204', frequency='a', aggregation_method='avg')  # Service
+    rc  = get_fred_data('LNU02032205', frequency='a', aggregation_method='avg')  # Sales/Office
+    rm1 = get_fred_data('LNU02032210', frequency='a', aggregation_method='avg')  # Production/Transport
+    rm2 = get_fred_data('LNU02032211', frequency='a', aggregation_method='avg')  # Construction
+    rm3 = get_fred_data('LNU02032212', frequency='a', aggregation_method='avg')  # Install/Maint/Repair
+
+    # Combine routine manual
+    rm = rm1 + rm2 + rm3
+
+    # Convert to millions
+    nrc, nrm, rc, rm = nrc / 1000, nrm / 1000, rc / 1000, rm / 1000
+
+    # Drop NaNs and align
+    df = pd.DataFrame({'nrc': nrc, 'nrm': nrm, 'rc': rc, 'rm': rm}).dropna()
+
+    # Normalize to 100 at start of series (1983)
+    for col in df.columns:
+        df[col] = df[col] / df[col].iloc[0] * 100
+
+    years = df.index.year
+
+    fig, ax = new_figure(9, 4.5)
+
+    # Non-routine: solid lines; routine: dotted lines
+    # Cognitive: navy; Manual: green
+    ax.plot(years, df['nrc'], color=palette[0], linewidth=2.5, linestyle='-',
+            label='Non routinier cognitif')
+    ax.plot(years, df['nrm'], color=palette[1], linewidth=2.5, linestyle='-',
+            label='Non routinier manuel')
+    ax.plot(years, df['rc'], color=palette[0], linewidth=2.5, linestyle=':',
+            label='Routinier cognitif')
+    ax.plot(years, df['rm'], color=palette[1], linewidth=2.5, linestyle=':',
+            label='Routinier manuel')
+
+    ax.set_xlim(1983, 2025)
+    ax.set_xticks(range(1985, 2026, 5))
+    ax.set_xticklabels(range(1985, 2026, 5), fontsize=12)
+    ax.set_ylim(100, 260)
+    ax.set_yticks(range(100, 261, 20))
+    ax.set_yticklabels([f'{y}' for y in range(100, 261, 20)], fontsize=12)
+    ax.set_ylabel(r"Indice (1983 = 100)",
+                  fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    # Recession shading
+    for start, end in recessions_us:
+        if start >= pd.Timestamp('1983-01-01'):
+            ax.axvspan(start.year + start.month / 12,
+                       end.year + end.month / 12,
+                       color='grey', alpha=0.3, linewidth=0)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left',
+              bbox_to_anchor=(-0.01, 1.0))
+    add_source(ax, r'Source: BLS, Current Population Survey (via FRED)')
+    save(fig, 'job_polarization.png')
+
+
 # =====================================================================
 # Main
 # =====================================================================
@@ -1613,6 +1822,8 @@ if __name__ == '__main__':
         unemployment_ca,
         participation_rate_ca,
         immigration_ca,
+        inequality_top1_share,
+        elephant_curve,
     ]
 
     failed = []
