@@ -1,0 +1,254 @@
+% ============================================================================
+% HEC Montréal MBA -- ECON50803: Macroeconomic Environment
+% Shared Preamble for Exercise Handouts
+% ============================================================================
+
+% --- Document class ---------------------------------------------------------
+\documentclass[11pt, letterpaper]{article}
+\usepackage[margin=2.5cm]{geometry}
+
+% --- Fonts ------------------------------------------------------------------
+\usepackage[sfdefault,light]{FiraSans}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+
+% --- Colors (same as slides) ------------------------------------------------
+\usepackage{xcolor}
+\definecolor{HECnavy}{HTML}{002855}
+\definecolor{HECgreen}{HTML}{26d07c}
+\definecolor{HECcoral}{HTML}{ff585d}
+\definecolor{HECtext}{HTML}{2D3748}
+\definecolor{HECgray}{HTML}{94A3B8}
+\definecolor{HEClightgray}{HTML}{F1F5F9}
+\definecolor{HEClightblue}{HTML}{E8EDF3}
+
+% --- Packages ---------------------------------------------------------------
+\usepackage{amsmath, graphicx, tikz, booktabs, tabularx, hyperref}
+\usepackage[inline]{enumitem}
+\usepackage{etoolbox}
+\usepackage{comment}
+\usepackage{needspace}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% --- Paths ------------------------------------------------------------------
+\graphicspath{{../Slides/Figures/}}
+
+% --- Hyperlinks -------------------------------------------------------------
+\hypersetup{
+   colorlinks,
+   linkcolor=HECnavy,
+   urlcolor=HECnavy,
+   citecolor=HECtext
+}
+
+% --- Answer toggle ----------------------------------------------------------
+\newbool{answers}
+\ifdefined\showanswers
+   \booltrue{answers}
+\else
+   \boolfalse{answers}
+\fi
+
+% Answer environment: shown as green box when answers=true, excluded otherwise
+\ifbool{answers}{%
+   \newtcolorbox{reponse}[1][Réponse]{%
+      colback=HECgreen!5,
+      colframe=HECgreen,
+      boxrule=0pt,
+      leftrule=3pt,
+      arc=4pt,
+      title={\textcolor{HECgreen}{\bfseries #1}},
+      coltitle=HECgreen,
+      fonttitle=\bfseries,
+      attach title to upper={\\[4pt]},
+      left=8pt, right=8pt, top=4pt, bottom=4pt,
+      before={\par\nopagebreak\medskip\nopagebreak},
+      breakable
+   }%
+}{%
+   \excludecomment{reponse}%
+}
+
+% --- Custom box environments (adapted from slides) --------------------------
+
+% Key Insight (green accent)
+\newtcolorbox{keyinsight}[1][Point clé]{%
+   colback=HECgreen!5,
+   colframe=HECgreen,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=4pt,
+   title={\textcolor{HECgreen}{\bfseries #1}},
+   coltitle=HECgreen,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=8pt, right=8pt, top=4pt, bottom=4pt,
+   breakable
+}
+
+% Business Implication (navy accent)
+\newtcolorbox{bizimplication}[1][Implication d'affaires]{%
+   colback=HECnavy!5,
+   colframe=HECnavy,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=4pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=8pt, right=8pt, top=4pt, bottom=4pt,
+   breakable
+}
+
+% Warning / Important (coral accent)
+\newtcolorbox{warning}[1][Important]{%
+   colback=HECcoral!5,
+   colframe=HECcoral,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=4pt,
+   title={\textcolor{HECcoral}{\bfseries #1}},
+   coltitle=HECcoral,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=8pt, right=8pt, top=4pt, bottom=4pt,
+   breakable
+}
+
+% Definition (gray background)
+\newtcolorbox{defbox}[1][Définition]{%
+   colback=HEClightgray,
+   colframe=HEClightgray,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=4pt,
+   left=8pt, right=8pt, top=4pt, bottom=4pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   breakable
+}
+
+% Exercise (coral accent)
+\newtcolorbox{exercisebox}[1][Exercice]{%
+   colback=HECcoral!5,
+   colframe=HECcoral,
+   boxrule=0pt,
+   leftrule=3pt,
+   arc=4pt,
+   title={\textcolor{HECcoral}{\bfseries #1}},
+   coltitle=HECcoral,
+   fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=8pt, right=8pt, top=4pt, bottom=4pt,
+   breakable
+}
+
+% --- Section formatting (titlesec) ------------------------------------------
+\titleformat{\section}
+   {\clearpage\Large\bfseries\color{HECnavy}}
+   {\thesection.}{0.5em}{}
+   [\vspace{2pt}{\color{HECgreen}\rule{2.5cm}{1.5pt}}]
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+\titleformat{\subsection}
+   {\large\bfseries\color{HECnavy}}
+   {\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% --- Header/Footer (fancyhdr) ----------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hfill{\color{HECgray}\rule{0.9\textwidth}{0.4pt}}\hfill\vspace{4pt}}
+\fancyfoot[L]{\small\textcolor{HECgray}{ECON 50803\enspace\textbar\enspace Environnement macroéconomique}}
+\fancyfoot[R]{\small\textcolor{HECgray}{\thepage\enspace/\enspace\pageref{LastPage}}}
+
+% --- Enumitem defaults ------------------------------------------------------
+\setlist[itemize]{leftmargin=1.5em, itemsep=3pt}
+\setlist[enumerate]{leftmargin=1.5em, itemsep=3pt}
+
+% --- MC question helpers ----------------------------------------------------
+\newcounter{qcmcounter}
+\newcommand{\qcm}[1]{%
+   \stepcounter{qcmcounter}%
+   \par\vspace{1.2em}%
+   \needspace{6\baselineskip}%
+   \noindent\textbf{\textcolor{HECnavy}{\theqcmcounter.}}\enspace #1%
+   \vspace{0.3em}%
+   \nopagebreak[4]%
+}
+
+\newcommand{\choix}[1]{%
+   \nopagebreak[4]%
+   \begin{enumerate}[label=\textcolor{HECgray}{(\alph*)}, leftmargin=2em, itemsep=1pt, topsep=2pt]
+      #1
+   \end{enumerate}
+}
+
+% --- Short answer counter ---------------------------------------------------
+\newcounter{shortcounter}
+\newcommand{\shortq}[1]{%
+   \stepcounter{shortcounter}%
+   \par\vspace{1.5em}%
+   \needspace{4\baselineskip}%
+   \noindent\textbf{\textcolor{HECnavy}{Question \theshortcounter.}}\enspace #1%
+   \vspace{0.3em}%
+}
+
+% --- VFI (Vrai/Faux/Incertain) helper --------------------------------------
+\newcommand{\vfi}[1]{%
+   \stepcounter{shortcounter}%
+   \par\vspace{1.5em}%
+   \needspace{4\baselineskip}%
+   \noindent\textbf{\textcolor{HECnavy}{Question \theshortcounter.}}\enspace\textit{Vrai, faux ou incertain?} #1%
+   \vspace{0.3em}%
+}
+
+% --- Title page command -----------------------------------------------------
+\newcommand{\exercisetitlepage}[2]{%
+   % #1 = session number, #2 = session title
+   \thispagestyle{empty}
+   \begin{tikzpicture}[remember picture, overlay]
+      % Navy sidebar
+      \fill[HECnavy] (current page.north west) rectangle
+         ([xshift=0.8cm]current page.south west);
+      % Green accent line
+      \fill[HECgreen] ([xshift=0.8cm]current page.north west) rectangle
+         ([xshift=0.85cm]current page.south west);
+   \end{tikzpicture}
+   \vspace*{2cm}
+   \hspace{0.8cm}%
+   \begin{minipage}{0.85\textwidth}
+      {\fontsize{28}{34}\selectfont\bfseries\textcolor{HECnavy}{Exercices --- Séance #1}}
+      \\[14pt]
+      {\Large\textcolor{HECnavy}{#2}}
+      \\[14pt]
+      {\color{HECgreen}\rule{3cm}{2pt}}
+      \\[14pt]
+      {\large\textcolor{HECgray}{ECON 50803 --- Environnement macroéconomique}}
+      \\[8pt]
+      {\large\textcolor{HECgray}{Jean-Félix Brouillette}}
+      \\[20pt]
+      \ifbool{answers}{%
+         {\Large\bfseries\textcolor{HECgreen}{AVEC SOLUTIONS}}%
+      }{%
+         {\Large\bfseries\textcolor{HECgray}{SANS SOLUTIONS}}%
+      }
+   \end{minipage}
+   \vfill
+   \hspace{0.8cm}%
+   {\small\textcolor{HECgray}{HEC Montr\'eal\enspace\textbar\enspace MBA}}
+   \vspace{1cm}
+   \newpage
+}
+
+% --- Mathematical commands (from slides) ------------------------------------
+\newcommand{\pctchg}[1]{\%\Delta #1}

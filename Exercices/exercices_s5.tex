@@ -1,0 +1,438 @@
+\input{exercices_preamble.tex}
+
+\begin{document}
+
+\exercisetitlepage{5}{Politique monétaire et budgétaire}
+
+% ============================================================================
+\section{Questions à choix multiples}
+% ============================================================================
+
+\setcounter{qcmcounter}{0}
+
+\qcm{La Banque du Canada fixe le taux directeur à 3,00\,\%. Si la bande opérationnelle est de 50 points de base, le taux de prêt et le taux de dépôt sont respectivement :}
+\choix{
+   \item 3,50\,\% et 2,50\,\%
+   \item 3,25\,\% et 2,75\,\%
+   \item 3,00\,\% et 2,50\,\%
+   \item 3,50\,\% et 3,00\,\%
+}
+
+\begin{reponse}
+\textbf{(b)} La bande opérationnelle est centrée sur le taux directeur. Avec une bande de 50 points de base (0,50\,\%), le taux de prêt est le taux directeur + 25 pb $= 3,25\,\%$, et le taux de dépôt est le taux directeur $-$ 25 pb $= 2,75\,\%$. Les banques commerciales ne prêteraient jamais à un taux inférieur au taux de dépôt (elles déposeraient plutôt à la BdC) ni n'emprunteraient à un taux supérieur au taux de prêt (elles emprunteraient plutôt à la BdC).
+\end{reponse}
+
+\qcm{Le mécanisme de transmission de la politique monétaire fonctionne comme suit :}
+\choix{
+   \item La BdC fixe directement les taux hypothécaires des ménages
+   \item La BdC modifie le taux directeur, ce qui influence les taux de marché, puis les décisions de $C$ et $I$, puis AD
+   \item La BdC imprime de la monnaie pour financer les dépenses gouvernementales
+   \item La BdC modifie les impôts pour influencer la consommation
+}
+
+\begin{reponse}
+\textbf{(b)} La BdC ne contrôle pas directement les taux des banques commerciales ni les dépenses fiscales. Le mécanisme est \textbf{indirect} : (1) la BdC fixe le taux directeur (taux interbancaire au jour le jour); (2) ce taux influence les taux de marché à court terme, puis à long terme (hypothèques, prêts auto, prêts aux entreprises); (3) des taux plus bas stimulent la consommation ($C$) et l'investissement ($I$); (4) AD se déplace vers la droite $\to$ hausse de $Y$.
+\end{reponse}
+
+\qcm{L'écart de production (\textit{output gap}) est défini comme :}
+\choix{
+   \item $Y - Y^{\text{POT}}$, où $Y^{\text{POT}}$ est le PIB potentiel
+   \item Le taux de croissance du PIB réel
+   \item La différence entre le PIB nominal et le PIB réel
+   \item Le déficit budgétaire du gouvernement
+}
+
+\begin{reponse}
+\textbf{(a)} L'écart de production mesure la différence entre le PIB \textbf{observé} ($Y$) et le PIB \textbf{potentiel} ($Y^{\text{POT}}$). Si $Y < Y^{\text{POT}}$ : récession (écart négatif). Si $Y > Y^{\text{POT}}$ : surchauffe (écart positif). C'est un indicateur central pour les décisions de politique monétaire, mais il n'est pas directement observable --- la BdC doit l'\textbf{estimer}.
+\end{reponse}
+
+\qcm{Le taux d'intérêt neutre ($r^*$) est le taux auquel :}
+\choix{
+   \item L'inflation est nulle
+   \item L'économie est à son potentiel et l'inflation est stable
+   \item Le taux de chômage est nul
+   \item Le gouvernement équilibre son budget
+}
+
+\begin{reponse}
+\textbf{(b)} Le taux neutre $r^*$ est le taux d'intérêt réel compatible avec une économie au plein emploi ($Y = Y^{\text{POT}}$) et une inflation stable. Si le taux directeur réel est en dessous de $r^*$, la politique monétaire est \guillemotleft~accommodante~\guillemotright\ (stimule l'économie). Si le taux est au-dessus, la politique est \guillemotleft~restrictive~\guillemotright. L'estimation de $r^*$ montre qu'il a diminué au fil des décennies, en partie à cause du vieillissement démographique et du ralentissement de la productivité.
+\end{reponse}
+
+\qcm{La Banque du Canada doit être \guillemotleft~prospective~\guillemotright\ (\textit{forward-looking}) dans la fixation du taux directeur parce que :}
+\choix{
+   \item Les effets de la politique monétaire sont immédiats
+   \item L'effet maximal d'un changement de taux se fait sentir avec un délai d'environ 18 mois
+   \item La Banque du Canada ne peut changer le taux qu'une fois par an
+   \item Les marchés financiers ne réagissent pas aux annonces de la BdC
+}
+
+\begin{reponse}
+\textbf{(b)} L'un des principaux défis de la politique monétaire est le \textbf{décalage temporel} (\textit{lag}). Quand la BdC modifie le taux directeur, l'effet se propage progressivement : d'abord les taux de marché, puis les décisions d'emprunt et de dépense, puis finalement la production et l'inflation. L'effet \textbf{maximal} met environ \textbf{18 mois} à se matérialiser. La BdC doit donc anticiper l'état futur de l'économie et agir \textbf{avant} que les problèmes ne se manifestent pleinement, ce qui est intrinsèquement incertain.
+\end{reponse}
+
+\qcm{L'effet d'éviction (\textit{crowding out}) signifie qu'une politique budgétaire expansionniste ($G\uparrow$) peut réduire l'investissement privé parce que :}
+\choix{
+   \item Le gouvernement prend la place des entreprises dans la production
+   \item L'emprunt gouvernemental accru fait monter les taux d'intérêt, rendant l'investissement privé plus coûteux
+   \item Les impôts augmentent automatiquement avec $G$
+   \item Les entreprises perdent confiance dans le gouvernement
+}
+
+\begin{reponse}
+\textbf{(b)} Quand le gouvernement augmente ses dépenses ($G\uparrow$), il doit emprunter davantage sur les marchés financiers (si $T$ est inchangé). Cette hausse de la demande de fonds prêtables fait monter les taux d'intérêt $\to$ l'investissement privé, sensible au taux d'intérêt, diminue. C'est l'\textbf{effet d'éviction} : une partie de la relance budgétaire est \guillemotleft~annulée~\guillemotright\ par la baisse de $I$. L'ampleur de l'éviction dépend de la sensibilité de $I$ au taux d'intérêt et du degré d'ouverture de l'économie.
+\end{reponse}
+
+\qcm{La \guillemotleft~borne inférieure zéro~\guillemotright\ (\textit{zero lower bound}) est un problème parce que :}
+\choix{
+   \item Les banques refusent de prêter à taux zéro
+   \item La banque centrale ne peut pas abaisser le taux nominal en dessous de $\sim$0\,\%, limitant sa capacité de stimulation
+   \item Le taux d'inflation ne peut pas être négatif
+   \item Les gouvernements ne peuvent pas emprunter à taux zéro
+}
+
+\begin{reponse}
+\textbf{(b)} Les agents économiques peuvent toujours détenir de la monnaie (billets), qui rapporte un rendement nominal de 0\,\%. Aucune banque ni aucun épargnant n'accepterait un taux \textbf{significativement négatif} (ils préféreraient garder des billets). La BdC ne peut donc pas abaisser le taux directeur bien en dessous de 0\,\%. Si l'économie a besoin de taux fortement négatifs pour stimuler la demande (comme lors de la crise de 2009 ou de la pandémie), la politique monétaire conventionnelle est \guillemotleft~épuisée~\guillemotright. Les outils non conventionnels (assouplissement quantitatif, orientations prospectives) tentent de pallier cette limite.
+\end{reponse}
+
+\qcm{L'indépendance de la banque centrale par rapport au gouvernement est importante parce que :}
+\choix{
+   \item La banque centrale a toujours raison dans ses prévisions
+   \item Sans indépendance, les gouvernements seraient tentés d'utiliser la politique monétaire à des fins électorales, minant la crédibilité de la lutte contre l'inflation
+   \item Les banques centrales sont plus démocratiques que les gouvernements
+   \item L'indépendance permet à la banque centrale de fixer les impôts
+}
+
+\begin{reponse}
+\textbf{(b)} Un gouvernement en quête de réélection serait tenté de baisser les taux avant une élection (pour stimuler l'économie à court terme), puis de faire face à l'inflation après. C'est le problème de l'\guillemotleft~incohérence temporelle~\guillemotright\ (Kydland \& Prescott, prix Nobel 2004). Si les agents anticipent cette tentation, les attentes inflationnistes augmentent et l'inflation s'installe. L'indépendance de la banque centrale résout ce problème en confiant la politique monétaire à une institution avec un mandat de \textbf{stabilité des prix}, à l'abri des pressions électorales.
+\end{reponse}
+
+\qcm{Dans le diagramme $S$-$I$, une hausse de l'investissement désiré (courbe $I$ se déplace vers la droite) entraîne :}
+\choix{
+   \item Une baisse du taux d'intérêt neutre $r^*$
+   \item Une hausse du taux d'intérêt neutre $r^*$
+   \item Aucun changement de $r^*$
+   \item Une baisse de l'épargne nationale
+}
+
+\begin{reponse}
+\textbf{(b)} Le taux d'intérêt neutre $r^*$ est déterminé par l'intersection de l'épargne ($S$, croissante en $r$) et de l'investissement ($I$, décroissante en $r$). Si $I$ se déplace vers la droite (plus d'investissement désiré à chaque taux), le nouvel équilibre se situe à un taux d'intérêt \textbf{plus élevé}. Intuitivement : plus de demande de fonds prêtables $\to$ le \guillemotleft~prix~\guillemotright\ des fonds ($r$) augmente. C'est un facteur potentiel de hausse de $r^*$ dans le futur (boom d'investissement lié à l'IA ou à la transition verte).
+\end{reponse}
+
+% ============================================================================
+\section{Questions à développement}
+% ============================================================================
+
+\setcounter{shortcounter}{0}
+
+\shortq{L'économie est en récession ($Y < Y^{\text{POT}}$). La banque centrale décide de baisser le taux directeur.}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Décrivez les étapes du mécanisme de transmission, du taux directeur jusqu'à l'effet sur le PIB.
+   \item Illustrez l'effet sur un diagramme AD-AS.
+   \item Nommez deux raisons pour lesquelles cette politique pourrait ne pas fonctionner comme prévu.
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} Étapes du mécanisme de transmission :
+\begin{enumerate}
+   \item La BdC abaisse le taux directeur (taux interbancaire au jour le jour).
+   \item Les taux d'intérêt de marché à court terme diminuent (taux préférentiel des banques).
+   \item Les taux à plus long terme diminuent également (hypothèques, prêts aux entreprises).
+   \item Les ménages empruntent davantage $\to$ hausse de $C$ (logement, biens durables).
+   \item Les entreprises investissent davantage $\to$ hausse de $I$ (machines, expansion).
+   \item La demande agrégée augmente : AD se déplace vers la droite.
+\end{enumerate}
+
+\textbf{(b)} Sur le diagramme AD-AS : la courbe AD se déplace vers la droite (de $\text{AD}_0$ à $\text{AD}_1$). Le nouvel équilibre de court terme se situe à un PIB plus élevé ($Y_1 > Y_0$) et un niveau des prix légèrement plus élevé ($P_1 > P_0$). L'objectif est de rapprocher $Y$ de $Y^{\text{POT}}$.
+
+\textbf{(c)} Deux raisons pour lesquelles la politique pourrait ne pas fonctionner :
+\begin{itemize}
+   \item \textbf{Délai de transmission (18 mois) :} D'ici à ce que la baisse de taux produise ses effets, la situation économique peut avoir changé (l'économie pourrait être en surchauffe au moment où les effets se matérialisent).
+   \item \textbf{Trappe à liquidité / borne inférieure :} Si les taux sont déjà proches de zéro, la BdC ne peut plus les baisser davantage. Les agents préfèrent conserver leur liquidité plutôt que d'emprunter/dépenser.
+   \item \textit{Autre raison acceptable :} incertitude sur l'écart de production ($Y^{\text{POT}}$ est estimé); les ménages/entreprises trop pessimistes n'empruntent pas même à taux faible; choc d'offre simultané qui annule les gains.
+\end{itemize}
+\end{reponse}
+
+\vfi{Une hausse des dépenses gouvernementales ($G$) est toujours préférable à une baisse d'impôts pour stimuler l'économie en récession.}
+
+\begin{reponse}
+\textbf{Incertain.} Les deux outils de politique budgétaire stimulent AD, mais avec des caractéristiques différentes :
+
+\textbf{Arguments en faveur de la hausse de $G$ :}
+\begin{itemize}
+   \item Effet direct et immédiat sur AD (chaque dollar dépensé par le gouvernement est un dollar de demande).
+   \item Les baisses d'impôts peuvent être partiellement épargnées par les ménages (surtout les ménages aisés), réduisant l'effet multiplicateur.
+\end{itemize}
+
+\textbf{Arguments en faveur de la baisse d'impôts :}
+\begin{itemize}
+   \item Mise en {\oe}uvre plus rapide (pas besoin de planifier des projets d'infrastructure).
+   \item Les ménages contraints financièrement dépensent rapidement les gains de pouvoir d'achat.
+   \item Risque de gaspillage dans les projets gouvernementaux.
+\end{itemize}
+
+La réponse dépend du contexte : type de récession, rapidité de mise en {\oe}uvre souhaitée, situation budgétaire initiale, et propension marginale à consommer des ménages ciblés.
+\end{reponse}
+
+\shortq{Le ratio dette/PIB de l'ensemble des administrations publiques canadiennes est d'environ 100\,\% en termes bruts, mais d'environ 14\,\% en termes nets. Expliquez la différence et discutez brièvement du risque d'une \guillemotleft~spirale de la dette~\guillemotright.}
+
+\begin{reponse}
+\textbf{Différence brut vs.\ net :} La dette \textbf{brute} inclut l'ensemble des obligations financières du gouvernement (obligations, bons du Trésor, etc.). La dette \textbf{nette} soustrait les actifs financiers du gouvernement (fonds de pension publics comme le RPC/QPP, réserves, participations). Le Canada possède d'importants actifs financiers, d'où l'écart considérable.
+
+\textbf{Spirale de la dette :} C'est un cercle vicieux qui survient lorsque :
+\begin{enumerate}
+   \item La dette augmente $\to$ les marchés perçoivent un risque de défaut accru;
+   \item Le risque perçu augmente $\to$ les taux d'intérêt sur la dette augmentent (prime de risque);
+   \item Les taux plus élevés $\to$ le service de la dette augmente $\to$ les déficits se creusent;
+   \item Les déficits croissants $\to$ la dette augmente encore $\to$ retour à l'étape 1.
+\end{enumerate}
+Ce risque est plus faible pour le Canada que pour d'autres pays (Italie, Grèce) grâce à la faible dette nette et à la crédibilité institutionnelle, mais il n'est pas nul si la trajectoire budgétaire se détériore durablement.
+\end{reponse}
+
+\vfi{La banque centrale peut toujours stimuler l'économie en imprimant de la monnaie.}
+
+\begin{reponse}
+\textbf{Faux.} Plusieurs limites restreignent la capacité de la banque centrale à stimuler l'économie :
+\begin{itemize}
+   \item \textbf{Borne inférieure zéro :} quand le taux directeur est à $\sim$0\,\%, la politique conventionnelle est épuisée. Même avec l'assouplissement quantitatif (QE), la banque centrale ne peut pas forcer les banques à prêter ni les entreprises à emprunter.
+   \item \textbf{Trappe à liquidité :} si la confiance est faible, les agents préfèrent garder leur liquidité plutôt que de dépenser ou investir, même à taux zéro.
+   \item \textbf{Choc d'offre :} la politique monétaire stimule la \textbf{demande}. Face à un choc d'offre (pandémie, hausse des coûts), imprimer de la monnaie aggrave l'inflation sans résoudre le problème d'offre.
+   \item \textbf{Crédibilité :} une expansion monétaire excessive déancre les attentes inflationnistes, ce qui peut mener à l'hyperinflation.
+\end{itemize}
+\end{reponse}
+
+\vfi{La faible dette nette du Canada signifie que le gouvernement peut augmenter ses dépenses sans limite.}
+
+\begin{reponse}
+\textbf{Faux.} La dette nette faible du Canada ($\sim$14\,\% du PIB) est un \textbf{avantage} par rapport à d'autres pays (Italie : $\sim$140\,\%, Japon : $\sim$160\,\%). Cependant :
+\begin{itemize}
+   \item La dette nette faible ne signifie pas une capacité illimitée : elle dépend des \textbf{actifs} (fonds de pension comme le RPC/QPP), dont la valeur peut fluctuer
+   \item Le risque de \textbf{spirale de la dette} n'est jamais nul : si les marchés perdent confiance dans la trajectoire budgétaire, les taux d'intérêt sur la dette augmentent $\to$ le service de la dette augmente $\to$ les déficits se creusent $\to$ cercle vicieux
+   \item Le \textbf{service de la dette} est déjà en hausse avec les taux d'intérêt plus élevés depuis 2022
+   \item Le vieillissement de la population augmentera les dépenses de santé et de retraite dans les décennies à venir
+\end{itemize}
+La prudence budgétaire ne signifie pas l'austérité, mais une trajectoire soutenable à long terme.
+\end{reponse}
+
+\shortq{Créez un tableau comparant la politique monétaire et la politique budgétaire selon les critères suivants : (i) qui décide, (ii) outil principal, (iii) mécanisme de transmission, (iv) vitesse de mise en {\oe}uvre, (v) principale limitation.}
+
+\begin{reponse}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3cm} p{5.5cm} p{5.5cm}}
+\toprule
+\textbf{Critère} & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
+\midrule
+Qui décide & Banque du Canada (indépendante) & Gouvernement (Parlement/Cabinet) \\
+\midrule
+Outil principal & Taux directeur (taux interbancaire à un jour) & Dépenses ($G$) et impôts ($T$) \\
+\midrule
+Mécanisme de transmission & Taux directeur $\to$ taux de marché $\to$ $C$ et $I$ $\to$ AD & $G\uparrow$ $\to$ AD directement; $T\downarrow$ $\to$ revenu disponible $\uparrow$ $\to$ $C\uparrow$ $\to$ AD \\
+\midrule
+Vitesse de mise en {\oe}uvre & Rapide à décider (8 annonces/an), mais effet maximal après $\sim$18 mois & Lente à décider (processus législatif), mais effet plus direct sur AD \\
+\midrule
+Principale limitation & Borne inférieure zéro; ne peut pas résoudre les chocs d'offre ni les problèmes structurels & Effet d'éviction; délais politiques; risque d'accumulation de dette; les baisses d'impôts peuvent être épargnées \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{reponse}
+
+\shortq{En utilisant le diagramme $S$-$I$, expliquez pourquoi le taux d'intérêt neutre ($r^*$) a diminué au cours des dernières décennies. Identifiez deux facteurs qui pourraient faire \textbf{remonter} $r^*$ dans le futur.}
+
+\begin{reponse}
+\textbf{Baisse de $r^*$ --- facteurs :}
+\begin{itemize}
+   \item \textbf{Vieillissement démographique :} les baby-boomers approchant de la retraite épargnent davantage (motif de précaution et cycle de vie) $\to$ $S$ se déplace vers la droite $\to$ $r^*\downarrow$
+   \item \textbf{Ralentissement de la productivité :} moins d'opportunités d'investissement rentable $\to$ $I$ se déplace vers la gauche $\to$ $r^*\downarrow$
+   \item \textbf{Surabondance d'épargne mondiale} (\textit{global saving glut}) : excès d'épargne provenant d'Asie et des pays pétroliers $\to$ $S^{\text{monde}}$ augmente $\to$ $r^*\downarrow$
+   \item \textbf{Inégalités croissantes :} les ménages riches épargnent davantage $\to$ $S\uparrow$
+\end{itemize}
+
+\textbf{Facteurs de hausse future de $r^*$ :}
+\begin{enumerate}
+   \item \textbf{Boom d'investissement lié à l'IA et à la transition verte :} les entreprises investissent massivement dans les centres de données, les énergies renouvelables, la rénovation énergétique $\to$ $I$ se déplace vers la droite $\to$ $r^*\uparrow$
+   \item \textbf{Départ à la retraite des baby-boomers :} les retraités \textbf{désépargnent} (ils consomment leur épargne) $\to$ $S$ diminue $\to$ $r^*\uparrow$
+   \item \textit{Autre réponse acceptable :} hausse des déficits publics ($S_G\downarrow$) ou relocalisation des chaînes d'approvisionnement (investissement accru)
+\end{enumerate}
+\end{reponse}
+
+\shortq{Retracez la séquence des événements de 2019 à 2023 à l'aide du modèle AD-AS :}
+
+\begin{enumerate}[label=(\alph*)]
+   \item L'équilibre initial en 2019 ($Y \approx Y^{\text{POT}}$, inflation $\approx 2\,\%$)
+   \item Le choc pandémique de 2020
+   \item La relance massive + contraintes d'offre en 2021--2022
+   \item Le resserrement monétaire de 2022--2023
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a) 2019 --- équilibre initial :} L'économie est à son potentiel : $Y \approx Y^{\text{POT}}$, inflation $\approx 2\,\%$, taux directeur $\approx 1{,}75\,\%$. AD$_0$ et AS$_0$ se croisent au point d'équilibre de long terme.
+
+\textbf{(b) 2020 --- choc pandémique :} Double choc négatif. AD$_0 \to$ AD$_1$ (vers la gauche : confinements, fermetures, épargne de précaution). AS$_0 \to$ AS$_1$ (vers la gauche : fermetures d'usines, perturbation des chaînes). Résultat : $Y$ chute brutalement ($-5\,\%$ au T2), inflation initiale faible. La BdC baisse les taux à 0,25\,\%.
+
+\textbf{(c) 2021--2022 --- relance + contraintes :} Les gouvernements injectent des transferts massifs et la BdC maintient les taux bas $\to$ AD$_1 \to$ AD$_2$ (fortement vers la droite). Mais l'offre ne suit pas : les chaînes d'approvisionnement sont encore perturbées, les travailleurs tardent à revenir $\to$ AS reste à gauche. Résultat : la demande dépasse l'offre $\to$ $Y > Y^{\text{POT}}$ (surchauffe), inflation $\to$ 7--8\,\%.
+
+\textbf{(d) 2022--2023 --- resserrement :} La BdC (et la Fed) augmentent agressivement les taux (de 0,25\,\% à 5\,\%) $\to$ AD$_2 \to$ AD$_3$ (vers la gauche). L'objectif est de ramener AD au niveau compatible avec $Y^{\text{POT}}$ et une inflation de 2\,\%. Parallèlement, AS se normalise progressivement (chaînes débloquées, travailleurs de retour). L'inflation diminue progressivement, et l'économie se rapproche d'un nouvel équilibre.
+\end{reponse}
+
+% ============================================================================
+\section{Exercices numériques}
+% ============================================================================
+
+\setcounter{shortcounter}{0}
+
+\shortq{L'équation de Fisher relie le taux d'intérêt nominal ($i$), le taux d'intérêt réel ($r$) et l'inflation anticipée ($\pi^e$) : $i \approx r + \pi^e$.}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Le taux nominal est de 6\,\% et l'inflation anticipée est de 4\,\%. Calculez le taux d'intérêt réel.
+   \item Si l'inflation réalisée est finalement de 7\,\% (au lieu de 4\,\% anticipé), calculez le taux réel \textit{ex post}.
+   \item Qui bénéficie de cette inflation-surprise : les emprunteurs ou les prêteurs? Expliquez.
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} $r = i - \pi^e = 6\,\% - 4\,\% = 2\,\%$. C'est le taux réel \textit{ex ante} (basé sur les anticipations).
+
+\textbf{(b)} $r^{\text{ex post}} = i - \pi^{\text{réalisée}} = 6\,\% - 7\,\% = -1\,\%$. Le taux réel est \textbf{négatif} : le prêteur récupère moins de pouvoir d'achat qu'il n'en a prêté.
+
+\textbf{(c)} Les \textbf{emprunteurs} bénéficient de l'inflation-surprise. Ils remboursent leur dette en dollars dont le pouvoir d'achat a diminué plus que prévu. Le fardeau réel de leur dette a baissé. Les \textbf{prêteurs} sont perdants : ils reçoivent un rendement réel négatif ($-1\,\%$) alors qu'ils anticipaient $+2\,\%$.
+
+C'est pourquoi l'inflation non anticipée est une forme de \textbf{redistribution} des créanciers vers les débiteurs. C'est aussi pourquoi la \textbf{stabilité des prix} et la \textbf{crédibilité} de la banque centrale sont importantes : elles permettent aux agents de planifier en toute confiance.
+\end{reponse}
+
+\shortq{Un pays a les caractéristiques suivantes :}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l r}
+\toprule
+\textbf{Variable} & \textbf{Valeur} \\
+\midrule
+Ratio dette/PIB initial & 60\,\% \\
+Taux d'intérêt sur la dette ($i$) & 5\,\% \\
+Taux de croissance nominal du PIB ($g$) & 3\,\% \\
+Solde primaire (en \% du PIB) & $-1\,\%$ (déficit) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Expliquez la dynamique de la dette en utilisant l'approximation : $\Delta(D/Y) \approx (i - g) \times (D/Y) + \text{déficit primaire}$.
+   \item Le ratio dette/PIB va-t-il augmenter ou diminuer? De combien (en points de pourcentage)?
+   \item Quel solde primaire serait nécessaire pour \textbf{stabiliser} le ratio dette/PIB à 60\,\%?
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} L'approximation de la dynamique de la dette est :
+$$\Delta(D/Y) \approx (i - g) \times (D/Y) + \text{déficit primaire}$$
+\begin{itemize}
+   \item $(i - g) \times (D/Y)$ : c'est l'\guillemotleft~effet boule de neige~\guillemotright. Si le taux d'intérêt dépasse la croissance ($i > g$), la dette s'autoalimente même sans nouveau déficit.
+   \item Déficit primaire : s'ajoute directement au ratio dette/PIB.
+\end{itemize}
+
+\textbf{(b)}
+$$\Delta(D/Y) \approx (5\,\% - 3\,\%) \times 60\,\% + 1\,\% = 2\,\% \times 0{,}60 + 1\,\% = 1{,}2\,\% + 1\,\% = 2{,}2\,\%$$
+Le ratio dette/PIB \textbf{augmente} de 2,2 points de pourcentage (de 60\,\% à 62,2\,\%). La dette est sur une trajectoire \textbf{non soutenable} : le gouvernement paie plus d'intérêts que la croissance ne génère de revenus, et en plus il a un déficit primaire.
+
+\textbf{(c)} Pour stabiliser $D/Y$, il faut $\Delta(D/Y) = 0$ :
+$$0 = (i - g) \times (D/Y) + \text{solde primaire}$$
+$$\text{solde primaire} = -(i - g) \times (D/Y) = -2\,\% \times 0{,}60 = -1{,}2\,\%$$
+Il faudrait un \textbf{surplus primaire} de 1,2\,\% du PIB (au lieu du déficit actuel de 1\,\%). Le gouvernement devrait donc améliorer son solde primaire de 2,2 points de pourcentage pour stabiliser la dette.
+\end{reponse}
+
+% ============================================================================
+\section{Questions d'examens antérieurs}
+% ============================================================================
+
+\setcounter{qcmcounter}{0}
+\setcounter{shortcounter}{0}
+
+\vfi{Entre 2008 et 2016, la Réserve fédérale a vendu massivement des obligations d'État sur le marché afin de faire baisser les taux d'intérêt à long terme.}
+
+\begin{reponse}
+\textbf{Faux.} C'est l'inverse. La Fed a \textbf{acheté} (pas vendu) massivement des obligations d'État et des titres hypothécaires --- c'est l'\textbf{assouplissement quantitatif} (QE). En achetant ces actifs, la Fed augmente la demande pour les obligations $\to$ leur prix monte $\to$ leur taux d'intérêt baisse. Le QE visait à réduire les taux \textbf{longs} à une époque où le taux directeur était déjà à $\sim$0\,\% (borne inférieure). Vendre des obligations aurait eu l'effet inverse (hausse des taux).
+\end{reponse}
+
+\vfi{Si des pressions à la baisse surgissent sur le taux à un jour, la Banque du Canada peut les contrer en injectant des liquidités.}
+
+\begin{reponse}
+\textbf{Faux.} C'est l'inverse. Si le taux à un jour subit des pressions \textbf{à la baisse} (trop de liquidités dans le système), la BdC doit \textbf{retirer} des liquidités (en vendant des titres ou en acceptant des dépôts), pas en injecter. Injecter des liquidités augmenterait l'offre de fonds sur le marché interbancaire, ce qui ferait \textbf{baisser} le taux davantage. La BdC injecte des liquidités quand le taux subit des pressions \textbf{à la hausse}.
+\end{reponse}
+
+\vfi{Pour une banque centrale qui souhaite maintenir la stabilité des prix et un faible taux de chômage, un choc inflationniste provenant de l'offre (flambée des prix de l'énergie) est plus difficile à combattre qu'un choc dû à des baisses d'impôt ou des chèques aux ménages.}
+
+\begin{reponse}
+\textbf{Vrai.}
+\begin{itemize}
+   \item \textbf{Choc d'offre} (AS vers la gauche) : $P\uparrow$ et $Y\downarrow$. La banque centrale fait face à un \textbf{dilemme} : hausser les taux pour combattre $P\uparrow$ aggrave la récession ($Y\downarrow\downarrow$); baisser les taux pour soutenir $Y$ aggrave l'inflation ($P\uparrow\uparrow$). Les objectifs sont en \textbf{conflit}.
+   \item \textbf{Choc de demande} via baisses d'impôt/chèques (AD vers la droite) : $P\uparrow$ et $Y\uparrow$. La banque centrale peut simplement hausser les taux pour ramener AD vers la gauche $\to$ $P$ redescend et $Y$ revient au potentiel. Les objectifs sont \textbf{alignés}.
+\end{itemize}
+\end{reponse}
+
+\shortq{Parmi les éléments suivants, lesquels constituent des limites et défis importants pour la Banque du Canada? Justifiez.}
+
+\begin{enumerate}[label=(\roman*)]
+   \item Le fait que ses actions d'aujourd'hui n'ont qu'un effet différé sur l'économie.
+   \item L'incertitude quant au niveau de taux d'intérêt privilégié par un futur gouvernement.
+   \item Le fait que les problèmes qui frappent l'économie canadienne sont de nature structurelle.
+   \item Les doutes quant au niveau actuel du PIB potentiel ($Y^{\text{POT}}$).
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(i) OUI --- défi majeur.} Le délai de transmission ($\sim$18 mois) oblige la BdC à être prospective. Elle doit anticiper l'état \textbf{futur} de l'économie, ce qui est intrinsèquement incertain.
+
+\textbf{(ii) NON --- pas un défi.} La BdC est \textbf{indépendante} du gouvernement. Les préférences d'un futur gouvernement en matière de taux d'intérêt ne devraient pas influencer ses décisions. C'est toute la raison d'être de l'indépendance de la banque centrale.
+
+\textbf{(iii) OUI --- défi.} La politique monétaire ne peut pas résoudre les problèmes \textbf{structurels} (productivité, vieillissement, compétitivité). Baisser les taux ne rend pas les entreprises plus productives. Cela limite ce que la BdC peut accomplir.
+
+\textbf{(iv) OUI --- défi.} Le PIB potentiel n'est pas directement observable, il doit être \textbf{estimé}. Si la BdC surestime $Y^{\text{POT}}$, elle risque de stimuler trop (inflation); si elle le sous-estime, elle risque de freiner trop (récession inutile).
+\end{reponse}
+
+\vfi{La chute importante des marchés boursiers au Canada et aux États-Unis devrait mener à une réduction de l'épargne nationale.}
+
+\begin{reponse}
+\textbf{Faux.} La chute des marchés boursiers correspond à une baisse de la \textbf{richesse} des ménages. Les ménages qui se sentent moins riches vont \textbf{consommer moins} et donc \textbf{épargner davantage} (épargne de précaution). L'épargne nationale devrait donc \textbf{augmenter}, pas diminuer.
+\end{reponse}
+
+\vfi{Entre octobre et novembre 2008, les taux nominaux sur les obligations américaines à 1 an ont chuté de 2,72\,\% à 1,31\,\%. Durant la même période, les anticipations d'inflation à un an ont baissé de 3,9\,\% à 2,9\,\%. Ceci implique que le taux d'intérêt réel à un an a augmenté durant cette même période.}
+
+\begin{reponse}
+\textbf{Faux.} Le taux d'intérêt réel $\approx$ taux nominal $-$ inflation anticipée. En octobre : $r = 2{,}72\,\% - 3{,}9\,\% = -1{,}18\,\%$. En novembre : $r = 1{,}31\,\% - 2{,}9\,\% = -1{,}59\,\%$. Le taux réel a donc \textbf{baissé} (il est devenu encore plus négatif), car le taux nominal a chuté \textbf{plus} que l'inflation anticipée.
+\end{reponse}
+
+\vfi{En 2009, la politique monétaire de la Fed était contrainte par le fait que le taux à un jour était à zéro. Sa stratégie de \guillemotleft~quantitative easing~\guillemotright\ consiste à acheter massivement des obligations afin de faire baisser les taux d'intérêt à long terme. Si la Fed réussit, cette politique devrait déplacer la courbe de demande agrégée vers la droite.}
+
+\begin{reponse}
+\textbf{Vrai.} Des taux d'intérêt à long terme plus bas encouragent les entreprises à investir et les consommateurs à emprunter et dépenser (immobilier, biens durables). Cela augmente $I$ et $C$, ce qui déplace la courbe AD vers la droite. Le QE contourne la contrainte de la borne inférieure (\textit{zero lower bound}) en agissant directement sur les taux longs plutôt que sur le taux à un jour.
+\end{reponse}
+
+\shortq{Utilisez le diagramme Épargne-Investissement (en économie fermée) pour analyser les effets de chacune des situations suivantes sur l'épargne nationale, l'investissement et le taux d'intérêt réel.}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Les consommateurs deviennent plus orientés vers le futur et décident d'épargner plus.
+   \item Le gouvernement introduit un crédit d'impôt à l'investissement. Afin de maintenir son solde budgétaire inchangé, il compense cette mesure par une augmentation de l'impôt des ménages.
+   \item Un grand nombre de gisements de pétrole accessibles sont découverts, augmentant le produit marginal futur anticipé du capital (revenus futurs anticipés en hausse).
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} La courbe d'épargne $S$ se déplace vers la \textbf{droite} (les ménages épargnent davantage à chaque taux $r$). Le taux d'intérêt réel \textbf{baisse} et l'investissement (= épargne à l'équilibre) \textbf{augmente}.
+
+\textbf{(b)} Le crédit d'impôt à l'investissement déplace la courbe $I$ vers la \textbf{droite} (les entreprises veulent investir plus à chaque taux $r$). L'augmentation de l'impôt des ménages fait baisser $C$ $\to$ l'épargne privée $S_P = Y - T - C$ augmente (car $T\uparrow$ et $C\downarrow$) $\to$ $S$ se déplace aussi vers la droite. Comme les deux courbes se déplacent vers la droite, l'investissement et l'épargne augmentent. L'effet sur le taux d'intérêt réel est \textbf{ambigu} (dépend de l'ampleur relative des déplacements).
+
+\textbf{(c)} La demande d'investissement $I$ se déplace vers la \textbf{droite} (productivité marginale du capital plus élevée). Les revenus futurs anticipés plus élevés poussent aussi les ménages à \textbf{consommer plus aujourd'hui} (ils se sentent plus riches) $\to$ l'épargne $S$ se déplace vers la \textbf{gauche}. Le taux d'intérêt réel \textbf{augmente} clairement (les deux déplacements exercent une pression à la hausse sur $r$). L'effet sur le niveau d'investissement d'équilibre est \textbf{ambigu}.
+\end{reponse}
+
+\shortq{En économie fermée, la confiance des entreprises a chuté abruptement en raison de perspectives très négatives.}
+
+\begin{enumerate}[label=(\alph*)]
+   \item En utilisant le diagramme Épargne-Investissement, expliquez l'impact de cette dégradation de confiance sur le taux d'intérêt réel, l'épargne et l'investissement. Identifiez le nouvel équilibre.
+
+   \item Si cette baisse de confiance des entreprises est également accompagnée d'une baisse de la confiance des consommateurs par rapport à leurs revenus \textbf{futurs}, quel serait l'impact supplémentaire? Supposez que l'impact des revenus courants sur l'épargne est négligeable. Que pouvons-nous dire au sujet de l'investissement au point final relativement au point initial?
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} La baisse de confiance des entreprises réduit l'investissement désiré à tout taux d'intérêt $\to$ la courbe $I$ se déplace vers la \textbf{gauche}. Le taux d'intérêt réel \textbf{baisse} et l'épargne et l'investissement \textbf{diminuent} tous les deux (on se déplace vers le bas le long de la courbe $S$).
+
+\textbf{(b)} Les consommateurs qui s'attendent à des revenus futurs plus faibles voudront \textbf{épargner plus} aujourd'hui $\to$ la courbe $S$ se déplace vers la \textbf{droite}. Le taux d'intérêt $r$ baisse encore plus. L'effet net sur l'investissement est \textbf{ambigu} : la réaction de la baisse de confiance des firmes est probablement dominante (ce qui ferait baisser $I$), mais il n'est pas possible de savoir exactement.
+\end{reponse}
+
+\end{document}

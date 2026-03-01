@@ -1,0 +1,480 @@
+\input{exercices_preamble.tex}
+
+\begin{document}
+
+\exercisetitlepage{1}{PIB, inflation et niveau de vie}
+
+% ============================================================================
+\section{Questions à choix multiples}
+% ============================================================================
+
+\setcounter{qcmcounter}{0}
+
+\qcm{Laquelle des transactions suivantes est comptabilisée dans le PIB canadien de 2026?}
+\choix{
+   \item L'achat d'une maison construite en 2015 à Montréal
+   \item La vente de blé canadien à une boulangerie en France
+   \item L'achat d'actions de Shopify par un investisseur torontois
+   \item La production d'une usine Toyota située au Mexique, détenue par des Canadiens
+}
+
+\begin{reponse}
+\textbf{(b)} Le PIB mesure la production de biens et services \textbf{finaux} produits \textbf{dans un pays} au cours d'une \textbf{période donnée}. (a) La maison a été produite en 2015, pas en 2026 (seule la commission de l'agent immobilier compterait). (b) Le blé est produit au Canada en 2026 $\to$ compte dans les exportations ($X$). (c) L'achat d'actions est une transaction financière, pas une production de biens ou services. (d) La production au Mexique compte dans le PIB mexicain, pas canadien (critère territorial).
+\end{reponse}
+
+\qcm{Dans l'approche par les dépenses, $Y = C + I + G + NX$, l'achat d'un camion de livraison par une entreprise de transport est comptabilisé dans :}
+\choix{
+   \item La consommation ($C$)
+   \item L'investissement ($I$)
+   \item Les dépenses gouvernementales ($G$)
+   \item Les exportations nettes ($NX$)
+}
+
+\begin{reponse}
+\textbf{(b)} En macroéconomie, l'\guillemotleft~investissement~\guillemotright\ désigne la \textbf{formation de capital physique} (machines, équipements, bâtiments), pas l'achat de titres financiers. Le camion est un bien en capital acheté par une entreprise pour produire dans le futur $\to$ investissement ($I$).
+\end{reponse}
+
+\qcm{Le PIB réel d'un pays augmente de 3\,\% en 2026, tandis que sa population augmente de 2\,\%. Quel est le taux de croissance approximatif du PIB réel par habitant?}
+\choix{
+   \item 5\,\%
+   \item 3\,\%
+   \item 1\,\%
+   \item 6\,\%
+}
+
+\begin{reponse}
+\textbf{(c)} Le taux de croissance du PIB par habitant est approximativement égal à la croissance du PIB moins la croissance de la population : $3\,\% - 2\,\% = 1\,\%$. (Formellement : $\pctchg{(Y/N)} \approx \pctchg{Y} - \pctchg{N}$.)
+\end{reponse}
+
+\qcm{Le taux d'inflation annuel, mesuré par l'IPC, passe de 2\,\% à 5\,\%. Laquelle des affirmations suivantes est \textbf{correcte}?}
+\choix{
+   \item Les prix ont baissé de 3\,\%
+   \item Les prix augmentent, mais moins rapidement qu'avant
+   \item Les prix augmentent plus rapidement qu'avant
+   \item Le niveau de vie a augmenté de 3\,\%
+}
+
+\begin{reponse}
+\textbf{(c)} L'IPC mesure le \textbf{niveau} des prix. Si l'inflation (taux de variation de l'IPC) passe de 2\,\% à 5\,\%, cela signifie que les prix augmentent \textbf{plus rapidement} qu'avant. Les prix ne baissent pas; ils montent, mais à un rythme accéléré.
+\end{reponse}
+
+\qcm{Pour comparer le niveau de vie entre le Canada et l'Inde, il est préférable d'utiliser :}
+\choix{
+   \item Le PIB nominal converti au taux de change du marché
+   \item Le PIB réel converti au taux de change du marché
+   \item Le PIB par habitant en parité de pouvoir d'achat (PPA)
+   \item Le PIB total en parité de pouvoir d'achat (PPA)
+}
+
+\begin{reponse}
+\textbf{(c)} Pour comparer les niveaux de vie, il faut (1) diviser par la population (PIB \textbf{par habitant}) et (2) corriger pour les différences de prix entre pays (parité de \textbf{pouvoir d'achat}). Le taux de change du marché ne reflète pas le coût de la vie local (un repas coûte beaucoup moins cher en Inde qu'au Canada). La PPA corrige ce biais en mesurant le PIB selon ce qu'il permet réellement d'acheter.
+\end{reponse}
+
+\qcm{Un paiement de pension de vieillesse du gouvernement fédéral à un retraité est comptabilisé dans :}
+\choix{
+   \item La consommation ($C$)
+   \item Les dépenses gouvernementales ($G$)
+   \item Ce n'est pas comptabilisé dans le PIB
+   \item L'investissement ($I$)
+}
+
+\begin{reponse}
+\textbf{(c)} Les transferts gouvernementaux (pensions, assurance-emploi, aide sociale) ne sont \textbf{pas} comptabilisés dans $G$ car ils ne correspondent pas à un achat de biens ou de services par le gouvernement. Ce sont des \guillemotleft~redistributions~\guillemotright\ de revenu. Le chèque de pension n'entre dans le PIB que lorsque le retraité le \textbf{dépense} (il apparaît alors dans $C$). Seuls les achats gouvernementaux de biens et services (routes, salaires des fonctionnaires, équipement militaire) comptent dans $G$.
+\end{reponse}
+
+\qcm{Une boulangerie achète de la farine pour 200\,\$ et vend du pain pour 500\,\$. Sa contribution au PIB est de :}
+\choix{
+   \item 500\,\$
+   \item 200\,\$
+   \item 300\,\$
+   \item 700\,\$
+}
+
+\begin{reponse}
+\textbf{(c)} La contribution au PIB se mesure par la \textbf{valeur ajoutée}, c'est-à-dire la valeur de la production moins la valeur des intrants intermédiaires : $500 - 200 = 300\,\$$. Si on comptait le chiffre d'affaires total de chaque entreprise, on compterait la farine deux fois (une fois chez le meunier, une fois dans le prix du pain). C'est exactement le principe illustré par l'exemple engrais~$\to$~betteraves~$\to$~sucre vu en cours.
+\end{reponse}
+
+\qcm{Le PIB nominal est de 120 milliards \$ et le PIB réel est de 100 milliards \$. Le déflateur du PIB est de :}
+\choix{
+   \item 83
+   \item 100
+   \item 120
+   \item 20
+}
+
+\begin{reponse}
+\textbf{(c)} Le déflateur du PIB $= \frac{\text{PIB nominal}}{\text{PIB réel}} \times 100 = \frac{120}{100} \times 100 = 120$. Un déflateur de 120 signifie que le niveau général des prix a augmenté de 20\,\% par rapport à l'année de base (où le déflateur $= 100$ par construction). Contrairement à l'IPC, le déflateur couvre \textbf{tous} les biens et services produits dans l'économie (pas seulement un panier fixe de consommation).
+\end{reponse}
+
+\qcm{Dans la formule $Y = C + I + G + NX$, les importations apparaissent avec un signe négatif parce que :}
+\choix{
+   \item Les importations réduisent la production nationale
+   \item Les importations sont déjà comptées dans $C$, $I$ et $G$; il faut les soustraire pour éviter un double comptage
+   \item Les importations font baisser les prix domestiques
+   \item Les importations augmentent le chômage
+}
+
+\begin{reponse}
+\textbf{(b)} Quand un ménage canadien achète un téléviseur fabriqué en Corée, cet achat apparaît dans $C$. Mais ce téléviseur n'a \textbf{pas} été produit au Canada, donc il ne devrait pas être dans le PIB canadien. On soustrait les importations ($M$) pour annuler ce double comptage : $NX = X - M$. Les importations n'apparaissent pas avec un signe négatif parce qu'elles \guillemotleft~nuisent~\guillemotright\ à l'économie, mais uniquement pour des raisons \textbf{comptables}.
+\end{reponse}
+
+\qcm{Un Big Mac coûte 7\,\$ au Canada et l'équivalent de 4\,\$ (au taux de change du marché) en Inde. Selon l'indice Big Mac, cela suggère que :}
+\choix{
+   \item La roupie indienne est surévaluée par rapport à la PPA
+   \item La roupie indienne est sous-évaluée par rapport à la PPA
+   \item Le dollar canadien est sous-évalué par rapport à la PPA
+   \item Les deux monnaies sont à leur valeur PPA
+}
+
+\begin{reponse}
+\textbf{(b)} Si le même bien (un Big Mac) coûte moins cher en Inde qu'au Canada une fois converti au taux de change du marché, cela signifie que la roupie est \textbf{sous-évaluée} par rapport à la PPA. En PPA, le Big Mac devrait coûter le même prix partout. Pour que l'Inde atteigne la parité, la roupie devrait s'apprécier (ou les prix indiens augmenter). C'est un phénomène courant : les monnaies des pays à faible revenu tendent à être sous-évaluées en raison de prix plus bas pour les biens non échangeables (services, loyers).
+\end{reponse}
+
+% ============================================================================
+\section{Questions à développement}
+% ============================================================================
+
+\setcounter{shortcounter}{0}
+
+\shortq{Une petite économie fermée sans gouvernement comporte deux secteurs : une ferme et une pizzeria. Voici les données pour 2026 :}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l r}
+\toprule
+\textbf{Ferme} & \\
+\midrule
+Chiffre d'affaires (ventes de farine à la pizzeria) & 200\,\$ \\
+Salaires versés & 150\,\$ \\
+Profits du fermier & 50\,\$ \\
+\midrule
+\textbf{Pizzeria} & \\
+\midrule
+Achats de farine (à la ferme) & 200\,\$ \\
+Ventes de pizzas aux consommateurs & 800\,\$ \\
+Pizzas invendues (en stock) & 100\,\$ \\
+Salaires versés & 450\,\$ \\
+Profits du propriétaire & 150\,\$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Calculez le PIB par l'approche de la valeur ajoutée (production).
+   \item Calculez le PIB par l'approche des dépenses.
+   \item Calculez le PIB par l'approche des revenus.
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a) Approche de la valeur ajoutée :} On additionne la valeur ajoutée (VA) de chaque secteur.
+\begin{itemize}
+   \item VA de la ferme $= 200 - 0 = 200\,\$$ (pas d'intrants intermédiaires)
+   \item Production totale de la pizzeria $= 800 + 100 = 900\,\$$ (ventes + stocks)
+   \item VA de la pizzeria $= 900 - 200 = 700\,\$$ (production $-$ achats de farine)
+   \item \textbf{PIB} $= 200 + 700 = \textbf{900\,\$}$
+\end{itemize}
+
+\textbf{(b) Approche des dépenses :} $Y = C + I$ (pas de $G$ ni de $NX$).
+\begin{itemize}
+   \item Consommation $= 800\,\$$ (pizzas vendues aux consommateurs)
+   \item Investissement en stocks $= 100\,\$$ (pizzas invendues)
+   \item \textbf{PIB} $= 800 + 100 = \textbf{900\,\$}$
+\end{itemize}
+Note : la farine (200\,\$) est un bien \textbf{intermédiaire} --- elle est déjà incluse dans le prix des pizzas.
+
+\textbf{(c) Approche des revenus :}
+\begin{itemize}
+   \item Salaires totaux $= 150 + 450 = 600\,\$$
+   \item Profits totaux $= 50 + 250 = 300\,\$$. Le profit économique de la pizzeria est de $250\,\$$ (et non $150\,\$$), car sa production totale inclut les $100\,\$$ de pizzas invendues (investissement en stocks)
+   \item \textbf{PIB} $= 600 + 300 = \textbf{900\,\$}$
+\end{itemize}
+
+Les trois approches donnent le même résultat : $\textbf{PIB} = \textbf{900\,\$}$.
+\end{reponse}
+
+\vfi{Le Canada est en récession si le PIB réel diminue pendant un trimestre.}
+
+\begin{reponse}
+\textbf{Faux.} La convention couramment utilisée est qu'une récession correspond à \textbf{deux trimestres consécutifs} de baisse du PIB réel, pas un seul. Cependant, c'est \textbf{incertain} dans la mesure où il n'existe pas de définition universelle : aux États-Unis, le NBER utilise une définition plus large qui tient compte de l'emploi, du revenu réel et de la production industrielle. On pourrait donc aussi répondre \guillemotleft~incertain~\guillemotright\ en soulignant cette nuance.
+\end{reponse}
+
+\shortq{Le PIB par habitant du Canada a diminué par rapport aux États-Unis depuis les années 2010.}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Décomposez le PIB par habitant en utilisant la relation : $\frac{Y}{N} = \frac{Y}{L} \times \frac{L}{N}$.
+   \item En utilisant cette décomposition, identifiez les deux sources possibles du décrochage canadien.
+   \item Selon les données vues en classe, lequel des deux facteurs explique principalement l'écart croissant?
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} Le PIB par habitant ($Y/N$) se décompose en :
+\begin{itemize}
+   \item $Y/L$ : la \textbf{productivité du travail} (PIB par travailleur)
+   \item $L/N$ : le \textbf{taux d'emploi} (part de la population qui travaille)
+\end{itemize}
+
+\textbf{(b)} Le décrochage canadien peut provenir de : (1) une productivité du travail ($Y/L$) plus faible ou en croissance plus lente; (2) un taux d'emploi ($L/N$) en baisse relative.
+
+\textbf{(c)} Selon les données vues en classe, c'est la \textbf{productivité du travail} ($Y/L$) qui explique principalement l'écart croissant. Le taux d'emploi canadien est resté comparable, voire supérieur, à celui des États-Unis. Le problème fondamental est que le Canada produit moins de valeur par heure travaillée.
+\end{reponse}
+
+\vfi{Le PIB par habitant est une bonne mesure du bien-être d'une population.}
+
+\begin{reponse}
+\textbf{Incertain.} Le PIB par habitant est fortement \textbf{corrélé} avec de nombreux indicateurs de bien-être (espérance de vie, éducation, santé --- comme le montre sa relation avec l'IDH vu en cours). Cependant, il présente des limites importantes :
+\begin{itemize}
+   \item Il ne capte pas la \textbf{distribution} des revenus (un pays très riche mais très inégal peut avoir un bien-être moyen faible)
+   \item Il ignore le \textbf{loisir} et le temps libre (un pays où l'on travaille 60h/semaine a un PIB élevé mais un bien-être discutable)
+   \item Il exclut la \textbf{production domestique} et le bénévolat
+   \item Il ne tient pas compte de l'\textbf{environnement} (pollution, épuisement des ressources)
+   \item Il ne mesure pas la \textbf{santé mentale}, la sécurité ou la cohésion sociale
+\end{itemize}
+C'est une mesure \textbf{nécessaire mais insuffisante} du bien-être.
+\end{reponse}
+
+\vfi{Un pays dont les exportations nettes sont négatives est en difficulté économique.}
+
+\begin{reponse}
+\textbf{Faux.} Les États-Unis ont un déficit commercial chronique ($NX < 0$) depuis les années 1980, tout en restant la première puissance économique mondiale. Un déficit commercial peut refléter :
+\begin{itemize}
+   \item Une \textbf{demande intérieure forte} : les ménages et entreprises consomment et investissent beaucoup, ce qui attire des importations
+   \item Des \textbf{entrées de capitaux} : les investisseurs étrangers veulent investir dans le pays (le déficit courant est la contrepartie d'un surplus du compte de capital)
+   \item Un \textbf{investissement productif} financé par l'épargne étrangère (comme une entreprise qui s'endette pour croître)
+\end{itemize}
+$NX < 0$ n'est pas en soi un signe de faiblesse. C'est la \textbf{cause} du déficit qui importe : un déficit dû à l'investissement productif est \guillemotleft~bon~\guillemotright, un déficit dû à la surconsommation publique est plus préoccupant.
+\end{reponse}
+
+\shortq{Pour chacune des transactions suivantes, indiquez si elle est comptabilisée dans le PIB canadien de 2026 et, le cas échéant, dans quelle composante ($C$, $I$, $G$, $NX$, ou aucune).}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Un particulier achète une voiture d'occasion à un autre particulier.
+   \item Le gouvernement du Québec construit un nouveau tronçon d'autoroute.
+   \item Un Canadien achète des actions de Tesla sur le NYSE.
+   \item Une touriste canadienne paie une chambre d'hôtel à Miami.
+   \item Bombardier livre un avion à une compagnie aérienne en Allemagne.
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a)} \textbf{Non comptabilisé} dans le PIB. La voiture a été produite dans une année antérieure. Seule la commission d'un éventuel intermédiaire (concessionnaire) serait un service produit en 2026.
+
+\textbf{(b)} \textbf{$G$ --- dépenses gouvernementales.} La construction d'infrastructure est un achat de biens et services par le gouvernement. C'est aussi de l'investissement public, mais dans la comptabilité nationale canadienne, il est inclus dans $G$.
+
+\textbf{(c)} \textbf{Non comptabilisé.} L'achat d'actions est une transaction \textbf{financière}, pas une production de biens ou de services. Il n'y a pas de création de valeur ajoutée (seuls les frais de courtage comptent comme service financier).
+
+\textbf{(d)} \textbf{$NX$ --- importation de services.} La touriste canadienne consomme un service produit aux États-Unis. C'est une \textbf{importation} de services pour le Canada ($M$ augmente, $NX$ diminue). Du point de vue américain, c'est une exportation de services.
+
+\textbf{(e)} \textbf{$NX$ --- exportation.} L'avion est produit au Canada et vendu à l'étranger. C'est une exportation ($X$ augmente, $NX$ augmente).
+\end{reponse}
+
+\shortq{Le PIB de l'Irlande est nettement supérieur à son revenu national brut (RNB). Expliquez pourquoi, en utilisant le concept de \guillemotleft~leprechaun economics~\guillemotright.}
+
+\begin{reponse}
+Le PIB mesure la production \textbf{sur le territoire}, tandis que le RNB mesure le revenu des \textbf{résidents}. L'Irlande héberge les sièges européens de nombreuses multinationales (Apple, Google, Pfizer) grâce à un taux d'imposition des sociétés très faible (12,5\,\%).
+
+Ces multinationales :
+\begin{itemize}
+   \item Comptabilisent en Irlande des profits générés dans toute l'Europe (via les prix de transfert et la propriété intellectuelle)
+   \item Contribuent au PIB irlandais (production sur le territoire), mais les profits sont rapatriés aux actionnaires étrangers
+   \item Le résultat : le PIB \textbf{surestime} le niveau de vie réel des Irlandais
+\end{itemize}
+
+En 2015, le PIB irlandais a bondi de 26\,\% en une seule année à cause du transfert d'actifs de propriété intellectuelle par des multinationales --- un épisode surnommé \guillemotleft~leprechaun economics~\guillemotright\ par l'économiste Paul Krugman. Pour un pays comme l'Irlande, le \textbf{RNB} est un meilleur indicateur du niveau de vie que le PIB.
+\end{reponse}
+
+\shortq{Expliquez la différence entre l'inflation globale et l'inflation fondamentale (de base). Pourquoi la Banque du Canada accorde-t-elle plus d'importance à l'inflation fondamentale pour ses décisions de politique monétaire?}
+
+\begin{reponse}
+\textbf{Inflation globale :} mesure la variation de l'ensemble de l'IPC, incluant \textbf{tous} les biens et services du panier de consommation (y compris l'alimentation et l'énergie).
+
+\textbf{Inflation fondamentale :} exclut les composantes les plus \textbf{volatiles} de l'IPC (principalement l'alimentation et l'énergie) ou utilise des mesures statistiques qui éliminent les variations extrêmes (médiane pondérée, moyenne tronquée).
+
+La Banque du Canada se concentre sur l'inflation fondamentale parce que :
+\begin{itemize}
+   \item Les prix de l'énergie et de l'alimentation fluctuent fortement en raison de chocs temporaires (météo, géopolitique) qui ne reflètent pas les pressions inflationnistes \textbf{sous-jacentes}
+   \item La politique monétaire agit avec un délai de 18 mois --- il faut distinguer les fluctuations temporaires des tendances persistantes
+   \item L'inflation fondamentale est un meilleur \textbf{prédicteur} de l'inflation future que l'inflation globale
+\end{itemize}
+La cible officielle de la BdC reste l'inflation globale (2\,\%), mais les mesures fondamentales guident les décisions opérationnelles.
+\end{reponse}
+
+% ============================================================================
+\section{Exercices numériques}
+% ============================================================================
+
+\setcounter{shortcounter}{0}
+
+\shortq{Considérez une économie qui produit deux biens : des pizzas et des vélos. Les données sont les suivantes :}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l c c c c}
+\toprule
+& \multicolumn{2}{c}{\textbf{2025}} & \multicolumn{2}{c}{\textbf{2026}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+\textbf{Bien} & \textbf{Prix} & \textbf{Quantité} & \textbf{Prix} & \textbf{Quantité} \\
+\midrule
+Pizzas & 10\,\$ & 100 & 12\,\$ & 110 \\
+Vélos & 200\,\$ & 20 & 210\,\$ & 22 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+L'année de base est 2025.
+
+\begin{enumerate}[label=(\alph*)]
+   \item Calculez le PIB nominal en 2025 et en 2026.
+   \item Calculez le PIB réel en 2025 et en 2026 (en utilisant les prix de 2025).
+   \item Calculez le taux de croissance du PIB réel entre 2025 et 2026.
+   \item Calculez le déflateur du PIB en 2025 et en 2026.
+   \item Calculez le taux d'inflation selon le déflateur du PIB.
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a) PIB nominal :}
+\begin{itemize}
+   \item 2025 : $(10 \times 100) + (200 \times 20) = 1\,000 + 4\,000 = 5\,000\,\$$
+   \item 2026 : $(12 \times 110) + (210 \times 22) = 1\,320 + 4\,620 = 5\,940\,\$$
+\end{itemize}
+
+\textbf{(b) PIB réel (prix de 2025) :}
+\begin{itemize}
+   \item 2025 : $(10 \times 100) + (200 \times 20) = 5\,000\,\$$ (année de base $\to$ PIB réel $=$ PIB nominal)
+   \item 2026 : $(10 \times 110) + (200 \times 22) = 1\,100 + 4\,400 = 5\,500\,\$$
+\end{itemize}
+
+\textbf{(c) Croissance du PIB réel :}
+$$\frac{5\,500 - 5\,000}{5\,000} \times 100 = 10{,}0\,\%$$
+
+\textbf{(d) Déflateur du PIB :}
+\begin{itemize}
+   \item 2025 : $\frac{5\,000}{5\,000} \times 100 = 100$ (par construction)
+   \item 2026 : $\frac{5\,940}{5\,500} \times 100 = 108{,}0$
+\end{itemize}
+
+\textbf{(e) Inflation (déflateur) :}
+$$\frac{108{,}0 - 100}{100} \times 100 = 8{,}0\,\%$$
+
+La croissance du PIB nominal ($18{,}8\,\%$) se décompose approximativement en croissance réelle ($10{,}0\,\%$) et inflation ($8{,}0\,\%$).
+\end{reponse}
+
+\shortq{Un ménage type consomme le panier suivant. Calculez l'IPC et le taux d'inflation.}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Bien} & \textbf{Quantité (fixe)} & \textbf{Prix en 2025} & \textbf{Prix en 2026} \\
+\midrule
+Logement (mois) & 12 & 1\,500\,\$ & 1\,575\,\$ \\
+Nourriture (panier) & 52 & 150\,\$ & 162\,\$ \\
+Transport (trajet) & 200 & 5\,\$ & 5{,}25\,\$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Calculez le coût du panier en 2025 et en 2026.
+   \item Si 2025 est l'année de base (IPC $= 100$), calculez l'IPC en 2026.
+   \item Calculez le taux d'inflation entre 2025 et 2026.
+   \item Quel poste contribue le plus à l'inflation? Pourquoi est-ce pertinent pour la politique monétaire?
+\end{enumerate}
+
+\begin{reponse}
+\textbf{(a) Coût du panier :}
+\begin{itemize}
+   \item 2025 : $(12 \times 1\,500) + (52 \times 150) + (200 \times 5) = 18\,000 + 7\,800 + 1\,000 = 26\,800\,\$$
+   \item 2026 : $(12 \times 1\,575) + (52 \times 162) + (200 \times 5{,}25) = 18\,900 + 8\,424 + 1\,050 = 28\,374\,\$$
+\end{itemize}
+
+\textbf{(b) IPC en 2026 :}
+$$\text{IPC}_{2026} = \frac{28\,374}{26\,800} \times 100 = 105{,}9$$
+
+\textbf{(c) Taux d'inflation :}
+$$\pi = \frac{105{,}9 - 100}{100} \times 100 = 5{,}9\,\%$$
+
+\textbf{(d) Contribution par poste :}
+\begin{itemize}
+   \item Logement : $\frac{18\,900 - 18\,000}{26\,800} \times 100 = 3{,}4$ points de pourcentage
+   \item Nourriture : $\frac{8\,424 - 7\,800}{26\,800} \times 100 = 2{,}3$ points de pourcentage
+   \item Transport : $\frac{1\,050 - 1\,000}{26\,800} \times 100 = 0{,}2$ point de pourcentage
+\end{itemize}
+Le \textbf{logement} contribue le plus à l'inflation (3,4 pp sur 5,9\,\%), suivi de la nourriture. C'est pertinent pour la politique monétaire car la BdC regarde l'inflation \textbf{fondamentale} (excluant les composantes volatiles comme l'alimentation et l'énergie) pour distinguer les pressions durables (logement) des fluctuations temporaires.
+\end{reponse}
+
+% ============================================================================
+\section{Questions d'examens antérieurs}
+% ============================================================================
+
+\setcounter{qcmcounter}{0}
+\setcounter{shortcounter}{0}
+
+\qcm{Une entreprise basée en France produit une éolienne qu'elle vend ensuite à une entreprise allemande. L'impact de cette activité sur le PIB français est :}
+\choix{
+   \item Aucun impact sur le PIB total, car les dépenses sont effectuées en Allemagne
+   \item Une augmentation du PIB français grâce à l'investissement
+   \item Une augmentation du PIB français grâce aux exportations nettes
+}
+
+\begin{reponse}
+\textbf{(c)} L'éolienne est \textbf{produite en France} et vendue à l'étranger (Allemagne). C'est donc une \textbf{exportation} française. Elle contribue au PIB français via les exportations nettes ($NX = X - M$). Ce n'est pas de l'investissement pour la France (c'est l'entreprise allemande qui investit).
+\end{reponse}
+
+\qcm{Le PIB augmente alors que la consommation, les investissements et les dépenses publiques diminuent. Quelle conclusion pouvez-vous en tirer?}
+\choix{
+   \item Les exportations augmentent
+   \item Les importations augmentent
+   \item Vous ne disposez pas de suffisamment d'informations pour répondre
+}
+
+\begin{reponse}
+\textbf{(c)} Si $Y$ augmente alors que $C$, $I$ et $G$ diminuent, les exportations nettes ($NX$) doivent avoir augmenté. Cependant, on ne sait pas \textbf{comment} : $NX = X - M$ peut augmenter si $X$ augmente, si $M$ diminue, ou une combinaison des deux. L'information est insuffisante pour identifier la source exacte.
+\end{reponse}
+
+\qcm{En raison de son économie planifiée, les achats publics ($G$) représentent une part plus importante du PIB en Chine qu'aux États-Unis. L'économie souterraine varie considérablement d'un pays développé à l'autre. Lesquelles de ces affirmations sont vraies?}
+\choix{
+   \item La première seulement
+   \item La deuxième seulement
+   \item Les deux
+}
+
+\begin{reponse}
+\textbf{(c)} Les deux affirmations sont vraies. La Chine, avec un rôle important de l'État dans l'économie, a une part de $G$ plus élevée. Et l'économie souterraine (non captée par le PIB officiel) varie effectivement beaucoup entre pays développés (plus importante en Italie ou en Grèce qu'en Scandinavie, par exemple). C'est une des limites de la comparaison des PIB entre pays.
+\end{reponse}
+
+\vfi{En théorie, la seule approche permettant de calculer le PIB avec précision est l'approche par les dépenses.}
+
+\begin{reponse}
+\textbf{Faux.} Il existe \textbf{trois} approches équivalentes pour calculer le PIB : l'approche par les \textbf{dépenses} ($Y = C + I + G + NX$), l'approche par la \textbf{valeur ajoutée} (production) et l'approche par les \textbf{revenus} (salaires + profits). En théorie, les trois donnent exactement le même résultat. En pratique, de petits écarts statistiques existent.
+\end{reponse}
+
+\vfi{Si le PIB réel augmente tandis que le PIB nominal diminue, cela signifie nécessairement que les prix ont augmenté de manière générale.}
+
+\begin{reponse}
+\textbf{Faux.} C'est l'inverse. Le PIB nominal $=$ PIB réel $\times$ déflateur/100. Si le PIB réel augmente mais le PIB nominal diminue, le déflateur du PIB a \textbf{baissé}, ce qui signifie que les prix ont \textbf{diminué} (déflation). C'est la seule façon de réconcilier une hausse de la production réelle avec une baisse de la valeur nominale.
+\end{reponse}
+
+\vfi{Si un concessionnaire automobile importe une voiture étrangère mais ne la vend pas avant la fin de l'année, aucun élément de l'approche par les dépenses n'est affecté.}
+
+\begin{reponse}
+\textbf{Faux.} L'importation de la voiture augmente $M$ (et donc réduit $NX$). Cependant, la voiture invendue constitue un \textbf{investissement en stocks} ($I$ augmente). Les deux effets se compensent exactement : $I\uparrow$ et $NX\downarrow$ du même montant. Le PIB n'est pas affecté au net, mais les \textbf{composantes} sont bel et bien touchées.
+\end{reponse}
+
+\vfi{Si les prix chutent de manière généralisée dans un pays, on s'attend à ce que la croissance du PIB réel soit supérieure à la croissance du PIB nominal.}
+
+\begin{reponse}
+\textbf{Vrai.} Le PIB nominal mesure la production aux prix courants, tandis que le PIB réel mesure la production aux prix constants (année de base). Si les prix \textbf{chutent} (déflation), le déflateur diminue. La croissance du PIB nominal sous-estime alors la croissance de la production réelle. Par exemple, si la production réelle croît de 3\,\% mais les prix baissent de 2\,\%, le PIB nominal ne croît que d'environ 1\,\%.
+\end{reponse}
+
+\vfi{Supposons que vous ayez acheté une voiture neuve en 2014 et que vous l'ayez ensuite vendue à un ami en 2021. La valeur de la voiture a contribué au PIB de 2014 et de 2021.}
+
+\begin{reponse}
+\textbf{Faux.} La voiture neuve a contribué au PIB de \textbf{2014} (année de production). La revente en 2021 est une transaction sur un bien \textbf{usagé} --- aucune nouvelle production n'a eu lieu. Le PIB ne mesure que la production \textbf{courante}. Les ventes de biens usagés ne sont pas comptées dans le PIB (seule la commission d'un éventuel intermédiaire le serait).
+\end{reponse}
+
+\vfi{De 2005 à 2006, le PIB du Japon mesuré sur la base des prix de l'année 2000 a cru à un taux de 2,3\,\%, alors que sur la base des prix de 2006 il a plutôt cru de 1,2\,\%. On peut donc en conclure que le Japon a connu une croissance des prix de 1,1\,\% en 2006.}
+
+\begin{reponse}
+\textbf{Faux.} Il s'agit plutôt d'une \textbf{baisse} des prix de 1,1\,\%. Le PIB mesuré aux prix de 2000 (année de base plus ancienne) croît \textbf{plus vite} que le PIB mesuré aux prix courants de 2006. Cela signifie que le \textbf{déflateur du PIB a diminué} : les prix en 2006 étaient plus bas qu'en 2005 (déflation). Si les prix avaient augmenté, le PIB nominal aurait cru plus vite que le PIB réel, pas l'inverse.
+\end{reponse}
+
+\end{document}
