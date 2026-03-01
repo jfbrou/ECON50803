@@ -1791,6 +1791,161 @@ def job_polarization():
 
 
 # =====================================================================
+# Great Gatsby Curve (Corak 2013)
+# =====================================================================
+def gatsby_curve():
+    """Scatter: Gini coefficient vs intergenerational earnings elasticity.
+
+    IGE estimates: Corak (2013), "Inequality from Generation to Generation:
+    The United States in Comparison," Figure 1 — exact published values for
+    22 countries, derived from a meta-analysis of the literature as described
+    in Corak (2006, IZA DP 1993).
+
+    Gini coefficients: World Bank SI.POV.GINI, closest available to ~2005
+    (most recent data available when Corak wrote his paper, ~2010).
+    NZL and SGP have no World Bank Gini; we use OECD (NZL, ~2004) and
+    Singapore Department of Statistics (SGP, ~2000).
+    """
+    print('Figure: Great Gatsby Curve')
+
+    # ── IGE: exact values from Corak (2013) Figure 1 ──────────────────
+    ige_corak = {
+        'DNK': 0.15, 'NOR': 0.17, 'FIN': 0.18, 'CAN': 0.19,
+        'SWE': 0.27, 'AUS': 0.26, 'NZL': 0.29, 'DEU': 0.32,
+        'JPN': 0.34, 'FRA': 0.41, 'ESP': 0.40, 'PAK': 0.46,
+        'CHE': 0.46, 'ITA': 0.50, 'GBR': 0.50, 'USA': 0.47,
+        'SGP': 0.44, 'ARG': 0.49, 'CHN': 0.60, 'CHL': 0.52,
+        'BRA': 0.58, 'PER': 0.67,
+    }
+
+    # ── Gini: World Bank API (SI.POV.GINI), closest to ~1995 ─────────
+    iso_to_fr = {
+        'DNK': 'Danemark', 'NOR': 'Norvège', 'FIN': 'Finlande',
+        'CAN': 'Canada', 'SWE': 'Suède', 'AUS': 'Australie',
+        'NZL': 'Nlle-Zélande', 'DEU': 'Allemagne', 'JPN': 'Japon',
+        'FRA': 'France', 'ESP': 'Espagne', 'PAK': 'Pakistan',
+        'CHE': 'Suisse', 'ITA': 'Italie', 'GBR': 'Royaume-Uni',
+        'USA': 'États-Unis', 'SGP': 'Singapour', 'ARG': 'Argentine',
+        'CHN': 'Chine', 'CHL': 'Chili', 'BRA': 'Brésil',
+        'PER': 'Pérou',
+    }
+
+    # Fetch from World Bank
+    iso_list = ';'.join(iso_to_fr.keys())
+    wb_url = (f'https://api.worldbank.org/v2/country/{iso_list}'
+              f'/indicator/SI.POV.GINI?date=1985:2005&format=json&per_page=1500')
+    from collections import defaultdict
+    gini_wb = defaultdict(list)
+    try:
+        wb = requests.get(wb_url, timeout=30).json()
+        if len(wb) > 1 and wb[1]:
+            for e in wb[1]:
+                if e['value'] is not None:
+                    gini_wb[e['countryiso3code']].append(
+                        (int(e['date']), e['value']))
+    except Exception as exc:
+        print(f'  World Bank API failed ({exc}); using fallback Gini')
+
+    # Pick closest year to 2005 for each country
+    target_year = 2005
+    gini_selected = {}
+    for iso in iso_to_fr:
+        entries = sorted(gini_wb.get(iso, []),
+                         key=lambda x: abs(x[0] - target_year))
+        if entries:
+            year, val = entries[0]
+            gini_selected[iso] = val
+
+    # Fallback / override for countries with no or sparse WB data
+    # JPN: OECD Income Distribution Database, ~2006 ≈ 32.1
+    # NZL: OECD Income Distribution Database, ~2004 ≈ 33.5
+    # SGP: Singapore Dept of Statistics, ~2000 ≈ 42.5
+    fallbacks = {'JPN': 32.1, 'NZL': 33.5, 'SGP': 42.5}
+    for iso, val in fallbacks.items():
+        if iso not in gini_selected:
+            gini_selected[iso] = val
+
+    # Build the final data dict  {French name: (Gini, IGE)}
+    data = {}
+    for iso, fr_name in iso_to_fr.items():
+        if iso in gini_selected and iso in ige_corak:
+            data[fr_name] = (gini_selected[iso], ige_corak[iso])
+
+    countries = list(data.keys())
+    gini = np.array([data[c][0] for c in countries])
+    ige  = np.array([data[c][1] for c in countries])
+
+    fig, ax = new_figure(8, 4)
+
+    # Scatter
+    ax.scatter(gini, ige, s=90, color=palette[0], alpha=0.75, zorder=5,
+               edgecolors=palette[0], linewidth=0.8)
+
+    # Highlight Canada
+    idx_ca = countries.index('Canada')
+    ax.scatter(gini[idx_ca], ige[idx_ca], s=110, color=palette[1], alpha=0.85, zorder=6,
+               edgecolors=palette[0], linewidth=0.8)
+
+    # Trend line — span the full x-axis range
+    z = np.polyfit(gini, ige, 1)
+    x_line = np.linspace(22, 62, 100)
+    ax.plot(x_line, np.polyval(z, x_line), color=palette[2], linewidth=2, zorder=2)
+
+    # Labels — offset logic to avoid collisions (tuned to WB ~2005 Gini)
+    offsets = {
+        'Danemark':     ( 1,  -0.025),
+        'Norvège':      ( 1,  -0.025),
+        'Finlande':     (-1,   0.015),
+        'Canada':       ( 1,   0.015),
+        'Suède':        (-1,   0.015),
+        'Australie':    ( 1,  -0.025),
+        'Nlle-Zélande': (-1,  -0.025),
+        'Allemagne':    (-1,   0.015),
+        'Japon':        (-1,  -0.025),
+        'France':       (-1,   0.015),
+        'Espagne':      ( 1,  -0.025),
+        'Pakistan':     (-1,  -0.025),
+        'Suisse':       (-1,   0.02),
+        'Italie':       (-1,   0.02),
+        'Royaume-Uni':  ( 1,   0.015),
+        'États-Unis':   ( 1,  -0.025),
+        'Singapour':    ( 1,  -0.025),
+        'Argentine':    ( 1,   0.015),
+        'Chine':        (-1,   0.015),
+        'Chili':        ( 1,  -0.025),
+        'Brésil':       ( 1,   0.015),
+        'Pérou':        ( 0,   0.025),
+    }
+
+    for i, c in enumerate(countries):
+        dx, dy = offsets.get(c, (1, 0.01))
+        ha = 'right' if dx < 0 else 'left' if dx > 0 else 'center'
+        color = palette[1] if c == 'Canada' else palette[7]
+        weight = 'bold' if c == 'Canada' else 'normal'
+        ax.text(gini[i] + dx * 0.5, ige[i] + dy, c, fontsize=8, ha=ha, va='center',
+                color=color, fontweight=weight)
+
+    style_axes(ax)
+    ax.grid(True, which='major', axis='x', color='gray', linestyle=':', linewidth=0.5)
+    ax.set_xlabel(r"Inégalité des revenus (coefficient de Gini)", fontsize=12)
+    ax.set_ylabel(r"Élasticité intergénérationnelle", fontsize=12,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.03)
+    ax.set_xlim(22, 62)
+    ax.set_ylim(0.10, 0.70)
+    ax.set_yticks([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7])
+    ax.set_yticklabels([r'0.1', r'0.2', r'0.3', r'0.4',
+                        r'0.5', r'0.6', r'0.7'])
+    ax.set_xticks([25, 30, 35, 40, 45, 50, 55, 60])
+    ax.set_xticklabels([r'25', r'30', r'35', r'40', r'45', r'50', r'55', r'60'])
+    ax.tick_params(labelsize=12)
+
+    add_source(ax, r"Source: Corak (2013); World Bank"
+               r" (Gini, c.\,2005)")
+    save(fig, 'gatsby_curve.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -1824,6 +1979,7 @@ if __name__ == '__main__':
         immigration_ca,
         inequality_top1_share,
         elephant_curve,
+        gatsby_curve,
     ]
 
     failed = []
