@@ -66,8 +66,7 @@
       fonttitle=\bfseries,
       attach title to upper={\\[4pt]},
       left=8pt, right=8pt, top=4pt, bottom=4pt,
-      before={\par\nopagebreak\medskip\nopagebreak},
-      breakable
+      before={\par\nopagebreak\medskip\nopagebreak}
    }%
 }{%
    \excludecomment{reponse}%
@@ -180,7 +179,7 @@
 \newcommand{\qcm}[1]{%
    \stepcounter{qcmcounter}%
    \par\vspace{1.2em}%
-   \needspace{6\baselineskip}%
+   \needspace{12\baselineskip}%
    \noindent\textbf{\textcolor{HECnavy}{\theqcmcounter.}}\enspace #1%
    \vspace{0.3em}%
    \nopagebreak[4]%
@@ -207,7 +206,7 @@
 \newcommand{\vfi}[1]{%
    \stepcounter{shortcounter}%
    \par\vspace{1.5em}%
-   \needspace{4\baselineskip}%
+   \needspace{10\baselineskip}%
    \noindent\textbf{\textcolor{HECnavy}{Question \theshortcounter.}}\enspace\textit{Vrai, faux ou incertain?} #1%
    \vspace{0.3em}%
 }

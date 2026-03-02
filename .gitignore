@@ -19,6 +19,10 @@
 Evaluations/
 Resources/
 
+# Resources
+Resources/*
+Exercices/Nicolas Vincent/
+
 # Large data files
 Slides/Data/PatentSimilarityImportanceBreakthrough_forPost2022.csv
 
