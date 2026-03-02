@@ -52,6 +52,16 @@ jobs:
             fi
           done
 
+          # Collect exercises (pre-compiled PDFs)
+          if [ -d Exercices ]; then
+            mkdir -p _site/exercices
+            for f in Exercices/exercices_s*.pdf; do
+              [ -f "$f" ] || continue
+              cp "$f" _site/exercices/
+              echo "Collected exercise: $(basename "$f")"
+            done
+          fi
+
           # Collect articles
           if [ -d Articles ]; then
             mkdir -p _site/articles
@@ -69,6 +79,20 @@ jobs:
             name=$(basename "$f" .pdf)
             num="${name#s}"
             pdf_links="${pdf_links}<li><a href=\"${name}.pdf\">Séance ${num}</a></li>"
+          done
+
+          # Build ordered list of exercise links (exercises + solutions)
+          exercise_links=""
+          for num in 1 2 3 4 5 6; do
+            ex="_site/exercices/exercices_s${num}.pdf"
+            sol="_site/exercices/exercices_s${num}_solutions.pdf"
+            if [ -f "$ex" ]; then
+              sol_link=""
+              if [ -f "$sol" ]; then
+                sol_link=" · <a href=\"exercices/exercices_s${num}_solutions.pdf\" style=\"display:inline;border:none;padding:0;background:none;font-weight:400;color:#26d07c;\">Solutions</a>"
+              fi
+              exercise_links="${exercise_links}<li><a href=\"exercices/exercices_s${num}.pdf\">Séance ${num}</a>${sol_link}</li>"
+            fi
           done
 
           # Build ordered list of article links
@@ -120,6 +144,8 @@ jobs:
             <p class="subtitle">Environnement macroéconomique — HEC Montréal</p>
             <h2>Diapositives</h2>
             <ul>%%LINKS%%</ul>
+            <h2>Exercices</h2>
+            <ul>%%EXERCISES%%</ul>
             <h2>Articles</h2>
             <ul>%%ARTICLES%%</ul>
             <p class="footer">Dernière mise à jour : %%DATE%%</p>
@@ -129,6 +155,7 @@ jobs:
           ENDHTML
 
           sed -i "s|%%LINKS%%|${pdf_links}|" _site/index.html
+          sed -i "s|%%EXERCISES%%|${exercise_links}|" _site/index.html
           sed -i "s|%%ARTICLES%%|${article_links}|" _site/index.html
           sed -i "s|%%DATE%%|$(date -u +%Y-%m-%d)|" _site/index.html
 
