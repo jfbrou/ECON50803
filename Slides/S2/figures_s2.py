@@ -1553,6 +1553,17 @@ def gdp_vs_co2_growth():
     def _size(pop):
         return 20 + 600 * np.sqrt(pop / pop_max)
 
+    # Quadrant background fills
+    xlim, ylim = (-2, 9), (-4, 16)
+    ax.axhspan(ylim[0], 0, xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
+               color='#26d07c', alpha=0.10, zorder=0)   # GDP↑ CO2↓ → green
+    ax.axhspan(0, ylim[1], xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
+               color='#f3d03e', alpha=0.12, zorder=0)   # GDP↑ CO2↑ → yellow
+    ax.axhspan(ylim[0], 0, xmin=0, xmax=(0 - xlim[0]) / (xlim[1] - xlim[0]),
+               color='#f3d03e', alpha=0.12, zorder=0)   # GDP↓ CO2↓ → yellow
+    ax.axhspan(0, ylim[1], xmin=0, xmax=(0 - xlim[0]) / (xlim[1] - xlim[0]),
+               color='#ff585d', alpha=0.10, zorder=0)   # GDP↓ CO2↑ → red
+
     # Scatter: advanced (navy) vs developing (coral)
     ax.scatter(adv['g_gdppc'], adv['g_co2pc'],
                color=palette[0], alpha=0.7, s=_size(adv['pop']), zorder=2,
@@ -1564,6 +1575,7 @@ def gdp_vs_co2_growth():
                label=r"\'{E}conomies en d\'{e}veloppement")
 
     ax.axhline(y=0, color='gray', linewidth=0.8, zorder=1)
+    ax.axvline(x=0, color='gray', linewidth=0.8, zorder=1)
 
     ax.set_xlim(-2, 9)
     ax.set_ylim(-4, 16)
@@ -2376,6 +2388,9 @@ def co2_emissions_by_region():
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(0, None)
+    yticks = range(0, 13, 2)
+    ax.set_yticks(list(yticks))
+    ax.set_yticklabels([str(v) for v in yticks], fontsize=11)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',

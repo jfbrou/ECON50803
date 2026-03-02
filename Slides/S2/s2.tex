@@ -111,7 +111,7 @@
       \item L'outil nécessaire afin d'étudier la croissance
       \item Relie les \textbf{facteurs de production} (intrants) aux extrants
    \end{itemize}
-   \vspace{0.6cm}
+   \vspace{0.4cm}
    \centering
    \begin{tikzpicture}[
       arrow/.style={-{Stealth[length=7pt, width=5pt]}, line width=1.2pt, HECnavy},
@@ -132,10 +132,18 @@
          ([yshift=-3pt]box.south west) -- ([yshift=-3pt]box.south east)
          node[midway, below=8pt, font=\small\bfseries, align=center, text=HECnavy]
          {La fonction de\\[-1pt] production};
+      % Recipe analogy labels (above boxes)
+      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (inputs.north) {Ingrédients};
+      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (box.north) {Recette};
+      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (output.north) {Repas};
    \end{tikzpicture}
+   \vspace{0.2cm}
+   \begin{center}
+      \small\color{HECgray}\textit{Analogie~: les ingrédients seuls ne suffisent pas --- c'est la recette qui fait le repas.}
+   \end{center}
 \end{frame}
 
-\begin{frame}[t]{Qu'est-ce qui détermine la production?}
+\begin{frame}[t]{Quels sont les ingrédients?}
    \vfill
    \begin{columns}[c]
       \begin{column}{0.30\textwidth}
@@ -210,7 +218,7 @@
    \end{columns}
    \vspace{0.25cm}
    \begin{keyinsight}
-      La PTF ($A$) capte \textbf{tout ce qui n'est pas $K$ ou $L$} : technologie, savoir-faire, organisation\ldots\ C'est la capacité à faire \textbf{plus avec les mêmes ressources}.
+      La PTF ($A$) capte \textbf{tout ce qui n'est pas $K$ ou $L$} : technologie, savoir-faire, gestion, organisation\ldots\ C'est la capacité à faire \textbf{plus avec les mêmes ressources}.
    \end{keyinsight}
 \end{frame}
 
@@ -263,7 +271,7 @@
       A \cdot (2K)^{\alpha} \cdot (2L)^{1-\alpha} = 2^{\alpha} \cdot 2^{1-\alpha} \cdot A K^{\alpha} L^{1-\alpha} = 2Y
    \end{equation*}
    \\ \vspace{0.2cm}
-   \textbf{L'argument de réplication :} comment doubler la production d'une usine? En construire une autre identique l'autre côté de la rue!
+   \textbf{L'argument de réplication :} comment doubler la production d'un McDonald? En construire un autre identique de l'autre côté de la rue!
    \vspace{0.2cm}
    \begin{keyinsight}
       La \textbf{taille} d'un pays ne détermine pas son \textbf{niveau de vie}. Le Liechtenstein, Singapour, et le Luxembourg sont tous petits, mais très riches.
@@ -583,12 +591,11 @@
    \vspace{0.25cm}
    \begin{columns}[T, totalwidth=\textwidth]
       \begin{column}{0.6\textwidth}
-         \vspace{0.25cm}
+         \vspace{0.5cm}
          \begin{itemize}
-            \setlength\itemsep{0.25cm}
+            \setlength\itemsep{0.5cm}
             \item \textcolor{HECgreen}{\textbf{Robinet}} = investissement \\ Débit : 5 litres/minute
             \item \textcolor{HECcoral}{\textbf{Drain}} = dépréciation $+$ croissance de la population \\ Taux : 10\,\%/minute du stock
-            \item \textbf{Capacité} : 100 litres
          \end{itemize}
       \end{column}
       \hspace{-1cm}
