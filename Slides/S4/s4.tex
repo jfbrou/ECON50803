@@ -1,0 +1,1045 @@
+\documentclass[aspectratio=169]{beamer}
+\input{../preamble.tex}
+
+\title{Monnaie, inflation et cycles}
+\author{Jean-Félix Brouillette}
+\date{Séance 4}
+
+\begin{document}
+
+% ============================================================================
+\titleframe
+% ============================================================================
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{Le monde en 2026}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline{Financial Times}{\guillemotleft~Global recession fears mount as Iran conflict disrupts oil supply~\guillemotright}
+      \newsheadline{The Economist}{\guillemotleft~Strait of Hormuz: the chokepoint that could choke the world economy~\guillemotright}
+      \newsheadline{La Presse}{\guillemotleft~La Banque du Canada face à un dilemme : inflation ou récession?~\guillemotright}
+      \newsheadline{Radio-Canada}{\guillemotleft~Les prix de l'essence bondissent après les frappes au Moyen-Orient~\guillemotright}
+      \newsheadline{Bloomberg}{\guillemotleft~Brent crude surges past \$80 as Hormuz tensions escalate~\guillemotright}
+      \newsheadline{Reuters}{\guillemotleft~Central banks face stagflation dilemma as oil supply shock widens~\guillemotright}
+   \end{tikzpicture}
+\end{frame}
+}
+
+\begin{frame}[t]{Les grandes questions de cette séance}
+   \vspace{0.3cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item Pourquoi l'économie connaît-elle des \textbf{hauts} et des \textbf{bas}?
+      \item Comment distinguer un choc de \textbf{demande} d'un choc d'\textbf{offre}?
+      \item Pourquoi les chocs pétroliers sont-ils le \textbf{cauchemar} des banques centrales?
+      \item L'économie peut-elle se corriger \textbf{d'elle-même}?
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item \textbf{Tendance et fluctuations}
+      \item Le modèle OA-DA
+      \item Chocs et fluctuations
+      \item Autocorrection et long terme
+      \item Anatomie d'une récession
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Tendance et fluctuations}
+% ============================================================================
+
+\begin{frame}[t]{Long terme vs court terme}
+   \small
+   \textbf{Rappel :} la production d'un pays dépend de trois facteurs :
+   \[
+      Y = A \cdot K^{\alpha} \cdot N^{1-\alpha}
+   \]
+
+   \vspace{0.2cm}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECnavy}{Long terme} (Séances 2--3)}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Croissance de $A$, $K$, $N$
+            \item \textbf{Tendance} haussière du PIB
+            \item Déterminants : institutions, innovation, capital humain
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{Court terme} (Séance 4)}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item \textbf{Fluctuations} autour de la tendance
+            \item Récessions, expansions, surchauffe
+            \item Déterminants : chocs, confiance, politique économique
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le PIB potentiel}
+   \begin{defbox}[PIB potentiel ($Y^{\text{POT}}$)]
+      Le niveau de production lorsque tous les facteurs (travail, capital) sont utilisés à leur \textbf{taux normal}. Ce n'est \textbf{pas} le maximum absolu --- c'est la capacité \guillemotleft~de croisière~\guillemotright.
+   \end{defbox}
+   \vspace{0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item $Y^{\text{POT}}$ croît lentement avec $A$, $K$ et $N$ (tendance de long terme)
+      \item Le PIB \textbf{réel} ($Y$) fluctue autour de $Y^{\text{POT}}$
+      \item $Y > Y^{\text{POT}}$ $\to$ surchauffe \quad;\quad $Y < Y^{\text{POT}}$ $\to$ récession
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{L'écart de production (\textit{output gap})}
+   \begin{defbox}
+      \[
+         \text{Écart de production} = \frac{Y - Y^{\text{POT}}}{Y^{\text{POT}}} \times 100
+      \]
+   \end{defbox}
+   \vspace{0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Positif :} l'économie produit au-delà de sa capacité $\to$ pression inflationniste
+      \item \textbf{Négatif :} l'économie sous-utilise ses ressources $\to$ chômage élevé
+      \item \textbf{Zéro :} l'économie opère à son potentiel
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Le PIB réel des États-Unis depuis 1960}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{us_gdp_recessions.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{L'écart de production aux États-Unis}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{output_gap_us.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{}
+   \begin{keyinsight}
+      Les fluctuations sont \textbf{temporaires} mais \textbf{coûteuses}. Les récessions détruisent des emplois, des entreprises et de la richesse. Les expansions créent des risques de surchauffe et d'inflation.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Tendance et fluctuations}
+      \item \textbf{Le modèle OA-DA}
+      \item Chocs et fluctuations
+      \item Autocorrection et long terme
+      \item Anatomie d'une récession
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Le modèle OA-DA}
+% ============================================================================
+
+\begin{frame}[t]{Un cadre pour analyser les fluctuations}
+   \small
+   En microéconomie, on utilise l'offre et la demande pour analyser un marché.
+
+   \vspace{0.2cm}
+   En macroéconomie, on utilise l'\textbf{offre agrégée} (OA) et la \textbf{demande agrégée} (DA) pour analyser l'économie dans son ensemble.
+   \vspace{0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Axe horizontal :} PIB réel ($Y$) --- la production totale
+      \item \textbf{Axe vertical :} Niveau des prix ($P$) --- le niveau général des prix
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{warning}[Attention]
+      $P$ est le \textbf{niveau} des prix, pas le \textit{taux} d'inflation. Une hausse de $P$ signifie de l'inflation; un $P$ stable signifie zéro inflation.
+   \end{warning}
+\end{frame}
+
+\begin{frame}{La demande agrégée (DA)}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.1]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % DA curve
+            \draw[HECnavy, very thick] (0.5,4) -- (5,0.5) node[right] {DA};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \small
+         \textbf{Pente négative :} quand $P$ augmente\ldots
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.2cm}
+            \item \textbf{Effet de richesse :} la richesse réelle $\downarrow$ $\to$ $C \downarrow$
+            \item \textbf{Effet de taux d'intérêt :} les taux $\uparrow$ $\to$ $I \downarrow$
+            \item \textbf{Effet de change :} le dollar s'apprécie $\to$ $NX \downarrow$
+         \end{enumerate}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Ce qui déplace la courbe DA}
+   \footnotesize
+   Tout ce qui modifie les \textbf{dépenses souhaitées} à un niveau de prix donné :
+   \vspace{0.15cm}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECgreen}{DA vers la droite ($\to$)}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Hausse de la confiance ($C \uparrow$)
+            \item Optimisme des entreprises ($I \uparrow$)
+            \item Hausse des dépenses publiques ($G \uparrow$)
+            \item Boom chez les partenaires ($NX \uparrow$)
+            \item Pol.\ monétaire expansionniste (taux $\downarrow$)
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{DA vers la gauche ($\leftarrow$)}}
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Effondrement de la confiance ($C \downarrow$)
+            \item Crise financière ($I \downarrow$)
+            \item Austérité budgétaire ($G \downarrow$)
+            \item Récession chez les partenaires ($NX \downarrow$)
+            \item Pol.\ monétaire restrictive (taux $\uparrow$)
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.15cm}
+   \begin{bizimplication}
+      \footnotesize Une hausse de la confiance des consommateurs déplace DA vers la droite. La confiance est un \textbf{indicateur avancé} suivi de près par les investisseurs.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{L'offre agrégée de court terme (OA$_{\text{CT}}$)}
+   \begin{columns}[c]
+      \begin{column}{0.52\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.1]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % OA_CT curve
+            \draw[HECcoral, very thick] (0.5,0.5) -- (5,4) node[right] {OA$_{\text{CT}}$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \small
+         \textbf{Pente positive :} quand $P$ augmente\ldots
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.25cm}
+            \item Les \textbf{salaires nominaux} sont fixés par contrat $\to$ rigides à court terme
+            \item $P \uparrow$ mais $w$ fixe $\to$ le coût réel du travail $\downarrow$
+            \item Les entreprises embauchent plus $\to$ $Y \uparrow$
+         \end{itemize}
+         \vspace{0.2cm}
+         {\footnotesize\textcolor{HECgray}{Mécanisme clé : la \textbf{rigidité des salaires nominaux}}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Ce qui déplace la courbe OA}
+   \small
+   Tout ce qui modifie les \textbf{coûts de production} des entreprises :
+   \vspace{0.2cm}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECgreen}{OA vers la droite ($\to$)}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Progrès technologique ($A \uparrow$)
+            \item Baisse du prix du pétrole
+            \item Baisse des salaires nominaux
+            \item Amélioration des chaînes d'approvisionnement
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{OA vers la gauche ($\leftarrow$)}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Hausse du prix du pétrole
+            \item Hausse des salaires nominaux ($w \uparrow$)
+            \item Perturbation des chaînes d'approvisionnement
+            \item Catastrophe naturelle
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Équilibre de court terme}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
+      % DA
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {DA};
+      % OA_CT
+      \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {OA$_{\text{CT}}$};
+      % Equilibrium at (3.0, 2.2)
+      \filldraw[HECgreen] (3.0,2.2) circle (3pt);
+      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.2);
+      \draw[dotted, very thick, HECgray] (0,2.2) node[left] {$P^*$} -- (3.0,2.2);
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{L'offre agrégée de long terme (OA$_{\text{LT}}$)}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % DA
+            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {DA};
+            % OA_CT
+            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {OA$_{\text{CT}}$};
+            % OA_LT (vertical at Y^POT = 3.0)
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % Equilibrium
+            \filldraw[HECgreen] (3.0,2.2) circle (3pt);
+            \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^{\text{POT}}$} -- (3.0,0.3);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Verticale} à $Y^{\text{POT}}$
+
+         \vspace{0.2cm}
+         Pourquoi?
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item À long terme, les salaires \textbf{s'ajustent pleinement} aux prix
+            \item Le coût réel du travail revient à l'équilibre
+            \item $Y$ revient à $Y^{\text{POT}}$, quel que soit $P$
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Résumé : les trois courbes}
+   \small
+   \begin{defbox}[Les composantes du modèle OA-DA]
+      \begin{itemize}
+         \setlength\itemsep{0.2cm}
+         \item \textbf{Demande agrégée (DA)} --- pente négative. Relie le niveau des prix à la quantité totale de biens et services demandés ($C + I + G + NX$)
+         \item \textbf{Offre agrégée de court terme (OA$_{\text{CT}}$)} --- pente positive. Les salaires nominaux rigides font que les entreprises produisent \textit{plus} quand $P$ augmente
+         \item \textbf{Offre agrégée de long terme (OA$_{\text{LT}}$)} --- verticale à $Y^{\text{POT}}$. Les salaires s'ajustent complètement $\to$ la production retourne au potentiel
+      \end{itemize}
+   \end{defbox}
+\end{frame}
+
+\begin{frame}{}
+   \begin{exercise}
+      Si le gouvernement augmente les dépenses publiques ($G$), que se passe-t-il à court terme?
+      \vspace{0.2cm}
+      \begin{enumerate}
+         \setlength\itemsep{0.15cm}
+         \item Quelle courbe se déplace? Dans quelle direction?
+         \item Quel est l'effet sur $Y$ et $P$?
+         \item L'économie est-elle en surchauffe ou en récession?
+      \end{enumerate}
+   \end{exercise}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Tendance et fluctuations}
+      \item {\color{gray!50}Le modèle OA-DA}
+      \item \textbf{Chocs et fluctuations}
+      \item Autocorrection et long terme
+      \item Anatomie d'une récession
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Chocs et fluctuations}
+% ============================================================================
+
+\begin{frame}{Choc de demande négatif}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % OA_CT
+            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {OA$_{\text{CT}}$};
+            % OA_LT
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % DA original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
+               node[right, font=\footnotesize] {DA};
+            % DA shifted left
+            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
+               node[right] {DA$'$};
+            % Shift arrow
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,1.6) -- (2.8,1.6);
+            % Original equilibrium
+            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
+            % New equilibrium at (~2.2, 1.65)
+            \filldraw[HECnavy] (2.2,1.65) circle (3pt);
+            \draw[dotted, very thick, HECgray] (2.2,0) node[below] {$Y_1$} -- (2.2,1.65);
+            \draw[dotted, very thick, HECgray] (0,1.65) node[left] {$P_1$} -- (2.2,1.65);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Exemple :} effondrement de la confiance, crise financière
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item DA $\leftarrow$
+            \item $Y \downarrow$ et $P \downarrow$
+            \item \textbf{Récession} classique
+         \end{itemize}
+         \vspace{0.2cm}
+         {\footnotesize\textcolor{HECgray}{Les deux variables bougent dans la même direction}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Choc de demande positif}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % OA_CT
+            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {OA$_{\text{CT}}$};
+            % OA_LT
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % DA original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
+               node[right, font=\footnotesize] {DA};
+            % DA shifted right
+            \draw[HECnavy, very thick] (1.5,4.3) -- (5.8,1.2)
+               node[right] {DA$'$};
+            % Shift arrow
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (2.2,2.8) -- (3.2,2.8);
+            % Original equilibrium
+            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
+            % New equilibrium at (~3.8, 2.75)
+            \filldraw[HECnavy] (3.8,2.75) circle (3pt);
+            \draw[dotted, very thick, HECgray] (3.8,0) node[below] {$Y_1$} -- (3.8,2.75);
+            \draw[dotted, very thick, HECgray] (0,2.75) node[left] {$P_1$} -- (3.8,2.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Exemple :} relance budgétaire massive, bulle immobilière
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item DA $\to$
+            \item $Y \uparrow$ et $P \uparrow$
+            \item \textbf{Surchauffe}
+         \end{itemize}
+         \vspace{0.2cm}
+         {\footnotesize\textcolor{HECgray}{Les deux variables bougent dans la même direction}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Choc d'offre négatif --- la \guillemotleft~stagflation~\guillemotright}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % DA
+            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {DA};
+            % OA_LT
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % OA_CT original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {OA$_{\text{CT}}$};
+            % OA_CT shifted left
+            \draw[HECcoral, very thick] (0.0,1.8) -- (4.5,4.5)
+               node[right] {OA$_{\text{CT}}'$};
+            % Shift arrow
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.5,3.0) -- (2.5,3.0);
+            % Original equilibrium
+            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
+            % New equilibrium at (~2.3, 2.9)
+            \filldraw[HECcoral] (2.3,2.9) circle (3pt);
+            \draw[dotted, very thick, HECgray] (2.3,0) node[below] {$Y_1$} -- (2.3,2.9);
+            \draw[dotted, very thick, HECgray] (0,2.9) node[left] {$P_1$} -- (2.3,2.9);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Exemple :} embargo pétrolier, perturbation des chaînes d'approvisionnement
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item OA $\leftarrow$
+            \item $Y \downarrow$ \textbf{mais} $P \uparrow$
+            \item \textbf{Stagflation} --- la pire combinaison
+         \end{itemize}
+         \vspace{0.2cm}
+         {\footnotesize\textcolor{HECgray}{Les deux variables bougent en sens \textbf{opposé}}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Choc d'offre positif}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % DA
+            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {DA};
+            % OA_LT
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % OA_CT original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {OA$_{\text{CT}}$};
+            % OA_CT shifted right
+            \draw[HECcoral, very thick] (1.5,0.2) -- (5.5,2.6)
+               node[right] {OA$_{\text{CT}}'$};
+            % Shift arrow
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (2.2,1.2) -- (3.2,1.2);
+            % Original equilibrium
+            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
+            % New equilibrium at (~3.7, 1.55)
+            \filldraw[HECcoral] (3.7,1.55) circle (3pt);
+            \draw[dotted, very thick, HECgray] (3.7,0) node[below] {$Y_1$} -- (3.7,1.55);
+            \draw[dotted, very thick, HECgray] (0,1.55) node[left] {$P_1$} -- (3.7,1.55);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Exemple :} percée technologique, découverte pétrolière
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item OA $\to$
+            \item $Y \uparrow$ et $P \downarrow$
+            \item Le \textbf{meilleur} scénario
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Résumé : demande vs offre}
+   \vspace{0.3cm}
+   \centering
+   \small
+   \renewcommand{\arraystretch}{1.6}
+   \begin{tabularx}{0.95\textwidth}{>{\bfseries}X c c c c}
+      \toprule
+      & \textbf{DA $\to$} & \textbf{DA $\leftarrow$} & \textbf{OA $\to$} & \textbf{OA $\leftarrow$} \\
+      \midrule
+      Production ($Y$) & $\uparrow$ & $\downarrow$ & $\uparrow$ & $\downarrow$ \\
+      Prix ($P$) & $\uparrow$ & $\downarrow$ & $\downarrow$ & $\uparrow$ \\
+      \midrule
+      $Y$ et $P$\ldots & \multicolumn{2}{c}{même direction} & \multicolumn{2}{c}{directions opposées} \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      La direction de l'inflation nous dit le type de choc. Si $Y \downarrow$ et $P \downarrow$ : choc de demande. Si $Y \downarrow$ et $P \uparrow$ : choc d'offre.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Le dilemme de la banque centrale}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECgreen}{Choc de demande}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $Y \downarrow$ et $P \downarrow$
+            \item Stimuler DA $\to$ relance $Y$ \textbf{et} réduit le risque déflationniste
+            \item Les deux objectifs sont \textbf{alignés}
+         \end{itemize}
+         \vspace{0.15cm}
+         {\footnotesize\textcolor{HECgreen}{$\to$ Facile pour la banque centrale}}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{Choc d'offre}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $Y \downarrow$ et $P \uparrow$
+            \item Stimuler DA $\to$ relance $Y$ mais \textbf{aggrave} l'inflation
+            \item Combattre l'inflation $\to$ aggrave la récession
+         \end{itemize}
+         \vspace{0.15cm}
+         {\footnotesize\textcolor{HECcoral}{$\to$ Dilemme pour la banque centrale}}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \begin{warning}
+      Les chocs d'offre sont le \textbf{cauchemar} des banquiers centraux : il n'y a pas de solution indolore.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{COVID-2020 : un double choc}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % OA_LT
+            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
+               node[above] {OA$_{\text{LT}}$};
+            % DA original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
+               node[right, font=\footnotesize] {DA};
+            % OA_CT original (dashed gray)
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {OA$_{\text{CT}}$};
+            % DA shifted left
+            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
+               node[right] {DA$'$};
+            % OA_CT shifted left
+            \draw[HECcoral, very thick] (0.0,1.8) -- (4.5,4.5)
+               node[right] {OA$_{\text{CT}}'$};
+            % Shift arrows
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.5) -- (2.5,1.5);
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.5,3.3) -- (2.5,3.3);
+            % Original equilibrium
+            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
+            % New equilibrium at (~1.7, 2.35)
+            \filldraw[HECgreen] (1.7,2.35) circle (3pt);
+            \draw[dotted, very thick, HECgray] (1.7,0) node[below] {$Y_1$} -- (1.7,2.35);
+            \draw[dotted, very thick, HECgray] (0,2.35) node[left] {$P_1$} -- (1.7,2.35);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \textbf{Offre :} confinements, chaînes d'approvisionnement $\to$ OA $\leftarrow$
+         \vspace{0.15cm}
+
+         \textbf{Demande :} impossibilité de dépenser, précaution $\to$ DA $\leftarrow$
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $Y \downarrow$ fortement (les deux chocs se renforcent)
+            \item Effet sur $P$ ambigu (OA $\to P \uparrow$, DA $\to P \downarrow$)
+         \end{itemize}
+         \vspace{0.15cm}
+         {\footnotesize\textcolor{HECgray}{En pratique, $P$ a d'abord \textbf{baissé} (la demande a dominé) puis \textbf{fortement augmenté} en 2021--22.}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{}
+   \begin{bizimplication}
+      Lors d'un choc d'offre, les entreprises font face à la fois à des coûts plus élevés et à une demande plus faible --- la pire combinaison possible. Les marges se compriment des deux côtés.
+   \end{bizimplication}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Tendance et fluctuations}
+      \item {\color{gray!50}Le modèle OA-DA}
+      \item {\color{gray!50}Chocs et fluctuations}
+      \item \textbf{Autocorrection et long terme}
+      \item Anatomie d'une récession
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Autocorrection et long terme}
+% ============================================================================
+
+\begin{frame}{Le mécanisme d'autocorrection}
+   \centering
+   \begin{tikzpicture}[scale=1.1]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (7,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % OA_LT
+      \draw[HECgreen, very thick, dashed] (3.5,0.3) -- (3.5,4.2)
+         node[above] {OA$_{\text{LT}}$};
+
+      % Step 1: Negative demand shock
+      % DA original (dashed gray)
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (6.5,0.5);
+      \node[font=\footnotesize, HECgray] at (6.7,0.7) {DA};
+      % DA shifted left
+      \draw[HECnavy, very thick] (0.0,3.0) -- (5.5,0.2);
+      \node[font=\footnotesize, HECnavy] at (5.7,0.4) {DA$'$};
+
+      % OA_CT original
+      \draw[HECcoral, very thick] (0.5,0.8) -- (6.0,4.0);
+      \node[font=\footnotesize, HECcoral] at (6.2,4.2) {OA$_{\text{CT}}$};
+
+      % OA_CT shifted right (after wage adjustment)
+      \draw[HECcoral, very thick, dashed] (1.3,0.3) -- (6.5,3.2);
+      \node[font=\footnotesize, HECcoral] at (6.7,3.4) {OA$_{\text{CT}}'$};
+
+      % Original equilibrium E0
+      \filldraw[HECgray] (3.5,2.55) circle (2.5pt);
+      \node[font=\footnotesize, above right] at (3.5,2.55) {$E_0$};
+
+      % Short-run equilibrium E1 (~2.4, 1.85)
+      \filldraw[HECnavy] (2.4,1.85) circle (3pt);
+      \node[font=\footnotesize, above left] at (2.4,1.85) {$E_1$};
+
+      % Long-run equilibrium E2 (~3.5, 1.1)
+      \filldraw[HECgreen] (3.5,1.1) circle (3pt);
+      \node[font=\footnotesize, right] at (3.5,1.1) {$E_2$};
+
+      % Arrow from E1 to E2
+      \draw[-{Stealth[length=5pt]}, HECgreen, thick, bend right=20]
+         (2.55,1.75) to (3.35,1.2);
+
+      % Labels below
+      \node[font=\scriptsize, text=HECnavy, align=center] at (1.5,-0.5)
+         {\textbf{1.} DA $\leftarrow$ \\ $Y \downarrow$, $P \downarrow$};
+      \node[font=\scriptsize, text=HECcoral, align=center] at (4.0,-0.5)
+         {\textbf{2.} Salaires $\downarrow$ \\ $\to$ OA $\to$};
+      \node[font=\scriptsize, text=HECgreen, align=center] at (6.0,-0.5)
+         {\textbf{3.} Retour à \\ $Y^{\text{POT}}$};
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}[t]{Pourquoi c'est lent}
+   \vspace{0.2cm}
+   Le mécanisme d'autocorrection est \textbf{réel mais lent} :
+   \vspace{0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item Les salaires sont \textbf{rigides à la baisse} (contrats, salaire minimum, moral des employés)
+      \item L'ajustement peut prendre \textbf{des années}
+      \item Pendant ce temps : chômage élevé, faillites, perte de capital humain
+      \item Risque d'\textbf{hystérèse} : une récession prolongée réduit $Y^{\text{POT}}$ lui-même
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{La reprise de l'emploi prend du temps}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{employment_recovery.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{}
+   \begin{keyinsight}
+      L'autocorrection justifie l'\textbf{intervention} : non pas parce que l'économie ne peut pas se corriger seule, mais parce qu'\textbf{attendre coûte trop cher}. C'est le fondement de la politique contracyclique (Séance 5).
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Tendance et fluctuations}
+      \item {\color{gray!50}Le modèle OA-DA}
+      \item {\color{gray!50}Chocs et fluctuations}
+      \item {\color{gray!50}Autocorrection et long terme}
+      \item \textbf{Anatomie d'une récession}
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Anatomie d'une récession}
+% ============================================================================
+
+\begin{frame}[t]{Le cadre en quatre étapes}
+   \vspace{0.3cm}
+   \centering
+   \begin{tikzpicture}[
+      box/.style={draw=#1, fill=#1!8, rounded corners=8pt, thick,
+                  minimum width=3cm, minimum height=1.2cm,
+                  align=center, font=\small\bfseries},
+      arr/.style={-{Stealth[length=5pt]}, thick, HECgray}
+   ]
+      \node[box=HECcoral] (spark) at (0,0) {1. Étincelle\\[-2pt]{\footnotesize\textcolor{HECgray}{Déclencheur}}};
+      \node[box=HECnavy] (trans) at (3.5,0) {2. Transmission\\[-2pt]{\footnotesize\textcolor{HECgray}{Propagation}}};
+      \node[box=HECcoral] (fuel) at (7,0) {3. Carburant\\[-2pt]{\footnotesize\textcolor{HECgray}{Amplificateur}}};
+      \node[box=HECgreen] (fire) at (10.5,0) {4. Pare-feu\\[-2pt]{\footnotesize\textcolor{HECgray}{Réponse}}};
+      \draw[arr] (spark) -- (trans);
+      \draw[arr] (trans) -- (fuel);
+      \draw[arr] (fuel) -- (fire);
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}[t]{1.\ Étincelle : trois types de déclencheurs}
+   \vspace{0.2cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.4cm}
+      \item \textbf{Faux pas (\textit{policy error})}
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Erreur de politique monétaire ou budgétaire
+         \item Exemple : resserrement excessif de la Fed en 1937, 1981
+      \end{itemize}
+      \item \textbf{Gravité (\textit{buildup})}
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Déséquilibre structurel qui finit par se corriger brutalement
+         \item Exemple : bulle immobilière + levier financier $\to$ 2008
+      \end{itemize}
+      \item \textbf{Choc exogène}
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Événement imprévisible, externe à l'économie
+         \item Exemples : pandémie (2020), embargo pétrolier (1973), conflit Iran/Ormuz (2026)
+      \end{itemize}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{2.\ Transmission : comment le choc se propage}
+   \small
+   L'étincelle se transmet à l'ensemble de l'économie via les courbes OA et DA :
+   \vspace{0.3cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Canaux de demande :} baisse de $C$ (confiance, richesse), baisse de $I$ (incertitude, crédit), baisse de $NX$ (récession chez les partenaires) $\to$ DA $\leftarrow$
+      \item \textbf{Canaux d'offre :} perturbation des chaînes d'approvisionnement, hausse des coûts des intrants, fermetures forcées $\to$ OA $\leftarrow$
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{3.\ Carburant : ce qui amplifie le feu}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.35cm}
+      \item \textbf{Interconnexion des chaînes d'approvisionnement} --- un maillon qui casse affecte toute la chaîne
+      \item \textbf{Contagion financière} --- les pertes d'une banque fragilisent les autres (2008)
+      \item \textbf{Spirale de confiance} --- pessimisme $\to$ moins de dépenses $\to$ licenciements $\to$ plus de pessimisme
+      \item \textbf{Spirale salaires-prix} --- inflation $\to$ hausse des salaires $\to$ hausse des coûts $\to$ plus d'inflation (1970s)
+      \item \textbf{Cycle des stocks} --- les entreprises liquident les inventaires $\to$ production chute brutalement
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{4.\ Pare-feu : contenir le feu}
+   \small
+   Les outils de politique économique pour limiter les dégâts :
+   \vspace{0.2cm}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECnavy}{Politique monétaire}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Baisser le taux directeur $\to$ crédit moins cher $\to$ $C \uparrow$, $I \uparrow$
+            \item DA $\to$
+            \item Achats d'actifs (QE) quand les taux sont à $\sim 0$\,\%
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{\textcolor{HECcoral}{Politique budgétaire}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Hausse de $G$ $\to$ DA $\to$ directement
+            \item Baisse d'impôts ($T \downarrow$) $\to$ revenu disponible $\uparrow$ $\to$ $C \uparrow$
+            \item Transferts directs aux ménages
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   {\footnotesize\textcolor{HECgray}{$\to$ Détails en Séance 5}}
+\end{frame}
+
+% --- Application : Récession de 2020 -----------------------------------------
+
+\begin{frame}[t]{Application : la récession de 2020}
+   \small
+   \renewcommand{\arraystretch}{1.5}
+   \begin{tabularx}{\textwidth}{>{\bfseries\textcolor{HECnavy}}l X}
+      \toprule
+      Étape & Description \\
+      \midrule
+      1. Étincelle & Choc exogène : pandémie de COVID-19 \\
+      2. Transmission & Double choc : confinements ($C \downarrow$, $I \downarrow$) $+$ perturbation des chaînes ($\text{OA} \leftarrow$) \\
+      3. Carburant & Incertitude massive, spirale de confiance, chaînes globales interconnectées \\
+      4. Pare-feu & Taux $\to 0$\,\%, QE, transferts directs (PCU, SSUC), hausse massive de $G$ \\
+      \bottomrule
+   \end{tabularx}
+\end{frame}
+
+\begin{frame}{L'inflation après la COVID : d'abord déflation, puis flambée}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{us_recession_inflation.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Pourquoi l'inflation a-t-elle tant augmenté en 2021--22?}
+   \small
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \textbf{Du côté de la demande :}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Stimulus massif $\to$ DA $\to$ bien au-delà de sa position initiale
+            \item Ménages avec une \guillemotleft~épargne forcée~\guillemotright\ accumulée
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \textbf{Du côté de l'offre :}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Chaînes d'approvisionnement pas encore rétablies
+            \item Guerre en Ukraine (énergie, céréales) $\to$ OA $\leftarrow$
+            \item Retour lent des travailleurs
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      La demande a augmenté \textbf{plus vite} que l'offre. Le résultat : $Y$ a récupéré, mais $P$ a fortement augmenté.
+   \end{keyinsight}
+\end{frame}
+
+% --- Application : Choc pétrolier de 1973 ------------------------------------
+
+\begin{frame}[t]{Application : le choc pétrolier de 1973}
+   \footnotesize
+   \renewcommand{\arraystretch}{1.4}
+   \begin{tabularx}{\textwidth}{>{\bfseries\textcolor{HECnavy}}l X}
+      \toprule
+      Étape & Description \\
+      \midrule
+      1. Étincelle & Embargo de l'OPEP (guerre du Kippour) --- le prix du pétrole \textbf{quadruple} \\
+      2. Transmission & Choc d'offre négatif massif : le pétrole est un intrant dans presque tous les secteurs $\to$ OA $\leftarrow$ \\
+      3. Carburant & Spirale salaires-prix; Fed trop accommodante; panique \\
+      4. Pare-feu & Contrôles de prix (inefficaces), rationnement. Volcker (1979) : taux à 20\,\% $\to$ récession de 1981--82 \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.15cm}
+   \begin{warning}[Leçon historique]
+      \footnotesize Face à un choc d'offre, il n'y a pas de solution indolore. Accepter l'inflation ou provoquer une récession.
+   \end{warning}
+\end{frame}
+
+% --- Application : Iran/Ormuz 2026 -------------------------------------------
+
+\begin{frame}{Les prix du pétrole --- une histoire de chocs}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{oil_price_history.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Application : la crise Iran/Ormuz (2026)}
+   \small
+   \textbf{28 février 2026 :} Opération Epic Fury --- frappes américano-israéliennes sur l'Iran. L'Iran riposte et le détroit d'Ormuz est effectivement fermé.
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item $\sim$20\,\% de l'approvisionnement mondial en pétrole passe par Ormuz
+      \item Le Brent bondit de $\sim$73\,\$ à $\sim$80--82\,\$ (+13\,\%)
+      \item Scénarios : 100\,\$+ si prolongé, 120\,\$+ si production du Golfe affectée
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{warning}
+      C'est un \textbf{choc d'offre négatif} en temps réel. OA $\leftarrow$ $\to$ $P \uparrow$, $Y \downarrow$. Le dilemme des banques centrales se joue devant nos yeux.
+   \end{warning}
+\end{frame}
+
+\begin{frame}{Le prix du Brent autour de l'opération Epic Fury}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{oil_price_2026.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{1973 vs 2026 : deux chocs pétroliers}
+   \footnotesize
+   \vspace{0.1cm}
+   \renewcommand{\arraystretch}{1.35}
+   \centering
+   \begin{tabularx}{0.95\textwidth}{>{\bfseries}l X X}
+      \toprule
+      & \textbf{1973} & \textbf{2026} \\
+      \midrule
+      Cause & Embargo de l'OPEP (arme politique) & Conflit militaire ferme le détroit d'Ormuz \\
+      Mécanisme & Réduction volontaire de l'offre & Fermeture d'une route maritime \\
+      Hausse initiale & $\times 4$ ($\sim$3\,\$ $\to$ 12\,\$) & $+$13\,\% ($\sim$73\,\$ $\to$ 82\,\$) \\
+      Amplificateurs & Spirale salaires-prix & \textit{À déterminer\ldots} \\
+      Contexte & Pas de QE, peu de diversification & Transition énergétique en cours \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.15cm}
+   \begin{bizimplication}
+      \footnotesize La dépendance au pétrole du Moyen-Orient reste un risque macroéconomique majeur 50 ans plus tard.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{}
+   \begin{keyinsight}
+      Le cadre \textit{étincelle--transmission--carburant--pare-feu} s'applique à toute récession. L'identifier \textbf{en temps réel} est le défi du décideur.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+\begin{frame}{}
+   \centering
+   \vspace{1.5cm}
+   {\Large\textbf{Qu'est-ce que vous retenez de cette séance?}}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Et pour la suite?}
+% ============================================================================
+
+\begin{frame}{Thèmes et séances à venir}
+   \renewcommand{\arraystretch}{1.5}
+   \centering
+   \small
+   \begin{tabularx}{\textwidth}{>{\bfseries}X l}
+      \toprule
+      \textbf{Thème} & \textbf{Séance} \\
+      \midrule
+      Pourquoi/comment combattre les récessions? & S5 : Pol.\ mon.\ et budgétaire \\
+      Quel avenir pour la mondialisation? & S6 : Commerce international \\
+      \bottomrule
+   \end{tabularx}
+\end{frame}
+
+\end{document}
