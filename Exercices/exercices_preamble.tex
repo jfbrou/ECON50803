@@ -179,7 +179,7 @@
 \newcommand{\qcm}[1]{%
    \stepcounter{qcmcounter}%
    \par\vspace{1.2em}%
-   \needspace{12\baselineskip}%
+   \ifbool{answers}{\needspace{24\baselineskip}}{\needspace{12\baselineskip}}%
    \noindent\textbf{\textcolor{HECnavy}{\theqcmcounter.}}\enspace #1%
    \vspace{0.3em}%
    \nopagebreak[4]%
@@ -189,7 +189,8 @@
    \nopagebreak[4]%
    \begin{enumerate}[label=\textcolor{HECgray}{(\alph*)}, leftmargin=2em, itemsep=1pt, topsep=2pt]
       #1
-   \end{enumerate}
+   \end{enumerate}%
+   \nopagebreak[4]%
 }
 
 % --- Short answer counter ---------------------------------------------------
@@ -197,7 +198,7 @@
 \newcommand{\shortq}[1]{%
    \stepcounter{shortcounter}%
    \par\vspace{1.5em}%
-   \needspace{4\baselineskip}%
+   \ifbool{answers}{\needspace{16\baselineskip}}{\needspace{4\baselineskip}}%
    \noindent\textbf{\textcolor{HECnavy}{Question \theshortcounter.}}\enspace #1%
    \vspace{0.3em}%
 }
@@ -206,7 +207,7 @@
 \newcommand{\vfi}[1]{%
    \stepcounter{shortcounter}%
    \par\vspace{1.5em}%
-   \needspace{10\baselineskip}%
+   \ifbool{answers}{\needspace{20\baselineskip}}{\needspace{10\baselineskip}}%
    \noindent\textbf{\textcolor{HECnavy}{Question \theshortcounter.}}\enspace\textit{Vrai, faux ou incertain?} #1%
    \vspace{0.3em}%
 }
