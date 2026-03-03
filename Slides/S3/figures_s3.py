@@ -1946,6 +1946,170 @@ def gatsby_curve():
 
 
 # =====================================================================
+# Baumol cost disease — cumulative CPI by sector (Canada, 2000–2025)
+# =====================================================================
+def baumol_cost_disease_canada():
+    """Perry-style 'Chart of the Century' for Canada (2000 = 100).
+
+    Shows 8 CPI sub-categories from Statistics Canada table 18-10-0005-01,
+    normalized to 2000 = 100. Labor-intensive services that are hard to
+    automate (health care, tuition, restaurants, shelter) soar far above
+    the CPI reference line, while tradeable/tech-driven goods (digital
+    equipment, telephone, clothing) fall dramatically.
+
+    Inspired by Mark Perry's AEI chart.
+    """
+    print('  baumol_cost_disease_canada ...', end=' ', flush=True)
+
+    from stats_can import StatsCan
+    sc = StatsCan()
+    df = sc.table_to_df('18-10-0005-01')
+
+    # Filter: Canada, base 2002 = 100
+    ca = df[(df['GEO'] == 'Canada') & (df['UOM'] == '2002=100')].copy()
+    ca['year'] = ca['REF_DATE'].dt.year
+    ca = ca[ca['year'] >= 2000].sort_values('year')
+
+    # ── Series specification (without colors — assigned by gradient) ──
+    # Ordered from highest to lowest final value
+    # (eng_name, fr_label, linestyle, linewidth)
+    series_spec_no_color = [
+        ('Health care services',
+         r"Sant\'{e}", '-', 2.5),
+        ('Food purchased from restaurants',
+         r"Restaurants", '-', 2.5),
+        ('Tuition fees',
+         r"Frais de scolarit\'{e}", '-', 2.5),
+        ('Shelter',
+         r"Logement", '-', 2.5),
+        ('Clothing and footwear',
+         r"V\^{e}tements et chaussures", '-', 2.5),
+        ('Toys, games (excluding video games) and hobby supplies',
+         r"Jouets et jeux", '-', 2.5),
+        ('Telephone services',
+         r"T\'{e}l\'{e}phone", '-', 2.5),
+        ('Home entertainment equipment, parts and services',
+         r"Divertissement maison", '-', 2.5),
+        ('Video equipment',
+         r"Vid\'{e}o", '-', 2.5),
+        ('Digital computing equipment and devices',
+         r"\'{E}quipement informatique", '-', 2.5),
+    ]
+
+    # ── Colormap gradient: warm (red) → cool (blue) ──────────────────
+    from matplotlib.colors import LinearSegmentedColormap
+    import matplotlib.cm as cm
+    # Custom gradient: saturated red → saturated purple → saturated blue
+    # No pale/white midpoint — stays vivid throughout
+    from matplotlib.colors import LinearSegmentedColormap as LSC
+    custom_cmap = LSC.from_list('warm_cool', [
+        '#b5000e',   # deep red
+        '#e04530',   # bright red
+        '#d4700a',   # orange
+        '#8c5fb0',   # muted purple
+        '#3a7ebf',   # medium blue
+        '#1a4e8a',   # dark blue
+        '#0a2f5c',   # navy
+    ])
+    n = len(series_spec_no_color)
+    gradient_colors = [custom_cmap(i / (n - 1)) for i in range(n)]
+
+    # CPI reference stays gray, inserted at its rank position
+    c_cpi = palette[7]
+
+    # Build final series_spec with colors
+    series_spec = []
+    for i, (eng_name, fr_label, ls, lw) in enumerate(series_spec_no_color):
+        series_spec.append((eng_name, fr_label, gradient_colors[i], ls, lw))
+    # Insert CPI after Shelter (index 4)
+    series_spec.insert(4, ('All-items', r"IPC global", c_cpi, ':', 2.5))
+
+    # ── Build data dict {eng_name: Series indexed by year} ─────────────
+    series_data = {}
+    for eng_name, *_ in series_spec:
+        sub = ca[ca['Products and product groups'] == eng_name]
+        s = sub.set_index('year')['VALUE'].dropna().sort_index()
+        if len(s) == 0:
+            print(f'  Warning: no data for "{eng_name}"')
+            continue
+        base_val = s.loc[2000] if 2000 in s.index else s.iloc[0]
+        s = s / base_val * 100
+        series_data[eng_name] = s
+
+    # ── Plot ───────────────────────────────────────────────────────────
+    fig, ax = new_figure(10, 5.5)
+
+    for eng_name, fr_label, color, ls, lw in series_spec:
+        if eng_name not in series_data:
+            continue
+        s = series_data[eng_name]
+        ax.plot(s.index, s.values, color=color, linewidth=lw,
+                linestyle=ls, zorder=3)
+
+    # ── End-of-line labels (with repulsion to avoid overlap) ─────────
+    last_year = max(s.index[-1] for s in series_data.values())
+
+    # Collect (eng_name, final_value) for all plotted series
+    label_items = []
+    for eng_name, fr_label, color, ls, lw in series_spec:
+        if eng_name not in series_data:
+            continue
+        s = series_data[eng_name]
+        label_items.append((eng_name, fr_label, color, s.iloc[-1]))
+
+    # Sort by final value (descending) and repel labels so they don't overlap
+    label_items.sort(key=lambda x: -x[3])
+    min_gap = 10.0  # minimum vertical gap in data-units between label centers
+    placed_y = []    # list of placed y-positions (descending order)
+    label_positions = {}  # eng_name -> placed y
+
+    for eng_name, fr_label, color, raw_y in label_items:
+        y = raw_y
+        # Push label down if it collides with any already-placed label above
+        for py in placed_y:
+            if py - y < min_gap:
+                y = py - min_gap
+        placed_y.append(y)
+        label_positions[eng_name] = y
+
+    for eng_name, fr_label, color, raw_y in label_items:
+        y_pos = label_positions[eng_name]
+        # Draw a thin connector line from the data endpoint to the label
+        if abs(y_pos - raw_y) > 3:
+            ax.plot([last_year + 0.1, last_year + 0.25],
+                    [raw_y, y_pos], color=color, linewidth=0.5,
+                    alpha=0.5, clip_on=False)
+        ax.text(last_year + 0.3, y_pos, fr_label,
+                fontsize=9, color=color, va='center', ha='left',
+                fontweight='bold', clip_on=False)
+
+    # ── Reference line at 100 ──────────────────────────────────────────
+    ax.axhline(y=100, color='gray', linewidth=0.6, linestyle=':', zorder=1)
+
+    # ── Axes ───────────────────────────────────────────────────────────
+    ax.set_xlim(2000, last_year)
+    xtick_end = last_year + 1
+    ax.set_xticks(range(2000, xtick_end, 5))
+    ax.set_xticklabels([str(y) for y in range(2000, xtick_end, 5)],
+                       fontsize=11)
+
+    ax.set_ylim(0, 250)
+    yticks = list(range(0, 251, 50))
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([str(y) for y in yticks], fontsize=11)
+    ax.set_ylabel(r"Indice des prix (2000 = 100)",
+                  fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    # Extra right margin for end-of-line labels
+    fig.subplots_adjust(right=0.65)
+
+    style_axes(ax)
+    add_source(ax, r"Source: Statistique Canada, tableau 18-10-0005-01")
+    save(fig, 'baumol_cost_disease_canada.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -1980,6 +2144,7 @@ if __name__ == '__main__':
         inequality_top1_share,
         elephant_curve,
         gatsby_curve,
+        baumol_cost_disease_canada,
     ]
 
     failed = []
