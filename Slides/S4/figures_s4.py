@@ -210,43 +210,43 @@ def employment_recovery():
 
     payems = get_fred_data('PAYEMS', observation_start='1970-01-01')
 
-    # Define recession troughs (month of lowest employment near NBER end)
-    troughs = {
-        '1981': pd.Timestamp('1982-12-01'),
-        '1990': pd.Timestamp('1991-06-01'),
-        '2001': pd.Timestamp('2002-08-01'),
-        '2008': pd.Timestamp('2010-02-01'),
-        '2020': pd.Timestamp('2020-04-01'),
+    # Define recession peaks (last month before employment drops)
+    peaks = {
+        '1981': pd.Timestamp('1981-07-01'),
+        '1990': pd.Timestamp('1990-06-01'),
+        '2001': pd.Timestamp('2001-02-01'),
+        '2008': pd.Timestamp('2008-01-01'),
+        '2020': pd.Timestamp('2020-02-01'),
     }
 
     colors = {
         '1981': palette[7],
         '1990': palette[4],
-        '2001': palette[6],
+        '2001': palette[1],
         '2008': palette[0],
         '2020': palette[2],
     }
 
     fig, ax = new_figure(9, 4.5)
 
-    for label, trough in troughs.items():
-        base = payems.loc[trough]
-        # Show 12 months before to 60 months after trough
-        start = trough - pd.DateOffset(months=12)
-        end = trough + pd.DateOffset(months=60)
-        subset = payems.loc[start:end]
-        months = ((subset.index - trough).days / 30.44).astype(int)
+    for label, peak in peaks.items():
+        base = payems.loc[peak]
+        # Show from peak to 60 months after
+        end = peak + pd.DateOffset(months=60)
+        subset = payems.loc[peak:end]
+        months = ((subset.index - peak).days / 30.44).astype(int)
         indexed = (subset / base) * 100
-        lw = 2.5 if label in ('2008', '2020') else 1.5
         ax.plot(months, indexed.values, color=colors[label],
-                linewidth=lw, label=label)
+                linewidth=2, label=label)
 
     ax.axhline(100, color='black', linewidth=0.8, linestyle='--')
-    ax.axvline(0, color='gray', linewidth=0.5, linestyle=':')
 
-    ax.set_xlim(-12, 60)
-    ax.set_xlabel(r"Mois depuis le creux", fontsize=11)
-    ax.set_ylabel(r"Emploi (creux = 100)", fontsize=11,
+    ax.set_xlim(0, 60)
+    ax.set_ylim(85, 110)
+    ax.set_yticks([85, 90, 95, 100, 105, 110])
+    ax.set_yticklabels([r'85', r'90', r'95', r'100', r'105', r'110'])
+    ax.set_xlabel(r"Mois depuis le choc", fontsize=11)
+    ax.set_ylabel(r"Emploi (choc = 100)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -281,20 +281,25 @@ def us_recession_inflation():
     ax.axvspan(pd.Timestamp('2020-02-01'), pd.Timestamp('2020-04-01'),
                color='grey', alpha=0.25, linewidth=0)
 
-    # Annotation: peak
-    peak_date = inflation.idxmax()
-    peak_val = inflation.max()
-    ax.annotate(f'{peak_val:.1f}' + r'\,\%',
-                xy=(peak_date, peak_val),
-                xytext=(peak_date - pd.DateOffset(months=6), peak_val + 0.8),
-                fontsize=11, color=palette[2], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
+
+    # Highlight gap between 2% target and actual inflation when below target
+    below = inflation[inflation < 2]
+    # Find the contiguous below-2% period right after 2020
+    below_2020 = below.loc['2020-01-01':'2021-12-31']
+    if len(below_2020) > 0:
+        start = below_2020.index[0]
+        end = below_2020.index[-1]
+        mask = (inflation.index >= start) & (inflation.index <= end)
+        ax.fill_between(inflation.index[mask], inflation.values[mask], 2,
+                        color=palette[2], alpha=0.2, linewidth=0)
 
     ax.set_xlim(pd.Timestamp('2019-01-01'), pd.Timestamp('2024-12-01'))
     ax.set_ylabel(r"Inflation IPC (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(-1, 10)
+    ax.set_ylim(0, 10)
+    ax.set_yticks([0, 2, 4, 6, 8, 10])
+    ax.set_yticklabels([r'0', r'2', r'4', r'6', r'8', r'10'])
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
@@ -645,46 +650,51 @@ def us_consumer_confidence():
 # Figure 9: Oil price close-up Feb–Mar 2026
 # =====================================================================
 def oil_price_2026():
-    print('Figure 6: Oil price close-up (2026)')
+    print('Figure 6: Oil price (6 months)')
 
     brent = get_fred_data('DCOILBRENTEU',
-                          observation_start='2026-01-01',
+                          observation_start='2025-09-01',
                           observation_end='2026-03-31')
     brent = brent.dropna()
 
-    if len(brent) < 5:
-        # Fallback: use broader date range if 2026 data not yet available
-        print('  ! 2026 data limited, using 2025-Q4 to 2026-Q1')
-        brent = get_fred_data('DCOILBRENTEU',
-                              observation_start='2025-10-01',
-                              observation_end='2026-03-31')
-        brent = brent.dropna()
-
     if len(brent) == 0:
-        print('  ! No Brent data available for 2026. Skipping figure.')
+        print('  ! No Brent data available. Skipping figure.')
         return
 
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(brent.index, brent.values, color=palette[0], linewidth=2)
-    ax.fill_between(brent.index, brent.values, brent.values.min() - 2,
+    ax.fill_between(brent.index, brent.values, 0,
                     color=palette[0], alpha=0.1)
 
-    # Mark Feb 28 if it exists
+    # Mark Feb 28 with a dashed vertical line and text label (no arrow)
     feb28 = pd.Timestamp('2026-02-28')
-    if feb28 in brent.index or (brent.index >= feb28).any():
+    if (brent.index >= feb28).any():
         closest = brent.index[brent.index >= feb28]
         if len(closest) > 0:
             mark_date = closest[0]
-            mark_val = brent.loc[mark_date]
             ax.axvline(mark_date, color=palette[2], linewidth=1.5,
                        linestyle='--', alpha=0.7)
-            ax.annotate(r'\textit{Op\'{e}ration Epic Fury}',
-                        xy=(mark_date, mark_val),
-                        xytext=(30, 20), textcoords='offset points',
-                        fontsize=9, color=palette[2], fontweight='bold',
-                        arrowprops=dict(arrowstyle='->', color=palette[2],
-                                        lw=1.2))
+            ax.text(mark_date - pd.DateOffset(days=3), ax.get_ylim()[1] * 0.97,
+                    r'\textit{Op\'{e}ration Epic Fury}',
+                    fontsize=9, color=palette[2], fontweight='bold',
+                    ha='right', va='top')
+
+    # -- X-axis: explicit ticks with LaTeX labels --
+    ax.set_xlim(pd.Timestamp('2025-09-01'), brent.index[-1])
+    xtick_dates = [pd.Timestamp('2025-09-01'), pd.Timestamp('2025-10-01'),
+                   pd.Timestamp('2025-11-01'), pd.Timestamp('2025-12-01'),
+                   pd.Timestamp('2026-01-01'), pd.Timestamp('2026-02-01'),
+                   pd.Timestamp('2026-03-01')]
+    xtick_labels = [r'sept.', r'oct.', r'nov.', r'd\'{e}c.', r'janv.', r'f\'{e}vr.', r'mars']
+    ax.set_xticks(xtick_dates)
+    ax.set_xticklabels(xtick_labels, fontsize=11)
+
+    # -- Y-axis: explicit ticks --
+    ax.set_ylim(50, 80)
+    yticks = [50, 55, 60, 65, 70, 75, 80]
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([rf'{y}' for y in yticks], fontsize=11)
 
     ax.set_ylabel(r"Brent (USD / baril)", fontsize=11,
                   rotation=0, ha='left')
@@ -834,7 +844,7 @@ def yield_curve_usa():
                          observation_start='1976-01-01')
     data = data.dropna()
 
-    fig, ax = new_figure(8, 4.5)
+    fig, ax = new_figure(9, 4.5)
 
     ax.plot(data.index, data.values, color=palette[0], linewidth=1.5)
     ax.fill_between(data.index, data.values, 0,
@@ -848,6 +858,9 @@ def yield_curve_usa():
             ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
 
     ax.set_xlim(data.index.min(), data.index.max())
+    xticks = [pd.Timestamp(f'{y}-01-01') for y in range(1980, 2030, 5)]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([str(y) for y in range(1980, 2030, 5)], fontsize=10)
     ax.set_ylim(-3, 3)
     ax.set_yticks(range(-3, 4, 1))
     ax.set_yticklabels([f'{x}' + r'\,\%' for x in range(-3, 4, 1)],
@@ -857,10 +870,51 @@ def yield_curve_usa():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    ax.text(0.02, 0.95, r'\textit{Zones gris\'{e}es = r\'{e}cessions (NBER)}',
-            fontsize=9, color=palette[7], transform=ax.transAxes, va='top')
     add_source(ax, r"Source: FRED (T10Y2Y) --- \'{E}tats-Unis")
     save(fig, 'yield_curve_usa.png')
+
+
+# =====================================================================
+# Figure 13: Natural rate of unemployment (US)
+# =====================================================================
+def natural_unemployment_usa():
+    """US unemployment rate vs natural rate (NROU) with recession shading."""
+    print('Figure 13: Natural unemployment rate (US)')
+
+    unrate = get_fred_data('UNRATE', frequency='m', aggregation_method='avg',
+                           observation_start='1950-01-01')
+    nrou = get_fred_data('NROU', observation_start='1950-01-01')
+    unrate = unrate.dropna()
+    nrou = nrou.dropna()
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(unrate.index, unrate.values, color=palette[0], linewidth=1.5,
+            label=r"Taux de ch\^{o}mage")
+    ax.plot(nrou.index, nrou.values, color=palette[1], linewidth=2.5,
+            label=r"Taux naturel (NROU)")
+
+    # Recession shading
+    for start, end in recessions_us:
+        if start >= pd.Timestamp('1950-01-01'):
+            ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+
+    ax.set_xlim(pd.Timestamp('1950-01-01'), unrate.index.max())
+    ax.set_ylim(2, 14)
+    xticks = [pd.Timestamp(f'{y}-01-01') for y in range(1950, 2030, 10)]
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([str(y) for y in range(1950, 2030, 10)], fontsize=10)
+    ax.set_yticks(range(2, 15, 2))
+    ax.set_yticklabels([f'{x}' + r'\,\%' for x in range(2, 15, 2)],
+                        fontsize=10)
+    ax.set_ylabel(r"Taux de ch\^{o}mage (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left')
+    add_source(ax, r"Source: FRED (UNRATE, NROU) --- \'{E}tats-Unis")
+    save(fig, 'natural_unemployment_usa.png')
 
 
 # =====================================================================
@@ -881,4 +935,5 @@ if __name__ == '__main__':
     cyclical_components_canada()
     phillips_curve_usa()
     yield_curve_usa()
+    natural_unemployment_usa()
     print('\nDone.')

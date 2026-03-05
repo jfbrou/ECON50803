@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \input{../preamble.tex}
 
-\title{Cycles économiques et inflation}
+\title{Cycles économiques}
 \author{Jean-Félix Brouillette}
 \date{Séance 4}
 
@@ -29,86 +29,16 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item \textbf{Tendance, fluctuations et cycles}
+      \item \textbf{Faits saillants sur les cycles économiques}
+      \item Tendance et fluctuations
       \item Le modèle AD-AS
       \item Anatomie d'une récession
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Tendance, fluctuations et cycles}
+\sectionframe{Faits saillants sur les cycles économiques}
 % ============================================================================
-
-\begin{frame}[t]{Long terme vs.\ court terme}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \quad \textbf{\textcolor{HECnavy}{Long terme} (Séances 2--3)}
-         \begin{equation*}
-            \textcolor{HECgreen}{Y_{\text{POT}}} = A \cdot K^{\alpha} \cdot \textcolor{HECgreen}{L_{\text{PE}}}^{1 - \alpha}
-         \end{equation*}
-         \vspace{-0.5cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\textcolor{HECgreen}{L_{\text{PE}}}$ : niveau d'emploi de LT
-            \item $\textcolor{HECgreen}{Y_{\text{POT}}}$ : PIB potentiel
-            \item Marché de l'emploi en équilibre
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \quad \textbf{\textcolor{HECcoral}{Court terme} (Séances 4--5)}
-         \begin{equation*}
-            \textcolor{HECcoral}{Y} = A \cdot K^{\alpha} \cdot \textcolor{HECcoral}{L}^{1 - \alpha}
-         \end{equation*}
-         \vspace{-0.5cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\textcolor{HECcoral}{L}$ : niveau d'emploi de CT
-            \item $\textcolor{HECcoral}{Y}$ : PIB réel
-            \item Chômage ou surchauffe possible
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   \begin{keyinsight}
-      Le niveau d'emploi de CT ($\textcolor{HECcoral}{L}$) flucture beaucoup, donc le PIB réel ($\textcolor{HECcoral}{Y}$) fluctue également autour de son potentiel ($\textcolor{HECgreen}{Y_{\text{POT}}}$). Pourquoi?
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{PIB potentiel et écart de production}
-   \small
-   \begin{defbox}
-      \vspace{-0.5cm}
-      \begin{itemize}
-         \setlength\itemsep{0.15cm}
-         \item \textbf{PIB potentiel} ($Y^{\text{POT}}$) --- le niveau de production lorsque les facteurs sont utilisés à leur \textbf{capacité normale}. C'est la vitesse \guillemotleft~de croisière~\guillemotright.
-         \item \textbf{Écart de production} --- mesure l'écart (en \%) entre le PIB réel et potentiel :
-         \begin{equation*}
-            \text{Écart de production} = \frac{Y - Y^{\text{POT}}}{Y^{\text{POT}}} \times 100
-         \end{equation*}
-      \end{itemize}
-   \end{defbox}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Récession :} écart négatif ($Y < Y^{\text{POT}}$)
-      \item \textbf{Surchauffe :} écart positif ($Y > Y^{\text{POT}}$)
-      \item \textbf{Plein emploi :} écart nul ($Y = Y^{\text{POT}}$)
-   \end{itemize}
-\end{frame}
-
-\begin{frame}{Le PIB réel et potentiel du Canada}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_potential.png}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{L'écart de production au Canada}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{output_gap_canada.png}
-   \end{figure}
-\end{frame}
 
 \begin{frame}{Que sont les cycles économiques?}
    \centering
@@ -154,37 +84,34 @@
 
 \begin{frame}[t]{Expansions et récessions}
    \small
-   \textbf{Expansion :} hausse du PIB réel et de l'emploi, baisse du chômage\\
+   \textbf{Expansion :} hausse du PIB réel et de l'emploi, baisse du chômage\\ \vspace{0.3cm}
    \textbf{Récession :} baisse du PIB réel et de l'emploi, hausse du chômage
-
-   \vspace{0.4cm}
-   \textbf{Définitions formelles des récessions :}
-   \vspace{0.15cm}
+   \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.2cm}
       \item \textbf{Canada :} deux trimestres consécutifs de croissance négative du PIB réel
-      \item \textbf{États-Unis (NBER) :} \guillemotleft~\textit{un déclin significatif de l'activité économique étendu à l'ensemble du marché, durant plus de quelques mois}~\guillemotright
+      \item \textbf{États-Unis (NBER) :} \guillemotleft~\textit{un déclin significatif de l’activité économique étendu à l’ensemble du marché, durant plus de quelques mois, normalement visible dans le PIB réel, le revenu réel, l’emploi, la production industrielle, et les ventes de gros/détail}~\guillemotright
    \end{itemize}
 
-   \vspace{0.4cm}
-   \begin{keyinsight}
-      \textbf{Règle de pouce :} l'économie est en expansion $\sim$85\,\% du temps et en récession $\sim$15\,\% du temps.
+   \vspace{0.1cm}
+   \begin{keyinsight}[Le saviez-vous?]
+      L'économie est en expansion $\sim$85\,\% du temps et en récession $\sim$15\,\% du temps.
    \end{keyinsight}
 \end{frame}
 
 \begin{frame}[t]{Cyclicité}
-   \vspace{0.2cm}
+   \vspace{0.25cm}
    \begin{itemize}
-      \setlength\itemsep{0.5cm}
-      \item \textbf{Procyclique :} augmente en expansion, diminue en récession
+      \setlength\itemsep{0.75cm}
+      \item[] \textbf{Procyclique :} augmente en expansion, diminue en récession
          \begin{itemize}
             \item[\textcolor{HECgray}{$\bullet$}] {\small\textcolor{HECgray}{Croissance du PIB réel, consommation, investissement, emploi}}
          \end{itemize}
-      \item \textbf{Contracyclique :} diminue en expansion, augmente en récession
+      \item[] \textbf{Contracyclique :} diminue en expansion, augmente en récession
          \begin{itemize}
-            \item[\textcolor{HECgray}{$\bullet$}] {\small\textcolor{HECgray}{Taux de chômage}}
+            \item[\textcolor{HECgray}{$\bullet$}] {\small\textcolor{HECgray}{Taux de chômage, déficit budgétaire}}
          \end{itemize}
-      \item \textbf{Acyclique :} pas de relation claire avec le cycle
+      \item[] \textbf{Acyclique :} pas de relation claire avec le cycle
          \begin{itemize}
             \item[\textcolor{HECgray}{$\bullet$}] {\small\textcolor{HECgray}{Taux d'intérêt réel, inflation}}
          \end{itemize}
@@ -204,80 +131,168 @@
 \begin{frame}{L'investissement est plus volatil}
    \begin{figure}
       \centering
-      \includegraphics[width=0.85\textwidth, keepaspectratio]{cyclical_components_canada.png}
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{cyclical_components_canada.png}
    \end{figure}
 \end{frame}
 
 \begin{frame}[t]{Les prix et les salaires sont rigides}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Au niveau micro :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Le prix typique change tous les $\sim$8 mois
-            \item Probabilité qu'un prix change : 11--15\,\% par mois
-            \item Les salaires changent $\sim$1 fois par an
-            \item Baisses de salaires nominaux très rares
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{Au niveau macro :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item L'inflation ne réagit pleinement aux chocs qu'après 2--3 ans
-            \item Les biens à forte intensité de main-d'\oe uvre ont les prix les plus rigides
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      La rigidité des prix et des salaires explique pourquoi la courbe AS a une pente positive --- et pourquoi les chocs de demande ont un effet \textbf{réel} à court terme.
-   \end{keyinsight}
+   \textbf{Au niveau micro :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Durée moyenne d'un prix $\approx$ 8 mois
+      \item Probabilité qu'un prix change : 11--15\,\% par mois
+      \item Les salaires changent $\sim$1 fois par an
+      \item Baisses de salaires très rares
+      \item Les biens à forte intensité de main-d'\oe uvre ont les prix les plus rigides
+   \end{itemize}
+   \vspace{0.4cm}
+   \textbf{Au niveau macro :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item L'inflation ne réagit pleinement aux chocs qu'après 2--3 ans
+      \item Plus difficile à mesurer\ldots
+   \end{itemize}
 \end{frame}
 
 \begin{frame}{La courbe de Phillips}
-   \small
-   Corrélation négative entre inflation et chômage : quand le chômage baisse, l'inflation tend à augmenter (et inversement).
-   \vspace{0.1cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.75\textwidth, keepaspectratio]{phillips_curve_usa.png}
+      \includegraphics[width=0.85\textwidth, keepaspectratio]{phillips_curve_advanced.png}
    \end{figure}
 \end{frame}
 
 \begin{frame}[t]{La courbe de rendement inversée}
    \small
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{Normalement :} taux longs $>$ taux courts (compensation pour le risque et l'attente).
+   \textbf{Normalement :} taux longs $>$ taux courts (compensation pour le risque et l'attente).
 
-         \vspace{0.2cm}
-         \textbf{Inversion :} taux courts $>$ taux longs $\to$ les marchés anticipent des \textbf{baisses de taux} futures $\to$ récession attendue.
+   \vspace{0.25cm}
+   \textbf{Inversion :} taux courts $>$ taux longs $\to$ anticipations de \textbf{baisses de taux} futures.
 
-         \vspace{0.2cm}
-         \textbf{Pourquoi?} Le taux à 10 ans $\approx$ la moyenne des taux courts anticipés :
-         \begin{equation*}
-            i_{10} \approx \frac{i_{t,1} + i_{t+1,1} + \ldots + i_{t+9,1}}{10}
-         \end{equation*}
-         Si les marchés anticipent des baisses $\to$ $i_{10} < i_{1}$ $\to$ inversion.
-      \end{column}
-      \begin{column}{0.43\textwidth}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth, keepaspectratio]{yield_curve_usa.png}
-         \end{figure}
-      \end{column}
-   \end{columns}
+   \vspace{0.25cm}
+   \begin{defbox}[L'hypothèse des anticipations]
+      \vspace{-0.2cm}
+      \begin{equation*}
+         i_{10} \approx \frac{i_{t,1} + i_{t+1,1} + \ldots + i_{t+9,1}}{10}
+      \end{equation*}
+      \vspace{-0.3cm}
+      Si les marchés anticipent des baisses $\to$ $i_{10} < i_{1}$ $\to$ inversion.
+   \end{defbox}
+
+   \vspace{0.25cm}
+   \begin{bizimplication}[Signal pour les décideurs]
+      \footnotesize
+      Chaque récession depuis 1970 a été précédée d'une inversion de la courbe de rendement.
+   \end{bizimplication}
+\end{frame}
+
+\begin{frame}{La courbe de rendement inversée}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{yield_curve_usa.png}
+   \end{figure}
 \end{frame}
 
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Tendance, fluctuations et cycles}
+      \item {\color{gray!50}Faits saillants sur les cycles économiques}
+      \item \textbf{Tendance et fluctuations}
+      \item Le modèle AD-AS
+      \item Anatomie d'une récession
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Tendance et fluctuations}
+% ============================================================================
+
+\begin{frame}[t]{Long terme vs.\ court terme}
+   \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+         \quad \textbf{\textcolor{HECnavy}{Long terme} (Séances 2--3)}
+         \begin{equation*}
+            \textcolor{HECgreen}{Y_{\text{POT}}} = A \cdot K^{\alpha} \cdot \textcolor{HECgreen}{L_{\text{PE}}}^{1 - \alpha}
+         \end{equation*}
+         \vspace{-0.5cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $\textcolor{HECgreen}{L_{\text{PE}}}$ : niveau d'emploi de LT
+            \item $\textcolor{HECgreen}{Y_{\text{POT}}}$ : PIB potentiel
+            \item Marché de l'emploi en équilibre
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \quad \textbf{\textcolor{HECcoral}{Court terme} (Séances 4--5)}
+         \begin{equation*}
+            \textcolor{HECcoral}{Y} = A \cdot K^{\alpha} \cdot \textcolor{HECcoral}{L}^{1 - \alpha}
+         \end{equation*}
+         \vspace{-0.5cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item $\textcolor{HECcoral}{L}$ : niveau d'emploi de CT
+            \item $\textcolor{HECcoral}{Y}$ : PIB réel
+            \item Chômage ou surchauffe possible
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \begin{keyinsight}
+      Le niveau d'emploi de CT ($\textcolor{HECcoral}{L}$) flucture beaucoup, donc le PIB réel ($\textcolor{HECcoral}{Y}$) fluctue également autour de son potentiel ($\textcolor{HECgreen}{Y_{\text{POT}}}$). Pourquoi?
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Le taux de chômage \guillemotleft~naturel~\guillemotright}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{natural_unemployment_usa.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{PIB potentiel et écart de production}
+   \small
+   \begin{defbox}
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{PIB potentiel} ($Y^{\text{POT}}$) --- le niveau de production lorsque les facteurs sont utilisés à leur \textbf{capacité normale}. C'est la vitesse \guillemotleft~de croisière~\guillemotright.
+         \item \textbf{Écart de production} --- mesure l'écart (en \%) entre le PIB réel et potentiel :
+         \begin{equation*}
+            \text{Écart de production} = \frac{Y - Y^{\text{POT}}}{Y^{\text{POT}}} \times 100
+         \end{equation*}
+      \end{itemize}
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Récession :} écart négatif ($Y < Y^{\text{POT}}$)
+      \item \textbf{Surchauffe :} écart positif ($Y > Y^{\text{POT}}$)
+      \item \textbf{Plein emploi :} écart nul ($Y = Y^{\text{POT}}$)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Le PIB réel et potentiel du Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_potential.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{L'écart de production au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{output_gap_canada.png}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Faits saillants sur les cycles économiques}
+      \item {\color{gray!50}Tendance et fluctuations}
       \item \textbf{Le modèle AD-AS}
       \item Anatomie d'une récession
    \end{enumerate}
@@ -493,14 +508,14 @@
 \begin{frame}{Équilibre de court terme}
    \centering
    \begin{tikzpicture}[scale=1.3]
-      % AD
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {AD};
-      % OA_CT
+      % AD: y = -0.6x + 4.1
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8) node[right] {AD};
+      % AS: y = 0.6x + 0.5
       \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
-      % Intersection: AD y=4.13-0.66x, AS y=0.5+0.6x => x=2.88, y=2.23
-      \draw[dotted, very thick, HECgray] (2.88,0) node[below] {$Y^*$} -- (2.88,2.23);
-      \draw[dotted, very thick, HECgray] (0,2.23) node[left] {$P^*$} -- (2.88,2.23);
-      \filldraw[HECgreen] (2.88,2.23) circle (3pt);
+      % Intersection: -0.6x+4.1 = 0.6x+0.5 => x=3.0, y=2.3
+      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.3);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      \filldraw[HECgreen] (3.0,2.3) circle (3pt);
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
       \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
@@ -568,7 +583,8 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Tendance, fluctuations et cycles}
+      \item {\color{gray!50}Faits saillants sur les cycles économiques}
+      \item {\color{gray!50}Tendance et fluctuations}
       \item {\color{gray!50}Le modèle AD-AS}
       \item \textbf{Anatomie d'une récession}
    \end{enumerate}
@@ -579,28 +595,27 @@
 % ============================================================================
 
 \begin{frame}{Anatomie d'une récession}
-   \vspace{0.3cm}
    Analyser une récession comme un \textbf{incendie} en quatre étapes :
-   \vspace{0.5cm}
+   \vspace{0.3cm}
    \begin{enumerate}
-      \setlength\itemsep{0.4cm}
+      \setlength\itemsep{0.3cm}
       \item \textbf{Étincelle} --- ce qui déclenche la récession (\guillemotleft~le choc~\guillemotright)
       \item \textbf{Transmission} --- comment le choc se propage (AD, AS, ou les deux)
       \item \textbf{Carburant} --- ce qui amplifie la transmission
       \item \textbf{Pare-feu} --- la réponse politique visant à limiter les dégâts
    \end{enumerate}
-   \vspace{0.4cm}
-   \begin{bizimplication}
-      Nous allons appliquer ce cadre à \textbf{trois récessions} : 2020, 2008 et 2026.
+   \vspace{0.3cm}
+   \begin{bizimplication}[Application]
+      Nous allons appliquer ce cadre à \textbf{deux récessions} : 2020 et 2026?
    \end{bizimplication}
 \end{frame}
 
 \begin{frame}[t]{1.\ L'étincelle}
    \small
    Trois grands types de chocs déclenchent les récessions :
-   \vspace{0.3cm}
+   \vspace{0.25cm}
    \begin{enumerate}
-      \setlength\itemsep{0.35cm}
+      \setlength\itemsep{0.25cm}
       \item[\textcolor{HECnavy}{\textbf{A.}}] \textbf{Le faux pas} --- erreur de politique économique\\
          {\footnotesize\textcolor{HECgray}{Ex.\ : hausses de taux trop agressives, austérité prématurée}}
       \item[\textcolor{HECnavy}{\textbf{B.}}] \textbf{La gravité} --- ce qui monte doit redescendre\\
@@ -608,10 +623,11 @@
       \item[\textcolor{HECnavy}{\textbf{C.}}] \textbf{Le choc externe} --- événement imprévisible, exogène\\
          {\footnotesize\textcolor{HECgray}{Ex.\ : pandémie, embargo pétrolier, conflit géopolitique}}
    \end{enumerate}
-   \vspace{0.4cm}
+   \vspace{0.3cm}
    \textbf{\textcolor{HECnavy}{Discussion :}}
+   \vspace{0.1cm}
    \begin{itemize}
-      \setlength\itemsep{0.15cm}
+      \setlength\itemsep{0.1cm}
       \item Quelle étincelle pour la Grande Récession de 2008--09?
       \item Pour la récession de 2020?
    \end{itemize}
@@ -635,24 +651,22 @@
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
       \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-      % AS_LT
-      \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-         node[above] {AS$_{\text{LT}}$};
-      % AS_CT
-      \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS$_{\text{CT}}$};
-      % AD
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.5) node[right] {AD};
-      % Equilibrium
-      \filldraw[HECnavy] (3.0,2.2) circle (3pt);
-      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.2);
-      \draw[dotted, very thick, HECgray] (0,2.2) node[left] {$P^*$} -- (3.0,2.2);
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AS: y = 0.6x + 0.5
+      \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
+      % AD: y = -0.6x + 4.1
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8) node[right] {AD};
+      % Equilibrium at (3.0, 2.3)
+      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
+      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.3);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
    \end{tikzpicture}
-   \vspace{0.2cm}
-
-   {\large Comment le choc pandémique de 2020 s'est-il\\répercuté sur l'économie dans son ensemble?}
 \end{frame}
 
 \begin{frame}[t]{2.\ Transmission \textnormal{(2/3)} --- effondrement de la demande}
+   \vspace{0.5cm}
    \begin{columns}[c]
       \begin{column}{0.55\textwidth}
          \centering
@@ -660,30 +674,31 @@
             % Axes
             \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AS_LT
-            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-               node[above] {AS$_{\text{LT}}$};
-            % AS_CT
-            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS$_{\text{CT}}$};
-            % AD original (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
+            % Y_POT (vertical)
+            \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5
+            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
+            % AD original (dashed gray): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
                node[right, font=\footnotesize] {AD};
-            % AD shifted left
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
+            % AD' shifted left: y = -0.6x + 3.0
+            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
                node[right] {AD$'$};
-            % Shift arrow
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,1.6) -- (2.8,1.6);
-            % Original equilibrium (faded)
-            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
-            % New equilibrium
-            \filldraw[HECnavy] (2.2,1.65) circle (3pt);
-            \draw[dotted, very thick, HECgray] (2.2,0) node[below] {$Y'$} -- (2.2,1.65);
-            \draw[dotted, very thick, HECgray] (0,1.65) node[left] {$P'$} -- (2.2,1.65);
+            % Shift arrow (full span between AD and AD' at y=1.5)
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+            % Original equilibrium (faded) at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+            % New equilibrium: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[HECnavy] (2.08,1.75) circle (3pt);
+            \draw[dotted, very thick, HECgray] (2.08,0) node[below] {$Y'$} -- (2.08,1.75);
+            \draw[dotted, very thick, HECgray] (0,1.75) node[left] {$P'$} -- (2.08,1.75);
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
          \small
-         La demande agrégée s'effondre :
+         La \textbf{demande agrégée} s'effondre :
          \vspace{0.2cm}
          \begin{itemize}
             \setlength\itemsep{0.2cm}
@@ -691,7 +706,7 @@
             \item Baisse de la \textbf{consommation} ($C \downarrow$) --- impossibilité de dépenser, précaution
          \end{itemize}
          \vspace{0.3cm}
-         $\Rightarrow$ \textbf{AD se déplace vers la gauche}
+         \textbf{AD se déplace vers la gauche}
          \vspace{0.2cm}
 
          {\footnotesize\textcolor{HECgray}{Résultat partiel : $Y \downarrow$ et $P \downarrow$}}
@@ -700,6 +715,7 @@
 \end{frame}
 
 \begin{frame}[t]{2.\ Transmission \textnormal{(3/3)} --- un double choc rare}
+   \vspace{0.5cm}
    \begin{columns}[c]
       \begin{column}{0.55\textwidth}
          \centering
@@ -707,81 +723,77 @@
             % Axes
             \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
             \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AS_LT
-            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-               node[above] {AS$_{\text{LT}}$};
-            % AD original (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
+            % Y_POT (vertical)
+            \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AD original (dashed gray): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
                node[right, font=\footnotesize] {AD};
-            % AS_CT original (dashed gray)
+            % AS original (dashed gray): y = 0.6x + 0.5
             \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS$_{\text{CT}}$};
-            % AD shifted left
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
+               node[right, font=\footnotesize] {AS};
+            % AD' shifted left: y = -0.6x + 3.0
+            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
                node[right] {AD$'$};
-            % AS_CT shifted left
-            \draw[HECcoral, very thick] (0.0,1.8) -- (4.5,4.5)
-               node[right] {AS$_{\text{CT}}'$};
+            % AS' shifted left: y = 0.6x + 1.5
+            \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
+               node[right] {AS$'$};
             % Shift arrows
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.5) -- (2.5,1.5);
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.5,3.3) -- (2.5,3.3);
-            % Original equilibrium (faded)
-            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
-            % New equilibrium
-            \filldraw[HECgreen] (1.7,2.35) circle (3pt);
-            \draw[dotted, very thick, HECgray] (1.7,0) node[below] {$Y^{**}$} -- (1.7,2.35);
-            \draw[dotted, very thick, HECgray] (0,2.35) node[left] {$P^{**}$} -- (1.7,2.35);
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (2.5,3.0);
+            % Original equilibrium (faded) at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            % New equilibrium: AD' ∩ AS' at (1.25, 2.25)
+            \filldraw[HECgreen] (1.25,2.25) circle (3pt);
+            \draw[dotted, very thick, HECgray] (1.25,0) node[below] {$Y^{**}$} -- (1.25,2.25);
+            \draw[dotted, very thick, HECgray] (0,2.25) node[left] {$P^{**}$} -- (1.25,2.25);
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
          \small
-         L'offre aussi se contracte :
+         \textbf{L'offre agrégée} se contracte aussi :
          \vspace{0.15cm}
          \begin{itemize}
             \setlength\itemsep{0.15cm}
-            \item \textbf{Confinements} $\to$ fermeture de la production
+            \item \textbf{Confinements} $\to$ fermeture de la production (services)
             \item Perturbation des \textbf{chaînes d'approvisionnement}
          \end{itemize}
          \vspace{0.2cm}
-         $\Rightarrow$ \textbf{AS se déplace aussi vers la gauche}
+         \textbf{AS se déplace aussi vers la gauche}
          \vspace{0.2cm}
 
-         \textbf{Résultat :}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item $Y \downarrow\downarrow$ (chocs se renforcent)
-            \item $P$ ambigu (effets opposés)
-         \end{itemize}
+         {\footnotesize\textcolor{HECgray}{Résultat : $Y \downarrow\downarrow$ (chocs se renforcent) et $P$ ambigu (effets opposés)}}
       \end{column}
    \end{columns}
 \end{frame}
 
 \begin{frame}[t]{3.\ Le carburant en 2020}
    \small
+   \vspace{0.3cm}
    \begin{columns}[T]
       \begin{column}{0.48\textwidth}
          \textbf{Le carburant amplifie la transmission :}
          \vspace{0.15cm}
          \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item \underline{Accentue} le changement de comportement des acteurs
-            \item Peut transformer un ralentissement en \underline{récession majeure}
-            \item Façonne la \underline{reprise}
+            \setlength\itemsep{0.15cm}
+            \item \textbf{Accentue} le changement de comportement des acteurs
+            \item Peut transformer un ralentissement en \textbf{récession majeure}
          \end{itemize}
-         \vspace{0.2cm}
-         {\footnotesize\textcolor{HECgray}{Le carburant peut aussi être micro : dans quelle mesure \textit{mon} organisation est-elle exposée aux chocs macro?}}
       \end{column}
       \begin{column}{0.48\textwidth}
          \textbf{En 2020 :}
          \vspace{0.15cm}
          \begin{itemize}
-            \setlength\itemsep{0.2cm}
+            \setlength\itemsep{0.15cm}
             \item \textbf{Interdépendance mondiale} et complexification des chaînes d'approvisionnement
-            \item Effet \textbf{domino} amplifiant le choc initial
-            \item Production en \textit{just-in-time} $\to$ fragilité
+            \item \textit{Just-in-time} $\to$ fragilité
          \end{itemize}
       \end{column}
    \end{columns}
+   \vspace{0.3cm}
+   \begin{bizimplication}[Et au niveau micro?]
+      Dans quelle mesure \textit{mon} organisation est-elle exposée aux chocs macro?
+   \end{bizimplication}
 \end{frame}
 
 \begin{frame}{Le résultat : un effondrement record de l'emploi}
@@ -798,268 +810,145 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Une reprise mouvementée --- l'inflation de 2021--22}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Du côté de la demande :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Stimulus massif $\to$ AD bien au-delà de sa position initiale
-            \item Ménages avec une \guillemotleft~épargne forcée~\guillemotright\ accumulée
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{Du côté de l'offre :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Chaînes d'approvisionnement pas encore rétablies
-            \item Guerre en Ukraine (énergie, céréales) $\to$ AS $\leftarrow$
-            \item Retour lent des travailleurs
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      La demande a augmenté \textbf{plus vite} que l'offre. Le résultat : $Y$ a récupéré, mais $P$ a fortement augmenté.
-   \end{keyinsight}
+\begin{frame}{Pourquoi les prix baissent : AD domine AS}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AS original (dashed gray): y = 0.6x + 0.5
+      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD original (dashed gray): y = -0.6x + 4.1
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+         node[right, font=\footnotesize] {AD};
+      % AS' shifted left: y = 0.6x + 1.0
+      \draw[HECcoral, very thick] (0.5,1.3) -- (5.5,4.3)
+         node[right] {AS$'$};
+      % AD' shifted further left: y = -0.6x + 3.0
+      \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
+         node[right] {AD$'$};
+      % AD shift arrow (at y=1.5): from AD to AD'
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+      % AS shift arrow (at y=3.0): from AS to AS'
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (3.33,3.0);
+      % Original equilibrium (faded) at (3.0, 2.3)
+      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      % New equilibrium: AD' ∩ AS' at (1.67, 2.0)
+      % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
+      \filldraw[HECnavy] (1.67,2.0) circle (3pt);
+      \draw[dotted, very thick, HECgray] (1.67,0) node[below] {$Y'$} -- (1.67,2.0);
+      \draw[dotted, very thick, HECgray] (0,2.0) node[left] {$P'$} -- (1.67,2.0);
+   \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Que s'est-il passé ensuite?}
    \centering
-   \vspace{0.1cm}
-   \begin{tikzpicture}[scale=1.0]
+   \begin{tikzpicture}[scale=1.3]
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
       \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-      % AS_LT
-      \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-         node[above] {AS$_{\text{LT}}$};
-      % AD original (dashed gray)
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
-         node[right, font=\footnotesize] {AD};
-      % AS_CT original (dashed gray)
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AS original (dashed gray): y = 0.6x + 0.5
       \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS$_{\text{CT}}$};
-      % AD shifted left
-      \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
+         node[right, font=\footnotesize] {AS};
+      % AD original (dashed gray): y = -0.6x + 4.1
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+         node[right, font=\footnotesize] {AD};
+      % AS' shifted left: y = 0.6x + 1.0
+      \draw[HECcoral, very thick] (0.5,1.3) -- (5.5,4.3)
+         node[right] {AS$'$};
+      % AD' shifted further left: y = -0.6x + 3.0
+      \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
          node[right] {AD$'$};
-      % AS_CT shifted left
-      \draw[HECcoral, very thick] (0.0,1.8) -- (4.5,4.5)
-         node[right] {AS$_{\text{CT}}'$};
-      % Shift arrows
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.5) -- (2.5,1.5);
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.5,3.3) -- (2.5,3.3);
-      % Original equilibrium (faded)
-      \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
-      % Post-shock equilibrium
-      \filldraw[HECgreen] (1.7,2.35) circle (3pt);
-      % Question mark annotation
-      \node[font=\Large\bfseries, HECnavy] at (4.8,3.8) {?};
+      % AD shift arrow (at y=1.5): from AD to AD'
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+      % AS shift arrow (at y=3.0): from AS to AS'
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (3.33,3.0);
+      % Original equilibrium (faded) at (3.0, 2.3)
+      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      % New equilibrium: AD' ∩ AS' at (1.67, 2.0)
+      % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
+      \filldraw[HECnavy] (1.67,2.0) circle (3pt);
+      \draw[dotted, very thick, HECgray] (1.67,0) node[below] {$Y'$} -- (1.67,2.0);
+      \draw[dotted, very thick, HECgray] (0,2.0) node[left] {$P'$} -- (1.67,2.0);
    \end{tikzpicture}
-   \vspace{0.3cm}
-
-   {\large\textbf{Comment les décideurs économiques ont-ils réagi?}}\\[6pt]
-   {\small\textcolor{HECgray}{4.\ Pare-feu (politique monétaire et budgétaire) $\to$ Séance 5}}
 \end{frame}
 
-% --- Application : La Grande Récession de 2008 ---
+
+% --- Application : Guerre en Iran (2026) ---
 {
 \setbeamertemplate{footline}{}
 \begin{frame}{}
    \centering
    \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application : La Grande Récession de 2008}}}\\[12pt]
-   {\large\textcolor{HECgray}{Étincelle : gravité (type B) --- bulle immobilière}}
+   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
+   {\LARGE\textbf{\textcolor{HECnavy}{Guerre en Iran (2026)}}}\\[12pt]
+   {\large\textcolor{HECgray}{Un choc d'offre en temps réel}}
 \end{frame}
 }
 
-\begin{frame}[t]{2008 : L'étincelle et la transmission}
+\begin{frame}[t]{Le coût macroéconomique des chocs pétroliers}
    \small
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{1.\ Étincelle : la gravité}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Bulle immobilière aux É.-U.\ (prêts \textit{subprime})
-            \item Les prix des maisons s'effondrent à partir de 2007
-         \end{itemize}
-         \vspace{0.3cm}
-         \textbf{2.\ Transmission :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Destruction de richesse $\to$ $C \downarrow$
-            \item Gel du crédit $\to$ $I \downarrow$
-            \item $\Rightarrow$ \textbf{AD $\leftarrow$} (choc de demande)
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.50\textwidth}
-         \centering
-         \vspace{0.2cm}
-         \begin{tikzpicture}[scale=0.95]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AS_LT
-            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-               node[above] {AS$_{\text{LT}}$};
-            % AS_CT
-            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
-            % AD original (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
-               node[right, font=\footnotesize] {AD};
-            % AD shifted left
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
-               node[right] {AD$'$};
-            % Shift arrow
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,1.6) -- (2.8,1.6);
-            % Original equilibrium (faded)
-            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
-            % New equilibrium
-            \filldraw[HECnavy] (2.2,1.65) circle (3pt);
-            \draw[dotted, very thick, HECgray] (2.2,0) node[below] {$Y'$} -- (2.2,1.65);
-            \draw[dotted, very thick, HECgray] (0,1.65) node[left] {$P'$} -- (2.2,1.65);
-         \end{tikzpicture}
-
-         {\footnotesize\textcolor{HECgray}{$Y \downarrow$ et $P \downarrow$ : choc de demande pur}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{2008 : Le carburant --- contagion financière}
-   \small
-   Ce qui a transformé un problème immobilier américain en \textbf{crise mondiale} :
-   \vspace{0.2cm}
+   \begin{defbox}[Règle approximative (FMI, Fed, BCE)]
+      Hausse \textbf{persistante} de 10\,\% du prix du pétrole $\to$ PIB $-$\textbf{0.3 pp}, inflation $+$\textbf{0.4 pp}.
+   \end{defbox}
+   \vspace{0.1cm}
    \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Levier financier excessif} --- banques et ménages surendettés
-      \item \textbf{Contagion} --- faillite de Lehman Brothers (sept.\ 2008) $\to$ panique mondiale
-      \item \textbf{Interconnexion bancaire} --- \textit{too big to fail}
-      \item \textbf{Produits dérivés} --- prêts hypothécaires titrisés (CDOs, CDS) $\to$ risque opaque
+      \setlength\itemsep{0.15cm}
+      \item[$\bullet$] \textbf{1973} (embargo OPEP, +300\,\%) : PIB É.-U.\ $-4.7$\,\%, Japon $-7$\,\%
+      \item[$\bullet$] \textbf{1979} (révolution iranienne, +160\,\%) : PIB mondial $-3$\,\%
    \end{itemize}
-   \vspace{0.2cm}
-   \begin{warning}
-      Le carburant (contagion financière) a transformé un problème \textbf{sectoriel} en crise \textbf{systémique} mondiale.
-   \end{warning}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Asymétrie de Hamilton]
+      Les hausses du pétrole font \textbf{plus de mal} que les baisses ne font de bien.
+   \end{bizimplication}
 \end{frame}
 
-\begin{frame}[t]{2008 : Le résultat --- une reprise lente}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth, keepaspectratio]{employment_recovery.png}
-         \end{figure}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \vspace{0.3cm}
-         \small
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Récession la plus profonde depuis la Grande Dépression
-            \item Reprise de l'emploi : \textbf{27 mois} au Canada (2008)
-            \item Contraste avec 2020 : reprise en \textbf{19 mois} malgré un choc plus brutal
-         \end{itemize}
-         \vspace{0.15cm}
-         \begin{keyinsight}
-            Le carburant façonne la reprise : contagion $\to$ lente; interdépendance $\to$ rapide.
-         \end{keyinsight}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% --- Application : Iran, pétrole et tarifs (2026) ---
+% --- Headline slide: Iran/Hormuz crisis ---
 {
 \setbeamertemplate{footline}{}
 \begin{frame}{}
-   \centering
-   \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application : Iran, pétrole et tarifs (2026)}}}\\[12pt]
-   {\large\textcolor{HECgray}{Étincelle : choc externe (type C) --- double choc}}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Trump's Iran War Pushes World to the Brink of an Energy Crisis~\guillemotright}
+      \newsheadline[washpost]{Washington Post}{\guillemotleft~Iran strikes stall traffic in Strait of Hormuz, rattling world markets~\guillemotright}
+      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Tanker attack in the northern Persian Gulf boosts oil and gas prices~\guillemotright}
+      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~Vers ``le scénario le plus toxique'' pour l'industrie pétrolière?~\guillemotright}
+      \newsheadline[ft]{Financial Times}{\guillemotleft~Iran war triggers aluminium supply crunch and shutdowns across Middle East~\guillemotright}
+      \newsheadline[economist]{The Economist}{\guillemotleft~The nightmare Iran energy scenario is becoming reality~\guillemotright}
+   \end{tikzpicture}
 \end{frame}
 }
 
-\begin{frame}[t]{2026 : L'étincelle --- un double choc externe}
-   \small
-   \textbf{Choc \#1 --- Conflit Iran / détroit d'Ormuz :}
-   \vspace{0.1cm}
+\begin{frame}[t]{28 février 2026 : Opération \textit{Epic Fury}}
+   \footnotesize
+   \textbf{L'étincelle :}
    \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item 28 février 2026 : frappes américano-israéliennes, riposte iranienne
-      \item $\sim$20\,\% de l'approvisionnement mondial en pétrole passe par Ormuz
-      \item Brent : $\sim$73\,\$ $\to$ $\sim$80--82\,\$ (+13\,\%); scénarios de 100\,\$+ si prolongé
+      \setlength\itemsep{0.05cm}
+      \item[$\bullet$] Frappes coordonnées É.-U./Israël sur les sites nucléaires iraniens
+      \item[$\bullet$] L'Iran riposte : 500+ missiles balistiques, 2\,000+ drones sur la région
+      \item[$\bullet$] Frappes sur Dubaï, Abu Dhabi, Doha; QatarEnergy suspend sa production de GNL
    \end{itemize}
-   \vspace{0.2cm}
-   \textbf{Choc \#2 --- Tarifs Trump :}
    \vspace{0.1cm}
+   \textbf{Le blocage d'Ormuz :}
    \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Tarif global de $\sim$15\,\%, représailles commerciales
-      \item Incertitude massive $\to$ report des décisions d'investissement
+      \setlength\itemsep{0.05cm}
+      \item[$\bullet$] $\sim$20\,\% du pétrole mondial transite par le détroit (20~M barils/jour)
+      \item[$\bullet$] Les assureurs retirent la couverture de risque de guerre $\to$ transit impossible
+      \item[$\bullet$] Maersk, Hapag-Lloyd suspendent tout passage; le trafic tombe à $\sim$zéro
    \end{itemize}
-   \vspace{0.2cm}
-   \begin{warning}
-      Contrairement à 2020 : pas de confinement $\to$ l'offre de \textbf{travail} reste intacte. Mais les \textbf{coûts} augmentent et la \textbf{confiance} s'effondre.
+   \vspace{0.1cm}
+   \begin{warning}[Choc d'offre $\neq$ choc de demande]
+      En 2020, la demande s'est effondrée $\to$ désinflation. Ici, c'est l'\textbf{offre} qui se contracte $\to$ \textbf{stagflation} (prix $\uparrow$, production $\downarrow$).
    \end{warning}
-\end{frame}
-
-\begin{frame}[t]{2026 : Transmission et carburant}
-   \begin{columns}[c]
-      \begin{column}{0.52\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=0.95]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AS_LT
-            \draw[HECgreen, very thick, dashed] (3.0,0.3) -- (3.0,4.2)
-               node[above] {AS$_{\text{LT}}$};
-            % AD original (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.5)
-               node[right, font=\footnotesize] {AD};
-            % AS_CT original (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD shifted left (tariffs + uncertainty)
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.2)
-               node[right] {AD$'$};
-            % AS_CT shifted left (oil + tariff costs)
-            \draw[HECcoral, very thick] (0.0,1.8) -- (4.5,4.5)
-               node[right] {AS$'$};
-            % Shift arrows
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.5) -- (2.5,1.5);
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.5,3.3) -- (2.5,3.3);
-            % Original equilibrium (faded)
-            \filldraw[HECgray] (3.0,2.2) circle (2.5pt);
-            % New equilibrium
-            \filldraw[HECgreen] (1.7,2.35) circle (3pt);
-            \node[font=\footnotesize, below left] at (1.7,2.35) {$Y \downarrow\downarrow$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.45\textwidth}
-         \small
-         \textbf{Transmission :}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item AS $\leftarrow$ : coûts énergétiques + tarifs
-            \item AD $\leftarrow$ : incertitude + baisse du commerce
-         \end{itemize}
-         \vspace{0.15cm}
-         \textbf{Carburant :}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Dépendance au transit pétrolier (Ormuz)
-            \item Chaînes d'approvisionnement mondiales
-            \item Représailles commerciales en cascade
-         \end{itemize}
-         \vspace{0.1cm}
-         {\scriptsize\textcolor{HECgray}{Comme en 2020 : double choc. Mais coûts, pas confinement.}}
-      \end{column}
-   \end{columns}
 \end{frame}
 
 \begin{frame}{Le prix du Brent autour de l'opération Epic Fury}
@@ -1069,25 +958,78 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Leçons des trois récessions}
-   \vspace{0.1cm}
+\begin{frame}{2026 : AS domine $\to$ stagflation}
    \centering
-   \footnotesize
-   \renewcommand{\arraystretch}{1.4}
-   \begin{tabularx}{0.98\textwidth}{>{\bfseries}l X X X}
-      \toprule
-      & \textbf{2008} & \textbf{2020} & \textbf{2026} \\
-      \midrule
-      Étincelle & Gravité (bulle immobilière) & Choc externe (pandémie) & Choc externe (guerre + tarifs) \\
-      Transmission & AD $\leftarrow$ & AD $\leftarrow$ + AS $\leftarrow$ & AS $\leftarrow$ + AD $\leftarrow$ \\
-      Carburant & Contagion financière, levier excessif & Interdépendance, \textit{just-in-time} & Chaînes d'approv., incertitude \\
-      Résultat & Récession profonde, reprise lente & Effondrement brutal, reprise rapide & En cours\ldots \\
-      \bottomrule
-   \end{tabularx}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      Chaque récession a la même structure (étincelle $\to$ transmission $\to$ carburant), mais des \textbf{ingrédients différents}. Le carburant détermine la \textbf{sévérité} et la \textbf{vitesse de reprise}.
-   \end{keyinsight}
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AD original (dashed gray): y = -0.6x + 4.1
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+         node[right, font=\footnotesize] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5
+      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD' shifted slightly left: y = -0.6x + 3.7
+      \draw[HECnavy, very thick] (0.2,3.58) -- (5.5,0.4)
+         node[right] {AD$'$};
+      % AS' shifted a lot left: y = 0.6x + 1.5
+      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
+         node[right] {AS$'$};
+      % Small AD shift arrow
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.8,1.4);
+      \node[font=\footnotesize, HECnavy, above] at (4.15,1.4) {\textit{peu}};
+      % Large AS shift arrow
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.8,3.2);
+      \node[font=\footnotesize, HECcoral, above] at (3.65,3.2) {\textbf{beaucoup}};
+      % Original equilibrium at (3.0, 2.3)
+      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      % New equilibrium: AD' ∩ AS' → x=1.83, y=2.60
+      \filldraw[HECcoral] (1.83,2.60) circle (3pt);
+      \draw[dotted, very thick, HECgray] (1.83,0) node[below] {$Y'$} -- (1.83,2.60);
+      \draw[dotted, very thick, HECgray] (0,2.60) node[left] {$P'$} -- (1.83,2.60);
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Comment réagir face à une telle crise?}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AD original (dashed gray): y = -0.6x + 4.1
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+         node[right, font=\footnotesize] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5
+      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD' shifted slightly left: y = -0.6x + 3.7
+      \draw[HECnavy, very thick] (0.2,3.58) -- (5.5,0.4)
+         node[right] {AD$'$};
+      % AS' shifted a lot left: y = 0.6x + 1.5
+      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
+         node[right] {AS$'$};
+      % Small AD shift arrow
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.8,1.4);
+      \node[font=\footnotesize, HECnavy, above] at (4.15,1.4) {\textit{peu}};
+      % Large AS shift arrow
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.8,3.2);
+      \node[font=\footnotesize, HECcoral, above] at (3.65,3.2) {\textbf{beaucoup}};
+      % Original equilibrium at (3.0, 2.3)
+      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      % New equilibrium: AD' ∩ AS' → x=1.83, y=2.60
+      \filldraw[HECcoral] (1.83,2.60) circle (3pt);
+      \draw[dotted, very thick, HECgray] (1.83,0) node[below] {$Y'$} -- (1.83,2.60);
+      \draw[dotted, very thick, HECgray] (0,2.60) node[left] {$P'$} -- (1.83,2.60);
+   \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Que faire face à une récession?}
@@ -1103,7 +1045,7 @@
    \end{enumerate}
    \vspace{0.3cm}
    \begin{keyinsight}
-      L'économie peut se corriger seule, mais \textbf{attendre coûte trop cher} (chômage, faillites, perte de capital humain). C'est le fondement de la politique contracyclique $\to$ \textbf{Séance 5}.
+      L'économie peut se corriger seule, mais \textbf{attendre coûte cher} (chômage, faillites). C'est le fondement de la politique contracyclique $\to$ \textbf{Séance 5}.
    \end{keyinsight}
 \end{frame}
 
