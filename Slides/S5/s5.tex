@@ -77,19 +77,21 @@
    \end{keyinsight}
 \end{frame}
 
+\tikzset{
+   casebox/.style={rectangle, rounded corners=8pt, draw=#1, line width=0.8pt,
+                   fill=#1!8, minimum width=3.2cm, minimum height=1cm,
+                   align=center, font=\small, inner sep=5pt},
+   casearr/.style={->, >=stealth, line width=1.2pt, #1},
+}
 \begin{frame}{2020--2022 : un cas d'\'{e}tude grandeur nature}
    \vspace{0.2cm}
    \centering
-   \begin{tikzpicture}[
-      box/.style={rectangle, rounded corners=8pt, draw=#1, line width=0.8pt,
-                  fill=#1!8, minimum width=3.2cm, minimum height=1cm,
-                  align=center, font=\small, inner sep=5pt},
-      arr/.style={->, >=stealth, line width=1.2pt, #1}]
-      \node[box=HECnavy] (a) at (0,0) {\textbf{2020}\\Pand\'{e}mie\\$Y \downarrow\downarrow$};
-      \node[box=HECgreen] (b) at (4.5,0) {\textbf{2020--21}\\Relance massive\\BdC $\downarrow$ taux \`{a} 0.25\,\%\\PCU, QE};
-      \node[box=HECcoral] (c) at (9,0) {\textbf{2022}\\Inflation \`{a} 8\,\%\\BdC $\uparrow$ taux\\de 0.25 \`{a} 5\,\%};
-      \draw[arr=HECnavy] (a) -- (b);
-      \draw[arr=HECgreen] (b) -- (c);
+   \begin{tikzpicture}
+      \node[casebox=HECnavy] (a) at (0,0) {\textbf{2020}\\Pand\'{e}mie\\$Y \downarrow\downarrow$};
+      \node[casebox=HECgreen] (b) at (4.5,0) {\textbf{2020--21}\\Relance massive\\BdC $\downarrow$ taux \`{a} 0.25\,\%\\PCU, QE};
+      \node[casebox=HECcoral] (c) at (9,0) {\textbf{2022}\\Inflation \`{a} 8\,\%\\BdC $\uparrow$ taux\\de 0.25 \`{a} 5\,\%};
+      \draw[casearr=HECnavy] (a) -- (b);
+      \draw[casearr=HECgreen] (b) -- (c);
    \end{tikzpicture}
    \vspace{0.3cm}
    \begin{keyinsight}

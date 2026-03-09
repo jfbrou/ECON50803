@@ -43,30 +43,6 @@ def overnight_rate_ca():
         if start >= pd.Timestamp('1996-01-01'):
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
-    # ── Annotations ─────────────────────────────────────────────────
-    # Post-2008 near-zero
-    ax.annotate(r'Taux quasi nul apr\`{e}s 2008',
-                xy=(pd.Timestamp('2010-06-01'), 0.5),
-                xytext=(pd.Timestamp('2005-01-01'), 5.5),
-                fontsize=9, color=palette[7],
-                arrowprops=dict(arrowstyle='->', color=palette[7], lw=1.2))
-
-    # COVID cut
-    ax.annotate(r'COVID : 0.25\%',
-                xy=(pd.Timestamp('2020-04-01'), 0.25),
-                xytext=(pd.Timestamp('2016-01-01'), 1.8),
-                fontsize=9, color=palette[2], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.2))
-
-    # 2022-23 hiking cycle peak
-    peak_date = rate.loc['2022-01-01':].idxmax()
-    peak_val = rate.loc[peak_date]
-    ax.annotate(f'{peak_val:.1f}\\%',
-                xy=(peak_date, peak_val),
-                xytext=(peak_date - pd.DateOffset(years=3), peak_val + 0.5),
-                fontsize=10, color=palette[2], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
-
     # ── Axis formatting ─────────────────────────────────────────────
     ax.set_xlim(pd.Timestamp('1996-01-01'), rate.index.max())
     xticks = list(range(1996, 2028, 2))
