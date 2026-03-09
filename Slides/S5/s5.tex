@@ -48,7 +48,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item \textbf{Comment combattre les r\'{e}cessions\,?}
+      \item \textbf{Pourquoi combattre les r\'{e}cessions\,?}
       \item La politique mon\'{e}taire conventionnelle
       \item D\'{e}fis et limites de la politique mon\'{e}taire
       \item La politique mon\'{e}taire non conventionnelle
@@ -58,19 +58,294 @@
 \end{frame}
 
 % ============================================================================
-\sectionframe{Comment combattre les r\'{e}cessions\,?}
+\sectionframe{Pourquoi combattre les r\'{e}cessions\,?}
 % ============================================================================
 
-\begin{frame}{Rappel de la S\'{e}ance 4}
-   \vspace{0.3cm}
-   \textbf{L'\'{e}conomie peut se corriger seule, mais attendre co\^{u}te cher :}
+\begin{frame}[t]{L'\'{e}conomie peut-elle se corriger seule\,?}
    \vspace{0.2cm}
+   \begin{defbox}[Rappel de la S\'{e}ance 4]
+      Les chocs de demande et d'offre \'{e}loignent $Y$ de $Y_{\text{POT}}$. Mais \textbf{AD} a une pente n\'{e}gative (effet de richesse) et \textbf{AS} a une pente positive (salaires rigides \`{a} court terme). Ces pentes cr\'{e}ent-elles un m\'{e}canisme de retour automatique\,?
+   \end{defbox}
+   \vspace{0.3cm}
    \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item $Y < Y_{\text{POT}}$ $\to$ ch\^{o}mage \'{e}lev\'{e}, faillites, perte de capital humain
-      \item L'ajustement naturel (salaires $\downarrow$ $\to$ AS se d\'{e}place) prend des \textbf{ann\'{e}es}
-      \item Les coûts sociaux s'accumulent pendant l'attente
+      \setlength\itemsep{0.3cm}
+      \item La question centrale : l'\'{e}conomie a-t-elle \textbf{besoin} d'une intervention, ou les prix et salaires peuvent-ils faire le travail\,?
+      \item Si oui, \textbf{par quel m\'{e}canisme}\,? Et \`{a} quelle vitesse\,?
    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Le m\'{e}canisme d'ajustement naturel}
+   \small
+   \vspace{0.1cm}
+   AS a une pente positive parce que les \textbf{salaires nominaux sont rigides} \`{a} court terme. Mais ils ne le sont pas \textbf{pour toujours} :
+   \vspace{0.15cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECnavy}{R\'{e}cession} ($Y < Y_{\text{POT}}$)}
+         \vspace{0.1cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.08cm}
+            \item Ch\^{o}mage \'{e}lev\'{e}
+            \item Travailleurs perdent du pouvoir de n\'{e}gociation
+            \item Salaires nominaux finissent par $\downarrow$
+            \item Co\^{u}ts de production $\downarrow$
+            \item[\textcolor{HECnavy}{$\Rightarrow$}] \textbf{AS se d\'{e}place vers la droite}
+         \end{enumerate}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECcoral}{Surchauffe} ($Y > Y_{\text{POT}}$)}
+         \vspace{0.1cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.08cm}
+            \item March\'{e} du travail tendu
+            \item Travailleurs n\'{e}gocient des hausses
+            \item Salaires nominaux $\uparrow$
+            \item Co\^{u}ts de production $\uparrow$
+            \item[\textcolor{HECcoral}{$\Rightarrow$}] \textbf{AS se d\'{e}place vers la gauche}
+         \end{enumerate}
+      \end{column}
+   \end{columns}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      C'est le \textbf{niveau des salaires nominaux} qui d\'{e}termine la position de AS. Quand les salaires s'ajustent, AS se d\'{e}place --- et l'\'{e}conomie revient vers $Y_{\text{POT}}$.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Choc de demande n\'{e}gatif : le choc}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5
+            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD original (dashed): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AD' shifted left: y = -0.6x + 3.0
+            \draw[HECcoral, very thick] (0.0,3.0) -- (4.5,0.3)
+               node[right] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above right] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % Shock arrow (AD → AD') at y=1.3: AD at x=4.67, AD' at x=2.83
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,1.3) -- (3.0,1.3);
+            \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {Choc};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
+            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+            \draw[dotted, thick, HECcoral] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Court terme :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.15cm}
+            \item Choc n\'{e}gatif $\to$ AD se d\'{e}place \`{a} gauche
+            \item Nouvel \'{e}quilibre $E_1$ : production $\downarrow$, prix $\downarrow$
+            \item $Y_1 < Y_{\text{POT}}$ $\to$ r\'{e}cession
+         \end{enumerate}
+         \vspace{0.3cm}
+         \textcolor{HECgray}{\footnotesize L'\'{e}conomie est en dessous de son potentiel. Que se passe-t-il ensuite\,?}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Choc de demande n\'{e}gatif : l'ajustement naturel}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS original (dashed): y = 0.6x + 0.5
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD' (solid, the new demand): y = -0.6x + 3.0
+            \draw[HECcoral, thick] (0.0,3.0) -- (4.5,0.3)
+               node[right, font=\footnotesize] {AD$'$};
+            % AS' shifted right: y = 0.6x - 0.6 (passes through Y_POT at P=1.2)
+            \draw[HECnavy, very thick] (1.2,0.12) -- (5.5,2.7)
+               node[right, font=\footnotesize] {AS$'$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % E_LR: AD' ∩ AS' at (3.0, 1.2)
+            \filldraw[HECnavy] (3.0,1.2) circle (3pt);
+            \node[font=\scriptsize, HECnavy, below right] at (3.0,1.2) {$E_{LR}$};
+            % AS adjustment arrow (AS → AS') at x=4.5: AS at y=3.2, AS' at y=2.1
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,3.2) -- (4.5,2.1);
+            \node[font=\scriptsize, HECnavy, right] at (4.55,2.65) {$w\downarrow$};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
+            \draw[dotted, thick, HECnavy] (0,1.2) node[left, font=\footnotesize] {$P_{LR}$} -- (3.0,1.2);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Long terme :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item $Y_1 < Y_{\text{POT}}$ $\to$ ch\^{o}mage \'{e}lev\'{e}
+            \item Travailleurs perdent du pouvoir de n\'{e}gociation
+            \item Salaires nominaux $\downarrow$ $\to$ co\^{u}ts $\downarrow$
+            \item AS se d\'{e}place vers la droite
+            \item Retour \`{a} $Y_{\text{POT}}$ au prix $P_{LR}$
+         \end{enumerate}
+         \vspace{0.2cm}
+         \textcolor{HECgray}{\footnotesize M\^{e}me niveau de production, mais prix plus bas.}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Choc de demande positif : le choc}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5
+            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD original (dashed): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AD' shifted right: y = -0.6x + 5.2
+            \draw[HECcoral, very thick] (1.5,4.3) -- (5.5,1.9)
+               node[right] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (3.92, 2.85)
+            \filldraw[HECcoral] (3.92,2.85) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above left] at (3.92,2.85) {$E_1$};
+            % Shock arrow (AD → AD') at y=3.2: AD at x=1.5, AD' at x=3.33
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (1.7,3.2) -- (3.1,3.2);
+            \node[font=\scriptsize, HECcoral, above] at (2.4,3.2) {Choc};
+            % Dotted reference lines
+            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+            \draw[dotted, thick, HECcoral] (3.92,0) node[below, font=\footnotesize] {$Y_1$} -- (3.92,2.85);
+            \draw[dotted, thick, HECcoral] (0,2.85) node[left, font=\footnotesize] {$P_1$} -- (3.92,2.85);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Court terme :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.15cm}
+            \item Choc positif $\to$ AD se d\'{e}place \`{a} droite
+            \item Nouvel \'{e}quilibre $E_1$ : production $\uparrow$, prix $\uparrow$
+            \item $Y_1 > Y_{\text{POT}}$ $\to$ surchauffe
+         \end{enumerate}
+         \vspace{0.3cm}
+         \textcolor{HECgray}{\footnotesize L'\'{e}conomie d\'{e}passe son potentiel. Que se passe-t-il ensuite\,?}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Choc de demande positif : l'ajustement naturel}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS original (dashed): y = 0.6x + 0.5
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD' (solid, the new demand): y = -0.6x + 5.2
+            \draw[HECcoral, thick] (1.5,4.3) -- (5.5,1.9)
+               node[right, font=\footnotesize] {AD$'$};
+            % AS' shifted left: y = 0.6x + 1.6 (passes through Y_POT at P=3.4)
+            \draw[HECnavy, very thick] (0.5,1.9) -- (4.8,4.48)
+               node[right, font=\footnotesize] {AS$'$};
+            % E1: AD' ∩ AS at (3.92, 2.85)
+            \filldraw[HECcoral] (3.92,2.85) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, below right] at (3.92,2.85) {$E_1$};
+            % E_LR: AD' ∩ AS' at (3.0, 3.4)
+            \filldraw[HECnavy] (3.0,3.4) circle (3pt);
+            \node[font=\scriptsize, HECnavy, above left] at (3.0,3.4) {$E_{LR}$};
+            % AS adjustment arrow (AS → AS')
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (1.5,1.4) -- (1.5,2.5);
+            \node[font=\scriptsize, HECnavy, left] at (1.45,1.95) {$w\uparrow$};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (3.92,0) node[below, font=\footnotesize] {$Y_1$} -- (3.92,2.85);
+            \draw[dotted, thick, HECnavy] (0,3.4) node[left, font=\footnotesize] {$P_{LR}$} -- (3.0,3.4);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Long terme :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item $Y_1 > Y_{\text{POT}}$ $\to$ march\'{e} du travail tendu
+            \item Travailleurs n\'{e}gocient des hausses
+            \item Salaires nominaux $\uparrow$ $\to$ co\^{u}ts $\uparrow$
+            \item AS se d\'{e}place vers la gauche
+            \item Retour \`{a} $Y_{\text{POT}}$ au prix $P_{LR}$
+         \end{enumerate}
+         \vspace{0.2cm}
+         \textcolor{HECgray}{\footnotesize M\^{e}me niveau de production, mais prix plus \'{e}lev\'{e}s.}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Pourquoi ne pas laisser faire\,?}
+   \vspace{0.2cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECnavy}{L'ajustement est lent}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Prix : dur\'{e}e m\'{e}diane de 8 mois entre deux changements
+            \item Salaires : r\'{e}vis\'{e}s $\sim$1 fois par an (conventions, contrats)
+            \item Ajustement complet : \textbf{2 \`{a} 3 ans}
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECcoral}{Les r\'{e}cessions sont co\^{u}teuses}}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Ch\^{o}mage massif, faillites
+            \item Perte de capital humain
+            \item Hyst\'{e}r\`{e}se : effets \textbf{permanents}
+            \item Co\^{u}ts sociaux (sant\'{e}, criminalit\'{e})
+         \end{itemize}
+      \end{column}
+   \end{columns}
    \vspace{0.3cm}
    \begin{keyinsight}
       C'est le fondement de la \textbf{politique contracyclique} : intervenir pour acc\'{e}l\'{e}rer le retour vers $Y_{\text{POT}}$.
@@ -168,47 +443,6 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}{La r\'{e}ponse politique dans le mod\`{e}le AD-AS}
-   \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-      % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD original (dashed): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AD' shifted left (recession): y = -0.6x + 3.0
-      \draw[HECcoral, very thick] (0.0,3.0) -- (4.5,0.3)
-         node[right] {AD$'$};
-      % AD'' policy response (close to original but not identical): y = -0.6x + 3.8
-      \draw[HECnavy, very thick] (0.3,3.62) -- (5.5,0.5)
-         node[right] {AD$''$};
-      % Choc arrow (higher, more visible)
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (3.8,2.4) -- (2.4,2.4);
-      \node[font=\scriptsize, HECcoral, above] at (3.1,2.4) {Choc};
-      % Policy arrow (lower, more visible)
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (2.2,0.8) -- (3.6,0.8);
-      \node[font=\scriptsize, HECnavy, below] at (2.9,0.8) {Politique};
-      % Original equilibrium at AD ∩ AS: (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \node[font=\scriptsize, HECgray, above right] at (3.0,2.3) {$E_0$};
-      % Recession equilibrium at AD' ∩ AS: (2.08, 1.75)
-      \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
-      \node[font=\scriptsize, HECcoral, below left] at (2.08,1.75) {$E_1$};
-      % New equilibrium at AD'' ∩ AS: (2.75, 2.15)
-      \filldraw[HECnavy] (2.75,2.15) circle (3pt);
-      \node[font=\scriptsize, HECnavy, above left] at (2.75,2.15) {$E_2$};
-      % Dotted reference lines
-      \draw[dotted, very thick, HECgray] (2.08,0) node[below, font=\footnotesize] {$Y'$} -- (2.08,1.75);
-   \end{tikzpicture}
-\end{frame}
-
 \begin{frame}{Le dilemme du choc d'offre}
    \vspace{0.2cm}
    \small
@@ -231,7 +465,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Comment combattre les r\'{e}cessions\,?}
+      \item {\color{gray!50}Pourquoi combattre les r\'{e}cessions\,?}
       \item \textbf{La politique mon\'{e}taire conventionnelle}
       \item D\'{e}fis et limites de la politique mon\'{e}taire
       \item La politique mon\'{e}taire non conventionnelle
@@ -376,9 +610,9 @@
       % AD'' (after policy): y = -0.6x + 3.8
       \draw[HECnavy, very thick] (0.3,3.62) -- (5.5,0.5)
          node[right] {AD$''$};
-      % Policy arrow
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (2.0,1.4) -- (3.6,1.4);
-      \node[font=\scriptsize, HECnavy, above] at (2.8,1.4) {$\downarrow$ taux};
+      % Policy arrow at y=0.8: AD' at x=3.67, AD'' at x=5.0
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,0.8) -- (4.8,0.8);
+      \node[font=\scriptsize, HECnavy, above] at (4.3,0.8) {$\downarrow$ taux};
       % Equilibria
       \filldraw[HECgray] (2.08,1.75) circle (2pt);
       \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
@@ -432,7 +666,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Comment combattre les r\'{e}cessions\,?}
+      \item {\color{gray!50}Pourquoi combattre les r\'{e}cessions\,?}
       \item {\color{gray!50}La politique mon\'{e}taire conventionnelle}
       \item \textbf{D\'{e}fis et limites de la politique mon\'{e}taire}
       \item La politique mon\'{e}taire non conventionnelle
@@ -504,9 +738,9 @@
       % AD' shifted far right (massive stimulus): y = -0.6x + 5.2
       \draw[HECcoral, very thick] (1.5,4.3) -- (6.2,0.48)
          node[right] {AD$_{2021}$};
-      % Stimulus arrow
-      \draw[-{Stealth[length=5pt]}, HECcoral, thick] (3.2,1.5) -- (5.0,1.5);
-      \node[font=\scriptsize, HECcoral, above] at (4.1,1.5) {Relance massive};
+      % Stimulus arrow at y=3.2: AD_2019 at x=1.5, AD_2021 at x=3.33
+      \draw[-{Stealth[length=5pt]}, HECcoral, thick] (1.7,3.2) -- (3.1,3.2);
+      \node[font=\scriptsize, HECcoral, above] at (2.4,3.2) {Relance massive};
       % Original equilibrium at (3.0, 2.3)
       \filldraw[HECgray] (3.0,2.3) circle (2pt);
       \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_{2019}$};
@@ -698,7 +932,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Comment combattre les r\'{e}cessions\,?}
+      \item {\color{gray!50}Pourquoi combattre les r\'{e}cessions\,?}
       \item {\color{gray!50}La politique mon\'{e}taire conventionnelle}
       \item {\color{gray!50}D\'{e}fis et limites de la politique mon\'{e}taire}
       \item \textbf{La politique mon\'{e}taire non conventionnelle}
@@ -819,7 +1053,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Comment combattre les r\'{e}cessions\,?}
+      \item {\color{gray!50}Pourquoi combattre les r\'{e}cessions\,?}
       \item {\color{gray!50}La politique mon\'{e}taire conventionnelle}
       \item {\color{gray!50}D\'{e}fis et limites de la politique mon\'{e}taire}
       \item {\color{gray!50}La politique mon\'{e}taire non conventionnelle}
@@ -917,9 +1151,9 @@
       % AD'' (after fiscal): y = -0.6x + 3.8
       \draw[HECnavy, very thick] (0.3,3.62) -- (5.5,0.5)
          node[right] {AD$''$};
-      % Fiscal policy arrow
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (2.0,1.4) -- (3.6,1.4);
-      \node[font=\scriptsize, HECnavy, below] at (2.8,1.4) {$G \uparrow$};
+      % Fiscal policy arrow at y=0.8: AD' at x=3.67, AD'' at x=5.0
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,0.8) -- (4.8,0.8);
+      \node[font=\scriptsize, HECnavy, above] at (4.3,0.8) {$G \uparrow$};
       % Recession equilibrium
       \filldraw[HECgray] (2.08,1.75) circle (2pt);
       \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
@@ -1052,7 +1286,7 @@
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Comment combattre les r\'{e}cessions\,?}
+      \item {\color{gray!50}Pourquoi combattre les r\'{e}cessions\,?}
       \item {\color{gray!50}La politique mon\'{e}taire conventionnelle}
       \item {\color{gray!50}D\'{e}fis et limites de la politique mon\'{e}taire}
       \item {\color{gray!50}La politique mon\'{e}taire non conventionnelle}
