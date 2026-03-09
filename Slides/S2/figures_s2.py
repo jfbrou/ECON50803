@@ -11,109 +11,15 @@ Run from Slides/S2/:
 
 import os
 from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib import rc
 from scipy import stats
-import requests
-import dotenv
 
-# ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
-fred_api_key = os.getenv('fred_api_key')
-
-# ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
-rc('font', **{'family': 'sans-serif', 'sans-serif': ['Fira Sans']})
-rc('text', usetex=True)
-rc('text.latex', preamble=r'\usepackage[sfdefault,light]{FiraSans}'
-                           r'\usepackage[T1]{fontenc}')
-
-# ── Colour palette (HEC Montréal) ───────────────────────────────────────
-palette = ['#002855',   # HECnavy
-           '#26d07c',   # HECgreen
-           '#ff585d',   # HECcoral
-           '#f3d03e',   # yellow
-           '#0072ce',   # blue
-           '#eb6fbd',   # pink
-           '#00aec7',   # teal
-           '#888b8d']   # gray
-
-# ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
-os.makedirs(FIGURES_DIR, exist_ok=True)
-
-# ── Country name translation mapping ────────────────────────────────────
-COUNTRY_FR = {
-    'United States': r"\'{E}tats-Unis",
-    'United Kingdom': 'Royaume-Uni',
-    'China': 'Chine',
-    'Brazil': r"Br\'{e}sil",
-    'Canada': 'Canada',
-    'France': 'France',
-    'India': 'Inde',
-    'Japan': 'Japon',
-    'Germany': 'Allemagne',
-    'Italy': 'Italie',
-    'South Korea': r"Cor\'{e}e du Sud",
-    'Singapore': 'Singapour',
-    'Western Offshoots': r"Ouest (rejetons)",
-    'Western Europe': r"Europe de l'Ouest",
-    'East Asia': r"Asie de l'Est",
-    'Latin America': r"Am\'{e}rique latine",
-    'Sub-Saharan Africa': r"Afrique subsaharienne",
-    'Ireland': 'Irlande',
-    'Norway': r"Norv\`{e}ge",
-    'Switzerland': 'Suisse',
-    'Hong Kong': 'Hong Kong',
-    'Taiwan': r"Ta\"{i}wan",
-    'Spain': 'Espagne',
-    'Portugal': 'Portugal',
-    'Greece': r"Gr\`{e}ce",
-    'Turkey': 'Turquie',
-    'Mexico': 'Mexique',
-    'Australia': 'Australie',
-    'Republic of Korea': r"Cor\'{e}e du Sud",
-    'China, Hong Kong SAR': 'Hong Kong',
-    'Nigeria': r"Nig\'{e}ria",
-    'Kenya': 'Kenya',
-    'Ghana': 'Ghana',
-    'Ethiopia': r"\'{E}thiopie",
-    'Haiti': r"Ha\"{i}ti",
-    'Venezuela (Bolivarian Republic of)': r"V\'{e}n\'{e}zuela",
-    'Argentina': 'Argentine',
-    'Chile': 'Chili',
-    'Indonesia': r"Indon\'{e}sie",
-    'Thailand': r"Tha\"{i}lande",
-    'Malaysia': 'Malaisie',
-    'Bangladesh': 'Bangladesh',
-    'Botswana': 'Botswana',
-    'Mozambique': 'Mozambique',
-    'D.R. of the Congo': r"R.D. du Congo",
-    'South Africa': 'Afrique du Sud',
-    'New Zealand': 'Nouvelle-Z\'{e}lande',
-    'Denmark': 'Danemark',
-    'Sweden': r"Su\`{e}de",
-    'Finland': 'Finlande',
-    'Belgium': 'Belgique',
-    'Netherlands': 'Pays-Bas',
-    'Austria': 'Autriche',
-    'Luxembourg': 'Luxembourg',
-    'Iceland': 'Islande',
-    'Israel': r"Isra\"{e}l",
-    'Egypt': r"\'{E}gypte",
-    'Colombia': 'Colombie',
-    'Philippines': 'Philippines',
-    'Madagascar': 'Madagascar',
-    'Senegal': r"S\'{e}n\'{e}gal",
-    'Cameroon': 'Cameroun',
-}
-
-
-def _tr(name):
-    """Translate a country/region name to French, fallback to original."""
-    return COUNTRY_FR.get(name, name)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from plot_utils import *
 
 
 # ── PWT loader (cached) ───────────────────────────────────────────────
@@ -141,77 +47,6 @@ def _load_owid_co2():
                'master/owid-co2-data.csv')
         _owid_co2_cache = pd.read_csv(url)
     return _owid_co2_cache
-
-
-# ── FRED helper ─────────────────────────────────────────────────────────
-def get_fred_data(series_id, frequency=None, aggregation_method=None):
-    """Retrieve a FRED series as a pandas Series."""
-    url = 'https://api.stlouisfed.org/fred/series/observations'
-    params = {
-        'series_id': series_id,
-        'api_key': fred_api_key,
-        'file_type': 'json',
-    }
-    if frequency is not None:
-        params['frequency'] = frequency
-    if aggregation_method is not None:
-        params['aggregation_method'] = aggregation_method
-
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()['observations']
-
-    df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'])
-    df['value'] = pd.to_numeric(df['value'], errors='coerce')
-    return df.set_index('date')['value']
-
-
-# ── OWID Maddison helper ──────────────────────────────────────────────
-def _get_owid_maddison():
-    """Fetch Maddison GDP per capita from the OWID API (2023 edition, data to 2022)."""
-    import json, urllib.request
-    url_data = 'https://api.ourworldindata.org/v1/indicators/900793.data.json'
-    url_meta = 'https://api.ourworldindata.org/v1/indicators/900793.metadata.json'
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    data = json.loads(urllib.request.urlopen(
-        urllib.request.Request(url_data, headers=headers)).read())
-    meta = json.loads(urllib.request.urlopen(
-        urllib.request.Request(url_meta, headers=headers)).read())
-    entity_map = {e['id']: e['name']
-                  for e in meta['dimensions']['entities']['values']}
-    df = pd.DataFrame({
-        'Entity': [entity_map[eid] for eid in data['entities']],
-        'Year': data['years'],
-        'GDP per capita': data['values'],
-    })
-    return df
-
-
-# ── Shared plot helpers ─────────────────────────────────────────────────
-def new_figure(w=8, h=4):
-    fig, ax = plt.subplots(figsize=(w, h))
-    fig.patch.set_alpha(0.0)
-    ax.patch.set_alpha(0.0)
-    return fig, ax
-
-
-def style_axes(ax):
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.grid(True, which='major', axis='y', color='gray', linestyle=':', linewidth=0.5)
-
-
-def add_source(ax, text='Source: Federal Reserve Economic Data'):
-    ax.text(1, 1.01, text, fontsize=8, color='k',
-            ha='right', va='bottom', transform=ax.transAxes)
-
-
-def save(fig, name):
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, name), transparent=True, dpi=300)
-    plt.close(fig)
-    print(f'  \u2713 {name}')
 
 
 # =====================================================================
@@ -268,7 +103,7 @@ def _diminishing_returns(xlabel, fixed_label, filename):
     fig, ax = new_figure(6, 5)
     ax.plot(x, f(x), color=palette[0], linewidth=3)
 
-    GREEN = '#26d07c'
+    GREEN = palette[1]
     pts = [30, 60, 90]
     for i, v in enumerate(pts):
         y_val = f(v)
@@ -895,7 +730,7 @@ def convergence_oecd():
     ax.set_xlim(1 / 5, 1.25)
     ax.set_xticks([1 / 4, 1 / 2, 1])
     ax.set_xticklabels(['1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'eel par habitant relatif aux \'E.-U. (1960)",
+    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1960)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -903,7 +738,7 @@ def convergence_oecd():
     ax.set_yticks(np.arange(1.5, 4 + 0.5, 0.5))
     ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 4 + 0.5, 0.5)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'eel par habitant (1960--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1960--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -975,7 +810,7 @@ def convergence_asia():
     ax.set_xlim(1 / 32, 1)
     ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1])
     ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'eel par habitant relatif aux \'E.-U. (1990)",
+    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1990)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -983,7 +818,7 @@ def convergence_asia():
     ax.set_yticks(np.arange(1.5, 6.5 + 1, 1))
     ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 6.5 + 1, 1)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'eel par habitant (1990--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1990--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1060,7 +895,7 @@ def convergence_global():
     ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1, 2])
     ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
                        fontsize=12)
-    ax.set_xlabel(r"PIB r\'eel par habitant relatif aux \'E.-U. (1960)",
+    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1960)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -1068,7 +903,7 @@ def convergence_global():
     ax.set_yticks(range(-2, 6 + 1, 2))
     ax.set_yticklabels([str(x) + r'\%' for x in range(-2, 6 + 1, 2)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'eel par habitant (1960--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1960--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1556,13 +1391,13 @@ def gdp_vs_co2_growth():
     # Quadrant background fills
     xlim, ylim = (-2, 9), (-4, 16)
     ax.axhspan(ylim[0], 0, xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
-               color='#26d07c', alpha=0.10, zorder=0)   # GDP↑ CO2↓ → green
+               color=palette[1], alpha=0.10, zorder=0)   # GDP↑ CO2↓ → green
     ax.axhspan(0, ylim[1], xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
-               color='#f3d03e', alpha=0.12, zorder=0)   # GDP↑ CO2↑ → yellow
+               color=palette[3], alpha=0.12, zorder=0)   # GDP↑ CO2↑ → yellow
     ax.axhspan(ylim[0], 0, xmin=0, xmax=(0 - xlim[0]) / (xlim[1] - xlim[0]),
-               color='#f3d03e', alpha=0.12, zorder=0)   # GDP↓ CO2↓ → yellow
+               color=palette[3], alpha=0.12, zorder=0)   # GDP↓ CO2↓ → yellow
     ax.axhspan(0, ylim[1], xmin=0, xmax=(0 - xlim[0]) / (xlim[1] - xlim[0]),
-               color='#ff585d', alpha=0.10, zorder=0)   # GDP↓ CO2↑ → red
+               color=palette[2], alpha=0.10, zorder=0)   # GDP↓ CO2↑ → red
 
     # Scatter: advanced (navy) vs developing (coral)
     ax.scatter(adv['g_gdppc'], adv['g_co2pc'],

@@ -12,107 +12,15 @@ Run from Slides/S4/:
 
 import os
 from pathlib import Path
-from datetime import datetime
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib import rc
 import requests
-import dotenv
 
-# ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
-fred_api_key = os.getenv('fred_api_key')
-
-# ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
-rc('font', **{'family': 'sans-serif', 'sans-serif': ['Fira Sans']})
-rc('text', usetex=True)
-rc('text.latex', preamble=r'\usepackage[sfdefault,light]{FiraSans}'
-                           r'\usepackage[T1]{fontenc}')
-
-# ── Colour palette (HEC Montréal) ───────────────────────────────────────
-palette = ['#002855',   # HECnavy
-           '#26d07c',   # HECgreen
-           '#ff585d',   # HECcoral
-           '#f3d03e',   # yellow
-           '#0072ce',   # blue
-           '#eb6fbd',   # pink
-           '#00aec7',   # teal
-           '#888b8d']   # gray
-
-# ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
-os.makedirs(FIGURES_DIR, exist_ok=True)
-
-
-# ── US recession dates (NBER) ───────────────────────────────────────────
-recessions_us = [
-    (datetime(1960, 4, 1), datetime(1961, 2, 1)),
-    (datetime(1969, 12, 1), datetime(1970, 11, 1)),
-    (datetime(1973, 11, 1), datetime(1975, 3, 1)),
-    (datetime(1980, 1, 1), datetime(1980, 7, 1)),
-    (datetime(1981, 7, 1), datetime(1982, 11, 1)),
-    (datetime(1990, 7, 1), datetime(1991, 3, 1)),
-    (datetime(2001, 3, 1), datetime(2001, 11, 1)),
-    (datetime(2007, 12, 1), datetime(2009, 6, 1)),
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-]
-
-
-# ── FRED helper ─────────────────────────────────────────────────────────
-def get_fred_data(series_id, frequency=None, aggregation_method=None,
-                  observation_start=None, observation_end=None):
-    """Retrieve a FRED series as a pandas Series."""
-    url = 'https://api.stlouisfed.org/fred/series/observations'
-    params = {
-        'series_id': series_id,
-        'api_key': fred_api_key,
-        'file_type': 'json',
-    }
-    if frequency is not None:
-        params['frequency'] = frequency
-    if aggregation_method is not None:
-        params['aggregation_method'] = aggregation_method
-    if observation_start is not None:
-        params['observation_start'] = observation_start
-    if observation_end is not None:
-        params['observation_end'] = observation_end
-
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()['observations']
-
-    df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'])
-    df['value'] = pd.to_numeric(df['value'], errors='coerce')
-    return df.set_index('date')['value']
-
-
-# ── Shared plot helpers ─────────────────────────────────────────────────
-def new_figure(w=8, h=4):
-    fig, ax = plt.subplots(figsize=(w, h))
-    fig.patch.set_alpha(0.0)
-    ax.patch.set_alpha(0.0)
-    return fig, ax
-
-
-def style_axes(ax):
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.grid(True, which='major', axis='y', color='gray', linestyle=':', linewidth=0.5)
-
-
-def add_source(ax, text='Source: Federal Reserve Economic Data'):
-    ax.text(1, 1.01, text, fontsize=8, color='k',
-            ha='right', va='bottom', transform=ax.transAxes)
-
-
-def save(fig, name):
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, name), transparent=True, dpi=300)
-    plt.close(fig)
-    print(f'  \u2713 {name}')
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from plot_utils import *
 
 
 # =====================================================================
@@ -129,7 +37,7 @@ def us_gdp_recessions():
 
     # Recession shading
     for start, end in recessions_us:
-        ax.axvspan(start, end, color='grey', alpha=0.25, linewidth=0)
+        ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.set_yscale('log')
     ax.set_xlim(pd.Timestamp('1960-01-01'), gdp.index.max())
@@ -144,8 +52,6 @@ def us_gdp_recessions():
     ax.minorticks_off()
 
     style_axes(ax)
-    ax.grid(True, which='major', axis='y', color='gray',
-            linestyle=':', linewidth=0.5)
 
     # Recession label
     ax.text(0.02, 0.95, r'\textit{Zones gris\'{e}es = r\'{e}cessions (NBER)}',
@@ -279,7 +185,7 @@ def us_recession_inflation():
 
     # Recession shading
     ax.axvspan(pd.Timestamp('2020-02-01'), pd.Timestamp('2020-04-01'),
-               color='grey', alpha=0.25, linewidth=0)
+               color='grey', alpha=0.3, linewidth=0)
 
 
     # Highlight gap between 2% target and actual inflation when below target
@@ -370,15 +276,6 @@ def _get_canada_gdp_and_trend():
     return gdp, trend
 
 
-# Canadian recession dates
-can_recessions = [
-    (datetime(1981, 6, 1), datetime(1982, 10, 1)),
-    (datetime(1990, 3, 1), datetime(1992, 4, 1)),
-    (datetime(2008, 10, 1), datetime(2009, 5, 1)),
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-]
-
-
 # =====================================================================
 # Figure 6a: Canada real GDP vs potential (Bank of Canada output gap)
 # =====================================================================
@@ -432,9 +329,9 @@ def canada_gdp_potential():
     fig, ax = new_figure(9, 4.5)
 
     # Recession shading
-    for start, end in can_recessions:
+    for start, end in recessions_ca:
         if start >= gdp.index.min():
-            ax.axvspan(start, end, color='grey', alpha=0.15, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.plot(gdp.index, gdp.values, color=palette[0], linewidth=2,
             label=r"PIB r\'{e}el ($Y$)")
@@ -510,9 +407,9 @@ def output_gap_canada():
     fig, ax = new_figure(9, 4.5)
 
     # Recession shading
-    for start, end in can_recessions:
+    for start, end in recessions_ca:
         if start >= gap.index.min():
-            ax.axvspan(start, end, color='grey', alpha=0.15, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     # Shading with interpolation to avoid gaps at zero crossings
     ax.fill_between(gap_daily.index, gap_daily.values, 0,
@@ -564,7 +461,7 @@ def us_gdp_covid():
 
     # Recession shading
     ax.axvspan(pd.Timestamp('2020-02-01'), pd.Timestamp('2020-04-01'),
-               color='grey', alpha=0.25, linewidth=0)
+               color='grey', alpha=0.3, linewidth=0)
 
     # Pre-COVID trend line
     pre = gdp.loc[:'2020-01-01']
@@ -625,7 +522,7 @@ def us_consumer_confidence():
     # Recession shading
     for start, end in recessions_us:
         if start >= pd.Timestamp('1978-01-01'):
-            ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     # Long-run average
     avg = sent.mean()
@@ -748,9 +645,9 @@ def cyclical_components_canada():
             color=palette[2], linewidth=2, label='Investissement', zorder=1)
 
     # Recession shading (Canada)
-    for start, end in can_recessions:
+    for start, end in recessions_ca:
         if start >= dates[4]:
-            ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.axhline(0, color='black', linewidth=0.5)
 
@@ -855,7 +752,7 @@ def yield_curve_usa():
     # Recession shading
     for start, end in recessions_us:
         if start >= pd.Timestamp('1976-01-01'):
-            ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.set_xlim(data.index.min(), data.index.max())
     xticks = [pd.Timestamp(f'{y}-01-01') for y in range(1980, 2030, 5)]
@@ -863,7 +760,7 @@ def yield_curve_usa():
     ax.set_xticklabels([str(y) for y in range(1980, 2030, 5)], fontsize=10)
     ax.set_ylim(-3, 3)
     ax.set_yticks(range(-3, 4, 1))
-    ax.set_yticklabels([f'{x}' + r'\,\%' for x in range(-3, 4, 1)],
+    ax.set_yticklabels([f'{x}' + r'\%' for x in range(-3, 4, 1)],
                         fontsize=10)
     ax.set_ylabel(r"\'{E}cart 10 ans $-$ 2 ans (\%)", fontsize=11,
                   rotation=0, ha='left')
@@ -897,7 +794,7 @@ def natural_unemployment_usa():
     # Recession shading
     for start, end in recessions_us:
         if start >= pd.Timestamp('1950-01-01'):
-            ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.set_xlim(pd.Timestamp('1950-01-01'), unrate.index.max())
     ax.set_ylim(2, 14)
@@ -905,7 +802,7 @@ def natural_unemployment_usa():
     ax.set_xticks(xticks)
     ax.set_xticklabels([str(y) for y in range(1950, 2030, 10)], fontsize=10)
     ax.set_yticks(range(2, 15, 2))
-    ax.set_yticklabels([f'{x}' + r'\,\%' for x in range(2, 15, 2)],
+    ax.set_yticklabels([f'{x}' + r'\%' for x in range(2, 15, 2)],
                         fontsize=10)
     ax.set_ylabel(r"Taux de ch\^{o}mage (\%)", fontsize=11,
                   rotation=0, ha='left')
@@ -921,19 +818,35 @@ def natural_unemployment_usa():
 # Main
 # =====================================================================
 if __name__ == '__main__':
-    print('ECON50803 S4 — Generating figures...\n')
-    us_gdp_recessions()
-    output_gap_us()
-    employment_recovery()
-    us_recession_inflation()
-    us_gdp_growth()
-    canada_gdp_potential()
-    output_gap_canada()
-    us_gdp_covid()
-    us_consumer_confidence()
-    oil_price_2026()
-    cyclical_components_canada()
-    phillips_curve_usa()
-    yield_curve_usa()
-    natural_unemployment_usa()
-    print('\nDone.')
+    print('Generating Session 4 figures (French)...')
+    print(f'Output: {FIGURES_DIR}\n')
+
+    figures = [
+        us_gdp_recessions,
+        output_gap_us,
+        employment_recovery,
+        us_recession_inflation,
+        us_gdp_growth,
+        canada_gdp_potential,
+        output_gap_canada,
+        us_gdp_covid,
+        us_consumer_confidence,
+        oil_price_2026,
+        cyclical_components_canada,
+        phillips_curve_usa,
+        yield_curve_usa,
+        natural_unemployment_usa,
+    ]
+
+    failed = []
+    for fn in figures:
+        try:
+            fn()
+        except Exception as e:
+            print(f'  \u2717 {fn.__name__}: {e}')
+            failed.append(fn.__name__)
+
+    if failed:
+        print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+    else:
+        print('\nDone \u2014 all figures generated.')

@@ -9,209 +9,13 @@ Run from Slides/S1/:
     python3 figures_s1.py
 """
 
-import os
-import re
 from pathlib import Path
-from datetime import datetime
-
-import dotenv
-import requests
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib import rc
 from statsmodels.tsa.filters.hp_filter import hpfilter
 from stats_can import StatsCan
 
-# ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
-fred_api_key = os.getenv('fred_api_key')
-
-# ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
-rc('font', **{'family': 'sans-serif', 'sans-serif': ['Fira Sans']})
-rc('text', usetex=True)
-rc('text.latex', preamble=r'\usepackage[sfdefault,light]{FiraSans}'
-                           r'\usepackage[T1]{fontenc}')
-
-# ── Colour palette (HEC Montréal) ───────────────────────────────────────
-palette = ['#002855',   # HECnavy
-           '#26d07c',   # HECgreen
-           '#ff585d',   # HECcoral
-           '#f3d03e',   # yellow
-           '#0072ce',   # blue
-           '#eb6fbd',   # pink
-           '#00aec7',   # teal
-           '#888b8d']   # gray
-
-# ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
-os.makedirs(FIGURES_DIR, exist_ok=True)
-
-# ── French month abbreviations (for LaTeX/usetex date labels) ───────────
-MONTH_FR = {1: 'janv.', 2: r'f\'{e}vr.', 3: 'mars', 4: 'avr.',
-            5: 'mai', 6: 'juin', 7: 'juil.', 8: r'ao\^{u}t',
-            9: 'sept.', 10: 'oct.', 11: 'nov.', 12: r'd\'{e}c.'}
-
-
-def french_date_label(d):
-    """Format a datetime as 'month_abbr\\nYYYY' in French."""
-    return MONTH_FR[d.month] + '\n' + str(d.year)
-
-
-# ── US recession dates (NBER) ───────────────────────────────────────────
-recessions_us = [
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-    (datetime(2007, 12, 1), datetime(2009, 6, 1)),
-    (datetime(2001, 3, 1), datetime(2001, 11, 1)),
-    (datetime(1990, 7, 1), datetime(1991, 3, 1)),
-    (datetime(1981, 7, 1), datetime(1982, 11, 1)),
-    (datetime(1980, 1, 1), datetime(1980, 7, 1)),
-    (datetime(1973, 11, 1), datetime(1975, 3, 1)),
-    (datetime(1969, 12, 1), datetime(1970, 11, 1)),
-    (datetime(1960, 4, 1), datetime(1961, 2, 1)),
-    (datetime(1957, 8, 1), datetime(1958, 4, 1)),
-    (datetime(1953, 7, 1), datetime(1954, 5, 1)),
-    (datetime(1948, 11, 1), datetime(1949, 10, 1)),
-]
-
-# ── Canadian recession dates (C.D. Howe Business Cycle Council) ───────
-recessions_ca = [
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-    (datetime(2008, 10, 1), datetime(2009, 5, 1)),
-    (datetime(1990, 3, 1), datetime(1992, 4, 1)),
-    (datetime(1981, 6, 1), datetime(1982, 10, 1)),
-    (datetime(1980, 1, 1), datetime(1980, 6, 1)),
-    (datetime(1974, 11, 1), datetime(1975, 3, 1)),
-    (datetime(1960, 4, 1), datetime(1961, 3, 1)),
-]
-
-# ── FRED helper ─────────────────────────────────────────────────────────
-def get_fred_data(series_id, frequency=None, aggregation_method=None):
-    """Retrieve a FRED series as a pandas Series."""
-    url = 'https://api.stlouisfed.org/fred/series/observations'
-    params = {
-        'series_id': series_id,
-        'api_key': fred_api_key,
-        'file_type': 'json',
-    }
-    if frequency is not None:
-        params['frequency'] = frequency
-    if aggregation_method is not None:
-        params['aggregation_method'] = aggregation_method
-
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()['observations']
-
-    df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'])
-    df['value'] = pd.to_numeric(df['value'], errors='coerce')
-    return df.set_index('date')['value']
-
-
-# ── Bank of Canada Valet helper ─────────────────────────────────────────
-THOUSANDS_RX = re.compile(r"[,\u202f\u2009\s]")
-
-def get_valet_series(series_id, start='2000-01-01'):
-    """Download a Bank of Canada Valet time-series as a pandas Series."""
-    url = (f"https://www.bankofcanada.ca/valet/observations/{series_id}/json"
-           f"?start_date={start}")
-    resp = requests.get(url, timeout=20)
-    resp.raise_for_status()
-    obs = resp.json().get("observations", [])
-    records = []
-    for row in obs:
-        raw = row.get(series_id, {})
-        val = raw.get("v")
-        if val is None:
-            continue
-        val = float(THOUSANDS_RX.sub("", str(val)))
-        records.append((row["d"], val))
-    df = (pd.DataFrame(records, columns=["date", "value"])
-            .assign(date=lambda x: pd.to_datetime(x.date))
-            .set_index("date").sort_index())
-    return df["value"]
-
-
-# ── OWID Maddison helper ──────────────────────────────────────────────
-def _get_owid_maddison():
-    """Fetch Maddison GDP per capita from the OWID API (2023 edition, data to 2022)."""
-    import json, urllib.request
-    url_data = 'https://api.ourworldindata.org/v1/indicators/900793.data.json'
-    url_meta = 'https://api.ourworldindata.org/v1/indicators/900793.metadata.json'
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    data = json.loads(urllib.request.urlopen(
-        urllib.request.Request(url_data, headers=headers)).read())
-    meta = json.loads(urllib.request.urlopen(
-        urllib.request.Request(url_meta, headers=headers)).read())
-    entity_map = {e['id']: e['name']
-                  for e in meta['dimensions']['entities']['values']}
-    df = pd.DataFrame({
-        'Entity': [entity_map[eid] for eid in data['entities']],
-        'Year': data['years'],
-        'GDP per capita': data['values'],
-    })
-    return df
-
-
-# ── Shared plot helpers ─────────────────────────────────────────────────
-def new_figure():
-    fig, ax = plt.subplots(figsize=(8, 4))
-    fig.patch.set_alpha(0.0)
-    ax.patch.set_alpha(0.0)
-    return fig, ax
-
-def style_axes(ax):
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.grid(True, which='major', axis='y', color='gray', linestyle=':', linewidth=0.5)
-
-def add_source(ax, text='Source: Federal Reserve Economic Data'):
-    ax.text(1, 1.01, text, fontsize=8, color='k',
-            ha='right', va='bottom', transform=ax.transAxes)
-
-def save(fig, name):
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, name), transparent=True, dpi=300)
-    plt.close(fig)
-    print(f'  \u2713 {name}')
-
-def tick_ceil(value, step):
-    """Round up value to the next multiple of step."""
-    return int(np.ceil(value / step)) * step
-
-
-# ── Country name translation mapping (English data → French labels) ─────
-COUNTRY_FR = {
-    'United States': r"\'{E}tats-Unis",
-    'United Kingdom': 'Royaume-Uni',
-    'China': 'Chine',
-    'Brazil': r"Br\'{e}sil",
-    'Canada': 'Canada',
-    'France': 'France',
-    'India': 'Inde',
-    'Nigeria': r"Nig\'{e}ria",
-    'Norway': r"Norv\`{e}ge",
-    'Luxembourg': 'Luxembourg',
-    'Switzerland': 'Suisse',
-    'Japan': 'Japon',
-    'Germany': 'Allemagne',
-    'Russia': 'Russie',
-    'Indonesia': r"Indon\'{e}sie",
-    'Mexico': 'Mexique',
-    'South Korea': r"Cor\'{e}e du Sud",
-    'Euro area': 'Zone euro',
-    'Sweden': r"Su\`{e}de",
-    'Turkey': 'Turquie',
-    'Singapore': 'Singapour',
-    'Vietnam': r"Vi\^{e}t Nam",
-    'Taiwan': 'Taïwan',
-}
-
-
-def _tr_country(name):
-    """Translate a country name to French, falling back to original."""
-    return COUNTRY_FR.get(name, name)
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from plot_utils import *
 
 
 # =====================================================================
@@ -240,12 +44,12 @@ def can_unemployment():
     first_year = u_clean.index[0].year
     ax.set_xlim(pd.to_datetime(str(first_year)), last_date + pd.DateOffset(months=3))
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(first_year, last_date.year + 1, 10)])
-    ax.set_xticklabels(range(first_year, last_date.year + 1, 10), fontsize=12)
+    ax.set_xticklabels(range(first_year, last_date.year + 1, 10), fontsize=11)
     ax.set_ylim(2, 16)
     ax.set_yticks(range(2, 16 + 1, 2))
-    ax.set_yticklabels([str(x) + r'\%' for x in range(2, 16 + 1, 2)], fontsize=12)
-    ax.set_ylabel(r"Taux de ch\^{o}mage", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.set_yticklabels([str(x) + r'\%' for x in range(2, 16 + 1, 2)], fontsize=11)
+    ax.set_ylabel(r"Taux de ch\^{o}mage", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime(str(first_year)):
@@ -282,14 +86,14 @@ def can_inflation_longrun():
     last_date = infl.dropna().index[-1]
     ax.set_xlim(pd.to_datetime('1965'), last_date + pd.DateOffset(months=3))
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(1965, last_date.year + 1, 5)])
-    ax.set_xticklabels(range(1965, last_date.year + 1, 5), fontsize=12,
+    ax.set_xticklabels(range(1965, last_date.year + 1, 5), fontsize=11,
                        rotation=45, ha='right')
     ax.set_ylim(-0.02, 0.14)
     ax.set_yticks(np.arange(-0.02, 0.14 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 14 + 0.1, 2)],
-                       fontsize=12)
-    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('1965'):
@@ -321,12 +125,12 @@ def policy_rates():
     xlim_end = tick_ceil(last_year, 2)
     ax.set_xlim(pd.to_datetime('2006'), pd.to_datetime(str(xlim_end)))
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2006, xlim_end + 1, 2)])
-    ax.set_xticklabels(range(2006, xlim_end + 1, 2), fontsize=12)
+    ax.set_xticklabels(range(2006, xlim_end + 1, 2), fontsize=11)
     ax.set_ylim(0, 6)
     ax.set_yticks(range(0, 6 + 1, 1))
-    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 6 + 1, 1)], fontsize=12)
-    ax.set_ylabel('Taux directeur', fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.set_yticklabels([str(x) + r'\%' for x in range(0, 6 + 1, 1)], fontsize=11)
+    ax.set_ylabel('Taux directeur', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
@@ -388,14 +192,14 @@ def canada_inflation_recent():
         last_plot = max(last_plot, exp_dates[future_mask][-1])
     ax.set_xlim(pd.to_datetime('2016'), last_plot)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_plot.year + 1, 1)])
-    ax.set_xticklabels(range(2016, last_plot.year + 1, 1), fontsize=12,
+    ax.set_xticklabels(range(2016, last_plot.year + 1, 1), fontsize=11,
                        rotation=45, ha='right')
     ax.set_ylim(-0.02, 0.10)
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
-                       fontsize=12)
-    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel(r"Inflation IPC (12 mois)", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
@@ -502,7 +306,7 @@ def canada_employment_exports():
         ax.set_ylim(ymin, ymax)
         ax.set_yticks(range(ymin, ymax + 1, 2))
         ax.set_yticklabels([str(x) for x in range(ymin, ymax + 1, 2)],
-                           fontsize=12)
+                           fontsize=11)
 
     # x-axis: end at the next 6-month tick (Jan or Jul) at or after last data
     all_dates = pd.concat(all_series).index if all_series else pd.DatetimeIndex([])
@@ -514,9 +318,9 @@ def canada_employment_exports():
     ax.set_xlim(pd.to_datetime('2023-01-01'), xlim_right)
     ax.set_xticks(xtick_dates)
     ax.set_xticklabels([french_date_label(d) for d in xtick_dates], fontsize=11)
-    ax.set_ylabel(r"Indice d'emploi (janv. 2023 = 100)", fontsize=12,
+    ax.set_ylabel(r"Indice d'emploi (janv. 2023 = 100)", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
@@ -551,13 +355,13 @@ def hockey_stick_world():
 
     ax.set_xlim(0, max_year + 5)
     ax.set_xticks(range(0, max_year + 1, 250))
-    ax.set_xticklabels(range(0, max_year + 1, 250), fontsize=12)
+    ax.set_xticklabels(range(0, max_year + 1, 250), fontsize=11)
     ax.set_ylim(0, 60000)
     ax.set_yticks(range(0, 60000 + 1, 10000))
     ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 60 + 1, 10)],
-                       fontsize=12)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left',
@@ -641,14 +445,14 @@ def us_tariff_rate():
 
     ax.set_xlim(1930, 2027)
     ax.set_xticks(range(1930, 2020 + 1, 10))
-    ax.set_xticklabels(range(1930, 2020 + 1, 10), fontsize=12)
+    ax.set_xticklabels(range(1930, 2020 + 1, 10), fontsize=11)
     ax.set_ylim(0, 20)
     ax.set_yticks(range(0, 20 + 1, 5))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 20 + 1, 5)],
-                       fontsize=12)
-    ax.set_ylabel(r"Taux tarifaire effectif am\'{e}ricain", fontsize=12,
+                       fontsize=11)
+    ax.set_ylabel(r"Taux tarifaire effectif am\'{e}ricain", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     add_source(ax, 'Source: Yale Budget Lab (January 2026)')
@@ -679,7 +483,7 @@ def _gdp_share_plot(dates, ratio, ylabel, ylim, ytick_step, fname):
     ax.set_xlim(pd.to_datetime('1970'), last_date)
     ax.set_xticks([pd.to_datetime(str(y))
                    for y in range(1970, last_year_tick + 1, 10)])
-    ax.set_xticklabels(range(1970, last_year_tick + 1, 10), fontsize=12)
+    ax.set_xticklabels(range(1970, last_year_tick + 1, 10), fontsize=11)
 
     ax.set_ylim(ylim)
     yticks = np.arange(
@@ -687,9 +491,9 @@ def _gdp_share_plot(dates, ratio, ylabel, ylim, ytick_step, fname):
         ylim[1] + ytick_step / 2,
         ytick_step)
     ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=12)
-    ax.set_ylabel(ylabel, fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=11)
+    ax.set_ylabel(ylabel, fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('1970'):
@@ -902,21 +706,6 @@ def trade_share_gdp():
                     fname='trade_share_gdp.png')
 
 
-# ── World Bank API helper ─────────────────────────────────────────────
-def _get_worldbank(indicator, country_iso, start=2000, end=2025):
-    """Fetch annual data from the World Bank API as a pandas Series."""
-    url = (f'https://api.worldbank.org/v2/country/{country_iso}/'
-           f'indicator/{indicator}?format=json&per_page=100'
-           f'&date={start}:{end}')
-    resp = requests.get(url, timeout=60)
-    resp.raise_for_status()
-    records = resp.json()[1]
-    data = [(int(r['date']), r['value']) for r in records
-            if r['value'] is not None]
-    s = pd.Series(dict(data)).sort_index()
-    s.index = pd.to_datetime(s.index, format='%Y')
-    return s
-
 
 # =====================================================================
 # Figure: Real GDP — Canada vs USA (quarterly, indexed)
@@ -941,14 +730,14 @@ def gdp_canada_usa():
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
     xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
-    ax.set_xticklabels([d.year for d in xticks], fontsize=12)
+    ax.set_xticklabels([d.year for d in xticks], fontsize=11)
 
     ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 10)
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
-    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
-    ax.set_ylabel(r"PIB r\'{e}el (2000T1 = 100)", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=11)
+    ax.set_ylabel(r"PIB r\'{e}el (2000T1 = 100)", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('2000'):
@@ -970,7 +759,9 @@ def gdp_per_capita_canada_usa():
 
     # Annual total population from World Bank, interpolated to quarterly
     can_pop_a = _get_worldbank('SP.POP.TOTL', 'CAN', start=1999, end=2025)
+    can_pop_a.index = pd.to_datetime(can_pop_a.index, format='%Y')
     usa_pop_a = _get_worldbank('SP.POP.TOTL', 'USA', start=1999, end=2025)
+    usa_pop_a.index = pd.to_datetime(usa_pop_a.index, format='%Y')
 
     q_dates = can_gdp.loc['1999-01-01':].index
     combined_can = can_pop_a.index.union(q_dates).sort_values().drop_duplicates()
@@ -997,15 +788,15 @@ def gdp_per_capita_canada_usa():
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
     xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
-    ax.set_xticklabels([d.year for d in xticks], fontsize=12)
+    ax.set_xticklabels([d.year for d in xticks], fontsize=11)
 
     ymax = tick_ceil(max(can_idx.max(), usa_idx.max()), 10)
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
-    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=12)
-    ax.set_ylabel(r"PIB r\'{e}el par hab. (2000T1 = 100)", fontsize=12,
+    ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=11)
+    ax.set_ylabel(r"PIB r\'{e}el par hab. (2000T1 = 100)", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('2000'):
@@ -1117,19 +908,19 @@ def gdp_vs_gdp_per_capita():
     ax.set_xlim(0.005, 80)
     ax.set_xticks([0.01, 0.1, 1, 10])
     ax.set_xticklabels([r'\$0.01T', r'\$0.1T', r'\$1T', r'\$10T'],
-                       fontsize=12)
+                       fontsize=11)
     ax.set_xlabel(r"PIB r\'{e}el, PPA (milliers de Mds, \$ int. 2021)",
-                  fontsize=12)
+                  fontsize=11)
 
     ax.set_yscale('log')
     ax.set_ylim(800, 150000)
     yticks = [1000, 2000, 5000, 10000, 20000, 50000, 100000]
     ax.set_yticks(yticks)
     ax.set_yticklabels([r'\$1K', r'\$2K', r'\$5K', r'\$10K',
-                        r'\$20K', r'\$50K', r'\$100K'], fontsize=12)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12,
+                        r'\$20K', r'\$50K', r'\$100K'], fontsize=11)
+    ax.set_ylabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     add_source(ax, 'Source: World Bank, WDI (2023)')
@@ -1304,14 +1095,14 @@ def gdp_per_capita_vs_price_level():
     ax.set_xscale('log')
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
-    ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12)
+    ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=11)
+    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11)
     ax.set_ylim(0.05, 1.2)
     ax.set_yticks(np.arange(0.2, 1.2 + 0.01, 0.2))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.2, 1.2 + 0.01, 0.2)],
-                       fontsize=12)
-    ax.set_ylabel(r'$P\,/\,P^{US}$', fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel(r'$P\,/\,P^{US}$', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray', linestyle=':', linewidth=0.5)
@@ -1360,7 +1151,7 @@ def big_mac_index():
     rdf = rdf.sort_values('pct_latest', ascending=True).reset_index(drop=True)
 
     # Translate country names to French for y-axis labels
-    rdf['name_fr'] = rdf['name'].apply(_tr_country)
+    rdf['name_fr'] = rdf['name'].apply(_tr)
 
     fig, ax = plt.subplots(figsize=(7, 5.5))
     fig.patch.set_alpha(0.0)
@@ -1438,16 +1229,16 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
     ax.set_xlim(pd.to_datetime(str(first_year)), last_date)
     tick_years = list(range(first_year, last_year_tick + 11, 10))
     ax.set_xticks([pd.to_datetime(str(y)) for y in tick_years])
-    ax.set_xticklabels(tick_years, fontsize=12)
+    ax.set_xticklabels(tick_years, fontsize=11)
 
     ymin = -0.10
     ymax = 0.25
     ax.set_ylim(ymin, ymax)
     yticks = np.arange(ymin, ymax + 0.001, 0.05)
     ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=12)
-    ax.set_ylabel(r"Croissance du PIB", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in yticks], fontsize=11)
+    ax.set_ylabel(r"Croissance du PIB", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime(str(first_year)):
@@ -1513,14 +1304,14 @@ def inflation_cpi_deflator_canada():
     last_date = min(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
-    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=12)
+    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=11)
 
     ax.set_ylim(-0.02, 0.10)
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
-                       fontsize=12)
-    ax.set_ylabel(r"Inflation (sur 12 mois)", fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel(r"Inflation (sur 12 mois)", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('2016'):
@@ -1559,15 +1350,15 @@ def inflation_headline_core_canada():
     last_date = min(headline.dropna().index[-1], core.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
-    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=12)
+    ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=11)
 
     ax.set_ylim(-0.02, 0.10)
     ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
     ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
-                       fontsize=12)
-    ax.set_ylabel(r"Inflation IPC (sur 12 mois)", fontsize=12,
+                       fontsize=11)
+    ax.set_ylabel(r"Inflation IPC (sur 12 mois)", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
         if start >= pd.to_datetime('2016'):
@@ -1622,10 +1413,10 @@ def inflation_highfreq_cavallo():
     ax.set_ylim(ymin, ymax)
     yticks = np.arange(ymin, ymax + 0.1, 1)
     ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{x:+.0f}' + r'\%' for x in yticks], fontsize=12)
-    ax.set_ylabel(r"Variation cumul\'{e}e des prix", fontsize=12,
+    ax.set_yticklabels([f'{x:+.0f}' + r'\%' for x in yticks], fontsize=11)
+    ax.set_ylabel(r"Variation cumul\'{e}e des prix", fontsize=11,
                   rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
@@ -1705,15 +1496,15 @@ def hdi_vs_gdp_per_capita():
     ax.set_xscale('log')
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
-    ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=12)
+    ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=11)
+    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11)
 
     ax.set_ylim(0.3, 1.0)
     ax.set_yticks(np.arange(0.3, 1.01, 0.1))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.3, 1.01, 0.1)],
-                       fontsize=12)
-    ax.set_ylabel('IDH', fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                       fontsize=11)
+    ax.set_ylabel('IDH', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray',
@@ -1803,18 +1594,18 @@ def beyond_gdp():
     xticks = [1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2]
     ax.set_xticks(xticks)
     ax.set_xticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2',
-                         '1', '2'], fontsize=12)
+                         '1', '2'], fontsize=11)
     ax.set_xlabel(r"PIB r\'{e}el par habitant (relatif aux \'{E}.-U.)",
-                  fontsize=12)
+                  fontsize=11)
 
     ax.set_yscale('log', base=2)
     ax.set_ylim(1 / 100, 2)
     yticks = [1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2]
     ax.set_yticks(yticks)
     ax.set_yticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2',
-                         '1', '2'], fontsize=12)
-    ax.set_ylabel(r'$\lambda$', fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
+                         '1', '2'], fontsize=11)
+    ax.set_ylabel(r'$\lambda$', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray',
@@ -1876,7 +1667,7 @@ def gdp_gni_ratio():
             if len(common) > 0:
                 yr = common[-1]
                 ratios[name_fr] = gdp.loc[yr] / gni.loc[yr]
-                year_used = yr.year
+                year_used = yr
     except Exception as e:
         print(f'  World Bank API unavailable ({e.__class__.__name__}), '
               f'using cached {_CACHE_YEAR} data')

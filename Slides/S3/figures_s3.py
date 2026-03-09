@@ -12,107 +12,14 @@ Run from Slides/S3/:
 
 import os
 from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib import rc
-import requests
-import dotenv
 
-# ── Environment ──────────────────────────────────────────────────────────
-dotenv.load_dotenv(os.path.join(Path(__file__).resolve().parent.parent.parent, '.env'))
-fred_api_key = os.getenv('fred_api_key')
-
-# ── Font (Fira Sans via LaTeX, matching Beamer slides) ───────────────────
-rc('font', **{'family': 'sans-serif', 'sans-serif': ['Fira Sans']})
-rc('text', usetex=True)
-rc('text.latex', preamble=r'\usepackage[sfdefault,light]{FiraSans}'
-                           r'\usepackage[T1]{fontenc}')
-
-# ── Colour palette (HEC Montréal) ───────────────────────────────────────
-palette = ['#002855',   # HECnavy
-           '#26d07c',   # HECgreen
-           '#ff585d',   # HECcoral
-           '#f3d03e',   # yellow
-           '#0072ce',   # blue
-           '#eb6fbd',   # pink
-           '#00aec7',   # teal
-           '#888b8d']   # gray
-
-# ── Output path ─────────────────────────────────────────────────────────
-FIGURES_DIR = os.path.join(Path(__file__).resolve().parent.parent, 'Figures')
-os.makedirs(FIGURES_DIR, exist_ok=True)
-
-
-# ── Canadian recession dates (C.D. Howe Business Cycle Council) ─────────
-from datetime import datetime
-recessions_ca = [
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-    (datetime(2008, 10, 1), datetime(2009, 5, 1)),
-    (datetime(1990, 3, 1), datetime(1992, 4, 1)),
-    (datetime(1981, 6, 1), datetime(1982, 10, 1)),
-    (datetime(1980, 1, 1), datetime(1980, 6, 1)),
-    (datetime(1974, 11, 1), datetime(1975, 3, 1)),
-]
-
-recessions_us = [
-    (datetime(2020, 2, 1), datetime(2020, 4, 1)),
-    (datetime(2007, 12, 1), datetime(2009, 6, 1)),
-    (datetime(2001, 3, 1), datetime(2001, 11, 1)),
-    (datetime(1990, 7, 1), datetime(1991, 3, 1)),
-    (datetime(1981, 7, 1), datetime(1982, 11, 1)),
-]
-
-
-# ── FRED helper ─────────────────────────────────────────────────────────
-def get_fred_data(series_id, frequency=None, aggregation_method=None):
-    """Retrieve a FRED series as a pandas Series."""
-    url = 'https://api.stlouisfed.org/fred/series/observations'
-    params = {
-        'series_id': series_id,
-        'api_key': fred_api_key,
-        'file_type': 'json',
-    }
-    if frequency is not None:
-        params['frequency'] = frequency
-    if aggregation_method is not None:
-        params['aggregation_method'] = aggregation_method
-
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()['observations']
-
-    df = pd.DataFrame(data)
-    df['date'] = pd.to_datetime(df['date'])
-    df['value'] = pd.to_numeric(df['value'], errors='coerce')
-    return df.set_index('date')['value']
-
-
-# ── Shared plot helpers ─────────────────────────────────────────────────
-def new_figure(w=8, h=4):
-    fig, ax = plt.subplots(figsize=(w, h))
-    fig.patch.set_alpha(0.0)
-    ax.patch.set_alpha(0.0)
-    return fig, ax
-
-
-def style_axes(ax):
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.grid(True, which='major', axis='y', color='gray', linestyle=':', linewidth=0.5)
-
-
-def add_source(ax, text='Source: Federal Reserve Economic Data'):
-    ax.text(1, 1.01, text, fontsize=8, color='k',
-            ha='right', va='bottom', transform=ax.transAxes)
-
-
-def save(fig, name):
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, name), transparent=True, dpi=300)
-    plt.close(fig)
-    print(f'  \u2713 {name}')
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from plot_utils import *
 
 
 # =====================================================================
@@ -791,22 +698,6 @@ def breakthrough_inventions():
 # =====================================================================
 # Figure 11: Global R&D spending by country (1996–2022)
 # =====================================================================
-def _get_worldbank(indicator, country, per_page=500):
-    """Fetch a World Bank indicator as a pandas Series indexed by year."""
-    url = (f'https://api.worldbank.org/v2/country/{country}/indicator/'
-           f'{indicator}?format=json&per_page={per_page}')
-    resp = requests.get(url)
-    resp.raise_for_status()
-    data = resp.json()
-    if len(data) < 2 or data[1] is None:
-        return pd.Series(dtype=float)
-    records = [(int(d['date']), d['value']) for d in data[1]
-               if d['value'] is not None]
-    s = pd.Series(dict(records)).sort_index()
-    s.index.name = 'year'
-    return s
-
-
 def rd_spending_global():
     """Stacked area: R&D spending in billions of constant 2021 PPP USD."""
     print('Figure 11: Global R&D spending by country')
@@ -1433,7 +1324,7 @@ def unemployment_ca():
 
     # Recession shading
     for start, end in recessions_ca:
-        ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+        ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     # Annotate major peaks
     annotations = [
@@ -1495,7 +1386,7 @@ def participation_rate_ca():
 
     # Recession shading
     for start, end in recessions_ca:
-        ax.axvspan(start, end, color='grey', alpha=0.2, linewidth=0)
+        ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     import matplotlib.dates as mdates
     ax.set_xlim(pd.Timestamp('1976-01-01'), pd.Timestamp('2020-01-01'))
