@@ -109,6 +109,59 @@ def overnight_vs_mortgage():
 
 
 # =====================================================================
+# Figure 2b: Transmission chain — overnight → 5yr bond → 5yr mortgage
+# =====================================================================
+def transmission_taux():
+    """Overnight rate, 5-year GoC bond yield, 5-year mortgage rate."""
+    print('Figure 2b: Transmission du taux directeur')
+
+    # FRED IRSTCI01CAM156N: monthly overnight rate (full history)
+    overnight = get_fred_data('IRSTCI01CAM156N', observation_start='2000-01-01')
+    overnight = overnight.dropna()
+
+    # Valet BD.CDN.5YR.DQ.YLD: 5-year Government of Canada benchmark bond yield
+    bond5 = get_valet_series('BD.CDN.5YR.DQ.YLD', start='2000-01-01')
+    bond5 = bond5.dropna().resample('MS').mean()  # monthly average
+
+    # Valet V121764: 5-year conventional mortgage rate
+    mortgage = get_valet_series('V121764', start='2000-01-01')
+    mortgage = mortgage.dropna().resample('MS').mean()  # monthly average
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(overnight.index, overnight.values, color=palette[0],
+            linewidth=2, label='Taux directeur')
+    ax.plot(bond5.index, bond5.values, color=palette[1],
+            linewidth=2, label='Obligations du GdC 5 ans')
+    ax.plot(mortgage.index, mortgage.values, color=palette[2],
+            linewidth=2, label=r'Taux hypothécaire 5 ans')
+
+    # Recession shading (Canadian)
+    for start, end in recessions_ca:
+        if start >= pd.Timestamp('2000-01-01'):
+            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
+
+    # ── Axis formatting ─────────────────────────────────────────────
+    end_date = max(overnight.index.max(), bond5.index.max(),
+                   mortgage.index.max())
+    ax.set_xlim(pd.Timestamp('2000-01-01'), end_date)
+    xticks = list(range(2000, 2028, 2))
+    ax.set_xticks([pd.Timestamp(f'{y}-01-01') for y in xticks])
+    ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
+
+    ax.set_ylim(0, 9)
+    ax.set_yticks(range(0, 10, 1))
+    ax.set_yticklabels([f'{y}\\%' for y in range(0, 10, 1)], fontsize=11)
+    ax.set_ylabel(r"\%", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper center', ncol=3)
+    add_source(ax, r"Source: FRED, Banque du Canada (Valet)")
+    save(fig, 'transmission_taux.png')
+
+
+# =====================================================================
 # Figure 3: Policy rate vs CPI inflation (Canada, 2000–present)
 # =====================================================================
 def rate_vs_inflation_ca():
@@ -540,6 +593,7 @@ if __name__ == '__main__':
     figures = [
         overnight_rate_ca,
         overnight_vs_mortgage,
+        transmission_taux,
         rate_vs_inflation_ca,
         inflation_vs_rate_2019,
         policy_rates_global,

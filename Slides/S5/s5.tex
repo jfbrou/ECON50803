@@ -611,7 +611,7 @@
 
 \begin{frame}{Le système de corridor}
    \centering
-   \begin{tikzpicture}[scale=0.80]
+   \begin{tikzpicture}[scale=0.85]
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (9,0) node[right] {};
       \draw[-{Stealth}, thick] (0,0) -- (0,5.5) node[above, font=\small] {Taux d'intérêt};
@@ -630,7 +630,7 @@
       \draw[{Stealth}-{Stealth}, thick, HECgray] (-0.5,2.0) -- (-0.5,4.0);
       \node[left, font=\footnotesize, HECgray, align=right] at (-0.5,3.0) {Fourchette\\opérationnelle\\(50 pb)};
       % Labels
-      \node[font=\footnotesize, HECgray, align=center, text width=8cm] at (4.0,0.7) {Le taux à un jour reste dans le corridor car aucune\\banque n'emprunte au-dessus ni ne dépose en dessous};
+      \node[font=\footnotesize, HECgray, align=center, text width=8cm] at (4.0,0.7) {Le taux à un jour reste dans le corridor\\ car aucune banque n'emprunte au-dessus ni ne dépose en dessous};
    \end{tikzpicture}
 \end{frame}
 
@@ -641,84 +641,146 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Politique expansionniste : $\downarrow$ taux $\to$ $\uparrow$ AD}
-   \small
-   \vspace{0.1cm}
-   \textbf{Mécanisme :} BdC $\downarrow$ taux directeur $\to$ taux du marché $\downarrow$
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item $C \uparrow$ : prêts automobiles, hypothèques moins coûteux
-      \item $I \uparrow$ : coût d'emprunt des entreprises $\downarrow$ $\to$ plus de projets rentables
-      \item $NX \uparrow$ : taux $\downarrow$ $\to$ dollar $\downarrow$ $\to$ exportations plus compétitives
-   \end{itemize}
-   \vspace{0.05cm}
-   \centering
-   \begin{tikzpicture}[scale=0.75]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
-      % Y_POT
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.0)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD' (recession): y = -0.6x + 3.0
-      \draw[HECgray, dashed, thick] (0.0,3.0) -- (4.5,0.3)
-         node[right, font=\footnotesize] {AD$'$};
-      % AD'' (after policy): y = -0.6x + 3.8
-      \draw[HECnavy, very thick] (0.3,3.62) -- (5.5,0.5)
-         node[right] {AD$''$};
-      % Policy arrow at y=0.8: AD' at x=3.67, AD'' at x=5.0
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,0.8) -- (4.8,0.8);
-      \node[font=\scriptsize, HECnavy, above] at (4.3,0.8) {$\downarrow$ taux};
-      % Equilibria
-      \filldraw[HECgray] (2.08,1.75) circle (2pt);
-      \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
-      \filldraw[HECnavy] (2.75,2.15) circle (3pt);
-      \node[font=\scriptsize, HECnavy, above right] at (2.75,2.15) {$E_2$};
-      \draw[dotted, very thick, HECgray] (2.08,0) node[below, font=\footnotesize] {$Y'$} -- (2.08,1.75);
-   \end{tikzpicture}
+\begin{frame}{Du taux directeur aux taux du marché}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{transmission_taux.png}
+   \end{figure}
 \end{frame}
 
 \begin{frame}{Le mécanisme de transmission}
    \centering
-   \vspace{0.3cm}
-   \begin{tikzpicture}[scale=0.85,
+   \vspace{0.1cm}
+   \begin{tikzpicture}[
       box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
-                  fill=HEClightgray, minimum width=2.8cm, minimum height=0.85cm,
+                  fill=HEClightgray, minimum width=2.8cm, minimum height=1cm,
                   align=center, font=\small, inner sep=5pt},
-      arr/.style={->, HECnavy, >=stealth, line width=1.2pt}]
-      % Row 1: policy transmission
-      \node[box] (td) at (0,0) {Taux directeur\\$\downarrow$};
-      \node[box] (tm) at (4,0) {Taux du marché\\$\downarrow$};
-      \node[box, minimum width=3.5cm] (dec) at (8.5,0) {$C\uparrow$, $I\uparrow$, $NX\uparrow$};
-      % Row 2: outcomes
-      \node[box] (pib) at (4,-2.5) {PIB $\uparrow$};
-      \node[box] (inf) at (8.5,-2.5) {Inflation $\uparrow$};
-      % Arrows
-      \draw[arr] (td) -- (tm);
-      \draw[arr] (tm) -- (dec);
-      \draw[arr] (dec) -- (pib);
-      \draw[arr] (dec) -- (inf);
+      arr/.style={-{Stealth[length=6pt]}, HECnavy, line width=1.2pt}]
+      % 4 nodes on an ellipse (wider horizontally)
+      \node[box] (td)  at (0, 2.6)  {Taux directeur};
+      \node[box] (tm)  at (3.8, 0)  {Taux du marché};
+      \node[box] (dep) at (0,-2.6)  {$C$, $I$, $NX$};
+      \node[box] (pib) at (-3.8, 0) {PIB, $+$ inflation};
+      % Curved arrows (clockwise, bend left = outward curvature)
+      \draw[arr] (td) to[bend left=25]
+         node[above right=-2pt, font=\footnotesize, text=HECnavy] {Prêts, obligations} (tm);
+      \draw[arr] (tm) to[bend left=25]
+         node[right=1pt, font=\footnotesize, text=HECnavy] {Coût d'emprunt} (dep);
+      \draw[arr] (dep) to[bend left=25]
+         node[below left=-2pt, font=\footnotesize, text=HECnavy] {Demande agrégée} (pib);
+      % Feedback arrow (dashed, closes the loop)
+      \draw[arr, HECgray, dashed] (pib) to[bend left=25]
+         node[left=1pt, font=\footnotesize, text=HECgray] {Rétroaction} (td);
       % Delay annotation
-      \node[font=\scriptsize, HECcoral, align=center] at (4,-3.8) {Délai total : \textbf{6 à 8 trimestres}};
+      \node[font=\scriptsize, HECcoral, align=center] at (0,0) {Délai total : \textbf{6 à 8 trimestres}};
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Taux directeur et taux hypothécaire}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{overnight_vs_mortgage.png}
-   \end{figure}
+\begin{frame}[t]{Politique expansionniste : le choc initial}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5
+            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD original (dashed): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AD' shifted left: y = -0.6x + 3.0
+            \draw[HECcoral, very thick] (0.0,3.0) -- (4.5,0.3)
+               node[right] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above right] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % Shock arrow
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,1.3) -- (3.0,1.3);
+            \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {Choc};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
+            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+            \draw[dotted, thick, HECcoral] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Court terme :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.15cm}
+            \item AD se déplace à gauche
+            \item Nouvel équilibre $E_1$ : $Y$ $\downarrow$ $+$ $P$ $\downarrow$
+            \item $Y_1 < Y_{\text{POT}}$ $\to$ récession
+         \end{enumerate}
+         \vspace{0.3cm}
+         \textcolor{HECgray}{\footnotesize Plutôt que d'attendre l'ajustement naturel (long et douloureux), la banque centrale peut intervenir\ldots}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-\begin{frame}{Taux directeur et inflation (Canada)}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{rate_vs_inflation_ca.png}
-   \end{figure}
+\begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5
+            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD' (recession, now dashed): y = -0.6x + 3.0
+            \draw[HECgray, dashed, thick] (0.0,3.0) -- (4.5,0.3)
+               node[right, font=\footnotesize] {AD$'$};
+            % AD'' (after policy, back to original): y = -0.6x + 4.1
+            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
+               node[right] {AD$''$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[HECgray] (2.08,1.75) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
+            % E2: AD'' ∩ AS at (3.0, 2.3) — back at potential
+            \filldraw[HECnavy] (3.0,2.3) circle (3pt);
+            \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_2$};
+            % Policy arrow
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.0,1.3) -- (4.5,1.3);
+            \node[font=\scriptsize, HECnavy, above] at (3.75,1.3) {$\downarrow$ taux};
+            % Dotted reference lines
+            \draw[dotted, thick, HECgray] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
+            \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_2$} -- (3.0,2.3);
+            \draw[dotted, thick, HECgray] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Réponse de politique monétaire :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item BdC $\downarrow$ taux directeur
+            \item Taux du marché $\downarrow$
+            \item $C\uparrow$, $I\uparrow$, $NX\uparrow$ $\to$ AD$''$ à droite
+            \item Retour à $Y_{\text{POT}}$ en $E_2$
+         \end{enumerate}
+         \vspace{0.2cm}
+         \begin{keyinsight}[Avantage]
+            Retour à $Y_{\text{POT}}$ \textbf{plus rapide} que l'ajustement par les salaires.
+         \end{keyinsight}
+      \end{column}
+   \end{columns}
 \end{frame}
 
 % ============================================================================
