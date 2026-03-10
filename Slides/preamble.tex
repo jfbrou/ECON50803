@@ -256,8 +256,8 @@
    \stepcounter{newshl}%
    \pgfmathsetmacro{\hlrow}{int((\thenewshl-1)/2)}%
    \pgfmathsetmacro{\hlcol}{int(mod(\thenewshl-1,2))}%
-   \pgfmathsetmacro{\hlx}{1.2 + \hlcol * 7.3}%
-   \pgfmathsetmacro{\hly}{-1.5 - \hlrow * 2.0 - \hlcol * 0.2}%
+   \pgfmathsetmacro{\hlx}{0.8 + \hlcol * 7.8}%
+   \pgfmathsetmacro{\hly}{-1.5 - \hlrow * 2.0}%
    \node[anchor=north west]
       at ([shift={(\hlx cm,\hly cm)}]current page.north west) {%
       \ifx\\#1\\%
@@ -271,7 +271,7 @@
             \includegraphics[height=1.2cm]{logos/#1}%
          \end{minipage}%
          \hspace{6pt}%
-         \begin{minipage}[c]{4.3cm}%
+         \begin{minipage}[c][1.2cm][c]{4.3cm}%
             \raggedright{\small\textcolor{HECtext!75}{#3}}%
          \end{minipage}%
       \fi%

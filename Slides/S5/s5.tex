@@ -414,6 +414,17 @@
 \sectionframe{La politique monétaire conventionnelle}
 % ============================================================================
 
+\begin{frame}[t]{2007--\,? : L'ère des banquiers centraux}
+   \begin{figure}
+      \centering
+      \begin{tikzpicture}
+         \node[rounded corners=8pt, inner sep=0pt, clip] {%
+            \includegraphics[width=0.95\textwidth]{central_bankers.png}%
+         };
+      \end{tikzpicture}
+   \end{figure}
+\end{frame}
+
 \begin{frame}[t]{La Banque du Canada : rôles}
    \small
    \vspace{0.2cm}
@@ -421,38 +432,52 @@
       \setlength\itemsep{0.25cm}
       \item \textbf{Politique monétaire} --- maintenir l'inflation basse, stable et prévisible
       \item \textbf{Stabilité financière} --- partenariat avec les organismes de réglementation
-      \item \textbf{Émission de la monnaie} --- conception et émission des billets de banque
-      \item \textbf{Gestion financière} --- trésorier du gouvernement fédéral
-      \item \textbf{Systèmes de paiement} --- surveillance de l'infrastructure de paiement
+      \item \textbf{Émission de la monnaie} --- conception/émission des billets (\$ numérique\,?)
+      \item \textbf{Gestion financière} --- trésorier du gouv. fédéral (services bancaires)
+      \item \textbf{Systèmes de paiement} --- supervision de l'infrastructure de paiement
    \end{enumerate}
-   \vspace{0.2cm}
+   \vspace{0.1cm}
    \begin{keyinsight}[Indépendance]
-      La BdC est une institution publique \textbf{indépendante} du gouvernement sur le plan opérationnel. C'est cette indépendance qui fonde sa \textbf{crédibilité}.
+      La BdC est une institution publique \textbf{indépendante} du gouvernement sur le plan opérationnel (objectifs clairs). C'est cette indépendance qui fonde sa \textbf{crédibilité}.
    \end{keyinsight}
 \end{frame}
 
-\begin{frame}[t]{La cible d'inflation : 2\,\%}
+\begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
    \small
-   \vspace{0.2cm}
    \begin{defbox}[Entente BdC--Gouvernement]
-      Cible de \textbf{2\,\%} d'inflation (IPC), avec une fourchette de \textbf{1 à 3\,\%}. Renouvelée tous les 5 ans (dernière fois en 2021).
+      Cible de \textbf{2\,\%} d'inflation (depuis 1991), avec une fourchette de \textbf{1 à 3\,\%}. Renouvelée tous les 5 ans (dernière fois en 2021).
    \end{defbox}
-   \vspace{0.15cm}
-   \textbf{Pourquoi 2\,\% et non 0\,\%\,?}
+   \vspace{0.25cm}
+   \textbf{Et ailleurs dans le monde\,?}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item La \textbf{déflation} est pire que l'inflation modérée (spirale déflationniste)
-      \item \textbf{Rigidité nominale} des salaires : les employeurs ne peuvent pas facilement baisser les salaires nominaux. L'inflation permet un ajustement \guillemotleft~silencieux~\guillemotright\ des salaires réels.
-      \item \textbf{Marge de man\oe uvre} : permet de baisser les taux réels en territoire négatif si nécessaire
+      \item Réserve fédérale (États-Unis) : \guillemotleft~plein emploi et stabilité des prix~\guillemotright
+      \item Banque centrale européenne (zone euro) : cible d'inflation (2 \%)
+      \item Banque populaire de Chine : prix, croissance, et stabilité de la devise
    \end{itemize}
 \end{frame}
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{Un instrument qui fait les manchettes}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[lapresse]{La Presse}{\guillemotleft~Le taux directeur maintenu à 2,25\,\%~\guillemotright}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~BOJ Hikes Interest Rates to Highest in 30 Years~\guillemotright}
+      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Bank of Canada holds benchmark interest rate steady as expected amid trade uncertainty~\guillemotright}
+      \newsheadline[reuters]{Reuters}{\guillemotleft~ECB keeps rates steady, nudges up growth forecast~\guillemotright}
+      \newsheadline[washpost]{The Washington Post}{\guillemotleft~Fed holds rates steady as inflation remains elevated~\guillemotright}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Fed January 2026 Minutes: Several Officials Point to Rate-Hike Scenario~\guillemotright}
+   \end{tikzpicture}
+\end{frame}
+}
 
 \begin{frame}[t]{L'instrument : le taux directeur}
    \small
    \vspace{0.15cm}
    \begin{defbox}[Taux directeur (taux à un jour)]
-      Le taux auquel les grandes banques commerciales s'échangent des fonds pour une \textbf{journée}.
+      Taux auquel les banques commerciales s'échangent des fonds pour \textbf{24h}.
    \end{defbox}
    \vspace{0.05cm}
    \begin{itemize}
@@ -463,26 +488,125 @@
    \end{itemize}
    \vspace{0.05cm}
    \begin{bizimplication}
-      Quand la BdC baisse le taux, votre marge de crédit coûte moins cher \textbf{le lendemain}. L'hypothèque suit en quelques semaines.
+      Quand la BdC baisse le taux, votre marge de crédit coûte moins cher \textbf{le lendemain}. L'hypothèque suit en quelques semaines (propagation).
    \end{bizimplication}
 \end{frame}
 
+% --- Bank circle TikZ command (reused on two slides) ---
+\newcommand{\bankcircle}{%
+   \begin{tikzpicture}[scale=0.85,
+      bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
+                   fill=HECnavy!10, minimum width=1.6cm, minimum height=0.7cm,
+                   align=center, font=\small\bfseries, text=HECnavy, inner sep=4pt}]
+      % Circle path (radius=2.0cm)
+      \draw[HECnavy!25, thick] (0,0) circle (2.0cm);
+      % Center label
+      \node[font=\footnotesize, text=HECgray, align=center] at (0,0) {Taux à\\un jour};
+      % 6 banks at 60° intervals (starting from top)
+      \node[bank] (rbc)  at (90:2.6cm)  {RBC};
+      \node[bank] (td)   at (30:2.6cm)  {TD};
+      \node[bank] (bmo)  at (330:2.6cm) {BMO};
+      \node[bank] (bn)   at (270:2.6cm) {BN};
+      \node[bank] (cibc) at (210:2.6cm) {CIBC};
+      \node[bank] (desj) at (150:2.6cm) {Desj.};
+   \end{tikzpicture}%
+}
+
 \begin{frame}[t]{Le marché interbancaire à un jour}
    \small
-   \vspace{0.2cm}
-   \textbf{Pourquoi les banques s'empruntent-elles de l'argent chaque nuit\,?}
+   \begin{columns}[T]
+      \begin{column}{0.50\textwidth}
+         \vspace{0.1cm}
+         \begin{defbox}[Taux à un jour]
+            \footnotesize
+            Taux auquel les banques s'échangent des fonds pour \textbf{24h}. Il fluctue selon l'offre et la demande de \textbf{liquidités}.
+         \end{defbox}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Chaque jour : millions de transactions entre clients de banques différentes
+            \item Fin de journée : certaines banques en \textbf{surplus}, d'autres en \textbf{déficit}
+            \item Les banques en surplus \textbf{prêtent} à celles en déficit pour \textbf{une nuit}
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \centering
+         \vspace{0.2cm}
+         \bankcircle
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Politique monétaire \textcolor{HECgreen}{expansionniste}}
+   \small
+   \centering
    \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Chaque jour, des millions de transactions entre clients de banques différentes
-      \item En fin de journée : certaines banques ont un \textbf{surplus} de liquidités, d'autres un \textbf{déficit}
-      \item Les banques en surplus \textbf{prêtent} à celles en déficit pour \textbf{une nuit}
-      \item Le taux de ce prêt = \textbf{taux à un jour} (\textit{overnight rate})
-   \end{itemize}
+   \begin{tikzpicture}[scale=1.15, transform shape,
+      bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
+                   fill=HECnavy!10, minimum width=1.4cm, minimum height=0.65cm,
+                   align=center, font=\small\bfseries, text=HECnavy, inner sep=3pt}]
+      % BdC box (left)
+      \node[rectangle, rounded corners=8pt, draw=HECcoral, line width=1pt,
+            fill=HECcoral!12, minimum width=2.6cm, minimum height=1.4cm,
+            align=center, font=\small\bfseries, text=HECcoral]
+            (bdc) at (-5.0,0) {Banque du\\Canada};
+      % Top arrow: liquidités BdC → banks (green, right)
+      \draw[-{Stealth[length=7pt]}, HECgreen, very thick]
+            ([yshift=5pt]bdc.east) -- ++(3.0,0)
+            node[midway, above=3pt, font=\footnotesize, text=HECgreen]
+            {Liquidités (\$)};
+      % Bottom arrow: achat d'obligations banks → BdC (HECnavy, left)
+      \draw[-{Stealth[length=7pt]}, HECnavy!60, very thick]
+            ([yshift=-5pt]bdc.east) ++(3.0,0) -- ([yshift=-5pt]bdc.east)
+            node[midway, below=3pt, font=\footnotesize, text=HECnavy!60]
+            {Achat d'obligations};
+      % Bank circle (right)
+      \draw[HECnavy!25, thick] (1.8,0) circle (1.8cm);
+      \node[font=\small\bfseries, text=HECgreen, align=center] at (1.8,0.15) {Taux à un jour};
+      \node[font=\Large\bfseries, text=HECgreen] at (1.8,-0.45) {$\downarrow$};
+      \node[bank] at ($(1.8,0)+(90:2.35cm)$)  {RBC};
+      \node[bank] at ($(1.8,0)+(30:2.35cm)$)  {TD};
+      \node[bank] at ($(1.8,0)+(330:2.35cm)$) {BMO};
+      \node[bank] at ($(1.8,0)+(270:2.35cm)$) {BN};
+      \node[bank] at ($(1.8,0)+(210:2.35cm)$) {CIBC};
+      \node[bank] at ($(1.8,0)+(150:2.35cm)$) {Desj.};
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}[t]{Politique monétaire \textcolor{HECcoral}{restrictive}}
+   \small
+   \centering
    \vspace{0.15cm}
-   \begin{bizimplication}
-      La BdC contrôle ce taux en ajustant l'offre de liquidités dans le système. Plus de liquidités $\to$ surplus $\uparrow$ $\to$ prix de l'emprunt $\downarrow$ $\to$ taux à un jour $\downarrow$.
-   \end{bizimplication}
+   \begin{tikzpicture}[scale=1.15, transform shape,
+      bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
+                   fill=HECnavy!10, minimum width=1.4cm, minimum height=0.65cm,
+                   align=center, font=\small\bfseries, text=HECnavy, inner sep=3pt}]
+      % BdC box (left)
+      \node[rectangle, rounded corners=8pt, draw=HECcoral, line width=1pt,
+            fill=HECcoral!12, minimum width=2.6cm, minimum height=1.4cm,
+            align=center, font=\small\bfseries, text=HECcoral]
+            (bdc) at (-5.0,0) {Banque du\\Canada};
+      % Top arrow: vente d'obligations BdC → banks (HECnavy, right)
+      \draw[-{Stealth[length=7pt]}, HECnavy!60, very thick]
+            ([yshift=5pt]bdc.east) -- ++(3.0,0)
+            node[midway, above=3pt, font=\footnotesize, text=HECnavy!60]
+            {Vente d'obligations};
+      % Bottom arrow: liquidités banks → BdC (coral, left)
+      \draw[-{Stealth[length=7pt]}, HECcoral, very thick]
+            ([yshift=-5pt]bdc.east) ++(3.0,0) -- ([yshift=-5pt]bdc.east)
+            node[midway, below=3pt, font=\footnotesize, text=HECcoral]
+            {Liquidités (\$)};
+      % Bank circle (right)
+      \draw[HECnavy!25, thick] (1.8,0) circle (1.8cm);
+      \node[font=\small\bfseries, text=HECcoral, align=center] at (1.8,0.15) {Taux à un jour};
+      \node[font=\Large\bfseries, text=HECcoral] at (1.8,-0.45) {$\uparrow$};
+      \node[bank] at ($(1.8,0)+(90:2.35cm)$)  {RBC};
+      \node[bank] at ($(1.8,0)+(30:2.35cm)$)  {TD};
+      \node[bank] at ($(1.8,0)+(330:2.35cm)$) {BMO};
+      \node[bank] at ($(1.8,0)+(270:2.35cm)$) {BN};
+      \node[bank] at ($(1.8,0)+(210:2.35cm)$) {CIBC};
+      \node[bank] at ($(1.8,0)+(150:2.35cm)$) {Desj.};
+   \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Le système de corridor}
