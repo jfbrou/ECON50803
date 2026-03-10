@@ -39,7 +39,7 @@ def labor_market_indicators_us():
     ax.plot(emratio.index.year, emratio.values, color=palette[1],
             linewidth=2.5, label="Taux d'emploi")
     ax.plot(unrate.index.year, unrate.values, color=palette[2],
-            linewidth=2, label=r"Taux de ch\^{o}mage")
+            linewidth=2, label=r"Taux de chômage")
 
     ax.set_xlim(1950, 2024)
     ax.set_xticks(range(1950, 2025, 10))
@@ -53,7 +53,7 @@ def labor_market_indicators_us():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, r"Source: FRED (CIVPART, EMRATIO, UNRATE) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (CIVPART, EMRATIO, UNRATE) --- États-Unis")
     save(fig, 'labor_market_indicators_us.png')
 
 
@@ -100,7 +100,7 @@ def labor_market_indicators_ca():
 
     # Right axis: unemployment rate
     ax2.plot(unemployment.index, unemployment.values, color=palette[2],
-             linewidth=1.5, label=r"Taux de ch\^{o}mage")
+             linewidth=1.5, label=r"Taux de chômage")
 
     # Left axis formatting
     import matplotlib.dates as mdates
@@ -118,7 +118,7 @@ def labor_market_indicators_ca():
                          fontsize=11)
 
     # Right axis formatting
-    ax2.set_ylabel(r"Ch\^{o}mage (\%)", fontsize=11,
+    ax2.set_ylabel(r"Chômage (\%)", fontsize=11,
                    rotation=0, ha='right')
     ax2.yaxis.set_label_coords(1, 1.06)
     ax2.set_ylim(4, 14)
@@ -181,7 +181,7 @@ def participation_gender():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='center right')
-    add_source(ax, r"Source: FRED (LNS11300001, LNS11300002) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (LNS11300001, LNS11300002) --- États-Unis")
     save(fig, 'participation_gender.png')
 
 
@@ -197,7 +197,7 @@ def aging_population():
         ('JPN', 'Japon', palette[0], 2.5),          # HECnavy
         ('ITA', 'Italie', palette[1], 2.5),          # HECgreen
         ('CAN', 'Canada', palette[2], 3.0),          # HECcoral
-        ('USA', r"\'{E}tats-Unis", palette[3], 2.0), # yellow
+        ('USA', r"États-Unis", palette[3], 2.0), # yellow
     ]
 
     fig, ax = new_figure(9, 4.5)
@@ -210,7 +210,7 @@ def aging_population():
     ax.set_xlim(1960, 2025)
     ax.set_xticks(range(1960, 2030, 10))
     ax.set_xticklabels(range(1960, 2030, 10), fontsize=11)
-    ax.set_ylabel(r"Ratio de d\'{e}pendance des a\^{i}n\'{e}s (\%)",
+    ax.set_ylabel(r"Ratio de dépendance des aînés (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(5, 55)
@@ -241,7 +241,7 @@ def participation_decline_us():
                     prime_male.values.min() - 1, alpha=0.1, color=palette[0])
 
     # Trend annotation
-    ax.annotate(r"D\'{e}clin structurel",
+    ax.annotate(r"Déclin structurel",
                 xy=(2010, 88), xytext=(1980, 92),
                 fontsize=12, color=palette[2], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
@@ -257,7 +257,7 @@ def participation_decline_us():
     ax.set_yticklabels([f'{y}' + r'\%' for y in range(84, 101, 2)], fontsize=11)
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (LNS11300061) --- Hommes 25--54 ans, \'{E}.-U.")
+    add_source(ax, r"Source: FRED (LNS11300061) --- Hommes 25--54 ans, É.-U.")
     save(fig, 'participation_decline_us.png')
 
 
@@ -313,7 +313,7 @@ def inequality_skill_premium():
             markersize=6)
 
     # Annotation for the rise
-    ax.annotate("Hausse du rendement\n" + r"de l'\'{e}ducation",
+    ax.annotate("Hausse du rendement\n" + r"de l'éducation",
                 xy=(2005, 1.82), xytext=(1975, 1.82),
                 fontsize=11, color=palette[1], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
@@ -321,7 +321,7 @@ def inequality_skill_premium():
     ax.set_xlim(1963, 2025)
     ax.set_xticks(range(1965, 2025, 10))
     ax.set_xticklabels(range(1965, 2025, 10), fontsize=11)
-    ax.set_ylabel(r"Ratio salarial (universit\'{e} / secondaire)",
+    ax.set_ylabel(r"Ratio salarial (université / secondaire)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(1.2, 2.0)
@@ -365,19 +365,19 @@ def rd_gdp_share():
     ax.set_yticks(np.arange(0, 4.1, 0.5))
     ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(0, 4.1, 0.5)],
                        fontsize=11)
-    ax.set_ylabel(r"Part du PIB am\'{e}ricain (\%)",
+    ax.set_ylabel(r"Part du PIB américain (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
 
     # In-chart labels
-    ax.text(pd.to_datetime('2005'), 0.7, r"R\&D priv\'{e}e",
+    ax.text(pd.to_datetime('2005'), 0.7, r"R\&D privée",
             fontsize=14, color='white', ha='center', va='center')
     ax.text(pd.to_datetime('1970'), 1.6, r"R\&D publique",
             fontsize=14, color='k', ha='center', va='center')
 
-    add_source(ax, r"Source: FRED (Y006RC, Y057RC, GDP) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (Y006RC, Y057RC, GDP) --- États-Unis")
     save(fig, 'rd_gdp_share.png')
 
 
@@ -432,7 +432,7 @@ def canada_gdp_decomposition():
     # Stacked bars: positive contributions stack upward from 0,
     # negative contributions stack downward from 0
     components = [
-        (a_vals, palette[0], r"Productivit\'{e} ($A$)"),
+        (a_vals, palette[0], r"Productivité ($A$)"),
         (ky_vals, palette[1], r"Capital/PIB ($K/Y$)"),
         (ln_vals, palette[3], r"Taux d'emploi ($L/N$)"),
     ]
@@ -464,7 +464,7 @@ def canada_gdp_decomposition():
     ax.axhline(y=0, color='black', linewidth=0.5)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=13)
-    ax.set_ylabel(r"Contribution \`{a} la croissance de $Y/N$ (\%/an)",
+    ax.set_ylabel(r"Contribution à la croissance de $Y/N$ (\%/an)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -495,16 +495,16 @@ def canada_gdp_decomposition_countries():
     amp_ky = alpha / (1 - alpha)  # 0.5
 
     countries = {
-        'KOR': r'Cor\'{e}e du Sud',
+        'KOR': r'Corée du Sud',
         'POL': 'Pologne',
         'IRL': 'Irlande',
         'AUS': 'Australie',
-        'SWE': r'Su\`{e}de',
-        'USA': r'\'{E}tats-Unis',
+        'SWE': r'Suède',
+        'USA': r'États-Unis',
         'GBR': 'Royaume-Uni',
-        'NZL': r'Nouvelle-Z\'{e}lande',
+        'NZL': r'Nouvelle-Zélande',
         'DEU': 'Allemagne',
-        'NOR': r'Norv\`{e}ge',
+        'NOR': r'Norvège',
         'CAN': 'Canada',
         'CHE': 'Suisse',
         'NLD': 'Pays-Bas',
@@ -558,7 +558,7 @@ def canada_gdp_decomposition_countries():
 
     # Stacked horizontal bars: positive right of 0, negative left of 0
     components = [
-        (a_vals, palette[0], r"Productivit\'{e} ($A$)"),
+        (a_vals, palette[0], r"Productivité ($A$)"),
         (ky_vals, palette[1], r"Capital/PIB ($K/Y$)"),
         (ln_vals, palette[3], r"Taux d'emploi ($L/N$)"),
     ]
@@ -601,7 +601,7 @@ def canada_gdp_decomposition_countries():
     ax.axhspan(can_idx - 0.4, can_idx + 0.4, color=palette[2],
                alpha=0.08, zorder=0)
 
-    ax.set_xlabel(r"Contribution \`{a} la croissance de $Y/N$ (\%/an)",
+    ax.set_xlabel(r"Contribution à la croissance de $Y/N$ (\%/an)",
                   fontsize=11)
     ax.set_xlim(-1.0, 4.0)
     ax.set_xticks(np.arange(-1.0, 4.1, 0.5))
@@ -616,7 +616,7 @@ def canada_gdp_decomposition_countries():
 
     ax.legend(frameon=False, fontsize=9, loc='lower right',
               bbox_to_anchor=(1.0, 0.0))
-    add_source(ax, r"Source: Penn World Tables 10.01 --- P\'{e}riode 2000--2019")
+    add_source(ax, r"Source: Penn World Tables 10.01 --- Période 2000--2019")
     save(fig, 'canada_gdp_decomposition_countries.png')
 
 
@@ -664,14 +664,14 @@ def breakthrough_inventions():
     # Annotate three waves (text only, no arrows)
     ax.text(1867, 48,
             r"\textbf{1\textsuperscript{re} vague :}" "\n"
-            r"2\textsuperscript{e} r\'{e}v. industrielle" "\n"
-            r"(\'{e}lectricit\'{e}, transport)",
+            r"2\textsuperscript{e} rév. industrielle" "\n"
+            r"(électricité, transport)",
             fontsize=8, color=palette[0], va='bottom', ha='center')
 
     ax.text(1932, 78,
             r"\textbf{2\textsuperscript{e} vague :}" "\n"
             r"Entre-deux-guerres" "\n"
-            r"(chimie, \'{e}lectricit\'{e})",
+            r"(chimie, électricité)",
             fontsize=8, color=palette[0], va='bottom', ha='center')
 
     ax.text(1978, 78,
@@ -704,11 +704,11 @@ def rd_spending_global():
 
     # Country codes and French labels (stacking order: bottom to top)
     countries = [
-        ('USA', r'\'{E}tats-Unis'),
+        ('USA', r'États-Unis'),
         ('CHN', 'Chine'),
         ('EUU', 'UE-27'),
         ('JPN', 'Japon'),
-        ('KOR', r'Cor\'{e}e du Sud'),
+        ('KOR', r'Corée du Sud'),
         ('GBR', 'Royaume-Uni'),
     ]
 
@@ -830,7 +830,7 @@ def zimbabwe_botswana():
     ax.set_xlim(1960, 2020)
     ax.set_xticks(range(1960, 2021, 10))
     ax.set_xticklabels(range(1960, 2021, 10), fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant (\$US)", fontsize=11,
+    ax.set_ylabel(r"PIB réel par habitant (\$US)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(0, 17500)
@@ -854,7 +854,7 @@ def education_plateau():
     # Barro-Lee / Our World in Data — average years of schooling (25+)
     years = [1880, 1900, 1920, 1940, 1960, 1970, 1980, 1990, 2000, 2010, 2020, 2040]
     data = {
-        r'\'{E}tats-Unis': [3.0, 4.5, 6.5, 8.0, 9.5, 10.5, 12.0, 12.5, 13.0, 13.2, 13.4, 13.5],
+        r'États-Unis': [3.0, 4.5, 6.5, 8.0, 9.5, 10.5, 12.0, 12.5, 13.0, 13.2, 13.4, 13.5],
         'Canada':          [2.8, 4.0, 5.5, 7.5, 8.8, 10.0, 11.5, 12.0, 12.5, 13.0, 13.2, 13.3],
         'Australie':       [3.2, 4.8, 6.0, 7.5, 9.0, 10.0, 11.0, 12.0, 12.5, 12.8, 12.9, 13.0],
         'Royaume-Uni':     [2.0, 3.5, 5.0, 6.5, 8.5, 9.5, 10.5, 11.0, 12.0, 12.5, 13.0, 13.1],
@@ -878,7 +878,7 @@ def education_plateau():
     ax.set_xlim(1875, 2045)
     ax.set_xticks(range(1880, 2041, 20))
     ax.set_xticklabels(range(1880, 2041, 20), fontsize=10)
-    ax.set_ylabel(r"Ann\'{e}es moyennes de scolarit\'{e} (25+)", fontsize=11,
+    ax.set_ylabel(r"Années moyennes de scolarité (25+)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(0, 16)
@@ -930,9 +930,9 @@ def development_accounting_human_capital():
     ax.set_yticks(ticks)
     ax.set_yticklabels(tick_labels, fontsize=11)
 
-    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (2019)",
+    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (2019)",
                   fontsize=11)
-    ax.set_ylabel(r"Capital humain relatif aux \'{E}.-U. (2019)",
+    ax.set_ylabel(r"Capital humain relatif aux É.-U. (2019)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1009,7 +1009,7 @@ def tropics_map():
     from matplotlib.patches import Patch
     legend_items = [
         Patch(facecolor=palette[1], edgecolor='white',
-              label=r'PIB/hab. \'{e}lev\'{e}'),
+              label=r'PIB/hab. élevé'),
         Patch(facecolor=palette[3], edgecolor='white',
               label=r'PIB/hab. moyen'),
         Patch(facecolor=palette[2], edgecolor='white',
@@ -1064,14 +1064,14 @@ def education_prosperity():
     ax.set_xticks([1e3, 1e4, 1e5])
     ax.set_xticklabels([r'\$1\,000', r'\$10\,000', r'\$100\,000'],
                        fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant, PPA (\$US 2017)",
+    ax.set_xlabel(r"PIB réel par habitant, PPA (\$US 2017)",
                   fontsize=11)
 
     # Y-axis
     ax.set_ylim(0, 16)
     ax.set_yticks(range(0, 17, 2))
     ax.set_yticklabels([str(y) for y in range(0, 17, 2)], fontsize=11)
-    ax.set_ylabel(r"Ann\'{e}es moyennes de scolarit\'{e}",
+    ax.set_ylabel(r"Années moyennes de scolarité",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1116,14 +1116,14 @@ def digital_adoption_index():
     ax.set_xticks([1e3, 1e4, 1e5])
     ax.set_xticklabels([r'\$1\,000', r'\$10\,000', r'\$100\,000'],
                        fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (\$US)", fontsize=11)
+    ax.set_xlabel(r"PIB réel par habitant (\$US)", fontsize=11)
 
     # Y-axis
     ax.set_ylim(0, 1)
     ax.set_yticks(np.arange(0, 1.01, 0.2))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0, 1.01, 0.2)],
                        fontsize=11)
-    ax.set_ylabel(r"Indice d'adoption num\'{e}rique",
+    ax.set_ylabel(r"Indice d'adoption numérique",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1183,7 +1183,7 @@ def canada_gdp_decomposition_5y():
 
     components = [
         (ln_vals, palette[2], r"Taux d'emploi ($L/N$)"),
-        (a_vals, palette[0], r"Productivit\'{e} ($A$)"),
+        (a_vals, palette[0], r"Productivité ($A$)"),
         (ky_vals, palette[1], r"Capital/PIB ($K/Y$)"),
     ]
 
@@ -1221,8 +1221,8 @@ def canada_gdp_decomposition_5y():
     ax.axhline(y=0, color='black', linewidth=0.5)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=11)
-    ax.set_xlabel(r"P\'{e}riode de 5 ans se terminant en\ldots", fontsize=11)
-    ax.set_ylabel(r"Contribution \`{a} la croissance de $Y/N$ (\%/an)",
+    ax.set_xlabel(r"Période de 5 ans se terminant en\ldots", fontsize=11)
+    ax.set_ylabel(r"Contribution à la croissance de $Y/N$ (\%/an)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1346,7 +1346,7 @@ def unemployment_ca():
     tick_dates = [pd.Timestamp(f'{y}-01-01') for y in tick_years]
     ax.set_xticks(tick_dates)
     ax.set_xticklabels([str(y) for y in tick_years], fontsize=11)
-    ax.set_ylabel(r"Taux de ch\^{o}mage (\%)", fontsize=11,
+    ax.set_ylabel(r"Taux de chômage (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(4, 16)
@@ -1453,8 +1453,8 @@ def immigration_ca():
 
     ax.stackplot(imm_pct.index, imm_pct.values, npr_pct_pos.values,
                  colors=[palette[0], palette[1]],
-                 labels=[r'R\'{e}sidents permanents',
-                         r'R\'{e}sidents temporaires (net)'],
+                 labels=[r'Résidents permanents',
+                         r'Résidents temporaires (net)'],
                  edgecolor='k', linewidth=0.5)
 
     ax.set_xlim(imm_pct.index.min(), imm_pct.index.max())
@@ -1517,7 +1517,7 @@ def elephant_curve():
     yticks = list(range(50, 211, 50))
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'{y}' + r'\%' for y in yticks], fontsize=13)
-    ax.set_ylabel(r"Croissance cumul\'{e}e du revenu r\'{e}el, 1980--2020",
+    ax.set_ylabel(r"Croissance cumulée du revenu réel, 1980--2020",
                   fontsize=13, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1537,7 +1537,7 @@ def inequality_top1_share():
     )
 
     codes    = ['USA', 'AUS', 'CAN', 'GBR', 'CHN', 'FRA', 'IND', 'DEU']
-    labels   = [r'\'{E}tats-Unis', 'Australie', 'Canada', 'Royaume-Uni',
+    labels   = [r'États-Unis', 'Australie', 'Canada', 'Royaume-Uni',
                 'Chine', 'France', 'Inde', 'Allemagne']
     colors   = [palette[0], palette[1], palette[2], palette[3],
                 palette[4], palette[5], palette[6], palette[7]]
@@ -1561,7 +1561,7 @@ def inequality_top1_share():
     ax.set_yticks(range(4, 28 + 1, 4))
     ax.set_yticklabels([f'{x}' + r'\%' for x in range(4, 28 + 1, 4)],
                         fontsize=12)
-    ax.set_ylabel(r"Part du revenu du 1\% le plus riche (avant imp\^{o}t)",
+    ax.set_ylabel(r"Part du revenu du 1\% le plus riche (avant impôt)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1606,7 +1606,7 @@ def outsourcing_inequality():
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
 
-    ax.set_ylabel(r"Contribution \`{a} la hausse des in\'{e}galit\'{e}s salariales",
+    ax.set_ylabel(r"Contribution à la hausse des inégalités salariales",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.05)
 
@@ -1866,25 +1866,25 @@ def baumol_cost_disease_canada():
     # (eng_name, fr_label, linestyle, linewidth)
     series_spec_no_color = [
         ('Health care services',
-         r"Sant\'{e}", '-', 2.5),
+         r"Santé", '-', 2.5),
         ('Food purchased from restaurants',
          r"Restaurants", '-', 2.5),
         ('Tuition fees',
-         r"Frais de scolarit\'{e}", '-', 2.5),
+         r"Frais de scolarité", '-', 2.5),
         ('Shelter',
          r"Logement", '-', 2.5),
         ('Clothing and footwear',
-         r"V\^{e}tements et chaussures", '-', 2.5),
+         r"Vêtements et chaussures", '-', 2.5),
         ('Toys, games (excluding video games) and hobby supplies',
          r"Jouets et jeux", '-', 2.5),
         ('Telephone services',
-         r"T\'{e}l\'{e}phone", '-', 2.5),
+         r"Téléphone", '-', 2.5),
         ('Home entertainment equipment, parts and services',
          r"Divertissement maison", '-', 2.5),
         ('Video equipment',
-         r"Vid\'{e}o", '-', 2.5),
+         r"Vidéo", '-', 2.5),
         ('Digital computing equipment and devices',
-         r"\'{E}quipement informatique", '-', 2.5),
+         r"Équipement informatique", '-', 2.5),
     ]
 
     # ── Colormap gradient: warm (red) → cool (blue) ──────────────────

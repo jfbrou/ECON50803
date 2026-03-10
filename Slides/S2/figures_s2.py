@@ -57,10 +57,10 @@ def regional_divergence():
     df = _get_owid_maddison()
 
     regions = {
-        'Western offshoots (Maddison)':           (r"Am\'{e}rique du Nord + Oc\'{e}anie", palette[0], 2.5),
+        'Western offshoots (Maddison)':           (r"Amérique du Nord + Océanie", palette[0], 2.5),
         'Western Europe (Maddison)':              ("Europe de l'Ouest", palette[4], 2.0),
         'East Asia (Maddison)':                   ("Asie de l'Est", palette[1], 2.0),
-        'Latin America (Maddison)':               (r"Am\'{e}rique latine", palette[2], 2.0),
+        'Latin America (Maddison)':               (r"Amérique latine", palette[2], 2.0),
         'South and South East Asia (Maddison)':   ('Asie du Sud et du Sud-Est', palette[3], 2.0),
         'Middle East and North Africa (Maddison)': ('Moyen-Orient et Afrique du Nord', palette[5], 1.5),
         'Sub Saharan Africa (Maddison)':          ('Afrique subsaharienne', palette[7], 1.5),
@@ -81,7 +81,7 @@ def regional_divergence():
     ax.set_yticks(range(0, 60000 + 1, 10000))
     ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 60 + 1, 10)],
                        fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant",
+    ax.set_ylabel(r"PIB réel par habitant",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -218,7 +218,7 @@ def growth_decomp_china_us():
     def stack_bars(ax, xpos, a_vals, ky_vals, ln_vals, w, label=False):
         """Stack bars handling negative L/N contributions."""
         ax.bar(xpos, a_vals, w, color=palette[0],
-               label=r'Productivit\'{e} ($A$)' if label else None)
+               label=r'Productivité ($A$)' if label else None)
         ax.bar(xpos, ky_vals, w, bottom=a_vals, color=palette[1],
                label='Capital/PIB ($K/Y$)' if label else None)
         ln_pos = [max(0, v) for v in ln_vals]
@@ -242,7 +242,7 @@ def growth_decomp_china_us():
                   + max(0, results['US_LN'][i]))
         ax.text(i - width/2 - gap/2, chn_top + 0.15, 'Chine',
                 ha='center', fontsize=10, fontweight='bold', color=palette[2])
-        ax.text(i + width/2 + gap/2, us_top + 0.15, r"\'{E}.-U.",
+        ax.text(i + width/2 + gap/2, us_top + 0.15, r"É.-U.",
                 ha='center', fontsize=10, fontweight='bold', color=palette[4])
 
     ax.set_xticks(x)
@@ -336,9 +336,9 @@ def global_growth_sources():
     emde_pos = np.maximum(emde_ex_chn_contrib, 0)
 
     ax.bar(x, ae_pos, width, color=palette[0],
-           label=r"\'{E}conomies avanc\'{e}es")
+           label=r"Économies avancées")
     ax.bar(x, emde_pos, width, bottom=ae_pos, color=palette[1],
-           label=r"\'{E}mergents (hors Chine)")
+           label=r"Émergents (hors Chine)")
     ax.bar(x, chn_pos, width, bottom=ae_pos + emde_pos, color=palette[2],
            label='Chine')
 
@@ -360,7 +360,7 @@ def global_growth_sources():
     tick_labels = [str(y) for y in valid_years if y % 5 == 0]
     ax.set_xticks(tick_positions)
     ax.set_xticklabels(tick_labels, fontsize=10)
-    ax.set_ylabel(r"Contribution \`{a} la croissance mondiale (pp)",
+    ax.set_ylabel(r"Contribution à la croissance mondiale (pp)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(-4, 7)
@@ -408,7 +408,7 @@ def ww2_recovery():
     ax.set_xticks(range(1910, 1961, 10))
     ax.set_xticklabels(range(1910, 1961, 10), fontsize=12)
     ax.set_ylim(bottom=2000)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=12, rotation=0, ha='left')
+    ax.set_ylabel(r"PIB réel par habitant", fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     # Format y-axis
@@ -453,7 +453,7 @@ def china_gdp_growth():
     ax.set_ylim(0, 16)
     ax.set_yticks(range(0, 17, 2))
     ax.set_yticklabels([f'{y}' + r'\%' for y in range(0, 17, 2)], fontsize=12)
-    ax.set_ylabel(r"Croissance du PIB r\'{e}el (\%)",
+    ax.set_ylabel(r"Croissance du PIB réel (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -577,7 +577,7 @@ def ussr_russia_gdp():
     yticks = range(0, 56, 10)
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'{y}' + r'\%' for y in yticks], fontsize=12)
-    ax.set_ylabel(r"PIB/hab. relatif aux \'{E}.-U. (\%)",
+    ax.set_ylabel(r"PIB/hab. relatif aux É.-U. (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -645,7 +645,7 @@ def convergence_us_states():
     ax.set_xlim(np.exp(6.0 - log_ny - 0.15), np.exp(7.9 - log_ny + 0.15))
     ax.set_xticks([1/4, 1/2, 1])
     ax.set_xticklabels(['1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"Revenu par habitant relatif \`a New York (1880)",
+    ax.set_xlabel(r"Revenu par habitant relatif à New York (1880)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -730,7 +730,7 @@ def convergence_oecd():
     ax.set_xlim(1 / 5, 1.25)
     ax.set_xticks([1 / 4, 1 / 2, 1])
     ax.set_xticklabels(['1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1960)",
+    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1960)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -738,7 +738,7 @@ def convergence_oecd():
     ax.set_yticks(np.arange(1.5, 4 + 0.5, 0.5))
     ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 4 + 0.5, 0.5)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1960--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1960--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -810,7 +810,7 @@ def convergence_asia():
     ax.set_xlim(1 / 32, 1)
     ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1])
     ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1990)",
+    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1990)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -818,7 +818,7 @@ def convergence_asia():
     ax.set_yticks(np.arange(1.5, 6.5 + 1, 1))
     ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 6.5 + 1, 1)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1990--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1990--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -895,7 +895,7 @@ def convergence_global():
     ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1, 2])
     ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
                        fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (1960)",
+    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1960)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -903,7 +903,7 @@ def convergence_global():
     ax.set_yticks(range(-2, 6 + 1, 2))
     ax.set_yticklabels([str(x) + r'\%' for x in range(-2, 6 + 1, 2)],
                        fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB r\'{e}el par habitant (1960--2019)",
+    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1960--2019)",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -935,7 +935,7 @@ def development_accounting():
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1.5,
                 f'{val}\\%', ha='center', fontsize=14, fontweight='bold')
 
-    ax.set_ylabel(r"Part des diff\'{e}rences de revenus expliqu\'{e}e (\%)",
+    ax.set_ylabel(r"Part des différences de revenus expliquée (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(0, 75)
@@ -966,7 +966,7 @@ def tfp_growth_advanced():
 
     fig, ax = new_figure(9, 4.5)
 
-    ax.bar(x - width/2, us_tfp, width, label=r"\'{E}tats-Unis",
+    ax.bar(x - width/2, us_tfp, width, label=r"États-Unis",
            color=palette[0])
     ax.bar(x + width/2, eu_tfp, width, label='Zone euro',
            color=palette[4])
@@ -1001,7 +1001,7 @@ def oecd_business_investment():
 
     # Business investment as % of GDP (2015-2023 average)
     # Source: OECD National Accounts; IMF Investment and Capital Stock Dataset
-    countries = ['Canada', r"\'{E}tats-Unis", 'OCDE', 'France', 'Allemagne',
+    countries = ['Canada', r"États-Unis", 'OCDE', 'France', 'Allemagne',
                  'Japon', 'Royaume-Uni']
     values = [17.2, 20.1, 21.3, 23.8, 20.5, 24.1, 17.5]
 
@@ -1062,7 +1062,7 @@ def canada_productivity_growth():
     ax.axhline(y=0, color='gray', linewidth=0.8)
     ax.set_xticks(x)
     ax.set_xticklabels(periods, fontsize=12)
-    ax.set_ylabel(r"Contribution \`{a} la croissance de $Y/N$ (\%/an)",
+    ax.set_ylabel(r"Contribution à la croissance de $Y/N$ (\%/an)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(-3, 4.5)
@@ -1127,9 +1127,9 @@ def kaya_decomposition():
 
     # Negative contributions (stacked downward)
     ax.bar(x, energy_int, width,
-           label=r"Intensit\'{e} \'{e}nerg\'{e}tique", color=palette[1])
+           label=r"Intensité énergétique", color=palette[1])
     ax.bar(x, carbon_int, width, bottom=energy_int,
-           label=r"Intensit\'{e} carbone", color=palette[4])
+           label=r"Intensité carbone", color=palette[4])
 
     # Net CO2 growth line
     net = [p + g + e + c for p, g, e, c in
@@ -1173,7 +1173,7 @@ def kaya_decomposition_countries():
 
     countries = [
         ('Canada',                  'Canada'),
-        ('United States',           r"\'{E}.-U."),
+        ('United States',           r"É.-U."),
         ('_EU27',                   'UE-27'),
         ('China',                   'Chine'),
         ('India',                   'Inde'),
@@ -1227,9 +1227,9 @@ def kaya_decomposition_countries():
 
     # Negative components stacked downward
     ax.bar(x, energy_int, width,
-           label=r"Intensit\'{e} \'{e}nerg\'{e}tique", color=palette[1])
+           label=r"Intensité énergétique", color=palette[1])
     ax.bar(x, carbon_int, width, bottom=energy_int,
-           label=r"Intensit\'{e} carbone", color=palette[4])
+           label=r"Intensité carbone", color=palette[4])
 
     # Net CO2 growth markers
     ax.plot(x, net_co2, 'o', color=palette[2], markersize=10,
@@ -1262,7 +1262,7 @@ def decoupling():
 
     # --- Countries/regions to plot ---
     regions = [
-        ('United States',           r"\'{E}.-U.",  palette[4]),   # blue
+        ('United States',           r"É.-U.",  palette[4]),   # blue
         ('European Union (27)',     'UE-27',       palette[1]),   # green
         ('Canada',                  'Canada',      palette[2]),   # coral
     ]
@@ -1403,11 +1403,11 @@ def gdp_vs_co2_growth():
     ax.scatter(adv['g_gdppc'], adv['g_co2pc'],
                color=palette[0], alpha=0.7, s=_size(adv['pop']), zorder=2,
                edgecolors='#001a3a', linewidths=0.5,
-               label=r"\'{E}conomies avanc\'{e}es")
+               label=r"Économies avancées")
     ax.scatter(dev['g_gdppc'], dev['g_co2pc'],
                color=palette[2], alpha=0.7, s=_size(dev['pop']), zorder=2,
                edgecolors='#992e30', linewidths=0.5,
-               label=r"\'{E}conomies en d\'{e}veloppement")
+               label=r"Économies en développement")
 
     ax.axhline(y=0, color='gray', linewidth=0.8, zorder=1)
     ax.axvline(x=0, color='gray', linewidth=0.8, zorder=1)
@@ -1476,7 +1476,7 @@ def growth_decomp_canada_us_total():
         us_top = data['US_A'][i] + data['US_K'][i] + data['US_L'][i]
         ax.text(i - width/2 - gap/2, can_top + 0.04, 'Canada',
                 ha='center', fontsize=10, fontweight='bold', color=palette[7])
-        ax.text(i + width/2 + gap/2, us_top + 0.04, r"\'{E}.-U.",
+        ax.text(i + width/2 + gap/2, us_top + 0.04, r"É.-U.",
                 ha='center', fontsize=10, fontweight='bold', color=palette[7])
 
     ax.set_xticks(x)
@@ -1574,7 +1574,7 @@ def growth_decomp_canada_us():
                   + max(0, results['US_LN'][i]))
         ax.text(i - width/2 - gap/2, can_top + 0.04, 'Canada',
                 ha='center', fontsize=10, fontweight='bold', color=palette[7])
-        ax.text(i + width/2 + gap/2, us_top + 0.04, r"\'{E}.-U.",
+        ax.text(i + width/2 + gap/2, us_top + 0.04, r"É.-U.",
                 ha='center', fontsize=10, fontweight='bold', color=palette[7])
 
     ax.set_xticks(x)
@@ -1606,9 +1606,9 @@ def growth_decomp_asian_tigers():
     alpha = 1 / 3
     amp_ky = alpha / (1 - alpha)
 
-    codes = [('USA', r"\'{E}.-U."), ('HKG', 'Hong Kong'),
-             ('KOR', r"Cor\'{e}e du S."), ('SGP', 'Singapour'),
-             ('TWN', r"Ta\"{i}wan")]
+    codes = [('USA', r"É.-U."), ('HKG', 'Hong Kong'),
+             ('KOR', r"Corée du S."), ('SGP', 'Singapour'),
+             ('TWN', 'Taïwan')]
     y0, y1, T = 1970, 1990, 20
 
     A_vals, KY_vals, LN_vals, labels = [], [], [], []
@@ -1674,9 +1674,9 @@ def growth_decomp_asian_tigers_comparison():
     alpha = 1 / 3
     amp_ky = alpha / (1 - alpha)
 
-    codes = [('USA', r"\'{E}.-U."), ('HKG', 'Hong Kong'),
-             ('KOR', r"Cor\'{e}e du S."), ('SGP', 'Singapour'),
-             ('TWN', r"Ta\"{i}wan")]
+    codes = [('USA', r"É.-U."), ('HKG', 'Hong Kong'),
+             ('KOR', r"Corée du S."), ('SGP', 'Singapour'),
+             ('TWN', 'Taïwan')]
     y0, y1, T = 1970, 1990, 20
 
     # Compute both decompositions
@@ -1794,8 +1794,8 @@ def catchup_growth():
     countries = [
         ('SGP', 1965, 'Singapour', palette[0]),
         ('HKG', 1960, 'Hong Kong', palette[1]),
-        ('TWN', 1960, r"Ta\"{i}wan", palette[2]),
-        ('KOR', 1960, r"Cor\'{e}e du Sud", palette[3]),
+        ('TWN', 1960, 'Taïwan', palette[2]),
+        ('KOR', 1960, r"Corée du Sud", palette[3]),
         ('CHN', 1980, 'Chine', palette[4]),
         ('IND', 1991, 'Inde', palette[5]),
     ]
@@ -1811,7 +1811,7 @@ def catchup_growth():
     ax.set_xlim(0, 60)
     ax.set_xticks(range(0, 61, 10))
     ax.set_xticklabels(range(0, 61, 10), fontsize=12)
-    ax.set_xlabel(r"Ann\'{e}es depuis le d\'{e}but de la croissance rapide",
+    ax.set_xlabel(r"Années depuis le début de la croissance rapide",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -1820,7 +1820,7 @@ def catchup_growth():
     ax.set_yticks([2**x for x in range(-5, 1)])
     ax.set_yticklabels(['1/' + str(2**x) for x in range(5, 0, -1)] + ['1'],
                        fontsize=12)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U.",
+    ax.set_ylabel(r"PIB réel par habitant relatif aux É.-U.",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1842,12 +1842,12 @@ def miracle_vs_stagnation():
     usa = df[df['countrycode'] == 'USA'].set_index('year')['y']
 
     miracles = [
-        ('KOR', r"Cor\'{e}e du Sud", palette[0]),
+        ('KOR', r"Corée du Sud", palette[0]),
         ('SGP', 'Singapour', palette[1]),
         ('CHN', 'Chine', palette[2]),
     ]
     stagnation = [
-        ('HTI', r"Ha\"{i}ti", '#b0b0b0'),
+        ('HTI', 'Haïti', '#b0b0b0'),
         ('COD', 'R.D. Congo', '#777777'),
         ('MDG', 'Madagascar', '#c0c0c0'),
     ]
@@ -1879,7 +1879,7 @@ def miracle_vs_stagnation():
     ax.set_yticks(ytick_vals)
     ax.set_yticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1'],
                        fontsize=11)
-    ax.set_ylabel(r"PIB/hab. relatif aux \'{E}.-U.",
+    ax.set_ylabel(r"PIB/hab. relatif aux É.-U.",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
@@ -1947,7 +1947,7 @@ def _dev_accounting_scatter(data, y_col, ylabel, filename, ylim_top=4):
     ax.set_xticks([1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2])
     ax.set_xticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
                        fontsize=12)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant relatif aux \'{E}.-U. (2019)",
+    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (2019)",
                   fontsize=12, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
@@ -1974,7 +1974,7 @@ def development_accounting_capital():
     data = _dev_accounting_data()
     _dev_accounting_scatter(
         data, 'ky_ratio',
-        r"Ratio capital/PIB relatif aux \'{E}.-U.",
+        r"Ratio capital/PIB relatif aux É.-U.",
         'development_accounting_capital.png',
         ylim_top=4)
 
@@ -1984,7 +1984,7 @@ def development_accounting_labor():
     data = _dev_accounting_data()
     _dev_accounting_scatter(
         data, 'ln_ratio',
-        r"Taux d'emploi relatif aux \'{E}.-U.",
+        r"Taux d'emploi relatif aux É.-U.",
         'development_accounting_labor.png',
         ylim_top=2)
 
@@ -1994,7 +1994,7 @@ def development_accounting_tfp():
     data = _dev_accounting_data()
     _dev_accounting_scatter(
         data, 'a_ratio',
-        r"PTF relative aux \'{E}.-U.",
+        r"PTF relative aux É.-U.",
         'development_accounting_tfp.png',
         ylim_top=2)
 
@@ -2049,13 +2049,13 @@ def malthusian_trap():
     ax.plot([pop[i] for i in mal_idx], [wages[i] for i in mal_idx], '-o',
             color=palette[0], linewidth=2, markersize=6,
             markeredgecolor='white', markeredgewidth=0.5,
-            label=r"Pi\`{e}ge malthusien (1250--1750)", zorder=3)
+            label=r"Piège malthusien (1250--1750)", zorder=3)
 
     # Industrial period (from 1750 onward — shares the 1750 point)
     ax.plot([pop[i] for i in mod_idx], [wages[i] for i in mod_idx], '-o',
             color=palette[1], linewidth=2.5, markersize=6,
             markeredgecolor='white', markeredgewidth=0.5,
-            label=r"R\'{e}volution industrielle (1750--1860)", zorder=3)
+            label=r"Révolution industrielle (1750--1860)", zorder=3)
 
     # Year labels — only label a subset to avoid clutter
     # Position each label away from lines
@@ -2090,7 +2090,7 @@ def malthusian_trap():
 
     # Axes
     ax.set_xlabel("Population de l'Angleterre (millions)", fontsize=11)
-    ax.set_ylabel(r"Salaires r\'{e}els des artisans (1860 = 100)",
+    ax.set_ylabel(r"Salaires réels des artisans (1860 = 100)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -2133,7 +2133,7 @@ def poverty():
     ax.set_ylim(0, 80)
     ax.set_yticks(range(0, 81, 20))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 81, 20)], fontsize=12)
-    ax.set_ylabel(r"Part de la population en pauvret\'{e} extr\^{e}me",
+    ax.set_ylabel(r"Part de la population en pauvreté extrême",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -2157,9 +2157,9 @@ def life_expectancy():
                                 'Americas', 'Asia', 'Africa'])]
 
     regions = [
-        ('Oceania',  r"Oc\'{e}anie",   palette[0]),
+        ('Oceania',  r"Océanie",   palette[0]),
         ('Europe',   'Europe',          palette[4]),
-        ('Americas', r"Am\'{e}riques",  palette[1]),
+        ('Americas', r"Amériques",  palette[1]),
         ('Asia',     'Asie',            palette[3]),
         ('World',    'Monde',           palette[7]),
         ('Africa',   'Afrique',         palette[2]),
@@ -2179,7 +2179,7 @@ def life_expectancy():
     ax.set_ylim(25, 80)
     ax.set_yticks(range(30, 81, 10))
     ax.set_yticklabels(range(30, 81, 10), fontsize=12)
-    ax.set_ylabel(r"Esp\'{e}rance de vie \`{a} la naissance (ann\'{e}es)",
+    ax.set_ylabel(r"Espérance de vie à la naissance (années)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -2201,11 +2201,11 @@ def co2_emissions_by_region():
 
     regions = {
         'China':         ('Chine',                    palette[2], 2.5),
-        'United States': (r"\'{E}tats-Unis",          palette[0], 2.0),
+        'United States': (r"États-Unis",          palette[0], 2.0),
         'European Union (27)': ('UE-27',              palette[4], 2.0),
         'India':         ('Inde',                     palette[3], 2.0),
         'Africa':        ('Afrique',                  palette[7], 1.5),
-        'South America': (r"Am\'{e}rique du Sud",     palette[1], 1.5),
+        'South America': (r"Amérique du Sud",     palette[1], 1.5),
     }
 
     fig, ax = new_figure(9, 4.5)
@@ -2219,7 +2219,7 @@ def co2_emissions_by_region():
     ax.set_xlim(1900, 2024)
     ax.set_xticks(range(1900, 2025, 20))
     ax.set_xticklabels(range(1900, 2025, 20), fontsize=11)
-    ax.set_ylabel(r"\'{E}missions de CO$_2$ (Gt/an)",
+    ax.set_ylabel(r"Émissions de CO$_2$ (Gt/an)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(0, None)
@@ -2245,7 +2245,7 @@ def production_vs_consumption_co2():
 
     countries = ['United States', 'Canada', 'Germany', 'United Kingdom',
                  'France', 'Russia', 'China', 'India']
-    labels_fr = [r"\'{E}.-U.", 'Canada', 'Allemagne', 'R.-U.',
+    labels_fr = [r"É.-U.", 'Canada', 'Allemagne', 'R.-U.',
                  'France', 'Russie', 'Chine', 'Inde']
 
     # Use 2022 data, fall back to 2021

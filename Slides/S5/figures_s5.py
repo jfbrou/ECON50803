@@ -81,7 +81,7 @@ def overnight_vs_mortgage():
     ax.plot(overnight.index, overnight.values, color=palette[0],
             linewidth=2, label='Taux directeur')
     ax.plot(mortgage.index, mortgage.values, color=palette[2],
-            linewidth=2, label=r'Taux hypoth\'{e}caire 5 ans')
+            linewidth=2, label=r'Taux hypothécaire 5 ans')
 
     # Recession shading (Canadian)
     for start, end in recessions_ca:
@@ -207,7 +207,7 @@ def inflation_vs_rate_2019():
     # "Retard de réaction" arrow between peak inflation and the rate at that time
     rate_at_peak = overnight.asof(inflation_peak_date)
     mid_y = (inflation_peak_val + rate_at_peak) / 2
-    ax.annotate(r'Retard de r\'{e}action',
+    ax.annotate(r'Retard de réaction',
                 xy=(inflation_peak_date - pd.DateOffset(months=3), mid_y),
                 xytext=(pd.Timestamp('2020-09-01'), 7.0),
                 fontsize=10, color=palette[0], fontweight='bold',
@@ -263,7 +263,7 @@ def policy_rates_global():
             label='BdC (taux directeur)')
     if len(ecb) > 0:
         ax.plot(ecb.index, ecb.values, color=palette[4], linewidth=2,
-                label=r'BCE (taux de d\'{e}p\^{o}t)')
+                label=r'BCE (taux de dépôt)')
     if len(boj) > 0:
         ax.plot(boj.index, boj.values, color=palette[2], linewidth=2,
                 label='BdJ (taux directeur)')
@@ -271,7 +271,7 @@ def policy_rates_global():
     # ZLB zone: light shading below 0.5%
     ax.axhspan(-1, 0.5, color=palette[7], alpha=0.08, linewidth=0)
     ax.text(pd.Timestamp('2001-01-01'), 0.1,
-            r'\textit{Zone de la borne z\'{e}ro}',
+            r'\textit{Zone de la borne zéro}',
             fontsize=8, color=palette[7], va='center')
 
     # ── Axis formatting ─────────────────────────────────────────────
@@ -395,7 +395,7 @@ def debt_to_gdp():
 
     labels = {
         'Canada':    'Canada',
-        'US':        r"\'{E}tats-Unis",
+        'US':        r"États-Unis",
         'Japan':     'Japon',
         'France':    r"France",
     }
@@ -481,13 +481,13 @@ def phillips_curve_decades():
 
     # Define decades
     decades = {
-        r"Ann\'{e}es 1960": (1960, 1969, palette[4]),
-        r"Ann\'{e}es 1970": (1970, 1979, palette[2]),
-        r"Ann\'{e}es 1980": (1980, 1989, palette[3]),
-        r"Ann\'{e}es 1990": (1990, 1999, palette[1]),
-        r"Ann\'{e}es 2000": (2000, 2009, palette[0]),
-        r"Ann\'{e}es 2010": (2010, 2019, palette[7]),
-        r"Ann\'{e}es 2020": (2020, 2029, palette[5]),
+        r"Années 1960": (1960, 1969, palette[4]),
+        r"Années 1970": (1970, 1979, palette[2]),
+        r"Années 1980": (1980, 1989, palette[3]),
+        r"Années 1990": (1990, 1999, palette[1]),
+        r"Années 2000": (2000, 2009, palette[0]),
+        r"Années 2010": (2010, 2019, palette[7]),
+        r"Années 2020": (2020, 2029, palette[5]),
     }
 
     fig, ax = new_figure(8, 5)
@@ -513,7 +513,7 @@ def phillips_curve_decades():
     ax.set_xlim(3, 11)
     ax.set_xticks(range(3, 12, 1))
     ax.set_xticklabels([f'{x}\\%' for x in range(3, 12, 1)], fontsize=11)
-    ax.set_xlabel(r"Taux de ch\^{o}mage (\%)", fontsize=11, ha='center')
+    ax.set_xlabel(r"Taux de chômage (\%)", fontsize=11, ha='center')
     ax.xaxis.set_label_coords(0.5, -0.1)
 
     ax.set_ylim(-2, 14)

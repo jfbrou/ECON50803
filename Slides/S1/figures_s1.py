@@ -48,7 +48,7 @@ def can_unemployment():
     ax.set_ylim(2, 16)
     ax.set_yticks(range(2, 16 + 1, 2))
     ax.set_yticklabels([str(x) + r'\%' for x in range(2, 16 + 1, 2)], fontsize=11)
-    ax.set_ylabel(r"Taux de ch\^{o}mage", fontsize=11, rotation=0, ha='left')
+    ax.set_ylabel(r"Taux de chômage", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
@@ -117,9 +117,9 @@ def policy_rates():
     fig, ax = new_figure()
 
     ax.plot(fed, color=palette[0], linewidth=2,
-            label=r"Taux des fonds f\'{e}d\'{e}raux (\'{E}.-U.)")
+            label=r"Taux des fonds fédéraux (É.-U.)")
     ax.plot(boc, color=palette[1], linewidth=2,
-            label=r"Taux \`{a} un jour (Canada)")
+            label=r"Taux à un jour (Canada)")
 
     last_year = max(fed.dropna().index[-1].year, boc.dropna().index[-1].year)
     xlim_end = tick_ceil(last_year, 2)
@@ -281,11 +281,11 @@ def canada_employment_exports():
     if len(high_matched) > 0:
         high_idx = get_index(high_matched)
         ax.plot(high_idx, color=palette[2], linewidth=2,
-                label=r"Forte d\'{e}pendance aux export. am\'{e}ricaines")
+                label=r"Forte dépendance aux export. américaines")
     if len(low_matched) > 0:
         low_idx = get_index(low_matched)
         ax.plot(low_idx, color=palette[0], linewidth=2,
-                label=r"Faible d\'{e}pendance aux export. am\'{e}ricaines")
+                label=r"Faible dépendance aux export. américaines")
     if len(total) > 0:
         ax.plot(total, color=palette[1], linewidth=2,
                 label='Tous les secteurs')
@@ -340,7 +340,7 @@ def hockey_stick_world():
 
     # Data uses English entity names; display labels are French
     countries = {
-        'United States': (r"\'{E}tats-Unis", palette[0]),
+        'United States': (r"États-Unis", palette[0]),
         'United Kingdom': ('Royaume-Uni', palette[1]),
         'Canada': ('Canada', palette[2]),
         'France': ('France', palette[3]),
@@ -360,7 +360,7 @@ def hockey_stick_world():
     ax.set_yticks(range(0, 60000 + 1, 10000))
     ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 60 + 1, 10)],
                        fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant", fontsize=11, rotation=0, ha='left')
+    ax.set_ylabel(r"PIB réel par habitant", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
@@ -450,7 +450,7 @@ def us_tariff_rate():
     ax.set_yticks(range(0, 20 + 1, 5))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 20 + 1, 5)],
                        fontsize=11)
-    ax.set_ylabel(r"Taux tarifaire effectif am\'{e}ricain", fontsize=11,
+    ax.set_ylabel(r"Taux tarifaire effectif américain", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -586,9 +586,9 @@ def gdp_decomposition_4countries():
     }
     countries = {
         'CAN': 'Canada',
-        'USA': r"\'{E}tats-Unis",
+        'USA': r"États-Unis",
         'CHN': 'Chine',
-        'BRA': r"Br\'{e}sil",
+        'BRA': r"Brésil",
     }
 
     # Fetch from World Bank API
@@ -724,7 +724,7 @@ def gdp_canada_usa():
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
     ax.plot(usa_idx, color=palette[1], linewidth=2.5,
-            label=r"\'{E}tats-Unis")
+            label=r"États-Unis")
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
@@ -736,7 +736,7 @@ def gdp_canada_usa():
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
     ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el (2000T1 = 100)", fontsize=11, rotation=0, ha='left')
+    ax.set_ylabel(r"PIB réel (2000T1 = 100)", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     for start, end in recessions_ca:
@@ -782,7 +782,7 @@ def gdp_per_capita_canada_usa():
     fig, ax = new_figure()
     ax.plot(can_idx, color=palette[0], linewidth=2.5, label='Canada')
     ax.plot(usa_idx, color=palette[1], linewidth=2.5,
-            label=r"\'{E}tats-Unis")
+            label=r"États-Unis")
 
     last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
@@ -794,7 +794,7 @@ def gdp_per_capita_canada_usa():
     ax.set_ylim(100, ymax)
     ax.set_yticks(range(100, ymax + 1, 10))
     ax.set_yticklabels(range(100, ymax + 1, 10), fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el par hab. (2000T1 = 100)", fontsize=11,
+    ax.set_ylabel(r"PIB réel par hab. (2000T1 = 100)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -862,9 +862,9 @@ def gdp_vs_gdp_per_capita():
 
     # Highlight countries (ISO → French display label)
     highlights = {
-        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
-        'IND': 'Inde', 'BRA': r"Br\'{e}sil", 'NGA': r"Nig\'{e}ria",
-        'NOR': r"Norv\`{e}ge", 'LUX': 'Luxembourg',
+        'USA': r"États-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'BRA': r"Brésil", 'NGA': r"Nigéria",
+        'NOR': r"Norvège", 'LUX': 'Luxembourg',
     }
 
     fig, ax = new_figure()
@@ -909,7 +909,7 @@ def gdp_vs_gdp_per_capita():
     ax.set_xticks([0.01, 0.1, 1, 10])
     ax.set_xticklabels([r'\$0.01T', r'\$0.1T', r'\$1T', r'\$10T'],
                        fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el, PPA (milliers de Mds, \$ int. 2021)",
+    ax.set_xlabel(r"PIB réel, PPA (milliers de Mds, \$ int. 2021)",
                   fontsize=11)
 
     ax.set_yscale('log')
@@ -918,7 +918,7 @@ def gdp_vs_gdp_per_capita():
     ax.set_yticks(yticks)
     ax.set_yticklabels([r'\$1K', r'\$2K', r'\$5K', r'\$10K',
                         r'\$20K', r'\$50K', r'\$100K'], fontsize=11)
-    ax.set_ylabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11,
+    ax.set_ylabel(r"PIB réel par habitant (PPA)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -939,13 +939,13 @@ def gdp_ppp_time_series():
     # ISO → (English name for API, French label for display)
     countries_iso = {
         'CHN': ('China', 'Chine'),
-        'USA': ('United States', r"\'{E}tats-Unis"),
+        'USA': ('United States', r"États-Unis"),
         'IND': ('India', 'Inde'),
         'JPN': ('Japan', 'Japon'),
         'DEU': ('Germany', 'Allemagne'),
         'RUS': ('Russia', 'Russie'),
-        'IDN': ('Indonesia', r"Indon\'{e}sie"),
-        'BRA': ('Brazil', r"Br\'{e}sil"),
+        'IDN': ('Indonesia', r"Indonésie"),
+        'BRA': ('Brazil', r"Brésil"),
         'GBR': ('United Kingdom', 'Royaume-Uni'),
         'FRA': ('France', 'France'),
         'MEX': ('Mexico', 'Mexique'),
@@ -985,7 +985,7 @@ def gdp_ppp_time_series():
     ax.spines['bottom'].set_visible(False)
     ax.invert_yaxis()
 
-    ax.set_title(r"PIB r\'{e}el en PPA (milliers de Mds, \$ int. 2021)",
+    ax.set_title(r"PIB réel en PPA (milliers de Mds, \$ int. 2021)",
                  fontsize=12, loc='left', pad=10)
     add_source(ax, 'Source: World Bank, WDI')
     save(fig, 'gdp_ppp_world.png')
@@ -1050,9 +1050,9 @@ def gdp_per_capita_vs_price_level():
 
     # Highlight countries (ISO → French display label)
     highlights = {
-        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
-        'IND': 'Inde', 'JPN': 'Japon', 'BRA': r"Br\'{e}sil",
-        'NGA': r"Nig\'{e}ria", 'NOR': r"Norv\`{e}ge", 'CHE': 'Suisse',
+        'USA': r"États-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'JPN': 'Japon', 'BRA': r"Brésil",
+        'NGA': r"Nigéria", 'NOR': r"Norvège", 'CHE': 'Suisse',
     }
 
     fig, ax = new_figure()
@@ -1096,7 +1096,7 @@ def gdp_per_capita_vs_price_level():
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
     ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11)
+    ax.set_xlabel(r"PIB réel par habitant (PPA)", fontsize=11)
     ax.set_ylim(0.05, 1.2)
     ax.set_yticks(np.arange(0.2, 1.2 + 0.01, 0.2))
     ax.set_yticklabels([f'{x:.1f}' for x in np.arange(0.2, 1.2 + 0.01, 0.2)],
@@ -1187,7 +1187,7 @@ def big_mac_index():
     ax.set_xticks(list(xticks))
     ax.set_xticklabels([f'{x:+d}' if x != 0 else '0' for x in xticks],
                        fontsize=10)
-    ax.set_xlabel(r"\'{E}valuation de la monnaie locale face au dollar, \%",
+    ax.set_xlabel(r"Évaluation de la monnaie locale face au dollar, \%",
                   fontsize=10)
 
     # Price column header — right-aligned, same x as price labels
@@ -1220,7 +1220,7 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
     fig, ax = new_figure()
     ax.plot(nom_g, color=palette[0], linewidth=2, label='Nominal')
     if show_real:
-        ax.plot(real_g, color=palette[1], linewidth=2, label=r"R\'{e}el")
+        ax.plot(real_g, color=palette[1], linewidth=2, label=r"Réel")
     ax.axhline(y=0, color='black', linewidth=0.5)
 
     first_year = max(real_g.dropna().index[0].year, 1962)
@@ -1299,7 +1299,7 @@ def inflation_cpi_deflator_canada():
 
     ax.plot(cpi_infl, color=palette[0], linewidth=2, label='IPC')
     ax.plot(defl_infl, color=palette[2], linewidth=2,
-            label=r"D\'{e}flateur du PIB")
+            label=r"Déflateur du PIB")
 
     last_date = min(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
@@ -1345,7 +1345,7 @@ def inflation_headline_core_canada():
 
     ax.plot(headline, color=palette[0], linewidth=2, label='IPC global')
     ax.plot(core, color=palette[2], linewidth=2,
-            label=r"IPC de base (hors alim. \& \'{e}nergie)")
+            label=r"IPC de base (hors alim. \& énergie)")
 
     last_date = min(headline.dropna().index[-1], core.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
@@ -1395,7 +1395,7 @@ def inflation_highfreq_cavallo():
     ax.plot(df['date'], dom_pct, color=palette[0], linewidth=2,
             label='Biens domestiques')
     ax.plot(df['date'], imp_pct, color=palette[2], linewidth=2,
-            label=r"Biens import\'{e}s")
+            label=r"Biens importés")
 
     ax.axhline(y=0, color='black', linewidth=0.5)
 
@@ -1414,13 +1414,13 @@ def inflation_highfreq_cavallo():
     yticks = np.arange(ymin, ymax + 0.1, 1)
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'{x:+.0f}' + r'\%' for x in yticks], fontsize=11)
-    ax.set_ylabel(r"Variation cumul\'{e}e des prix", fontsize=11,
+    ax.set_ylabel(r"Variation cumulée des prix", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, r'Source: Cavallo, Llamas \& V\'azquez (PricingLab)')
+    add_source(ax, r'Source: Cavallo, Llamas \& Vázquez (PricingLab)')
     save(fig, 'inflation_highfreq_cavallo.png')
 
 
@@ -1455,9 +1455,9 @@ def hdi_vs_gdp_per_capita():
 
     # Highlight countries
     highlights = {
-        'USA': r"\'{E}tats-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
-        'IND': 'Inde', 'BRA': r"Br\'{e}sil", 'NGA': r"Nig\'{e}ria",
-        'NOR': r"Norv\`{e}ge", 'JPN': 'Japon',
+        'USA': r"États-Unis", 'CAN': 'Canada', 'CHN': 'Chine',
+        'IND': 'Inde', 'BRA': r"Brésil", 'NGA': r"Nigéria",
+        'NOR': r"Norvège", 'JPN': 'Japon',
     }
 
     fig, ax = new_figure()
@@ -1497,7 +1497,7 @@ def hdi_vs_gdp_per_capita():
     ax.set_xlim(1000, 150000)
     ax.set_xticks([1000, 10000, 100000])
     ax.set_xticklabels([r'\$1,000', r'\$10,000', r'\$100,000'], fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (PPA)", fontsize=11)
+    ax.set_xlabel(r"PIB réel par habitant (PPA)", fontsize=11)
 
     ax.set_ylim(0.3, 1.0)
     ax.set_yticks(np.arange(0.3, 1.01, 0.1))
@@ -1595,7 +1595,7 @@ def beyond_gdp():
     ax.set_xticks(xticks)
     ax.set_xticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2',
                          '1', '2'], fontsize=11)
-    ax.set_xlabel(r"PIB r\'{e}el par habitant (relatif aux \'{E}.-U.)",
+    ax.set_xlabel(r"PIB réel par habitant (relatif aux É.-U.)",
                   fontsize=11)
 
     ax.set_yscale('log', base=2)
@@ -1628,12 +1628,12 @@ def gdp_gni_ratio():
         'Irlande':                 1.61,   # IRL — multinationals inflate GDP
         'Singapour':               1.10,   # SGP — financial hub, foreign profits
         'Canada':                  0.98,   # CAN
-        r"\'{E}tats-Unis":         1.01,   # USA
+        r"États-Unis":         1.01,   # USA
         'Allemagne':               1.01,   # DEU
         'France':                  0.99,   # FRA
         'Japon':                   0.97,   # JPN — large overseas investment income
         'Royaume-Uni':             1.00,   # GBR
-        r"Br\'{e}sil":            1.00,   # BRA
+        r"Brésil":            1.00,   # BRA
         'Chine':                   1.01,   # CHN
         'Inde':                    0.98,   # IND
         'Philippines':             0.91,   # PHL — large remittance inflows → GNI > GDP
@@ -1643,12 +1643,12 @@ def gdp_gni_ratio():
         'IRL': 'Irlande',
         'SGP': 'Singapour',
         'CAN': 'Canada',
-        'USA': r"\'{E}tats-Unis",
+        'USA': r"États-Unis",
         'DEU': 'Allemagne',
         'FRA': 'France',
         'JPN': 'Japon',
         'GBR': 'Royaume-Uni',
-        'BRA': r"Br\'{e}sil",
+        'BRA': r"Brésil",
         'CHN': 'Chine',
         'IND': 'Inde',
         'PHL': 'Philippines',

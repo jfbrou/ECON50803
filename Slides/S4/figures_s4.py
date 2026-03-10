@@ -54,11 +54,11 @@ def us_gdp_recessions():
     style_axes(ax)
 
     # Recession label
-    ax.text(0.02, 0.95, r'\textit{Zones gris\'{e}es = r\'{e}cessions (NBER)}',
+    ax.text(0.02, 0.95, r'\textit{Zones grisées = récessions (NBER)}',
             fontsize=9, color=palette[7], transform=ax.transAxes,
             va='top')
 
-    add_source(ax, r"Source: FRED (GDPC1) --- PIB r\'{e}el des \'{E}tats-Unis, \'{e}chelle logarithmique")
+    add_source(ax, r"Source: FRED (GDPC1) --- PIB réel des États-Unis, échelle logarithmique")
     save(fig, 'us_gdp_recessions.png')
 
 
@@ -90,7 +90,7 @@ def output_gap_us():
     ax.axhline(0, color='black', linewidth=0.8)
 
     ax.set_xlim(pd.Timestamp('1960-01-01'), gap.index.max())
-    ax.set_ylabel(r"\'{E}cart de production (\%)", fontsize=11,
+    ax.set_ylabel(r"Écart de production (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(-10, 6)
@@ -99,12 +99,12 @@ def output_gap_us():
     ax.annotate('Surchauffe',
                 xy=(pd.Timestamp('2000-01-01'), 2.5),
                 fontsize=10, color=palette[2], fontweight='bold')
-    ax.annotate(r'R\'{e}cession',
+    ax.annotate(r'Récession',
                 xy=(pd.Timestamp('2009-06-01'), -6),
                 fontsize=10, color=palette[0], fontweight='bold')
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (GDPC1, GDPPOT) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (GDPC1, GDPPOT) --- États-Unis")
     save(fig, 'output_gap_us.png')
 
 
@@ -158,8 +158,8 @@ def employment_recovery():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='lower right',
-              title=r'\textbf{R\'{e}cession}', title_fontsize=10)
-    add_source(ax, r"Source: FRED (PAYEMS) --- Emplois non agricoles, \'{E}tats-Unis")
+              title=r'\textbf{Récession}', title_fontsize=10)
+    add_source(ax, r"Source: FRED (PAYEMS) --- Emplois non agricoles, États-Unis")
     save(fig, 'employment_recovery.png')
 
 
@@ -209,7 +209,7 @@ def us_recession_inflation():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
-    add_source(ax, r"Source: FRED (CPIAUCSL) --- Inflation sur 12 mois, \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (CPIAUCSL) --- Inflation sur 12 mois, États-Unis")
     save(fig, 'us_recession_inflation.png')
 
 
@@ -237,7 +237,7 @@ def us_gdp_growth():
     ax.axhline(0, color='black', linewidth=0.8)
 
     ax.set_xlim(pd.Timestamp('1960-01-01'), growth.index.max())
-    ax.set_ylabel(r"Croissance (\% annualis\'{e})", fontsize=11,
+    ax.set_ylabel(r"Croissance (\% annualisé)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(-35, 35)
@@ -250,7 +250,7 @@ def us_gdp_growth():
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.2))
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (GDPC1) --- Taux de croissance trimestriel annualis\'{e}")
+    add_source(ax, r"Source: FRED (GDPC1) --- Taux de croissance trimestriel annualisé")
     save(fig, 'us_gdp_growth.png')
 
 
@@ -334,7 +334,7 @@ def canada_gdp_potential():
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.plot(gdp.index, gdp.values, color=palette[0], linewidth=2,
-            label=r"PIB r\'{e}el ($Y$)")
+            label=r"PIB réel ($Y$)")
     ax.plot(potential.index, potential.values, color=palette[1], linewidth=2,
             label=r"PIB potentiel ($Y^{\mathrm{POT}}$)")
 
@@ -424,7 +424,7 @@ def output_gap_canada():
     # ── Axis formatting ───────────────────────────────────────────────
     ax.set_xlim(gap.index.min(), gap.index.max())
     ax.set_ylim(None, 4)
-    ax.set_ylabel(r"\'{E}cart de production (\%)", fontsize=11,
+    ax.set_ylabel(r"Écart de production (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -441,7 +441,7 @@ def output_gap_canada():
     ax.set_xticklabels([str(y) for y in xticks])
 
     style_axes(ax)
-    add_source(ax, r"Source: Banque du Canada (Rapport sur la politique mon\'{e}taire)")
+    add_source(ax, r"Source: Banque du Canada (Rapport sur la politique monétaire)")
     save(fig, 'output_gap_canada.png')
 
 
@@ -473,7 +473,7 @@ def us_gdp_covid():
         x_all = np.arange(len(gdp))
         trend_vals = np.exp(intercept + slope * x_all)
         ax.plot(gdp.index, trend_vals, color=palette[7], linewidth=1.5,
-                linestyle='--', label=r'Tendance pr\'{e}-COVID')
+                linestyle='--', label=r'Tendance pré-COVID')
 
     # Annotate the trough
     trough_date = pd.Timestamp('2020-04-01')
@@ -496,7 +496,7 @@ def us_gdp_covid():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='lower right')
-    add_source(ax, r"Source: FRED (GDPC1) --- PIB r\'{e}el des \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (GDPC1) --- PIB réel des États-Unis")
     save(fig, 'us_gdp_covid.png')
 
 
@@ -537,9 +537,9 @@ def us_consumer_confidence():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
-    ax.text(0.02, 0.95, r'\textit{Zones gris\'{e}es = r\'{e}cessions (NBER)}',
+    ax.text(0.02, 0.95, r'\textit{Zones grisées = récessions (NBER)}',
             fontsize=9, color=palette[7], transform=ax.transAxes, va='top')
-    add_source(ax, r"Source: FRED (UMCSENT) --- Universit\'{e} du Michigan")
+    add_source(ax, r"Source: FRED (UMCSENT) --- Université du Michigan")
     save(fig, 'us_consumer_confidence.png')
 
 
@@ -573,7 +573,7 @@ def oil_price_2026():
             ax.axvline(mark_date, color=palette[2], linewidth=1.5,
                        linestyle='--', alpha=0.7)
             ax.text(mark_date - pd.DateOffset(days=3), ax.get_ylim()[1] * 0.97,
-                    r'\textit{Op\'{e}ration Epic Fury}',
+                    r'\textit{Opération Epic Fury}',
                     fontsize=9, color=palette[2], fontweight='bold',
                     ha='right', va='top')
 
@@ -583,7 +583,7 @@ def oil_price_2026():
                    pd.Timestamp('2025-11-01'), pd.Timestamp('2025-12-01'),
                    pd.Timestamp('2026-01-01'), pd.Timestamp('2026-02-01'),
                    pd.Timestamp('2026-03-01')]
-    xtick_labels = [r'sept.', r'oct.', r'nov.', r'd\'{e}c.', r'janv.', r'f\'{e}vr.', r'mars']
+    xtick_labels = [r'sept.', r'oct.', r'nov.', r'déc.', r'janv.', r'févr.', r'mars']
     ax.set_xticks(xtick_dates)
     ax.set_xticklabels(xtick_labels, fontsize=11)
 
@@ -709,7 +709,7 @@ def phillips_curve_usa():
     z = np.polyfit(u.values, pi.values, 1)
     x_line = np.linspace(u.min(), u.max(), 100)
     ax.plot(x_line, np.polyval(z, x_line), color=palette[2], linewidth=2,
-            linestyle='--', label=r"Tendance lin\'{e}aire", zorder=2)
+            linestyle='--', label=r"Tendance linéaire", zorder=2)
 
     # Label a few notable years
     for year_int, offset in [(1980, (5, 5)), (2009, (-15, 8)),
@@ -719,14 +719,14 @@ def phillips_curve_usa():
                         xytext=offset, textcoords='offset points',
                         fontsize=8, color=palette[7])
 
-    ax.set_xlabel(r"Taux de ch\^{o}mage (\%)", fontsize=11)
+    ax.set_xlabel(r"Taux de chômage (\%)", fontsize=11)
     ax.set_ylabel(r"Inflation IPC (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
-    add_source(ax, r"Source: FRED (UNRATE, CPIAUCSL) --- Donn\'{e}es annuelles, \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (UNRATE, CPIAUCSL) --- Données annuelles, États-Unis")
     save(fig, 'phillips_curve_usa.png')
 
 
@@ -762,12 +762,12 @@ def yield_curve_usa():
     ax.set_yticks(range(-3, 4, 1))
     ax.set_yticklabels([f'{x}' + r'\%' for x in range(-3, 4, 1)],
                         fontsize=10)
-    ax.set_ylabel(r"\'{E}cart 10 ans $-$ 2 ans (\%)", fontsize=11,
+    ax.set_ylabel(r"Écart 10 ans $-$ 2 ans (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (T10Y2Y) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (T10Y2Y) --- États-Unis")
     save(fig, 'yield_curve_usa.png')
 
 
@@ -787,7 +787,7 @@ def natural_unemployment_usa():
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(unrate.index, unrate.values, color=palette[0], linewidth=1.5,
-            label=r"Taux de ch\^{o}mage")
+            label=r"Taux de chômage")
     ax.plot(nrou.index, nrou.values, color=palette[1], linewidth=2.5,
             label=r"Taux naturel (NROU)")
 
@@ -804,13 +804,13 @@ def natural_unemployment_usa():
     ax.set_yticks(range(2, 15, 2))
     ax.set_yticklabels([f'{x}' + r'\%' for x in range(2, 15, 2)],
                         fontsize=10)
-    ax.set_ylabel(r"Taux de ch\^{o}mage (\%)", fontsize=11,
+    ax.set_ylabel(r"Taux de chômage (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left')
-    add_source(ax, r"Source: FRED (UNRATE, NROU) --- \'{E}tats-Unis")
+    add_source(ax, r"Source: FRED (UNRATE, NROU) --- États-Unis")
     save(fig, 'natural_unemployment_usa.png')
 
 

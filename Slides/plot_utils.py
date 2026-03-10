@@ -47,7 +47,8 @@ fred_api_key = os.getenv('fred_api_key')
 rc('font', **{'family': 'sans-serif', 'sans-serif': ['Fira Sans']})
 rc('text', usetex=True)
 rc('text.latex', preamble=r'\usepackage[sfdefault,light]{FiraSans}'
-                           r'\usepackage[T1]{fontenc}')
+                           r'\usepackage[T1]{fontenc}'
+                           r'\usepackage[utf8]{inputenc}')
 
 # ── Colour palette (HEC Montréal) ───────────────────────────────────────
 palette = ['#002855',   # [0] HECnavy   — primary line/bar color, titles
@@ -65,9 +66,9 @@ os.makedirs(FIGURES_DIR, exist_ok=True)
 
 
 # ── French month abbreviations (for LaTeX/usetex date labels) ───────────
-MONTH_FR = {1: 'janv.', 2: r'f\'{e}vr.', 3: 'mars', 4: 'avr.',
-            5: 'mai', 6: 'juin', 7: 'juil.', 8: r'ao\^{u}t',
-            9: 'sept.', 10: 'oct.', 11: 'nov.', 12: r'd\'{e}c.'}
+MONTH_FR = {1: 'janv.', 2: r'févr.', 3: 'mars', 4: 'avr.',
+            5: 'mai', 6: 'juin', 7: 'juil.', 8: r'août',
+            9: 'sept.', 10: 'oct.', 11: 'nov.', 12: r'déc.'}
 
 
 def french_date_label(d):
@@ -83,7 +84,7 @@ COUNTRY_FR = {
     'Bangladesh': 'Bangladesh',
     'Belgium': 'Belgique',
     'Botswana': 'Botswana',
-    'Brazil': r"Br\'{e}sil",
+    'Brazil': r"Brésil",
     'Cameroon': 'Cameroun',
     'Canada': 'Canada',
     'Chile': 'Chili',
@@ -93,53 +94,53 @@ COUNTRY_FR = {
     'D.R. of the Congo': r"R.D. du Congo",
     'Denmark': 'Danemark',
     'East Asia': r"Asie de l'Est",
-    'Egypt': r"\'{E}gypte",
-    'Ethiopia': r"\'{E}thiopie",
+    'Egypt': r"Égypte",
+    'Ethiopia': r"Éthiopie",
     'Euro area': 'Zone euro',
     'Finland': 'Finlande',
     'France': 'France',
     'Germany': 'Allemagne',
     'Ghana': 'Ghana',
-    'Greece': r"Gr\`{e}ce",
-    'Haiti': r"Ha\"{i}ti",
+    'Greece': r"Grèce",
+    'Haiti': 'Haïti',
     'Hong Kong': 'Hong Kong',
     'Iceland': 'Islande',
     'India': 'Inde',
-    'Indonesia': r"Indon\'{e}sie",
+    'Indonesia': r"Indonésie",
     'Ireland': 'Irlande',
-    'Israel': r"Isra\"{e}l",
+    'Israel': 'Israël',
     'Italy': 'Italie',
     'Japan': 'Japon',
     'Kenya': 'Kenya',
-    'Latin America': r"Am\'{e}rique latine",
+    'Latin America': r"Amérique latine",
     'Luxembourg': 'Luxembourg',
     'Madagascar': 'Madagascar',
     'Malaysia': 'Malaisie',
     'Mexico': 'Mexique',
     'Mozambique': 'Mozambique',
     'Netherlands': 'Pays-Bas',
-    'New Zealand': r"Nouvelle-Z\'{e}lande",
-    'Nigeria': r"Nig\'{e}ria",
-    'Norway': r"Norv\`{e}ge",
+    'New Zealand': r"Nouvelle-Zélande",
+    'Nigeria': r"Nigéria",
+    'Norway': r"Norvège",
     'Philippines': 'Philippines',
     'Portugal': 'Portugal',
-    'Republic of Korea': r"Cor\'{e}e du Sud",
+    'Republic of Korea': r"Corée du Sud",
     'Russia': 'Russie',
-    'Senegal': r"S\'{e}n\'{e}gal",
+    'Senegal': r"Sénégal",
     'Singapore': 'Singapour',
     'South Africa': 'Afrique du Sud',
-    'South Korea': r"Cor\'{e}e du Sud",
+    'South Korea': r"Corée du Sud",
     'Spain': 'Espagne',
     'Sub-Saharan Africa': r"Afrique subsaharienne",
-    'Sweden': r"Su\`{e}de",
+    'Sweden': r"Suède",
     'Switzerland': 'Suisse',
-    'Taiwan': r"Ta\"{i}wan",
-    'Thailand': r"Tha\"{i}lande",
+    'Taiwan': 'Taïwan',
+    'Thailand': 'Thaïlande',
     'Turkey': 'Turquie',
     'United Kingdom': 'Royaume-Uni',
-    'United States': r"\'{E}tats-Unis",
-    'Venezuela (Bolivarian Republic of)': r"V\'{e}n\'{e}zuela",
-    'Vietnam': r"Vi\^{e}t Nam",
+    'United States': r"États-Unis",
+    'Venezuela (Bolivarian Republic of)': r"Vénézuela",
+    'Vietnam': r"Viêt Nam",
     'Western Europe': r"Europe de l'Ouest",
     'Western Offshoots': r"Ouest (rejetons)",
 }
