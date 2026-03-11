@@ -801,24 +801,25 @@
 \sectionframe{Défis et limites de la politique monétaire}
 % ============================================================================
 
-\begin{frame}[t]{Défi 1 : l'incertitude}
+\begin{frame}[t]{Défi \#1 : l'incertitude}
    \small
    \vspace{0.2cm}
    \textbf{$Y_{\text{POT}}$ n'est pas directement observable.} Il faut l'\textbf{estimer}.
-   \vspace{0.2cm}
+   \vspace{0.15cm}
    \begin{itemize}
-      \setlength\itemsep{0.2cm}
+      \setlength\itemsep{0.15cm}
       \item Quelle est la taille de l'\textbf{écart de production}\,?
       \item L'économie est-elle en récession ou simplement en \textbf{ralentissement}\,?
       \item Les données arrivent avec \textbf{retard} et sont souvent \textbf{révisées}
+      \item Risque d'en faire trop ou pas assez\ldots
    \end{itemize}
-   \vspace{0.2cm}
-   \begin{warning}
-      Imaginez un médecin qui prescrit un traitement sans connaître la température exacte du patient. C'est la réalité quotidienne d'un banquier central.
+   \vspace{0.1cm}
+   \begin{warning}[Analogie]
+      On blâme les économistes de ne pas avoir été en mesure de prévoir la Grande Récession de 2008--2009. Pourtant, on ne blâme pas les médecins de ne pas avoir su prévoir la pandémie de COVID-19\ldots
    \end{warning}
 \end{frame}
 
-\begin{frame}[t]{Défi 2 : les délais de transmission}
+\begin{frame}[t]{Défi \#2 : les délais de transmission}
    \small
    \vspace{0.2cm}
    \textbf{Consensus :} 6 à 8 trimestres entre la décision et l'effet maximal sur l'inflation.
@@ -835,6 +836,36 @@
    \end{keyinsight}
 \end{frame}
 
+\begin{frame}[t]{La banque centrale sous la douche}
+   \small
+   \vspace{-0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.45\textwidth}
+         \vspace{0.3cm}
+         \begin{itemize}
+            \setlength\itemsep{0.25cm}
+            \item L'eau est \textbf{trop froide}
+            \item On tourne le robinet au max\,!
+            \item 30 secondes plus tard : \textbf{brûlant\,!}
+            \item On corrige dans l'autre sens\ldots
+            \item 30 secondes plus tard : \textbf{glacial\,!}
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.50\textwidth}
+         \centering
+         \begin{tikzpicture}
+            \node[rounded corners=8pt, inner sep=0pt, clip] {%
+               \includegraphics[width=0.92\linewidth]{homer.png}%
+            };
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+   \vspace{0.1cm}
+   \begin{warning}
+      \footnotesize Certains critiques accusent les banques centrales de \textbf{générer} les cycles économiques en sur-corrigeant à répétition. C'est exagéré, mais le risque de sur-correction est réel.
+   \end{warning}
+\end{frame}
+
 \begin{frame}{L'erreur de 2021--22 : trop bas, trop longtemps}
    \begin{figure}
       \centering
@@ -842,58 +873,200 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{L'erreur en AD-AS : la relance a dépassé la cible}
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-      % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.8,3.98)
-         node[right, font=\footnotesize] {AS};
-      % AD original (2019): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD$_{2019}$};
-      % AD' shifted far right (massive stimulus): y = -0.6x + 5.2
-      \draw[HECcoral, very thick] (1.5,4.3) -- (6.2,0.48)
-         node[right] {AD$_{2021}$};
-      % Stimulus arrow at y=3.2: AD_2019 at x=1.5, AD_2021 at x=3.33
-      \draw[-{Stealth[length=5pt]}, HECcoral, thick] (1.7,3.2) -- (3.1,3.2);
-      \node[font=\scriptsize, HECcoral, above] at (2.4,3.2) {Relance massive};
-      % Original equilibrium at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2pt);
-      \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_{2019}$};
-      % New equilibrium: -0.6x + 5.2 = 0.6x + 0.5 → 1.2x = 4.7 → x = 3.92, y = 2.85
-      \filldraw[HECcoral] (3.92,2.85) circle (3pt);
-      \node[font=\scriptsize, HECcoral, above right] at (3.92,2.85) {$E_{2021}$};
-      \draw[dotted, very thick, HECgray] (3.92,0) node[below, font=\footnotesize] {$Y_{2021}$} -- (3.92,2.85);
-      % Overshoot annotation
-      \draw[{Stealth}-{Stealth}, HECnavy, thick] (3.0,-0.5) -- (3.92,-0.5);
-      \node[font=\scriptsize, HECnavy, below] at (3.46,-0.5) {$Y > Y_{\text{POT}}$ $\to$ inflation};
-   \end{tikzpicture}
+% ---- 2020-2022 AD-AS story: 3 slides ----------------------------------------
+% Coordinate system (shared across all 3 slides):
+%   AS_2019: y = 0.6x + 0.5     AD_2019: y = -0.6x + 4.1   E_2019 = (3.0, 2.3)
+%   AD_2020: y = -0.6x + 2.9    E_1 = AD_2020 ∩ AS_2019 = (2.0, 1.7)
+%   AS_2020: y = 0.6x + 1.3     E_2 = AD_2020 ∩ AS_2020 = (1.33, 2.1)
+%   AD_2021: y = -0.6x + 5.5    E_3 = AD_2021 ∩ AS_2020 = (3.5, 3.4)
+
+\begin{frame}[t]{2020 : le choc de demande}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_2019: y = 0.6x + 0.5
+            \draw[HECnavy, thick] (0.5,0.8) -- (5.8,3.98)
+               node[right, font=\footnotesize] {AS};
+            % AD_2019 (dashed, old): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD$_{2019}$};
+            % AD_2020 (shifted left): y = -0.6x + 2.9
+            \draw[HECcoral, very thick] (0.5,2.6) -- (4.5,0.2)
+               node[right, font=\footnotesize] {AD$_{2020}$};
+            % Shift arrow (leftward) at y=0.7: well below equilibria, between AD curves
+            \draw[-{Stealth[length=5pt]}, HECcoral, thick] (4.8,0.7) -- (3.8,0.7);
+            \node[font=\scriptsize, HECcoral, above] at (4.3,0.7) {Confinements};
+            % E_2019 at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above left] at (3.0,2.3) {$E_{2019}$};
+            % E_1 at (2.0, 1.7) -- deep recession
+            \filldraw[HECcoral] (2.0,1.7) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, below right] at (2.0,1.7) {$E_{1}$};
+            % Dotted lines to axes for E_1
+            \draw[dotted, thick, HECgray] (2.0,0) node[below, font=\footnotesize] {$Y_{1}$} -- (2.0,1.7);
+            \draw[dotted, thick, HECgray] (0,1.7) node[left, font=\footnotesize] {$P_{1}$} -- (2.0,1.7);
+            % Recession gap annotation
+            \draw[{Stealth}-{Stealth}, HECnavy, thick] (2.0,-0.45) -- (3.0,-0.45);
+            \node[font=\scriptsize, HECnavy, below] at (2.5,-0.45) {Récession};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \footnotesize
+         \vspace{0.2cm}
+         \textbf{Mars 2020 :} la pandémie frappe.
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Les ménages cessent de consommer ($C \downarrow$)
+            \item Les entreprises gèlent l'investissement ($I \downarrow$)
+            \item Le commerce international s'effondre ($NX \downarrow$)
+            \item AD se déplace vers la \textbf{gauche}
+         \end{itemize}
+         \vspace{0.15cm}
+         \textbf{Résultat :} $Y$ chute bien en dessous de $Y_{\text{POT}}$ et les prix baissent. Plus forte contraction depuis les années 1930.
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{2020 : le double choc}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_2019 (dashed, old): y = 0.6x + 0.5
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.8,3.98)
+               node[right, font=\footnotesize] {AS$_{2019}$};
+            % AS_2020 (shifted left): y = 0.6x + 1.3
+            \draw[HECnavy, very thick] (0.5,1.6) -- (5.0,4.3)
+               node[right, font=\footnotesize] {AS$_{2020}$};
+            % AS shift arrow (leftward) at y=3.2: AS_2019 at x=4.5, AS_2020 at x=3.17
+            \draw[-{Stealth[length=5pt]}, HECnavy, thick] (4.3,3.08) -- (3.1,3.16);
+            \node[font=\scriptsize, HECnavy, above right] at (3.5,3.25) {Offre perturbée};
+            % AD_2020: y = -0.6x + 2.9
+            \draw[HECcoral, thick] (0.5,2.6) -- (4.5,0.2)
+               node[right, font=\footnotesize] {AD$_{2020}$};
+            % AD_2019 (faded dashed)
+            \draw[HECgray!40, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize, HECgray!40] {AD$_{2019}$};
+            % E_2019 faded
+            \filldraw[HECgray, opacity=0.3] (3.0,2.3) circle (2pt);
+            \node[font=\scriptsize, HECgray!40, above left] at (3.0,2.3) {$E_{2019}$};
+            % E_1 faded (previous slide)
+            \filldraw[HECcoral, opacity=0.3] (2.0,1.7) circle (2pt);
+            \node[font=\scriptsize, HECcoral!40, below right] at (2.0,1.7) {$E_{1}$};
+            % E_2 at (1.33, 2.1) -- AD_2020 ∩ AS_2020
+            \filldraw[HECnavy] (1.33,2.1) circle (2.5pt);
+            \node[font=\scriptsize, HECnavy, below left] at (1.33,2.1) {$E_{2}$};
+            % Dotted lines to axes for E_2
+            \draw[dotted, thick, HECgray] (1.33,0) node[below, font=\footnotesize] {$Y_{2}$} -- (1.33,2.1);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \footnotesize
+         \vspace{0.2cm}
+         En plus, \textbf{l'offre est perturbée} :
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Chaînes d'approvisionnement dysfonctionnelles
+            \item Usines fermées, ports congestionnés
+            \item Pénuries de main-d'œuvre
+            \item AS se déplace vers la \textbf{gauche}
+         \end{itemize}
+         \vspace{0.15cm}
+         \textbf{Résultat :} $Y$ chute encore plus. L'effet sur $P$ est ambigu.
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{2021 : la relance dépasse la cible}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_2020 (still shifted): y = 0.6x + 1.3
+            \draw[HECnavy, very thick] (0.5,1.6) -- (5.0,4.3)
+               node[right, font=\footnotesize] {AS$_{2020}$};
+            % AD_2020 (dashed, old): y = -0.6x + 2.9
+            \draw[HECgray, dashed, thick] (0.5,2.6) -- (4.5,0.2)
+               node[right, font=\footnotesize] {AD$_{2020}$};
+            % AD_2021 (massive rightward shift): y = -0.6x + 5.5
+            \draw[HECcoral, very thick] (1.8,4.42) -- (6.3,1.72)
+               node[right, font=\footnotesize] {AD$_{2021}$};
+            % Stimulus arrow: spans full distance between AD curves at y=1.5
+            % AD_2020 at y=1.5: x=2.33 ; AD_2021 at y=1.5: x=6.67 (clip to 6.1)
+            \draw[-{Stealth[length=5pt]}, HECcoral, thick] (2.5,1.5) -- (6.1,1.5);
+            \node[font=\scriptsize, HECcoral, above] at (4.3,1.5) {Relance massive};
+            % E_2021 at (3.5, 3.4)
+            \filldraw[HECcoral] (3.5,3.4) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above right] at (3.5,3.4) {$E_{2021}$};
+            % Dotted lines to axes
+            \draw[dotted, thick, HECgray] (3.5,0) node[below, font=\footnotesize] {$Y_{2021}$} -- (3.5,3.4);
+            \draw[dotted, thick, HECgray] (0,3.4) node[left, font=\footnotesize] {$P_{2021}$} -- (3.5,3.4);
+            % Overshoot annotation
+            \node[font=\scriptsize, HECnavy, below] at (3.25,-0.45) {$Y > Y_{\text{POT}}$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \footnotesize
+         \vspace{0.2cm}
+         \textbf{La riposte est sans précédent :}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item PCU/CERB, subventions salariales
+            \item Dépenses publiques en santé
+            \item Taux directeur à $\sim$\,0\,\%
+            \item AD se déplace vers la \textbf{droite}
+         \end{itemize}
+         \vspace{0.15cm}
+         \textbf{Résultat :} l'offre est toujours contrainte (AS$_{2020}$), mais la demande dépasse le potentiel. $P$ s'envole $\to$ \textbf{inflation}.
+      \end{column}
+   \end{columns}
 \end{frame}
 
 \begin{frame}[t]{Le resserrement le plus rapide en 40 ans}
    \small
-   \vspace{0.2cm}
    \textbf{Réaction des banques centrales face à l'inflation :}
    \vspace{0.15cm}
    \begin{columns}[T]
       \begin{column}{0.47\textwidth}
-         \textbf{Banque du Canada :}
+         \quad \textbf{Banque du Canada :}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
             \item Mars 2022 : première hausse
-            \item Juil.\ 2022 : hausse \guillemotleft~jumbo~\guillemotright\ de \textbf{100 pb}
+            \item Juil.\ 2022 : hausse \guillemotleft~jumbo~\guillemotright\ \textbf{100 pb}
             \item Juil.\ 2023 : pic à \textbf{5.00\,\%}
             \item De 0.25\,\% à 5\,\% en 16 mois
          \end{itemize}
       \end{column}
       \begin{column}{0.47\textwidth}
-         \textbf{Fed (réserve fédérale) :}
+         \quad \textbf{Fed (réserve fédérale) :}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
             \item Mars 2022 : première hausse
@@ -905,72 +1078,433 @@
    \end{columns}
    \vspace{0.15cm}
    \begin{warning}
-      Les délais expliquent l'erreur : quand l'inflation a décollé (mi-2021), les effets complets de la relance de 2020 n'étaient pas encore visibles. Quand les hausses de taux ont commencé, il était déjà tard.
+      Quand l'inflation a décollé (mi-2021), les effets de la relance de 2020 n'étaient pas encore visibles. Quand les hausses de taux ont commencé, il était déjà tard.
    \end{warning}
 \end{frame}
 
-\begin{frame}[t]{Défi 3 : crédibilité et anticipations}
-   \small
-   \vspace{0.2cm}
-   \textbf{Les anticipations d'inflation sont auto-réalisatrices :}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Si les agents \textbf{croient} que l'inflation sera élevée $\to$ ils demandent des hausses salariales $\to$ coûts $\uparrow$ $\to$ prix $\uparrow$ $\to$ l'inflation \textbf{augmente réellement}
-      \item Si la BdC est \textbf{crédible}, les anticipations restent \guillemotleft~ancrées~\guillemotright\ à 2\,\%
-      \item Quand la crédibilité est perdue, combattre l'inflation devient \textbf{beaucoup plus coûteux} (ex.\ : Volcker 1981, taux à 20\,\%, récession majeure)
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{warning}
-      L'indépendance de la banque centrale n'est pas un luxe académique --- c'est le fondement de sa crédibilité. Quand un gouvernement menace cette indépendance, les marchés réagissent immédiatement.
-   \end{warning}
+\begin{frame}{Le resserrement le plus rapide en 40 ans}
+   \vspace{-0.1cm}
+   \begin{center}
+      \includegraphics[width=0.92\textwidth]{boc_tightening_cycles.png}
+   \end{center}
 \end{frame}
 
-\begin{frame}[t]{La courbe de Phillips}
+\begin{frame}[t]{Défi \#3 : le dilemme des chocs d'offre}
    \small
-   \vspace{0.05cm}
-   \begin{columns}[c]
-      \begin{column}{0.52\textwidth}
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
          \centering
-         {\small\textbf{\textcolor{HECcoral}{Court terme}}}
-         \par\smallskip
-         \begin{tikzpicture}[scale=0.65]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right, font=\small] {$u$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above, font=\small] {$\pi$};
-            % SR Phillips curve
-            \draw[HECnavy, very thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {PC$_{\text{CT}}$};
-            % Tradeoff arrow along SR curve (NW direction)
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (2.8,1.78) -- (1.6,2.68);
-            % Equilibrium dot
-            \filldraw[HECgreen] (2.5,2.0) circle (3pt);
-            % Dotted lines
-            \draw[dotted, thick, HECgray] (2.5,0) node[below, font=\footnotesize] {$u^*$} -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$\pi^*$} -- (2.5,2.0);
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS original (dashed): y = 0.6x + 0.5
+            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+               node[right, font=\footnotesize] {AS};
+            % AD: y = -0.6x + 4.1
+            \draw[HECnavy, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AS' shifted left: y = 0.6x + 1.4
+            \draw[HECcoral, very thick] (0.5,1.7) -- (4.8,4.28)
+               node[right] {AS$'$};
+            % E0: AS ∩ AD at (3.0, 2.3)
+            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_0$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[HECcoral] (2.25,2.75) circle (2.5pt);
+            \node[font=\scriptsize, HECcoral, above left] at (2.25,2.75) {$E_1$};
+            % Shock arrow (AS → AS') — horizontal between the two AS curves
+            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.8,3.5) -- (3.7,3.5);
+            \node[font=\scriptsize, HECcoral, above] at (4.4,3.5) {Choc};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
+            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+            \draw[dotted, thick, HECcoral] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
          \end{tikzpicture}
-         \par\smallskip
-         {\footnotesize Arbitrage $u \leftrightarrow \pi$}
       \end{column}
-      \begin{column}{0.52\textwidth}
-         \centering
-         {\small\textbf{\textcolor{HECnavy}{Long terme}}}
-         \par\smallskip
-         \begin{tikzpicture}[scale=0.65]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right, font=\small] {$u$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above, font=\small] {$\pi$};
-            % LR Phillips curve (vertical)
-            \draw[HECgreen, ultra thick, dotted] (2.5,0.3) -- (2.5,3.8)
-               node[above, font=\footnotesize] {PC$_{\text{LT}}$};
-            \node[font=\footnotesize, HECgray, below] at (2.5,0) {$u^*$};
-         \end{tikzpicture}
-         \par\smallskip
-         {\footnotesize Pas d'arbitrage permanent}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Le problème :}
+         \vspace{0.1cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item AS se déplace à gauche
+            \item $Y$ $\downarrow$ \textbf{et} $P$ $\uparrow$ simultanément
+            \item La banque centrale ne peut pas corriger les deux à la fois
+         \end{enumerate}
+         \vspace{0.15cm}
+         \footnotesize
+         \renewcommand{\arraystretch}{1.15}
+         \begin{tabular}{@{}lcc@{}}
+            & PIB ($Y$) & inflation ($P$) \\[2pt]
+            \hline\\[-6pt]
+            $\uparrow$ taux directeur & $\downarrow$ & $\downarrow$ \\[2pt]
+            $\downarrow$ taux directeur & $\uparrow$ & $\uparrow$ \\[2pt]
+         \end{tabular}
+         \vspace{0.15cm}
+
+         \textcolor{HECgray}{\scriptsize Avec un choc de demande, la BdC peut stabiliser $Y$ et $P$ en même temps. Avec un choc d'offre, elle doit \textbf{choisir}.}
       \end{column}
    \end{columns}
-   \vspace{0.05cm}
+\end{frame}
+
+\begin{frame}[t]{Option 1 : politique restrictive (stabiliser $P$)}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS' (shifted, now the starting supply): y = 0.6x + 1.4
+            \draw[HECcoral, thick] (0.5,1.7) -- (4.8,4.28)
+               node[right, font=\footnotesize] {AS$'$};
+            % AD original (dashed): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AD' shifted left (restrictive policy): y = -0.6x + 3.2
+            \draw[HECnavy, very thick] (0.2,3.08) -- (4.8,0.32)
+               node[right] {AD$'$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[HECgray] (2.25,2.75) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above left] at (2.25,2.75) {$E_1$};
+            % E2: AS' ∩ AD' at (1.5, 2.3)
+            \filldraw[HECnavy] (1.5,2.3) circle (3pt);
+            \node[font=\scriptsize, HECnavy, below left] at (1.5,2.3) {$E_2$};
+            % Policy arrow (AD → AD')
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.3) -- (3.2,1.3);
+            \node[font=\scriptsize, HECnavy, above] at (3.7,1.3) {$\uparrow$ taux};
+            % Dotted reference lines
+            \draw[dotted, thick, HECgray] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
+            \draw[dotted, thick, HECnavy] (1.5,0) node[below, font=\footnotesize] {$Y_2$} -- (1.5,2.3);
+            \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (1.5,2.3);
+            \draw[dotted, thick, HECgray] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Stabiliser les prix :}
+         \vspace{0.1cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item BdC $\uparrow$ taux directeur
+            \item AD se déplace à gauche
+            \item Retour à $\approx P_0$, mais $Y_2 < Y_1$
+            \item La récession s'\textbf{aggrave}
+         \end{enumerate}
+         \vspace{0.15cm}
+         \begin{warning}
+            \footnotesize C'est ce que la BdC et la Fed ont choisi en 2022--2023 face au choc d'offre post-pandémie.
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Option 2 : politique expansionniste (stabiliser $Y$)}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS' (shifted, now the starting supply): y = 0.6x + 1.4
+            \draw[HECcoral, thick] (0.5,1.7) -- (4.8,4.28)
+               node[right, font=\footnotesize] {AS$'$};
+            % AD original (dashed): y = -0.6x + 4.1
+            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD};
+            % AD'' shifted right (expansionary policy): y = -0.6x + 5.0
+            \draw[HECnavy, very thick] (1.2,4.28) -- (5.5,1.7)
+               node[right] {AD$''$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[HECgray] (2.25,2.75) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above left] at (2.25,2.75) {$E_1$};
+            % E2: AS' ∩ AD'' at (3.0, 3.2)
+            \filldraw[HECnavy] (3.0,3.2) circle (3pt);
+            \node[font=\scriptsize, HECnavy, above right] at (3.0,3.2) {$E_2$};
+            % Policy arrow (AD → AD'') — between old AD (x≈3.8) and new AD'' (x≈5.3) at y=1.8
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.0,1.8) -- (5.2,1.8);
+            \node[font=\scriptsize, HECnavy, above] at (4.3,1.8) {$\downarrow$ taux};
+            % Dotted reference lines
+            \draw[dotted, thick, HECgray] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
+            \draw[dotted, thick, HECgray] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+            \draw[dotted, thick, HECnavy] (0,3.2) node[left, font=\footnotesize] {$P_2$} -- (3.0,3.2);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Stabiliser la production :}
+         \vspace{0.1cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item BdC $\downarrow$ taux directeur
+            \item AD se déplace à droite
+            \item Retour à $\approx Y_{\text{POT}}$, mais $P_2 > P_1$
+            \item L'inflation s'\textbf{accélère}
+         \end{enumerate}
+         \vspace{0.15cm}
+         \begin{warning}
+            \footnotesize Risque de \textbf{désancrage} des anticipations d'inflation : si les gens s'attendent à une inflation élevée, elle devient auto-réalisatrice.
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Défi \#4 : crédibilité et indépendance}
+   \small
+   \textbf{Indépendance :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Le pouvoir de la politique monétaire attire l'attention des gouvernements
+      \item Tentation : financer les déficits, stimuler l'économie avant les élections
+   \end{itemize}
+   \vspace{0.2cm}
+   \textbf{Crédibilité :}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Capacité de la BC à lisser les cycles économiques dépend de sa crédibilité
+      \item Si la BC est crédible, les gens ajustent leurs anticipations de prix en conséquence
+   \end{itemize}
+   \vspace{0.15cm}
    \begin{keyinsight}
-      À long terme, la courbe de Phillips est \textbf{verticale} : on ne peut pas \guillemotleft~acheter~\guillemotright\ un chômage durablement plus bas en tolérant plus d'inflation.
+      \footnotesize L'indépendance est le \textbf{moyen}, la crédibilité est la \textbf{fin}. Une BC indépendante non crédible ne sert à rien\,; une BC crédible a besoin d'indépendance pour le demeurer.
    \end{keyinsight}
+\end{frame}
+
+% --- Credibility sequence: 3 slides ---
+% Geometry:
+%   AS_high (2022 inflation): y = 0.6x + 1.4 → at YPOT (3.0): P = 3.2
+%   AD: y = -0.6x + 5.0 → at YPOT: P = 3.2 → E0 = (3.0, 3.2)
+%   AD' (tightened): y = -0.6x + 4.1
+%     ∩ AS_high: x = (4.1-1.4)/1.2 = 2.25, P = 2.75 → E1 = (2.25, 2.75) recession
+%     ∩ AS_low:  x = (4.1-0.5)/1.2 = 3.0, P = 2.3  → E2 = (3.0, 2.3) soft landing
+%   AS_low (expectations adjust): y = 0.6x + 0.5
+
+\begin{frame}[t]{2022 : inflation trop élevée}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_high: y = 0.6x + 1.4
+            \draw[HECnavy, thick] (0.5,1.7) -- (4.8,4.28)
+               node[right, font=\footnotesize] {AS};
+            % AD: y = -0.6x + 5.0
+            \draw[HECnavy, thick] (1.2,4.28) -- (5.5,1.7)
+               node[right, font=\footnotesize] {AD};
+            % E0: (3.0, 3.2)
+            \filldraw[HECnavy] (3.0,3.2) circle (2.5pt);
+            \node[font=\scriptsize, HECnavy, above right] at (3.0,3.2) {$E_0$};
+            % Dotted reference lines
+            \draw[dotted, thick, HECnavy] (0,3.2) node[left, font=\footnotesize] {$P_0$} -- (3.0,3.2);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{Mi-2022 :}
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item L'économie est revenue à $Y_{\text{POT}}$
+            \item Mais l'inflation est élevée
+            \item Les coûts de production ont augmenté (énergie, chaînes d'approv., salaires)
+            \item AS reflète ces coûts élevés
+         \end{itemize}
+         \vspace{0.15cm}
+         \textcolor{HECgray}{\footnotesize La BdC doit ramener $P$ vers la cible. Mais le résultat dépend de sa \textbf{crédibilité}\ldots}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le resserrement : que se passe-t-il si AS ne bouge pas\,?}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_high: y = 0.6x + 1.4
+            \draw[HECnavy, thick] (0.5,1.7) -- (4.8,4.28)
+               node[right, font=\footnotesize] {AS};
+            % AD original (dashed): y = -0.6x + 5.0
+            \draw[HECgray, dashed, thick] (1.2,4.28) -- (5.5,1.7)
+               node[right, font=\footnotesize] {AD};
+            % AD' (tightened): y = -0.6x + 4.1
+            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
+               node[right] {AD$'$};
+            % E0
+            \filldraw[HECgray] (3.0,3.2) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above right] at (3.0,3.2) {$E_0$};
+            % E1: AD' ∩ AS_high at (2.25, 2.75) — recession
+            \filldraw[HECcoral] (2.25,2.75) circle (3pt);
+            \node[font=\scriptsize, HECcoral, above left] at (2.25,2.75) {$E_1$};
+            % Policy arrow — between old AD (x≈5.0) and new AD' (x≈3.5) at y=2.0
+            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.8,2.0) -- (3.7,2.0);
+            \node[font=\scriptsize, HECnavy, above] at (4,2.0) {$\uparrow$ taux};
+            % Dotted reference lines
+            \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
+            \draw[dotted, thick, HECcoral] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{BdC non crédible :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item BdC $\uparrow$ taux $\to$ AD à gauche
+            \item Les gens continuent d'anticiper une inflation élevée
+            \item AS \textbf{ne bouge pas}
+            \item $E_1$ : $Y_1 < Y_{\text{POT}}$ $\to$ \textbf{récession}
+         \end{enumerate}
+         \vspace{0.1cm}
+         \begin{warning}[Épisode Volcker (1981)]
+            \footnotesize Il a fallu monter les taux à 20\,\% et provoquer une récession majeure pour finalement casser l'inflation.
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le resserrement : que se passe-t-il si AS s'ajuste\,?}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.55\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=1.0]
+            % Axes
+            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+            % Y_POT
+            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+               node[above] {$Y_{\text{POT}}$};
+            % AS_high (dashed, old): y = 0.6x + 1.4
+            \draw[HECgray, dashed, thick] (0.5,1.7) -- (4.8,4.28)
+               node[right, font=\footnotesize] {AS};
+            % AS' (adjusted down): y = 0.6x + 0.5
+            \draw[HECgreen!70!black, very thick] (0.5,0.8) -- (5.5,3.8)
+               node[right] {AS$'$};
+            % AD' (tightened): y = -0.6x + 4.1
+            \draw[HECnavy, thick] (0.5,3.8) -- (5.5,0.8)
+               node[right, font=\footnotesize] {AD$'$};
+            % E0
+            \filldraw[HECgray] (3.0,3.2) circle (2.5pt);
+            \node[font=\scriptsize, HECgray, above right] at (3.0,3.2) {$E_0$};
+            % E1: AD' ∩ AS' at (3.0, 2.3) — soft landing
+            \filldraw[HECgreen!70!black] (3.0,2.3) circle (3pt);
+            \node[font=\scriptsize, HECgreen!70!black, below left] at (3.0,2.3) {$E_1$};
+            % Arrow: AS shifts down (expectations adjust)
+            \draw[-{Stealth[length=4pt]}, HECgreen!70!black, thick] (4.3,3.95) -- (4.3,3.15);
+            % Dotted reference lines
+            \draw[dotted, thick, HECgreen!70!black] (0,2.3) node[left, font=\footnotesize] {$P_1$} -- (3.0,2.3);
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{BdC crédible :}
+         \vspace{0.15cm}
+         \begin{enumerate}
+            \setlength\itemsep{0.1cm}
+            \item BdC $\uparrow$ taux $\to$ AD à gauche
+            \item Les gens croient que l'inflation reviendra à 2\,\%
+            \item AS s'ajuste à la \textbf{baisse}
+            \item Retour à $Y_{\text{POT}}$ \textbf{sans récession}
+         \end{enumerate}
+         \vspace{0.15cm}
+         \begin{keyinsight}[Scénario 2022--2025]
+            \footnotesize Crédibilité de la BdC $\to$ désinflation \textbf{peu coûteuse}.
+         \end{keyinsight}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Deux chemins vers la désinflation}
+   \centering
+   \begin{tikzpicture}[scale=1.3]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.8) node[above] {$P$};
+      % Geometry: AS: y=0.5x+2.2, AS': y=0.5x+0.2, AD': y=-0.5x+3.2
+      % E0 = (3.0, 3.7),  E1 = (1.0, 2.7),  E1' = (3.0, 1.7)
+      % Y_POT
+      \draw[HECgreen, very thick, dotted] (3.0,0.3) -- (3.0,4.5)
+         node[above] {$Y_{\text{POT}}$};
+      % AS (high, stays if non-credible): y = 0.5x + 2.2
+      \draw[HECcoral, thick] (0.3,2.35) -- (5.0,4.7)
+         node[right, font=\footnotesize] {AS};
+      % AS' (adjusted down if credible): y = 0.5x + 0.2
+      \draw[HECgreen!70!black, thick] (0.3,0.35) -- (5.5,2.95)
+         node[right, font=\footnotesize] {AS$'$};
+      % AD' (tightened): y = -0.5x + 3.2
+      \draw[HECnavy, thick] (0.3,3.05) -- (5.5,0.45)
+         node[right, font=\footnotesize] {AD$'$};
+      % E0: AS ∩ YPOT = (3.0, 3.7)
+      \filldraw[HECnavy] (3.0,3.7) circle (2.5pt);
+      \node[font=\footnotesize, above left] at (3.0,3.7) {$E_0$};
+      % E1 (painful): AD' ∩ AS = (1.0, 2.7)
+      \filldraw[HECcoral] (1.0,2.7) circle (2.5pt);
+      \node[font=\footnotesize, HECcoral, below] at (1.0,2.55) {$E_1$};
+      % E1' (smooth): AD' ∩ AS' = (3.0, 1.7)
+      \filldraw[HECgreen!70!black] (3.0,1.7) circle (2.5pt);
+      \node[font=\footnotesize, HECgreen!70!black, below left] at (3.0,1.7) {$E_1'$};
+      % Path 1a: Costly — E0 → E1 along AS (coral arrowheads)
+      % AS: y = 0.5x + 2.2, at x=2.85: y=3.625, at x=1.15: y=2.775
+      \draw[very thick, HECcoral,
+         decoration={markings,
+            mark=between positions 0.1 and 1 step 0.18
+               with {\arrow[HECcoral]{Stealth[length=5pt]}}},
+         postaction={decorate}]
+         (2.85,3.625) -- (1.15,2.775);
+      % Path 1b: Costly — E1 → E1' along AD' (black arrowheads)
+      % AD': y = -0.5x + 3.2, at x=1.15: y=2.625, at x=2.85: y=1.775
+      \draw[very thick, black,
+         decoration={markings,
+            mark=between positions 0.1 and 1 step 0.18
+               with {\arrow[black]{Stealth[length=5pt]}}},
+         postaction={decorate}]
+         (1.15,2.625) -- (2.85,1.775);
+      \node[font=\footnotesize, HECcoral, align=center, right] at (1.65,2.7)
+         {Chemin\\coûteux};
+      % Path 2: Smooth — curvy dashed arrow E0 → E1'
+      \draw[-{Stealth[length=6pt]}, dashed, very thick, HECgreen!70!black]
+         (3.2,3.6) to[out=-15, in=15, looseness=1.5] (3.2,1.65);
+      \node[font=\footnotesize, HECgreen!70!black, align=center, right] at (3.8,3.5)
+         {Chemin\\peu coûteux};
+      % Dotted reference lines
+      \draw[dotted, thick, HECgray] (0,3.7) node[left, font=\footnotesize] {$P_0$} -- (3.0,3.7);
+      \draw[dotted, thick, HECcoral] (0,2.7) node[left, font=\footnotesize, HECcoral] {$P_1$} -- (1.0,2.7);
+      \draw[dotted, thick, HECgreen!70!black] (0,1.7) node[left, font=\footnotesize, HECgreen!70!black] {$P_1'$} -- (3.0,1.7);
+   \end{tikzpicture}
 \end{frame}
 
 \begin{frame}[t]{L'atterrissage en douceur}
@@ -996,57 +1530,29 @@
    \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{La règle de Taylor (intuition)}
-   \small
-   \vspace{0.05cm}
-   \begin{defbox}[Règle de Taylor]
-      La banque centrale réagit systématiquement à \textbf{deux} variables : l'écart d'inflation et l'écart de production.
-   \end{defbox}
-   \vspace{0.05cm}
-   \footnotesize
-   \begin{itemize}
-      \setlength\itemsep{0.08cm}
-      \item Si $\pi > 2\,\%$ : \textbf{monter} le taux (plus que l'écart d'inflation)
-      \item Si $Y < Y_{\text{POT}}$ : \textbf{baisser} le taux pour stimuler l'activité
-      \item Cadre \textbf{discipliné} vs.\ simple jugement discrétionnaire
-   \end{itemize}
-   \vspace{0.05cm}
-   \small
-   \begin{keyinsight}[Principe de Taylor]
-      Quand l'inflation monte de 1 point, le taux directeur doit monter de \textbf{plus} d'un point. Sinon, le taux réel baisse et la politique devient involontairement expansionniste.
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{La borne zéro : quand l'outil conventionnel ne suffit plus}
-   \small
-   \vspace{0.2cm}
-   \textbf{Problème :} le taux directeur ne peut pas descendre beaucoup en dessous de 0\,\%.
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item En 2009 et 2020, la BdC et la Fed ont atteint $\sim$0\,\%
-      \item L'économie avait encore besoin de stimulation $\to$ \guillemotleft~pousser sur une corde~\guillemotright
-      \item Solution : outils \textbf{non conventionnels} (section suivante)
-   \end{itemize}
-   \vspace{0.1cm}
+\begin{frame}{Défi \#5 : la trappe de liquidité}
    \begin{figure}
       \centering
-      \includegraphics[width=0.80\textwidth, height=0.35\textheight, keepaspectratio]{policy_rates_global.png}
+      \includegraphics[width=0.95\textwidth]{policy_rates_global.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}{Exercice en classe}
-   \begin{exercise}
-      La BdC \textbf{baisse} le taux directeur de 50 points de base en réponse à une contraction économique.
-      \\[6pt]
-      \textbf{Questions :}
-      \begin{enumerate}
-         \setlength\itemsep{0.1cm}
-         \item Montrez l'effet sur un diagramme AD-AS.
-         \item Quel est l'effet attendu sur $Y$, $P$ et le chômage\,?
-         \item Pourquoi l'effet complet ne se fera-t-il sentir que dans 18 mois\,?
-      \end{enumerate}
-   \end{exercise}
+\begin{frame}[t]{Défi \#5 : la trappe de liquidité}
+   \small
+   \vspace{-0.25cm}
+   \begin{defbox}[Borne inférieure zéro]
+      \footnotesize Si le taux directeur descend à 0\,\%, les ménages et les banques peuvent toujours détenir de la \textbf{monnaie physique}, qui génère 0\,\% de rendement. Le taux ne peut donc pas descendre beaucoup en dessous de zéro --- sinon, tout le monde retire ses dépôts.
+   \end{defbox}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item En 2009 et en 2020, la BdC, la Fed et la BCE ont atteint $\sim$0\,\%
+      \item L'économie avait \textbf{encore besoin} de stimulation\ldots
+      \item Certaines BC ont tenté des \textbf{taux négatifs} (BCE: $-$0.5\,\%, Suède, Japon) --- effet limité
+   \end{itemize}
+   \vspace{0.05cm}
+   \begin{keyinsight}
+      \footnotesize Quand le taux directeur est à zéro, l'outil principal de la politique monétaire est \textbf{paralysé} (\guillemotleft~pousser sur une corde~\guillemotright). Il faut se tourner vers des outils \textbf{non conventionnels}\ldots
+   \end{keyinsight}
 \end{frame}
 
 % ============================================================================
@@ -1074,23 +1580,26 @@
    \begin{columns}[T,onlytextwidth]
       \begin{column}{0.30\textwidth}
          \begin{tcolorbox}[colback=HECgreen!8, colframe=HECgreen, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            top=4pt, bottom=4pt, left=6pt, right=6pt,
+            equal height group=toolbox]
             \centering\footnotesize\textbf{Indications prospectives}\\(\textit{forward guidance})\\[3pt]
             Communiquer ses intentions futures pour influencer les anticipations
          \end{tcolorbox}
       \end{column}
       \begin{column}{0.30\textwidth}
          \begin{tcolorbox}[colback=HECnavy!8, colframe=HECnavy, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            top=4pt, bottom=4pt, left=6pt, right=6pt,
+            equal height group=toolbox]
             \centering\footnotesize\textbf{Assouplissement quantitatif}\\(\textit{quantitative easing})\\[3pt]
-            Acheter des obligations pour injecter des liquidités
+            Acheter des titres à plus longue échéance pour affecter directement les taux long terme
          \end{tcolorbox}
       \end{column}
       \begin{column}{0.30\textwidth}
          \begin{tcolorbox}[colback=HECcoral!8, colframe=HECcoral, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
-            \centering\footnotesize\textbf{Taux négatifs}\\[3pt]
-            Expérimentés par la BCE et la BoJ pour forcer les banques à prêter
+            top=4pt, bottom=4pt, left=6pt, right=6pt,
+            equal height group=toolbox]
+            \centering\footnotesize\textbf{Taux d'intérêt négatifs}\\[3pt]
+            Expérimentés par la BCE et la BoJ pour forcer les banques commerciales à faire des prêts aux ménages et aux entreprises
          \end{tcolorbox}
       \end{column}
    \end{columns}
@@ -1099,75 +1608,100 @@
 \begin{frame}[t]{Indications prospectives (\textit{forward guidance})}
    \small
    \vspace{0.2cm}
-   \textbf{Idée :} la banque centrale s'engage publiquement à garder les taux bas \guillemotleft~aussi longtemps que nécessaire~\guillemotright.
+   \textbf{Idée :} la banque centrale s'engage publiquement à garder son taux directeur bas pour \guillemotleft~aussi longtemps que nécessaire~\guillemotright.
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.2cm}
-      \item Même si le taux à un jour est déjà à 0\,\%, les taux \textbf{longs} dépendent des \textbf{anticipations} du taux futur
+      \item Même si le taux à un jour est déjà à 0\,\%, les taux de \textbf{long terme} dépendent des \textbf{anticipations} du taux directeur futur
       \item En s'engageant à garder les taux bas $\to$ taux longs $\downarrow$ $\to$ stimulation de $C$ et $I$
       \item Exemple : le \textit{dot plot} de la Fed (projections des membres du FOMC)
    \end{itemize}
    \vspace{0.15cm}
-   \begin{keyinsight}
-      La communication est devenue un \textbf{outil de politique monétaire} à part entière. Ce que la BdC \textit{dit} peut être aussi important que ce qu'elle \textit{fait}.
-   \end{keyinsight}
+   \begin{warning}
+      Si la banque centrale ne respecte pas sa promesse, elle perd sa crédibilité --- c'est une carte qu'on ne peut jouer qu'\textbf{une seule fois}.
+   \end{warning}
 \end{frame}
 
-\begin{frame}[t]{Assouplissement quantitatif (QE)}
+\begin{frame}{Le \textit{dot plot} de la Fed}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.80\textheight]{fed_dot_plot.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Un outil risqué\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.8\textheight]{unreliable_boyfriend.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Assouplissement quantitatif}
    \small
    \vspace{0.2cm}
    \begin{defbox}[Assouplissement quantitatif]
-      La banque centrale achète massivement des \textbf{obligations gouvernementales} (et parfois corporatives) sur les marchés secondaires.
+      La banque centrale achète des titres à plus \textbf{longue échéance} sur les marchés secondaires, pour agir \textbf{directement} sur les taux de long terme.
    \end{defbox}
-   \vspace{0.1cm}
+   \vspace{0.15cm}
    \textbf{Mécanisme :}
-   \vspace{0.05cm}
+   \vspace{0.1cm}
    \begin{enumerate}
       \setlength\itemsep{0.1cm}
-      \item BdC achète des obligations $\to$ prix des obligations $\uparrow$
-      \item Prix des obligations $\uparrow$ $\to$ taux de rendement (long terme) $\downarrow$
-      \item Taux long terme $\downarrow$ $\to$ stimule l'emprunt et l'investissement
-      \item Liquidités injectées $\to$ banques ont plus de fonds à prêter
+      \item BdC achète des titres \textbf{à longue échéance} $\to$ prix $\uparrow$
+      \item Prix $\uparrow$ $\to$ taux de rendement à long terme $\downarrow$
+      \item Taux longs $\downarrow$ $\to$ stimule \textbf{directement} la consommation et l'investissement
    \end{enumerate}
-   \vspace{0.1cm}
+   \vspace{0.25cm}
    \textbf{Utilisé en :} 2008--14 (Fed, BCE), 2020--22 (Fed, BdC, BCE)
 \end{frame}
 
-\begin{frame}{Le bilan de la BdC : le QE en images}
+\begin{frame}{La valeur des actifs détenus par la BdC}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{boc_balance_sheet.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{QE : succès et risques}
+\begin{frame}[t]{Taux d'intérêt négatifs}
+   \small
+   \begin{defbox}[Taux d'intérêt négatifs]
+      La banque centrale impose un taux d'intérêt \textbf{négatif} sur les réserves des banques commerciales : au lieu de recevoir un intérêt, elles \textbf{paient} pour \guillemotleft~parker~\guillemotright~leur argent à la banque centrale.
+   \end{defbox}
+   \vspace{0.1cm}
+   \textbf{Objectif :} forcer les banques à \textbf{prêter} plutôt qu'à accumuler des réserves.
+   \vspace{0.1cm}
+   \footnotesize
+   \begin{itemize}
+      \setlength\itemsep{0.05cm}
+      \item BCE : $-0.5\,\%$ (2014--2022)
+      \item Banque du Japon : $-0.1\,\%$ (2016--2024)
+      \item Suède : $-0.5\,\%$ (2015--2019)
+      \item Suisse : $-0.75\,\%$ (2015--2022)
+      \item Danemark : $-0.75\,\%$ (2012--2022)
+   \end{itemize}
+   \vspace{0.05cm}
+   {\scriptsize\textcolor{HECgray}{Ni la BdC ni la Fed n'ont adopté de taux négatifs.}}
+\end{frame}
+
+\begin{frame}[t]{Le plancher de 0\,\% et la monnaie numérique}
    \small
    \vspace{0.2cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \textbf{\textcolor{HECgreen}{Bénéfices :}}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\downarrow$ taux longs, même quand le taux court est à zéro
-            \item $\uparrow$ prix des actifs $\to$ effet de richesse
-            \item A évité une dépression en 2008--09 et 2020
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \textbf{\textcolor{HECcoral}{Risques :}}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\uparrow$ inégalités : les détenteurs d'actifs profitent davantage
-            \item Risque de \textbf{bulles} spéculatives
-            \item Inflation retardée (2021--22\,?)
-            \item \textbf{Resserrement quantitatif} (QT) difficile
-         \end{itemize}
-      \end{column}
-   \end{columns}
+   \textbf{Pourquoi les taux ne peuvent pas descendre beaucoup plus bas\,?}
    \vspace{0.2cm}
-   \begin{keyinsight}
-      Le QE a montré que les banques centrales ne sont jamais vraiment à court de munitions --- mais chaque nouvel outil a des \textbf{effets secondaires croissants}.
-   \end{keyinsight}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item L'argent comptant offre un rendement de \textbf{0\,\%} --- c'est un plancher naturel
+      \item Taux très négatifs $\to$ les gens retirent leur argent et le stockent physiquement
+      \item En pratique, le plancher se situe autour de $-0.75\,\%$
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{La solution radicale :} les \textbf{monnaies numériques} de banque centrale
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Sans argent comptant, plus d'option de fuite vers le cash
+      \item La BC pourrait imposer des taux \textbf{profondément négatifs} en récession sévère
+   \end{itemize}
 \end{frame}
 
 % ============================================================================
@@ -1190,8 +1724,7 @@
 
 \begin{frame}[t]{L'autre levier : le gouvernement}
    \small
-   \vspace{0.2cm}
-   \textbf{Trois canaux pour stimuler AD :}
+   \textbf{Trois canaux pour stimuler la demande agrégée :}
    \vspace{0.2cm}
    \begin{enumerate}
       \setlength\itemsep{0.2cm}
@@ -1200,62 +1733,14 @@
       \item \textbf{Baisses d'impôts ($T \downarrow$)} --- effet indirect via $C$ et $I$ (revenu disponible $\uparrow$)
    \end{enumerate}
    \vspace{0.2cm}
+   Certains de ces canaux agissent comme des \textbf{stabilisateurs automatiques} : l'assurance-emploi et l'impôt progressif ajustent $T$ et les transferts \textbf{sans décision politique}.
+   \vspace{0.15cm}
    \begin{keyinsight}[Différence fondamentale]
       $G$ entre \textbf{directement} dans le PIB ($Y = C + I + G + NX$). Les transferts et baisses d'impôts ne stimulent le PIB que si les ménages \textbf{dépensent} l'argent reçu.
    \end{keyinsight}
 \end{frame}
 
-\begin{frame}[t]{L'effet multiplicateur}
-   \small
-   \vspace{0.05cm}
-   \begin{defbox}[Le multiplicateur]
-      Un dollar dépensé par le gouvernement génère \textbf{plus} d'un dollar de PIB grâce à la propagation dans l'économie.
-   \end{defbox}
-   \vspace{0.02cm}
-   \footnotesize
-   \begin{tcolorbox}[
-      colback=white, colframe=HECnavy, colbacktitle=HECnavy,
-      title=\textbf{Exemple simplifié}, fonttitle=\footnotesize, boxrule=0.5pt, arc=8pt,
-      top=2pt, bottom=2pt, left=6pt, right=6pt]
-      Supposé : propension marginale à consommer = 0.8 (80\,\% du revenu est dépensé).
-      \vspace{0.02cm}
-
-      \renewcommand{\arraystretch}{1.0}
-      \centering
-      \begin{tabularx}{0.85\linewidth}{X r}
-         \rowcolor{HECnavy!10}
-         \textbf{Ronde} & \textbf{Dépense suppl.} \\
-         \hline
-         1.\ Gouvernement dépense & 100\,M\$ \\
-         2.\ Récipiendaires dépensent 80\,\% & 80\,M\$ \\
-         3.\ La vague suivante & 64\,M\$ \\
-         \ldots & \ldots \\
-         \hline
-         \textbf{Total} & $\frac{100}{1-0.8}$ = \textbf{500\,M\$}
-      \end{tabularx}
-   \end{tcolorbox}
-   \vspace{0.02cm}
-   {\footnotesize Multiplicateur = $\frac{1}{1 - \text{PMC}} = \frac{1}{0.2} = 5$ (cas extrême sans fuites).}
-\end{frame}
-
-\begin{frame}[t]{Le débat sur le multiplicateur}
-   \small
-   \vspace{0.2cm}
-   \textbf{Le multiplicateur est-il vraiment supérieur à 1\,?}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Effet d'éviction} (\textit{crowding out}) : $G \uparrow$ $\to$ emprunt public $\uparrow$ $\to$ taux d'intérêt $\uparrow$ $\to$ $I$ privé $\downarrow$
-      \item L'éviction \textbf{réduit} le multiplicateur (parfois à moins de 1)
-      \item \textbf{Évidence empirique :} le multiplicateur est plus grand en récession (quand les ressources sont inutilisées, pas d'éviction) et plus petit en expansion
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{warning}
-      Un plan de relance en période de \textbf{plein emploi} risque surtout de générer de l'inflation et d'évincer l'investissement privé, avec peu de gain sur le PIB réel.
-   \end{warning}
-\end{frame}
-
-\begin{frame}{Expansion budgétaire dans le modèle AD-AS}
+\begin{frame}{Politique budgétaire expansioniste dans le modèle AD-AS}
    \centering
    \begin{tikzpicture}[scale=1.3]
       % Axes
@@ -1286,121 +1771,24 @@
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}[t]{Application : la PCU en 2020}
-   \small
-   \vspace{0.1cm}
-   \textbf{Prestation canadienne d'urgence (PCU/CERB) :}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item 2\,000\,\$ par mois pour les travailleurs affectés par la pandémie
-      \item Coût total : $\sim$82 milliards \$
-      \item 8.9 millions de demandeurs (dans un pays de 38 millions)
-   \end{itemize}
-   \vspace{0.1cm}
-   \textbf{Effet :}
-   \vspace{0.05cm}
-   \begin{itemize}
-      \setlength\itemsep{0.05cm}
-      \item A \textbf{stabilisé le revenu} des ménages $\to$ évité un effondrement de $C$
-      \item Mais : a contribué à l'\textbf{excès de demande} en 2021--22 $\to$ inflation
-   \end{itemize}
-   \vspace{0.05cm}
-   \begin{bizimplication}
-      Les transferts d'urgence sont un pare-feu efficace à court terme. Le défi est de savoir \textbf{quand les retirer}.
-   \end{bizimplication}
-\end{frame}
-
-\begin{frame}[t]{Application : l'\textit{American Rescue Plan} (2021)}
-   \small
-   \vspace{0.2cm}
-   \textbf{Le débat Summers vs.\ Biden :}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Plan de relance de \textbf{1\,900 milliards \$} US (mars 2021)
-      \item Écart de production estimé à $\sim$700 milliards \$
-      \item Larry Summers (Harvard, ex-secrétaire au Trésor) : \guillemotleft~C'est trop\,! Ça va générer de l'inflation.~\guillemotright
-      \item Administration Biden : \guillemotleft~Mieux vaut en faire trop que pas assez.~\guillemotright
-   \end{itemize}
-   \vspace{0.15cm}
-   \textbf{Résultat :} les deux avaient partiellement raison.
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Reprise économique rapide (PIB au-dessus du potentiel dès fin 2021)
-      \item Mais inflation à 9\,\% en juin 2022 --- le plus haut niveau en 40 ans
-   \end{itemize}
-\end{frame}
-
-\begin{frame}[t]{Austérité vs.\ relance : le \textit{timing} est tout}
-   \small
-   \vspace{0.2cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \textbf{\textcolor{HECcoral}{Austérité en récession}}\\[4pt]
-         {\footnotesize
-         Grèce, 2010--2015 :
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Coupes budgétaires de 30\,\%
-            \item PIB chute de 25\,\%
-            \item Chômage atteint 27\,\%
-         \end{itemize}
-         $\to$ L'austérité a \textbf{aggravé} la crise}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \textbf{\textcolor{HECgreen}{Relance bien calibrée}}\\[4pt]
-         {\footnotesize
-         Canada, 2020 :
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item PCU + subventions salariales
-            \item Déficit de 15\,\% du PIB
-            \item Reprise rapide de l'emploi
-         \end{itemize}
-         $\to$ La relance a \textbf{amorti} le choc}
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   \begin{keyinsight}
-      La politique budgétaire doit être \textbf{contracyclique} : stimuler en récession, consolider en expansion. L'austérité en récession est procyclique et aggrave les dégâts.
-   \end{keyinsight}
-\end{frame}
-
 \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
    \small
-   \vspace{0.2cm}
-   \renewcommand{\arraystretch}{1.3}
+   \vfill
+   \renewcommand{\arraystretch}{1.75}
    \centering
-   \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small}X}
+   \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small\raggedright\arraybackslash}p{0.42\textwidth}}
       \toprule
       & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
       \midrule
       Décideur & Banque centrale & Gouvernement \\
       Rapidité & Rapide (8 annonces/an) & Lente (processus législatif) \\
       Indépendance & Oui & Non (politique) \\
-      Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C$ via transferts \\
+      Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C, I$ via transferts/impôts \\
       Précision & Faible (effets diffus) & Peut cibler des secteurs \\
-      Limite & Borne zéro & Endettement \\
+      Limite & Délai, incert., borne zéro & \textcolor{HECcoral}{\textbf{Endettement}} \\
       \bottomrule
    \end{tabularx}
-\end{frame}
-
-\begin{frame}{Exercice en classe}
-   \begin{exercise}
-      Pour chacune des mesures suivantes, indiquez si elle est \textbf{monétaire} ou \textbf{budgétaire}, et \textbf{expansionniste} ou \textbf{restrictive}.
-      \\[6pt]
-      \begin{enumerate}
-         \setlength\itemsep{0.1cm}
-         \item La BdC baisse le taux directeur de 25 points de base.
-         \item Le gouvernement réduit l'impôt sur le revenu des particuliers.
-         \item La Fed achète 500 milliards \$ d'obligations du Trésor.
-         \item Ottawa annonce un gel des dépenses publiques pour 2 ans.
-         \item La BCE augmente son taux de référence de 75 pb.
-         \item Québec investit 10 milliards \$ en infrastructures de transport.
-      \end{enumerate}
-   \end{exercise}
+   \vfill
 \end{frame}
 
 % ============================================================================
@@ -1421,136 +1809,165 @@
 \sectionframe{La dette publique}
 % ============================================================================
 
-\begin{frame}[t]{Déficit et dette : flux vs.\ stock}
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{Pourquoi s’inquiéter de la dette publique\,?}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[ft]{Financial Times}{\guillemotleft~Defence and AI spending sends global debt to record \$348tn~\guillemotright}
+      \newsheadline[economist]{The Economist}{\guillemotleft~The case for more fiscal firepower~\guillemotright}
+      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~Faut-il s’inquiéter de la dette publique canadienne\,?~\guillemotright}
+      \newsheadline[washpost]{The Washington Post}{\guillemotleft~U.S.\ interest payments on debt hit \$1 trillion in 2025~\guillemotright}
+      \newsheadline[reuters]{Reuters}{\guillemotleft~Moody’s downgrades France’s credit rating amid fiscal crisis~\guillemotright}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~US debt hits 100\,\% of GDP for first time since WWII~\guillemotright}
+   \end{tikzpicture}
+\end{frame}
+}
+
+\begin{frame}{Le cercle vicieux de la dette}
+   \small
    \vspace{0.3cm}
-   \begin{defbox}
-      \textbf{Déficit budgétaire} (flux) : quand le gouvernement dépense plus qu'il ne perçoit en revenus sur une année ($G > T$).
-      \\[4pt]
-      \textbf{Dette publique} (stock) : accumulation de tous les déficits passés (moins les surplus).
-   \end{defbox}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item On mesure la dette en proportion du PIB (\textbf{dette/PIB})
-      \item Un déficit de 5\,\% du PIB est grand\,; un surplus est rare
-      \item La dette/PIB peut baisser même avec un déficit, si la \textbf{croissance} dépasse le déficit
-   \end{itemize}
+   \centering
+   \begin{tikzpicture}[
+      box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
+                  fill=HEClightblue, minimum width=3.0cm, minimum height=1.0cm,
+                  align=center, font=\small, text=HECnavy, inner sep=5pt},
+      arr/.style={-{Stealth[length=6pt]}, HECcoral, line width=1.4pt}]
+      % 4 nodes in a square layout
+      \node[box] (dette)   at ( 0, 2.2) {Dette\\augmente};
+      \node[box] (risque)  at ( 3.8, 0) {Risque de\\défaut};
+      \node[box] (taux)    at ( 0,-2.2) {Taux plus\\élevés};
+      \node[box] (deficit) at (-3.8, 0) {Déficits\\importants};
+      % Curved arrows (clockwise)
+      \draw[arr] (dette)   to[bend left=25] (risque);
+      \draw[arr] (risque)  to[bend left=25] (taux);
+      \draw[arr] (taux)    to[bend left=25] (deficit);
+      \draw[arr] (deficit) to[bend left=25] (dette);
+      % Annotation labels outside the curved arrows
+      \node[font=\scriptsize, text=HECgray, anchor=west] at (3.2,1.6) {Investisseurs inquiets};
+      \node[font=\scriptsize, text=HECgray, anchor=west] at (3.2,-1.6) {Rendements exigés $\uparrow$};
+      \node[font=\scriptsize, text=HECgray, anchor=east] at (-3.2,-1.6) {Service de la dette $\uparrow$};
+      \node[font=\scriptsize, text=HECgray, anchor=east] at (-3.2,1.6) {Emprunts additionnels};
+   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Ratios dette/PIB dans le monde}
+\begin{frame}[t]{Déficit vs dette : flux vs stock}
+   \small
+   \vspace{-0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \begin{defbox}[Déficit budgétaire]
+            \footnotesize
+            Recettes $<$ Dépenses en une année.\\[4pt]
+            Le déficit est un \textbf{flux} : il mesure le déséquilibre \textit{pendant} une période.
+         \end{defbox}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \begin{defbox}[Dette publique]
+            \footnotesize
+            Accumulation des déficits passés.\\[4pt]
+            La dette est un \textbf{stock} : elle mesure le total \textit{à un moment donné}.
+         \end{defbox}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \centering
+   Relation fondamentale\,:\\[4pt]
+   {\large $\text{Dette}_{t} = \text{Dette}_{t-1} + \text{Déficit}_{t}$}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      On mesure souvent la dette en \textbf{\,\% du PIB} pour la comparer entre pays et dans le temps. Un pays qui croît rapidement peut absorber plus de dette.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{La dette publique à travers le monde}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{debt_to_gdp.png}
    \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Soutenabilité de la dette : la condition $r < g$}
-   \small
-   \vspace{0.2cm}
-   \begin{defbox}[Condition de soutenabilité]
-      Si le taux d'intérêt sur la dette ($r$) est inférieur au taux de croissance du PIB ($g$), le ratio dette/PIB \textbf{diminue naturellement} --- même sans surplus primaire.
-   \end{defbox}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{$r < g$} : la croissance \guillemotleft~dilue~\guillemotright\ la dette $\to$ situation confortable
-      \item \textbf{$r > g$} : la dette s'alimente elle-même $\to$ il faut des surplus primaires pour stabiliser le ratio
-      \item Depuis 2010, $r < g$ dans la plupart des pays avancés (sauf la crise de la zone euro)
-   \end{itemize}
+\begin{frame}{Dette brute vs dette nette}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{gross_vs_net_debt.png}
+   \end{figure}
 \end{frame}
 
-\begin{frame}[t]{Le piège de la dette}
-   \small
-   \vspace{0.2cm}
-   \textbf{Quand $r > g$, la spirale s'enclenche :}
-   \vspace{0.2cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.15cm}
-      \item Les marchés doutent de la capacité de remboursement
-      \item Ils exigent une \textbf{prime de risque} $\to$ $r \uparrow$
-      \item La charge d'intérêt augmente $\to$ déficit $\uparrow$ $\to$ dette $\uparrow$
-      \item Retour à l'étape 1 (boucle auto-réalisatrice)
-   \end{enumerate}
-   \vspace{0.15cm}
-   \textbf{Exemples :}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item \textbf{Grèce (2010)} : dette à 120\,\% du PIB, taux à 35\,\% $\to$ défaut
-      \item \textbf{Italie (2011)} : taux à 7\,\% $\to$ crise politique, intervention de la BCE
-   \end{itemize}
-\end{frame}
+% --- Complémentarité politique monétaire / budgétaire ---
 
-\begin{frame}[t]{Le Canada est-il en danger\,?}
-   \small
-   \vspace{0.2cm}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \textbf{Points rassurants :}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Dette fédérale : $\sim$43\,\% du PIB (modeste)
-            \item Cote AAA maintenue
-            \item Institutions crédibles
-            \item Marché obligataire profond et liquide
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \textbf{Points d'attention :}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Dette totale (féd. + prov.) : $\sim$85\,\%
-            \item \textbf{Dette des ménages} parmi les plus élevées au monde
-            \item Vulnérabilité au choc immobilier
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   \begin{warning}
-      Le Japon a une dette de 260\,\% du PIB mais emprunte à des taux très bas. La Grèce avait 120\,\% et a fait défaut. La dette n'est dangereuse que si les \textbf{marchés doutent}.
-   \end{warning}
-\end{frame}
-
-\begin{frame}[t]{Dette brute vs.\ dette nette}
-   \small
-   \vspace{0.1cm}
-   \textbf{Dette nette} = dette brute $-$ actifs financiers publics (fonds de pension, réserves, placements).
-   \vspace{0.15cm}
-   \renewcommand{\arraystretch}{1.2}
+\begin{frame}{Complémentarité : l'austérité sans douleur\,?}
+\framesubtitle{Étape 1 --- Le gouvernement assainit ses finances ($G \downarrow$ ou $T \uparrow$)}
    \centering
-   \begin{tabularx}{0.75\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
-      \toprule
-      \textbf{Pays} & \textbf{Brute (\% PIB)} & \textbf{Nette (\% PIB)} \\
-      \midrule
-      Japon & $\sim$260 & $\sim$155 \\
-      États-Unis & $\sim$125 & $\sim$100 \\
-      France & $\sim$112 & $\sim$100 \\
-      \rowcolor{HECgreen!12}
-      \textbf{Canada} & $\sim$\textbf{105} & $\sim$\textbf{14} \\
-      \bottomrule
-   \end{tabularx}
-   \\[2pt]
-   {\footnotesize\textcolor{HECgray}{Source : FMI, \textit{World Economic Outlook} (2024)}}
-   \vspace{0.1cm}
-   \begin{keyinsight}
-      Le Canada possède d'importants actifs publics (RPC, Caisse de dépôt). Sa dette \textbf{nette} est la plus basse du G7 --- une marge de man\oe uvre fiscale considérable.
-   \end{keyinsight}
+   \begin{tikzpicture}[scale=1.1]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT
+      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AS: y = 0.6x + 0.5
+      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD (initial, at YPOT): y = -0.6x + 4.1
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
+         node[right] {AD};
+      % AD' (after austerity): y = -0.6x + 3.2
+      \draw[HECcoral, very thick] (0.0,3.2) -- (4.8,0.32)
+         node[right] {\textcolor{HECcoral}{AD$'$}};
+      % Shift arrow (AD → AD') at y=1.3
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.2,1.3) -- (3.3,1.3);
+      \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {$G \downarrow$};
+      % E0: intersection AS ∩ AD at x=3.0, y=2.3
+      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
+      \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_0$};
+      % E1: intersection AS ∩ AD' at x=2.25, y=1.85
+      \filldraw[HECcoral] (2.25,1.85) circle (3pt);
+      \node[font=\scriptsize, HECcoral, below left] at (2.25,1.85) {$E_1$};
+      % Dashed lines to axes
+      \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,1.85);
+      \draw[dotted, thick, HECcoral] (0,1.85) node[left, font=\footnotesize] {$P_1$} -- (2.25,1.85);
+      \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+   \end{tikzpicture}
+
+   \vspace{0.15cm}
+   {\small L'austérité budgétaire ($G \downarrow$ ou $T \uparrow$) déplace AD vers la gauche $\to$ \textbf{récession}.}
 \end{frame}
 
-\begin{frame}[t]{Le vrai risque : la crédibilité}
-   \small
-   \vspace{0.2cm}
-   \textbf{Les marchés fixent le taux, pas le gouvernement.}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Si la confiance s'érode $\to$ $r \uparrow$ $\to$ spirale de la dette
-      \item La crédibilité budgétaire dépend de : institutions solides, plan de consolidation crédible, indépendance de la banque centrale
-      \item \textbf{Exemple récent :} le Royaume-Uni sous Liz Truss (septembre 2022) --- un mini-budget avec des baisses d'impôts non financées $\to$ livre sterling en chute, taux obligataires en hausse, démission en 45 jours
-   \end{itemize}
+\begin{frame}{Complémentarité : l'austérité sans douleur\,?}
+\framesubtitle{Étape 2 --- La banque centrale réagit ($r \downarrow$)}
+   \centering
+   \begin{tikzpicture}[scale=1.1]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT
+      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AS: y = 0.6x + 0.5
+      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD restored: y = -0.6x + 4.1
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
+         node[right] {AD $=$ AD$''$};
+      % AD' (faded): y = -0.6x + 3.2
+      \draw[HECcoral!40, thick, dashed] (0.0,3.2) -- (4.8,0.32)
+         node[right, font=\footnotesize] {\textcolor{HECcoral!40}{AD$'$}};
+      % Shift arrow (AD' → AD'') at y=1.2
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.2) -- (4.5,1.2);
+      \node[font=\scriptsize, HECnavy, above] at (3.7,1.2) {$r \downarrow$};
+      % E1 (faded)
+      \filldraw[HECcoral!40] (2.25,1.85) circle (2pt);
+      \node[font=\scriptsize, HECcoral!40, below left] at (2.25,1.85) {$E_1$};
+      % E0 = E2
+      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
+      \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_0 = E_2$};
+      % Arrow E1 → E2
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick, dashed] (2.35,1.92) -- (2.9,2.24);
+   \end{tikzpicture}
+
    \vspace{0.15cm}
-   \begin{bizimplication}
-      Pour un gestionnaire, la trajectoire de la dette publique est un \textbf{indicateur de risque pays}. Elle affecte les taux d'intérêt, le taux de change et la stabilité macro.
-   \end{bizimplication}
+   {\small Finances assainies \textbf{sans récession} --- la recette canadienne des années 1990.}
 \end{frame}
 
 % ============================================================================
