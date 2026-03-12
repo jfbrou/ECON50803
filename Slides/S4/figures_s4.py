@@ -22,6 +22,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from plot_utils import *
 
+import yfinance as yf
+
 
 # =====================================================================
 # Figure 1: US Real GDP with NBER recession shading (1960–2025)
@@ -588,8 +590,8 @@ def oil_price_2026():
     ax.set_xticklabels(xtick_labels, fontsize=11)
 
     # -- Y-axis: explicit ticks --
-    ax.set_ylim(50, 80)
-    yticks = [50, 55, 60, 65, 70, 75, 80]
+    ax.set_ylim(50, 100)
+    yticks = [50, 60, 70, 80, 90, 100]
     ax.set_yticks(yticks)
     ax.set_yticklabels([rf'{y}' for y in yticks], fontsize=11)
 
@@ -815,6 +817,220 @@ def natural_unemployment_usa():
 
 
 # =====================================================================
+# Figure 15: Stock reaction — oil vs airline around Iran shock
+# =====================================================================
+def stock_reaction_iran():
+    """Stock price reaction: Canadian oil vs airline around Iran shock."""
+    print('Figure 15: Stock reaction to Iran shock')
+
+    # ── 1. Tickers and colour mapping ──────────────────────────────────
+    # Oil companies: green shades (from palette[1] HECgreen)
+    # Airlines: red/coral shades (from palette[2] HECcoral)
+    oil_tickers = [
+        ('SU.TO',  r"Suncor Energy"),
+        ('CNQ.TO', r"Canadian Natural"),
+        ('CVE.TO', r"Cenovus Energy"),
+    ]
+    airline_tickers = [
+        ('AC.TO',  r"Air Canada"),
+        ('TRZ.TO', r"Transat A.T."),
+        ('CHR.TO', r"Chorus Aviation"),
+    ]
+
+    # Green shades for oil, red shades for airlines (high contrast)
+    oil_colors = ['#0e7a3a', '#26d07c', '#a3f0cc']      # forest→mint
+    airline_colors = ['#99000d', '#ff585d', '#ffaaab']   # maroon→salmon
+
+    all_tickers = oil_tickers + airline_tickers
+    all_colors = oil_colors + airline_colors
+
+    start_date = '2026-02-01'
+    end_date = '2026-03-11'
+    base_date = '2026-02-27'  # day before the shock
+
+    # ── 2. Download data from Yahoo Finance ────────────────────────────
+    frames = {}
+    for ticker, label in all_tickers:
+        data = yf.download(ticker, start=start_date, end=end_date,
+                           auto_adjust=True, progress=False)
+        if len(data) == 0:
+            print(f'  ! No data for {ticker}. Skipping ticker.')
+            continue
+        frames[ticker] = data['Close']
+
+    if len(frames) < 2:
+        print('  ! Not enough data. Skipping figure.')
+        return
+
+    # ── 3. Normalize to 100 on base date ───────────────────────────────
+    normalized = {}
+    for ticker, series in frames.items():
+        if isinstance(series, pd.DataFrame):
+            series = series.iloc[:, 0]
+        base_ts = pd.Timestamp(base_date)
+        valid = series.loc[:base_ts]
+        if len(valid) == 0:
+            continue
+        base_val = valid.iloc[-1]
+        normalized[ticker] = (series / base_val) * 100
+
+    # ── 4. Plot ────────────────────────────────────────────────────────
+    fig, ax = new_figure(10, 5)
+
+    ticker_to_label = {t: l for t, l in all_tickers}
+    ticker_to_color = {t: c for (t, _), c in zip(all_tickers, all_colors)}
+
+    # Plot oil companies first, then airlines
+    for ticker, _ in oil_tickers:
+        if ticker not in normalized:
+            continue
+        s = normalized[ticker]
+        ax.plot(s.index, s.values, color=ticker_to_color[ticker],
+                linewidth=2.5, label=ticker_to_label[ticker])
+    for ticker, _ in airline_tickers:
+        if ticker not in normalized:
+            continue
+        s = normalized[ticker]
+        ax.plot(s.index, s.values, color=ticker_to_color[ticker],
+                linewidth=2.5, label=ticker_to_label[ticker])
+
+    # Horizontal baseline at 100
+    ax.axhline(100, color=palette[7], linewidth=1, linestyle='--', alpha=0.5)
+
+    # ── 5. Axis formatting ─────────────────────────────────────────────
+    ax.set_ylabel(r"Cours boursier (base 100 = 27 fév.)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    ylo = 80
+    yhi = 110
+    yticks = list(range(ylo, yhi + 1, 5))
+    ax.set_ylim(ylo, yhi)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([str(y) for y in yticks], fontsize=11)
+
+    all_dates = sorted(set().union(*(s.index for s in normalized.values())))
+    ax.set_xlim(pd.Timestamp('2026-02-02'), all_dates[-1])
+
+    xtick_dates = pd.date_range(start=start_date, end=end_date, freq='W-MON')
+    if len(xtick_dates) < 3:
+        xtick_dates = pd.date_range(start=start_date, end=end_date, freq='5D')
+    ax.set_xticks(xtick_dates)
+    ax.set_xticklabels([f'{d.day} {MONTH_FR[d.month]}' for d in xtick_dates],
+                       fontsize=11)
+
+    # Vertical dashed line on Feb 28
+    feb28 = pd.Timestamp('2026-02-28')
+    ax.axvline(feb28, color=palette[7], linewidth=1.5, linestyle='--', alpha=0.7)
+    ax.text(feb28 - pd.DateOffset(days=1), yhi - 1,
+            r'\textit{Opération Epic Fury}',
+            fontsize=9, color=palette[7],
+            ha='right', va='top')
+
+    # ── 6. Legend and save ─────────────────────────────────────────────
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=9, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=2)
+    add_source(ax, r"Source : Yahoo Finance --- Cours de clôture ajusté")
+    save(fig, 'stock_reaction_iran.png')
+
+
+# =====================================================================
+# Figure 16: Sectoral stock divergence around Iran shock
+# =====================================================================
+def stock_sectors_iran():
+    """Sectoral stock reaction: fertilizer, LNG, tankers, airlines."""
+    print('Figure 16: Sectoral stock divergence (Iran shock)')
+
+    tickers_info = [
+        ('CF',    r"CF Industries (engrais)",    palette[1]),  # green
+        ('CENX',  r"Century Aluminum (aluminium)", palette[4]),  # blue
+        ('LNG',   r"Cheniere Energy (GNL)",      palette[6]),  # teal
+        ('FRO',   r"Frontline (pétroliers)",     palette[0]),  # navy
+        ('AC.TO', r"Air Canada (aérien)",        palette[2]),  # coral
+    ]
+
+    start_date = '2026-02-02'
+    end_date = '2026-03-15'
+    base_date = '2026-02-27'
+
+    # ── Download data ────────────────────────────────────────────────
+    frames = {}
+    for ticker, label, color in tickers_info:
+        data = yf.download(ticker, start=start_date, end=end_date,
+                           auto_adjust=True, progress=False)
+        if len(data) == 0:
+            print(f'  ! No data for {ticker}. Skipping ticker.')
+            continue
+        series = data['Close']
+        if isinstance(series, pd.DataFrame):
+            series = series.iloc[:, 0]
+        frames[ticker] = series
+
+    if len(frames) < 2:
+        print('  ! Not enough data. Skipping figure.')
+        return
+
+    # ── Normalize to base 100 ────────────────────────────────────────
+    normalized = {}
+    for ticker, series in frames.items():
+        base_ts = pd.Timestamp(base_date)
+        valid = series.loc[:base_ts]
+        if len(valid) == 0:
+            continue
+        base_val = valid.iloc[-1]
+        normalized[ticker] = (series / base_val) * 100
+
+    # ── Plot ─────────────────────────────────────────────────────────
+    fig, ax = new_figure(10, 5)
+
+    for ticker, label, color in tickers_info:
+        if ticker not in normalized:
+            continue
+        s = normalized[ticker]
+        ax.plot(s.index, s.values, color=color, linewidth=2.5, label=label)
+
+    ax.axhline(100, color=palette[7], linewidth=1, linestyle='--', alpha=0.5)
+
+    # ── Y-axis: dynamic range rounded to nearest 5 ──────────────────
+    all_vals = np.concatenate([s.values for s in normalized.values()])
+    ylo = int(np.floor(all_vals.min() / 5) * 5)
+    yhi = int(np.ceil(all_vals.max() / 5) * 5)
+    yticks = list(range(ylo, yhi + 1, 5))
+    ax.set_ylim(ylo, yhi)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([str(y) for y in yticks], fontsize=11)
+
+    ax.set_ylabel(r"Cours boursier (base 100 = 27 fév.)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    # ── X-axis ───────────────────────────────────────────────────────
+    all_dates = sorted(set().union(*(s.index for s in normalized.values())))
+    ax.set_xlim(pd.Timestamp(start_date), all_dates[-1])
+
+    xtick_dates = pd.date_range(start=start_date, end=end_date, freq='W-MON')
+    if len(xtick_dates) < 3:
+        xtick_dates = pd.date_range(start=start_date, end=end_date, freq='5D')
+    ax.set_xticks(xtick_dates)
+    ax.set_xticklabels([f'{d.day} {MONTH_FR[d.month]}' for d in xtick_dates],
+                       fontsize=11)
+
+    # ── Vertical event line ──────────────────────────────────────────
+    feb28 = pd.Timestamp('2026-02-28')
+    ax.axvline(feb28, color=palette[7], linewidth=1.5, linestyle='--', alpha=0.7)
+    ax.text(feb28 - pd.DateOffset(days=1), yhi - 1,
+            r'\textit{Opération Epic Fury}',
+            fontsize=9, color=palette[7], ha='right', va='top')
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=9, loc='upper left',
+              bbox_to_anchor=(0.0, 1.0), ncol=2)
+    add_source(ax, r"Source : Yahoo Finance --- Cours de clôture ajusté")
+    save(fig, 'stock_sectors_iran.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -836,6 +1052,8 @@ if __name__ == '__main__':
         phillips_curve_usa,
         yield_curve_usa,
         natural_unemployment_usa,
+        stock_reaction_iran,
+        stock_sectors_iran,
     ]
 
     failed = []

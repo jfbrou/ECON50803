@@ -959,46 +959,80 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{2026 : AS domine $\to$ stagflation}
+\begin{frame}{Le choc d'offre : Ormuz et le pétrole}
    \centering
-   \begin{tikzpicture}[scale=1.3]
+   \begin{tikzpicture}[scale=1.2]
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
       \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
       % Y_POT (vertical)
       \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
          node[above] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+      % AD original (stays in place): y = -0.6x + 4.1
+      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
          node[right, font=\footnotesize] {AD};
       % AS original (dashed gray): y = 0.6x + 0.5
       \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
          node[right, font=\footnotesize] {AS};
-      % AD' shifted slightly left: y = -0.6x + 3.7
-      \draw[HECnavy, very thick] (0.2,3.58) -- (5.5,0.4)
-         node[right] {AD$'$};
       % AS' shifted a lot left: y = 0.6x + 1.5
       \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
          node[right] {AS$'$};
-      % Small AD shift arrow
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.8,1.4);
-      \node[font=\footnotesize, HECnavy, above] at (4.15,1.4) {\textit{peu}};
-      % Large AS shift arrow
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.8,3.2);
-      \node[font=\footnotesize, HECcoral, above] at (3.65,3.2) {\textbf{beaucoup}};
+      % Large AS shift arrow: from AS to AS' at y=3.2
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
+      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
       % Original equilibrium at (3.0, 2.3)
       \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
       \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      % New equilibrium: AD' ∩ AS' → x=1.83, y=2.60
-      \filldraw[HECcoral] (1.83,2.60) circle (3pt);
-      \draw[dotted, very thick, HECgray] (1.83,0) node[below] {$Y'$} -- (1.83,2.60);
-      \draw[dotted, very thick, HECgray] (0,2.60) node[left] {$P'$} -- (1.83,2.60);
+      % New equilibrium: AD ∩ AS' → x=2.17, y=2.80
+      \filldraw[HECcoral] (2.17,2.80) circle (3pt);
+      \draw[dotted, very thick, HECgray] (2.17,0) node[below] {$Y'$} -- (2.17,2.80);
+      \draw[dotted, very thick, HECgray] (0,2.80) node[left] {$P'$} -- (2.17,2.80);
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Comment réagir face à une telle crise\,?}
+\begin{frame}{Scénario A : Pétrole cher $\to$ aubaine pour les exportateurs}
    \centering
-   \begin{tikzpicture}[scale=1.3]
+   \begin{tikzpicture}[scale=1.2]
+      % Axes
+      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
+      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+      % Y_POT (vertical)
+      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
+         node[above] {$Y_{\text{POT}}$};
+      % AD original (dashed gray): y = -0.6x + 4.1
+      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
+         node[right, font=\footnotesize] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5
+      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
+         node[right, font=\footnotesize] {AS};
+      % AD' shifted slightly right: y = -0.6x + 4.5
+      \draw[HECnavy, very thick] (0.5,4.2) -- (5.83,1.0)
+         node[right] {AD$'$};
+      % AS' shifted a lot left: y = 0.6x + 1.5
+      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
+         node[right] {AS$'$};
+      % Small AD shift arrow (rightward): from AD to AD' at y=1.5
+      % AD at y=1.5: x=(4.1-1.5)/0.6=4.33; AD' at y=1.5: x=(4.5-1.5)/0.6=5.0
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (5.0,1.5);
+      \node[font=\footnotesize, HECnavy, above] at (4.3,1.5) {\textit{peu}};
+      % Large AS shift arrow: from AS to AS' at y=3.2
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
+      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
+      % Original equilibrium at (3.0, 2.3)
+      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
+      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      % New equilibrium: AD' ∩ AS' → x=2.5, y=3.0
+      \filldraw[HECcoral] (2.5,3.0) circle (3pt);
+      \draw[dotted, very thick, HECgray] (2.5,0) node[below] {$Y'$} -- (2.5,3.0);
+      \draw[dotted, very thick, HECgray] (0,3.0) node[left] {$P'$} -- (2.5,3.0);
+   \end{tikzpicture}
+   \vspace{-0.2cm}
+   \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow$ modéré, prix $\uparrow\uparrow$}}
+\end{frame}
+
+\begin{frame}{Scénario B : Incertitude $\to$ effondrement de l'investissement}
+   \centering
+   \begin{tikzpicture}[scale=1.2]
       % Axes
       \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
       \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
@@ -1017,12 +1051,13 @@
       % AS' shifted a lot left: y = 0.6x + 1.5
       \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
          node[right] {AS$'$};
-      % Small AD shift arrow
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.8,1.4);
-      \node[font=\footnotesize, HECnavy, above] at (4.15,1.4) {\textit{peu}};
-      % Large AS shift arrow
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.8,3.2);
-      \node[font=\footnotesize, HECcoral, above] at (3.65,3.2) {\textbf{beaucoup}};
+      % Small AD shift arrow (leftward): from AD to AD' at y=1.4
+      % AD at y=1.4: x=(4.1-1.4)/0.6=4.5; AD' at y=1.4: x=(3.7-1.4)/0.6=3.83
+      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.83,1.4);
+      \node[font=\footnotesize, HECnavy, above] at (4.17,1.4) {\textit{peu}};
+      % Large AS shift arrow: from AS to AS' at y=3.2
+      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
+      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
       % Original equilibrium at (3.0, 2.3)
       \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
       \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
@@ -1031,6 +1066,81 @@
       \draw[dotted, very thick, HECgray] (1.83,0) node[below] {$Y'$} -- (1.83,2.60);
       \draw[dotted, very thick, HECgray] (0,2.60) node[left] {$P'$} -- (1.83,2.60);
    \end{tikzpicture}
+   \vspace{-0.2cm}
+   \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow\downarrow$, prix $\uparrow$ modéré}}
+\end{frame}
+
+\begin{frame}[t]{Comment distinguer les deux scénarios\,?}
+   Le choc d'offre est \textbf{certain}. La question : qu'arrive-t-il à la \textbf{demande canadienne}\,?
+   \vspace{0.05cm}
+
+   \renewcommand{\arraystretch}{1.2}
+   \centering
+   \begin{tabularx}{0.92\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+      \toprule
+       & \textbf{Scénario A} (AD $\rightarrow$) & \textbf{Scénario B} (AD $\leftarrow$) \\
+      \midrule
+      \textbf{PIB}        & $\downarrow$ modéré       & $\downarrow\downarrow$ fort \\
+      \textbf{Inflation}  & $\uparrow\uparrow$ forte  & $\uparrow$ modérée \\
+      \textbf{Mécanisme}  & Pétrole cher profite aux exportateurs CAN & Incertitude freine l'investissement \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.1cm}
+
+   \begin{keyinsight}
+      En observant si c'est l'\textbf{inflation} ou le \textbf{PIB} qui réagit le plus, on peut inférer le sens du choc de demande, mais avec un délai\ldots
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{La Bourse tranche : gagnants et perdants}
+   \centering
+   \includegraphics[width=0.95\textwidth, keepaspectratio]{stock_reaction_iran.png}
+\end{frame}
+
+\begin{frame}[t]{Au-delà du pétrole : la cascade des coûts}
+   \footnotesize
+   \begin{columns}[T]
+      \begin{column}{0.65\textwidth}
+         \textbf{Pétrole $+$45\,\%} en une semaine $\to$ effets en cascade :
+         \vspace{0.25cm}
+         \begin{itemize}
+            \setlength\itemsep{0.25cm}
+            \item \textbf{Transport et pétrochimie} --- coûts d'expédition, transport, plastiques, solvants
+            \item \textbf{Engrais} (urée) : $+$43\,\% en une semaine (475 $\to$ 680\,\$/t)
+            \item \textbf{Agriculture} --- semis de printemps perturbés
+            \item \textbf{Automobile} --- batteries, plastiques, pièces détachées
+            \item \textbf{Tourisme} --- coûts de carburant pour les vols.
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.35\textwidth}
+         \centering
+         \begin{tikzpicture}[
+            node distance=0.45cm,
+            every node/.style={font=\footnotesize, align=center,
+               rounded corners=4pt, minimum width=2.8cm, minimum height=0.55cm},
+            arrow/.style={-{Stealth[length=4pt]}, thick, HECgray}
+         ]
+            \node[fill=HECnavy, text=white] (oil) {Pétrole};
+            \node[fill=HECnavy!70, text=white, below=of oil] (fert) {Engrais};
+            \node[fill=HECnavy!50, text=white, below=of fert] (trans) {Transport};
+            \node[fill=HECnavy!30, below=of trans] (food) {Aliments};
+            \node[fill=HECcoral!20, draw=HECcoral, thick, below=of food,
+               font=\footnotesize\bfseries] (as) {AS $\leftarrow$};
+            \draw[arrow] (oil) -- (fert);
+            \draw[arrow] (fert) -- (trans);
+            \draw[arrow] (trans) -- (food);
+            \draw[arrow] (food) -- (as);
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+   \begin{keyinsight}
+      Les effets de second tour poussent AS encore plus à gauche (amplification).
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{La propagation sectorielle en Bourse}
+   \centering
+   \includegraphics[width=0.95\textwidth, keepaspectratio]{stock_sectors_iran.png}
 \end{frame}
 
 \begin{frame}{Que faire face à une récession\,?}
