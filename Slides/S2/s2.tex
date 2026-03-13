@@ -113,29 +113,25 @@
    \end{itemize}
    \vspace{0.4cm}
    \centering
-   \begin{tikzpicture}[
-      arrow/.style={-{Stealth[length=7pt, width=5pt]}, line width=1.2pt, HECnavy},
-      box/.style={rounded corners=6pt, minimum height=1.6cm, minimum width=2.8cm,
-                  inner sep=8pt, font=\large\bfseries, align=center}
-   ]
+   \begin{tikzpicture}[scale=1.2]
       % Intrants (left)
-      \node[box, draw=HECcoral, line width=1.2pt, text=HECcoral] (inputs) {Intrants\,?};
+      \node[flowbox, draw=HECcoral, line width=1.2pt, text=HECcoral] (inputs) {Intrants\,?};
       % Black box (center)
-      \node[box, fill=HECnavy, text=white, right=1.8cm of inputs] (box) {$f(\cdot)$};
+      \node[flowbox, fill=HECnavy, text=white, right=1.8cm of inputs] (box) {$f(\cdot)$};
       % Production (right)
-      \node[box, fill=HEClightgray, text=HECnavy, right=1.8cm of box] (output) {Production};
+      \node[flowbox, fill=HEClightgray, text=HECnavy, right=1.8cm of box] (output) {Production};
       % Arrows
-      \draw[arrow] (inputs) -- (box);
-      \draw[arrow] (box) -- (output);
+      \draw[flowarrow] (inputs) -- (box);
+      \draw[flowarrow] (box) -- (output);
       % Label under black box
       \draw[decorate, decoration={brace, mirror, amplitude=6pt}, line width=0.8pt]
          ([yshift=-3pt]box.south west) -- ([yshift=-3pt]box.south east)
          node[midway, below=8pt, font=\small\bfseries, align=center, text=HECnavy]
          {La fonction de\\[-1pt] production};
       % Recipe analogy labels (above boxes)
-      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (inputs.north) {Ingrédients};
-      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (box.north) {Recette};
-      \node[font=\footnotesize\itshape, text=HECgray, above=6pt] at (output.north) {Repas};
+      \node[annotlabel, above=6pt] at (inputs.north) {Ingrédients};
+      \node[annotlabel, above=6pt] at (box.north) {Recette};
+      \node[annotlabel, above=6pt] at (output.north) {Repas};
    \end{tikzpicture}
    \vspace{0.2cm}
    \begin{center}
@@ -656,11 +652,10 @@
 \begin{frame}{Croissance explosive\,?}
    \vspace{0.2cm}
    \centering
-   \begin{tikzpicture}[scale=0.85,
+   \begin{tikzpicture}[scale=1.2,
       box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
                   fill=HEClightgray, minimum width=2.8cm, minimum height=0.85cm,
-                  align=center, font=\small, inner sep=5pt},
-      arr/.style={->, HECnavy, >=stealth, line width=1.2pt}
+                  align=center, font=\small, inner sep=5pt}
    ]
       % Horizontal layout: K -- Y on top, I centered below
       \node[box] (K) at (-3,0) {Plus de capital\\[1pt]$K \uparrow$};
@@ -668,9 +663,9 @@
       \node[box] (I) at (0,-2.8) {Plus d'investissement\\[1pt]$I \uparrow$};
 
       % Arrows: short, tidy bends
-      \draw[arr] (K) -- (Y);
-      \draw[arr] (Y) -- (I);
-      \draw[arr] (I) -- (K);
+      \draw[flowarrow] (K) -- (Y);
+      \draw[flowarrow] (Y) -- (I);
+      \draw[flowarrow] (I) -- (K);
 
       % Center question mark
       \node[font=\fontsize{30}{30}\selectfont, HECgray!30] at (0,-0.9) {?};

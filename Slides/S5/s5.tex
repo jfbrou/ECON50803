@@ -102,35 +102,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5
-            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD original (dashed): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD' shifted left: y = -0.6x + 3.0
-            \draw[HECcoral, very thick] (0.0,3.0) -- (4.5,0.3)
-               node[right] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above right] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % Shock arrow (AD → AD') at y=1.3: AD at x=4.67, AD' at x=2.83
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,1.3) -- (3.0,1.3);
-            \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {Choc};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
-            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
-            \draw[dotted, thick, HECcoral] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+            \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
+            \draw[refline, HECcoral] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
+            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
+            \draw[supply] (0,0.5) -- (5.7,3.92)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD' shifted left: y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+            \draw[curveshift, HECcoral] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel, text=HECcoral] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgray, above right] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % Shock arrow (AD → AD') at y=1.3: AD at x=4.67, AD' at x=2.83
+            \draw[shiftarrow, HECcoral] (4.5,1.3) -- (3.0,1.3);
+            \node[pointlabel, HECcoral, above] at (3.75,1.3) {Choc};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -154,34 +154,34 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS original (dashed): y = 0.6x + 0.5
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD' (solid, the new demand): y = -0.6x + 3.0
-            \draw[HECcoral, thick] (0.0,3.0) -- (4.5,0.3)
-               node[right, font=\footnotesize] {AD$'$};
-            % AS' shifted right: y = 0.6x - 0.6 (passes through Y_POT at P=1.2)
-            \draw[HECnavy, very thick] (1.2,0.12) -- (5.5,2.7)
-               node[right, font=\footnotesize] {AS$'$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % E_LR: AD' ∩ AS' at (3.0, 1.2)
-            \filldraw[HECnavy] (3.0,1.2) circle (3pt);
-            \node[font=\scriptsize, HECnavy, below right] at (3.0,1.2) {$E_{LR}$};
-            % AS adjustment arrow (AS → AS') at x=4.5: AS at y=3.2, AS' at y=2.1
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,3.2) -- (4.5,2.1);
-            \node[font=\scriptsize, HECnavy, right] at (4.55,2.65) {$w\downarrow$};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
-            \draw[dotted, thick, HECnavy] (0,1.2) node[left, font=\footnotesize] {$P_{LR}$} -- (3.0,1.2);
+            \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
+            \draw[refline, HECnavy] (0,1.2) node[left, pointlabel] {$P_{LR}$} -- (3.0,1.2);
+            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
+            \draw[original] (0,0.5) -- (5.7,3.92)
+               node[right, curvelabel, text=HECgray] {AS};
+            % AD' (solid, the new demand): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+            \draw[demand, HECcoral] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel, text=HECcoral] {AD$'$};
+            % AS' shifted right: y = 0.6x - 0.6 → x-int (1.0,0), far end (5.7,2.82)
+            \draw[supply] (1.0,0) -- (5.7,2.82)
+               node[right, curvelabel, text=HECnavy] {AS$'$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % E_LR: AD' ∩ AS' at (3.0, 1.2)
+            \filldraw[eqpoint=HECnavy] (3.0,1.2) circle (3pt);
+            \node[pointlabel, HECnavy, below right] at (3.0,1.2) {$E_{LR}$};
+            % AS adjustment arrow (AS → AS') at x=4.5: AS at y=3.2, AS' at y=2.1
+            \draw[shiftarrow, HECnavy] (4.5,3.2) -- (4.5,2.1);
+            \node[pointlabel, HECnavy, right] at (4.55,2.65) {$w\downarrow$};
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -207,35 +207,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.68]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5
-            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD original (dashed): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD' shifted right: y = -0.6x + 5.2
-            \draw[HECcoral, very thick] (1.5,4.3) -- (5.5,1.9)
-               node[right] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (3.92, 2.85)
-            \filldraw[HECcoral] (3.92,2.85) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above left] at (3.92,2.85) {$E_1$};
-            % Shock arrow (AD → AD') at y=3.2: AD at x=1.5, AD' at x=3.33
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (1.7,3.2) -- (3.1,3.2);
-            \node[font=\scriptsize, HECcoral, above] at (2.4,3.2) {Choc};
+            \draw[potline] (3.0,0) -- (3.0,5.5)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
-            \draw[dotted, thick, HECcoral] (3.92,0) node[below, font=\footnotesize] {$Y_1$} -- (3.92,2.85);
-            \draw[dotted, thick, HECcoral] (0,2.85) node[left, font=\footnotesize] {$P_1$} -- (3.92,2.85);
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
+            \draw[refline, HECcoral] (3.92,0) node[below, pointlabel] {$Y_1$} -- (3.92,2.85);
+            \draw[refline, HECcoral] (0,2.85) node[left, pointlabel] {$P_1$} -- (3.92,2.85);
+            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            \draw[supply] (0,0.5) -- (8.7,5.72)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD' shifted right: y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
+            \draw[curveshift, HECcoral] (0,5.2) -- (8.67,0)
+               node[above right, curvelabel, text=HECcoral] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgray, below left] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (3.92, 2.85)
+            \filldraw[eqpoint=HECcoral] (3.92,2.85) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (3.92,2.85) {$E_1$};
+            % Shock arrow (AD → AD') at y=3.2: AD at x=1.5, AD' at x=3.33
+            \draw[shiftarrow, HECcoral] (1.7,3.2) -- (3.1,3.2);
+            \node[pointlabel, HECcoral, above] at (2.4,3.2) {Choc};
+            % Axes
+            \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -259,34 +259,34 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.68]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS original (dashed): y = 0.6x + 0.5
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD' (solid, the new demand): y = -0.6x + 5.2
-            \draw[HECcoral, thick] (1.5,4.3) -- (5.5,1.9)
-               node[right, font=\footnotesize] {AD$'$};
-            % AS' shifted left: y = 0.6x + 1.6 (passes through Y_POT at P=3.4)
-            \draw[HECnavy, very thick] (0.5,1.9) -- (4.8,4.48)
-               node[right, font=\footnotesize] {AS$'$};
-            % E1: AD' ∩ AS at (3.92, 2.85)
-            \filldraw[HECcoral] (3.92,2.85) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, below right] at (3.92,2.85) {$E_1$};
-            % E_LR: AD' ∩ AS' at (3.0, 3.4)
-            \filldraw[HECnavy] (3.0,3.4) circle (3pt);
-            \node[font=\scriptsize, HECnavy, above left] at (3.0,3.4) {$E_{LR}$};
-            % AS adjustment arrow (AS → AS')
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (1.5,1.4) -- (1.5,2.5);
-            \node[font=\scriptsize, HECnavy, left] at (1.45,1.95) {$w\uparrow$};
+            \draw[potline] (3.0,0) -- (3.0,5.5)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (3.92,0) node[below, font=\footnotesize] {$Y_1$} -- (3.92,2.85);
-            \draw[dotted, thick, HECnavy] (0,3.4) node[left, font=\footnotesize] {$P_{LR}$} -- (3.0,3.4);
+            \draw[refline, HECcoral] (3.92,0) node[below, pointlabel] {$Y_1$} -- (3.92,2.85);
+            \draw[refline, HECnavy] (0,3.4) node[left, pointlabel] {$P_{LR}$} -- (3.0,3.4);
+            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            \draw[original] (0,0.5) -- (8.7,5.72)
+               node[right, curvelabel, text=HECgray] {AS};
+            % AD' (solid, the new demand): y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
+            \draw[demand, HECcoral] (0,5.2) -- (8.67,0)
+               node[above right, curvelabel, text=HECcoral] {AD$'$};
+            % AS' shifted left: y = 0.6x + 1.6 → y-int (0,1.6), far end (6.83,5.7)
+            \draw[supply] (0,1.6) -- (6.83,5.7)
+               node[right, curvelabel, text=HECnavy] {AS$'$};
+            % E1: AD' ∩ AS at (3.92, 2.85)
+            \filldraw[eqpoint=HECcoral] (3.92,2.85) circle (3pt);
+            \node[pointlabel, HECcoral, below right] at (3.92,2.85) {$E_1$};
+            % E_LR: AD' ∩ AS' at (3.0, 3.4)
+            \filldraw[eqpoint=HECnavy] (3.0,3.4) circle (3pt);
+            \node[pointlabel, HECnavy, above left] at (3.0,3.4) {$E_{LR}$};
+            % AS adjustment arrow (AS → AS')
+            \draw[shiftarrow, HECnavy] (1.5,1.4) -- (1.5,2.5);
+            \node[pointlabel, HECnavy, left] at (1.45,1.95) {$w\uparrow$};
+            % Axes
+            \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -494,7 +494,7 @@
 
 % --- Bank circle TikZ command (reused on two slides) ---
 \newcommand{\bankcircle}{%
-   \begin{tikzpicture}[scale=0.85,
+   \begin{tikzpicture}[scale=0.9,
       bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
                    fill=HECnavy!10, minimum width=1.6cm, minimum height=0.7cm,
                    align=center, font=\small\bfseries, text=HECnavy, inner sep=4pt}]
@@ -541,7 +541,7 @@
    \small
    \centering
    \vspace{0.15cm}
-   \begin{tikzpicture}[scale=1.15, transform shape,
+   \begin{tikzpicture}[scale=1.2,
       bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
                    fill=HECnavy!10, minimum width=1.4cm, minimum height=0.65cm,
                    align=center, font=\small\bfseries, text=HECnavy, inner sep=3pt}]
@@ -577,7 +577,7 @@
    \small
    \centering
    \vspace{0.15cm}
-   \begin{tikzpicture}[scale=1.15, transform shape,
+   \begin{tikzpicture}[scale=1.2,
       bank/.style={rectangle, rounded corners=6pt, draw=HECnavy!40,
                    fill=HECnavy!10, minimum width=1.4cm, minimum height=0.65cm,
                    align=center, font=\small\bfseries, text=HECnavy, inner sep=3pt}]
@@ -611,10 +611,7 @@
 
 \begin{frame}{Le système de corridor}
    \centering
-   \begin{tikzpicture}[scale=0.85]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (9,0) node[right] {};
-      \draw[-{Stealth}, thick] (0,0) -- (0,5.5) node[above, font=\small] {Taux d'intérêt};
+   \begin{tikzpicture}[scale=0.9]
       % Corridor shading
       \fill[HECnavy!5] (0,2.0) rectangle (8.0,4.0);
       % Bank rate (ceiling)
@@ -631,6 +628,9 @@
       \node[left, font=\footnotesize, HECgray, align=right] at (-0.5,3.0) {Fourchette\\opérationnelle\\(50 pb)};
       % Labels
       \node[font=\footnotesize, HECgray, align=center, text width=8cm] at (4.0,0.7) {Le taux à un jour reste dans le corridor\\ car aucune banque n'emprunte au-dessus ni ne dépose en dessous};
+      % Axes
+      \draw[econaxis] (0,0) -- (9,0) node[right] {};
+      \draw[econaxis] (0,0) -- (0,5.5) node[above, font=\small] {Taux d'intérêt};
    \end{tikzpicture}
 \end{frame}
 
@@ -654,23 +654,22 @@
    \begin{tikzpicture}[
       box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
                   fill=HEClightgray, minimum width=2.8cm, minimum height=1cm,
-                  align=center, font=\small, inner sep=5pt},
-      arr/.style={-{Stealth[length=6pt]}, HECnavy, line width=1.2pt}]
+                  align=center, font=\small, inner sep=5pt}]
       % 4 nodes on an ellipse (wider horizontally)
       \node[box] (td)  at (0, 2.6)  {Taux directeur};
       \node[box] (tm)  at (3.8, 0)  {Taux du marché};
       \node[box] (dep) at (0,-2.6)  {$C$, $I$, $NX$};
       \node[box] (pib) at (-3.8, 0) {PIB, $+$ inflation};
       % Curved arrows (clockwise, bend left = outward curvature)
-      \draw[arr] (td) to[bend left=25]
-         node[above right=-2pt, font=\footnotesize, text=HECnavy] {Prêts, obligations} (tm);
-      \draw[arr] (tm) to[bend left=25]
-         node[right=1pt, font=\footnotesize, text=HECnavy] {Coût d'emprunt} (dep);
-      \draw[arr] (dep) to[bend left=25]
-         node[below left=-2pt, font=\footnotesize, text=HECnavy] {Demande agrégée} (pib);
+      \draw[flowarrow] (td) to[bend left=25]
+         node[above right=-2pt, pointlabel, text=HECnavy] {Prêts, obligations} (tm);
+      \draw[flowarrow] (tm) to[bend left=25]
+         node[right=1pt, pointlabel, text=HECnavy] {Coût d'emprunt} (dep);
+      \draw[flowarrow] (dep) to[bend left=25]
+         node[below left=-2pt, pointlabel, text=HECnavy] {Demande agrégée} (pib);
       % Feedback arrow (dashed, closes the loop)
-      \draw[arr, HECgray, dashed] (pib) to[bend left=25]
-         node[left=1pt, font=\footnotesize, text=HECgray] {Rétroaction} (td);
+      \draw[flowarrow, HECgray, dashed] (pib) to[bend left=25]
+         node[left=1pt, pointlabel, text=HECgray] {Rétroaction} (td);
       % Delay annotation
       \node[font=\scriptsize, HECcoral, align=center] at (0,0) {Délai total : \textbf{6 à 8 trimestres}};
    \end{tikzpicture}
@@ -681,35 +680,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5
-            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD original (dashed): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD' shifted left: y = -0.6x + 3.0
-            \draw[HECcoral, very thick] (0.0,3.0) -- (4.5,0.3)
-               node[right] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above right] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[HECcoral] (2.08,1.75) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % Shock arrow
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,1.3) -- (3.0,1.3);
-            \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {Choc};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
-            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
-            \draw[dotted, thick, HECcoral] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+            \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
+            \draw[refline, HECcoral] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
+            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
+            \draw[supply] (0,0.5) -- (5.7,3.92)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD' shifted left: y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+            \draw[curveshift, HECcoral] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel, text=HECcoral] {AD$'$};
+            % E0: AD ∩ AS at (3.0, 2.3)
+            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgray, above right] at (3.0,2.3) {$E_0$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
+            % Shock arrow
+            \draw[shiftarrow, HECcoral] (4.5,1.3) -- (3.0,1.3);
+            \node[pointlabel, HECcoral, above] at (3.75,1.3) {Choc};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -733,35 +732,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5
-            \draw[HECnavy, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD' (recession, now dashed): y = -0.6x + 3.0
-            \draw[HECgray, dashed, thick] (0.0,3.0) -- (4.5,0.3)
-               node[right, font=\footnotesize] {AD$'$};
-            % AD'' (after policy, back to original): y = -0.6x + 4.1
-            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
-               node[right] {AD$''$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[HECgray] (2.08,1.75) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
-            % E2: AD'' ∩ AS at (3.0, 2.3) — back at potential
-            \filldraw[HECnavy] (3.0,2.3) circle (3pt);
-            \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_2$};
-            % Policy arrow
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.0,1.3) -- (4.5,1.3);
-            \node[font=\scriptsize, HECnavy, above] at (3.75,1.3) {$\downarrow$ taux};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECgray] (2.08,0) node[below, font=\footnotesize] {$Y_1$} -- (2.08,1.75);
-            \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_2$} -- (3.0,2.3);
-            \draw[dotted, thick, HECgray] (0,1.75) node[left, font=\footnotesize] {$P_1$} -- (2.08,1.75);
+            \draw[refline] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
+            \draw[refline, HECnavy] (0,2.3) node[left, pointlabel] {$P_2$} -- (3.0,2.3);
+            \draw[refline] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
+            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            \draw[supply] (0,0.5) -- (6.8,4.58)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD' (recession, now dashed): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+            \draw[original] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel, text=HECgray] {AD$'$};
+            % AD'' (after policy, back to original): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[demand] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECnavy] {AD$''$};
+            % E1: AD' ∩ AS at (2.08, 1.75)
+            \filldraw[eqpoint=HECgray] (2.08,1.75) circle (3pt);
+            \node[pointlabel, HECgray, above left] at (2.08,1.75) {$E_1$};
+            % E2: AD'' ∩ AS at (3.0, 2.3) — back at potential
+            \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECnavy, above right] at (3.0,2.3) {$E_2$};
+            % Policy arrow
+            \draw[shiftarrow, HECnavy] (3.0,1.3) -- (4.5,1.3);
+            \node[pointlabel, HECnavy, above] at (3.75,1.3) {$\downarrow$ taux};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -886,37 +885,37 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.83]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_2019: y = 0.6x + 0.5
-            \draw[HECnavy, thick] (0.5,0.8) -- (5.8,3.98)
-               node[right, font=\footnotesize] {AS};
-            % AD_2019 (dashed, old): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD$_{2019}$};
-            % AD_2020 (shifted left): y = -0.6x + 2.9
-            \draw[HECcoral, very thick] (0.5,2.6) -- (4.5,0.2)
-               node[right, font=\footnotesize] {AD$_{2020}$};
-            % Shift arrow (leftward) at y=0.7: well below equilibria, between AD curves
-            \draw[-{Stealth[length=5pt]}, HECcoral, thick] (4.8,0.7) -- (3.8,0.7);
-            \node[font=\scriptsize, HECcoral, above] at (4.3,0.7) {Confinements};
-            % E_2019 at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above left] at (3.0,2.3) {$E_{2019}$};
-            % E_1 at (2.0, 1.7) -- deep recession
-            \filldraw[HECcoral] (2.0,1.7) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, below right] at (2.0,1.7) {$E_{1}$};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted lines to axes for E_1
-            \draw[dotted, thick, HECgray] (2.0,0) node[below, font=\footnotesize] {$Y_{1}$} -- (2.0,1.7);
-            \draw[dotted, thick, HECgray] (0,1.7) node[left, font=\footnotesize] {$P_{1}$} -- (2.0,1.7);
+            \draw[refline] (2.0,0) node[below, pointlabel] {$Y_{1}$} -- (2.0,1.7);
+            \draw[refline] (0,1.7) node[left, pointlabel] {$P_{1}$} -- (2.0,1.7);
+            % AS_2019: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            \draw[supply] (0,0.5) -- (6.8,4.58)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD_2019 (dashed, old): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD$_{2019}$};
+            % AD_2020 (shifted left): y = -0.6x + 2.9 → y-int (0,2.9), x-int (4.83,0)
+            \draw[curveshift, HECcoral] (0,2.9) -- (4.83,0)
+               node[above right, curvelabel, text=HECcoral] {AD$_{2020}$};
+            % Shift arrow (leftward) at y=0.7: well below equilibria, between AD curves
+            \draw[shiftarrow, HECcoral] (4.8,0.7) -- (3.8,0.7);
+            \node[pointlabel, HECcoral, above] at (4.3,0.7) {Confinements};
+            % E_2019 at (3.0, 2.3)
+            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgray, above left] at (3.0,2.3) {$E_{2019}$};
+            % E_1 at (2.0, 1.7) -- deep recession
+            \filldraw[eqpoint=HECcoral] (2.0,1.7) circle (3pt);
+            \node[pointlabel, HECcoral, below right] at (2.0,1.7) {$E_{1}$};
             % Recession gap annotation
             \draw[{Stealth}-{Stealth}, HECnavy, thick] (2.0,-0.45) -- (3.0,-0.45);
-            \node[font=\scriptsize, HECnavy, below] at (2.5,-0.45) {Récession};
+            \node[pointlabel, HECnavy, below] at (2.5,-0.45) {Récession};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -943,39 +942,39 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.88]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_2019 (dashed, old): y = 0.6x + 0.5
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.8,3.98)
-               node[right, font=\footnotesize] {AS$_{2019}$};
-            % AS_2020 (shifted left): y = 0.6x + 1.3
-            \draw[HECnavy, very thick] (0.5,1.6) -- (5.0,4.3)
-               node[right, font=\footnotesize] {AS$_{2020}$};
-            % AS shift arrow (leftward) at y=3.2: AS_2019 at x=4.5, AS_2020 at x=3.17
-            \draw[-{Stealth[length=5pt]}, HECnavy, thick] (4.3,3.08) -- (3.1,3.16);
-            \node[font=\scriptsize, HECnavy, above right] at (3.5,3.25) {Offre perturbée};
-            % AD_2020: y = -0.6x + 2.9
-            \draw[HECcoral, thick] (0.5,2.6) -- (4.5,0.2)
-               node[right, font=\footnotesize] {AD$_{2020}$};
-            % AD_2019 (faded dashed)
-            \draw[HECgray!40, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize, HECgray!40] {AD$_{2019}$};
-            % E_2019 faded
-            \filldraw[HECgray, opacity=0.3] (3.0,2.3) circle (2pt);
-            \node[font=\scriptsize, HECgray!40, above left] at (3.0,2.3) {$E_{2019}$};
-            % E_1 faded (previous slide)
-            \filldraw[HECcoral, opacity=0.3] (2.0,1.7) circle (2pt);
-            \node[font=\scriptsize, HECcoral!40, below right] at (2.0,1.7) {$E_{1}$};
-            % E_2 at (1.33, 2.1) -- AD_2020 ∩ AS_2020
-            \filldraw[HECnavy] (1.33,2.1) circle (2.5pt);
-            \node[font=\scriptsize, HECnavy, below left] at (1.33,2.1) {$E_{2}$};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted lines to axes for E_2
-            \draw[dotted, thick, HECgray] (1.33,0) node[below, font=\footnotesize] {$Y_{2}$} -- (1.33,2.1);
+            \draw[refline] (1.33,0) node[below, pointlabel] {$Y_{2}$} -- (1.33,2.1);
+            % AS_2019 (dashed, old): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            \draw[original] (0,0.5) -- (6.8,4.58)
+               node[right, curvelabel, text=HECgray] {AS$_{2019}$};
+            % AS_2020 (shifted left): y = 0.6x + 1.3 → y-int (0,1.3), far end (5.5,4.6)
+            \draw[supply] (0,1.3) -- (5.5,4.6)
+               node[right, curvelabel, text=HECnavy] {AS$_{2020}$};
+            % AS shift arrow (leftward) at y=3.2: AS_2019 at x=4.5, AS_2020 at x=3.17
+            \draw[shiftarrow, HECnavy] (4.3,3.08) -- (3.1,3.16);
+            \node[pointlabel, HECnavy, above right] at (3.5,3.25) {Offre perturbée};
+            % AD_2020: y = -0.6x + 2.9 → y-int (0,2.9), x-int (4.83,0)
+            \draw[demand, HECcoral] (0,2.9) -- (4.83,0)
+               node[above right, curvelabel, text=HECcoral] {AD$_{2020}$};
+            % AD_2019 (faded dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[HECgray!40, dashed, thick] (0,4.1) -- (6.83,0)
+               node[above right, pointlabel, HECgray!40] {AD$_{2019}$};
+            % E_2019 faded
+            \filldraw[eqfaded=HECgray] (3.0,2.3) circle (2.5pt);
+            \node[pointlabel, HECgray!40, above left] at (3.0,2.3) {$E_{2019}$};
+            % E_1 faded (previous slide)
+            \filldraw[eqfaded=HECcoral] (2.0,1.7) circle (2.5pt);
+            \node[pointlabel, HECcoral!40, below right] at (2.0,1.7) {$E_{1}$};
+            % E_2 at (1.33, 2.1) -- AD_2020 ∩ AS_2020
+            \filldraw[eqpoint=HECnavy] (1.33,2.1) circle (3pt);
+            \node[pointlabel, HECnavy, below left] at (1.33,2.1) {$E_{2}$};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1002,34 +1001,33 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.57]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_2020 (still shifted): y = 0.6x + 1.3
-            \draw[HECnavy, very thick] (0.5,1.6) -- (5.0,4.3)
-               node[right, font=\footnotesize] {AS$_{2020}$};
-            % AD_2020 (dashed, old): y = -0.6x + 2.9
-            \draw[HECgray, dashed, thick] (0.5,2.6) -- (4.5,0.2)
-               node[right, font=\footnotesize] {AD$_{2020}$};
-            % AD_2021 (massive rightward shift): y = -0.6x + 5.5
-            \draw[HECcoral, very thick] (1.8,4.42) -- (6.3,1.72)
-               node[right, font=\footnotesize] {AD$_{2021}$};
-            % Stimulus arrow: spans full distance between AD curves at y=1.5
-            % AD_2020 at y=1.5: x=2.33 ; AD_2021 at y=1.5: x=6.67 (clip to 6.1)
-            \draw[-{Stealth[length=5pt]}, HECcoral, thick] (2.5,1.5) -- (6.1,1.5);
-            \node[font=\scriptsize, HECcoral, above] at (4.3,1.5) {Relance massive};
-            % E_2021 at (3.5, 3.4)
-            \filldraw[HECcoral] (3.5,3.4) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above right] at (3.5,3.4) {$E_{2021}$};
+            \draw[potline] (3.0,0) -- (3.0,5.5)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted lines to axes
-            \draw[dotted, thick, HECgray] (3.5,0) node[below, font=\footnotesize] {$Y_{2021}$} -- (3.5,3.4);
-            \draw[dotted, thick, HECgray] (0,3.4) node[left, font=\footnotesize] {$P_{2021}$} -- (3.5,3.4);
+            \draw[refline] (3.5,0) node[below, pointlabel] {$Y_{2021}$} -- (3.5,3.4);
+            \draw[refline] (0,3.4) node[left, pointlabel] {$P_{2021}$} -- (3.5,3.4);
+            % AS_2020 (still shifted): y = 0.6x + 1.3 → y-int (0,1.3), far end (7.0,5.5)
+            \draw[supply] (0,1.3) -- (7.0,5.5)
+               node[right, curvelabel, text=HECnavy] {AS$_{2020}$};
+            % AD_2020 (dashed, old): y = -0.6x + 2.9 → y-int (0,2.9), x-int (4.83,0)
+            \draw[original] (0,2.9) -- (4.83,0)
+               node[above right, curvelabel, text=HECgray] {AD$_{2020}$};
+            % AD_2021 (massive rightward shift): y = -0.6x + 5.5 → y-int (0,5.5), x-int (9.17,0)
+            \draw[curveshift, HECcoral] (0,5.5) -- (9.17,0)
+               node[above right, curvelabel, text=HECcoral] {AD$_{2021}$};
+            % Stimulus arrow: spans full distance between AD curves at y=1.5
+            \draw[shiftarrow, HECcoral] (2.5,1.5) -- (6.1,1.5);
+            \node[pointlabel, HECcoral, above] at (4.3,1.5) {Relance massive};
+            % E_2021 at (3.5, 3.4)
+            \filldraw[eqpoint=HECcoral] (3.5,3.4) circle (3pt);
+            \node[pointlabel, HECcoral, above right] at (3.5,3.4) {$E_{2021}$};
             % Overshoot annotation
-            \node[font=\scriptsize, HECnavy, below] at (3.25,-0.45) {$Y > Y_{\text{POT}}$};
+            \node[pointlabel, HECnavy, below] at (3.25,-0.45) {$Y > Y_{\text{POT}}$};
+            % Axes
+            \draw[econaxis] (0,0) -- (9.5,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.8) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1095,35 +1093,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS original (dashed): y = 0.6x + 0.5
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD: y = -0.6x + 4.1
-            \draw[HECnavy, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AS' shifted left: y = 0.6x + 1.4
-            \draw[HECcoral, very thick] (0.5,1.7) -- (4.8,4.28)
-               node[right] {AS$'$};
-            % E0: AS ∩ AD at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, below left] at (3.0,2.3) {$E_0$};
-            % E1: AS' ∩ AD at (2.25, 2.75)
-            \filldraw[HECcoral] (2.25,2.75) circle (2.5pt);
-            \node[font=\scriptsize, HECcoral, above left] at (2.25,2.75) {$E_1$};
-            % Shock arrow (AS → AS') — horizontal between the two AS curves
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.8,3.5) -- (3.7,3.5);
-            \node[font=\scriptsize, HECcoral, above] at (4.4,3.5) {Choc};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
-            \draw[dotted, thick, HECgray] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
-            \draw[dotted, thick, HECcoral] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+            \draw[refline, HECcoral] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
+            \draw[refline, HECcoral] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
+            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            \draw[original] (0,0.5) -- (6.8,4.58)
+               node[right, curvelabel, text=HECgray] {AS};
+            % AD: y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[demand] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECnavy] {AD};
+            % AS' shifted left: y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
+            \draw[curveshift, HECcoral] (0,1.4) -- (5.33,4.6)
+               node[right, curvelabel, text=HECcoral] {AS$'$};
+            % E0: AS ∩ AD at (3.0, 2.3)
+            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgray, below left] at (3.0,2.3) {$E_0$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[eqpoint=HECcoral] (2.25,2.75) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (2.25,2.75) {$E_1$};
+            % Shock arrow (AS → AS') — horizontal between the two AS curves
+            \draw[shiftarrow, HECcoral] (4.8,3.5) -- (3.7,3.5);
+            \node[pointlabel, HECcoral, above] at (4.4,3.5) {Choc};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1158,36 +1156,36 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS' (shifted, now the starting supply): y = 0.6x + 1.4
-            \draw[HECcoral, thick] (0.5,1.7) -- (4.8,4.28)
-               node[right, font=\footnotesize] {AS$'$};
-            % AD original (dashed): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD' shifted left (restrictive policy): y = -0.6x + 3.2
-            \draw[HECnavy, very thick] (0.2,3.08) -- (4.8,0.32)
-               node[right] {AD$'$};
-            % E1: AS' ∩ AD at (2.25, 2.75)
-            \filldraw[HECgray] (2.25,2.75) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above left] at (2.25,2.75) {$E_1$};
-            % E2: AS' ∩ AD' at (1.5, 2.3)
-            \filldraw[HECnavy] (1.5,2.3) circle (3pt);
-            \node[font=\scriptsize, HECnavy, below left] at (1.5,2.3) {$E_2$};
-            % Policy arrow (AD → AD')
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.3) -- (3.2,1.3);
-            \node[font=\scriptsize, HECnavy, above] at (3.7,1.3) {$\uparrow$ taux};
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECgray] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
-            \draw[dotted, thick, HECnavy] (1.5,0) node[below, font=\footnotesize] {$Y_2$} -- (1.5,2.3);
-            \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (1.5,2.3);
-            \draw[dotted, thick, HECgray] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+            \draw[refline] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
+            \draw[refline, HECnavy] (1.5,0) node[below, pointlabel] {$Y_2$} -- (1.5,2.3);
+            \draw[refline, HECnavy] (0,2.3) node[left, pointlabel] {$P_0$} -- (1.5,2.3);
+            \draw[refline] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
+            % AS' (shifted, now the starting supply): y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
+            \draw[supply, HECcoral] (0,1.4) -- (5.33,4.6)
+               node[right, curvelabel, text=HECcoral] {AS$'$};
+            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD' shifted left (restrictive policy): y = -0.6x + 3.2 → y-int (0,3.2), x-int (5.33,0)
+            \draw[demand] (0,3.2) -- (5.33,0)
+               node[above right, curvelabel, text=HECnavy] {AD$'$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[eqpoint=HECgray] (2.25,2.75) circle (3pt);
+            \node[pointlabel, HECgray, above left] at (2.25,2.75) {$E_1$};
+            % E2: AS' ∩ AD' at (1.5, 2.3)
+            \filldraw[eqpoint=HECnavy] (1.5,2.3) circle (3pt);
+            \node[pointlabel, HECnavy, below left] at (1.5,2.3) {$E_2$};
+            % Policy arrow (AD → AD')
+            \draw[shiftarrow, HECnavy] (4.5,1.3) -- (3.2,1.3);
+            \node[pointlabel, HECnavy, above] at (3.7,1.3) {$\uparrow$ taux};
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1215,35 +1213,35 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.72]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS' (shifted, now the starting supply): y = 0.6x + 1.4
-            \draw[HECcoral, thick] (0.5,1.7) -- (4.8,4.28)
-               node[right, font=\footnotesize] {AS$'$};
-            % AD original (dashed): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD'' shifted right (expansionary policy): y = -0.6x + 5.0
-            \draw[HECnavy, very thick] (1.2,4.28) -- (5.5,1.7)
-               node[right] {AD$''$};
-            % E1: AS' ∩ AD at (2.25, 2.75)
-            \filldraw[HECgray] (2.25,2.75) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above left] at (2.25,2.75) {$E_1$};
-            % E2: AS' ∩ AD'' at (3.0, 3.2)
-            \filldraw[HECnavy] (3.0,3.2) circle (3pt);
-            \node[font=\scriptsize, HECnavy, above right] at (3.0,3.2) {$E_2$};
-            % Policy arrow (AD → AD'') — between old AD (x≈3.8) and new AD'' (x≈5.3) at y=1.8
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.0,1.8) -- (5.2,1.8);
-            \node[font=\scriptsize, HECnavy, above] at (4.3,1.8) {$\downarrow$ taux};
+            \draw[potline] (3.0,0) -- (3.0,5.0)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECgray] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
-            \draw[dotted, thick, HECgray] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
-            \draw[dotted, thick, HECnavy] (0,3.2) node[left, font=\footnotesize] {$P_2$} -- (3.0,3.2);
+            \draw[refline] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
+            \draw[refline] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
+            \draw[refline, HECnavy] (0,3.2) node[left, pointlabel] {$P_2$} -- (3.0,3.2);
+            % AS' (shifted, now the starting supply): y = 0.6x + 1.4 → y-int (0,1.4), far end (6.0,5.0)
+            \draw[supply, HECcoral] (0,1.4) -- (6.0,5.0)
+               node[right, curvelabel, text=HECcoral] {AS$'$};
+            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[original] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD'' shifted right (expansionary policy): y = -0.6x + 5.0 → y-int (0,5.0), x-int (8.33,0)
+            \draw[demand] (0,5.0) -- (8.33,0)
+               node[above right, curvelabel, text=HECnavy] {AD$''$};
+            % E1: AS' ∩ AD at (2.25, 2.75)
+            \filldraw[eqpoint=HECgray] (2.25,2.75) circle (3pt);
+            \node[pointlabel, HECgray, above left] at (2.25,2.75) {$E_1$};
+            % E2: AS' ∩ AD'' at (3.0, 3.2)
+            \filldraw[eqpoint=HECnavy] (3.0,3.2) circle (3pt);
+            \node[pointlabel, HECnavy, above right] at (3.0,3.2) {$E_2$};
+            % Policy arrow (AD → AD'') — between old AD (x≈3.8) and new AD'' (x≈5.3) at y=1.8
+            \draw[shiftarrow, HECnavy] (4.0,1.8) -- (5.2,1.8);
+            \node[pointlabel, HECnavy, above] at (4.3,1.8) {$\downarrow$ taux};
+            % Axes
+            \draw[econaxis] (0,0) -- (8.6,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.3) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1303,24 +1301,24 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.73]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_high: y = 0.6x + 1.4
-            \draw[HECnavy, thick] (0.5,1.7) -- (4.8,4.28)
-               node[right, font=\footnotesize] {AS};
-            % AD: y = -0.6x + 5.0
-            \draw[HECnavy, thick] (1.2,4.28) -- (5.5,1.7)
-               node[right, font=\footnotesize] {AD};
-            % E0: (3.0, 3.2)
-            \filldraw[HECnavy] (3.0,3.2) circle (2.5pt);
-            \node[font=\scriptsize, HECnavy, above right] at (3.0,3.2) {$E_0$};
+            \draw[potline] (3.0,0) -- (3.0,5.0)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECnavy] (0,3.2) node[left, font=\footnotesize] {$P_0$} -- (3.0,3.2);
+            \draw[refline, HECnavy] (0,3.2) node[left, pointlabel] {$P_0$} -- (3.0,3.2);
+            % AS_high: y = 0.6x + 1.4 → y-int (0,1.4), far end (6.0,5.0)
+            \draw[supply] (0,1.4) -- (6.0,5.0)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD: y = -0.6x + 5.0 → y-int (0,5.0), x-int (8.33,0)
+            \draw[demand] (0,5.0) -- (8.33,0)
+               node[above right, curvelabel, text=HECnavy] {AD};
+            % E0: (3.0, 3.2)
+            \filldraw[eqpoint=HECnavy] (3.0,3.2) circle (3pt);
+            \node[pointlabel, HECnavy, above right] at (3.0,3.2) {$E_0$};
+            % Axes
+            \draw[econaxis] (0,0) -- (8.6,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.3) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1346,34 +1344,34 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.73]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_high: y = 0.6x + 1.4
-            \draw[HECnavy, thick] (0.5,1.7) -- (4.8,4.28)
-               node[right, font=\footnotesize] {AS};
-            % AD original (dashed): y = -0.6x + 5.0
-            \draw[HECgray, dashed, thick] (1.2,4.28) -- (5.5,1.7)
-               node[right, font=\footnotesize] {AD};
-            % AD' (tightened): y = -0.6x + 4.1
-            \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
-               node[right] {AD$'$};
-            % E0
-            \filldraw[HECgray] (3.0,3.2) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above right] at (3.0,3.2) {$E_0$};
-            % E1: AD' ∩ AS_high at (2.25, 2.75) — recession
-            \filldraw[HECcoral] (2.25,2.75) circle (3pt);
-            \node[font=\scriptsize, HECcoral, above left] at (2.25,2.75) {$E_1$};
-            % Policy arrow — between old AD (x≈5.0) and new AD' (x≈3.5) at y=2.0
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.8,2.0) -- (3.7,2.0);
-            \node[font=\scriptsize, HECnavy, above] at (4,2.0) {$\uparrow$ taux};
+            \draw[potline] (3.0,0) -- (3.0,5.0)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,2.75);
-            \draw[dotted, thick, HECcoral] (0,2.75) node[left, font=\footnotesize] {$P_1$} -- (2.25,2.75);
+            \draw[refline, HECcoral] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
+            \draw[refline, HECcoral] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
+            % AS_high: y = 0.6x + 1.4 → y-int (0,1.4), far end (6.0,5.0)
+            \draw[supply] (0,1.4) -- (6.0,5.0)
+               node[right, curvelabel, text=HECnavy] {AS};
+            % AD original (dashed): y = -0.6x + 5.0 → y-int (0,5.0), x-int (8.33,0)
+            \draw[original] (0,5.0) -- (8.33,0)
+               node[above right, curvelabel, text=HECgray] {AD};
+            % AD' (tightened): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[demand] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECnavy] {AD$'$};
+            % E0
+            \filldraw[eqpoint=HECgray] (3.0,3.2) circle (3pt);
+            \node[pointlabel, HECgray, above right] at (3.0,3.2) {$E_0$};
+            % E1: AD' ∩ AS_high at (2.25, 2.75) — recession
+            \filldraw[eqpoint=HECcoral] (2.25,2.75) circle (3pt);
+            \node[pointlabel, HECcoral, above left] at (2.25,2.75) {$E_1$};
+            % Policy arrow — between old AD (x≈5.0) and new AD' (x≈3.5) at y=2.0
+            \draw[shiftarrow, HECnavy] (4.8,2.0) -- (3.7,2.0);
+            \node[pointlabel, HECnavy, above] at (4,2.0) {$\uparrow$ taux};
+            % Axes
+            \draw[econaxis] (0,0) -- (8.6,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.3) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1401,32 +1399,32 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS_high (dashed, old): y = 0.6x + 1.4
-            \draw[HECgray, dashed, thick] (0.5,1.7) -- (4.8,4.28)
-               node[right, font=\footnotesize] {AS};
-            % AS' (adjusted down): y = 0.6x + 0.5
-            \draw[HECgreen!70!black, very thick] (0.5,0.8) -- (5.5,3.8)
-               node[right] {AS$'$};
-            % AD' (tightened): y = -0.6x + 4.1
-            \draw[HECnavy, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD$'$};
-            % E0
-            \filldraw[HECgray] (3.0,3.2) circle (2.5pt);
-            \node[font=\scriptsize, HECgray, above right] at (3.0,3.2) {$E_0$};
-            % E1: AD' ∩ AS' at (3.0, 2.3) — soft landing
-            \filldraw[HECgreen!70!black] (3.0,2.3) circle (3pt);
-            \node[font=\scriptsize, HECgreen!70!black, below left] at (3.0,2.3) {$E_1$};
-            % Arrow: AS shifts down (expectations adjust)
-            \draw[-{Stealth[length=4pt]}, HECgreen!70!black, thick] (4.3,3.95) -- (4.3,3.15);
+            \draw[potline] (3.0,0) -- (3.0,4.2)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
-            \draw[dotted, thick, HECgreen!70!black] (0,2.3) node[left, font=\footnotesize] {$P_1$} -- (3.0,2.3);
+            \draw[refline, HECgreen!70!black] (0,2.3) node[left, pointlabel] {$P_1$} -- (3.0,2.3);
+            % AS_high (dashed, old): y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
+            \draw[original] (0,1.4) -- (5.33,4.6)
+               node[right, curvelabel, text=HECgray] {AS};
+            % AS' (adjusted down): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            \draw[curveshift, HECgreen!70!black] (0,0.5) -- (6.8,4.58)
+               node[right, curvelabel, text=HECgreen!70!black] {AS$'$};
+            % AD' (tightened): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            \draw[demand] (0,4.1) -- (6.83,0)
+               node[above right, curvelabel, text=HECnavy] {AD$'$};
+            % E0
+            \filldraw[eqpoint=HECgray] (3.0,3.2) circle (3pt);
+            \node[pointlabel, HECgray, above right] at (3.0,3.2) {$E_0$};
+            % E1: AD' ∩ AS' at (3.0, 2.3) — soft landing
+            \filldraw[eqpoint=HECgreen!70!black] (3.0,2.3) circle (3pt);
+            \node[pointlabel, HECgreen!70!black, below left] at (3.0,2.3) {$E_1$};
+            % Arrow: AS shifts down (expectations adjust)
+            \draw[shiftarrow, HECgreen!70!black] (4.3,3.95) -- (4.3,3.15);
+            % Axes
+            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -1450,33 +1448,34 @@
 
 \begin{frame}{Deux chemins vers la désinflation}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.8) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.2]
       % Geometry: AS: y=0.5x+2.2, AS': y=0.5x+0.2, AD': y=-0.5x+3.2
       % E0 = (3.0, 3.7),  E1 = (1.0, 2.7),  E1' = (3.0, 1.7)
       % Y_POT
-      \draw[HECgreen, very thick, dotted] (3.0,0.3) -- (3.0,4.5)
-         node[above] {$Y_{\text{POT}}$};
-      % AS (high, stays if non-credible): y = 0.5x + 2.2
-      \draw[HECcoral, thick] (0.3,2.35) -- (5.0,4.7)
-         node[right, font=\footnotesize] {AS};
-      % AS' (adjusted down if credible): y = 0.5x + 0.2
-      \draw[HECgreen!70!black, thick] (0.3,0.35) -- (5.5,2.95)
-         node[right, font=\footnotesize] {AS$'$};
-      % AD' (tightened): y = -0.5x + 3.2
-      \draw[HECnavy, thick] (0.3,3.05) -- (5.5,0.45)
-         node[right, font=\footnotesize] {AD$'$};
+      \draw[potline] (3.0,0) -- (3.0,4.5)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % Dotted reference lines
+      \draw[refline] (0,3.7) node[left, pointlabel] {$P_0$} -- (3.0,3.7);
+      \draw[refline, HECcoral] (0,2.7) node[left, pointlabel, HECcoral] {$P_1$} -- (1.0,2.7);
+      \draw[refline, HECgreen!70!black] (0,1.7) node[left, pointlabel, HECgreen!70!black] {$P_1'$} -- (3.0,1.7);
+      % AS (high, stays if non-credible): y = 0.5x + 2.2 → y-int (0,2.2), far end (4.6,4.5)
+      \draw[supply, HECcoral] (0,2.2) -- (4.6,4.5)
+         node[right, curvelabel, text=HECcoral] {AS};
+      % AS' (adjusted down if credible): y = 0.5x + 0.2 → y-int (0,0.2), far end (6.4,3.4)
+      \draw[supply, HECgreen!70!black] (0,0.2) -- (6.4,3.4)
+         node[right, curvelabel, text=HECgreen!70!black] {AS$'$};
+      % AD' (tightened): y = -0.5x + 3.2 → y-int (0,3.2), x-int (6.4,0)
+      \draw[demand] (0,3.2) -- (6.4,0)
+         node[above right, curvelabel, text=HECnavy] {AD$'$};
       % E0: AS ∩ YPOT = (3.0, 3.7)
-      \filldraw[HECnavy] (3.0,3.7) circle (2.5pt);
-      \node[font=\footnotesize, above left] at (3.0,3.7) {$E_0$};
+      \filldraw[eqpoint=HECnavy] (3.0,3.7) circle (3pt);
+      \node[pointlabel, above left] at (3.0,3.7) {$E_0$};
       % E1 (painful): AD' ∩ AS = (1.0, 2.7)
-      \filldraw[HECcoral] (1.0,2.7) circle (2.5pt);
-      \node[font=\footnotesize, HECcoral, below] at (1.0,2.55) {$E_1$};
+      \filldraw[eqpoint=HECcoral] (1.0,2.7) circle (3pt);
+      \node[pointlabel, HECcoral, below] at (1.0,2.55) {$E_1$};
       % E1' (smooth): AD' ∩ AS' = (3.0, 1.7)
-      \filldraw[HECgreen!70!black] (3.0,1.7) circle (2.5pt);
-      \node[font=\footnotesize, HECgreen!70!black, below left] at (3.0,1.7) {$E_1'$};
+      \filldraw[eqpoint=HECgreen!70!black] (3.0,1.7) circle (3pt);
+      \node[pointlabel, HECgreen!70!black, below left] at (3.0,1.7) {$E_1'$};
       % Path 1a: Costly — E0 → E1 along AS (coral arrowheads)
       % AS: y = 0.5x + 2.2, at x=2.85: y=3.625, at x=1.15: y=2.775
       \draw[very thick, HECcoral,
@@ -1493,17 +1492,16 @@
                with {\arrow[black]{Stealth[length=5pt]}}},
          postaction={decorate}]
          (1.15,2.625) -- (2.85,1.775);
-      \node[font=\footnotesize, HECcoral, align=center, right] at (1.65,2.7)
+      \node[pointlabel, HECcoral, align=center, right] at (1.65,2.7)
          {Chemin\\coûteux};
       % Path 2: Smooth — curvy dashed arrow E0 → E1'
       \draw[-{Stealth[length=6pt]}, dashed, very thick, HECgreen!70!black]
          (3.2,3.6) to[out=-15, in=15, looseness=1.5] (3.2,1.65);
-      \node[font=\footnotesize, HECgreen!70!black, align=center, right] at (3.8,3.5)
+      \node[pointlabel, HECgreen!70!black, align=center, right] at (3.8,3.5)
          {Chemin\\peu coûteux};
-      % Dotted reference lines
-      \draw[dotted, thick, HECgray] (0,3.7) node[left, font=\footnotesize] {$P_0$} -- (3.0,3.7);
-      \draw[dotted, thick, HECcoral] (0,2.7) node[left, font=\footnotesize, HECcoral] {$P_1$} -- (1.0,2.7);
-      \draw[dotted, thick, HECgreen!70!black] (0,1.7) node[left, font=\footnotesize, HECgreen!70!black] {$P_1'$} -- (3.0,1.7);
+      % Axes
+      \draw[econaxis] (0,0) -- (6.7,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,4.8) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -1742,32 +1740,33 @@
 
 \begin{frame}{Politique budgétaire expansioniste dans le modèle AD-AS}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.1]
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD' (recession): y = -0.6x + 3.0
-      \draw[HECgray, dashed, thick] (0.0,3.0) -- (4.5,0.3)
-         node[right, font=\footnotesize] {AD$'$};
-      % AD'' (after fiscal): y = -0.6x + 3.8
-      \draw[HECnavy, very thick] (0.3,3.62) -- (5.5,0.5)
-         node[right] {AD$''$};
+      \draw[potline] (3.0,0) -- (3.0,4.2)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % Reference lines
+      \draw[refline] (2.08,0) node[below, pointlabel] {$Y'$} -- (2.08,1.75);
+      % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.3,4.28)
+      \draw[supply, HECgray] (0,0.5) -- (6.3,4.28)
+         node[right, curvelabel, text=HECgray] {AS};
+      % AD' (recession): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+      \draw[original] (0,3.0) -- (5.0,0)
+         node[above right, curvelabel, text=HECgray] {AD$'$};
+      % AD'' (after fiscal): y = -0.6x + 3.8 → y-int (0,3.8), x-int (6.33,0)
+      \draw[demand] (0,3.8) -- (6.33,0)
+         node[above right, curvelabel, text=HECnavy] {AD$''$};
       % Fiscal policy arrow at y=0.8: AD' at x=3.67, AD'' at x=5.0
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.8,0.8) -- (4.8,0.8);
-      \node[font=\scriptsize, HECnavy, above] at (4.3,0.8) {$G \uparrow$};
+      \draw[shiftarrow, HECnavy] (3.8,0.8) -- (4.8,0.8);
+      \node[pointlabel, HECnavy, above] at (4.3,0.8) {$G \uparrow$};
       % Recession equilibrium
-      \filldraw[HECgray] (2.08,1.75) circle (2pt);
-      \node[font=\scriptsize, HECgray, above left] at (2.08,1.75) {$E_1$};
+      \filldraw[eqfaded=HECgray] (2.08,1.75) circle (2.5pt);
+      \node[pointlabel, HECgray, above left] at (2.08,1.75) {$E_1$};
       % New equilibrium
-      \filldraw[HECnavy] (2.75,2.15) circle (3pt);
-      \node[font=\scriptsize, HECnavy, above right] at (2.75,2.15) {$E_2$};
-      \draw[dotted, very thick, HECgray] (2.08,0) node[below, font=\footnotesize] {$Y'$} -- (2.08,1.75);
+      \filldraw[eqpoint=HECnavy] (2.75,2.15) circle (3pt);
+      \node[pointlabel, HECnavy, above right] at (2.75,2.15) {$E_2$};
+      % Axes
+      \draw[econaxis] (0,0) -- (6.6,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -1899,35 +1898,35 @@
 \begin{frame}{Complémentarité : l'austérité sans douleur\,?}
 \framesubtitle{Étape 1 --- Le gouvernement assainit ses finances ($G \downarrow$ ou $T \uparrow$)}
    \centering
-   \begin{tikzpicture}[scale=1.1]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.0]
       % Y_POT
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD (initial, at YPOT): y = -0.6x + 4.1
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
-         node[right] {AD};
-      % AD' (after austerity): y = -0.6x + 3.2
-      \draw[HECcoral, very thick] (0.0,3.2) -- (4.8,0.32)
-         node[right] {\textcolor{HECcoral}{AD$'$}};
-      % Shift arrow (AD → AD') at y=1.3
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.2,1.3) -- (3.3,1.3);
-      \node[font=\scriptsize, HECcoral, above] at (3.75,1.3) {$G \downarrow$};
-      % E0: intersection AS ∩ AD at x=3.0, y=2.3
-      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
-      \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_0$};
-      % E1: intersection AS ∩ AD' at x=2.25, y=1.85
-      \filldraw[HECcoral] (2.25,1.85) circle (3pt);
-      \node[font=\scriptsize, HECcoral, below left] at (2.25,1.85) {$E_1$};
+      \draw[potline] (3.0,0) -- (3.0,4.2)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
       % Dashed lines to axes
-      \draw[dotted, thick, HECcoral] (2.25,0) node[below, font=\footnotesize] {$Y_1$} -- (2.25,1.85);
-      \draw[dotted, thick, HECcoral] (0,1.85) node[left, font=\footnotesize] {$P_1$} -- (2.25,1.85);
-      \draw[dotted, thick, HECnavy] (0,2.3) node[left, font=\footnotesize] {$P_0$} -- (3.0,2.3);
+      \draw[refline, HECcoral] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,1.85);
+      \draw[refline, HECcoral] (0,1.85) node[left, pointlabel] {$P_1$} -- (2.25,1.85);
+      \draw[refline, HECnavy] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
+      % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+      \draw[supply, HECgray] (0,0.5) -- (6.8,4.58)
+         node[right, curvelabel, text=HECgray] {AS};
+      % AD (initial, at YPOT): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+      \draw[demand] (0,4.1) -- (6.83,0)
+         node[above right, curvelabel, text=HECnavy] {AD};
+      % AD' (after austerity): y = -0.6x + 3.2 → y-int (0,3.2), x-int (5.33,0)
+      \draw[curveshift, HECcoral] (0,3.2) -- (5.33,0)
+         node[above right, curvelabel, text=HECcoral] {AD$'$};
+      % Shift arrow (AD → AD') at y=1.3
+      \draw[shiftarrow, HECcoral] (4.2,1.3) -- (3.3,1.3);
+      \node[pointlabel, HECcoral, above] at (3.75,1.3) {$G \downarrow$};
+      % E0: intersection AS ∩ AD at x=3.0, y=2.3
+      \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
+      \node[pointlabel, HECnavy, above right] at (3.0,2.3) {$E_0$};
+      % E1: intersection AS ∩ AD' at x=2.25, y=1.85
+      \filldraw[eqpoint=HECcoral] (2.25,1.85) circle (3pt);
+      \node[pointlabel, HECcoral, below left] at (2.25,1.85) {$E_1$};
+      % Axes
+      \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
    \end{tikzpicture}
 
    \vspace{0.15cm}
@@ -1937,33 +1936,33 @@
 \begin{frame}{Complémentarité : l'austérité sans douleur\,?}
 \framesubtitle{Étape 2 --- La banque centrale réagit ($r \downarrow$)}
    \centering
-   \begin{tikzpicture}[scale=1.1]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.0]
       % Y_POT
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECgray, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD restored: y = -0.6x + 4.1
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
-         node[right] {AD $=$ AD$''$};
-      % AD' (faded): y = -0.6x + 3.2
-      \draw[HECcoral!40, thick, dashed] (0.0,3.2) -- (4.8,0.32)
-         node[right, font=\footnotesize] {\textcolor{HECcoral!40}{AD$'$}};
+      \draw[potline] (3.0,0) -- (3.0,4.2)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+      \draw[supply, HECgray] (0,0.5) -- (6.8,4.58)
+         node[right, curvelabel, text=HECgray] {AS};
+      % AD' (faded): y = -0.6x + 3.2 → y-int (0,3.2), x-int (5.33,0)
+      \draw[HECcoral!40, thick, dashed] (0,3.2) -- (5.33,0)
+         node[above right, pointlabel] {\textcolor{HECcoral!40}{AD$'$}};
+      % AD restored: y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+      \draw[demand] (0,4.1) -- (6.83,0)
+         node[above right, curvelabel, text=HECnavy] {AD $=$ AD$''$};
       % Shift arrow (AD' → AD'') at y=1.2
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (3.5,1.2) -- (4.5,1.2);
-      \node[font=\scriptsize, HECnavy, above] at (3.7,1.2) {$r \downarrow$};
+      \draw[shiftarrow, HECnavy] (3.5,1.2) -- (4.5,1.2);
+      \node[pointlabel, HECnavy, above] at (3.7,1.2) {$r \downarrow$};
       % E1 (faded)
-      \filldraw[HECcoral!40] (2.25,1.85) circle (2pt);
-      \node[font=\scriptsize, HECcoral!40, below left] at (2.25,1.85) {$E_1$};
+      \filldraw[eqfaded=HECcoral] (2.25,1.85) circle (2.5pt);
+      \node[pointlabel, HECcoral!40, below left] at (2.25,1.85) {$E_1$};
       % E0 = E2
-      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
-      \node[font=\scriptsize, HECnavy, above right] at (3.0,2.3) {$E_0 = E_2$};
+      \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
+      \node[pointlabel, HECnavy, above right] at (3.0,2.3) {$E_0 = E_2$};
       % Arrow E1 → E2
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick, dashed] (2.35,1.92) -- (2.9,2.24);
+      \draw[shiftarrow, HECnavy, dashed] (2.35,1.92) -- (2.9,2.24);
+      % Axes
+      \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
    \end{tikzpicture}
 
    \vspace{0.15cm}

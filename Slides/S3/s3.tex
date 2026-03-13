@@ -624,13 +624,15 @@
       \end{column}
       \begin{column}{0.46\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-            \draw[HECgreen, very thick, dotted] (1.75,0.5) -- (5.25,3.5)
-               node[right, font=\small] {$L^{S\prime}$};
-            \draw[-{Stealth}, HECgreen, thick] (2.5,2.2) -- (3.5,2.2);
+         \begin{tikzpicture}[scale=0.9]
+            % Supply: y = 0.857x + 0.074. Y-int (0,0.07). At x=4.7: y=4.10
+            \draw[supply] (0,0.07) -- (4.7,4.10) node[right, curvelabel] {$L^S$};
+            % Shifted supply (+1.0 right): y = 0.857x - 0.783. X-int (0.91,0). At x=5.7: y=4.10
+            \draw[curveshift, HECgreen, dotted] (0.91,0) -- (5.7,4.10)
+               node[right, curvelabel] {$L^{S\prime}$};
+            \draw[shiftarrow, HECgreen] (2.5,2.2) -- (3.5,2.2);
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
          \end{tikzpicture}
          \vspace{0.1cm}
 
@@ -657,13 +659,15 @@
       \end{column}
       \begin{column}{0.46\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.85]
-            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
-            \draw[HECgreen, very thick, dotted] (1.75,3.75) -- (5.25,0.5)
-               node[right, font=\small] {$L^{D\prime}$};
-            \draw[-{Stealth}, HECgreen, thick] (2.2,2.2) -- (3.3,2.2);
+         \begin{tikzpicture}[scale=0.9]
+            % Demand: y = -0.927x + 4.213. Y-int (0,4.21). X-int (4.54,0)
+            \draw[demand] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
+            % Shifted demand (+1.0 right): y = -0.927x + 5.14. Y-int (0,5.14). X-int (5.54,0)
+            \draw[curveshift, HECgreen, dotted] (0,5.14) -- (5.54,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            \draw[shiftarrow, HECgreen] (2.2,2.2) -- (3.2,2.2);
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,5.5) node[above] {$w$};
          \end{tikzpicture}
          \vspace{0.1cm}
 
@@ -689,15 +693,17 @@
       \end{column}
       \begin{column}{0.48\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1]
-            \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$w$};
-            \draw[HECnavy, very thick] (0.5,0.5) -- (4,3.5) node[right] {$L^S$};
-            \draw[HECnavy, very thick] (0.5,3.75) -- (4,0.5) node[right] {$L^D$};
+         \begin{tikzpicture}[scale=0.9]
+            \draw[refline] (2.32,0) node[below, pointlabel] {$L^*$} -- (2.32,2.06);
+            \draw[refline] (0,2.06) node[left, pointlabel] {$w^*$} -- (2.32,2.06);
+            % Supply: y = 0.857x + 0.074. Y-int (0,0.07). At x=4.7: y=4.10
+            \draw[supply] (0,0.07) -- (4.7,4.10) node[right, curvelabel] {$L^S$};
+            % Demand: y = -0.927x + 4.213. Y-int (0,4.21). X-int (4.54,0)
+            \draw[demand] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
             % Intersection at (2.32, 2.06)
-            \draw[dotted, very thick, HECgray] (2.32,0) node[below] {$L^*$} -- (2.32,2.06);
-            \draw[dotted, very thick, HECgray] (0,2.06) node[left] {$w^*$} -- (2.32,2.06);
-            \filldraw[HECgreen] (2.32,2.06) circle (3pt);
+            \filldraw[eqpoint] (2.32,2.06) circle (3pt);
+            \draw[econaxis] (0,0) -- (5,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -705,44 +711,46 @@
 
 \begin{frame}{À quoi correspond le chômage\,?}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,3.8) node[above] {$w$};
-      \draw[HECnavy, very thick] (0.5,0.3) -- (5.5,3.3) node[right] {$L^S$};
-      \draw[HECnavy, very thick] (0.5,3.3) -- (5.5,0.3) node[right] {$L^D$};
+   \begin{tikzpicture}[scale=1.2]
+      \draw[refline] (3.0,0) node[below, pointlabel] {$L^*$} -- (3.0,1.8);
+      \draw[refline] (0,1.8) node[left, pointlabel] {$w^*$} -- (3.0,1.8);
+      % Supply: y = 0.6x. Start (0,0). At x=5.7: y=3.42
+      \draw[supply] (0,0) -- (5.7,3.42) node[right, curvelabel] {$L^S$};
+      % Demand: y = -0.6x + 3.6. Y-int (0,3.6). X-int (6.0,0)
+      \draw[demand] (0,3.6) -- (6.0,0) node[above right, curvelabel] {$L^D$};
       % Intersection at (3.0, 1.8)
-      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$L^*$} -- (3.0,1.8);
-      \draw[dotted, very thick, HECgray] (0,1.8) node[left] {$w^*$} -- (3.0,1.8);
-      \filldraw[HECgreen] (3.0,1.8) circle (3pt);
+      \filldraw[eqpoint] (3.0,1.8) circle (3pt);
+      \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
+      \draw[econaxis] (0,0) -- (0,4.0) node[above] {$w$};
    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{À quoi correspond le chômage\,?}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,3.8) node[above] {$w$};
-      % Supply curve
-      \draw[HECnavy, very thick] (0.5,0.3) -- (5.5,3.3) node[right] {$L^S$};
-      % Original demand (faded dashed)
-      \draw[HECnavy!20, very thick] (0.5,3.3) -- (5.5,0.3) node[right] {$L^D$};
-      % Shifted demand (left by 1.2): w = 2.88 - 0.6L
-      \draw[HECcoral, very thick] (0,2.88) -- (4.3,0.3) node[right] {$L^{D\prime}$};
-      % Shift arrow between the two demand curves
-      \draw[-{Stealth}, HECcoral, thick] (3.9,1.2) -- (2.9,1.2);
+   \begin{tikzpicture}[scale=1.2]
       % Rigid wage: horizontal dashed line at w*
-      \draw[HECgray, dotted, very thick] (0,1.8) node[left] {$w^*$} -- (3.2,1.8);
-      % Intersection points at w*
-      \filldraw[HECcoral] (1.8,1.8) circle (2.5pt);   % on new demand: L_D = 1.8
-      \filldraw[HECnavy] (3.0,1.8) circle (2.5pt);    % on supply: L_S = 3.0
+      \draw[refline] (0,1.8) node[left, pointlabel] {$w^*$} -- (3.2,1.8);
       % Vertical dotted lines to x-axis
-      \draw[dotted, very thick, HECgray] (1.8,1.8) -- (1.8,0);
-      \draw[dotted, very thick, HECgray] (3.0,1.8) -- (3.0,0);
+      \draw[refline] (1.8,1.8) -- (1.8,0);
+      \draw[refline] (3.0,1.8) -- (3.0,0);
+      % Supply: y = 0.6x. Start (0,0). At x=5.7: y=3.42
+      \draw[supply] (0,0) -- (5.7,3.42) node[right, curvelabel] {$L^S$};
+      % Original demand (faded): y = -0.6x + 3.6. Y-int (0,3.6). X-int (6.0,0)
+      \draw[original] (0,3.6) -- (6.0,0) node[above right, curvelabel] {$L^D$};
+      % Shifted demand (left by 1.2): y = -0.6x + 2.88. Y-int (0,2.88). X-int (4.8,0)
+      \draw[curveshift, HECcoral] (0,2.88) -- (4.8,0) node[above right, curvelabel] {$L^{D\prime}$};
+      % Shift arrow between the two demand curves
+      \draw[shiftarrow, HECcoral] (3.9,1.2) -- (2.9,1.2);
+      % Intersection points at w*
+      \filldraw[eqpoint=HECcoral] (1.8,1.8) circle (3pt);   % on new demand: L_D = 1.8
+      \filldraw[eqpoint=HECnavy] (3.0,1.8) circle (3pt);    % on supply: L_S = 3.0
       % Underbrace for unemployment gap
-      \draw [decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
+      \draw [econbrace, HECcoral]
          (1.8, -0.1) -- (3.0, -0.1)
          node [midway, below=10pt, HECcoral] {\textbf{Chômage}};
+      % Axes
+      \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
+      \draw[econaxis] (0,0) -- (0,4.0) node[above] {$w$};
    \end{tikzpicture}
 \end{frame}
 
@@ -821,69 +829,69 @@
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\smallskip
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray): y = 0.75x + 0.125
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[above, font=\footnotesize] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875
-            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625
-            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1: (3.0, 1.625)
-            \filldraw[HECgreen] (3.0,1.625) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines to x-axis
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (3.0,0) -- (3.0,1.625);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (3.0,0) {$L_1$};
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (3.0,0) -- (3.0,1.625);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (3.0,0) {$L_1$};
             % Dotted lines to y-axis (wages)
-            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (0,1.625) -- (3.0,1.625);
-            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
-            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            \draw[refline] (0,2.0) -- (2.5,2.0);
+            \draw[refline] (0,1.625) -- (3.0,1.625);
+            \node[pointlabel, left] at (0,2.0) {$w_0$};
+            \node[pointlabel, left] at (0,1.625) {$w_1$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[demand] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
+            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1: (3.0, 1.625)
+            \filldraw[eqpoint] (3.0,1.625) circle (3pt);
             % Thin shift arrow
-            \draw[-{Stealth[length=4pt]}, HECgreen] (3.7,2.8) -- (4.4,2.8);
+            \draw[shiftarrow, HECgreen] (3.7,2.8) -- (4.4,2.8);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\smallskip
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[above, font=\footnotesize] {$L^S$};
-            % Original demand (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
-               node[below, font=\footnotesize] {$L^D$};
-            % Shifted supply (green): y = 0.75x - 0.625
-            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % Shifted demand (navy): y = -0.75x + 4.625
-            \draw[HECnavy, very thick] (1.5,3.5) -- (5.5,0.5)
-               node[right, font=\footnotesize] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (3.0, 1.625)
-            \filldraw[HECgreen, opacity=0.3] (3.0,1.625) circle (2pt);
-            % E2: (3.5, 2.0)
-            \filldraw[HECnavy] (3.5,2.0) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines
-            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (3.5,2.0);
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (3.5,0) -- (3.5,2.0);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (3.5,0) {$L_2$};
+            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (3.5,2.0);
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (3.5,0) -- (3.5,2.0);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (3.5,0) {$L_2$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[original] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (green): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
+            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % Shifted demand (navy): y = -0.75x + 4.625. Y-int (0,4.63). X-int (6.17,0)
+            \draw[curveshift, HECnavy] (0,4.63) -- (6.17,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (3.0, 1.625)
+            \filldraw[eqfaded=HECgreen] (3.0,1.625) circle (2.5pt);
+            % E2: (3.5, 2.0)
+            \filldraw[eqpoint=HECnavy] (3.5,2.0) circle (3pt);
+            % Axes
+            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -912,69 +920,69 @@
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray): y = 0.75x + 0.125
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[right, font=\footnotesize] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875
-            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875
-            \draw[HECcoral, very thick] (0,0.875) -- (3.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1: (2.0, 2.375)
-            \filldraw[HECcoral] (2.0,2.375) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines to x-axis
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (2.0,0) -- (2.0,2.375);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (2.0,0) {$L_1$};
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (2.0,0) -- (2.0,2.375);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (2.0,0) {$L_1$};
             % Dotted lines to y-axis (wages)
-            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (0,2.375) -- (2.0,2.375);
-            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
-            \node[font=\footnotesize, left] at (0,2.375) {$w_1$};
+            \draw[refline] (0,2.0) -- (2.5,2.0);
+            \draw[refline] (0,2.375) -- (2.0,2.375);
+            \node[pointlabel, left] at (0,2.0) {$w_0$};
+            \node[pointlabel, left] at (0,2.375) {$w_1$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[demand] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875. Y-int (0,0.88). At x=4.7: y=4.40
+            \draw[curveshift, HECcoral] (0,0.88) -- (4.7,4.40)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1: (2.0, 2.375)
+            \filldraw[eqpoint=HECcoral] (2.0,2.375) circle (3pt);
             % Thin shift arrow
-            \draw[-{Stealth[length=4pt]}, HECcoral] (3.4,2.8) -- (2.7,2.8);
+            \draw[shiftarrow, HECcoral] (3.4,2.8) -- (2.7,2.8);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[right, font=\footnotesize] {$L^S$};
-            % Original demand (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted supply (coral, -1.0 left): clipped at x=0
-            \draw[HECcoral, very thick] (0,0.875) -- (3.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % Shifted demand (navy, -1.0 left): clipped at x=0
-            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
-               node[right, font=\footnotesize] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (2.0, 2.375)
-            \filldraw[HECcoral, opacity=0.3] (2.0,2.375) circle (2pt);
-            % E2: (1.5, 2.0)
-            \filldraw[HECnavy] (1.5,2.0) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines
-            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (1.5,0) -- (1.5,2.0);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (1.5,0) {$L_2$};
+            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (2.5,2.0);
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (1.5,0) -- (1.5,2.0);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (1.5,0) {$L_2$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[original] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875. Y-int (0,0.88). At x=4.7: y=4.40
+            \draw[curveshift, HECcoral] (0,0.88) -- (4.7,4.40)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
+            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (2.0, 2.375)
+            \filldraw[eqfaded=HECcoral] (2.0,2.375) circle (2.5pt);
+            % E2: (1.5, 2.0)
+            \filldraw[eqpoint=HECnavy] (1.5,2.0) circle (3pt);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -995,69 +1003,69 @@
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray): y = 0.75x + 0.125
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[above, font=\footnotesize] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875
-            \draw[HECnavy, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625
-            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1: (3.0, 1.625)
-            \filldraw[HECgreen] (3.0,1.625) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines to x-axis
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (3.0,0) -- (3.0,1.625);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (3.0,0) {$L_1$};
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (3.0,0) -- (3.0,1.625);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (3.0,0) {$L_1$};
             % Dotted lines to y-axis (wages)
-            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (0,1.625) -- (3.0,1.625);
-            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
-            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            \draw[refline] (0,2.0) -- (2.5,2.0);
+            \draw[refline] (0,1.625) -- (3.0,1.625);
+            \node[pointlabel, left] at (0,2.0) {$w_0$};
+            \node[pointlabel, left] at (0,1.625) {$w_1$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[demand] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
+            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1: (3.0, 1.625)
+            \filldraw[eqpoint] (3.0,1.625) circle (3pt);
             % Thin shift arrow
-            \draw[-{Stealth[length=4pt]}, HECgreen] (3.7,2.8) -- (4.4,2.8);
+            \draw[shiftarrow, HECgreen] (3.7,2.8) -- (4.4,2.8);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.85]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Original supply (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (4.5,3.5)
-               node[above, font=\footnotesize] {$L^S$};
-            % Original demand (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
-               node[below, font=\footnotesize] {$L^D$};
-            % Shifted supply (green): y = 0.75x - 0.625
-            \draw[HECgreen, very thick] (1.5,0.5) -- (5.5,3.5)
-               node[right, font=\footnotesize] {$L^{S\prime}$};
-            % Shifted demand (navy): y = -0.75x + 4.625
-            \draw[HECnavy, very thick] (1.5,3.5) -- (5.5,0.5)
-               node[right, font=\footnotesize] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (3.0, 1.625)
-            \filldraw[HECgreen, opacity=0.3] (3.0,1.625) circle (2pt);
-            % E2: (3.5, 2.0)
-            \filldraw[HECnavy] (3.5,2.0) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines
-            \draw[dotted, thick, HECgray] (0,2.0) node[left, font=\footnotesize] {$w_0$} -- (3.5,2.0);
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (3.5,0) -- (3.5,2.0);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (3.5,0) {$L_2$};
+            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (3.5,2.0);
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (3.5,0) -- (3.5,2.0);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (3.5,0) {$L_2$};
+            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[original] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[original] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted supply (green): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
+            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
+               node[right, curvelabel] {$L^{S\prime}$};
+            % Shifted demand (navy): y = -0.75x + 4.625. Y-int (0,4.63). X-int (6.17,0)
+            \draw[curveshift, HECnavy] (0,4.63) -- (6.17,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % E1 faded: (3.0, 1.625)
+            \filldraw[eqfaded=HECgreen] (3.0,1.625) circle (2.5pt);
+            % E2: (3.5, 2.0)
+            \filldraw[eqpoint=HECnavy] (3.5,2.0) circle (3pt);
+            % Axes
+            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -1112,75 +1120,75 @@
          \centering
          {\small\textbf{\textcolor{HECcoral}{Récession} --- $w$ rigide}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.95]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Supply (solid): y = 0.75x + 0.125
-            \draw[HECgray, thick] (0.5,0.5) -- (4.5,3.5)
-               node[right, font=\footnotesize] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875
-            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125
-            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
-               node[right, font=\footnotesize] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[HECgray] (2.5,2.0) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Rigid wage line at w0 = 2.0, from y-axis to L^S at w0 (x=2.5)
-            \draw[HECcoral, thick, dotted] (0,2.0) -- (2.5,2.0);
-            % At w0 on L^D': -0.75x + 3.125 = 2.0 → x = 1.5
-            \filldraw[HECcoral] (1.5,2.0) circle (3pt);
+            \draw[refline, HECcoral] (0,2.0) -- (2.5,2.0);
             % Dotted lines to x-axis
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (1.5,0) -- (1.5,2.0);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (1.5,0) {$L_1$};
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (1.5,0) -- (1.5,2.0);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (1.5,0) {$L_1$};
             % Wage label on y-axis
-            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
+            \node[pointlabel, left] at (0,2.0) {$w_0$};
+            % Supply (solid): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[supply, HECgray] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[original] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
+            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            % E0: (2.5, 2.0)
+            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
+            % At w0 on L^D': -0.75x + 3.125 = 2.0 → x = 1.5
+            \filldraw[eqpoint=HECcoral] (1.5,2.0) circle (3pt);
             % Unemployment bracket
             \draw[HECcoral, thick, {Stealth[length=3pt]}-{Stealth[length=3pt]}]
                (1.55,0.35) -- (2.45,0.35)
-               node[midway, above=1pt, font=\footnotesize, HECcoral]
+               node[midway, above=1pt, pointlabel, HECcoral]
                {chômage};
             % Shift arrow (between L^D and L^D' at y=1.2)
-            \draw[-{Stealth[length=4pt]}, HECnavy] (3.4,1.2) -- (2.7,1.2);
+            \draw[shiftarrow, HECnavy] (3.4,1.2) -- (2.7,1.2);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Avec inflation} --- $w_{\text{réel}} \downarrow$}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.95]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$L$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-            % Supply (solid): y = 0.75x + 0.125
-            \draw[HECgray, thick] (0.5,0.5) -- (4.5,3.5)
-               node[right, font=\footnotesize] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875
-            \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5)
-               node[right, font=\footnotesize] {$L^D$};
-            % Shifted demand (navy): y = -0.75x + 3.125
-            \draw[HECnavy, very thick] (0,3.125) -- (3.5,0.5)
-               node[right, font=\footnotesize] {$L^{D\prime}$};
-            % E0 faded: (2.5, 2.0)
-            \filldraw[HECgray, opacity=0.3] (2.5,2.0) circle (2pt);
-            % New equilibrium: L^S = L^D' → (2.0, 1.625)
-            \filldraw[HECgreen] (2.0,1.625) circle (3pt);
+         \begin{tikzpicture}[scale=0.9]
             % Dotted lines to x-axis
-            \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (2.0,0) -- (2.0,1.625);
-            \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-            \node[font=\footnotesize, below] at (2.0,0) {$L_1$};
+            \draw[refline] (2.5,0) -- (2.5,2.0);
+            \draw[refline] (2.0,0) -- (2.0,1.625);
+            \node[pointlabel, below] at (2.5,0) {$L_0$};
+            \node[pointlabel, below] at (2.0,0) {$L_1$};
             % Dotted lines to y-axis
-            \draw[dotted, thick, HECgray] (0,2.0) -- (2.5,2.0);
-            \draw[dotted, thick, HECgray] (0,1.625) -- (2.0,1.625);
-            \node[font=\footnotesize, left] at (0,2.0) {$w_0$};
-            \node[font=\footnotesize, left] at (0,1.625) {$w_1$};
+            \draw[refline] (0,2.0) -- (2.5,2.0);
+            \draw[refline] (0,1.625) -- (2.0,1.625);
+            \node[pointlabel, left] at (0,2.0) {$w_0$};
+            \node[pointlabel, left] at (0,1.625) {$w_1$};
+            % Supply (solid): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
+            \draw[supply, HECgray] (0,0.13) -- (5.7,4.40)
+               node[right, curvelabel] {$L^S$};
+            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+            \draw[original] (0,3.88) -- (5.17,0)
+               node[above right, curvelabel] {$L^D$};
+            % Shifted demand (navy): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
+            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
+               node[above right, curvelabel] {$L^{D\prime}$};
+            % E0 faded: (2.5, 2.0)
+            \filldraw[eqfaded=HECgray] (2.5,2.0) circle (2.5pt);
+            % New equilibrium: L^S = L^D' → (2.0, 1.625)
+            \filldraw[eqpoint] (2.0,1.625) circle (3pt);
             % Arrow on y-axis: inflation lowers real wage
-            \draw[-{Stealth[length=4pt]}, HECgreen, thick]
+            \draw[shiftarrow, HECgreen]
                (0.15,1.95) -- (0.15,1.675);
+            % Axes
+            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -1327,64 +1335,68 @@
 
 \begin{frame}{Impacts sur le marché du travail}
    \centering
-   \begin{tikzpicture}
+   \begin{tikzpicture}[scale=0.85]
       % ── Graph 1: Unskilled Labor ──
       \begin{scope}
-         \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-         \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-         \node[font=\bfseries] at (2.5,4.5) {Travail non qualifié};
-         % Supply: y = 0.75x + 0.125
-         \draw[HECnavy, very thick] (0.5,0.5) -- (4.5,3.5) node[right, font=\small] {$L^S$};
-         % Old demand (faded): y = -0.75x + 3.875
-         \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5) node[right, font=\small] {$L^D$};
-         % New demand (shifted left by 1.5): y = -0.75x + 2.75
-         \draw[HECcoral, very thick] (0.33,2.5) -- (3.33,0.25) node[right, font=\small] {$L^{D\prime}$};
+         \node[font=\bfseries] at (2.75,4.8) {Travail non qualifié};
+         % Reference lines (bottom layer)
+         \draw[refline] (2.5,0) -- (2.5,2);
+         \draw[refline] (0,2) -- (2.5,2);
+         \node[pointlabel, below] at (2.5,0) {$L_0$};
+         \node[pointlabel, left] at (0,2) {$w_0$};
+         \draw[refline] (1.75,0) -- (1.75,1.44);
+         \draw[refline] (0,1.44) -- (1.75,1.44);
+         \node[pointlabel, below] at (1.75,0) {$L_1$};
+         \node[pointlabel, left] at (0,1.44) {$w_1$};
+         % Supply: y = 0.75x + 0.125. Y-int (0,0.13). At x=5.2: y=4.03
+         \draw[supply] (0,0.13) -- (5.2,4.03) node[right, curvelabel] {$L^S$};
+         % Old demand (faded): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+         \draw[original] (0,3.88) -- (5.17,0) node[above right, curvelabel] {$L^D$};
+         % New demand (shifted left by 1.5): y = -0.75x + 2.75. Y-int (0,2.75). X-int (3.67,0)
+         \draw[curveshift, HECcoral] (0,2.75) -- (3.67,0) node[above right, curvelabel] {$L^{D\prime}$};
          % Old equilibrium: (2.5, 2.0)
-         \filldraw[HECgray] (2.5,2) circle (2.5pt);
-         \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2);
-         \draw[dotted, thick, HECgray] (0,2) -- (2.5,2);
-         \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-         \node[font=\footnotesize, left] at (0,2) {$w_0$};
+         \filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
          % New equilibrium: intersection of S and D'
          % 0.75x + 0.125 = -0.75x + 2.75 → x = 1.75, y = 1.4375
-         \filldraw[HECcoral] (1.75,1.44) circle (3pt);
-         \draw[dotted, thick, HECgray] (1.75,0) -- (1.75,1.44);
-         \draw[dotted, thick, HECgray] (0,1.44) -- (1.75,1.44);
-         \node[font=\footnotesize, below] at (1.75,0) {$L_1$};
-         \node[font=\footnotesize, left] at (0,1.44) {$w_1$};
+         \filldraw[eqpoint=HECcoral] (1.75,1.44) circle (3pt);
          % Demand shift arrow (between curves, at y=1.0)
          % On old D at y=1.0: x = (3.875-1.0)/0.75 = 3.83
          % On new D at y=1.0: x = (2.75-1.0)/0.75 = 2.33
-         \draw[-{Stealth[length=5pt]}, HECcoral, thick] (3.6,1.0) -- (2.6,1.0);
+         \draw[shiftarrow, HECcoral] (3.6,1.0) -- (2.6,1.0);
+         % Axes (topmost layer)
+         \draw[econaxis] (0,0) -- (5.5,0) node[right] {$L$};
+         \draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
       \end{scope}
       % ── Graph 2: Skilled Labor ──
-      \begin{scope}[xshift=7cm]
-         \draw[-{Stealth}, thick] (0,0) -- (5,0) node[right] {$L$};
-         \draw[-{Stealth}, thick] (0,0) -- (0,4) node[above] {$w$};
-         \node[font=\bfseries] at (2.5,4.5) {Travail qualifié};
-         % Supply: y = 0.75x + 0.125
-         \draw[HECnavy, very thick] (0.5,0.5) -- (4.5,3.5) node[right, font=\small] {$L^S$};
-         % Old demand (faded): y = -0.75x + 3.875
-         \draw[HECgray, dashed, thick] (0.5,3.5) -- (4.5,0.5) node[right, font=\small] {$L^D$};
-         % New demand (shifted right by 1.5): y = -0.75x + 5.0
-         \draw[HECgreen, very thick] (1.33,4.0) -- (5.33,1.0) node[right, font=\small] {$L^{D\prime}$};
+      \begin{scope}[xshift=7.5cm]
+         \node[font=\bfseries] at (3.3,5.6) {Travail qualifié};
+         % Reference lines (bottom layer)
+         \draw[refline] (2.5,0) -- (2.5,2);
+         \draw[refline] (0,2) -- (2.5,2);
+         \node[pointlabel, below] at (2.5,0) {$L_0$};
+         \node[pointlabel, left] at (0,2) {$w_0$};
+         \draw[refline] (3.25,0) -- (3.25,2.56);
+         \draw[refline] (0,2.56) -- (3.25,2.56);
+         \node[pointlabel, below] at (3.25,0) {$L_1$};
+         \node[pointlabel, left] at (0,2.56) {$w_1$};
+         % Supply: y = 0.75x + 0.125. Y-int (0,0.13). At x=6.4: y=4.93
+         \draw[supply] (0,0.13) -- (6.4,4.93) node[right, curvelabel] {$L^S$};
+         % Old demand (faded): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
+         \draw[original] (0,3.88) -- (5.17,0) node[above right, curvelabel] {$L^D$};
+         % New demand (shifted right by 1.5): y = -0.75x + 5.0. Y-int (0,5.0). X-int (6.67,0)
+         \draw[curveshift, HECgreen] (0,5.0) -- (6.67,0) node[above right, curvelabel] {$L^{D\prime}$};
          % Old equilibrium: (2.5, 2.0)
-         \filldraw[HECgray] (2.5,2) circle (2.5pt);
-         \draw[dotted, thick, HECgray] (2.5,0) -- (2.5,2);
-         \draw[dotted, thick, HECgray] (0,2) -- (2.5,2);
-         \node[font=\footnotesize, below] at (2.5,0) {$L_0$};
-         \node[font=\footnotesize, left] at (0,2) {$w_0$};
+         \filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
          % New equilibrium: intersection of S and D'
          % 0.75x + 0.125 = -0.75x + 5.0 → x = 3.25, y = 2.5625
-         \filldraw[HECgreen] (3.25,2.56) circle (3pt);
-         \draw[dotted, thick, HECgray] (3.25,0) -- (3.25,2.56);
-         \draw[dotted, thick, HECgray] (0,2.56) -- (3.25,2.56);
-         \node[font=\footnotesize, below] at (3.25,0) {$L_1$};
-         \node[font=\footnotesize, left] at (0,2.56) {$w_1$};
+         \filldraw[eqpoint] (3.25,2.56) circle (3pt);
          % Demand shift arrow (between curves, at y=1.0)
          % On old D at y=1.0: x = (3.875-1.0)/0.75 = 3.83
          % On new D at y=1.0: x = (5.0-1.0)/0.75 = 5.33
-         \draw[-{Stealth[length=5pt]}, HECgreen, thick] (4.0,1.0) -- (5.0,1.0);
+         \draw[shiftarrow, HECgreen] (4.0,1.0) -- (5.0,1.0);
+         % Axes (topmost layer)
+         \draw[econaxis] (0,0) -- (7.0,0) node[right] {$L$};
+         \draw[econaxis] (0,0) -- (0,5.3) node[above] {$w$};
       \end{scope}
    \end{tikzpicture}
 \end{frame}

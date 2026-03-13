@@ -48,21 +48,17 @@
       phaseE/.style={font=\small, rotate=65, HECgreen},
       phaseR/.style={font=\small, rotate=305, HECcoral}]
 
-      % Draw the axes
-      \draw[->, line width=1pt] (0,0) -- (0,6) node[above]{$\ln(Y)$};
-      \draw[->, line width=1pt] (0,0) -- (13,0) node[right]{$t$};
-
       % Trend line: y = m x + b
       \def\slope{0.35}    % m
       \def\intercept{1}   % b
-      \draw[dotted, very thick] (0,\intercept) -- (12.8,{\slope*12.8+\intercept});
+      \draw[refline] (0,\intercept) -- (12.8,{\slope*12.8+\intercept});
 
       % Cyclical component: A * sin(ω x)
       \def\amp{1.2}       % amplitude (A)
       \def\omega{90}      % ω in degrees (period = 4 units)
 
       % Combined path:  y(x) = trend + amp * sin(ω x)
-      \draw[HECnavy, very thick, samples=250, domain=0:13] plot (\x,{\slope*\x+\intercept + \amp*sin(\omega*\x)});
+      \draw[demand, samples=250, domain=0:13] plot (\x,{\slope*\x+\intercept + \amp*sin(\omega*\x)});
 
       % Identify the peaks and troughs
       \node[peak] at (1, {\slope*1 + \intercept + \amp + 0.25}) {Sommet};
@@ -79,6 +75,9 @@
       \node[phaseE] at (7.75, {\slope*8+\intercept + 0.1}) {Expansion};
       \node[phaseR] at (9.75, {\slope*10 + \intercept - 0.1}) {Récession};
       \node[phaseE] at (11.75, {\slope*12+\intercept + 0.1}) {Expansion};
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (0,6) node[above]{$\ln(Y)$};
+      \draw[econaxis] (0,0) -- (13,0) node[right]{$t$};
    \end{tikzpicture}
 \end{frame}
 
@@ -327,20 +326,20 @@
 
 \begin{frame}{Le diagramme AD-AS}
    \centering
-   \begin{tikzpicture}[scale=1.2]
+   \begin{tikzpicture}[scale=1.1]
       % Potential GDP (vertical line)
-      \draw[HECgreen, very thick, dotted] (3.25,0) -- (3.25,4.6)
-         node[above, font=\small\bfseries, text=HECgreen] {$Y_{\text{POT}}$};
-      \node[font=\footnotesize, text=HECgreen, below] at (3.25,-0.1) {PIB potentiel};
-      % AD curve
-      \draw[HECnavy, very thick] (0.8,4.2) -- (5.8,0.8)
-         node[right, font=\small\bfseries, text=HECnavy] {AD};
-      % AS curve
-      \draw[HECcoral, very thick] (0.8,0.8) -- (5.8,4.4)
-         node[right, font=\small\bfseries, text=HECcoral] {AS};
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6.5,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.8) node[above] {$P$};
+      \draw[potline] (3.25,0) -- (3.25,5.0)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      \node[pointlabel, text=HECgreen, below] at (3.25,-0.1) {PIB potentiel};
+      % AD curve: y = -0.68x + 4.746, y-int (0,4.746), x-int (6.98,0)
+      \draw[demand] (0,4.746) -- (6.98,0)
+         node[above right, curvelabel, text=HECnavy] {AD};
+      % AS curve: y = 0.72x + 0.226, y-int (0,0.226), far end at (6.63,5.0)
+      \draw[supply, HECcoral] (0,0.226) -- (6.63,5.0)
+         node[right, curvelabel, text=HECcoral] {AS};
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.3,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.3) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -363,24 +362,25 @@
       \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.15]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AD curve
-            \draw[HECnavy, very thick] (0.5,4) -- (5,0.5)
-               node[right, font=\small\bfseries, text=HECnavy] {AD};
+         \begin{tikzpicture}[scale=1.0]
+            % AD curve: y = -0.7778x + 4.389, y-int (0,4.389), x-int (5.64,0)
+            \draw[demand] (0,4.389) -- (5.64,0)
+               node[above right, curvelabel, text=HECnavy] {AD};
             % Points on the curve: y = 4 - (7/9)(x - 0.5)
             % At x=2: y=2.83, at x=4: y=1.28
-            \filldraw[HECgreen!80!black] (4,1.28) circle (2.5pt);
             % Dotted reference lines
-            \draw[dotted, HECgray] (2,0) node[below, font=\scriptsize] {$Y_1$} -- (2,2.83);
-            \draw[dotted, HECgray] (0,2.83) node[left, font=\scriptsize] {$P_1$} -- (2,2.83);
-            \draw[dotted, HECgray] (4,0) node[below, font=\scriptsize] {$Y_2$} -- (4,1.28);
-            \draw[dotted, HECgray] (0,1.28) node[left, font=\scriptsize] {$P_2$} -- (4,1.28);
+            \draw[refline] (2,0) node[below, pointlabel] {$Y_1$} -- (2,2.83);
+            \draw[refline] (0,2.83) node[left, pointlabel] {$P_1$} -- (2,2.83);
+            \draw[refline] (4,0) node[below, pointlabel] {$Y_2$} -- (4,1.28);
+            \draw[refline] (0,1.28) node[left, pointlabel] {$P_2$} -- (4,1.28);
             % Arrow showing movement along curve
             \draw[-{Stealth[length=6pt]}, HECcoral, very thick] (2,2.83) -- (4,1.28);
-            \filldraw[HECgreen!80!black] (2,2.83) circle (2.5pt);
+            % Equilibrium dots
+            \filldraw[eqpoint] (4,1.28) circle (3pt);
+            \filldraw[eqpoint] (2,2.83) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (5.95,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -407,18 +407,18 @@
       \begin{column}{0.46\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
-            % Original AD (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5,0.5)
-               node[right, font=\footnotesize] {AD};
-            % Shifted AD' (green, solid)
-            \draw[HECgreen, very thick] (1.5,4.2) -- (5.5,1.2)
-               node[right, font=\small\bfseries] {AD$'$};
+         \begin{tikzpicture}[scale=0.75]
+            % Original AD (dashed gray): y = -0.7346x + 4.170, y-int (0,4.170), x-int (5.68,0)
+            \draw[original] (0,4.170) -- (5.68,0)
+               node[above right, pointlabel] {AD};
+            % Shifted AD' (green, solid): y = -0.75x + 5.325, y-int (0,5.325), x-int (7.1,0)
+            \draw[curveshift, HECgreen] (0,5.325) -- (7.1,0)
+               node[above right, curvelabel] {AD$'$};
             % Shift arrow: horizontal from AD to AD' at y=2.2
-            \draw[-{Stealth[length=5pt]}, HECgreen, thick] (2.68,2.2) -- (4.17,2.2);
+            \draw[shiftarrow, HECgreen] (2.68,2.2) -- (4.17,2.2);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (7.4,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.63) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -442,24 +442,25 @@
       \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.15]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-            % AS curve
-            \draw[HECcoral, very thick] (0.5,0.5) -- (5,4)
-               node[right, font=\small\bfseries, text=HECcoral] {AS};
+         \begin{tikzpicture}[scale=1.0]
+            % AS curve: y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.2,4.16)
+            \draw[supply, HECcoral] (0,0.1135) -- (5.2,4.16)
+               node[right, curvelabel, text=HECcoral] {AS};
             % Dotted reference lines
-            \draw[dotted, HECgray] (1.5,0) node[below, font=\scriptsize] {$Y_1$} -- (1.5,1.28);
-            \draw[dotted, HECgray] (0,1.28) node[left, font=\scriptsize] {$P_1$} -- (1.5,1.28);
-            \draw[dotted, HECgray] (3.5,0) node[below, font=\scriptsize] {$Y_2$} -- (3.5,2.83);
-            \draw[dotted, HECgray] (0,2.83) node[left, font=\scriptsize] {$P_2$} -- (3.5,2.83);
+            \draw[refline] (1.5,0) node[below, pointlabel] {$Y_1$} -- (1.5,1.28);
+            \draw[refline] (0,1.28) node[left, pointlabel] {$P_1$} -- (1.5,1.28);
+            \draw[refline] (3.5,0) node[below, pointlabel] {$Y_2$} -- (3.5,2.83);
+            \draw[refline] (0,2.83) node[left, pointlabel] {$P_2$} -- (3.5,2.83);
             % Arrow showing movement along curve
             % Points on the curve: y = 0.5 + (7/9)(x - 0.5)
             % At x=1.5: y=1.28, at x=3.5: y=2.83
-            \filldraw[HECgreen!80!black] (3.5,2.83) circle (2.5pt);
             \draw[-{Stealth[length=6pt]}, HECnavy, very thick] (1.5,1.28) -- (3.5,2.83);
-            \filldraw[HECgreen!80!black] (1.5,1.28) circle (2.5pt);
+            % Equilibrium dots
+            \filldraw[eqpoint] (3.5,2.83) circle (3pt);
+            \filldraw[eqpoint] (1.5,1.28) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -486,20 +487,20 @@
       \begin{column}{0.46\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (5.5,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
-            % Original AS (dashed gray)
-            \draw[HECgray, dashed, thick] (0.5,0.5) -- (5,4)
-               node[right, font=\footnotesize] {AS};
-            % Shifted AS' (green, solid)
-            \draw[HECgreen, very thick] (1.5,0.5) -- (6,4)
-               node[right, font=\small\bfseries] {AS$'$};
+         \begin{tikzpicture}[scale=0.82]
+            % Original AS (dashed gray): y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.26,4.2)
+            \draw[original] (0,0.1135) -- (5.26,4.2)
+               node[right, pointlabel] {AS};
+            % Shifted AS' (green, solid): y = 0.7778x - 0.6667, x-int (0.86,0), far end (6.25,4.2)
+            \draw[curveshift, HECgreen] (0.86,0) -- (6.25,4.2)
+               node[right, curvelabel] {AS$'$};
             % Shift arrow: horizontal from AS to AS' at y=2.2
             % On AS: x = 0.5 + (9/7)(2.2 - 0.5) = 2.69
             % On AS': x = 1.5 + (9/7)(2.2 - 0.5) = 3.69
-            \draw[-{Stealth[length=5pt]}, HECgreen, thick] (2.69,2.2) -- (3.69,2.2);
+            \draw[shiftarrow, HECgreen] (2.69,2.2) -- (3.69,2.2);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (6.55,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
    \end{columns}
@@ -507,18 +508,18 @@
 
 \begin{frame}{Équilibre de court terme}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % AD: y = -0.6x + 4.1
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8) node[right] {AD};
-      % AS: y = 0.6x + 0.5
-      \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
+   \begin{tikzpicture}[scale=1.2]
+      % AD: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {AD};
+      % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
       % Intersection: -0.6x+4.1 = 0.6x+0.5 => x=3.0, y=2.3
-      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.3);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      \filldraw[HECgreen] (3.0,2.3) circle (3pt);
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.2) node[above] {$P$};
+      \draw[refline] (3.0,0) node[below, pointlabel] {$Y^*$} -- (3.0,2.3);
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \filldraw[eqpoint] (3.0,2.3) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -647,21 +648,22 @@
 \begin{frame}{2.\ Transmission \textnormal{(1/3)} --- équilibre initial}
    \centering
    \vspace{0.1cm}
-   \begin{tikzpicture}[scale=1.05]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.2]
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5
-      \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
-      % AD: y = -0.6x + 4.1
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8) node[right] {AD};
+      \draw[potline] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
+      % AD: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {AD};
+      % Reference lines
+      \draw[refline] (3.0,0) node[below, pointlabel] {$Y^*$} -- (3.0,2.3);
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
       % Equilibrium at (3.0, 2.3)
-      \filldraw[HECnavy] (3.0,2.3) circle (3pt);
-      \draw[dotted, very thick, HECgray] (3.0,0) node[below] {$Y^*$} -- (3.0,2.3);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -670,30 +672,30 @@
    \begin{columns}[c]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT (vertical)
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5
-            \draw[HECcoral, very thick] (0.5,0.8) -- (5.5,3.8) node[right] {AS};
-            % AD original (dashed gray): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AD' shifted left: y = -0.6x + 3.0
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
-               node[right] {AD$'$};
+            \draw[potline] (3.0,0) -- (3.0,4.7)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+            \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
+            % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+            \draw[original] (0,4.1) -- (6.833,0)
+               node[above right, pointlabel] {AD};
+            % AD' shifted left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
+            \draw[demand] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel] {AD$'$};
             % Shift arrow (full span between AD and AD' at y=1.5)
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
-            % Original equilibrium (faded) at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-            % New equilibrium: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[HECnavy] (2.08,1.75) circle (3pt);
-            \draw[dotted, very thick, HECgray] (2.08,0) node[below] {$Y'$} -- (2.08,1.75);
-            \draw[dotted, very thick, HECgray] (0,1.75) node[left] {$P'$} -- (2.08,1.75);
+            \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
+            % Reference lines
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+            \draw[refline] (2.08,0) node[below, pointlabel] {$Y'$} -- (2.08,1.75);
+            \draw[refline] (0,1.75) node[left, pointlabel] {$P'$} -- (2.08,1.75);
+            % Equilibrium dots
+            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+            \filldraw[eqpoint=HECnavy] (2.08,1.75) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -719,34 +721,34 @@
    \begin{columns}[c]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=1.0]
-            % Axes
-            \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.9]
             % Y_POT (vertical)
-            \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-               node[above] {$Y_{\text{POT}}$};
-            % AD original (dashed gray): y = -0.6x + 4.1
-            \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-               node[right, font=\footnotesize] {AD};
-            % AS original (dashed gray): y = 0.6x + 0.5
-            \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-               node[right, font=\footnotesize] {AS};
-            % AD' shifted left: y = -0.6x + 3.0
-            \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
-               node[right] {AD$'$};
-            % AS' shifted left: y = 0.6x + 1.5
-            \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
-               node[right] {AS$'$};
+            \draw[potline] (3.0,0) -- (3.0,4.7)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+            % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+            \draw[original] (0,4.1) -- (6.833,0)
+               node[above right, pointlabel] {AD};
+            % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+            \draw[original] (0,0.5) -- (6.9,4.64)
+               node[right, pointlabel] {AS};
+            % AD' shifted left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
+            \draw[demand] (0,3.0) -- (5.0,0)
+               node[above right, curvelabel] {AD$'$};
+            % AS' shifted left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
+            \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
+               node[right, curvelabel] {AS$'$};
             % Shift arrows
-            \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
-            \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (2.5,3.0);
-            % Original equilibrium (faded) at (3.0, 2.3)
-            \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-            % New equilibrium: AD' ∩ AS' at (1.25, 2.25)
-            \filldraw[HECgreen] (1.25,2.25) circle (3pt);
-            \draw[dotted, very thick, HECgray] (1.25,0) node[below] {$Y^{**}$} -- (1.25,2.25);
-            \draw[dotted, very thick, HECgray] (0,2.25) node[left] {$P^{**}$} -- (1.25,2.25);
+            \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
+            \draw[shiftarrow, HECcoral] (4.17,3.0) -- (2.5,3.0);
+            % Reference lines
+            \draw[refline] (1.25,0) node[below, pointlabel] {$Y^{**}$} -- (1.25,2.25);
+            \draw[refline] (0,2.25) node[left, pointlabel] {$P^{**}$} -- (1.25,2.25);
+            % Equilibrium dots
+            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+            \filldraw[eqpoint] (1.25,2.25) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
@@ -812,73 +814,74 @@
 
 \begin{frame}{Pourquoi les prix baissent : AD domine AS}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
+   \begin{tikzpicture}[scale=1.2]
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS original (dashed gray): y = 0.6x + 0.5
-      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD original (dashed gray): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AS' shifted left: y = 0.6x + 1.0
-      \draw[HECcoral, very thick] (0.5,1.3) -- (5.5,4.3)
-         node[right] {AS$'$};
-      % AD' shifted further left: y = -0.6x + 3.0
-      \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
-         node[right] {AD$'$};
+      \draw[potline] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[original] (0,0.5) -- (6.9,4.64)
+         node[right, pointlabel] {AS};
+      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[original] (0,4.1) -- (6.833,0)
+         node[above right, pointlabel] {AD};
+      % AS' shifted left: y = 0.6x + 1.0, y-int (0,1.0), far end (6.17,4.7)
+      \draw[supply, HECcoral] (0,1.0) -- (6.17,4.7)
+         node[right, curvelabel] {AS$'$};
+      % AD' shifted further left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
+      \draw[demand] (0,3.0) -- (5.0,0)
+         node[above right, curvelabel] {AD$'$};
       % AD shift arrow (at y=1.5): from AD to AD'
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
       % AS shift arrow (at y=3.0): from AS to AS'
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (3.33,3.0);
-      % Original equilibrium (faded) at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
+      \draw[shiftarrow, HECcoral] (4.17,3.0) -- (3.33,3.0);
+      % Reference lines
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \draw[refline] (1.67,0) node[below, pointlabel] {$Y'$} -- (1.67,2.0);
+      \draw[refline] (0,2.0) node[left, pointlabel] {$P'$} -- (1.67,2.0);
+      % Equilibrium dots
+      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
       % New equilibrium: AD' ∩ AS' at (1.67, 2.0)
       % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
-      \filldraw[HECnavy] (1.67,2.0) circle (3pt);
-      \draw[dotted, very thick, HECgray] (1.67,0) node[below] {$Y'$} -- (1.67,2.0);
-      \draw[dotted, very thick, HECgray] (0,2.0) node[left] {$P'$} -- (1.67,2.0);
+      \filldraw[eqpoint=HECnavy] (1.67,2.0) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Que s'est-il passé ensuite\,?}
    \centering
-   \begin{tikzpicture}[scale=1.3]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
-      % Y_POT (vertical)
-      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AS original (dashed gray): y = 0.6x + 0.5
-      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD original (dashed gray): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AS' shifted left: y = 0.6x + 1.0
-      \draw[HECcoral, very thick] (0.5,1.3) -- (5.5,4.3)
-         node[right] {AS$'$};
-      % AD' shifted further left: y = -0.6x + 3.0
-      \draw[HECnavy, very thick] (0.0,3.0) -- (4.5,0.3)
-         node[right] {AD$'$};
+   \begin{tikzpicture}[scale=1.2]
+      % Y_POT (vertical, solid green — not dashed, intentional emphasis)
+      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[original] (0,0.5) -- (6.9,4.64)
+         node[right, pointlabel] {AS};
+      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[original] (0,4.1) -- (6.833,0)
+         node[above right, pointlabel] {AD};
+      % AS' shifted left: y = 0.6x + 1.0, y-int (0,1.0), far end (6.17,4.7)
+      \draw[supply, HECcoral] (0,1.0) -- (6.17,4.7)
+         node[right, curvelabel] {AS$'$};
+      % AD' shifted further left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
+      \draw[demand] (0,3.0) -- (5.0,0)
+         node[above right, curvelabel] {AD$'$};
       % AD shift arrow (at y=1.5): from AD to AD'
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (2.5,1.5);
+      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
       % AS shift arrow (at y=3.0): from AS to AS'
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.17,3.0) -- (3.33,3.0);
-      % Original equilibrium (faded) at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      % New equilibrium: AD' ∩ AS' at (1.67, 2.0)
+      \draw[shiftarrow, HECcoral] (4.17,3.0) -- (3.33,3.0);
+      % Reference lines
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \draw[refline] (1.67,0) node[below, pointlabel] {$Y'$} -- (1.67,2.0);
+      \draw[refline] (0,2.0) node[left, pointlabel] {$P'$} -- (1.67,2.0);
+      % Equilibrium dots
+      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
       % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
-      \filldraw[HECnavy] (1.67,2.0) circle (3pt);
-      \draw[dotted, very thick, HECgray] (1.67,0) node[below] {$Y'$} -- (1.67,2.0);
-      \draw[dotted, very thick, HECgray] (0,2.0) node[left] {$P'$} -- (1.67,2.0);
+      \filldraw[eqpoint=HECnavy] (1.67,2.0) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
@@ -962,69 +965,69 @@
 \begin{frame}{Le choc d'offre : Ormuz et le pétrole}
    \centering
    \begin{tikzpicture}[scale=1.2]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AD original (stays in place): y = -0.6x + 4.1
-      \draw[HECnavy, very thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5
-      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AS' shifted a lot left: y = 0.6x + 1.5
-      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
-         node[right] {AS$'$};
+      \draw[potline] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AD original (stays in place): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[demand] (0,4.1) -- (6.833,0)
+         node[above right, pointlabel] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[original] (0,0.5) -- (6.9,4.64)
+         node[right, pointlabel] {AS};
+      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
+      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
+         node[right, curvelabel] {AS$'$};
       % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
-      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Original equilibrium at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      % New equilibrium: AD ∩ AS' → x=2.17, y=2.80
-      \filldraw[HECcoral] (2.17,2.80) circle (3pt);
-      \draw[dotted, very thick, HECgray] (2.17,0) node[below] {$Y'$} -- (2.17,2.80);
-      \draw[dotted, very thick, HECgray] (0,2.80) node[left] {$P'$} -- (2.17,2.80);
+      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
+      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
+      % Reference lines
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,2.80);
+      \draw[refline] (0,2.80) node[left, pointlabel] {$P'$} -- (2.17,2.80);
+      % Equilibrium dots
+      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+      \filldraw[eqpoint=HECcoral] (2.17,2.80) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Scénario A : Pétrole cher $\to$ aubaine pour les exportateurs}
    \centering
    \begin{tikzpicture}[scale=1.2]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5
-      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD' shifted slightly right: y = -0.6x + 4.5
-      \draw[HECnavy, very thick] (0.5,4.2) -- (5.83,1.0)
-         node[right] {AD$'$};
-      % AS' shifted a lot left: y = 0.6x + 1.5
-      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
-         node[right] {AS$'$};
+      \draw[potline] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[original] (0,4.1) -- (6.833,0)
+         node[above right, pointlabel] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (7.0,4.7)
+      \draw[original] (0,0.5) -- (7.0,4.7)
+         node[right, pointlabel] {AS};
+      % AD' shifted slightly right: y = -0.6x + 4.5, y-int (0,4.5), x-int (7.5,0)
+      \draw[demand] (0,4.5) -- (7.5,0)
+         node[above right, curvelabel] {AD$'$};
+      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
+      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
+         node[right, curvelabel] {AS$'$};
       % Small AD shift arrow (rightward): from AD to AD' at y=1.5
       % AD at y=1.5: x=(4.1-1.5)/0.6=4.33; AD' at y=1.5: x=(4.5-1.5)/0.6=5.0
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.33,1.5) -- (5.0,1.5);
-      \node[font=\footnotesize, HECnavy, above] at (4.3,1.5) {\textit{peu}};
+      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (5.0,1.5);
+      \node[annotlabel, HECnavy, above] at (4.3,1.5) {\textit{peu}};
       % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
-      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Original equilibrium at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      % New equilibrium: AD' ∩ AS' → x=2.5, y=3.0
-      \filldraw[HECcoral] (2.5,3.0) circle (3pt);
-      \draw[dotted, very thick, HECgray] (2.5,0) node[below] {$Y'$} -- (2.5,3.0);
-      \draw[dotted, very thick, HECgray] (0,3.0) node[left] {$P'$} -- (2.5,3.0);
+      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
+      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
+      % Reference lines
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \draw[refline] (2.5,0) node[below, pointlabel] {$Y'$} -- (2.5,3.0);
+      \draw[refline] (0,3.0) node[left, pointlabel] {$P'$} -- (2.5,3.0);
+      % Equilibrium dots
+      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+      \filldraw[eqpoint=HECcoral] (2.5,3.0) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.8,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
    \vspace{-0.2cm}
    \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow$ modéré, prix $\uparrow\uparrow$}}
@@ -1033,38 +1036,38 @@
 \begin{frame}{Scénario B : Incertitude $\to$ effondrement de l'investissement}
    \centering
    \begin{tikzpicture}[scale=1.2]
-      % Axes
-      \draw[-{Stealth}, thick] (0,0) -- (6,0) node[right] {$Y$};
-      \draw[-{Stealth}, thick] (0,0) -- (0,4.5) node[above] {$P$};
       % Y_POT (vertical)
-      \draw[HECgreen, very thick, dotted] (3.0,0) -- (3.0,4.2)
-         node[above] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1
-      \draw[HECgray, dashed, thick] (0.5,3.8) -- (5.5,0.8)
-         node[right, font=\footnotesize] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5
-      \draw[HECgray, dashed, thick] (0.5,0.8) -- (5.5,3.8)
-         node[right, font=\footnotesize] {AS};
-      % AD' shifted slightly left: y = -0.6x + 3.7
-      \draw[HECnavy, very thick] (0.2,3.58) -- (5.5,0.4)
-         node[right] {AD$'$};
-      % AS' shifted a lot left: y = 0.6x + 1.5
-      \draw[HECcoral, very thick] (0.5,1.8) -- (5.0,4.5)
-         node[right] {AS$'$};
+      \draw[potline] (3.0,0) -- (3.0,4.7)
+         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[original] (0,4.1) -- (6.833,0)
+         node[above right, pointlabel] {AD};
+      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[original] (0,0.5) -- (6.9,4.64)
+         node[right, pointlabel] {AS};
+      % AD' shifted slightly left: y = -0.6x + 3.7, y-int (0,3.7), x-int (6.167,0)
+      \draw[demand] (0,3.7) -- (6.167,0)
+         node[above right, curvelabel] {AD$'$};
+      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
+      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
+         node[right, curvelabel] {AS$'$};
       % Small AD shift arrow (leftward): from AD to AD' at y=1.4
       % AD at y=1.4: x=(4.1-1.4)/0.6=4.5; AD' at y=1.4: x=(3.7-1.4)/0.6=3.83
-      \draw[-{Stealth[length=4pt]}, HECnavy, thick] (4.5,1.4) -- (3.83,1.4);
-      \node[font=\footnotesize, HECnavy, above] at (4.17,1.4) {\textit{peu}};
+      \draw[shiftarrow, HECnavy] (4.5,1.4) -- (3.83,1.4);
+      \node[annotlabel, HECnavy, above] at (4.17,1.4) {\textit{peu}};
       % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[-{Stealth[length=4pt]}, HECcoral, thick] (4.5,3.2) -- (2.83,3.2);
-      \node[font=\footnotesize, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Original equilibrium at (3.0, 2.3)
-      \filldraw[HECgray] (3.0,2.3) circle (2.5pt);
-      \draw[dotted, very thick, HECgray] (0,2.3) node[left] {$P^*$} -- (3.0,2.3);
-      % New equilibrium: AD' ∩ AS' → x=1.83, y=2.60
-      \filldraw[HECcoral] (1.83,2.60) circle (3pt);
-      \draw[dotted, very thick, HECgray] (1.83,0) node[below] {$Y'$} -- (1.83,2.60);
-      \draw[dotted, very thick, HECgray] (0,2.60) node[left] {$P'$} -- (1.83,2.60);
+      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
+      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
+      % Reference lines
+      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+      \draw[refline] (1.83,0) node[below, pointlabel] {$Y'$} -- (1.83,2.60);
+      \draw[refline] (0,2.60) node[left, pointlabel] {$P'$} -- (1.83,2.60);
+      % Equilibrium dots
+      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+      \filldraw[eqpoint=HECcoral] (1.83,2.60) circle (3pt);
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
    \vspace{-0.2cm}
    \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow\downarrow$, prix $\uparrow$ modéré}}
