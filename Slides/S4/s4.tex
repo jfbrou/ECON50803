@@ -630,7 +630,7 @@
    \begin{itemize}
       \setlength\itemsep{0.1cm}
       \item Quelle étincelle pour la Grande Récession de 2008--09\,?
-      \item Pour la récession de 2020\,?
+      \item Pour la récession de 2020\,? La guerre commerciale\,?
    \end{itemize}
 \end{frame}
 
@@ -640,7 +640,8 @@
 \begin{frame}{}
    \centering
    \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application : La pandémie de 2020}}}\\[12pt]
+   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
+   {\LARGE\textbf{\textcolor{HECnavy}{La pandémie de 2020}}}\\[12pt]
    {\large\textcolor{HECgray}{Étincelle : choc externe (type C)}}
 \end{frame}
 }
@@ -883,6 +884,234 @@
       \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
       \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
    \end{tikzpicture}
+\end{frame}
+
+
+% --- Application : Guerre commerciale Canada--É.-U. (2025--26) ---
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{}
+   \centering
+   \vspace{2cm}
+   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
+   {\LARGE\textbf{\textcolor{HECnavy}{Guerre commerciale Canada--É.-U.\ (2025--26)}}}\\[12pt]
+   {\large\textcolor{HECgray}{Un choc de demande\ldots{} et d'offre\,?}}
+\end{frame}
+}
+
+\begin{frame}{Le taux tarifaire effectif américain}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_tariff_rate.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Les secteurs exposés souffrent déjà}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{canada_employment_exports.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Les données : le marché du travail vacille}
+   \framesubtitle{Enquête sur la population active, février 2026 (Statistique Canada, 13 mars 2026)}
+   \centering
+   \vspace{0.05cm}
+   {\fontsize{30}{36}\selectfont\bfseries\textcolor{HECcoral}{$-$84\,000}}\\[1pt]
+   {\small emplois en février --- pire mois \textbf{hors COVID} \quad\textcolor{HECgray}{Chômage : \textbf{6.7\,\%} ($+$0.2 pp)}}
+   \vspace{0.1cm}
+
+   \footnotesize
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \raggedright
+         \textbf{\textcolor{HECnavy}{Ventilation nationale}}
+         \vspace{0.15cm}
+
+         \renewcommand{\arraystretch}{1.5}
+         \begin{tabularx}{\textwidth}{@{}X r@{}}
+            \arrayrulecolor{HECgray!30}
+            Temps plein & $-$108K \\
+            Secteur privé & $-$73K \\
+            \midrule
+            Jeunes (15--24) & $-$47K \\[-2pt]
+            & {\scriptsize\textcolor{HECcoral}{chômage \textbf{14.1\,\%}}} \\
+            \midrule
+            Salaires (a/a) & $+$3.9\,\% \\[-2pt]
+            & {\scriptsize\textcolor{HECcoral}{\textbf{aucun} ralentissement}} \\
+         \end{tabularx}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \raggedright
+         \textbf{\textcolor{HECnavy}{Répartition provinciale}}
+         \vspace{0.15cm}
+
+         \renewcommand{\arraystretch}{1.5}
+         \begin{tabularx}{\textwidth}{@{}X r@{}}
+            \arrayrulecolor{HECgray!30}
+            \textbf{\textcolor{HECcoral}{Québec}} & \textcolor{HECcoral}{\textbf{$-$57K} ($-$1.2\,\%)} \\
+            C.-B.\ & $-$20K \\
+            Sask.\ + Man.\ & $-$9.5K \\
+            \textbf{Ontario} & $\approx 0$ \\
+            \bottomrule
+         \end{tabularx}
+
+         \vspace{0.2cm}
+         \begin{tcolorbox}[
+            colback=HECcoral!6, colframe=HECcoral!40, boxrule=0.4pt, arc=6pt,
+            left=5pt, right=5pt, top=3pt, bottom=3pt]
+            \centering\footnotesize
+            Le QC = 22\,\% de l'emploi national,\\
+            mais \textbf{\textcolor{HECcoral}{68\,\%}} des pertes de février
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Sans représailles : un choc de demande}
+   \vspace{0.5cm}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         % --- Algebraic verification ---
+         % AD: P = -0.6Y + 4.1;  AS: P = 0.6Y + 0.5
+         % Original eq: Y* = 3.0, P* = 2.3
+         % AD': P = -0.6Y + 3.1 (tariffs shift AD left)
+         % AD' ∩ AS: -0.6Y+3.1 = 0.6Y+0.5 → Y' = 2.167, P' = 1.80
+         % AD' y-int (0,3.1), x-int (5.167,0)
+         % Shift arrow at P=1.2: AD x=4.833, AD' x=3.167
+         % ---
+         \begin{tikzpicture}[scale=0.9]
+            % Y_POT (vertical)
+            \draw[potline] (3.0,0) -- (3.0,4.7)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+            % AS: y = 0.6x + 0.5, unchanged
+            \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
+            % AD original (dashed gray): y = -0.6x + 4.1
+            \draw[original] (0,4.1) -- (6.833,0)
+               node[above right, pointlabel] {AD};
+            % AD' shifted left: y = -0.6x + 3.1
+            \draw[demand] (0,3.1) -- (5.167,0)
+               node[above right, curvelabel] {AD$'$};
+            % AD shift arrow at P=1.2
+            \draw[shiftarrow, HECnavy] (4.833,1.2) -- (3.167,1.2);
+            % Reference lines
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+            \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,1.80);
+            \draw[refline] (0,1.80) node[left, pointlabel] {$P'$} -- (2.17,1.80);
+            % Equilibrium dots
+            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+            \filldraw[eqpoint=HECnavy] (2.17,1.80) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         \textbf{75\,\%} des exportations CAN $\to$ É.-U.\
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Tarifs de 25\,\% $\to$ $NX \downarrow$
+            \item La demande pour les biens canadiens \textbf{chute}
+         \end{itemize}
+         \vspace{0.3cm}
+         \textbf{AD se déplace vers la gauche}
+         \vspace{0.2cm}
+
+         {\footnotesize\textcolor{HECgray}{Résultat : récession ($Y \downarrow$, $P \downarrow$)}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Avec représailles : le dilemme}
+   \vspace{0.5cm}
+   \begin{columns}[c]
+      \begin{column}{0.55\textwidth}
+         \centering
+         % --- Algebraic verification ---
+         % Original: AD: P = -0.6Y + 4.1, AS: P = 0.6Y + 0.5, eq (3.0, 2.3)
+         % AD': P = -0.6Y + 3.5 (moderate leftward shift — M↓ partially offsets X↓)
+         %   intercept shift 0.6 → horizontal shift 1.0 unit
+         % AS': P = 0.6Y + 1.9 (large leftward shift — tariffs on US inputs raise costs)
+         %   intercept shift 1.4 → horizontal shift 2.333 units
+         % AD' ∩ AS': -0.6Y+3.5 = 0.6Y+1.9 → 1.2Y = 1.6 → Y' = 4/3 ≈ 1.333, P' = 27/10 = 2.7
+         % Stagflation: Y' < Y* (1.333 < 3.0) and P' > P* (2.7 > 2.3)
+         % AD' y-int (0,3.5), x-int (5.833,0)
+         % AS' y-int (0,1.9), far end (4.667,4.7)
+         % AD shift arrow at P=1.0: AD x=5.167, AD' x=4.167
+         % AS shift arrow at P=3.5: AS x=5.0, AS' x=2.667
+         % ---
+         \begin{tikzpicture}[scale=0.9]
+            % Y_POT (vertical)
+            \draw[potline] (3.0,0) -- (3.0,4.7)
+               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+            % AD original (dashed gray): P = -0.6Y + 4.1
+            \draw[original] (0,4.1) -- (6.833,0)
+               node[above right, pointlabel] {AD};
+            % AS original (dashed gray): P = 0.6Y + 0.5
+            \draw[original] (0,0.5) -- (7.0,4.7)
+               node[right, pointlabel] {AS};
+            % AD' shifted left (moderate): P = -0.6Y + 3.5
+            \draw[demand] (0,3.5) -- (5.833,0)
+               node[above right, curvelabel] {AD$'$};
+            % AS' shifted left (large — main retaliation channel): P = 0.6Y + 1.9
+            \draw[supply, HECcoral] (0,1.9) -- (4.667,4.7)
+               node[right, curvelabel] {AS$'$};
+            % AD shift arrow at P=1.0
+            \draw[shiftarrow, HECnavy] (5.167,1.0) -- (4.167,1.0);
+            % AS shift arrow at P=3.5
+            \draw[shiftarrow, HECcoral] (5.0,3.5) -- (2.667,3.5);
+            % Reference lines
+            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
+            \draw[refline] (1.333,0) node[below, pointlabel] {$Y'$} -- (1.333,2.7);
+            \draw[refline] (0,2.7) node[left, pointlabel] {$P'$} -- (1.333,2.7);
+            % Equilibrium dots
+            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
+            \filldraw[eqpoint=HECcoral] (1.333,2.7) circle (3pt);
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \small
+         Représailles CAN : 25\,\% sur acier, aluminium, autos É.-U.\
+         \vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item \textbf{AS$\leftarrow$} : coûts de production $\uparrow$ (intrants importés plus chers)
+            \item \textbf{AD partiellement restauré} : $M \downarrow$ $\to$ $NX$ se rétablit en partie
+         \end{itemize}
+         \vspace{0.2cm}
+         \textbf{Double déplacement : AD$\leftarrow$ et AS$\leftarrow$}
+         \vspace{0.2cm}
+
+         {\footnotesize\textcolor{HECgray}{Résultat : stagflation ($Y \downarrow$, $P \uparrow$)}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Représailles : pour ou contre\,?}
+   \small
+   \vspace{0.2cm}
+   \begin{center}
+   \begin{tabularx}{0.92\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+      \toprule
+      & \textbf{Sans représailles} & \textbf{Avec représailles} \\
+      \midrule
+      \textbf{PIB} & $\downarrow\downarrow$ & $\downarrow\downarrow$ \\[4pt]
+      \textbf{Prix} & $\downarrow$ & $\uparrow$ \\[4pt]
+      \textbf{Emploi} & $\downarrow$ (secteurs exportateurs) & $\downarrow$ (généralisé) \\[4pt]
+      \textbf{Logique} & Choc de demande pur & Choc mixte AD + AS \\
+      \bottomrule
+   \end{tabularx}
+   \end{center}
+   \vspace{0.2cm}
+   \begin{keyinsight}[Le dilemme des représailles]
+      Les représailles ne préviennent pas la récession --- elles \textbf{échangent la déflation contre l'inflation}. Le gouvernement doit choisir quel mal est le moindre.
+   \end{keyinsight}
 \end{frame}
 
 

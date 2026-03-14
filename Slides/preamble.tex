@@ -85,6 +85,27 @@
 }
 \usepackage[round]{natbib}
 \usetikzlibrary{decorations.pathreplacing, decorations.markings, calc, arrows.meta, positioning}
+
+% --- TikZ global styles for AD-AS / supply-demand diagrams ------------------
+\tikzset{
+   econaxis/.style   = {thick, -Stealth},
+   potline/.style    = {HECgreen, thick, dashed},
+   supply/.style     = {very thick},
+   demand/.style     = {HECnavy, very thick},
+   curveshift/.style = {very thick},
+   original/.style   = {HECgray, thick, dashed},
+   refline/.style    = {thin, dashed, HECgray},
+   shiftarrow/.style = {very thick, -Stealth},
+   eqpoint/.style    = {fill=#1, draw=#1},
+   eqpoint/.default  = HECnavy,
+   eqfaded/.style    = {fill=HECgray, draw=HECgray, opacity=0.4},
+   curvelabel/.style = {font=\small\bfseries},
+   pointlabel/.style = {font=\small},
+   annotlabel/.style = {font=\small},
+   econbrace/.style  = {decorate, decoration={brace, amplitude=6pt, mirror}, thick},
+   flowarrow/.style  = {-Stealth, thick},
+}
+
 \usepackage[absolute,overlay]{textpos}
 \captionsetup[figure]{labelformat=empty, font=small, textfont=it}
 \captionsetup[table]{labelformat=empty, font=small}
