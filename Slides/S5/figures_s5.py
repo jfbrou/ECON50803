@@ -225,8 +225,9 @@ def inflation_vs_rate_2019():
     overnight = get_valet_series('V39079', start='2019-01-01')
     overnight = overnight.dropna()
 
-    # Compute CPI y/y inflation from CPI level (CANCPIALLMINMEI)
-    cpi_level = get_fred_data('CANCPIALLMINMEI', observation_start='2018-01-01')
+    # Compute CPI y/y inflation from CPI level (Valet V41690973, all-items NSA)
+    cpi_level = get_valet_series('V41690973', start='2018-01-01')
+    cpi_level = cpi_level.dropna()
     cpi = cpi_level.pct_change(periods=12) * 100
     cpi = cpi.dropna()
     cpi = cpi.loc['2019-01-01':]
@@ -246,30 +247,10 @@ def inflation_vs_rate_2019():
     ax.axvspan(pd.Timestamp('2020-02-01'), pd.Timestamp('2020-05-01'),
                color='grey', alpha=0.3, linewidth=0)
 
-    # ── Annotations ─────────────────────────────────────────────────
-    # Inflation peak
-    inflation_peak_date = cpi.idxmax()
-    inflation_peak_val = cpi.max()
-    ax.annotate(f'{inflation_peak_val:.1f}\\%',
-                xy=(inflation_peak_date, inflation_peak_val),
-                xytext=(inflation_peak_date + pd.DateOffset(months=6),
-                        inflation_peak_val + 0.8),
-                fontsize=11, color=palette[2], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
-
-    # "Retard de réaction" arrow between peak inflation and the rate at that time
-    rate_at_peak = overnight.asof(inflation_peak_date)
-    mid_y = (inflation_peak_val + rate_at_peak) / 2
-    ax.annotate(r'Retard de réaction',
-                xy=(inflation_peak_date - pd.DateOffset(months=3), mid_y),
-                xytext=(pd.Timestamp('2020-09-01'), 7.0),
-                fontsize=10, color=palette[0], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[0], lw=1.5))
-
     # ── Axis formatting ─────────────────────────────────────────────
-    ax.set_xlim(pd.Timestamp('2019-01-01'), max(overnight.index.max(),
-                                                  cpi.index.max()))
-    xticks = list(range(2019, 2028, 1))
+    last_date = max(overnight.index.max(), cpi.index.max())
+    ax.set_xlim(pd.Timestamp('2019-01-01'), last_date)
+    xticks = [y for y in range(2019, last_date.year + 1)]
     ax.set_xticks([pd.Timestamp(f'{y}-01-01') for y in xticks])
     ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
 
@@ -282,7 +263,7 @@ def inflation_vs_rate_2019():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, r"Source: Banque du Canada, FRED")
+    add_source(ax, r"Source: Banque du Canada")
     save(fig, 'inflation_vs_rate_2019.png')
 
 
