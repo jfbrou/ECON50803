@@ -774,6 +774,224 @@ def interest_expense():
 
 
 # =====================================================================
+# Figure 12: Overnight rate — last 12 months (conjoncture)
+# =====================================================================
+def overnight_rate_recent():
+    """Bank of Canada overnight target rate, last 12 months."""
+    print('Figure 12: Taux directeur (12 derniers mois)')
+
+    rate = get_valet_series('V39079', start='2025-01-01')
+    rate = rate.dropna()
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(rate.index, rate.values, color=palette[0], linewidth=2.5)
+
+    # Horizontal dashed line at latest value with annotation
+    latest_val = rate.iloc[-1]
+    ax.axhline(latest_val, color=palette[0], linewidth=1, linestyle='--',
+               alpha=0.5)
+    ax.annotate(f'{latest_val:.2f}\\%',
+                xy=(rate.index[-1], latest_val),
+                xytext=(-15, 12), textcoords='offset points',
+                fontsize=11, color=palette[2], fontweight='bold')
+
+    # ── Axis formatting ─────────────────────────────────────────────
+    ax.set_xlim(rate.index.min(), rate.index.max())
+    # Monthly ticks with French abbreviations
+    monthly = pd.date_range(rate.index.min().replace(day=1),
+                            rate.index.max(), freq='MS')
+    ax.set_xticks(monthly)
+    ax.set_xticklabels([french_date_label(d) for d in monthly], fontsize=10)
+
+    ymin = max(0, int(rate.min()) - 1)
+    ymax = int(rate.max()) + 2
+    ax.set_ylim(ymin, ymax)
+    ax.set_yticks(np.arange(ymin, ymax + 0.5, 0.5))
+    ax.set_yticklabels([f'{y:.1f}\\%' for y in np.arange(ymin, ymax + 0.5, 0.5)],
+                       fontsize=11)
+    ax.set_ylabel(r"Taux directeur (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, r"Source: Banque du Canada (Valet)")
+    save(fig, 'overnight_rate_recent.png')
+
+
+# =====================================================================
+# Figure 13: Canada unemployment rate — last 12 months (conjoncture)
+# =====================================================================
+def unemployment_rate_recent():
+    """Canada unemployment rate, last 12 months."""
+    print('Figure 13: Taux de chômage (12 derniers mois)')
+
+    # Try FRED first, then Valet fallback
+    try:
+        unemp = get_fred_data('LRUNTTTTCAM156S', observation_start='2025-01-01')
+        unemp = unemp.dropna()
+        if len(unemp) == 0:
+            raise ValueError('Empty series')
+        source_text = r"Source: FRED / Statistique Canada"
+    except Exception:
+        unemp = get_valet_series('V2062815', start='2025-01-01')
+        unemp = unemp.dropna()
+        source_text = r"Source: Banque du Canada (Valet)"
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(unemp.index, unemp.values, color=palette[2], linewidth=2.5)
+
+    # Annotate most recent data point
+    latest_val = unemp.iloc[-1]
+    ax.annotate(f'{latest_val:.1f}\\%',
+                xy=(unemp.index[-1], latest_val),
+                xytext=(-15, 12), textcoords='offset points',
+                fontsize=11, color=palette[2], fontweight='bold')
+
+    # ── Axis formatting ─────────────────────────────────────────────
+    ax.set_xlim(unemp.index.min(), unemp.index.max())
+    monthly = pd.date_range(unemp.index.min().replace(day=1),
+                            unemp.index.max(), freq='MS')
+    ax.set_xticks(monthly)
+    ax.set_xticklabels([french_date_label(d) for d in monthly], fontsize=10)
+
+    ymin = max(0, int(unemp.min()) - 1)
+    ymax = int(unemp.max()) + 2
+    ax.set_ylim(ymin, ymax)
+    ax.set_yticks(range(ymin, ymax + 1))
+    ax.set_yticklabels([f'{y}\\%' for y in range(ymin, ymax + 1)], fontsize=11)
+    ax.set_ylabel(r"Taux de chômage (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, source_text)
+    save(fig, 'unemployment_rate_recent.png')
+
+
+# =====================================================================
+# Figure 14: CPI inflation — last 12 months (conjoncture)
+# =====================================================================
+def inflation_recent():
+    """CPI inflation (year-over-year) in Canada, last 12 months."""
+    print('Figure 14: Inflation IPC (12 derniers mois)')
+
+    # Fetch CPI level starting from Dec 2023 to compute YoY from Jan 2025
+    cpi_level = get_valet_series('V41690973', start='2023-12-01')
+    cpi_level = cpi_level.dropna()
+
+    # Compute year-over-year inflation
+    inflation = cpi_level.pct_change(periods=12) * 100
+    inflation = inflation.dropna()
+    inflation = inflation.loc['2025-01-01':]
+
+    fig, ax = new_figure(9, 4.5)
+
+    # Target band (1%–3%)
+    ax.axhspan(1, 3, color=palette[1], alpha=0.1, linewidth=0)
+
+    # Target line at 2%
+    ax.axhline(2, color=palette[1], linewidth=1.5, linestyle='--',
+               label=r"Cible (2\%)")
+
+    ax.plot(inflation.index, inflation.values, color=palette[0],
+            linewidth=2.5, label='Inflation IPC (a/a)', zorder=3)
+
+    # ── Axis formatting ─────────────────────────────────────────────
+    ax.set_xlim(inflation.index.min(), inflation.index.max())
+    monthly = pd.date_range(inflation.index.min().replace(day=1),
+                            inflation.index.max(), freq='MS')
+    ax.set_xticks(monthly)
+    ax.set_xticklabels([french_date_label(d) for d in monthly], fontsize=10)
+
+    ax.set_ylim(0, 4)
+    ax.set_yticks(range(0, 5))
+    ax.set_yticklabels([f'{y}\\%' for y in range(0, 5)], fontsize=11)
+    ax.set_ylabel(r"Inflation IPC (\%)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper right',
+              bbox_to_anchor=(1.0, 1.0))
+    add_source(ax, r"Source: Banque du Canada (Valet)")
+    save(fig, 'inflation_recent.png')
+
+
+# =====================================================================
+# Figure 15: Combined Canada conjoncture (single plot)
+# =====================================================================
+def conjoncture_canada():
+    """Single chart: overnight rate, unemployment, CPI inflation."""
+    print('Figure 15: Conjoncture Canada')
+
+    # ── 1. Fetch data ──────────────────────────────────────────────────
+    # Overnight rate (Valet V39079)
+    rate = get_valet_series('V39079', start='2025-01-01')
+    rate = rate.dropna()
+
+    # Unemployment rate (FRED, fallback Valet)
+    try:
+        unemp = get_fred_data('LRUNTTTTCAM156S', observation_start='2025-01-01')
+        unemp = unemp.dropna()
+        if len(unemp) == 0:
+            raise ValueError('Empty series')
+    except Exception:
+        unemp = get_valet_series('V2062815', start='2025-01-01')
+        unemp = unemp.dropna()
+
+    # CPI level (fetch from Dec 2023 for 12-month lag, plot from Jan 2025)
+    cpi_level = get_valet_series('V41690973', start='2023-12-01')
+    cpi_level = cpi_level.dropna()
+    inflation = cpi_level.pct_change(periods=12) * 100
+    inflation = inflation.dropna()
+    inflation = inflation.loc['2025-01-01':]
+
+    # Trim all series to end no later than Feb 2026
+    cutoff = pd.Timestamp('2026-02-28')
+    rate = rate.loc[:cutoff]
+    unemp = unemp.loc[:cutoff]
+    inflation = inflation.loc[:cutoff]
+
+    # Resample overnight rate to monthly (last value per month)
+    rate = rate.resample('MS').last().dropna()
+
+    # Append Feb 2026 unemployment if missing (StatsCan LFS, 13 mars 2026: 6.6%)
+    feb26 = pd.Timestamp('2026-02-01')
+    if feb26 not in unemp.index:
+        unemp = pd.concat([unemp, pd.Series({feb26: 6.6})])
+
+    # ── 2. Single-axis plot ───────────────────────────────────────────
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(rate.index, rate.values, color=palette[0], linewidth=2.5,
+            label='Taux directeur', marker='o', markersize=6)
+    ax.plot(unemp.index, unemp.values, color=palette[2], linewidth=2.5,
+            label=r'Taux de chômage', marker='o', markersize=6)
+    ax.plot(inflation.index, inflation.values, color=palette[1], linewidth=2.5,
+            label='Inflation IPC (a/a)', marker='o', markersize=6)
+
+    # ── Axis formatting ───────────────────────────────────────────────
+    monthly = pd.date_range('2025-01-01', '2026-02-01', freq='MS')
+    ax.set_xlim(pd.Timestamp('2024-12-20'), pd.Timestamp('2026-02-12'))
+    ax.set_xticks(monthly)
+    ax.set_xticklabels([french_date_label(d) for d in monthly], fontsize=10)
+
+    ax.set_ylim(0, 8)
+    ax.set_yticks(range(0, 9))
+    ax.set_yticklabels([f'{y}\\%' for y in range(0, 9)], fontsize=11)
+    ax.set_ylabel(r"\%", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='lower left',
+              bbox_to_anchor=(0.0, 0.0))
+    add_source(ax, r"Source: Banque du Canada, FRED")
+    save(fig, 'conjoncture_canada.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -793,6 +1011,10 @@ if __name__ == '__main__':
         fed_dot_plot,
         gross_vs_net_debt,
         interest_expense,
+        overnight_rate_recent,
+        unemployment_rate_recent,
+        inflation_recent,
+        conjoncture_canada,
     ]
 
     failed = []
