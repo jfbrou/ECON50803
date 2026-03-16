@@ -610,28 +610,28 @@
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Le système de corridor}
+\begin{frame}{Le système de plancher}
    \centering
    \begin{tikzpicture}[scale=0.9]
-      % Corridor shading
-      \fill[HECnavy!5] (0,2.0) rectangle (8.0,4.0);
+      % Light shading for the 30 pb band
+      \fill[HECnavy!5] (0,2.5) rectangle (8.0,5.0);
       % Bank rate (ceiling)
-      \draw[HECcoral, very thick] (0,4.0) -- (8.0,4.0);
-      \node[right, font=\footnotesize, HECcoral] at (8.0,4.0) {Taux d'escompte (2.50\,\%)};
-      % Target rate (middle)
-      \draw[HECnavy, very thick, dashed] (0,3.0) -- (8.0,3.0);
-      \node[right, font=\footnotesize\bfseries, HECnavy] at (8.0,3.0) {Taux cible (2.25\,\%)};
-      % Deposit rate (floor)
-      \draw[HECgreen, very thick] (0,2.0) -- (8.0,2.0);
-      \node[right, font=\footnotesize, HECgreen] at (8.0,2.0) {Taux de dépôt (2.00\,\%)};
-      % Annotations
-      \draw[{Stealth}-{Stealth}, thick, HECgray] (-0.5,2.0) -- (-0.5,4.0);
-      \node[left, font=\footnotesize, HECgray, align=right] at (-0.5,3.0) {Fourchette\\opérationnelle\\(50 pb)};
-      % Labels
-      \node[font=\footnotesize, HECgray, align=center, text width=8cm] at (4.0,0.7) {Le taux à un jour reste dans le corridor\\ car aucune banque n'emprunte au-dessus ni ne dépose en dessous};
+      \draw[HECcoral, very thick] (0,5.0) -- (8.0,5.0);
+      \node[right, font=\footnotesize, HECcoral] at (8.0,5.0) {Taux d'escompte (2.50\,\%)};
+      % Target rate -- 5 pb above deposit rate
+      \draw[HECnavy, very thick, dashed] (0,2.92) -- (8.0,2.92);
+      \node[right, font=\footnotesize\bfseries, HECnavy] at (8.0,2.92) {Taux cible (2.25\,\%)};
+      % Deposit rate (the floor)
+      \draw[HECgreen, very thick] (0,2.5) -- (8.0,2.5);
+      \node[right, font=\footnotesize, HECgreen] at (8.0,2.5) {Taux de dépôt (2.20\,\%)};
+      % Spread annotation
+      \draw[{Stealth}-{Stealth}, thick, HECgray] (-0.5,2.5) -- (-0.5,5.0);
+      \node[left, font=\footnotesize, HECgray] at (-0.5,3.75) {30 pb};
+      % Explanation
+      \node[font=\footnotesize, HECgray, align=center, text width=9cm] at (4.0,1.0) {Le taux à un jour reste dans la fourchette\\ car aucune banque n'emprunte au-dessus ni ne dépose en dessous};
       % Axes
-      \draw[econaxis] (0,0) -- (9,0) node[right] {};
-      \draw[econaxis] (0,0) -- (0,5.5) node[above, font=\small] {Taux d'intérêt};
+      \draw[econaxis] (0,0) -- (9,0);
+      \draw[econaxis] (0,0) -- (0,5.8) node[above, font=\small] {Taux d'intérêt};
    \end{tikzpicture}
 \end{frame}
 
