@@ -393,32 +393,32 @@
          \centering
          % S shifts LEFT: retirees dissave → less national saving
          % Original S: r = 0.75q → passes through origin (0, 0)
-         % New S': r = 0.75q + 0.6 → y-intercept (0, 0.6)
+         % New S': r = 0.75q + 1.2 → y-intercept (0, 1.2)
          % I: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
-         % New eq with I: 0.75q + 0.6 = -0.75q + 4.5 → q = 2.6, r = 2.55
+         % New eq with I: 0.75q + 1.2 = -0.75q + 4.5 → q = 2.2, r = 2.85
          \begin{tikzpicture}[scale=0.9]
             % Reference lines
             \draw[refline] (3.0,0) node[below, pointlabel] {$S_0^*$} -- (3.0,2.25);
             \draw[refline] (0,2.25) node[left, pointlabel] {$r_0^*$} -- (3.0,2.25);
-            \draw[refline, HECgreen] (2.6,0) node[below, pointlabel, text=HECgreen] {$S_1^*$} -- (2.6,2.55);
-            \draw[refline, HECgreen] (0,2.55) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (2.6,2.55);
+            \draw[refline, HECgreen] (2.2,0) node[below, pointlabel, text=HECgreen] {$S_1^*$} -- (2.2,2.85);
+            \draw[refline, HECgreen] (0,2.85) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (2.2,2.85);
             % Original S (dashed gray)
             \draw[original] (0,0) -- (5.5,4.125)
                node[right, curvelabel, text=HECgray] {$S$};
             % New S' (shifted left, HECgreen)
-            \draw[curveshift, HECgreen] (0,0.6) -- (5,4.35)
+            \draw[curveshift, HECgreen] (0,1.2) -- (4.3,4.425)
                node[right, curvelabel, text=HECgreen] {$S'$};
             % I curve (unchanged)
             \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
                node[above, curvelabel, text=HECcoral] {$I$};
-            % Shift arrow (leftward on S) — at r=3.0: S at q=4.0, S' at q=3.2
-            \draw[shiftarrow, HECgreen] (3.8,3.0) -- (3.4,3.0);
+            % Shift arrow (leftward on S) — at r=3.0: S at q=4.0, S' at q=2.4
+            \draw[shiftarrow, HECgreen] (3.8,3.0) -- (2.6,3.0);
             % Original equilibrium (faded)
             \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
             \node[pointlabel, HECgray, right] at (3.0,2.25) {$E_0$};
             % New equilibrium
-            \filldraw[eqpoint=HECgreen] (2.6,2.55) circle (3pt);
-            \node[pointlabel, HECgreen, above] at (2.6,2.55) {$E_1$};
+            \filldraw[eqpoint=HECgreen] (2.2,2.85) circle (3pt);
+            \node[pointlabel, HECgreen, above] at (2.2,2.85) {$E_1$};
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
             \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
@@ -450,34 +450,35 @@
          % I shifts RIGHT: new investment opportunities
          % S: r = 0.75q → passes through origin (0, 0)
          % Original I: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
-         % New I': r = -0.75q + 5.1 → y-intercept (0, 5.1), x-intercept (6.8, 0)
-         % New eq with S: 0.75q = -0.75q + 5.1 → q = 3.4, r = 2.55
-         \begin{tikzpicture}[scale=0.9]
+         % New I': r = -0.75q + 5.7 → y-intercept (0, 5.7), x-intercept (7.6, 0)
+         % New eq with S: 0.75q = -0.75q + 5.7 → q = 3.8, r = 2.85
+         % Match the previous slide's physical chart footprint
+         \begin{tikzpicture}[x=0.75cm, y=0.72cm]
             % Reference lines
             \draw[refline] (3.0,0) node[below, pointlabel] {$I_0^*$} -- (3.0,2.25);
             \draw[refline] (0,2.25) node[left, pointlabel] {$r_0^*$} -- (3.0,2.25);
-            \draw[refline, HECgreen] (3.4,0) node[below, pointlabel, text=HECgreen] {$I_1^*$} -- (3.4,2.55);
-            \draw[refline, HECgreen] (0,2.55) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (3.4,2.55);
+            \draw[refline, HECgreen] (3.8,0) node[below, pointlabel, text=HECgreen] {$I_1^*$} -- (3.8,2.85);
+            \draw[refline, HECgreen] (0,2.85) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (3.8,2.85);
             % S curve (unchanged)
-            \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
+            \draw[very thick, HECnavy] (0,0) -- (6.8,5.1)
                node[right, curvelabel, text=HECnavy] {$S$};
             % Original I (dashed gray)
             \draw[original] (0,4.5) -- (6.0,0)
-               node[right, curvelabel, text=HECgray] {$I$};
+               node[above, curvelabel, text=HECgray] {$I$};
             % New I' (shifted right, HECgreen)
-            \draw[curveshift, HECgreen] (0,5.1) -- (6.0,0.6)
-               node[right, curvelabel, text=HECgreen] {$I'$};
-            % Shift arrow (rightward on I) — at r=3.5: I at q=1.33, I' at q=2.13
-            \draw[shiftarrow, HECgreen] (1.5,3.5) -- (2.0,3.5);
+            \draw[curveshift, HECgreen] (0,5.7) -- (7.0,0.45)
+               node[above, curvelabel, text=HECgreen] {$I'$};
+            % Shift arrow (rightward on I) — at r=3.5: I at q=1.33, I' at q=2.93
+            \draw[shiftarrow, HECgreen] (1.5,3.5) -- (2.8,3.5);
             % Original equilibrium (faded)
             \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
-            \node[pointlabel, HECgray, above left] at (3.0,2.25) {$E_0$};
+            \node[pointlabel, HECgray, above] at (3.0,2.25) {$E_0$};
             % New equilibrium
-            \filldraw[eqpoint=HECgreen] (3.4,2.55) circle (3pt);
-            \node[pointlabel, HECgreen, above right] at (3.4,2.55) {$E_1$};
+            \filldraw[eqpoint=HECgreen] (3.8,2.85) circle (3pt);
+            \node[pointlabel, HECgreen, right] at (3.8,2.85) {$E_1$};
             % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (6.8,0) node[right] {$S, I$};
-            \draw[econaxis] (0,0) -- (0,5.4) node[above] {$r$};
+            \draw[econaxis] (0,0) -- (7.8,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,6.0) node[above] {$r$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.45\textwidth}
@@ -537,29 +538,30 @@
    % S curve: r = 0.75q → passes through origin (0, 0)
    % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
    % Closed eq: q=3.0, r=2.25
-   % World rate: r^w = 2.0 (below closed eq → domestic I > S → deficit)
-   % At r^w=2.0: S(2.0) = 2.0/0.75 = 2.67, I(2.0) = (4.5-2.0)/0.75 = 3.33
-   % CA = S - I = 2.67 - 3.33 = -0.67 (deficit)
+   % World rate: r^w = 1.8 (below closed eq → domestic I > S → deficit)
+   % At r^w=1.8: S(1.8) = 1.8/0.75 = 2.4, I(1.8) = (4.5-1.8)/0.75 = 3.6
+   % CA = S - I = 2.4 - 3.6 = -1.2 (deficit)
    \begin{tikzpicture}[scale=1]
       % World interest rate (horizontal)
-      \draw[HECgreen, very thick, dashed] (0.3,2.0) -- (5.8,2.0)
+      \draw[HECgreen, very thick, dotted] (0,1.8) -- (6.5,1.8)
          node[right, curvelabel, text=HECgreen] {$r^w$};
       % Reference lines at r^w
-      \draw[refline] (2.67,0) node[below, pointlabel] {$S(r^w)$} -- (2.67,2.0);
-      \draw[refline] (3.33,0) node[below, pointlabel] {$I(r^w)$} -- (3.33,2.0);
+      \draw[refline] (2.4,0) node[below, pointlabel] {$S$} -- (2.4,1.8);
+      \draw[refline] (3.6,0) node[below, pointlabel] {$I$} -- (3.6,1.8);
       % S curve (HECnavy, upward)
-      \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
+      \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
          node[right, curvelabel, text=HECnavy] {$S$};
       % I curve (HECcoral, downward)
       \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
-         node[right, curvelabel, text=HECcoral] {$I$};
-      % Closed economy equilibrium (faded)
-      \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
-      \node[pointlabel, HECgray, above] at (3.0,2.25) {$E_0$};
+         node[above, curvelabel, text=HECcoral] {$I$};
+      % Open-economy allocations at r^w
+      \filldraw[eqpoint=HECnavy] (2.4,1.8) circle (2.7pt);
+      \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (2.7pt);
       % CA deficit brace
       \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
-         (2.67,-0.25) -- (3.33,-0.25)
-         node[midway, below=10pt, font=\small\bfseries, text=HECcoral] {$CA < 0$ (déficit)};
+         (2.4,-0.55) -- (3.6,-0.55)
+         node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$ (d\'eficit)}
+         node[midway, below=20pt, font=\scriptsize, text=HECcoral] {Importateur net ($CA \approx NX < 0$)};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
       \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
@@ -575,24 +577,25 @@
    % CA = S - I = 4.0 - 2.0 = 2.0 (surplus)
    \begin{tikzpicture}[scale=1]
       % World interest rate (horizontal)
-      \draw[HECgreen, very thick, dashed] (0.3,3.0) -- (5.8,3.0)
+      \draw[HECgreen, very thick, dotted] (0,3.0) -- (6.5,3.0)
          node[right, curvelabel, text=HECgreen] {$r^w$};
       % Reference lines at r^w
-      \draw[refline] (4.0,0) node[below, pointlabel] {$S(r^w)$} -- (4.0,3.0);
-      \draw[refline] (2.0,0) node[below, pointlabel] {$I(r^w)$} -- (2.0,3.0);
+      \draw[refline] (4.0,0) node[below, pointlabel] {$S$} -- (4.0,3.0);
+      \draw[refline] (2.0,0) node[below, pointlabel] {$I$} -- (2.0,3.0);
       % S curve (HECnavy, upward)
-      \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
+      \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
          node[right, curvelabel, text=HECnavy] {$S$};
       % I curve (HECcoral, downward)
       \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
-         node[right, curvelabel, text=HECcoral] {$I$};
-      % Closed economy equilibrium (faded)
-      \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
-      \node[pointlabel, HECgray, below] at (3.0,2.25) {$E_0$};
+         node[above, curvelabel, text=HECcoral] {$I$};
+      % Open-economy allocations at r^w
+      \filldraw[eqpoint=HECnavy] (4.0,3.0) circle (2.7pt);
+      \filldraw[eqpoint=HECcoral] (2.0,3.0) circle (2.7pt);
       % CA surplus brace
-      \draw[decorate, decoration={brace, amplitude=8pt}, very thick, HECgreen]
-         (2.0,-0.25) -- (4.0,-0.25)
-         node[midway, below=10pt, font=\small\bfseries, text=HECgreen] {$CA > 0$ (surplus)};
+      \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECgreen]
+         (2.0,-0.55) -- (4.0,-0.55)
+         node[midway, below=8pt, font=\small\bfseries, text=HECgreen] {$CA > 0$ (surplus)}
+         node[midway, below=20pt, font=\scriptsize, text=HECgreen] {Exportateur net ($CA \approx NX > 0$)};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
       \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
