@@ -279,10 +279,10 @@
    \begin{columns}[T]
       \begin{column}{0.50\textwidth}
          \centering
-         % S curve: r = 0.6q + 0.5 → y-intercept (0, 0.5)
+         % S curve: r = 0.75q → passes through origin (0, 0)
          \begin{tikzpicture}[scale=0.9]
             % S curve (upward sloping — higher r → more saving)
-            \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+            \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
                node[right, curvelabel, text=HECnavy] {$S(r)$};
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
@@ -315,11 +315,11 @@
    \begin{columns}[T]
       \begin{column}{0.50\textwidth}
          \centering
-         % I curve: r = -0.6q + 4.5 → y-intercept (0, 4.5), x-intercept (7.5, 0)
+         % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
          \begin{tikzpicture}[scale=0.9]
             % I curve (downward sloping — higher r → less investment)
-            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0.9)
-               node[right, curvelabel, text=HECcoral] {$I(r)$};
+            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+               node[above, curvelabel, text=HECcoral] {$I(r)$};
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
             \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
@@ -347,32 +347,28 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}{Équilibre en économie fermée}
+\begin{frame}{Équilibre et taux neutre en économie fermée}
    \centering
-   % S curve: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-   % I curve: r = -0.6q + 4.5 → y-intercept (0, 4.5), x-intercept (7.5, 0)
-   % Equilibrium: 0.6q + 0.5 = -0.6q + 4.5 → 1.2q = 4.0 → q = 3.33, r = 2.5
-   \begin{tikzpicture}[scale=0.9]
+   % S curve: r = 0.75q → passes through origin (0, 0)
+   % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+   % Equilibrium: 0.75q = -0.75q + 4.5 → 1.5q = 4.5 → q = 3.0, r = 2.25
+   \begin{tikzpicture}[scale=1]
       % Reference lines to axes
-      \draw[refline] (3.33,0) node[below, pointlabel] {$S^* = I^*$} -- (3.33,2.5);
-      \draw[refline] (0,2.5) node[left, pointlabel] {$r^*$} -- (3.33,2.5);
+      \draw[refline] (3.0,0) node[below, pointlabel] {$S^* = I^*$} -- (3.0,2.25);
+      \draw[refline] (0,2.25) node[left, pointlabel] {$r^*$} -- (3.0,2.25);
       % S curve (HECnavy, upward)
-      \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+      \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
          node[right, curvelabel, text=HECnavy] {$S$};
       % I curve (HECcoral, downward)
-      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0.9)
-         node[right, curvelabel, text=HECcoral] {$I$};
+      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+         node[above, curvelabel, text=HECcoral] {$I$};
       % Equilibrium
-      \filldraw[eqpoint=HECnavy] (3.33,2.5) circle (3pt);
-      \node[pointlabel, HECnavy, above right] at (3.33,2.5) {$E_0$};
+      \filldraw[eqpoint=HECnavy] (3.0,2.25) circle (3pt);
+      \node[pointlabel, HECnavy, above] at (3.0,2.25) {$E_0$};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
       \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
    \end{tikzpicture}
-   \begin{defbox}[Taux d'intérêt neutre ($r^*$)]
-      \footnotesize
-      En économie fermée, $r^*$ est le taux qui égalise l'épargne et l'investissement : $S(r^*) = I(r^*)$.
-   \end{defbox}
 \end{frame}
 
 \begin{frame}[t]{Le taux neutre en pratique}
@@ -396,33 +392,33 @@
       \begin{column}{0.52\textwidth}
          \centering
          % S shifts LEFT: retirees dissave → less national saving
-         % Original S: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-         % New S': r = 0.6q + 1.1 → y-intercept (0, 1.1)
-         % I: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-         % New eq with I: 0.6q + 1.1 = -0.6q + 4.5 → q = 2.83, r = 2.8
+         % Original S: r = 0.75q → passes through origin (0, 0)
+         % New S': r = 0.75q + 0.6 → y-intercept (0, 0.6)
+         % I: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         % New eq with I: 0.75q + 0.6 = -0.75q + 4.5 → q = 2.6, r = 2.55
          \begin{tikzpicture}[scale=0.9]
             % Reference lines
-            \draw[refline] (3.33,0) node[below, pointlabel] {$S_0^*$} -- (3.33,2.5);
-            \draw[refline] (0,2.5) node[left, pointlabel] {$r_0^*$} -- (3.33,2.5);
-            \draw[refline, HECgreen] (2.83,0) node[below, pointlabel, text=HECgreen] {$S_1^*$} -- (2.83,2.8);
-            \draw[refline, HECgreen] (0,2.8) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (2.83,2.8);
+            \draw[refline] (3.0,0) node[below, pointlabel] {$S_0^*$} -- (3.0,2.25);
+            \draw[refline] (0,2.25) node[left, pointlabel] {$r_0^*$} -- (3.0,2.25);
+            \draw[refline, HECgreen] (2.6,0) node[below, pointlabel, text=HECgreen] {$S_1^*$} -- (2.6,2.55);
+            \draw[refline, HECgreen] (0,2.55) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (2.6,2.55);
             % Original S (dashed gray)
-            \draw[original] (0,0.5) -- (5.5,3.8)
+            \draw[original] (0,0) -- (5.5,4.125)
                node[right, curvelabel, text=HECgray] {$S$};
             % New S' (shifted left, HECgreen)
-            \draw[curveshift, HECgreen] (0,1.1) -- (5.0,4.1)
+            \draw[curveshift, HECgreen] (0,0.6) -- (5,4.35)
                node[right, curvelabel, text=HECgreen] {$S'$};
             % I curve (unchanged)
-            \draw[very thick, HECcoral] (0,4.5) -- (5.5,1.2)
-               node[right, curvelabel, text=HECcoral] {$I$};
-            % Shift arrow (leftward on S) — at r=3.3: S at q=4.67, S' at q=3.67
-            \draw[shiftarrow, HECgreen] (4.4,3.3) -- (3.9,3.3);
+            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+               node[above, curvelabel, text=HECcoral] {$I$};
+            % Shift arrow (leftward on S) — at r=3.0: S at q=4.0, S' at q=3.2
+            \draw[shiftarrow, HECgreen] (3.8,3.0) -- (3.4,3.0);
             % Original equilibrium (faded)
-            \filldraw[eqfaded] (3.33,2.5) circle (2.5pt);
-            \node[pointlabel, HECgray, above left] at (3.33,2.5) {$E_0$};
+            \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
+            \node[pointlabel, HECgray, right] at (3.0,2.25) {$E_0$};
             % New equilibrium
-            \filldraw[eqpoint=HECgreen] (2.83,2.8) circle (3pt);
-            \node[pointlabel, HECgreen, above right] at (2.83,2.8) {$E_1$};
+            \filldraw[eqpoint=HECgreen] (2.6,2.55) circle (3pt);
+            \node[pointlabel, HECgreen, above] at (2.6,2.55) {$E_1$};
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
             \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
@@ -435,50 +431,50 @@
          \vspace{0.2cm}
          \begin{itemize}
             \setlength\itemsep{0.15cm}
-            \item Les retraités \textbf{désépargnent} (ils vivent de leur épargne accumulée)
+            \item Les retraités \textbf{désépargnent}
             \item $S$ se déplace vers la \textbf{gauche}
             \item $r^* \uparrow$ et $S^* = I^* \downarrow$
          \end{itemize}
          \vspace{0.2cm}
          \begin{keyinsight}
-            Le vieillissement de la population exerce une pression à la hausse sur les taux d'intérêt.
+            Le vieillissement hausse les taux d'intérêt.
          \end{keyinsight}
       \end{column}
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Application --- boom d'investissement (IA, transition verte)}
+\begin{frame}[t]{Application --- boom d'investissement (e.g., IA et centre de données)}
    \begin{columns}[T]
       \begin{column}{0.52\textwidth}
          \centering
          % I shifts RIGHT: new investment opportunities
-         % S: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-         % Original I: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-         % New I': r = -0.6q + 5.1 → y-intercept (0, 5.1)
-         % New eq with S: 0.6q + 0.5 = -0.6q + 5.1 → q = 3.83, r = 2.8
+         % S: r = 0.75q → passes through origin (0, 0)
+         % Original I: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         % New I': r = -0.75q + 5.1 → y-intercept (0, 5.1), x-intercept (6.8, 0)
+         % New eq with S: 0.75q = -0.75q + 5.1 → q = 3.4, r = 2.55
          \begin{tikzpicture}[scale=0.9]
             % Reference lines
-            \draw[refline] (3.33,0) node[below, pointlabel] {$I_0^*$} -- (3.33,2.5);
-            \draw[refline] (0,2.5) node[left, pointlabel] {$r_0^*$} -- (3.33,2.5);
-            \draw[refline, HECgreen] (3.83,0) node[below, pointlabel, text=HECgreen] {$I_1^*$} -- (3.83,2.8);
-            \draw[refline, HECgreen] (0,2.8) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (3.83,2.8);
+            \draw[refline] (3.0,0) node[below, pointlabel] {$I_0^*$} -- (3.0,2.25);
+            \draw[refline] (0,2.25) node[left, pointlabel] {$r_0^*$} -- (3.0,2.25);
+            \draw[refline, HECgreen] (3.4,0) node[below, pointlabel, text=HECgreen] {$I_1^*$} -- (3.4,2.55);
+            \draw[refline, HECgreen] (0,2.55) node[left, pointlabel, text=HECgreen] {$r_1^*$} -- (3.4,2.55);
             % S curve (unchanged)
-            \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+            \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
                node[right, curvelabel, text=HECnavy] {$S$};
             % Original I (dashed gray)
-            \draw[original] (0,4.5) -- (5.5,1.2)
+            \draw[original] (0,4.5) -- (6.0,0)
                node[right, curvelabel, text=HECgray] {$I$};
             % New I' (shifted right, HECgreen)
-            \draw[curveshift, HECgreen] (0,5.1) -- (6.0,1.5)
+            \draw[curveshift, HECgreen] (0,5.1) -- (6.0,0.6)
                node[right, curvelabel, text=HECgreen] {$I'$};
-            % Shift arrow (rightward on I) — at r=3.5: I at q=1.67, I' at q=2.67
-            \draw[shiftarrow, HECgreen] (1.9,3.5) -- (2.4,3.5);
+            % Shift arrow (rightward on I) — at r=3.5: I at q=1.33, I' at q=2.13
+            \draw[shiftarrow, HECgreen] (1.5,3.5) -- (2.0,3.5);
             % Original equilibrium (faded)
-            \filldraw[eqfaded] (3.33,2.5) circle (2.5pt);
-            \node[pointlabel, HECgray, above left] at (3.33,2.5) {$E_0$};
+            \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
+            \node[pointlabel, HECgray, above left] at (3.0,2.25) {$E_0$};
             % New equilibrium
-            \filldraw[eqpoint=HECgreen] (3.83,2.8) circle (3pt);
-            \node[pointlabel, HECgreen, above right] at (3.83,2.8) {$E_1$};
+            \filldraw[eqpoint=HECgreen] (3.4,2.55) circle (3pt);
+            \node[pointlabel, HECgreen, above right] at (3.4,2.55) {$E_1$};
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.8,0) node[right] {$S, I$};
             \draw[econaxis] (0,0) -- (0,5.4) node[above] {$r$};
@@ -498,22 +494,22 @@
          \vspace{0.1cm}
          \begin{bizimplication}
             \footnotesize
-            Si l'IA et la transition verte augmentent la demande d'investissement, les taux d'intérêt resteront élevés plus longtemps que prévu.
+            Si l'IA augmente l'investissement, les taux d'intérêt resteront élevés.
          \end{bizimplication}
       \end{column}
    \end{columns}
 \end{frame}
 
 
-\begin{frame}[t]{Du fermé à l'ouvert}
+\begin{frame}[t]{De l'économie fermée à l'économie ouverte}
    \small
    \vspace{0.1cm}
    \begin{columns}[T]
       \begin{column}{0.47\textwidth}
          \textbf{\textcolor{HECgray}{Économie fermée}}
-         \vspace{0.15cm}
+         \vspace{0.2cm}
          \begin{itemize}
-            \setlength\itemsep{0.15cm}
+            \setlength\itemsep{0.2cm}
             \item $S = I$ toujours
             \item Pas d'emprunt possible à l'étranger
             \item $r$ s'ajuste pour égaliser $S$ et $I$
@@ -521,127 +517,118 @@
       \end{column}
       \begin{column}{0.47\textwidth}
          \textbf{\textcolor{HECnavy}{Économie ouverte}}
-         \vspace{0.15cm}
+         \vspace{0.2cm}
          \begin{itemize}
-            \setlength\itemsep{0.15cm}
+            \setlength\itemsep{0.2cm}
             \item $S \neq I$ est possible
             \item La différence est le compte courant
             \item $CA = S - I$
          \end{itemize}
       \end{column}
    \end{columns}
-   \vspace{0.25cm}
+   \vspace{0.5cm}
    \begin{defbox}[Petite économie ouverte]
       Une économie dont les décisions n'affectent pas le taux d'intérêt mondial $r^w$. Le Canada est approximativement une petite économie ouverte.
    \end{defbox}
 \end{frame}
 
 \begin{frame}[t]{Diagramme S-I en économie ouverte}
-   \vspace{0.1cm}
    \centering
-   % S curve: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-   % I curve: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-   % Closed eq: q=3.33, r=2.5
+   % S curve: r = 0.75q → passes through origin (0, 0)
+   % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+   % Closed eq: q=3.0, r=2.25
    % World rate: r^w = 2.0 (below closed eq → domestic I > S → deficit)
-   % At r^w=2.0: S(2.0) = (2.0-0.5)/0.6 = 2.5, I(2.0) = (4.5-2.0)/0.6 = 4.17
-   % CA = S - I = 2.5 - 4.17 = -1.67 (deficit)
-   \begin{tikzpicture}[scale=0.9]
+   % At r^w=2.0: S(2.0) = 2.0/0.75 = 2.67, I(2.0) = (4.5-2.0)/0.75 = 3.33
+   % CA = S - I = 2.67 - 3.33 = -0.67 (deficit)
+   \begin{tikzpicture}[scale=1]
       % World interest rate (horizontal)
       \draw[HECgreen, very thick, dashed] (0.3,2.0) -- (5.8,2.0)
          node[right, curvelabel, text=HECgreen] {$r^w$};
       % Reference lines at r^w
-      \draw[refline] (2.5,0) node[below, pointlabel] {$S(r^w)$} -- (2.5,2.0);
-      \draw[refline] (4.17,0) node[below, pointlabel] {$I(r^w)$} -- (4.17,2.0);
+      \draw[refline] (2.67,0) node[below, pointlabel] {$S(r^w)$} -- (2.67,2.0);
+      \draw[refline] (3.33,0) node[below, pointlabel] {$I(r^w)$} -- (3.33,2.0);
       % S curve (HECnavy, upward)
-      \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+      \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
          node[right, curvelabel, text=HECnavy] {$S$};
       % I curve (HECcoral, downward)
-      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0.9)
+      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
          node[right, curvelabel, text=HECcoral] {$I$};
       % Closed economy equilibrium (faded)
-      \filldraw[eqfaded] (3.33,2.5) circle (2.5pt);
-      \node[pointlabel, HECgray, above] at (3.33,2.5) {$E_0$};
+      \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
+      \node[pointlabel, HECgray, above] at (3.0,2.25) {$E_0$};
       % CA deficit brace
       \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
-         (2.5,-0.25) -- (4.17,-0.25)
+         (2.67,-0.25) -- (3.33,-0.25)
          node[midway, below=10pt, font=\small\bfseries, text=HECcoral] {$CA < 0$ (déficit)};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
       \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
    \end{tikzpicture}
-   \vspace{0.1cm}
-   {\small Si $r^w < r^*$ (taux fermé), alors $I > S$ : le pays \textbf{emprunte} à l'étranger pour financer l'écart.}
 \end{frame}
 
 \begin{frame}[t]{Le cas inverse : un surplus du compte courant}
-   \vspace{0.1cm}
    \centering
-   % S curve: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-   % I curve: r = -0.6q + 4.5 → y-intercept (0, 4.5)
+   % S curve: r = 0.75q → passes through origin (0, 0)
+   % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
    % World rate: r^w = 3.0 (above closed eq → domestic S > I → surplus)
-   % At r^w=3.0: S(3.0) = (3.0-0.5)/0.6 = 4.17, I(3.0) = (4.5-3.0)/0.6 = 2.5
-   % CA = S - I = 4.17 - 2.5 = 1.67 (surplus)
-   \begin{tikzpicture}[scale=0.9]
+   % At r^w=3.0: S(3.0) = 3.0/0.75 = 4.0, I(3.0) = (4.5-3.0)/0.75 = 2.0
+   % CA = S - I = 4.0 - 2.0 = 2.0 (surplus)
+   \begin{tikzpicture}[scale=1]
       % World interest rate (horizontal)
       \draw[HECgreen, very thick, dashed] (0.3,3.0) -- (5.8,3.0)
          node[right, curvelabel, text=HECgreen] {$r^w$};
       % Reference lines at r^w
-      \draw[refline] (4.17,0) node[below, pointlabel] {$S(r^w)$} -- (4.17,3.0);
-      \draw[refline] (2.5,0) node[below, pointlabel] {$I(r^w)$} -- (2.5,3.0);
+      \draw[refline] (4.0,0) node[below, pointlabel] {$S(r^w)$} -- (4.0,3.0);
+      \draw[refline] (2.0,0) node[below, pointlabel] {$I(r^w)$} -- (2.0,3.0);
       % S curve (HECnavy, upward)
-      \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+      \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
          node[right, curvelabel, text=HECnavy] {$S$};
       % I curve (HECcoral, downward)
-      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0.9)
+      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
          node[right, curvelabel, text=HECcoral] {$I$};
       % Closed economy equilibrium (faded)
-      \filldraw[eqfaded] (3.33,2.5) circle (2.5pt);
-      \node[pointlabel, HECgray, below] at (3.33,2.5) {$E_0$};
+      \filldraw[eqfaded] (3.0,2.25) circle (2.5pt);
+      \node[pointlabel, HECgray, below] at (3.0,2.25) {$E_0$};
       % CA surplus brace
       \draw[decorate, decoration={brace, amplitude=8pt}, very thick, HECgreen]
-         (2.5,-0.25) -- (4.17,-0.25)
+         (2.0,-0.25) -- (4.0,-0.25)
          node[midway, below=10pt, font=\small\bfseries, text=HECgreen] {$CA > 0$ (surplus)};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
       \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
    \end{tikzpicture}
-   \vspace{0.1cm}
-   {\small Si $r^w > r^*$ (taux fermé), alors $S > I$ : le pays \textbf{prête} au reste du monde.}
 \end{frame}
 
 \begin{frame}[t]{Le diagramme à trois panneaux}
    \framesubtitle{L'image complète du marché mondial des fonds prêtables}
    \centering
    \vspace{0.1cm}
-   % Panel 1 (Domestic): S_H: r = 0.6q + 0.5, I_H: r = -0.6q + 4.5, closed eq: q=3.33, r=2.5
+   % Panel 1 (Domestic): S_H: r = 0.75q, I_H: r = -0.75q + 4.5, closed eq: q=3.0, r=2.25
    % Panel 2 (ROW):      S_R: r = 0.4q + 0.4, I_R: r = -0.4q + 3.6, closed eq: q=4.0, r=2.0
    % Panel 3 (World):    S^w = S_H + S_R, I^w = I_H + I_R
-   %   At r^w: S^w(r^w) = I^w(r^w)
-   %   S_H(r) = (r-0.5)/0.6, S_R(r) = (r-0.4)/0.4 → S^w(r) = (r-0.5)/0.6 + (r-0.4)/0.4
-   %   I_H(r) = (4.5-r)/0.6, I_R(r) = (3.6-r)/0.4 → I^w(r) = (4.5-r)/0.6 + (3.6-r)/0.4
-   %   Set S^w = I^w: (r-0.5)/0.6 + (r-0.4)/0.4 = (4.5-r)/0.6 + (3.6-r)/0.4
-   %   (2r-5)/0.6 + (2r-4)/0.4 = 0 → 10r/3 - 25/3 + 5r - 10 = 0
-   %   10r/3 + 5r = 25/3 + 10 → (10r+15r)/3 = (25+30)/3 → 25r = 55 → r^w = 2.2
-   %   At r^w=2.2: S_H = (2.2-0.5)/0.6 = 2.83, I_H = (4.5-2.2)/0.6 = 3.83 → CA_H = -1.0
-   %   At r^w=2.2: S_R = (2.2-0.4)/0.4 = 4.5, I_R = (3.6-2.2)/0.4 = 3.5 → CA_R = +1.0  ✓
+   %   S_H(r) = r/0.75, S_R(r) = (r-0.4)/0.4 → S^w(r) = r/0.75 + (r-0.4)/0.4
+   %   I_H(r) = (4.5-r)/0.75, I_R(r) = (3.6-r)/0.4 → I^w(r) = (4.5-r)/0.75 + (3.6-r)/0.4
+   %   Set S^w = I^w: (2r-4.5)/0.75 + (2r-4)/0.4 = 0 → 23r/3 = 16 → r^w = 48/23 ≈ 2.09
+   %   At r^w≈2.09: S_H = 64/23 ≈ 2.78, I_H = 74/23 ≈ 3.22 → CA_H = -10/23 ≈ -0.43
+   %   At r^w≈2.09: S_R = 97/23 ≈ 4.22, I_R = 87/23 ≈ 3.78 → CA_R = +10/23 ≈ +0.43  ✓
    \begin{tikzpicture}[scale=0.55]
       % ── Panel 1: Domestic ──────────────────────
       \begin{scope}[xshift=0cm]
          \node[font=\small\bfseries, text=HECnavy] at (3.25,5.3) {Domestique};
          % World rate
-         \draw[HECgreen, thick, dashed] (0.3,2.2) -- (5.8,2.2);
+         \draw[HECgreen, thick, dashed] (0.3,2.09) -- (5.8,2.09);
          % Reference lines at r^w
-         \draw[refline] (2.83,0) node[below, font=\scriptsize] {$S_H$} -- (2.83,2.2);
-         \draw[refline] (3.83,0) node[below, font=\scriptsize] {$I_H$} -- (3.83,2.2);
-         % S_H: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-         \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+         \draw[refline] (2.78,0) node[below, font=\scriptsize] {$S_H$} -- (2.78,2.09);
+         \draw[refline] (3.22,0) node[below, font=\scriptsize] {$I_H$} -- (3.22,2.09);
+         % S_H: r = 0.75q → passes through origin (0, 0)
+         \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
             node[right, font=\scriptsize\bfseries, text=HECnavy] {$S_H$};
-         % I_H: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-         \draw[very thick, HECcoral] (0,4.5) -- (5.5,1.2)
+         % I_H: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
             node[right, font=\scriptsize\bfseries, text=HECcoral] {$I_H$};
          % CA deficit brace
          \draw[decorate, decoration={brace, amplitude=5pt, mirror}, thick, HECcoral]
-            (2.83,-0.3) -- (3.83,-0.3)
+            (2.78,-0.3) -- (3.22,-0.3)
             node[midway, below=7pt, font=\scriptsize\bfseries, text=HECcoral] {$CA < 0$};
          % Axes
          \draw[econaxis] (0,0) -- (6.2,0) node[right, font=\scriptsize] {$S,I$};
@@ -651,10 +638,10 @@
       \begin{scope}[xshift=8cm]
          \node[font=\small\bfseries, text=HECnavy] at (3.25,5.3) {Reste du monde};
          % World rate
-         \draw[HECgreen, thick, dashed] (0.3,2.2) -- (5.8,2.2);
+         \draw[HECgreen, thick, dashed] (0.3,2.09) -- (5.8,2.09);
          % Reference lines at r^w
-         \draw[refline] (4.5,0) node[below, font=\scriptsize] {$S_R$} -- (4.5,2.2);
-         \draw[refline] (3.5,0) node[below, font=\scriptsize] {$I_R$} -- (3.5,2.2);
+         \draw[refline] (4.22,0) node[below, font=\scriptsize] {$S_R$} -- (4.22,2.09);
+         \draw[refline] (3.78,0) node[below, font=\scriptsize] {$I_R$} -- (3.78,2.09);
          % S_R: r = 0.4q + 0.4 → y-intercept (0, 0.4)
          \draw[very thick, HECnavy] (0,0.4) -- (5.5,2.6)
             node[right, font=\scriptsize\bfseries, text=HECnavy] {$S_R$};
@@ -663,7 +650,7 @@
             node[right, font=\scriptsize\bfseries, text=HECcoral] {$I_R$};
          % CA surplus brace
          \draw[decorate, decoration={brace, amplitude=5pt}, thick, HECgreen]
-            (3.5,-0.3) -- (4.5,-0.3)
+            (3.78,-0.3) -- (4.22,-0.3)
             node[midway, below=7pt, font=\scriptsize\bfseries, text=HECgreen] {$CA > 0$};
          % Axes
          \draw[econaxis] (0,0) -- (6.2,0) node[right, font=\scriptsize] {$S,I$};
@@ -673,24 +660,24 @@
       \begin{scope}[xshift=16cm]
          \node[font=\small\bfseries, text=HECnavy] at (3.75,5.3) {Monde};
          % World rate with label
-         \draw[HECgreen, thick, dashed] (0.3,2.2) -- (6.3,2.2)
+         \draw[HECgreen, thick, dashed] (0.3,2.09) -- (6.3,2.09)
             node[right, font=\scriptsize\bfseries, text=HECgreen] {$r^w$};
-         % S^w = S_H + S_R: at r, quantity = (r-0.5)/0.6 + (r-0.4)/0.4
-         % Plotted line: r = 0.4*q_plot + 0.44 → y-intercept (0, 0.44)
-         % At r=0.8: q_plot = 0.9, at r=2.2: q_plot = 4.4, at r=3.0: q_plot = 6.4
-         \draw[very thick, HECnavy] (0,0.44) -- (6.4,3.0)
+         % S^w = S_H + S_R: at r, quantity = r/0.75 + (r-0.4)/0.4
+         % Plotted line: r = (6/23)*q + 6/23 ≈ 0.261*q + 0.261
+         % At r≈2.09: q=7.0, at r≈2.87: q=10.0
+         \draw[very thick, HECnavy] (0,0.26) -- (10.0,2.87)
             node[right, font=\scriptsize\bfseries, text=HECnavy] {$S^w$};
-         % I^w = I_H + I_R: at r, quantity = (4.5-r)/0.6 + (3.6-r)/0.4
-         % Plotted line: r = -0.4*q_plot + 3.96 → y-intercept (0, 3.96)
-         % At r=2.2: q_plot = 4.4, at r=0.8: q_plot = 7.9
-         \draw[very thick, HECcoral] (0,3.96) -- (7.9,0.8)
+         % I^w = I_H + I_R: at r, quantity = (4.5-r)/0.75 + (3.6-r)/0.4
+         % Plotted line: r = -(6/23)*q + 90/23 ≈ -0.261*q + 3.913
+         % At r≈2.09: q=7.0, at r≈1.30: q=10.0
+         \draw[very thick, HECcoral] (0,3.91) -- (10.0,1.30)
             node[right, font=\scriptsize\bfseries, text=HECcoral] {$I^w$};
          % World equilibrium
-         \draw[refline] (4.4,0) node[below, font=\scriptsize] {$S^w\!=\!I^w$} -- (4.4,2.2);
-         \filldraw[eqpoint=HECgreen] (4.4,2.2) circle (3pt);
-         \node[pointlabel, HECgreen, above right, font=\scriptsize] at (4.4,2.2) {$E^w$};
+         \draw[refline] (7.0,0) node[below, font=\scriptsize] {$S^w\!=\!I^w$} -- (7.0,2.09);
+         \filldraw[eqpoint=HECgreen] (7.0,2.09) circle (3pt);
+         \node[pointlabel, HECgreen, above right, font=\scriptsize] at (7.0,2.09) {$E^w$};
          % Axes
-         \draw[econaxis] (0,0) -- (8.5,0) node[right, font=\scriptsize] {$S,I$};
+         \draw[econaxis] (0,0) -- (10.8,0) node[right, font=\scriptsize] {$S,I$};
          \draw[econaxis] (0,0) -- (0,4.8) node[above, font=\scriptsize] {$r$};
       \end{scope}
    \end{tikzpicture}
@@ -718,36 +705,36 @@
          \centering
          \vspace{0.1cm}
          % S_H shifts LEFT (G↑ → S_G↓ → S↓)
-         % Original S_H: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-         % New S_H': r = 0.6q + 1.1 → y-intercept (0, 1.1)
-         % I_H: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-         % In the domestic panel at old r^w=2.2: old S_H=2.83, new S_H'=(2.2-1.1)/0.6=1.83
-         % CA goes from -1.0 to S'-I = 1.83-3.83 = -2.0 (larger deficit)
+         % Original S_H: r = 0.75q → passes through origin (0, 0)
+         % New S_H': r = 0.75q + 0.6 → y-intercept (0, 0.6)
+         % I_H: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         % At r^w≈2.09: old S_H=2.78, new S_H'=(2.09-0.6)/0.75≈1.98, I_H=3.22
+         % CA goes from -0.43 to S'-I = 1.98-3.22 = -1.23 (larger deficit)
          \begin{tikzpicture}[scale=0.7]
             % World rate
-            \draw[HECgreen, thick, dashed] (0.3,2.2) -- (5.8,2.2)
+            \draw[HECgreen, thick, dashed] (0.3,2.09) -- (5.8,2.09)
                node[right, font=\scriptsize\bfseries, text=HECgreen] {$r^w$};
             % Original S_H (dashed)
-            \draw[original] (0,0.5) -- (5.5,3.8)
+            \draw[original] (0,0) -- (5.0,3.75)
                node[right, font=\scriptsize, text=HECgray] {$S_H$};
-            % New S_H' shifted left: r = 0.6q + 1.1
-            \draw[curveshift, HECnavy] (0,1.1) -- (5.0,4.1)
+            % New S_H' shifted left: r = 0.75q + 0.6
+            \draw[curveshift, HECnavy] (0,0.6) -- (4.5,3.975)
                node[right, font=\scriptsize\bfseries, text=HECnavy] {$S_H'$};
             % I_H unchanged
-            \draw[very thick, HECcoral] (0,4.5) -- (5.5,1.2)
+            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
                node[right, font=\scriptsize\bfseries, text=HECcoral] {$I_H$};
-            % Shift arrow — at r=3.2: S_H at q=4.5, S_H' at q=3.5
-            \draw[shiftarrow, HECnavy] (4.3,3.2) -- (3.7,3.2);
-            \node[font=\scriptsize, HECnavy, above] at (4.0,3.2) {$G \uparrow$};
+            % Shift arrow — at r=3.0: S_H at q=4.0, S_H' at q=3.2
+            \draw[shiftarrow, HECnavy] (3.8,3.0) -- (3.4,3.0);
+            \node[font=\scriptsize, HECnavy, above] at (3.6,3.0) {$G \uparrow$};
             % New reference lines at r^w
-            \draw[refline] (1.83,0) node[below, font=\scriptsize] {$S_H'$} -- (1.83,2.2);
-            \draw[refline] (3.83,0) node[below, font=\scriptsize] {$I_H$} -- (3.83,2.2);
+            \draw[refline] (1.98,0) node[below, font=\scriptsize] {$S_H'$} -- (1.98,2.09);
+            \draw[refline] (3.22,0) node[below, font=\scriptsize] {$I_H$} -- (3.22,2.09);
             % Wider CA deficit brace
             \draw[decorate, decoration={brace, amplitude=5pt, mirror}, thick, HECcoral]
-               (1.83,-0.3) -- (3.83,-0.3)
+               (1.98,-0.3) -- (3.22,-0.3)
                node[midway, below=7pt, font=\scriptsize\bfseries, text=HECcoral] {$CA \downarrow\downarrow$};
             % Axes
-            \draw[econaxis] (0,0) -- (6.2,0) node[right, font=\scriptsize] {$S,I$};
+            \draw[econaxis] (0,0) -- (6.5,0) node[right, font=\scriptsize] {$S,I$};
             \draw[econaxis] (0,0) -- (0,4.8) node[above, font=\scriptsize] {$r$};
          \end{tikzpicture}
       \end{column}
@@ -777,33 +764,33 @@
       \begin{column}{0.55\textwidth}
          \centering
          % I_H shifts RIGHT (tech boom → more profitable projects)
-         % S_H: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-         % Original I_H: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-         % New I_H': r = -0.6q + 5.1 → y-intercept (0, 5.1)
-         % At r^w=2.2: old I_H=3.83, new I_H'=(5.1-2.2)/0.6=4.83
-         % CA goes from -1.0 to S-I' = 2.83-4.83 = -2.0 (larger deficit)
+         % S_H: r = 0.75q → passes through origin (0, 0)
+         % Original I_H: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         % New I_H': r = -0.75q + 5.1 → y-intercept (0, 5.1), x-intercept (6.8, 0)
+         % At r^w≈2.09: S_H=2.78, old I_H=3.22, new I_H'=(5.1-2.09)/0.75≈4.02
+         % CA goes from -0.43 to S-I' = 2.78-4.02 = -1.23 (larger deficit)
          \begin{tikzpicture}[scale=0.7]
             % World rate
-            \draw[HECgreen, thick, dashed] (0.3,2.2) -- (5.8,2.2)
+            \draw[HECgreen, thick, dashed] (0.3,2.09) -- (5.8,2.09)
                node[right, font=\scriptsize\bfseries, text=HECgreen] {$r^w$};
             % S_H unchanged
-            \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+            \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
                node[right, font=\scriptsize\bfseries, text=HECnavy] {$S_H$};
             % Original I_H (dashed)
-            \draw[original] (0,4.5) -- (5.5,1.2)
+            \draw[original] (0,4.5) -- (6.0,0)
                node[right, font=\scriptsize, text=HECgray] {$I_H$};
-            % New I_H' shifted right: r = -0.6q + 5.1
-            \draw[curveshift, HECcoral] (0,5.1) -- (6.0,1.5)
+            % New I_H' shifted right: r = -0.75q + 5.1
+            \draw[curveshift, HECcoral] (0,5.1) -- (6.0,0.6)
                node[right, font=\scriptsize\bfseries, text=HECcoral] {$I_H'$};
-            % Shift arrow — at r=3.5: I at q=1.67, I' at q=2.67
-            \draw[shiftarrow, HECcoral] (1.9,3.5) -- (2.4,3.5);
-            \node[font=\scriptsize, HECcoral, above] at (2.15,3.5) {$A \uparrow$};
+            % Shift arrow — at r=3.5: I at q=1.33, I' at q=2.13
+            \draw[shiftarrow, HECcoral] (1.5,3.5) -- (2.0,3.5);
+            \node[font=\scriptsize, HECcoral, above] at (1.75,3.5) {$A \uparrow$};
             % New reference lines at r^w
-            \draw[refline] (2.83,0) node[below, font=\scriptsize] {$S_H$} -- (2.83,2.2);
-            \draw[refline] (4.83,0) node[below, font=\scriptsize] {$I_H'$} -- (4.83,2.2);
+            \draw[refline] (2.78,0) node[below, font=\scriptsize] {$S_H$} -- (2.78,2.09);
+            \draw[refline] (4.02,0) node[below, font=\scriptsize] {$I_H'$} -- (4.02,2.09);
             % Wider CA deficit brace
             \draw[decorate, decoration={brace, amplitude=5pt, mirror}, thick, HECcoral]
-               (2.83,-0.3) -- (4.83,-0.3)
+               (2.78,-0.3) -- (4.02,-0.3)
                node[midway, below=7pt, font=\scriptsize\bfseries, text=HECcoral] {$CA \downarrow\downarrow$};
             % Axes
             \draw[econaxis] (0,0) -- (6.5,0) node[right, font=\scriptsize] {$S,I$};
@@ -837,32 +824,32 @@
          % In the ROW panel: S_R shifts RIGHT → r^w falls
          % Show this as a domestic panel with r^w falling
          % At new lower r^w=1.7 (example):
-         % S_H(1.7) = (1.7-0.5)/0.6 = 2.0, I_H(1.7) = (4.5-1.7)/0.6 = 4.67
-         % CA = 2.0 - 4.67 = -2.67 (larger deficit)
+         % S_H(1.7) = 1.7/0.75 = 2.27, I_H(1.7) = (4.5-1.7)/0.75 = 3.73
+         % CA = 2.27 - 3.73 = -1.47 (larger deficit)
          \begin{tikzpicture}[scale=0.7]
             % Old world rate
-            \draw[HECgray, thick, dashed] (0.3,2.2) -- (5.8,2.2)
+            \draw[HECgray, thick, dashed] (0.3,2.09) -- (5.8,2.09)
                node[right, font=\scriptsize, text=HECgray] {$r^w$};
             % New world rate (lower)
             \draw[HECgreen, very thick, dashed] (0.3,1.7) -- (5.8,1.7)
                node[right, font=\scriptsize\bfseries, text=HECgreen] {$r^{w\prime}$};
             % Arrow showing r^w fall
-            \draw[shiftarrow, HECgreen] (0.8,2.1) -- (0.8,1.8);
-            % S_H: r = 0.6q + 0.5 → y-intercept (0, 0.5)
-            \draw[very thick, HECnavy] (0,0.5) -- (5.5,3.8)
+            \draw[shiftarrow, HECgreen] (0.8,2.0) -- (0.8,1.8);
+            % S_H: r = 0.75q → passes through origin (0, 0)
+            \draw[very thick, HECnavy] (0,0) -- (5.0,3.75)
                node[right, font=\scriptsize\bfseries, text=HECnavy] {$S_H$};
-            % I_H: r = -0.6q + 4.5 → y-intercept (0, 4.5)
-            \draw[very thick, HECcoral] (0,4.5) -- (5.5,1.2)
+            % I_H: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
                node[right, font=\scriptsize\bfseries, text=HECcoral] {$I_H$};
             % Reference lines at new r^w
-            \draw[refline] (2.0,0) node[below, font=\scriptsize] {$S_H'$} -- (2.0,1.7);
-            \draw[refline] (4.67,0) node[below, font=\scriptsize] {$I_H'$} -- (4.67,1.7);
+            \draw[refline] (2.27,0) node[below, font=\scriptsize] {$S_H'$} -- (2.27,1.7);
+            \draw[refline] (3.73,0) node[below, font=\scriptsize] {$I_H'$} -- (3.73,1.7);
             % CA deficit brace
             \draw[decorate, decoration={brace, amplitude=5pt, mirror}, thick, HECcoral]
-               (2.0,-0.3) -- (4.67,-0.3)
+               (2.27,-0.3) -- (3.73,-0.3)
                node[midway, below=7pt, font=\scriptsize\bfseries, text=HECcoral] {$CA \downarrow\downarrow$};
             % Axes
-            \draw[econaxis] (0,0) -- (6.2,0) node[right, font=\scriptsize] {$S,I$};
+            \draw[econaxis] (0,0) -- (6.5,0) node[right, font=\scriptsize] {$S,I$};
             \draw[econaxis] (0,0) -- (0,4.8) node[above, font=\scriptsize] {$r$};
          \end{tikzpicture}
       \end{column}
