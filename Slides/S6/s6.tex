@@ -459,12 +459,12 @@
    Une entreprise canadienne qui veut construire une usine n'a pas besoin de compter sur l'épargne canadienne. Elle peut emprunter à un \textbf{fonds de pension} allemand, un \textbf{fonds souverain} norvégien ou une \textbf{banque} japonaise.
    \vspace{0.2cm}
 
-   Il existe donc un \textbf{taux d'intérêt mondial} $r^w$ auquel les pays peuvent emprunter ou prêter sur les marchés internationaux.
+   Il existe donc un \textbf{taux d'intérêt mondial} $r^W$ auquel les pays peuvent emprunter ou prêter sur les marchés internationaux.
    \vspace{0.15cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item Si $r^w < r^*$ $\to$ moins cher d'emprunter à l'étranger $\to$ capitaux entrants $\to$ $I > S$
-      \item Si $r^w > r^*$ $\to$ plus rentable de prêter à l'étranger $\to$ capitaux sortants $\to$ $S > I$
+      \item Si $r^W < r^*$ $\to$ moins cher d'emprunter à l'étranger $\to$ capitaux entrants $\to$ $I > S$
+      \item Si $r^W > r^*$ $\to$ plus rentable de prêter à l'étranger $\to$ capitaux sortants $\to$ $S > I$
    \end{itemize}
    \vspace{0.15cm}
    \begin{bizimplication}
@@ -501,8 +501,8 @@
    \vspace{0.3cm}
    \begin{defbox}[Petite vs grande économie ouverte]
       \footnotesize
-      \textbf{Grande économie ouverte} (É.-U., Chine) : ses décisions affectent $r^w$. Un choc domestique modifie partiellement le taux mondial.\\[4pt]
-      \textbf{Petite économie ouverte} (Canada, Suisse) : $r^w$ est \textbf{donné}. Les politiques domestiques affectent le compte courant, pas le taux d'intérêt.
+      \textbf{Grande économie ouverte} (É.-U., Chine) : ses décisions affectent $r^W$. Un choc domestique modifie partiellement le taux mondial.\\[4pt]
+      \textbf{Petite économie ouverte} (Canada, Suisse) : $r^W$ est \textbf{donné}. Les politiques domestiques affectent le compte courant, pas le taux d'intérêt.
    \end{defbox}
 \end{frame}
 
@@ -511,14 +511,14 @@
    % S curve: r = 0.75q → passes through origin (0, 0)
    % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
    % Closed eq: q=3.0, r=2.25
-   % World rate: r^w = 1.8 (below closed eq → domestic I > S → deficit)
-   % At r^w=1.8: S(1.8) = 1.8/0.75 = 2.4, I(1.8) = (4.5-1.8)/0.75 = 3.6
+   % World rate: r^W = 1.8 (below closed eq → domestic I > S → deficit)
+   % At r^W=1.8: S(1.8) = 1.8/0.75 = 2.4, I(1.8) = (4.5-1.8)/0.75 = 3.6
    % CA = S - I = 2.4 - 3.6 = -1.2 (deficit)
    \begin{tikzpicture}[scale=1]
       % World interest rate (horizontal)
       \draw[HECgreen, very thick, dotted] (0,1.8) -- (6.5,1.8)
-         node[right, curvelabel, text=HECgreen] {$r^w$};
-      % Reference lines at r^w
+         node[right, curvelabel, text=HECgreen] {$r^W$};
+      % Reference lines at r^W
       \draw[refline] (2.4,0) node[below, pointlabel] {$S$} -- (2.4,1.8);
       \draw[refline] (3.6,0) node[below, pointlabel] {$I$} -- (3.6,1.8);
       % S curve (HECnavy, upward)
@@ -527,7 +527,7 @@
       % I curve (HECcoral, downward)
       \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
          node[above, curvelabel, text=HECcoral] {$I$};
-      % Open-economy allocations at r^w
+      % Open-economy allocations at r^W
       \filldraw[eqpoint=HECnavy] (2.4,1.8) circle (2.7pt);
       \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (2.7pt);
       % CA deficit brace
@@ -544,27 +544,27 @@
 \begin{frame}[t]{Le diagramme à deux panneaux}
    \centering
    \vfill
-   % Panel 1 (World): S^w: r = 0.42q + 0.13, I^w: r = -0.65q + 4.42
+   % Panel 1 (World): S^W: r = 0.42q + 0.13, I^W: r = -0.65q + 4.42
    %   Equilibrium: 0.42q + 0.13 = -0.65q + 4.42 → 1.07q = 4.29 → q = 4.01, r = 1.82 ≈ 1.8
-   % Panel 2 (Domestic): S_H: r = 0.75q, I_H: r = -0.75q + 4.5
-   %   At r^w = 1.8: S_H = 2.4, I_H = 3.6, CA = -1.2
+   % Panel 2 (Domestic): S: r = 0.75q, I: r = -0.75q + 4.5
+   %   At r^W = 1.8: S = 2.4, I = 3.6, CA = -1.2
    \begin{tikzpicture}[scale=0.9]
       % ── Panel 1: World ──────────────────────────
       \begin{scope}[xshift=0cm]
          \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.2) {Monde};
-         % r^w horizontal (green dotted, spans full width)
+         % r^W horizontal (green dotted, spans full width)
          \draw[HECgreen, very thick, dotted] (0,1.8) -- (6.5,1.8);
-         % S^w: r = 0.42q + 0.13
+         % S^W: r = 0.42q + 0.13
          \draw[very thick, HECnavy] (0,0.13) -- (6.0,2.65)
-            node[above, xshift=-4pt, curvelabel, text=HECnavy] {$S^w$};
-         % I^w: r = -0.65q + 4.42
+            node[above, xshift=-4pt, curvelabel, text=HECnavy] {$S^W$};
+         % I^W: r = -0.65q + 4.42
          \draw[very thick, HECcoral] (0,4.42) -- (6.0,0.52)
-            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^w$};
+            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^W$};
          % Equilibrium
-         \draw[refline] (4.01,0) node[below, pointlabel] {$S^w = I^w$} -- (4.01,1.8);
-         \node[left, pointlabel] at (0,1.8) {$r^w$};
+         \draw[refline] (4.01,0) node[below, pointlabel] {$S^W = I^W$} -- (4.01,1.8);
+         \node[left, pointlabel] at (0,1.8) {$r^W$};
          \filldraw[eqpoint=HECgreen] (4.01,1.8) circle (3pt);
-         \node[pointlabel, HECgreen, above right] at (4.01,1.8) {$E^w$};
+         \node[pointlabel, HECgreen, above right] at (4.01,1.8) {$E^W$};
          % Axes
          \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
          \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
@@ -573,18 +573,18 @@
       % ── Panel 2: Domestic ──────────────────────
       \begin{scope}[xshift=7.5cm]
          \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.2) {Domestique};
-         % r^w horizontal
+         % r^W horizontal
          \draw[HECgreen, very thick, dotted] (0,1.8) -- (5.8,1.8);
-         \node[left, pointlabel, text=HECgreen] at (0,1.8) {$r^w$};
-         % S_H: r = 0.75q
+         \node[left, pointlabel, text=HECgreen] at (0,1.8) {$r^W$};
+         % S: r = 0.75q
          \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
-            node[above left, curvelabel, text=HECnavy] {$S_H$};
-         % I_H: r = -0.75q + 4.5
+            node[above left, curvelabel, text=HECnavy] {$S$};
+         % I: r = -0.75q + 4.5
          \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
-            node[above, curvelabel, text=HECcoral] {$I_H$};
-         % Allocations at r^w
-         \draw[refline] (2.4,0) node[below, pointlabel] {$S_H$} -- (2.4,1.8);
-         \draw[refline] (3.6,0) node[below, pointlabel] {$I_H$} -- (3.6,1.8);
+            node[above, curvelabel, text=HECcoral] {$I$};
+         % Allocations at r^W
+         \draw[refline] (2.4,0) node[below, pointlabel] {$S$} -- (2.4,1.8);
+         \draw[refline] (3.6,0) node[below, pointlabel] {$I$} -- (3.6,1.8);
          \filldraw[eqpoint=HECnavy] (2.4,1.8) circle (2.7pt);
          \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (2.7pt);
          % CA deficit brace
@@ -619,22 +619,42 @@
 \sectionframe{Le puzzle américain et l'excès\\ d'épargne mondiale}
 % ============================================================================
 
-\begin{frame}[t]{Le puzzle du déficit américain}
-   \small
-   \vspace{0.2cm}
-   Depuis les années 1980, les É.-U.\ ont un \textbf{déficit persistant} du compte courant et des taux d'intérêt réels en \textbf{baisse}.
-   \vspace{0.3cm}
+\begin{frame}{Indice no 1 --- le déficit américain est persistant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_ca_balance_gdp.png}
+   \end{figure}
+\end{frame}
 
-   Testons trois hypothèses avec notre diagramme à deux panneaux :
+\begin{frame}{Indice no 2 --- les taux d'intérêt réels ont chuté}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{lw_rstar.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Deux indices, trois suspects}
+   \small
+   \textbf{La scène du crime :}
    \vspace{0.15cm}
    \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Déficits budgétaires} ($S_G \downarrow$) --- baisse de l'épargne publique
-      \item \textbf{Boom technologique} ($I \uparrow$) --- hausse de l'investissement
-      \item \textbf{Excès d'épargne mondiale} ($S^w_R \uparrow$) --- hypothèse de Bernanke
+      \setlength\itemsep{0.15cm}
+      \item Le déficit du compte courant américain se \textbf{creuse} ($CA \downarrow$)
+      \item Le taux d'intérêt réel mondial \textbf{baisse} ($r^W \downarrow$)
    \end{enumerate}
    \vspace{0.2cm}
-   \textbf{Laquelle peut expliquer à la fois $CA \downarrow$ et $r \downarrow$\,?}
+   \textbf{Les suspects :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Déficits budgétaires} ($S_G \downarrow$) --- baisse de l'épargne publique
+      \item \textbf{Boom technologique} ($I \uparrow$) --- hausse de l'investissement
+      \item \textbf{Excès d'épargne mondiale} ($S^W \uparrow$) --- hypothèse de Bernanke
+   \end{enumerate}
+   \vspace{0.2cm}
+   \begin{warning}[La question]
+      Quel suspect peut expliquer \textbf{les deux indices} simultanément\,?
+   \end{warning}
 \end{frame}
 
 % --- Hypothèse 1: Déficits budgétaires ---
@@ -647,98 +667,104 @@
    \begin{itemize}
       \setlength\itemsep{0.2cm}
       \item Baisses d'impôts Reagan (1981), Bush (2001, 2003), Trump (2017)
-      \item Guerres en Irak et Afghanistan, plans de relance
-      \item $S_G \downarrow$ $\to$ $S = S_P + S_G$ diminue $\to$ $S_H$ se déplace vers la \textbf{gauche}
+      \item Guerres en Irak et Afghanistan, plans de relance successifs
+      \item La dette publique américaine passe de 30\,\% du PIB (1980) à plus de 120\,\% (2024)
    \end{itemize}
    \vspace{0.15cm}
-   \textbf{Que prédit le modèle\,?}
+   \textbf{Conséquence dans le modèle $S$-$I$\,:}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item $S_H \downarrow$ $\to$ $S^w \downarrow$ (les É.-U.\ sont une grande économie)
-      \item $r^w$ \textbf{augmente} et $CA$ se \textbf{détériore}
+      \item $S_G \downarrow$ $\to$ $S = S_P + S_G$ diminue $\to$ $S$ se déplace vers la \textbf{gauche}
+      \item Comme les É.-U.\ sont une grande économie, $S^W$ diminue aussi
+      \item Voyons ce que prédit notre modèle\ldots
    \end{itemize}
+\end{frame}
+
+\begin{frame}{Les données : déficits jumeaux américains}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_twin_deficits.png}
+   \end{figure}
 \end{frame}
 
 \begin{frame}[t]{Hypothèse 1 --- le diagramme}
    \centering
    \vfill
-   % S_H shifts LEFT by 0.8 in q: S_H': r = 0.75q + 0.6
-   % S^w shifts LEFT by 0.8 in q: S^w': r = 0.42q + 0.466
-   % New world eq: 0.42q + 0.466 = -0.65q + 4.42 → q = 3.70, r = 2.02 ≈ 2.0
-   % At r^w' = 2.0: S_H' = (2.0-0.6)/0.75 = 1.87, I_H = (4.5-2.0)/0.75 = 3.33, CA = -1.47
+   % ── Initial: r^W=2.5, dom S=I at (3,2.5), CA=0 ──
+   % Dom: S=0.8q+0.1, I=-0.8q+4.9  |  World: S^W=0.8q-0.3, I^W=-0.8q+5.3
+   % Shock: S left 1.75 → S'=0.8q+1.5;  S^W left 0.75 → S^W'=0.8q+0.3
+   % New world eq: (3.125, 2.8).  At r^W'=2.8: S'=1.625, I=2.625, CA=-1.0
    \begin{tikzpicture}[scale=0.9]
-      % ── Panel 1: World ──────────────────────────
+      % ── Panel 1: Monde ────────────────────────
       \begin{scope}[xshift=0cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.2) {Monde};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (6.5,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,2.0) -- (6.5,2.0);
-         % I^w unchanged
-         \draw[very thick, HECcoral] (0,4.42) -- (6.0,0.52)
-            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^w$};
-         % Original S^w (dashed gray)
-         \draw[original] (0,0.13) -- (6.0,2.65)
-            node[above, xshift=-4pt, font=\small, text=HECgray] {$S^w$};
-         % New S^w' (shifted left): r = 0.42q + 0.466
-         \draw[curveshift, HECgreen] (0,0.47) -- (6.0,2.99)
-            node[above, xshift=-4pt, curvelabel, text=HECgreen] {$S^{w\prime}$};
-         % Shift arrow
-         \draw[shiftarrow, HECgreen] (4.5,2.3) -- (3.7,2.3);
-         \node[font=\scriptsize, HECgreen, above] at (4.1,2.3) {$S_H \downarrow$};
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.3) {Monde};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.5,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W'
+         \draw[HECgreen, very thick, dotted] (0,2.8) -- (6.5,2.8);
+         \node[left, pointlabel, text=HECgreen] at (0,2.8) {$r^{W\prime}$};
+         % I^W unchanged (coral): slope -0.8 same as domestic, clipped at axis
+         \draw[very thick, HECcoral] (0.375,5.0) -- (6.5,0.1)
+            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^W$};
+         % Original S^W (gray dashed): slope 0.8, x-intercept at q=0.375
+         \draw[original] (0.375,0) -- (6.5,4.9)
+            node[right, font=\small, text=HECgray] {$S^W$};
+         % New S^W' (green, shifted left): r=0.8q+0.3
+         \draw[curveshift, HECgreen] (0,0.3) -- (6.125,5.2)
+            node[right, curvelabel, text=HECgreen] {$S^{W\prime}$};
+         % Shift arrow at r=1.5
+         \draw[shiftarrow, HECgreen] (2.25,1.5) -- (1.5,1.5);
          % Old equilibrium (faded)
-         \filldraw[eqfaded] (4.01,1.8) circle (2.5pt);
+         \filldraw[eqfaded] (3.5,2.5) circle (2.5pt);
          % New equilibrium
-         \draw[refline, HECgreen] (3.70,0) node[below, pointlabel, text=HECgreen] {$S^{w\prime} = I^w$} -- (3.70,2.0);
-         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{w\prime}$};
-         \filldraw[eqpoint=HECgreen] (3.70,2.0) circle (3pt);
+         \draw[refline, HECgreen] (3.125,0) node[below, pointlabel, text=HECgreen] {$S^{W\prime}\!=\!I^W$} -- (3.125,2.8);
+         \filldraw[eqpoint=HECgreen] (3.125,2.8) circle (3pt);
          % Axes
          \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
-         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+         \draw[econaxis] (0,0) -- (0,5.2) node[above] {$r$};
       \end{scope}
 
       % ── Panel 2: É.-U. ────────────────────────
       \begin{scope}[xshift=7.5cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.2) {É.-U.};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (5.8,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,2.0) -- (5.8,2.0);
-         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{w\prime}$};
-         % Shift arrow on r^w
-         \draw[shiftarrow, HECgreen] (-0.15,1.88) -- (-0.15,1.92);
-         % Original S_H (dashed gray)
-         \draw[original] (0,0) -- (5.5,4.125)
-            node[above left, font=\small, text=HECgray] {$S_H$};
-         % New S_H' (shifted left): r = 0.75q + 0.6
-         \draw[curveshift, HECgreen] (0,0.6) -- (5.0,4.35)
-            node[above left, curvelabel, text=HECgreen] {$S_H'$};
-         % I_H unchanged
-         \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
-            node[above, curvelabel, text=HECcoral] {$I_H$};
-         % Old allocations (faded)
-         \filldraw[eqfaded] (2.4,1.8) circle (2pt);
-         \filldraw[eqfaded] (3.6,1.8) circle (2pt);
-         % New allocations at r^w' = 2.0
-         \draw[refline] (1.87,0) node[below, pointlabel] {$S_H'$} -- (1.87,2.0);
-         \draw[refline] (3.33,0) node[below, pointlabel] {$I_H$} -- (3.33,2.0);
-         \filldraw[eqpoint=HECgreen] (1.87,2.0) circle (2.7pt);
-         \filldraw[eqpoint=HECcoral] (3.33,2.0) circle (2.7pt);
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.5) {É.-U.};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.0,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W'
+         \draw[HECgreen, very thick, dotted] (0,2.8) -- (6.0,2.8);
+         \node[left, pointlabel, text=HECgreen] at (0,2.8) {$r^{W\prime}$};
+         % Original S (gray dashed)
+         \draw[original] (0,0.1) -- (6,4.9)
+            node[right, font=\small, text=HECgray] {$S$};
+         % New S' (green, shifted left)
+         \draw[curveshift, HECgreen] (0,1.5) -- (4.5,5.1)
+            node[right, curvelabel, text=HECgreen] {$S'$};
+         % Shift arrow on S at r=3.5
+         \draw[shiftarrow, HECgreen] (4.25,3.5) -- (2.5,3.5);
+         % I unchanged (coral)
+         \draw[very thick, HECcoral] (0,4.9) -- (6,0.1)
+            node[above, curvelabel, text=HECcoral] {$I$};
+         % Old equilibrium (single dot, CA=0)
+         \filldraw[eqfaded] (3.0,2.5) circle (2.5pt);
+         % New allocations at r^W'=2.8
+         \draw[refline] (1.625,0) node[below, pointlabel] {$S'$} -- (1.625,2.8);
+         \draw[refline] (2.625,0) node[below, pointlabel] {$I$} -- (2.625,2.8);
+         \filldraw[eqpoint=HECgreen] (1.625,2.8) circle (2.7pt);
+         \filldraw[eqpoint=HECcoral] (2.625,2.8) circle (2.7pt);
          % CA deficit brace
          \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
-            (1.87,-0.55) -- (3.33,-0.55)
-            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA \downarrow$};
+            (1.625,-0.55) -- (2.625,-0.55)
+            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$};
          % Axes
          \draw[econaxis] (0,0) -- (6.2,0) node[right] {$S, I$};
-         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+         \draw[econaxis] (0,0) -- (0,5.3) node[above] {$r$};
       \end{scope}
    \end{tikzpicture}
    \vfill
    \centering
-   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^w \uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \quad (les taux ont \textbf{baissé})}
+   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^W \uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \quad (les taux ont \textbf{baissé})}
 \end{frame}
 
 % --- Hypothèse 2: Boom technologique ---
@@ -752,52 +778,58 @@
       \setlength\itemsep{0.2cm}
       \item Révolution internet, bulle technologique (dot-com)
       \item Investissement massif en TI, télécommunications, logiciels
-      \item $I_H$ se déplace vers la \textbf{droite} (plus de projets rentables)
+      \item L'investissement privé américain passe de 15\,\% à 18\,\% du PIB entre 1991 et 2000
    \end{itemize}
    \vspace{0.15cm}
-   \textbf{Que prédit le modèle\,?}
+   \textbf{Conséquence dans le modèle $S$-$I$\,:}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item $I_H \uparrow$ $\to$ $I^w \uparrow$ (les É.-U.\ sont une grande économie)
-      \item $r^w$ \textbf{augmente} et $CA$ se \textbf{détériore}
+      \item $I$ se déplace vers la \textbf{droite} (davantage de projets rentables à chaque taux)
+      \item Comme les É.-U.\ sont une grande économie, $I^W$ augmente aussi
+      \item Voyons ce que prédit notre modèle\ldots
    \end{itemize}
+\end{frame}
+
+\begin{frame}{Les données : boom d'investissement américain}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_investment_gdp.png}
+   \end{figure}
 \end{frame}
 
 \begin{frame}[t]{Hypothèse 2 --- le diagramme}
    \centering
    \vfill
-   % I_H shifts RIGHT by 0.8 in q: I_H': r = -0.75q + 5.1
-   % I^w shifts RIGHT by 0.8 in q: I^w': r = -0.65q + 4.94
-   % New world eq: 0.42q + 0.13 = -0.65q + 4.94 → q = 4.50, r = 2.02 ≈ 2.0
-   % At r^w' = 2.0: S_H = 2.0/0.75 = 2.67, I_H' = (5.1-2.0)/0.75 = 4.13, CA = -1.47
+   % ── Same initial state. Shock: I right 1.75 → I'=-0.8q+6.3
+   % I^W right 0.75 → I^W'=-0.8q+5.9
+   % New world eq: (3.875, 2.8).  At r^W'=2.8: S=3.375, I'=4.375, CA=-1.0
    \begin{tikzpicture}[scale=0.9]
-      % ── Panel 1: World ──────────────────────────
+      % ── Panel 1: Monde ────────────────────────
       \begin{scope}[xshift=0cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.2) {Monde};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (6.5,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,2.0) -- (6.5,2.0);
-         % S^w unchanged
-         \draw[very thick, HECnavy] (0,0.13) -- (6.0,2.65)
-            node[above, xshift=-4pt, curvelabel, text=HECnavy] {$S^w$};
-         % Original I^w (dashed gray)
-         \draw[original] (0,4.42) -- (6.0,0.52)
-            node[above, xshift=-2pt, font=\small, text=HECgray] {$I^w$};
-         % New I^w' (shifted right): r = -0.65q + 4.94
-         \draw[curveshift, HECgreen] (0,4.94) -- (6.0,1.04)
-            node[above, xshift=-2pt, curvelabel, text=HECgreen] {$I^{w\prime}$};
-         % Shift arrow
-         \draw[shiftarrow, HECgreen] (3.0,2.8) -- (3.8,2.8);
-         \node[font=\scriptsize, HECgreen, above] at (3.4,2.8) {$I_H \uparrow$};
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.3) {Monde};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.5,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W'
+         \draw[HECgreen, very thick, dotted] (0,2.8) -- (6.5,2.8);
+         \node[left, pointlabel, text=HECgreen] at (0,2.8) {$r^{W\prime}$};
+         % S^W unchanged (navy): slope 0.8, x-intercept at q=0.375
+         \draw[very thick, HECnavy] (0.375,0) -- (6.5,4.9)
+            node[right, curvelabel, text=HECnavy] {$S^W$};
+         % Original I^W (gray dashed): slope -0.8, clipped at axis
+         \draw[original] (0.375,5.0) -- (6.5,0.1)
+            node[above, xshift=-2pt, font=\small, text=HECgray] {$I^W$};
+         % New I^W' (green, shifted right): r=-0.8q+5.9, clipped
+         \draw[curveshift, HECgreen] (1.125,5.0) -- (6.5,0.7)
+            node[right, curvelabel, text=HECgreen] {$I^{W\prime}$};
+         % Shift arrow at r=3.5
+         \draw[shiftarrow, HECgreen] (2.25,3.5) -- (3.0,3.5);
          % Old equilibrium (faded)
-         \filldraw[eqfaded] (4.01,1.8) circle (2.5pt);
+         \filldraw[eqfaded] (3.5,2.5) circle (2.5pt);
          % New equilibrium
-         \draw[refline, HECgreen] (4.50,0) node[below, pointlabel, text=HECgreen] {$S^w = I^{w\prime}$} -- (4.50,2.0);
-         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{w\prime}$};
-         \filldraw[eqpoint=HECgreen] (4.50,2.0) circle (3pt);
+         \draw[refline, HECgreen] (3.875,0) node[below, pointlabel, text=HECgreen] {$S^W\!=\!I^{W\prime}$} -- (3.875,2.8);
+         \filldraw[eqpoint=HECgreen] (3.875,2.8) circle (3pt);
          % Axes
          \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
          \draw[econaxis] (0,0) -- (0,5.2) node[above] {$r$};
@@ -805,50 +837,48 @@
 
       % ── Panel 2: É.-U. ────────────────────────
       \begin{scope}[xshift=7.5cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.2) {É.-U.};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (5.8,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,2.0) -- (5.8,2.0);
-         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{w\prime}$};
-         % Shift arrow on r^w
-         \draw[shiftarrow, HECgreen] (-0.15,1.88) -- (-0.15,1.92);
-         % S_H unchanged
-         \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
-            node[above left, curvelabel, text=HECnavy] {$S_H$};
-         % Original I_H (dashed gray)
-         \draw[original] (0,4.5) -- (6.0,0)
-            node[above, font=\small, text=HECgray] {$I_H$};
-         % New I_H' (shifted right): r = -0.75q + 5.1
-         \draw[curveshift, HECgreen] (0,5.1) -- (6.0,0.6)
-            node[above, curvelabel, text=HECgreen] {$I_H'$};
-         % Old allocations (faded)
-         \filldraw[eqfaded] (2.4,1.8) circle (2pt);
-         \filldraw[eqfaded] (3.6,1.8) circle (2pt);
-         % New allocations at r^w' = 2.0
-         \draw[refline] (2.67,0) node[below, pointlabel] {$S_H$} -- (2.67,2.0);
-         \draw[refline] (4.13,0) node[below, pointlabel] {$I_H'$} -- (4.13,2.0);
-         \filldraw[eqpoint=HECnavy] (2.67,2.0) circle (2.7pt);
-         \filldraw[eqpoint=HECgreen] (4.13,2.0) circle (2.7pt);
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.5) {É.-U.};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.0,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W'
+         \draw[HECgreen, very thick, dotted] (0,2.8) -- (6.0,2.8);
+         \node[left, pointlabel, text=HECgreen] at (0,2.8) {$r^{W\prime}$};
+         % S unchanged (navy)
+         \draw[very thick, HECnavy] (0,0.1) -- (6,4.9)
+            node[right, curvelabel, text=HECnavy] {$S$};
+         % Original I (gray dashed)
+         \draw[original] (0,4.9) -- (6,0.1)
+            node[above, font=\small, text=HECgray] {$I$};
+         % New I' (green, shifted right): full line is (0,6.3)--(6,1.5), clipped
+         \draw[curveshift, HECgreen] (1.25,5.3) -- (6,1.5)
+            node[right, curvelabel, text=HECgreen] {$I'$};
+         % Shift arrow on I at r=4.0
+         \draw[shiftarrow, HECgreen] (1.125,4.0) -- (2.875,4.0);
+         % Old equilibrium (single dot, CA=0)
+         \filldraw[eqfaded] (3.0,2.5) circle (2.5pt);
+         % New allocations at r^W'=2.8
+         \draw[refline] (3.375,0) node[below, pointlabel] {$S$} -- (3.375,2.8);
+         \draw[refline] (4.375,0) node[below, pointlabel] {$I'$} -- (4.375,2.8);
+         \filldraw[eqpoint=HECnavy] (3.375,2.8) circle (2.7pt);
+         \filldraw[eqpoint=HECgreen] (4.375,2.8) circle (2.7pt);
          % CA deficit brace
          \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
-            (2.67,-0.55) -- (4.13,-0.55)
-            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA \downarrow$};
+            (3.375,-0.55) -- (4.375,-0.55)
+            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$};
          % Axes
          \draw[econaxis] (0,0) -- (6.2,0) node[right] {$S, I$};
-         \draw[econaxis] (0,0) -- (0,5.2) node[above] {$r$};
+         \draw[econaxis] (0,0) -- (0,5.3) node[above] {$r$};
       \end{scope}
    \end{tikzpicture}
    \vfill
    \centering
-   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^w \uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \quad (les taux ont \textbf{baissé})}
+   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^W \uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \quad (les taux ont \textbf{baissé})}
 \end{frame}
 
 % --- Le problème ---
 
 \begin{frame}[t]{Le problème}
-   \vspace{0.3cm}
    \small
    Les deux hypothèses domestiques prédisent la \textbf{bonne direction} pour le déficit mais la \textbf{mauvaise direction} pour les taux d'intérêt.
    \vspace{0.3cm}
@@ -857,16 +887,16 @@
    \centering
    \begin{tabularx}{0.9\textwidth}{>{\small}X >{\small\centering}p{2.5cm} >{\small\centering\arraybackslash}p{2.5cm}}
       \toprule
-      & \textbf{$CA$} & \textbf{$r^w$} \\
+      & \textbf{$CA$} & \textbf{$r^W$} \\
       \midrule
       \textbf{Données observées} & $\downarrow$ & $\downarrow$ \\
       $S_G \downarrow$ (déficits budg.) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
-      $I_H \uparrow$ (boom techno) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
+      $I \uparrow$ (boom techno) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
       \bottomrule
    \end{tabularx}
    \vspace{0.2cm}
    \begin{warning}[Le puzzle]
-      Il faut une explication qui prédit à la fois $CA \downarrow$ \textbf{et} $r^w \downarrow$. La réponse vient du \textbf{panneau Monde}.
+      Il faut une explication qui prédit à la fois $CA \downarrow$ \textbf{et} $r^W \downarrow$. Est-ce qu'on regardait au mauvais endroit\,?
    \end{warning}
 \end{frame}
 
@@ -875,21 +905,22 @@
 \begin{frame}[t]{Hypothèse 3 --- l'excès d'épargne mondiale}
    \framesubtitle{Bernanke (\textit{Fed Speech}, 2005)}
    \small
-   \vspace{0.1cm}
-   La réponse est dans le \textbf{reste du monde} : trois sources d'épargne excédentaire.
+   Trois sources d'épargne excédentaire.
    \vspace{0.15cm}
    \begin{enumerate}
       \setlength\itemsep{0.15cm}
       \item \textbf{Asie de l'Est après la crise de 1997} --- épargne de précaution, accumulation massive de réserves en dollars
-      \item \textbf{Moyen-Orient} --- revenus pétroliers recyclés en actifs américains (obligations du Trésor)
+      \item \textbf{Moyen-Orient et Europe du Nord} --- revenus pétroliers recyclés en actifs américains (obligations gouvernementales)
       \item \textbf{Chine} --- taux d'épargne extraordinairement élevé ($\sim$45\,\% du PIB)
    \end{enumerate}
    \vspace{0.1cm}
-   \textbf{Que prédit le modèle\,?}
+   \textbf{Conséquence dans le modèle $S$-$I$\,:}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item $S^w_R \uparrow$ $\to$ $S^w \uparrow$ $\to$ $r^w$ \textbf{baisse} et $CA_{\text{É.-U.}}$ se \textbf{détériore}
+      \item $S^W \uparrow$ $\to$ la courbe $S^W$ se déplace vers la \textbf{droite}
+      \item Le choc vient du \textbf{reste du monde}, pas des É.-U.\
+      \item Voyons ce que prédit le diagramme\ldots
    \end{itemize}
 \end{frame}
 
@@ -900,82 +931,84 @@
    \end{figure}
 \end{frame}
 
+\begin{frame}{Les déséquilibres mondiaux des comptes courants}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{current_accounts_divergence.png}
+   \end{figure}
+\end{frame}
+
 \begin{frame}[t]{Hypothèse 3 --- le diagramme}
    \centering
    \vfill
-   % S^w shifts RIGHT by 1.6 in q (saving glut from ROW)
-   %   New S^w': r = 0.42q - 0.54
-   %   New eq: q = 4.64, r = 1.41
-   % At r^w' = 1.41: S_H = 1.88, I_H = 4.12, CA = -2.24
+   % ── Same initial state. Shock: S^W right 1.25 (saving glut from ROW)
+   % S^W'=0.8q-1.3, x-intercept at q=1.625
+   % New world eq: (4.125, 2.0).  At r^W'=2.0: S=2.375, I=3.625, CA=-1.25
    \begin{tikzpicture}[scale=0.9]
-      % ── Panel 1: World ──────────────────────────
+      % ── Panel 1: Monde ────────────────────────
       \begin{scope}[xshift=0cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.2) {Monde};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (6.5,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,1.41) -- (6.5,1.41);
-         % I^w unchanged
-         \draw[very thick, HECcoral] (0,4.42) -- (6.0,0.52)
-            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^w$};
-         % Original S^w (dashed gray)
-         \draw[original] (0,0.13) -- (6.0,2.65)
-            node[above, xshift=-4pt, font=\small, text=HECgray] {$S^w$};
-         % New S^w' (shifted right): r = 0.42q - 0.54
-         \draw[curveshift, HECgreen] (1.29,0) -- (6.2,2.06)
-            node[above left, curvelabel, text=HECgreen] {$S^{w\prime}$};
-         % Shift arrow
-         \draw[shiftarrow, HECgreen] (4.0,1.55) -- (5.0,1.55);
-         \node[font=\scriptsize, HECgreen, above] at (4.5,1.55) {$S^w_R \uparrow$};
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.3) {Monde};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.5,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W' (green, below)
+         \draw[HECgreen, very thick, dotted] (0,2.0) -- (6.5,2.0);
+         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{W\prime}$};
+         % I^W unchanged (coral): slope -0.8, clipped at axis
+         \draw[very thick, HECcoral] (0.375,5.0) -- (6.5,0.1)
+            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^W$};
+         % Original S^W (gray dashed): slope 0.8, x-intercept at q=0.375
+         \draw[original] (0.375,0) -- (6.5,4.9)
+            node[right, font=\small, text=HECgray] {$S^W$};
+         % New S^W' (green, shifted right): r=0.8q-1.3, x-intercept at q=1.625
+         \draw[curveshift, HECgreen] (1.625,0) -- (6.5,3.9)
+            node[right, curvelabel, text=HECgreen] {$S^{W\prime}$};
+         % Shift arrow at r=1.3
+         \draw[shiftarrow, HECgreen] (2.0,1.3) -- (3.25,1.3);
          % Old equilibrium (faded)
-         \filldraw[eqfaded] (4.01,1.8) circle (2.5pt);
+         \filldraw[eqfaded] (3.5,2.5) circle (2.5pt);
          % New equilibrium
-         \draw[refline, HECgreen] (4.64,0) node[below, pointlabel, text=HECgreen] {$S^{w\prime} = I^w$} -- (4.64,1.41);
-         \node[left, pointlabel, text=HECgreen] at (0,1.41) {$r^{w\prime}$};
-         \filldraw[eqpoint=HECgreen] (4.64,1.41) circle (3pt);
+         \draw[refline, HECgreen] (4.125,0) node[below, pointlabel, text=HECgreen] {$S^{W\prime}\!=\!I^W$} -- (4.125,2.0);
+         \filldraw[eqpoint=HECgreen] (4.125,2.0) circle (3pt);
          % Axes
          \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
-         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+         \draw[econaxis] (0,0) -- (0,5.2) node[above] {$r$};
       \end{scope}
 
       % ── Panel 2: É.-U. ────────────────────────
       \begin{scope}[xshift=7.5cm]
-         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.2) {É.-U.};
-         % Old r^w (faded)
-         \draw[HECgreen!40, thick, dotted] (0,1.8) -- (5.8,1.8);
-         \node[left, pointlabel, text=HECgray] at (0,1.8) {$r^w$};
-         % New r^w' (green dotted)
-         \draw[HECgreen, very thick, dotted] (0,1.41) -- (5.8,1.41);
-         \node[left, pointlabel, text=HECgreen] at (0,1.41) {$r^{w\prime}$};
-         % Shift arrow on r^w
-         \draw[shiftarrow, HECgreen] (-0.15,1.72) -- (-0.15,1.49);
-         % S_H unchanged
-         \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
-            node[above left, curvelabel, text=HECnavy] {$S_H$};
-         % I_H unchanged
-         \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
-            node[above, curvelabel, text=HECcoral] {$I_H$};
-         % Old allocations (faded)
-         \filldraw[eqfaded] (2.4,1.8) circle (2pt);
-         \filldraw[eqfaded] (3.6,1.8) circle (2pt);
-         % New allocations at r^w' = 1.41
-         \draw[refline] (1.88,0) node[below, pointlabel] {$S_H'$} -- (1.88,1.41);
-         \draw[refline] (4.12,0) node[below, pointlabel] {$I_H'$} -- (4.12,1.41);
-         \filldraw[eqpoint=HECnavy] (1.88,1.41) circle (2.7pt);
-         \filldraw[eqpoint=HECcoral] (4.12,1.41) circle (2.7pt);
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.5) {É.-U.};
+         % Old r^W (faded)
+         \draw[HECgreen!40, thick, dotted] (0,2.5) -- (6.0,2.5);
+         \node[left, pointlabel, text=HECgray] at (0,2.5) {$r^W$};
+         % New r^W' (green, below)
+         \draw[HECgreen, very thick, dotted] (0,2.0) -- (6.0,2.0);
+         \node[left, pointlabel, text=HECgreen] at (0,2.0) {$r^{W\prime}$};
+         % S unchanged (navy)
+         \draw[very thick, HECnavy] (0,0.1) -- (6,4.9)
+            node[right, curvelabel, text=HECnavy] {$S$};
+         % I unchanged (coral)
+         \draw[very thick, HECcoral] (0,4.9) -- (6,0.1)
+            node[above, curvelabel, text=HECcoral] {$I$};
+         % Old equilibrium (single dot, CA=0)
+         \filldraw[eqfaded] (3.0,2.5) circle (2.5pt);
+         % New allocations at r^W'=2.0
+         \draw[refline] (2.375,0) node[below, pointlabel] {$S$} -- (2.375,2.0);
+         \draw[refline] (3.625,0) node[below, pointlabel] {$I$} -- (3.625,2.0);
+         \filldraw[eqpoint=HECnavy] (2.375,2.0) circle (2.7pt);
+         \filldraw[eqpoint=HECcoral] (3.625,2.0) circle (2.7pt);
          % CA deficit brace
          \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
-            (1.88,-0.55) -- (4.12,-0.55)
-            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA \downarrow\downarrow$};
+            (2.375,-0.55) -- (3.625,-0.55)
+            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$};
          % Axes
          \draw[econaxis] (0,0) -- (6.2,0) node[right] {$S, I$};
-         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+         \draw[econaxis] (0,0) -- (0,5.3) node[above] {$r$};
       \end{scope}
    \end{tikzpicture}
    \vfill
    \centering
-   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^w \downarrow$ \textcolor{HECgreen}{\checkmark} \quad --- \textbf{correspond aux données\,!}}
+   {\small Prédiction : $CA \downarrow$ \textcolor{HECgreen}{\checkmark} \quad et \quad $r^W \downarrow$ \textcolor{HECgreen}{\checkmark} \quad --- \textbf{correspond aux données\,!}}
 \end{frame}
 
 \begin{frame}[t]{Bilan : l'excès d'épargne résout le puzzle}
@@ -985,21 +1018,94 @@
    \centering
    \begin{tabularx}{0.9\textwidth}{>{\small}X >{\small\centering}p{2.5cm} >{\small\centering\arraybackslash}p{2.5cm}}
       \toprule
-      & \textbf{$CA$} & \textbf{$r^w$} \\
+      & \textbf{$CA$} & \textbf{$r^W$} \\
       \midrule
       \textbf{Données observées} & $\downarrow$ & $\downarrow$ \\
       \midrule
       $S_G \downarrow$ (déficits budg.) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
-      $I_H \uparrow$ (boom techno) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
+      $I \uparrow$ (boom techno) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\uparrow$ \textcolor{HECcoral}{$\boldsymbol{\times}$} \\
       \rowcolor{HECgreen!10}
-      $S^w_R \uparrow$ (épargne mondiale) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\downarrow$ \textcolor{HECgreen}{\checkmark} \\
+      $S^W \uparrow$ (épargne mondiale) & $\downarrow$ \textcolor{HECgreen}{\checkmark} & $\downarrow$ \textcolor{HECgreen}{\checkmark} \\
       \bottomrule
    \end{tabularx}
    \vspace{0.3cm}
    \begin{bizimplication}
       \footnotesize
-      Les déséquilibres mondiaux ne sont pas le résultat de \guillemotleft~mauvais comportements~\guillemotright\ d'un seul pays. Ils reflètent des forces macroéconomiques profondes (démographie, développement financier, politique industrielle) dans \textbf{plusieurs} pays simultanément.
+      Les déséquilibres mondiaux ne résultent pas de \guillemotleft~mauvaises décisions~\guillemotright\ d'un seul pays. Ils reflètent des forces macroéconomiques profondes dans \textbf{plusieurs} pays simultanément.
    \end{bizimplication}
+\end{frame}
+
+% --- Scooby-Doo reveal ---
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{}
+   \centering
+   {\large\textbf{Alors, qui est coupable\,?}}
+   \vspace{0.3cm}
+
+   \includegraphics[height=0.8\textheight]{scooby_doo.png}
+\end{frame}
+}
+
+% --- Emprunter pour investir ou pour consommer? ---
+
+\begin{frame}[t]{Emprunter pour investir ou pour consommer\,?}
+   \footnotesize
+   \vspace{0.05cm}
+   L'excès d'épargne mondiale offrait aux É.-U.\ un accès à du \textbf{capital bon marché}. Deux scénarios :
+   \vspace{0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \quad \textbf{\textcolor{HECgreen}{Le bon scénario}}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Investir dans des projets à \textbf{rendement élevé} (infrastructures, R\&D, éducation)
+            \item Les revenus futurs remboursent les créanciers étrangers
+            \item Emprunter pour investir
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \quad \textbf{\textcolor{HECcoral}{Le mauvais scénario}}
+         \begin{itemize}
+            \setlength\itemsep{0.1cm}
+            \item Financer la \textbf{consommation courante} (armée, santé, baisses d'impôts)
+            \item Aucun actif productif pour générer des revenus futurs
+            \item Emprunter pour consommer
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \begin{warning}[Précédents]
+      \scriptsize
+      Grèce et Espagne avant 2010 : elles aussi ont emprunté l'épargne bon marché. En Espagne, le capital a alimenté une \textbf{bulle immobilière}. En Grèce, il a financé des \textbf{transferts gouv.} et la fonction publique.
+   \end{warning}
+\end{frame}
+
+\begin{frame}{La dette publique américaine}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_debt_gdp.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Le mauvais diagnostic}
+   \small
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item Le vrai problème : les É.-U.\ \textbf{épargnent trop peu} et financent leur consommation avec l'épargne étrangère
+      \item La réponse politique : blâmer le \textbf{déficit commercial} et imposer des tarifs
+      \item Mais on l'a vu : $CA = S - I$, donc si $S$ et $I$ ne changent pas, le déficit persiste
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{warning}
+      \footnotesize
+      L'eau coule parce que le robinet est ouvert ($S < I$). Bloquer un tuyau (tarifs) ne fait que rediriger l'eau vers un autre tuyau.
+   \end{warning}
+   \vspace{0.3cm}
+   \centering
+   {\small\textcolor{HECgray}{Voyons si les tarifs peuvent vraiment corriger le déficit\ldots}}
 \end{frame}
 
 % ============================================================================
@@ -1021,24 +1127,49 @@
 \sectionframe{Les tarifs corrigent-ils le déficit\,?}
 % ============================================================================
 
-\begin{frame}[t]{Les tarifs dans l'actualité}
+\begin{frame}[t]{Deux modèles, deux perspectives}
    \small
    \vspace{0.2cm}
-   Nous avons maintenant les outils pour répondre à notre \textbf{troisième question} : les tarifs peuvent-ils corriger le déficit commercial\,?
-   \vspace{0.2cm}
+   On a vu que le déficit américain reflète un manque d'épargne, pas un excès d'importations. Pourtant, la réponse politique est d'imposer des \textbf{droits de douane}. Fonctionnent-ils\,?
+   \vspace{0.3cm}
 
-   En séance 4, nous avons vu l'effet des tarifs comme \textbf{choc d'offre} dans le modèle AD-AS.
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Les tarifs augmentent les coûts de production $\to$ AS se déplace vers la gauche
-      \item Résultat : $Y \downarrow$ et $P \uparrow$ (stagflation)
-   \end{itemize}
-   \vspace{0.2cm}
-   Maintenant, analysons leur effet sur la \textbf{balance commerciale} avec le modèle S-I.
+   \begin{columns}[T]
+      \begin{column}{0.44\textwidth}
+         \centering
+         {\large\textbf{\textcolor{HECgray}{Séance 4}}}\\[2pt]
+         \textcolor{HECgray}{Modèle AD-AS}\\[8pt]
+         \footnotesize
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Tarifs = \textbf{choc d'offre}
+            \item AS $\leftarrow$ : coûts de production $\uparrow$
+            \item Résultat : $Y \downarrow$, $P \uparrow$ (stagflation)
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.06\textwidth}
+         \centering
+         \vspace{0.6cm}
+         {\Large\textcolor{HECgray}{$\to$}}
+      \end{column}
+      \begin{column}{0.44\textwidth}
+         \centering
+         {\large\textbf{\textcolor{HECnavy}{Aujourd'hui}}}\\[2pt]
+         \textcolor{HECnavy}{Modèle S-I}\\[8pt]
+         \footnotesize
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Tarifs et \textbf{balance commerciale}
+            \item Si $CA = S - I$, que se passe-t-il\,?
+            \item Spoiler : pas ce qu'on espère\ldots
+         \end{itemize}
+      \end{column}
+   \end{columns}
 
-   \vspace{0.2cm}
-   {\large La question centrale : les droits de douane peuvent-ils réduire le déficit commercial\,?}
+   \vspace{0.3cm}
+   \begin{keyinsight}[La question]
+      \footnotesize
+      Les droits de douane peuvent-ils réduire le déficit commercial\,?
+   \end{keyinsight}
 \end{frame}
 
 \begin{frame}[t]{Les tarifs et le modèle S-I}
@@ -1051,25 +1182,30 @@
    \vspace{0.15cm}
    \begin{columns}[T]
       \begin{column}{0.47\textwidth}
-         \textbf{Que font les tarifs au marché des biens\,?}
+         \textbf{Effet sur l'épargne ($S$)\,?}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
-            \item Réduisent les importations de certains pays
-            \item Augmentent les prix domestiques
-            \item Provoquent des représailles
+            \item Revenus tarifaires $\to$ $S_G \uparrow$\,? Pas si les revenus financent des \textbf{baisses d'impôts}
+            \item Prix à la consommation $\uparrow$ $\to$ revenu réel $\downarrow$ $\to$ $S_P$ \textbf{diminue}
+            \item Effet net sur $S$ : $\approx 0$
          \end{itemize}
       \end{column}
       \begin{column}{0.47\textwidth}
-         \textbf{Mais que font-ils à $S$ et $I$\,?}
+         \textbf{Effet sur l'investissement ($I$)\,?}
          \begin{itemize}
             \setlength\itemsep{0.1cm}
-            \item Ne changent pas l'épargne nationale
-            \item Ne changent pas l'investissement
-            \item Donc $CA = S - I$ est \textbf{inchangé}
+            \item $I$ dépend des rendements anticipés et des taux, pas des tarifs
+            \item L'incertitude peut réduire $I$, mais seulement via une \textbf{récession}
+            \item Effet net sur $I$ : $\approx 0$
          \end{itemize}
       \end{column}
    \end{columns}
+   \vspace{0.15cm}
+   \centering
+   {\footnotesize\textcolor{HECgray}{Feldstein et Shultz (2017) : \guillemotleft~Si un pays consomme plus qu'il ne produit, il doit importer plus qu'il n'exporte. Ce n'est pas une arnaque, c'est de l'arithmétique.~\guillemotright}}
 \end{frame}
+
+% MASA make america save again
 
 \begin{frame}[t]{L'évidence empirique}
    \small
