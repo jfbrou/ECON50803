@@ -1174,69 +1174,85 @@
 
 \begin{frame}[t]{Les tarifs et le modèle S-I}
    \small
-   \vspace{0.1cm}
    \begin{warning}[Le point analytique clé]
       \footnotesize
-      Puisque $CA = S - I$, les droits de douane ne peuvent réduire le déficit commercial \textbf{que s'ils modifient $S$ ou $I$}.
+      Les droits de douane ne peuvent réduire le déficit commercial \textbf{que s'ils modifient $S$ ou $I$}.
    \end{warning}
-   \vspace{0.15cm}
+   \vspace{0.2cm}
    \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \textbf{Effet sur l'épargne ($S$)\,?}
+      \begin{column}{0.44\textwidth}
+         \quad \textbf{Effet sur l'épargne ($S$)\,?}
+         \vspace{0.1cm}
          \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Revenus tarifaires $\to$ $S_G \uparrow$\,? Pas si les revenus financent des \textbf{baisses d'impôts}
-            \item Prix à la consommation $\uparrow$ $\to$ revenu réel $\downarrow$ $\to$ $S_P$ \textbf{diminue}
-            \item Effet net sur $S$ : $\approx 0$
+            \setlength\itemsep{0.12cm}
+            \item Revenus tarifaires $\to$ $S_G \uparrow$\,?\\
+                  Pas si les revenus financent des \textbf{baisses d'impôts}
+            \item Prix $\uparrow$ $\to$ revenu réel $\downarrow$ $\to$ $S_P \downarrow$
          \end{itemize}
+         \vspace{0.1cm}
+         \centering
+         Effet net sur $S$ : $\boldsymbol{\approx 0}$
       \end{column}
-      \begin{column}{0.47\textwidth}
-         \textbf{Effet sur l'investissement ($I$)\,?}
+      \begin{column}{0.06\textwidth}
+         \centering
+         \vspace{0.2cm}
+         {\textcolor{HECgray}{\rule{0.5pt}{3.5cm}}}
+      \end{column}
+      \begin{column}{0.44\textwidth}
+         \quad \textbf{Effet sur l'investissement ($I$)\,?}
+         \vspace{0.1cm}
          \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item $I$ dépend des rendements anticipés et des taux, pas des tarifs
+            \setlength\itemsep{0.12cm}
+            \item $I$ dépend des rendements/taux anticipés, pas des tarifs
             \item L'incertitude peut réduire $I$, mais seulement via une \textbf{récession}
-            \item Effet net sur $I$ : $\approx 0$
          \end{itemize}
+         \vspace{0.1cm}
+         \centering
+         Effet net sur $I$ : $\boldsymbol{\approx 0}$
       \end{column}
    \end{columns}
-   \vspace{0.15cm}
+\end{frame}
+
+\begin{frame}{}
    \centering
-   {\footnotesize\textcolor{HECgray}{Feldstein et Shultz (2017) : \guillemotleft~Si un pays consomme plus qu'il ne produit, il doit importer plus qu'il n'exporte. Ce n'est pas une arnaque, c'est de l'arithmétique.~\guillemotright}}
+   \vfill
+   {\large \guillemotleft~Si un pays \textbf{consomme} plus qu'il ne \textbf{produit}, il doit \textbf{importer} plus qu'il n'\textbf{exporte}. Ce n'est pas une arnaque, c'est de l'\textbf{arithmétique}.~\guillemotright} \\
+   \vspace{0.3cm}
+   \mbox{}\hfill{\small\textcolor{HECgray}{--- Martin Feldstein \& George Shultz, \textit{The Wall Street Journal}, 2017}}
+   \vfill
 \end{frame}
 
 % MASA make america save again
 
-\begin{frame}[t]{L'évidence empirique}
+\begin{frame}[t]{Mais les tarifs ramènent de la production\,?}
    \small
+   \textbf{L'objection :} tarifs $\to$ relocalisation $\to$ importations $\downarrow$ $\to$ déficit se réduit.
+   \vspace{0.3cm}
+
+   \textbf{Trois \textcolor{HECcoral}{problèmes} :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Taux de change} --- importations $\downarrow$ $\to$ dollar s'\textbf{apprécie} $\to$ exportations $\downarrow$
+      \item \textbf{Ressources limitées} --- au plein emploi, la production relocalisée \textbf{évince} d'autres secteurs exportateurs
+      \item \textbf{L'identité persiste} --- tant que $S < I$, le pays \textbf{emprunte} à l'étranger
+   \end{enumerate}
    \vspace{0.1cm}
-   \textbf{Les tarifs de 2018 sur la Chine :}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Le déficit commercial des É.-U.\ \textbf{avec la Chine} a diminué
-      \item Mais le déficit commercial \textbf{total} des É.-U.\ est resté essentiellement inchangé
-      \item Les importations se sont simplement \textbf{redirigées} : du Vietnam, du Mexique, de l'ASEAN
-   \end{itemize}
-   \vspace{0.15cm}
-   % TODO: Replace placeholder with actual figure (Census Bureau data)
-   \begin{tcolorbox}[colback=HEClightgray, colframe=HECgray, boxrule=0.5pt, arc=8pt,
-      width=0.9\textwidth, height=3cm, valign=center]
-      \centering
-      \textcolor{HECgray}{\small [Figure : Déficit commercial É.-U.\ : total vs avec la Chine (2017--2025)]}\\
-      \textcolor{HECgray}{\small Source : U.S.\ Census Bureau}
-   \end{tcolorbox}
+   \begin{keyinsight}
+      La relocalisation est un argument \textbf{micro} (une usine). Le déficit est un phénomène \textbf{macro} ($S - I$). Les tarifs changent la \textbf{composition} du commerce, pas son \textbf{solde}.
+   \end{keyinsight}
 \end{frame}
 
-\begin{frame}[t]{Le grand enseignement}
-   \begin{keyinsight}[Le message central]
-      Les droits de douane ne corrigent pas les déficits commerciaux --- ils ne font que \textbf{rediriger} les flux commerciaux. Pour réduire le déficit, il faudrait augmenter l'épargne ou réduire l'investissement.
-   \end{keyinsight}
-   \vspace{0.1cm}
-   \begin{bizimplication}
-      Pour les entreprises, les tarifs créent de l'incertitude et des réorganisations coûteuses des chaînes d'approvisionnement, sans résoudre le problème sous-jacent.
-   \end{bizimplication}
-   \mbox{}\hfill{\scriptsize\textcolor{HECgray}{La vraie question : \guillemotleft~pourquoi l'Amérique épargne-t-elle si peu\,?~\guillemotright}}
+\begin{frame}{}
+   \centering
+   \vfill
+   {\LARGE\textbf{\textcolor{HECcoral}{M}\textcolor{HECnavy}{ake} \textcolor{HECcoral}{A}\textcolor{HECnavy}{merica} \textcolor{HECcoral}{S}\textcolor{HECnavy}{ave} \textcolor{HECcoral}{A}\textcolor{HECnavy}{gain}}}
+   \vspace{0.6cm}
+
+   {\large Les tarifs \textbf{redirigent} les flux commerciaux.}\\[8pt]
+   {\large Ils ne corrigent pas le \textbf{déficit}.}\\[8pt]
+   {\large Pour ça, il faut \textbf{épargner davantage}.}
+   \vfill
 \end{frame}
 
 % ============================================================================
@@ -1258,29 +1274,102 @@
 \sectionframe{Géoéconomie : au-delà du modèle standard}
 % ============================================================================
 
-% TODO: Populate this section. Possible topics:
-% - Weaponization of interdependence (Farrell & Newman)
-% - Sanctions as economic statecraft (Russia, Iran)
-% - Friend-shoring and supply chain security
-% - Dollar dominance and the SWIFT system
-% - Rare earth dependencies and industrial policy
-% - Digital trade barriers and data sovereignty
+% --- Slide 1: Dollar dominance ---
+\begin{frame}[t]{La dominance du dollar}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.52\textwidth}
+         \renewcommand{\arraystretch}{1.4}
+         \begin{tabularx}{\textwidth}{>{\small}X >{\small\centering\arraybackslash}p{1.5cm}}
+            \toprule
+            & \textbf{Dollar} \\
+            \midrule
+            Réserves de change & \textbf{57\,\%} \\
+            Transactions de change & \textbf{89\,\%} \\
+            Dette internationale & \textbf{60\,\%} \\
+            \bottomrule
+         \end{tabularx}
+         \\
+         \vspace{0.2cm}
+         {\scriptsize\textcolor{HECgray}{FMI COFER 2025, BRI 2025}}
+      \end{column}
+      \begin{column}{0.42\textwidth}
+         \vspace{0.3cm}
+         Les É.-U.\ représentent $\sim$26\,\% du PIB mondial, mais le dollar domine \textbf{chaque dimension} de la finance internationale. Ce statut est à la fois une \textbf{bénédiction} et un \textbf{piège} :
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \begin{defbox}[Privilège exorbitant]
+            \scriptsize
+            Le monde veut des actifs en dollars $\to$ les É.-U.\ empruntent à \textbf{taux bas}.
+         \end{defbox}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \begin{warning}[Dilemme de Triffin]
+            \scriptsize
+            Fournir ces actifs exige plus de dette, ce qui finit par miner leur \textbf{sûreté}.
+         \end{warning}
+      \end{column}
+   \end{columns}
+   \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Farhi \& Maggiori (\textit{QJE}, 2018)}}
+\end{frame}
 
-\begin{frame}[t]{Au-delà de l'avantage comparatif}
+% --- Slide 2: Chinese savings finance the Pentagon ---
+\begin{frame}[t]{L'épargne chinoise finance le Pentagone}
+   \small
+   \vspace{0.1cm}
+   Le modèle $CA = S - I$ a une conséquence géopolitique directe :
+   \vspace{0.5cm}
+
+   \centering
+   \begin{tikzpicture}[
+      box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
+                  fill=HEClightgray, minimum width=2.6cm, minimum height=0.7cm,
+                  align=center, font=\footnotesize, inner sep=4pt},
+      arr/.style={->, HECnavy, >=stealth, line width=1.2pt}]
+      \node[box] (S) at (0,0) {Chine : $S \gg I$};
+      \node[box] (CA) at (3.4,0) {Excédent $CA$};
+      \node[box] (T) at (6.8,0) {Achat de bons\\du Trésor US};
+      \node[box] (B) at (10.2,0) {Finance le\\budget fédéral};
+      \draw[arr] (S) -- (CA);
+      \draw[arr] (CA) -- (T);
+      \draw[arr] (T) -- (B);
+   \end{tikzpicture}
+
+   \raggedright
+   \vspace{0.5cm}
+   Sommet : \textbf{1\,317 G\$} de bons du Trésor détenus par la Chine (nov.\ 2013).\\
    \vspace{0.2cm}
-   Le modèle S-I explique les \textbf{flux} commerciaux, mais pas les \textbf{rapports de force}.
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item Pourquoi les É.-U.\ utilisent-ils le dollar comme \textbf{arme}\,?
-      \item Pourquoi la Chine contrôle-t-elle 60\,\% des terres rares\,?
-      \item Pourquoi les sanctions contre la Russie n'ont-elles que partiellement fonctionné\,?
-      \item Comment le Canada doit-il naviguer entre ses deux partenaires\,?
-   \end{itemize}
-   \vspace{0.2cm}
-   \begin{keyinsight}
-      Le commerce international n'est pas seulement une question d'efficacité économique --- c'est aussi une question de \textbf{pouvoir}.
+   Aujourd'hui : $\sim$\textbf{760 G\$} (déc.\ 2024). Budget militaire US : $\sim$850 G\$ (FY2025).
+   \vspace{0.5cm}
+
+   \begin{keyinsight}[L'ironie géopolitique]
+      \footnotesize
+      L'épargnant chinois finance indirectement l'appareil militaire conçu pour contenir la Chine --- ce que Summers (2004) a appelé l'\guillemotleft~\textbf{équilibre de la terreur financière}~\guillemotright.
    \end{keyinsight}
+\end{frame}
+
+% --- Slide 3: Can China dump its assets? ---
+\begin{frame}[t]{La Chine peut-elle larguer ses actifs\,?}
+   \small
+   \vspace{0.2cm}
+   \textbf{Pourquoi un largage massif est difficile :}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.2cm}
+      \item \textbf{Auto-destructeur} --- vendre fait chuter le prix des bons restants
+      \item \textbf{Pas d'alternative} --- aucun marché n'est assez profond pour absorber $\sim$760 G\$
+      \item \textbf{La Fed en dernier recours} --- la banque centrale peut racheter ces bons (rappel : assouplissement quantitatif, séance 5)
+   \end{enumerate}
+   \vspace{0.2cm}
+   \begin{warning}[Le découplage silencieux]
+      \footnotesize
+      La Chine se diversifie \textit{graduellement} : de 1\,317 G\$ à $\sim$760 G\$ en une décennie. Pas de choc brutal, mais une érosion progressive de l'interdépendance.
+   \end{warning}
+   \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Clayton, Dos Santos, Maggiori \& Schreger (\textit{AER}, 2025)}}
 \end{frame}
 
 % ============================================================================
@@ -1312,7 +1401,7 @@
       & \textbf{Thème} & \textbf{Question centrale} \\
       \midrule
       S1 & PIB, inflation, niveau de vie & Comment mesurer l'économie\,? \\
-      S2 & Croissance de long terme & Pourquoi certains pays sont riches\,? \\
+      S2 & Croissance de long terme & Quels moteurs de croissance\,? \\
       S3 & Marché du travail, inégalités, IA & Qui profite de la croissance\,? \\
       S4 & Cycles économiques & Pourquoi l'économie fluctue\,? \\
       S5 & Politique monétaire et budgétaire & Comment stabiliser l'économie\,? \\
