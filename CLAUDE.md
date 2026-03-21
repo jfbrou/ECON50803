@@ -186,6 +186,14 @@ Exercise PDFs must be committed pre-compiled (the CI does not compile them).
 - Course logistics slides (grading, ZoneCours) -- handle these separately
 - Redundant agenda slides between each sub-section
 
+## Planned Reorganization (future)
+
+Two moves to rebalance session length and improve thematic coherence:
+
+1. **Theories of TFP (S3 → S2):** Move the "Théories de la PTF" slides (~4 frames: institutions, geography/culture, human capital, plus framing) from S3 to S2. They are a natural conclusion to S2's development accounting narrative (which shows A dominates). Currently they sit awkwardly in S3 before the labor market content.
+
+2. **AD-AS natural adjustment (S5 → S4):** Move the two "ajustement naturel" frames (negative and positive demand shocks) from S5 to S4. S4 introduces the AD-AS model but currently stops before showing self-correction. Moving these completes the AD-AS story in S4 and lets S5 open cleanly with policy intervention.
+
 ## Session-Specific Notes
 
 ### Session 1 (completed)
