@@ -672,6 +672,88 @@ def us_debt_gdp():
 
 
 # =====================================================================
+# Figure 10: China saving rate vs sex ratio (boys per girl at age 5)
+# =====================================================================
+def china_saving_gender_ratio():
+    """Dual-axis: China saving rate (PWT) and sex ratio at age 5 (OWID/UN)."""
+    print('Figure 10: China saving rate vs sex ratio')
+
+    # ── OWID sex ratio data ──────────────────────────────────────────
+    url = ("https://ourworldindata.org/grapher/"
+           "sex-ratio-at-five-years-old.csv?v=1&csvType=full"
+           "&useColumnShortNames=true")
+    df_gender = pd.read_csv(url, storage_options={'User-Agent':
+                            'Our World In Data data fetch/1.0'})
+    df_gender = df_gender[df_gender['code'] == 'CHN']
+    df_gender = df_gender.dropna(
+        subset=['sex_ratio__sex_all__age_5__variant_estimates'])
+    gender_years = df_gender['year'].values
+    gender_vals = (df_gender['sex_ratio__sex_all__age_5__variant_estimates']
+                   .values / 100)
+
+    # ── PWT saving rate ──────────────────────────────────────────────
+    pwt_path = '/Users/jfbrou/Dropbox/GitHub/ECON20852/Data/pwt1001.dta'
+    df_pwt = pd.read_stata(pwt_path)
+    df_pwt = df_pwt[(df_pwt['year'] >= 1960) & (df_pwt['countrycode'] == 'CHN')]
+    df_pwt['saving_rate'] = 1 - df_pwt['csh_c'] - df_pwt['csh_g']
+
+    # ── Plot ─────────────────────────────────────────────────────────
+    fig, ax1 = new_figure(10, 5)
+    ax2 = ax1.twinx()
+
+    ax1.plot(df_pwt['year'], df_pwt['saving_rate'],
+             color=palette[0], linewidth=2.5,
+             label="Taux d'épargne (gauche)")
+    ax2.plot(gender_years, gender_vals,
+             color=palette[2], linewidth=2.5,
+             label='Ratio garçons/filles à 5 ans (droite)')
+
+    # ── Left axis formatting ─────────────────────────────────────────
+    ax1.set_xlim(1960, 2019)
+    xticks = list(range(1960, 2020, 10))
+    ax1.set_xticks(xticks)
+    ax1.set_xticklabels([str(y) for y in xticks], fontsize=11)
+
+    ax1.set_ylim(0.125, 0.55)
+    yticks_left = [0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55]
+    ax1.set_yticks(yticks_left)
+    ax1.set_yticklabels([f'{int(y*100)}\\%' for y in yticks_left], fontsize=11)
+    ax1.set_ylabel(r"Taux d'épargne", fontsize=11,
+                   rotation=0, ha='left')
+    ax1.yaxis.set_label_coords(0, 1.02)
+
+    # ── Right axis formatting ────────────────────────────────────────
+    ax2.set_ylim(1.04, 1.18)
+    yticks_right = [1.04, 1.06, 1.08, 1.10, 1.12, 1.14, 1.16, 1.18]
+    ax2.set_yticks(yticks_right)
+    ax2.set_yticklabels([f'{y:.2f}' for y in yticks_right],
+                         fontsize=11, color=palette[2])
+    ax2.set_ylabel(r"Garçons par fille", fontsize=11,
+                   rotation=0, ha='right', color=palette[2])
+    ax2.yaxis.set_label_coords(1, 1.06)
+    ax2.tick_params(axis='y', colors=palette[2])
+    ax2.spines['right'].set_color(palette[2])
+    ax2.spines['top'].set_visible(False)
+
+    # ── Style left axis ──────────────────────────────────────────────
+    style_axes(ax1)
+
+    # ── Combined legend ──────────────────────────────────────────────
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2,
+               frameon=False, fontsize=10, loc='upper left',
+               bbox_to_anchor=(0.0, 1.0))
+
+    # ── Source ───────────────────────────────────────────────────────
+    ax1.text(0.99, 0.02,
+             r"Source : Penn World Tables 10.01, Our World in Data (Nations Unies)",
+             fontsize=8, color='gray', ha='right', va='bottom',
+             transform=ax1.transAxes)
+    save(fig, 'china_saving_gender_ratio.png')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -690,6 +772,7 @@ if __name__ == '__main__':
         us_investment_gdp,
         lw_rstar,
         us_debt_gdp,
+        china_saving_gender_ratio,
     ]
 
     failed = []
