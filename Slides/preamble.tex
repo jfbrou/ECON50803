@@ -330,6 +330,19 @@
 }
 
 % ============================================================================
+% EXAM-RELEVANCE TAG
+% ============================================================================
+
+\usetikzlibrary{shapes.geometric}
+\newcommand{\examtag}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[star, star points=5, star point ratio=2.25,
+          fill=HECcoral, inner sep=1.6pt, anchor=north east]
+      at ([xshift=-0.5cm, yshift=-0.65cm]current page.north east) {};
+  \end{tikzpicture}%
+}
+
+% ============================================================================
 % BACKUP SLIDES SUPPORT
 % ============================================================================
 
