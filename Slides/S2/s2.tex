@@ -91,11 +91,13 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.3cm}
       \item \textbf{La fonction de production}
       \item La comptabilité de la croissance
       \item La comptabilité du développement
       \item Le modèle de Solow
+      \item Théories de la productivité
+      \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -277,11 +279,13 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
       \item \textbf{La comptabilité de la croissance}
       \item La comptabilité du développement
       \item Le modèle de Solow
+      \item Théories de la productivité
+      \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -428,11 +432,13 @@
 
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
       \item {\color{gray!50}La comptabilité de la croissance}
       \item \textbf{La comptabilité du développement}
       \item Le modèle de Solow
+      \item Théories de la productivité
+      \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -489,11 +495,13 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
       \item {\color{gray!50}La comptabilité de la croissance}
       \item {\color{gray!50}La comptabilité du développement}
       \item \textbf{Le modèle de Solow}
+      \item Théories de la productivité
+      \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -828,11 +836,468 @@
 % ============================================================================
 \begin{frame}{Plan}
    \begin{enumerate}
-      \setlength\itemsep{0.5cm}
+      \setlength\itemsep{0.3cm}
       \item {\color{gray!50}La fonction de production}
       \item {\color{gray!50}La comptabilité de la croissance}
       \item {\color{gray!50}La comptabilité du développement}
       \item {\color{gray!50}Le modèle de Solow}
+      \item \textbf{Théories de la productivité}
+      \item Le casse-tête de la productivité canadienne
+      \item La croissance et ses conséquences
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Théories de la productivité}
+% ============================================================================
+
+\begin{frame}{La productivité explique $\sim$50\,\% des écarts de revenus entre pays}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_tfp.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Qu'est-ce qui se cache derrière la PTF\,?}
+   \vspace{0.8cm}
+   \centering
+   \begin{tikzpicture}[
+      op/.style={font=\LARGE, text=HECgray},
+      lbl/.style={font=\small, text=HECgray, align=center},
+   ]
+      % Y/N
+      \node[anchor=base] (yn) at (0,0) {\Large$\dfrac{Y}{N}$};
+      \node[lbl, anchor=north] at (0,-1.1) {PIB par\\habitant};
+
+      % =
+      \node[anchor=base, op] at (1.2,0) {$=$};
+
+      % A (highlighted)
+      \node[anchor=base, rounded corners=8pt, fill=HECcoral!8, draw=HECcoral,
+            line width=1pt, inner sep=12pt] (A) at (3.2,0)
+         {\Large\textcolor{HECcoral}{$\bm{A}^{\frac{1}{1-\alpha}}$}};
+      \node[lbl, anchor=north, text=HECcoral, font=\small\bfseries] (lA) at (3.2,-1.1)
+         {Productivité totale\\des facteurs};
+
+      % ·
+      \node[anchor=base, op] at (5.2,0) {$\boldsymbol{\cdot}$};
+
+      % (K/Y)^(α/(1-α))
+      \node[anchor=base] (ky) at (7.0,0) {\Large$\left(\dfrac{K}{Y}\right)^{\!\frac{\alpha}{1-\alpha}}$};
+      \node[lbl, anchor=north] at (7.0,-1.1) {Profondeur\\du capital};
+
+      % ·
+      \node[anchor=base, op] at (8.8,0) {$\boldsymbol{\cdot}$};
+
+      % L/N
+      \node[anchor=base] (ln) at (10.0,0) {\Large$\dfrac{L}{N}$};
+      \node[lbl, anchor=north] at (10.0,-1.1) {Taux\\d'emploi};
+
+      % Downward arrow from A
+      \draw[-{Stealth[length=7pt, width=5pt]}, line width=0.8pt, HECcoral]
+         ([yshift=-0.2cm]lA.south) -- ++(0,-0.9cm);
+
+      % Question mark
+      \node[font=\fontsize{36}{42}\selectfont\bfseries, text=HECcoral]
+         at ([yshift=-1.7cm]lA.south) {?};
+   \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item \textbf{Technologie et idées}
+      \item Géographie, climat, et culture
+      \item Capital humain
+      \item Institutions
+   \end{enumerate}
+\end{frame}
+
+% --- 1. Technologie et idées ------------------------------------------------
+
+\begin{frame}{La croissance coïncide avec les nouvelles idées}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{kelly_et_al_2021.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{L'innovation n'est pas un accident}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{rd_gdp_share.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La R\&D est un effort mondial}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{rd_spending_global.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{La loi de Moore : un progrès exponentiel}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{moores_law.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Trois types de progrès technologique}
+   \vspace{0.2cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.4cm}
+      \item \textbf{Innovation de produit} --- Créer quelque chose de nouveau
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item iPhone, vaccin ARNm, ChatGPT
+         \item Retombées technologiques élevées (rétro-ingénierie)
+      \end{itemize}
+      \item \textbf{Innovation de procédé} --- Produire mieux ou moins cher
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item Chaîne de montage (Ford), conteneurisation, loi de Moore
+         \item Retombées technologiques faibles (secret industriel)
+      \end{itemize}
+      \item \textbf{Adoption et diffusion} --- Déployer ce qui existe déjà
+      \vspace{0.15cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item Électrification des usines (40 ans\,!), Solow paradox
+         \item La plupart des pays croissent en adoptant, pas en inventant
+      \end{itemize}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{La diffusion des technologies}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{technology_adoption_1.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Les technologies se diffusent plus rapidement que par le passé}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.8\textheight, keepaspectratio]{technology_adoption_2.jpeg}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Pourquoi si peu de diffusion technologique\,?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{dai.png}
+   \end{figure}
+\end{frame}
+
+% --- 2. Géographie, climat, et culture ------------------------------------------------------
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item \textbf{Géographie, climat, et culture}
+      \item Capital humain
+      \item Institutions
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}{La plupart des pays pauvres sont dans les tropiques}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{tropics.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Géographie, climat, et culture}
+   \small
+   \textbf{Pourquoi les pays chauds sont-ils plus pauvres\,?}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Rendements agricoles plus faibles à haute température
+      \item Maladies endémiques (malaria, parasites tropicaux)
+   \end{itemize}
+   \vspace{0.2cm}
+   \textbf{Autres facteurs\,?}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Ressources naturelles (maladie hollandaise)
+      \item Pays enclavés (sans accès à la mer)
+      \item Culture, religion, valeurs
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{warning}[Limites de ces explications]
+      Le secteur primaire ne représente qu'une faible part du PIB dans les pays riches\ldots
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Mais comment expliquer ces différences\,?}
+   \vfill
+   \begin{columns}[T,onlytextwidth]
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Corée du Nord vs.\ Sud}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{korea_satellite.png}
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Allemagne Ouest vs.\ Est}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{germany_wage.png}
+      \column{0.33\textwidth}
+         \centering
+         \textbf{{\footnotesize Amérique du Nord vs.\ Sud}}\\[0.5ex]
+         \includegraphics[width=\linewidth, height=0.5\textheight, keepaspectratio]{fortune_reversal.png}
+   \end{columns}
+   \vfill
+\end{frame}
+
+\begin{frame}{Zimbabwe vs.\ Botswana}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{zimbabwe_botswana.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item {\color{gray!50}Géographie, climat, et culture}
+      \item \textbf{Capital humain}
+      \item Institutions
+   \end{enumerate}
+\end{frame}
+
+% --- 3. Capital humain ------------------------------------------------------
+
+\begin{frame}{Éducation $\to$ prospérité\,?}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{schooling.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[t]{Qu'est-ce que le capital humain\,?}
+   \small
+   \textbf{Productivité incarnée dans les connaissances, compétences et talents des individus.}
+   \vspace{0.2cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Accumulé par l'\textbf{éducation} et la \textbf{formation}
+      \item Preuve empirique : des travailleurs différents reçoivent des salaires très différents
+      \item Augmenter le capital humain ($H$) $\to$ augmenter la PTF \textbf{effective}
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{warning}[Corrélation $\neq$ causalité]
+      Les pays riches ont plus de capital humain, mais la causalité peut être \textbf{inversée} : la richesse permet d'investir davantage en éducation. \\
+
+      Le lien causal éducation $\to$ prospérité n'explique qu'un tiers de la corrélation\ldots\\
+      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Bils \& Klenow, \textit{AER}, 2000}}
+   \end{warning}
+\end{frame}
+
+\begin{frame}{Le capital humain a très peu de pouvoir explicatif\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{development_accounting_human_capital.png}
+   \end{figure}
+\end{frame}
+
+% --- 4. Institutions ---------------------------------------------------------
+
+\begin{frame}{Théories de la PTF}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Technologie et idées}
+      \item {\color{gray!50}Géographie, climat, et culture}
+      \item {\color{gray!50}Capital humain}
+      \item \textbf{Institutions}
+   \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Les institutions comme \guillemotleft~règles du jeu~\guillemotright}
+   \small
+   \textbf{Institutions politiques et juridiques :}
+   \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item État de droit (droits de propriété)
+      \item Idéologie (méritocratie)
+      \item Bureaucratie (\guillemotleft~paperasserie~\guillemotright)
+      \item Stabilité politique
+      \item Corruption
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{keyinsight}
+      Les règles du jeu façonnent les \textbf{incitations} à participer aux activités productives.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Acemoglu, Johnson \& Robinson (Prix Nobel 2024)}
+   \vspace{-0.1cm}
+   \begin{center}
+      \includegraphics[height=5cm, keepaspectratio]{nobel_2024.png}%
+      \hspace{0.4cm}%
+      \includegraphics[height=5cm, keepaspectratio]{why_nations_fail_book.png}
+   \end{center}
+   \begin{itemize}
+      \small
+      \setlength\itemsep{0.1cm}
+      \item \textbf{Institutions inclusives :} état de droit $+$ concurrence $\to$ innovation
+      \item \textbf{Institutions extractives :} corruption $+$ expropriation $\to$ stagnation
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Sommaire : théories de la productivité}
+   \small
+   \vspace{0.1cm}
+   La croissance à l'échelle mondiale peut être caractérisée par\ldots
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECgreen!8, colframe=HECgreen, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies matures}\\[3pt]
+            En ralentissement\ldots
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!8, colframe=HECnavy, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies émergentes}\\[3pt]
+            En rattrapage\ldots
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \begin{tcolorbox}[colback=HECcoral!8, colframe=HECcoral, boxrule=0.5pt, arc=8pt,
+            top=4pt, bottom=4pt, left=6pt, right=6pt]
+            \centering\footnotesize\textbf{Économies stagnantes}\\[3pt]
+            Peinent à décoller\ldots
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   Le succès repose sur des \textbf{conditions appropriées} :
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item La prospérité coïncide rarement avec un contexte institutionnel faible
+      \item Des institutions inclusives encouragent l'innovation et la productivité
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Expansion internationale]
+      \footnotesize La qualité institutionnelle compte autant que la taille du marché.
+   \end{bizimplication}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item {\color{gray!50}La fonction de production}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item {\color{gray!50}La comptabilité du développement}
+      \item {\color{gray!50}Le modèle de Solow}
+      \item {\color{gray!50}Théories de la productivité}
+      \item \textbf{Le casse-tête de la productivité canadienne}
+      \item La croissance et ses conséquences
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+\sectionframe{Le casse-tête de la productivité canadienne}
+% ============================================================================
+
+\begin{frame}{Le Canada décroche}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{gdp_per_capita_canada_usa.png}
+   \end{figure}
+\end{frame}
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}{Le Canada a un problème de productivité}
+   \begin{tikzpicture}[remember picture, overlay]
+      \setcounter{newshl}{0}
+      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Productivity is an urgent problem for Canada. The response? A 15-year study~\guillemotright}
+      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Bank of Canada's Rogers Flags Weak Productivity `Emergency'~\guillemotright}
+      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~La productivité en chute fait craindre pour le niveau de vie des Canadiens~\guillemotright}
+      \newsheadline[lapresse]{La Presse}{\guillemotleft~Urgence productivité : pourquoi notre niveau de vie prend le bord\,?~\guillemotright}
+      \newsheadline[ledevoir]{Le Devoir}{\guillemotleft~Le très mauvais bilan du Canada et du Québec en matière de productivité~\guillemotright}
+      \newsheadline[nationalpost]{National Post}{\guillemotleft~Businesses rank being `stifled by red tape' as more of a threat than Trump tariffs~\guillemotright}
+   \end{tikzpicture}
+\end{frame}
+}
+
+\begin{frame}[t]{Un problème de productivité\,?}
+   \small
+   Le PIB par habitant du Canada tire de la patte. Est-ce un problème de \textbf{productivité}\,?
+   \vspace{0.2cm}
+
+   \begin{defbox}[Deux mesures de la productivité]
+      \vspace{-0.5cm}
+      \begin{itemize}
+         \setlength\itemsep{0.15cm}
+         \item \textbf{Productivité du travail :} $Y / L = A^{\frac{1}{1 - \alpha}} \cdot (K / Y)^{\frac{\alpha}{1 - \alpha}}$
+
+         Fonction de $A$ et de $K/Y$. Mesure la plus souvent citée dans les médias.
+
+         \item \textbf{Productivité totale des facteurs (PTF) :} $A$
+
+         L'efficacité \guillemotleft~pure~\guillemotright\ avec laquelle on combine $K$ et $L$
+      \end{itemize}
+   \end{defbox}
+   \vspace{0.1cm}
+   \begin{keyinsight}[Rappel]
+      On peut décomposer le PIB par habitant: $Y / N = (Y / L) \cdot (L / N)$. Où est le problème\,?
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Décomposition de la croissance canadienne}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Le Canada en comparaison internationale}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.82\textheight, keepaspectratio]{canada_gdp_decomposition_countries.png}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Ce qu'on sait jusqu'à présent}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item Depuis les années 2000, \textbf{l'écart} de croissance de la productivité entre le Canada et les É.-U.\ s'explique \textbf{entièrement} par le secteur pétrolier {\small\color{HECgray}(Loertscher \& Pujolas, \textit{Canadian Journal of Economics}, 2024)}
+      \item Le ralentissement est \textbf{généralisé} à travers plusieurs industries
+      \item Seulement \textbf{20\,\%} du ralentissement s'explique par une réallocation de l'activité vers des secteurs à faible productivité (e.g., FIRE, ressources)
+      \item Le ralentissement n'est \textbf{pas} dû à un manque d'investissement en capital
+      \item Quelques pistes d'explication~: maladie hollandaise, culture de capital de risque, pouvoir de marché croissant, taille de marché (exportations)
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{La main d'{\oe}uvre comme source de croissance}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition_5y.png}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item {\color{gray!50}La fonction de production}
+      \item {\color{gray!50}La comptabilité de la croissance}
+      \item {\color{gray!50}La comptabilité du développement}
+      \item {\color{gray!50}Le modèle de Solow}
+      \item {\color{gray!50}Théories de la productivité}
+      \item {\color{gray!50}Le casse-tête de la productivité canadienne}
       \item \textbf{La croissance et ses conséquences}
    \end{enumerate}
 \end{frame}

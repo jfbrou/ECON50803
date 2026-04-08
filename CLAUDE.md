@@ -40,9 +40,17 @@ ECON50803/
 │   │   ├── s2.tex          # Session 2 slides
 │   │   └── figures_s2.py   # Figure generation script (outputs to Figures/)
 │   ├── S3/
-│   │   ├── s3.tex          # Session 3 slides
-│   │   └── figures_s3.py   # Figure generation script (outputs to Figures/)
-│   ├── S4/ … S6/           # Sessions 4-6 (to be created)
+│   │   ├── s3.tex
+│   │   └── figures_s3.py
+│   ├── S4/
+│   │   ├── s4.tex
+│   │   └── figures_s4.py
+│   ├── S5/
+│   │   ├── s5.tex
+│   │   └── figures_s5.py
+│   ├── S6/
+│   │   ├── s6.tex
+│   │   └── figures_s6.py
 ├── Exercices/
 │   ├── exercices_preamble.tex       # Shared preamble (commands, styling, answer toggle)
 │   ├── exercices_s1.tex             # Session 1 exercises
@@ -104,31 +112,6 @@ Exercise PDFs must be committed pre-compiled (the CI does not compile them).
 - `Chine/` -- China case study materials
 - `Notes et équipes/` -- Grading and team info
 
-### Vincent's 2025 Session 1 structure (63 slides):
-1. **Intro/Vue d'ensemble** (slides 1-12): Title, what is macro, why care, headlines collage, current events narrative (pandemic → inflation → rate response → tariffs → uncertainty → long-term growth)
-2. **Organisation du cours** (slides 13-22): Objectives, agenda, teaching team, personal slides (Bank of Canada role), grading, materials
-3. **Mesurer la production et les prix** (slides 23-54):
-   - GDP definition, 3 approaches, expenditure components, NX explanation
-   - Numerical exercises (updated to 2025/2026)
-   - GDP decomposition by country (2023 data)
-   - Can we trust GDP? (China transparency, US data integrity, night lights)
-   - Real vs nominal GDP, GDP growth rate
-   - **NEW in 2025:** Canada vs US GDP per capita (declining living standards), GDP contraction Q2 2025, tariff impact on exports, data integrity (Trump fired BLS head, jobs revisions)
-   - Inflation definition, CPI, Bank of Canada target
-   - **NEW in 2025:** Carbon tax removal impact, core inflation detail, online price collection (Cavallo et al. tariff tracker)
-4. **Comparer les PIB des pays** (slides 55-63): Market exchange rates vs PPP, China vs US, Big Mac Index
-
-### Key differences from 2021 version:
-- Course code changed to ECON50803
-- Agenda reduced from 6 to 5 topics
-- Major new content on Trump tariffs (FT progression chart, employment impacts, GDP contraction)
-- New content on data integrity (BLS firing, jobs revisions)
-- New Canada vs US GDP per capita comparison
-- Carbon tax removal impact on CPI
-- Online price tracking (PriceStats tariff tracker)
-- Vincent is now external deputy governor of the Bank of Canada
-- Updated figures: IMF WEO July 2025, GDP decomposition 2023, CPI through 2025
-
 ## Beamer Template Conventions (preamble.tex)
 
 ### Colors
@@ -156,43 +139,16 @@ Exercise PDFs must be committed pre-compiled (the CI does not compile them).
 - `\graphicspath{{../Figures/}}` -- Set in preamble
 - TODO comments mark figure placeholders that need actual images
 
-## How to Adapt Vincent's Slides for Each Session
+## Pedagogical Principles (for future edits/revisions)
 
-### General approach:
-1. **Read the Vincent PDF** for the relevant session(s)
-2. **Keep the core pedagogical structure** -- Vincent's flow is well-tested with MBA students
-3. **Update data to 2026** -- Check if figures/examples reference outdated years
-4. **Add depth from ECON20852** where appropriate -- more analytical rigor, additional exercises
-5. **Use Beamer boxes** to highlight key insights, business implications, and warnings
-6. **Add figure placeholders** with detailed TODO comments specifying source and content
-7. **Maintain business framing** -- every concept should connect to business decisions
+All 6 sessions are built. When revising, keep these principles in mind:
 
-### What to keep from Vincent:
-- Headlines/news hook at the start of relevant sections
-- Numerical GDP accounting exercises
-- Multi-country GDP decomposition charts
-- "Can we trust GDP?" narrative (China + night lights)
-- PPP / Big Mac Index for cross-country comparison
-- The "not technical, not abstract, not ideological" positioning
-
-### What to add beyond Vincent:
-- More explicit connection of concepts to business decisions (bizimplication boxes)
-- Clearer key insights (keyinsight boxes) after each major concept
-- Definitions in structured defbox environments
-- "Before next class" reading suggestions
-
-### What to omit from Vincent:
-- Personal slides (teaching team photos, "Mon autre vie", Bank of Canada role)
-- Course logistics slides (grading, ZoneCours) -- handle these separately
-- Redundant agenda slides between each sub-section
-
-## Planned Reorganization (future)
-
-Two moves to rebalance session length and improve thematic coherence:
-
-1. **Theories of TFP (S3 → S2):** Move the "Théories de la PTF" slides (~4 frames: institutions, geography/culture, human capital, plus framing) from S3 to S2. They are a natural conclusion to S2's development accounting narrative (which shows A dominates). Currently they sit awkwardly in S3 before the labor market content.
-
-2. **AD-AS natural adjustment (S5 → S4):** Move the two "ajustement naturel" frames (negative and positive demand shocks) from S5 to S4. S4 introduces the AD-AS model but currently stops before showing self-correction. Moving these completes the AD-AS story in S4 and lets S5 open cleanly with policy intervention.
+- **Keep Vincent's tested flow** -- his pedagogical sequencing works with MBA students; don't reshuffle without reason
+- **Business framing first** -- every concept must connect to business decisions (`bizimplication` boxes)
+- **Key insights explicit** -- use `keyinsight` boxes after each major concept
+- **Definitions in `defbox`** -- structured, not inline
+- **Omit** personal slides (teaching team photos, advisor relationships outside "Mon arrière-grand-père"), course logistics, redundant sub-section agendas
+- **Update to current year** -- data, examples, and case studies refreshed to 2026
 
 ## Session-Specific Notes
 
@@ -203,28 +159,27 @@ Two moves to rebalance session length and improve thematic coherence:
 - 26 matplotlib figures generated by `figures_s1.py`
 
 ### Session 2 (completed)
-- 70 pages, 8 sections covering long-term growth + Canada productivity + environment
-- Narrative: Data → Puzzle → Theory (inductive). Show empirical facts first (A dominates), build puzzle ("why can't we just invest in K?"), then light Solow.
+- 113 pages, 7 sections covering long-term growth + theories of productivity + Canada puzzle + environment
+- Narrative: Data → Puzzle → Theory (inductive). Show empirical facts first (A dominates), build puzzle ("why can't we just invest in K?"), then light Solow, then theories of A, then Canadian case, then consequences.
 - Per-capita decomposition uses K/Y (not K/L) to avoid double-counting capital that follows productivity
-- Section 1: Production function (black box, Cobb-Douglas, diminishing returns, constant returns)
-- Section 2: Growth decomposition — Solow accounting, K/Y motivation, Canada vs US, Asian tigers, miracle vs stagnation
-- Section 3 (new): Development accounting — scatter plots (K/Y, L/N, A vs Y/N), Hall & Jones bar chart
-- Section 4: Limits of capital (Solow lite) — puzzle transition, bio, WW2 recovery, bathtub, conclusion
-- Section 5: Convergence (US states, OECD, global, Korea satellite, institutions)
-- Section 6: True engine of growth — productivity, non-rivalry, institutions, TFP slowdown
-- Section 7 (new vs Vincent): Canada productivity puzzle
-- Section 8 (new vs Vincent): Growth and environment — Kaya identity, decoupling
-- 23 matplotlib figures generated by `figures_s2.py` (PWT 10.01 computed for K/Y decomposition + dev accounting)
-- Static images: `shanghai_1987.png`, `shanghai_2013.png`, `terminator.png`, `solow.png`, `italy_1.png`, `italy_2.png`, `korea_satellite.png`, `shenzhen_before_after.jpg`, `advisors.png`
+- Section 1: La fonction de production (black box, Cobb-Douglas, diminishing returns, constant returns)
+- Section 2: La comptabilité de la croissance — Solow accounting, K/Y motivation, Canada vs US, Asian tigers, miracle vs stagnation
+- Section 3: La comptabilité du développement — scatter plots (K/Y, L/N, A vs Y/N), Hall & Jones bar chart
+- Section 4: Le modèle de Solow — puzzle transition, bio, WW2 recovery, bathtub, convergence, conclusion
+- Section 5 (moved from S3): Théories de la productivité — recap dev-accounting, TFP bridge slide, four theories (technology/ideas, geography/climate/culture, human capital, institutions), sommaire
+- Section 6 (moved from S3): Le casse-tête de la productivité canadienne — Canada decrochage, headlines, two productivity measures, Canada decomposition, international comparison, what we know, closing (canada_gdp_decomposition_5y)
+- Section 7: La croissance et ses conséquences — environment, Kaya identity, decoupling
+- 23 matplotlib figures generated by `figures_s2.py` (PWT 10.01 computed for K/Y decomposition + dev accounting); Canadian productivity figures generated by `figures_s3.py` but shared via `Slides/Figures/`
+- Static images: `shanghai_1987.png`, `shanghai_2013.png`, `terminator.png`, `solow.png`, `italy_1.png`, `italy_2.png`, `korea_satellite.png`, `shenzhen_before_after.jpg`, `advisors.png`, plus `kelly_et_al_2021.png`, `rd_gdp_share.png`, `rd_spending_global.png`, `moores_law.png`, `technology_adoption_1.png`, `technology_adoption_2.jpeg`, `dai.png`, `tropics.png`, `germany_wage.png`, `fortune_reversal.png`, `zimbabwe_botswana.png`, `schooling.png`, `development_accounting_human_capital.png`, `nobel_2024.png`, `why_nations_fail_book.png` (all from the moved theories section)
 
 ### Session 3 (completed)
-- 47 pages, 5 sections covering labor market + inequality + AI
-- Section 1: Labor market indicators (3 categories, 3 ratios, US data, survey methodology, unemployment limits)
-- Section 2: Simple supply-demand model with TikZ diagrams (supply, demand, equilibrium, two horizons)
-- Section 3: Applications — women's participation, aging, immigration SR/LR (capital adjustment mechanism), male participation decline, unemployment costs
-- Section 4: Inequality — within-country trends, elephant curve, skill-biased tech change, skill premium, China shock, institutional erosion, Gatsby curve, labor share decline
-- Section 5: AI and future of work — historical parallels, routine vs non-routine tasks, winners/losers, capital vs labor (Moll et al.), policy responses
-- 6 matplotlib figures generated by `figures_s3.py`
+- Title: "Marché du travail, inégalités et IA"
+- 60 pages, 4 sections covering labor market + inequality + AI (growth/productivity content moved to S2)
+- Section 1: Indicateurs du marché du travail (3 categories, 3 ratios, US data, survey methodology, unemployment limits)
+- Section 2: Un modèle simple du marché du travail — supply, demand, equilibrium with TikZ diagrams
+- Section 3: Applications du modèle — women's participation, aging, immigration SR/LR (capital adjustment mechanism), male participation decline, unemployment costs
+- Section 4: Technologie, IA, et inégalités — inequality (elephant curve, SBTC, skill premium, China shock, institutions, Gatsby, labor share decline), AI and future of work (historical parallels, routine vs non-routine, capital vs labor, policy responses)
+- 6 matplotlib figures generated by `figures_s3.py` (the Canadian productivity figures remain produced here but are now consumed by S2)
 - 7 static images copied from ECON20852: `inequality_within_countries.png`, `elephant.png`, `china_shock.png`, `gatsby.png`, `routine_vs_nonroutine_jobs.jpg`, `labor_share_canada_usa.png`, `jobs_report_response.png`
 
 ### Departures from Vincent (S2-S3)
@@ -235,8 +190,9 @@ Two moves to rebalance session length and improve thematic coherence:
 | Development accounting | Absent | 5 slides with scatter plots (S2 Sec 3) | Shows A dominates both over time AND across countries |
 | Solow model depth | ~10 heavy slides | 8 slides, light on model, rich on story | MBA students need intuition, not equations |
 | Solow applications | China slowing, China debt, capital destruction | Cut (4 slides removed) | Redundant with Section 4 conclusion |
-| Canada productivity | Absent | 5 slides in S2 Sec 7 | Critical for Canadian MBA students |
-| Environment/Kaya | Absent | 4 slides in S2 Sec 8 | Modern growth must address sustainability |
+| Theories of productivity placement | Scattered across Vincent S2/S3 | Consolidated in S2 Sec 5 (4 theories: technology/ideas, geography/climate/culture, human capital, institutions) | Natural conclusion to S2's dev-accounting narrative; S3 can open cleanly on labor |
+| Canada productivity puzzle | Absent | Dedicated section S2 Sec 6 (decrochage, headlines, decomposition, international comparison) | Critical for Canadian MBA students |
+| Environment/Kaya | Absent | 4 slides in S2 Sec 7 | Modern growth must address sustainability |
 | Labor market model | Full supply/demand with micro-foundations (Vincent S3) | Intuitive 5-slide version, no Lagrangian | MBA-appropriate depth |
 | Immigration LR adjustment | Absent | 2-slide SR/LR analysis with TikZ | Capital adjustment is the key Solow insight applied to labor |
 | Inequality depth | 2 slides in Vincent S3 | 8 slides with 3 explanations + Gatsby curve | Drawing from ECON20852 S5 |
@@ -244,17 +200,17 @@ Two moves to rebalance session length and improve thematic coherence:
 | Vincent S3 sl.1-40 (growth/productivity) | In Vincent's S3 | Already covered in our S2 | Clean separation: growth in S2, labor in S3 |
 
 ### Session 4 (completed)
-- 62 pages, 4 sections covering business cycles + AD-AS model + recession anatomy
+- 70 pages, 4 sections covering business cycles + AD-AS model + recession anatomy
 - Section 1: Cyclical facts — GDP growth, unemployment, confidence, yield curve, Phillips curve
 - Section 2: Trend and fluctuations — HP filter, output gap, potential GDP
-- Section 3: AD-AS model — aggregate demand, aggregate supply, equilibrium, shifts, demand vs supply shocks
+- Section 3: AD-AS model — aggregate demand, aggregate supply, equilibrium, shifts, demand vs supply shocks, **shock + natural adjustment walkthrough (moved from S5)**: negative demand shock SR/LR, positive demand shock SR/LR — completes the AD-AS story within S4
 - Section 4: Anatomy of a recession — spark/transmission/fuel/firewall framework, COVID case study, Iran oil shock (2026) case study
 - 14 matplotlib figures generated by `figures_s4.py`
 - Ends with promise: "Séance 5 : Politique monétaire et budgétaire"
 
 ### Session 5 (completed)
-- 62 pages, 6 sections covering monetary policy + fiscal policy + public debt
-- Section 1: Comment combattre les récessions? — bridge from S4, two tools (monetary/fiscal), automatic stabilizers, supply shock dilemma
+- 82 pages, 6 sections covering monetary policy + fiscal policy + public debt
+- Section 1: Pourquoi combattre les récessions? — brief recap/pivot from S4 (the full shock+adjustment walkthrough now lives in S4), two tools (monetary/fiscal), automatic stabilizers, supply shock dilemma
 - Section 2: La politique monétaire conventionnelle — BoC mandates, 2% target, overnight rate, corridor system, transmission mechanism, expansionary/restrictive policy
 - Section 3: Défis et limites — delays, 2021-22 policy error, credibility, Phillips curve (SR/LR), Taylor rule intuition, ZLB
 - Section 4: Politique monétaire non conventionnelle — forward guidance, QE/QT, BoC balance sheet, negative rates, CBDC
@@ -269,6 +225,7 @@ Two moves to rebalance session length and improve thematic coherence:
 | What | Vincent | Our version | Why |
 |------|---------|-------------|-----|
 | AD-AS in S5 | 18 slides (sl.6-24) | Skipped entirely | Already covered in our S4 |
+| AD-AS natural adjustment | In Vincent's S5 | Moved to end of S4 Sec 3 (SR shock → LR adjustment for both negative and positive demand shocks) | Completes the AD-AS story within S4; S5 can open cleanly on policy intervention |
 | Pandemic case study in S5 | Full replay | Brief callback only | S4 has the full version |
 | Phillips curve | Absent | 2 slides (SR + LR) | Key concept for understanding MP limits |
 | Taylor rule | Absent | 1 slide, intuition only | Helps students understand systematic MP |
