@@ -150,6 +150,20 @@ All 6 sessions are built. When revising, keep these principles in mind:
 - **Omit** personal slides (teaching team photos, advisor relationships outside "Mon arrière-grand-père"), course logistics, redundant sub-section agendas
 - **Update to current year** -- data, examples, and case studies refreshed to 2026
 
+## Planned for Next Iteration
+
+Two structural changes to implement before the next offering of the course:
+
+1. **Split each session into "fixed" and "news" components.**
+   - *Fixed*: conceptual material, theory, models, historical case studies, and figures that don't change year over year (e.g., Cobb-Douglas, AD-AS diagrams, Solow model, PPP comparisons, elephant curve, S-I identity derivations).
+   - *News*: current-events material that needs annual refresh (e.g., latest GDP prints, tariff developments, BoC/Fed decisions, geopolitical shocks, 2026 Iran scenario, current political economy narratives).
+   - Goal: minimize annual rework by keeping the "fixed" component stable and isolating the "news" component so refreshes only touch that portion. Possible implementation: separate `.tex` include files per section (e.g., `s4_fixed.tex` + `s4_news.tex`), or clearly demarcated regions within each session file, or a dedicated appendix-style structure.
+
+2. **Strengthen business/MBA relevance.**
+   - Add more explicit real-world, professional, and business-context connections throughout the material.
+   - Every concept should answer "so what does this mean for a manager/executive making decisions?" more concretely than it currently does.
+   - Possible implementations: expand `bizimplication` boxes to include mini case studies, add recurring "Décision d'affaires" vignettes after each major block, include more concrete industry examples (not just macro aggregates), tie each theoretical result to a strategic or operational implication for a Canadian firm.
+
 ## Session-Specific Notes
 
 ### Session 1 (completed)
