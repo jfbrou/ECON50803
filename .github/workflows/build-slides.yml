@@ -72,6 +72,10 @@ jobs:
             done
           fi
 
+          # Collect the project description (pre-compiled PDF)
+          mkdir -p _site/project
+          cp Project/projet_session.pdf _site/project/projet_session.pdf
+
           # Build ordered list of session links
           pdf_links=""
           for f in _site/s*.pdf; do
@@ -146,6 +150,8 @@ jobs:
             <ul>%%LINKS%%</ul>
             <h2>Exercices</h2>
             <ul>%%EXERCISES%%</ul>
+            <h2>Projet de session</h2>
+            <ul><li><a href="project/projet_session.pdf">Taux sous pression — Consignes du projet</a></li></ul>
             <h2>Articles</h2>
             <ul>%%ARTICLES%%</ul>
             <p class="footer">Dernière mise à jour : %%DATE%%</p>
