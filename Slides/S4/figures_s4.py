@@ -3,7 +3,7 @@ ECON50803 — Session 4 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 4 slides (business cycles,
-AD-AS model, recessions). All figure labels, axis titles, legends, and
+AD-AS model, recessions). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and
 annotations are in French.
 
 Run from Slides/S4/:
@@ -19,8 +19,12 @@ import matplotlib.pyplot as plt
 import requests
 
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
 
 import yfinance as yf
 
@@ -61,7 +65,7 @@ def us_gdp_recessions():
             va='top')
 
     add_source(ax, r"Source: FRED (GDPC1) --- PIB réel des États-Unis, échelle logarithmique")
-    save(fig, 'us_gdp_recessions.png')
+    save(fig, 'us_gdp_recessions.pdf')
 
 
 # =====================================================================
@@ -107,7 +111,7 @@ def output_gap_us():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (GDPC1, GDPPOT) --- États-Unis")
-    save(fig, 'output_gap_us.png')
+    save(fig, 'output_gap_us.pdf')
 
 
 # =====================================================================
@@ -162,7 +166,7 @@ def employment_recovery():
     ax.legend(frameon=False, fontsize=10, loc='lower right',
               title=r'\textbf{Récession}', title_fontsize=10)
     add_source(ax, r"Source: FRED (PAYEMS) --- Emplois non agricoles, États-Unis")
-    save(fig, 'employment_recovery.png')
+    save(fig, 'employment_recovery.pdf')
 
 
 # =====================================================================
@@ -212,7 +216,7 @@ def us_recession_inflation():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
     add_source(ax, r"Source: FRED (CPIAUCSL) --- Inflation sur 12 mois, États-Unis")
-    save(fig, 'us_recession_inflation.png')
+    save(fig, 'us_recession_inflation.pdf')
 
 
 # =====================================================================
@@ -253,7 +257,7 @@ def us_gdp_growth():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (GDPC1) --- Taux de croissance trimestriel annualisé")
-    save(fig, 'us_gdp_growth.png')
+    save(fig, 'us_gdp_growth.pdf')
 
 
 # ── Canada GDP + HP trend helper ──────────────────────────────────────
@@ -364,7 +368,7 @@ def canada_gdp_potential():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10)
     add_source(ax, r"Source: FRED, Banque du Canada")
-    save(fig, 'canada_gdp_potential.png')
+    save(fig, 'canada_gdp_potential.pdf')
 
 
 # =====================================================================
@@ -444,7 +448,7 @@ def output_gap_canada():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque du Canada (Rapport sur la politique monétaire)")
-    save(fig, 'output_gap_canada.png')
+    save(fig, 'output_gap_canada.pdf')
 
 
 # =====================================================================
@@ -499,7 +503,7 @@ def us_gdp_covid():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='lower right')
     add_source(ax, r"Source: FRED (GDPC1) --- PIB réel des États-Unis")
-    save(fig, 'us_gdp_covid.png')
+    save(fig, 'us_gdp_covid.pdf')
 
 
 # =====================================================================
@@ -542,7 +546,7 @@ def us_consumer_confidence():
     ax.text(0.02, 0.95, r'\textit{Zones grisées = récessions (NBER)}',
             fontsize=9, color=palette[7], transform=ax.transAxes, va='top')
     add_source(ax, r"Source: FRED (UMCSENT) --- Université du Michigan")
-    save(fig, 'us_consumer_confidence.png')
+    save(fig, 'us_consumer_confidence.pdf')
 
 
 # =====================================================================
@@ -574,10 +578,10 @@ def oil_price_2026():
             mark_date = closest[0]
             ax.axvline(mark_date, color=palette[2], linewidth=1.5,
                        linestyle='--', alpha=0.7)
-            ax.text(mark_date - pd.DateOffset(days=3), ax.get_ylim()[1] * 0.97,
+            ax.text(mark_date - pd.DateOffset(days=3), 0.97,
                     r'\textit{Opération Epic Fury}',
                     fontsize=9, color=palette[2], fontweight='bold',
-                    ha='right', va='top')
+                    ha='right', va='top', transform=ax.get_xaxis_transform())
 
     # -- X-axis: explicit ticks with LaTeX labels --
     ax.set_xlim(pd.Timestamp('2025-09-01'), brent.index[-1])
@@ -590,8 +594,9 @@ def oil_price_2026():
     ax.set_xticklabels(xtick_labels, fontsize=11)
 
     # -- Y-axis: explicit ticks --
-    ax.set_ylim(50, 100)
-    yticks = [50, 60, 70, 80, 90, 100]
+    ymax = max(100, tick_ceil(brent.max(), 10))
+    ax.set_ylim(50, ymax)
+    yticks = list(range(50, ymax + 1, 10))
     ax.set_yticks(yticks)
     ax.set_yticklabels([rf'{y}' for y in yticks], fontsize=11)
 
@@ -601,7 +606,7 @@ def oil_price_2026():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (DCOILBRENTEU) --- Prix du Brent, quotidien")
-    save(fig, 'oil_price_2026.png')
+    save(fig, 'oil_price_2026.pdf')
 
 
 # =====================================================================
@@ -660,9 +665,12 @@ def cyclical_components_canada():
     ax.set_xticks([pd.to_datetime(str(y)) for y in xticks])
     ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
 
-    ax.set_ylim(-0.3, 0.3)
-    ax.set_yticks(np.arange(-0.3, 0.3 + 0.1, 0.1))
-    ax.set_yticklabels([f'{x:.1f}' for x in np.arange(-0.3, 0.3 + 0.1, 0.1)],
+    peak = max(np.nanmax(np.abs(line.get_ydata())) for line in ax.lines[:3])
+    extent = max(0.3, tick_ceil(peak, 0.1))
+    yticks = np.arange(-round(extent * 10), round(extent * 10) + 1) / 10
+    ax.set_ylim(-extent, extent)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{x:.1f}' for x in yticks],
                         fontsize=10)
     ax.set_ylabel(r"Composante cyclique (croissance annuelle)", fontsize=11,
                   rotation=0, ha='left')
@@ -671,7 +679,7 @@ def cyclical_components_canada():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10)
     add_source(ax, r"Source: Statistique Canada (36-10-0104-01), filtre HP")
-    save(fig, 'cyclical_components_canada.png')
+    save(fig, 'cyclical_components_canada.pdf')
 
 
 # =====================================================================
@@ -729,7 +737,7 @@ def phillips_curve_usa():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
     add_source(ax, r"Source: FRED (UNRATE, CPIAUCSL) --- Données annuelles, États-Unis")
-    save(fig, 'phillips_curve_usa.png')
+    save(fig, 'phillips_curve_usa.pdf')
 
 
 # =====================================================================
@@ -770,7 +778,7 @@ def yield_curve_usa():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (T10Y2Y) --- États-Unis")
-    save(fig, 'yield_curve_usa.png')
+    save(fig, 'yield_curve_usa.pdf')
 
 
 # =====================================================================
@@ -799,12 +807,13 @@ def natural_unemployment_usa():
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     ax.set_xlim(pd.Timestamp('1950-01-01'), unrate.index.max())
-    ax.set_ylim(2, 14)
+    ymax = max(14, tick_ceil(unrate.max(), 2))
+    ax.set_ylim(2, ymax)
     xticks = [pd.Timestamp(f'{y}-01-01') for y in range(1950, 2030, 10)]
     ax.set_xticks(xticks)
     ax.set_xticklabels([str(y) for y in range(1950, 2030, 10)], fontsize=10)
-    ax.set_yticks(range(2, 15, 2))
-    ax.set_yticklabels([f'{x}' + r'\%' for x in range(2, 15, 2)],
+    ax.set_yticks(range(2, ymax + 1, 2))
+    ax.set_yticklabels([f'{x}' + r'\%' for x in range(2, ymax + 1, 2)],
                         fontsize=10)
     ax.set_ylabel(r"Taux de chômage (\%)", fontsize=11,
                   rotation=0, ha='left')
@@ -813,7 +822,7 @@ def natural_unemployment_usa():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left')
     add_source(ax, r"Source: FRED (UNRATE, NROU) --- États-Unis")
-    save(fig, 'natural_unemployment_usa.png')
+    save(fig, 'natural_unemployment_usa.pdf')
 
 
 # =====================================================================
@@ -932,7 +941,7 @@ def stock_reaction_iran():
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, r"Source : Yahoo Finance --- Cours de clôture ajusté")
-    save(fig, 'stock_reaction_iran.png')
+    save(fig, 'stock_reaction_iran.pdf')
 
 
 # =====================================================================
@@ -1027,7 +1036,7 @@ def stock_sectors_iran():
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, r"Source : Yahoo Finance --- Cours de clôture ajusté")
-    save(fig, 'stock_sectors_iran.png')
+    save(fig, 'stock_sectors_iran.pdf')
 
 
 # =====================================================================
@@ -1066,5 +1075,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

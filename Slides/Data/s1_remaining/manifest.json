@@ -1,0 +1,150 @@
+{
+  "gdp_accounts": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610010401"
+    ],
+    "units": "Millions of Canadian dollars; seasonally adjusted at annual rates",
+    "transformation": "Current prices for expenditure shares and annual decomposition; chained 2017 dollars for real GDP and the implicit deflator. Annual pie uses only years with all four quarters. C includes households and NPISH; I includes all fixed capital formation and inventories; G is government consumption; NX = exports minus imports. Statistical discrepancy is reported separately.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "42a6d45c6675f268172477c796a5bf5d83e6f14e61ae785b8b1fe8ab0d594fc1",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "can_gdp_per_capita": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610070601"
+    ],
+    "units": "Chained 2017 CAD per person; quarterly, seasonally adjusted at annual rates",
+    "transformation": "Official per-capita GDP, indexed to 2000Q1 = 100; no interpolation or extrapolation of annual population.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "f983ed151d1edf2d13d541e7642e4afa522fbe6a8234b7b6245b81469ca52b2c",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "worldbank": {
+    "source_urls": [
+      "https://api.worldbank.org/v2/country?format=json&per_page=500",
+      "https://api.worldbank.org/v2/country/all/indicator/NE.CON.PRVT.ZS?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NE.GDI.TOTL.ZS?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NE.CON.GOVT.ZS?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NE.RSB.GNFS.ZS?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.PP.KD?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/PA.NUS.PPP?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/PA.NUS.FCRF?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?format=json&per_page=20000&date=2007:2026",
+      "https://api.worldbank.org/v2/country/all/indicator/NY.GNP.MKTP.CD?format=json&per_page=20000&date=2007:2026"
+    ],
+    "source_last_updated": {
+      "NE.CON.PRVT.ZS": "2026-10-08",
+      "NE.GDI.TOTL.ZS": "2026-10-08",
+      "NE.CON.GOVT.ZS": "2026-10-08",
+      "NE.RSB.GNFS.ZS": "2026-10-08",
+      "NY.GDP.MKTP.PP.KD": "2026-10-08",
+      "NY.GDP.PCAP.PP.KD": "2026-10-08",
+      "SP.POP.TOTL": "2026-10-08",
+      "PA.NUS.PPP": "2026-10-08",
+      "PA.NUS.FCRF": "2026-10-08",
+      "NY.GDP.MKTP.CD": "2026-10-08",
+      "NY.GNP.MKTP.CD": "2026-10-08"
+    },
+    "units": "As defined by the WDI indicator codes in the CSV header; PPP amounts at constant 2021 international dollars",
+    "transformation": "Exclude region/income aggregates using country metadata. Cross-sections use the latest common year with complete variables and at least 150 countries, or every selected country for small comparisons. No mixing indicator years. Price level = PPP conversion factor / exchange rate, normalized to the US value in the same year.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "a07db92217981b2dd9f492c1caffc4864043ff4297eb085373c81fdc3bc28cca",
+    "last_observation": "2025"
+  },
+  "big_mac": {
+    "source_urls": [
+      "https://raw.githubusercontent.com/TheEconomist/big-mac-data/master/output-data/big-mac-full-index.csv"
+    ],
+    "transformation": "Use the two latest published dates from the official file; USD_raw times 100, dollar_price in current USD. Dates and axis range derived from the file.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "129d2388f09a741d9765f014c28e366c32db7b60c2efbf2c38807ed08849b82b",
+    "last_observation": "2026-07-01"
+  },
+  "pricinglab": {
+    "source_urls": [
+      "https://www.pricinglab.org/files/Cavallo_Llamas_Vazquez_domestic_imported_trend_line.csv"
+    ],
+    "transformation": "Raw daily domestic and imported indices, cumulative price change = (index - 1) * 100. Preserve the source baseline. The public file may lag the retrieval date.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "105e570b3494eea972843c0dd2b912adc45ae457659e48d5d028a9a439243a13",
+    "last_observation": "2026-04-14 00:00:00"
+  },
+  "hdi": {
+    "source_urls": [
+      "https://ourworldindata.org/grapher/human-development-index.csv?tab=table"
+    ],
+    "transformation": "UNDP HDI merged by country code and year with WDI real GDP per capita and population. Latest complete year with at least 150 countries; exclude aggregates.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "dc0104fce163ec9d4e8f58ca3e2143a6248c20d88840bb367b5da844ba355fc2",
+    "last_observation": "2023"
+  },
+  "jones_klenow": {
+    "source_urls": [
+      "https://web.stanford.edu/~chadj/BeyondGDP500.xls"
+    ],
+    "transformation": "Historical replication result: Levels in 2007, welfare and GDP per capita relative to US, divided by 100. This paper does not supply a current-year cross-section. Bubble populations are WDI 2007.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "c3629b43bc66bef0ab432c2043268a8406f20e0c0c99b5d02b1d7ce2d42575f1"
+  },
+  "core_cpi": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401"
+    ],
+    "vector": "v41691233",
+    "units": "CPI excluding food and energy, index 2002=100, Canada, NSA",
+    "transformation": "12-month percent change; no filling missing observations.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "7d3449a34bac00f36fd23d6ce2cf326e023ac2df0b0546c76fb69da175955ea7",
+    "last_observation": "2026-08-01 00:00:00"
+  },
+  "us_gdp": {
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/GDPC1"
+    ],
+    "units": "BEA real GDP (chained 2017 USD), quarterly, seasonally adjusted at annual rates; per person for A939RX0Q048SBEA",
+    "transformation": "Indexed to 2000Q1 = 100 for the comparison plot.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "e38187fca75eff25bc5d35a874ea50d71bf615c46e08d4a1195f9334b414a965",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "us_gdp_per_capita": {
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/A939RX0Q048SBEA"
+    ],
+    "units": "BEA real GDP (chained 2017 USD), quarterly, seasonally adjusted at annual rates; per person for A939RX0Q048SBEA",
+    "transformation": "Indexed to 2000Q1 = 100 for the comparison plot.",
+    "retrieved_at_utc": "2026-10-15T15:56:46.097420+00:00",
+    "sha256": "627603074ebe4261ff5e17fecec99831f613c0094c25e8c5c70982be6fd5e8f1",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "can_total_investment": {
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/NIRSAXDCCAQ"
+    ],
+    "units": "IMF real gross capital formation, millions of CAD, quarterly, seasonally adjusted (not annualized)",
+    "transformation": "Archived IMF/FRED series used for the audit of the former figure. Final C/I/G and investment breakdown figures use StatCan fixed-2017-price accounts instead, on one consistent price basis.",
+    "retrieved_at_utc": "2026-10-15T18:28:38.001975+00:00",
+    "sha256": "d8479c0f7c69c8e3786cb30ec1bfd0ca513b88c3bdeeb723c16da597fb6ed7a3",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "gdp_constant_prices": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610012301"
+    ],
+    "vectors": {
+      "62306859": "Household final consumption expenditure",
+      "62306867": "Non-profit institutions serving households' final consumption expenditure",
+      "62306868": "General governments final consumption expenditure",
+      "62306870": "Gross fixed capital formation",
+      "62306882": "Investment in inventories",
+      "62306896": "Gross domestic product at market prices"
+    },
+    "units": "Millions of CAD at fixed 2017 prices, quarterly, seasonally adjusted at annual rates",
+    "transformation": "C = households + NPISH; I = fixed capital formation + investment in inventories; G = government consumption. HP filter of levels (lambda=1600) on full sample; display 1981 onward. C/I/G deviations divided by own trend. Fixed/inventory cycle contributions divided by total investment trend, so they sum exactly to the total cycle.",
+    "retrieved_at_utc": "2026-10-15T18:42:15.336182+00:00",
+    "sha256": "45788e8e77c63ffc9bbbceb25e9111445edadbcbce4b39f617fc7a300a9671b5",
+    "last_observation": "2026-04-01 00:00:00"
+  }
+}

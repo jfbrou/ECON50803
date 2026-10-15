@@ -1,0 +1,7 @@
+$pdflatex = 'pdflatex -interaction=nonstopmode -synctex=1 %O %S';
+$pdf_mode = 1;
+# Resolve jfb-teaching-slides.sty / jfb-base.sty in the latex-common repo.
+# Local layout: latex-common is a sibling of ECON50803 (3 levels up).
+# CI layout: latex-common is cloned inside the workspace root (2 levels up).
+ensure_path('TEXINPUTS', '../../../latex-common//');
+ensure_path('TEXINPUTS', '../../latex-common//');

@@ -67,8 +67,7 @@
    \begin{itemize}
       \setlength\itemsep{0.2cm}
       \item \textbf{Le paradoxe de l'épargne :} tout le monde épargne davantage en récession
-      \item \textbf{L'argent hélicoptère :} trop de dollars à la poursuite de trop peu de biens
-      \item \textbf{Le sophisme de composition :} se lever à un match de hockey
+      \item \textbf{Se lever à un match de hockey...}
    \end{itemize}
 \end{frame}
 
@@ -93,12 +92,19 @@
 \begin{frame}{Un monde complexe et incertain}
    \begin{tikzpicture}[remember picture, overlay]
       \setcounter{newshl}{0}
-      \newsheadline[economist]{The Economist}{\guillemotleft~Donald Trump answers a Supreme Court rebuke with new tariff threats~\guillemotright}
-      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Kevin Warsh's Fed Job Already Looks Impossible~\guillemotright}
-      \newsheadline[ft]{Financial Times}{\guillemotleft~Gold rises and stocks fall as global trade faces new Trump tariff threat~\guillemotright}
-      \newsheadline[lapresse]{La Presse}{\guillemotleft~Les exportations du Québec en forte baisse~\guillemotright}
-      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Mark Carney's speech got the world's attention---but was it the right message?~\guillemotright}
-      \newsheadline[wsj]{The Wall Street Journal}{\guillemotleft~The Big Money in Today's Economy Is Going to Capital, Not Labor~\guillemotright}
+      % The Globe and Mail, 2026-09-15; headline supplied by the user.
+      \newsheadline[globeandmail]{The Globe and Mail}{\href{https://www.theglobeandmail.com/business/article-carney-tax-mega-deduction-investment-summit/}{\guillemotleft~Ottawa plans `mega deduction' tax incentive to spur investment~\guillemotright}}
+      % Financial Times, 2026-08-26; verified in the publisher's search results on 2026-10-15.
+      \newsheadline[ft]{Financial Times}{\href{https://www.ft.com/content/9cb63980-cd43-419d-a7e5-42039b9fd01e?syn-25a6b1a6=1}{\guillemotleft~The multiplying risks of financing data centres~\guillemotright}}
+      % Bloomberg, 2026-09-23.
+      \newsheadline[bloomberg]{Bloomberg}{\href{https://www.bloomberg.com/news/articles/2026-09-23/us-treasury-five-year-yields-breach-5-for-first-time-since-2007}{\guillemotleft~US Bond-Market Slide Deepens, Pushing Yields to Two-Decade Highs~\guillemotright}}
+      % Reuters, 2026-10-07; syndicated by The Edge Malaysia.
+      \newsheadline[reuters]{Reuters}{\href{https://theedgemalaysia.com/node/820812}{\guillemotleft~Oil rises as investors weigh supply threats~\guillemotright}}
+      % La Presse, 2026-10-06; verified in the publisher's page metadata on 2026-10-15.
+      % Section kicker omitted: Étude de la Banque du Canada.
+      \newsheadline[lapresse]{La Presse}{\href{https://www.lapresse.ca/affaires/economie/2026-10-06/etude-de-la-banque-du-canada/la-replique-tarifaire-du-canada-alimente-l-inflation.php}{\guillemotleft~La réplique tarifaire du Canada alimente l'inflation~\guillemotright}}
+      % Le Devoir, 2026-10-09; current title and canonical URL verified on the publisher's page on 2026-10-15.
+      \newsheadline[ledevoir]{Le Devoir}{\href{https://www.ledevoir.com/economie/1015754/economie-quebecoise-perdu-49-000-emplois-septembre}{\guillemotleft~L'économie québécoise a perdu 49\,000 emplois en septembre~\guillemotright}}
       \headlinesoverlay{Où en sommes-nous\,?}
    \end{tikzpicture}
 \end{frame}
@@ -106,49 +112,49 @@
 \begin{frame}{Après une récession très inhabituelle\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{can_unemployment.png}
+      \includegraphics[width=0.95\textwidth]{can_unemployment.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Un vieil ennemi est de retour\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{can_inflation_longrun.png}
+      \includegraphics[width=0.95\textwidth]{can_inflation_longrun.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Une réponse vigoureuse\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{policy_rates.png}
+      \includegraphics[width=0.95\textwidth]{policy_rates.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Et finalement, un retour à la normale\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{canada_inflation_recent.png}
+      \includegraphics[width=0.95\textwidth]{canada_inflation_recent.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Le retour du protectionnisme\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{us_tariff_rate.png}
+      \includegraphics[width=0.95\textwidth]{us_tariff_rate.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Un avenir incertain\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{canada_employment_exports.png}
+      \includegraphics[width=0.95\textwidth]{canada_employment_exports.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Et le très long terme\,?}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{hockey_stick_world.png}
+      \includegraphics[width=0.95\textwidth]{hockey_stick_world.pdf}
    \end{figure}
 \end{frame}
 
@@ -186,16 +192,16 @@
 \begin{frame}{Thèmes abordés}
    \begin{enumerate}
       \setlength\itemsep{0.35cm}
+      \item \textbf{Mesurer l'économie} \\
+      {\small PIB, inflation et niveau de vie}
       \item \textbf{Croissance de long terme} \\
-      {\small Pourquoi certains pays sont-ils plus ou moins riches\,?}
-      \item \textbf{Marché du travail} \\
-      {\small Inégalités, technologie et IA}
+      {\small Pourquoi certains pays sont-ils plus riches que d'autres\,?}
+      \item \textbf{Marchés du travail et du capital} \\
+      {\small Emploi, épargne, investissement, inégalités et IA}
       \item \textbf{Cycles économiques} \\
       {\small Pourquoi y a-t-il des expansions et des récessions\,?}
       \item \textbf{Politique monétaire \& budgétaire} \\
       {\small Pourquoi et comment combattre les récessions\,?}
-      \item \textbf{Commerce international et déséquilibres mondiaux} \\
-      {\small (Dé)mondialisation, tarifs, etc.}
    \end{enumerate}
 \end{frame}
 
@@ -224,38 +230,116 @@
 \end{frame}
 
 \begin{frame}{Évaluation}
-   \vspace{0.3cm}
-   \begin{tabular}{l r}
-      \textbf{Projet d'équipe} (partie \#1 : 2/5 mars $+$ partie \#2 : dates à déterminer) & \textbf{30\,\%} \\[0.2cm]
-      \textbf{Quiz} (séance 4, $\sim$15 minutes, choix multiples) & \textbf{10\,\%} \\[0.2cm]
-      \textbf{Examen final} (30 mars) & \textbf{50\,\%} \\[0.2cm]
-      \textbf{Contribution et professionnalisme} & \textbf{10\,\%} \\
-   \end{tabular}
-   \vspace{0.4cm}
-   \begin{defbox}[Détails]
-      Les détails du projet d'équipe sont sur ZC. Des exemples de questions de quiz seront fournis.
+   \renewcommand{\arraystretch}{1.6}
+   \begin{tabularx}{\textwidth}{@{}X r@{}}
+      \toprule
+      \textbf{Évaluation} & \textbf{Pondération} \\
+      \midrule
+      \textbf{Projet de session : Taux sous pression} & \textbf{30\,\%} \\
+      \textbf{Quiz} {\small (début de la séance 4, 15 min, à livre fermé)} & \textbf{10\,\%} \\
+      \textbf{Examen final} {\small (2 heures)} & \textbf{50\,\%} \\
+      \textbf{Contribution, préparation et professionnalisme} & \textbf{10\,\%} \\
+      \bottomrule
+   \end{tabularx}
+   \begin{defbox}[Modalités et calendrier]
+      \small Consignes et exercices sur \textbf{ZoneCours}. Date de l'examen final sur \textbf{HEC en ligne}.
    \end{defbox}
 \end{frame}
 
-\begin{frame}{Contribution et professionnalisme}
+\begin{frame}[t]{Projet de session : Taux sous pression}
    \small
-   \textbf{Critères :}
+   \textbf{En équipe attitrée}, prévoyez la décision de la BdC du \textbf{\mbox{9 décembre 2026}} et ses implications pour votre industrie.
+   \vspace{0.1cm}
+   \begin{enumerate}
+      \setlength\itemsep{0cm}
+      \item \textbf{Prévoir et justifier} \\
+      Une variation précise du taux directeur, appuyée sur le \textit{Rapport sur la politique monétaire} du 28 octobre et les données récentes.
+      \item \textbf{Traduire l'analyse en décision d'affaires} \\
+      Analyser les implications pour une décision de gestion dans une industrie où travaille un membre de l'équipe.
+      \item \textbf{Défendre et adapter votre jugement} \\
+      Présenter, répondre aux journalistes et réagir à une nouvelle hypothétique. Jouer aussi les journalistes auprès d'une autre équipe.
+   \end{enumerate}
+   \vspace{-0.2cm}
+   \begin{keyinsight}[]
+      \small \textbf{PDF :} 29 novembre, 23\,h\,59. \quad \textbf{Présentations :} 2 décembre 2026.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Le briefing macroéconomique : préparation}
+   \small
+   Fin des séances 1 à 4 : \textbf{deux groupes formés au hasard}. \\
+   Pour la séance suivante, chacun prépare \textbf{individuellement} le rôle de son groupe.
+   \vspace{0.1cm}
+   \tcbset{height=5.3cm, colback=HEClightgray, colframe=HEClightgray,
+      colbacktitle=HECgreen!5, coltitle=HECnavy, fonttitle=\bfseries,
+      boxrule=0pt, arc=8pt, left=10pt, right=10pt, top=6pt, bottom=6pt,
+      toptitle=4pt, bottomtitle=4pt}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.48\textwidth}
+         \begin{tcolorbox}[title={\strut Le regard critique}]
+            \raggedright
+            \textbf{Repérer une limite} \\
+            Une limite ou un angle mort absent des diapositives.
+            \par\vspace{0.1cm}
+            \textbf{La mettre en contexte} \\
+            Une situation où cette limite importe.
+            \par\vspace{0.1cm}
+            \textbf{Nuancer l'analyse} \\
+            Ce que cette limite change dans l'analyse.
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \begin{tcolorbox}[title={\strut La macro dans l'actualité}]
+            \raggedright
+            \textbf{Choisir une nouvelle} \\
+            Du dernier mois environ, avec source et date.
+            \par\vspace{0.1cm}
+            \textbf{La relier au cours} \\
+            Un concept de la séance précédente.
+            \par\vspace{0.1cm}
+            \textbf{Expliquer le mécanisme} \\
+            Une analyse économique au-delà du résumé.
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Le briefing macroéconomique : en classe}
+   \small
+   \textbf{Séances 2 à 5 : 8 à 10 minutes.} À la séance 4, immédiatement après le quiz.\par
    \vspace{0.15cm}
    \begin{enumerate}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Présence et ponctualité} --- selon les exigences du programme
-      \item \textbf{Participation active} --- qualité et pertinence des interventions
-      \item \textbf{Professionnalisme} --- autonomie, jugement, collégialité
+      \setlength\itemsep{0.25cm}
+      \item \textbf{4 interventions : 1 minute chacune} \\
+      Deux personnes par groupe, tirées au sort parmi les présents non encore désignés; sans remise sur les séances 2 à 5.
+      \item \textbf{Compléments : 30 secondes, 4 maximum par séance} \\
+      Après chaque intervention, une autre personne apporte une idée nouvelle. Deux groupes; priorité à ceux qui ont moins parlé. Puis synthèse.
    \end{enumerate}
-   \vspace{0.4cm}
-   \textbf{Pour favoriser l'apprentissage actif :}
-   \vspace{0.15cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Cartons d'identification} --- apportez le vôtre à chaque cours
-      \item \textbf{Pas d'ordinateurs portables} en classe (exception : tablettes à plat)
-      \item \textbf{Limiter les allées et venues} pendant le cours
-   \end{enumerate}
+   \vspace{0.1cm}
+   \begin{warning}[Préparation et absences]
+      \small \textbf{Défaut de préparation constaté :} 2,5 points déduits sur 10 (plafond : 10). \\
+      Hésitation ou interprétation imparfaite ne signifie pas défaut de préparation. \\
+      \textbf{Absence justifiée :} aucune pénalité; tirage ultérieur si non encore désigné.
+   \end{warning}
+\end{frame}
+
+\begin{frame}[t]{Contribution, préparation et professionnalisme}
+   \small
+   \textbf{\textcolor{HECnavy}{Votre contribution (10\,\%)}}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Préparation à chaque séance
+      \item \textbf{Seules les interventions pertinentes donnent des points.} Des interventions hors sujet ne rapportent aucun point et peuvent entraîner une \textbf{déduction}.
+      \item Écoute, présence, ponctualité et professionnalisme
+   \end{itemize}
+   \vspace{0.35cm}
+   \textbf{\textcolor{HECnavy}{En classe}}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Carton d'identification visible à chaque cours
+      \item Appareils électroniques rangés; seules les tablettes à plat sont permises
+      \item Limiter les allées et venues
+   \end{itemize}
 \end{frame}
 
 % ============================================================================
@@ -371,7 +455,7 @@
 \begin{frame}{L'approche par les dépenses : $Y = C + I + G + NX$}\examtag
    \begin{figure}
       \centering
-      \includegraphics[height=0.8\textheight]{gdp_decomposition_canada.png}
+      \includegraphics[height=0.8\textheight]{gdp_decomposition_canada.pdf}
    \end{figure}
 \end{frame}
 
@@ -396,10 +480,10 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{consumption_share_gdp.png}
+      \includegraphics[width=0.95\textwidth]{consumption_share_gdp.pdf}
    \end{figure}
    \vspace{-0.4cm}
-   \footnotesize La consommation est la \textbf{plus grande composante} ($\sim$60\,\%), en hausse au fil du temps.
+   \footnotesize La consommation est la \textbf{plus grande composante} : plus de la moitié du PIB.
 \end{frame}
 
 % ── Investissement ────────────────────────────────────────────────────
@@ -464,7 +548,7 @@
          \textbf{Production} & & \textbf{Revenus} & & \textbf{Dépenses} & \\
          \hline
          Manuf.\ & 400 & Salaires & 500 & Investissement & 400 \\
-         & & Profits & (100) & & \\
+         & & Excédent d'exploit. & (100) & & \\
          \hline
          \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400} & \textbf{Total} & \textbf{400}
       \end{tabularx}
@@ -535,7 +619,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{investment_share_gdp.png}
+      \includegraphics[width=0.95\textwidth]{investment_share_gdp.pdf}
    \end{figure}
    \vspace{-0.4cm}
    \footnotesize L'investissement est la composante la plus \textbf{volatile} --- il chute fortement en récession.
@@ -567,7 +651,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{government_share_gdp.png}
+      \includegraphics[width=0.95\textwidth]{government_share_gdp.pdf}
    \end{figure}
    \vspace{-0.4cm}
    \footnotesize Dépenses en hausse lors des récessions, mais en baisse tendancielle depuis les années 1990.
@@ -598,10 +682,10 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth]{trade_share_gdp.png}
+      \includegraphics[width=0.95\textwidth]{trade_share_gdp.pdf}
    \end{figure}
    \vspace{-0.4cm}
-   \footnotesize Le Canada est très ouvert. Le commerce a culminé avec l'ALENA (1994), puis légèrement diminué.
+   \footnotesize Le Canada est très ouvert. Le commerce a culminé au début des années 2000, après l'ALENA.
 \end{frame}
 
 \begin{frame}[t]{Entraîner votre détecteur de \guillemotleft~BS~\guillemotright}\examtag
@@ -625,15 +709,25 @@
    \end{columns}
 \end{frame}
 
+\begin{frame}[t]{Expansion et récession : comparer les composantes}
+   \vspace{-0.2cm}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.79\textheight, keepaspectratio]{gdp_component_cycles.pdf}
+   \end{figure}
+   \vspace{-0.25cm}
+   \footnotesize Au-dessus de 0 : niveau supérieur à sa \textbf{propre tendance}. $I$ inclut les stocks.
+\end{frame}
+
 \begin{frame}{PIB par les dépenses : comparaison internationale}
    \vspace{-0.15cm}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth, height=0.62\textheight, keepaspectratio]{gdp_decomposition_4countries.png}
+      \includegraphics[width=\textwidth, height=0.62\textheight, keepaspectratio]{gdp_decomposition_4countries.pdf}
    \end{figure}
    \vspace{-0.25cm}
    \begin{keyinsight}[Différents modèles de croissance]
-      Chine : investissement ($I$ = 41\,\%). É.-U.\ : consommation ($C$ = 68\,\%).
+      Chine : investissement ($I$ = 40\,\%). É.-U.\ : consommation ($C$ = 68\,\%).
    \end{keyinsight}
 \end{frame}
 
@@ -718,14 +812,14 @@
 \begin{frame}{Croissance du PIB nominal au Canada}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{gdp_nominal_canada.png}
+      \includegraphics[width=\textwidth]{gdp_nominal_canada.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.png}
+      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.pdf}
    \end{figure}
 \end{frame}
 
@@ -747,29 +841,48 @@
 
 \begin{frame}[t]{Et si la hausse des prix reflète une qualité supérieure\,?}
    \small
-   Quand un bien/service \textbf{s'améliore}, une partie de la hausse de prix reflète sa qualité :
+   Une hausse de prix peut aussi refléter une \textbf{amélioration de qualité} :
    \vspace{0.15cm}
+   % Honda US MSRP, LX sedan: 2005 4-speed automatic vs. 2025 CVT; destination excluded in both years.
+   % https://hondanews.com/en-US/releases/release-28b2994dde0c36d818b2ff004c34c274-2005-honda-civic-prices-and-epa-data
+   % https://hondanews.com/en-US/honda-automobiles/releases/new-2025-honda-civic-pricing-and-fuel-economy-ratings-confirmed-begins-arriving-at-dealers-today
+   % CADTH 2021, Appendix 1, Table 8: public drug costs, 76 kg, first-year protocol, before confidential rebates.
+   % These are theoretical protocol costs, not mean actual spending or the patient's out-of-pocket payment.
+   % https://canjhealthtechnol.ca/index.php/cjht/article/download/pc0232r/297?inline=1
+   % CheckMate 067 randomized trial: 10-year overall survival 19% ipilimumab vs. 43% nivolumab + ipilimumab.
+   % https://pmc.ncbi.nlm.nih.gov/articles/12080919/
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item \textbf{Voitures neuves :} prix moyen de $\sim$23K\,\$ (2005) à $\sim$48K\,\$ (2024) --- mais 10+ coussins gonflables, conduite assistée, caméra de recul, durée de vie doublée
-      \item \textbf{Médicaments anticancer :} de $\sim$10K\,\$/an (2000) à $>$100K\,\$ (immunothérapies) --- mais mortalité par cancer $-$34\,\% depuis 1991
+      \item \textbf{Honda Civic LX automatique :} \textbf{16\,410\,\$US} (2005) à \textbf{24\,250\,\$US} (2025) --- avec désormais freinage anticollision, régulateur adaptatif et maintien dans la voie
+      \item \textbf{Mélanome avancé :} Yervoy seul vs.\ Yervoy + Opdivo : \textbf{116K à 216K\,\$CA} la première année (coût théorique) --- mais survie à dix ans de \textbf{19\,\% à 43\,\%} dans l'essai clinique
    \end{itemize}
+   {\scriptsize\color{HECgray} Sources : Honda (hors destination); CADTH (tarifs publics avant remises, 2021); CheckMate 067 (2024).\par}
    \vspace{0.1cm}
+   % Bils & Klenow (2001), 66 US durable goods, 1980--1996: estimated annual quality growth 3.7%,
+   % with 2.2 percentage points unmeasured; 3.7 / (3.7 - 2.2) = 2.47. Not an economy-wide or current estimate.
+   % https://www.aeaweb.org/articles?id=10.1257/aer.91.4.1006
    \begin{keyinsight}
-      Les agences statistiques ajustent pour cela (\textbf{prix hédoniques}), mais l'amélioration de qualité réelle est $\sim$\textbf{3$\times$} ce qu'elles mesurent. Surestimer l'inflation $=$ sous-estimer la croissance du PIB réel\ldots
-      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Bils \& Klenow (\textit{AER}, 2001)}}
+      Les agences statistiques \textbf{corrigent pour la qualité}, mais imparfaitement : Bils \& Klenow estiment une amélioration de la qualité \textbf{d'environ 2,5 fois celle mesurée}. Surestimer le \textbf{déflateur du PIB} revient à sous-estimer la croissance du PIB réel.
+      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{\href{https://www.aeaweb.org/articles?id=10.1257/aer.91.4.1006}{Bils \& Klenow (\textit{AER}, 2001)}}}
    \end{keyinsight}
 \end{frame}
 
 \begin{frame}{L'inflation est de retour\ldots}
    \begin{tikzpicture}[remember picture, overlay]
       \setcounter{newshl}{0}
-      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~The Affordability Crisis Should Have Been Over By Now~\guillemotright}
-      \newsheadline[washpost]{The Washington Post}{\guillemotleft~Rising prices fueled by tariffs, delayed inflation report shows~\guillemotright}
-      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Canada's inflation rate rises to 2.4\,\% as grocery prices surge~\guillemotright}
-      \newsheadline[ledevoir]{Le Devoir}{\guillemotleft~Vers une nouvelle hausse du prix des aliments en 2026~\guillemotright}
-      \newsheadline[wsj]{The Wall Street Journal}{\guillemotleft~Trump's Tariffs Cost the Average Household \$1,000 Last Year~\guillemotright}
-      \newsheadline[lapresse]{La Presse}{\guillemotleft~L'inflation alimentaire ne disparaîtra pas de sitôt~\guillemotright}
+      % Le Devoir, 2026-10-14; current visible article headline verified in browser on 2026-10-15.
+      \newsheadline[ledevoir]{Le Devoir}{\href{https://www.ledevoir.com/economie/1016729/inflation-pese-toujours-plus-menages-americains-approche-elections}{\guillemotleft~L’inflation américaine s’accélère à l’approche des élections~\guillemotright}}
+      % Financial Times, 2026-10-14; headline and date verified on publisher home / markets pages.
+      \newsheadline[ft]{Financial Times}{\href{https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397}{\guillemotleft~Global diesel prices set to rise again, warns IEA~\guillemotright}}
+      % The Wall Street Journal, 2026-10-14; visible article headline and date verified.
+      \newsheadline[wsj]{The Wall Street Journal}{\href{https://www.wsj.com/economy/cpi-inflation-report-september-2026-b2037469}{\guillemotleft~Broad Pickup in Prices Lifted Inflation to 3.7\% in September~\guillemotright}}
+      % The New York Times, 2026-10-14; publisher RSS headline and timestamp verified via WeSearch provenance.
+      % https://wesearch.press/s/5-costs-americans-are-paying-more-for-as-inflation-rises-621319c4
+      \newsheadline[nyt]{The New York Times}{\href{https://www.nytimes.com/2026/10/14/business/prices-inflation-food-airfare-car-rentals.html}{\guillemotleft~5 Costs Americans Are Paying More for as Inflation Rises~\guillemotright}}
+      % The Washington Post, 2026-10-07; visible article headline and date verified.
+      \newsheadline[washpost]{The Washington Post}{\href{https://www.washingtonpost.com/business/2026/10/07/datacenter-boom-is-pushing-prices-higher-fed-officials-said/}{\guillemotleft~Data center boom is pushing prices higher, according to Fed officials~\guillemotright}}
+      % Reuters, 2026-09-02; headline and date verified on the syndicated original Reuters dispatch.
+      \newsheadline[reuters]{Reuters}{\href{https://ca.investing.com/news/economy-news/bank-of-canada-holds-key-rate-says-multiple-hikes-might-be-needed-4826387}{\guillemotleft~Bank of Canada holds key rate, says multiple hikes might be needed~\guillemotright}}
    \end{tikzpicture}
 \end{frame}
 
@@ -796,14 +909,14 @@
 \begin{frame}{Inflation récente au Canada}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_cpi_deflator_canada.png}
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_cpi_deflator_canada.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Inflation globale vs.\ de base}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_headline_core_canada.png}
+      \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{inflation_headline_core_canada.pdf}
    \end{figure}
 \end{frame}
 
@@ -813,7 +926,7 @@
    \vspace{0.1cm}
    \begin{figure}
       \centering
-      \includegraphics[width=0.92\textwidth, height=0.72\textheight, keepaspectratio]{inflation_highfreq_cavallo.png}
+      \includegraphics[width=0.92\textwidth, height=0.72\textheight, keepaspectratio]{inflation_highfreq_cavallo.pdf}
    \end{figure}
 \end{frame}
 
@@ -853,7 +966,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth, height=0.75\textheight, keepaspectratio]{gdp_ppp_world.png}
+      \includegraphics[width=\textwidth, height=0.75\textheight, keepaspectratio]{gdp_ppp_world.pdf}
    \end{figure}
    \vspace{-0.3cm}
    \footnotesize La Chine a dépassé les É.-U.\ en termes de PPA --- mais que signifie \guillemotleft~PPA~\guillemotright\,?
@@ -890,7 +1003,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.png}
+      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.pdf}
    \end{figure}
 \end{frame}
 
@@ -901,7 +1014,7 @@
       \begin{column}{0.58\textwidth}
          \begin{figure}
             \centering
-            \includegraphics[width=\textwidth, height=0.82\textheight, keepaspectratio]{big_mac_index.png}
+            \includegraphics[width=\textwidth, height=0.82\textheight, keepaspectratio]{big_mac_index.pdf}
          \end{figure}
       \end{column}
       \begin{column}{0.39\textwidth}
@@ -949,14 +1062,14 @@
 \begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{gdp_canada_usa.png}
+      \includegraphics[width=\textwidth]{gdp_canada_usa.pdf}
    \end{figure}
 \end{frame}
 
 \begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{gdp_per_capita_canada_usa.png}
+      \includegraphics[width=\textwidth]{gdp_per_capita_canada_usa.pdf}
    \end{figure}
 \end{frame}
 
@@ -964,7 +1077,7 @@
    \vspace{-0.2cm}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{gdp_vs_gdp_per_capita.png}
+      \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{gdp_vs_gdp_per_capita.pdf}
    \end{figure}
    \vspace{-0.3cm}
    \footnotesize Grande économie $\neq$ population riche. L'Inde a un PIB massif mais un PIB par habitant modeste.
@@ -993,7 +1106,7 @@
 \begin{frame}{L'économie des farfadets}
    \begin{figure}
       \centering
-      \includegraphics[height=0.75\textheight, keepaspectratio]{gdp_gni_ratio.png}
+      \includegraphics[height=0.75\textheight, keepaspectratio]{gdp_gni_ratio.pdf}
    \end{figure}
 \end{frame}
 
@@ -1059,7 +1172,7 @@
 \begin{frame}{IDH vs.\ PIB par habitant}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{hdi_vs_gdp_per_capita.png}
+      \includegraphics[width=\textwidth]{hdi_vs_gdp_per_capita.pdf}
    \end{figure}
 \end{frame}
 
@@ -1089,7 +1202,7 @@
 \begin{frame}{Au-delà du PIB : bien-être vs.\ PIB par habitant}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{beyond_gdp.png}
+      \includegraphics[width=\textwidth]{beyond_gdp.pdf}
    \end{figure}
    \vspace{-0.3cm}
    \footnotesize Au-dessus de la droite à 45$^\circ$ $\to$ bien-être supérieur au PIB. En dessous $\to$ bien-être inférieur.
@@ -1109,15 +1222,14 @@
    \renewcommand{\arraystretch}{1.5}
    \centering
    \small
-   \begin{tabularx}{\textwidth}{>{\bfseries}X l}
+   \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.43\textwidth}}
       \toprule
       \textbf{Thème} & \textbf{Séance} \\
       \midrule
-      Pourquoi certains pays sont-ils plus riches\,? & S2 : Croissance de long terme \\
-      Quels sont les moteurs des inégalités\,? & S3 : Marché du travail \\
-      Pourquoi l'économie connaît des hauts et des bas\,? & S4 : Cycles économiques \\
-      Pourquoi/comment combattre les récessions\,? & S5 : Pol.\ mon.\ et budgétaire \\
-      Quel avenir pour la mondialisation\,? & S6 : Commerce international \\
+      Pourquoi certains pays sont-ils plus riches que d'autres\,? & S2 : Croissance de long terme \\
+      Qu'est-ce qui détermine l'emploi, les salaires et l'investissement\,? & S3 : Marchés du travail et du capital \\
+      Pourquoi l'économie connaît-elle des hauts et des bas\,? & S4 : Cycles économiques \\
+      Pourquoi et comment combattre les récessions\,? & S5 : Pol. monétaire et budgétaire \\
       \bottomrule
    \end{tabularx}
 \end{frame}

@@ -3,7 +3,7 @@ ECON50803 — Session 5 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 5 slides (monetary and
-fiscal policy). All figure labels, axis titles, legends, and
+fiscal policy). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and
 annotations are in French.
 
 Run from Slides/S5/:
@@ -19,8 +19,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # ── Import shared utilities (palette, helpers, data loaders) ────────────
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
 
 
 # =====================================================================
@@ -58,7 +62,7 @@ def overnight_rate_ca():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (OCDE)")
-    save(fig, 'overnight_rate_ca.png')
+    save(fig, 'overnight_rate_ca.pdf')
 
 
 # =====================================================================
@@ -95,9 +99,10 @@ def overnight_vs_mortgage():
     ax.set_xticks([pd.Timestamp(f'{y}-01-01') for y in xticks])
     ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
 
-    ax.set_ylim(0, 8)
-    ax.set_yticks(range(0, 9, 1))
-    ax.set_yticklabels([f'{y}\\%' for y in range(0, 9, 1)], fontsize=11)
+    ymax = max(8, tick_ceil(max(overnight.max(), mortgage.max()), 1))
+    ax.set_ylim(0, ymax)
+    ax.set_yticks(range(0, ymax + 1))
+    ax.set_yticklabels([f'{y}\\%' for y in range(0, ymax + 1)], fontsize=11)
     ax.set_ylabel(r"\%", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -105,7 +110,7 @@ def overnight_vs_mortgage():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: FRED, Banque du Canada (Valet)")
-    save(fig, 'overnight_vs_mortgage.png')
+    save(fig, 'overnight_vs_mortgage.pdf')
 
 
 # =====================================================================
@@ -158,7 +163,7 @@ def transmission_taux():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper center', ncol=3)
     add_source(ax, r"Source: FRED, Banque du Canada (Valet)")
-    save(fig, 'transmission_taux.png')
+    save(fig, 'transmission_taux.pdf')
 
 
 # =====================================================================
@@ -211,7 +216,7 @@ def rate_vs_inflation_ca():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, r"Source: FRED")
-    save(fig, 'rate_vs_inflation_ca.png')
+    save(fig, 'rate_vs_inflation_ca.pdf')
 
 
 # =====================================================================
@@ -264,7 +269,7 @@ def inflation_vs_rate_2019():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: Banque du Canada")
-    save(fig, 'inflation_vs_rate_2019.png')
+    save(fig, 'inflation_vs_rate_2019.pdf')
 
 
 # =====================================================================
@@ -320,7 +325,7 @@ def policy_rates_global():
     ax.legend(frameon=False, fontsize=9, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: FRED")
-    save(fig, 'policy_rates_global.png')
+    save(fig, 'policy_rates_global.pdf')
 
 
 # =====================================================================
@@ -380,7 +385,7 @@ def boc_balance_sheet():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque du Canada")
-    save(fig, 'boc_balance_sheet.png')
+    save(fig, 'boc_balance_sheet.pdf')
 
 
 # =====================================================================
@@ -479,7 +484,7 @@ def debt_to_gdp():
     style_axes(ax, xgrid=True)
     ax.grid(False, axis='y')  # keep only vertical gridlines
     add_source(ax, r"Source: FMI via FRED (2023)")
-    save(fig, 'debt_to_gdp.png')
+    save(fig, 'debt_to_gdp.pdf')
 
 
 # =====================================================================
@@ -558,7 +563,7 @@ def phillips_curve_decades():
     ax.legend(frameon=False, fontsize=9, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: FRED (UNRATE, CPIAUCSL)")
-    save(fig, 'phillips_curve_decades.png')
+    save(fig, 'phillips_curve_decades.pdf')
 
 
 # =====================================================================
@@ -660,7 +665,7 @@ def fed_dot_plot():
     style_axes(ax, xgrid=False)
     ax.set_ylim(2.25, 4.50)
     add_source(ax, r"Source: Federal Reserve, FOMC SEP (mars 2025)")
-    save(fig, 'fed_dot_plot.png')
+    save(fig, 'fed_dot_plot.pdf')
 
 
 # =====================================================================
@@ -717,7 +722,7 @@ def gross_vs_net_debt():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, r"Source: FMI, Fiscal Monitor (oct. 2024)")
-    save(fig, 'gross_vs_net_debt.png')
+    save(fig, 'gross_vs_net_debt.pdf')
 
 
 # =====================================================================
@@ -770,7 +775,7 @@ def interest_expense():
 
     style_axes(ax)
     add_source(ax, r"Source: FMI")
-    save(fig, 'interest_expense.png')
+    save(fig, 'interest_expense.pdf')
 
 
 # =====================================================================
@@ -816,7 +821,7 @@ def overnight_rate_recent():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque du Canada (Valet)")
-    save(fig, 'overnight_rate_recent.png')
+    save(fig, 'overnight_rate_recent.pdf')
 
 
 # =====================================================================
@@ -867,7 +872,7 @@ def unemployment_rate_recent():
 
     style_axes(ax)
     add_source(ax, source_text)
-    save(fig, 'unemployment_rate_recent.png')
+    save(fig, 'unemployment_rate_recent.pdf')
 
 
 # =====================================================================
@@ -916,7 +921,7 @@ def inflation_recent():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: Banque du Canada (Valet)")
-    save(fig, 'inflation_recent.png')
+    save(fig, 'inflation_recent.pdf')
 
 
 # =====================================================================
@@ -988,7 +993,56 @@ def conjoncture_canada():
     ax.legend(frameon=False, fontsize=10, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
     add_source(ax, r"Source: Banque du Canada, FRED")
-    save(fig, 'conjoncture_canada.png')
+    save(fig, 'conjoncture_canada.pdf')
+
+
+# =====================================================================
+# Bank of Canada tightening cycles (restore the original chart generator)
+# =====================================================================
+def boc_tightening_cycles():
+    """Cumulative rate increases relative to the pre-cycle policy rate.
+
+    FRED's monthly central-bank rate dates the 1997/2004 observations to
+    the first of each month, as in the original chart. The constant spread
+    between the Bank Rate and overnight target cancels in the differences.
+    The 2017/2022 cycles use exact business-day observations from Valet.
+    """
+    print('Figure: Bank of Canada tightening cycles')
+    monthly = get_fred_data('IRSTCB01CAM156N',
+                            observation_start='1997-01-01',
+                            observation_end='2006-06-01').dropna()
+    daily = get_valet_series('V39079', start='2017-01-01').dropna()
+    cycles = [
+        ('1997', monthly, '1997-07-01', '1998-09-01', palette[4]),
+        ('2004', monthly, '2004-09-01', '2006-05-01', palette[2]),
+        ('2017', daily, '2017-07-12', '2018-10-24', palette[1]),
+        ('2022', daily, '2022-03-02', '2023-07-12', palette[0]),
+    ]
+    fig, ax = new_figure(9, 5)
+    for label, rates, start, end, color in cycles:
+        start = pd.Timestamp(start)
+        baseline = rates.loc[rates.index < start].iloc[-1]
+        cycle = rates.loc[start:pd.Timestamp(end) + pd.Timedelta(days=7)]
+        # Valet records the effective business day after an announcement.
+        cycle = cycle.loc[cycle.ne(cycle.shift()) & (cycle > baseline)]
+        if cycle.empty:
+            raise ValueError(f'No observations for tightening cycle {label}')
+        days = (cycle.index - cycle.index[0]).days
+        ax.step(days, cycle.values - baseline, where='post',
+                color=color, linewidth=3, label=label)
+    ax.set_xlim(0, 650)
+    ax.set_xticks(range(0, 651, 50))
+    ax.set_ylim(0, 5)
+    ax.set_yticks(range(0, 6))
+    ax.tick_params(labelsize=11)
+    ax.set_xlabel('Nombre de jours depuis la première hausse', fontsize=11)
+    ax.set_ylabel('Points de pourcentage', fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source: Banque du Canada (Valet); FRED (mensuel: 1997/2004)')
+    save(fig, 'boc_tightening_cycles.pdf')
 
 
 # =====================================================================
@@ -1005,6 +1059,7 @@ if __name__ == '__main__':
         rate_vs_inflation_ca,
         inflation_vs_rate_2019,
         policy_rates_global,
+        boc_tightening_cycles,
         boc_balance_sheet,
         debt_to_gdp,
         phillips_curve_decades,
@@ -1027,5 +1082,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

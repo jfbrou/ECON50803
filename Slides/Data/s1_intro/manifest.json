@@ -1,0 +1,101 @@
+{
+  "unemployment": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410028701",
+      "https://fred.stlouisfed.org/series/LRUNTTTTCAM156S"
+    ],
+    "vector": "v2062815",
+    "units": "Percent, seasonally adjusted; Canada, total gender, age 15+",
+    "transformation": "Statistics Canada from 1976; OECD/FRED history through 1975.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "25e47340d9b65ee98ee73ee307c051d629b4f20adaf41704bd9b45145410a2bf",
+    "last_observation": "2026-09-01 00:00:00"
+  },
+  "cpi": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401"
+    ],
+    "vector": "v41690973",
+    "units": "CPI index, 2002=100, all-items Canada, not seasonally adjusted",
+    "transformation": "Plot inflation as index / index lagged 12 months - 1; do not fill missing months.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "18deb1fdc5624a5c312fef0d7fe585aa3b3f63716fb3864b0fc239188031c73e",
+    "last_observation": "2026-08-01 00:00:00"
+  },
+  "fed_rate": {
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/DFF",
+      "https://markets.newyorkfed.org/api/rates/unsecured/effr/last/5.json"
+    ],
+    "units": "Percent, daily effective federal funds rate",
+    "transformation": "FRED history supplemented by the latest official New York Fed observations; prefer the latter on overlapping dates.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "77877bd37a54bd295e407a422b804e8bff617473e15394ef709c6778c0002f7f",
+    "last_observation": "2026-10-14 00:00:00"
+  },
+  "boc_rate": {
+    "source_urls": [
+      "https://www.bankofcanada.ca/valet/observations/V39079/json"
+    ],
+    "units": "Percent, daily target overnight rate",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "ee6f54a547277ea57bc127758c6785f0c77014f0e85ac1729b14291b4d7ce087",
+    "last_observation": "2026-10-14 00:00:00"
+  },
+  "inflation_expectations": {
+    "source_urls": [
+      "https://www.bankofcanada.ca/valet/observations/CES_C1_SHORT_TERM/json"
+    ],
+    "units": "Percent, consumer expectations over next 12 months",
+    "transformation": "Quarter-start reference dates shifted forward one year to display expectation horizon; divide by 100.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "d9d2a8f29e1db24d843ef2961aae4b079af782e8c2d4f8073815b3df9c1d6ec6",
+    "last_observation": "2026-04-01 00:00:00"
+  },
+  "employment": {
+    "source_urls": [
+      "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410035501"
+    ],
+    "units": "Thousands of persons, seasonally adjusted estimates, Canada only",
+    "transformation": "Disjoint selected industries; sum employment levels within each group, then index to January 2023=100. Groups are exposure proxies, not a causal estimate of tariff effects.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "e30a7256db67d23bb786e017f7f4aff22892ecf45da0a394dd7fca13396c0cf2",
+    "last_observation": "2026-09-01 00:00:00"
+  },
+  "maddison": {
+    "source_urls": [
+      "https://api.ourworldindata.org/v1/indicators/900793.data.json",
+      "https://ourworldindata.org/grapher/gdp-per-capita-maddison-project-database"
+    ],
+    "units": "GDP per capita in constant 2011 international dollars",
+    "source_release": "Maddison Project Database 2023; latest available edition verified 2026-10-15",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "c4b87e8783beb4b2be6116182c273e92ec13cb36cf13b99c5330960fa681ecfe",
+    "last_observation": "2022"
+  },
+  "tariffs": {
+    "source_urls": [
+      "https://interactives.budgetlab.yale.edu/tools/state-of-tariffs/data/statutory-rates/daily-rate-overall/data.csv",
+      "https://interactives.budgetlab.yale.edu/tools/state-of-tariffs/data/statutory-rates/daily-rate-by-country/data.csv"
+    ],
+    "source_release": {
+      "updated": "August 24, 2026",
+      "vintage": "2026082411"
+    },
+    "units": "Percent; statutory estimates with fixed 2024 import weights",
+    "transformation": "Current-law scenario; dates at or before the source vintage only. Not collected duties or annual averages.",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "282a1aabecafefe4edce1ca1bc7c3fe262cf8ea71e40a653e30d63893caf2c0a",
+    "last_observation": "2026-08-24 00:00:00"
+  },
+  "tariffs_history": {
+    "source_urls": [
+      "https://budgetlab.yale.edu/research/state-us-tariffs-january-19-2026"
+    ],
+    "units": "Percent; annual collected duties divided by total import value, through 2024",
+    "local_source": "Slides/Data/tariff_data.xlsx, F1",
+    "retrieved_at_utc": "2026-10-15T14:57:46.386950+00:00",
+    "sha256": "c5e6c8795b3e1837055d29bb670a47b919eab10c061eff6324a7bdb5cb6d62fc",
+    "last_observation": "2024"
+  }
+}

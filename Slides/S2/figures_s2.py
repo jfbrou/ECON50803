@@ -3,7 +3,7 @@ ECON50803 — Session 2 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 2 slides (long-term growth).
-All figure labels, axis titles, legends, and annotations are in French.
+Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and annotations are in French.
 
 Run from Slides/S2/:
     python3 figures_s2.py
@@ -18,8 +18,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
 
 
 # ── PWT loader (cached) ───────────────────────────────────────────────
@@ -89,7 +93,7 @@ def regional_divergence():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, 'Source: Maddison Project Database 2023 (via Our World in Data)')
-    save(fig, 'regional_divergence.png')
+    save(fig, 'regional_divergence.pdf')
 
 
 # =====================================================================
@@ -155,13 +159,13 @@ def _diminishing_returns(xlabel, fixed_label, filename):
 def production_function():
     print('Figure 2a: Diminishing returns to labor')
     _diminishing_returns('Travail ($L$)', r'$K$ fixe, $A$ fixe',
-                         'production_function.png')
+                         'production_function.pdf')
 
 
 def production_function_capital():
     print('Figure 2b: Diminishing returns to capital')
     _diminishing_returns('Capital ($K$)', r'$L$ fixe, $A$ fixe',
-                         'production_function_capital.png')
+                         'production_function_capital.pdf')
 
 
 # =====================================================================
@@ -266,7 +270,7 @@ def growth_decomp_china_us():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_china_us.png')
+    save(fig, 'growth_decomp_china_us.pdf')
 
 
 # =====================================================================
@@ -371,7 +375,7 @@ def global_growth_sources():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=9, loc='upper left', ncol=2)
     add_source(ax, 'Source: FMI, World Economic Outlook')
-    save(fig, 'global_growth_sources.png')
+    save(fig, 'global_growth_sources.pdf')
 
 
 # =====================================================================
@@ -420,7 +424,7 @@ def ww2_recovery():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left')
     add_source(ax, 'Source: Maddison Project Database (via Our World in Data)')
-    save(fig, 'ww2_recovery.png')
+    save(fig, 'ww2_recovery.pdf')
 
 
 # =====================================================================
@@ -459,7 +463,7 @@ def china_gdp_growth():
 
     style_axes(ax)
     add_source(ax, 'Source: Banque mondiale')
-    save(fig, 'china_gdp_growth.png')
+    save(fig, 'china_gdp_growth.pdf')
 
 
 # =====================================================================
@@ -510,7 +514,7 @@ def japan_growth():
 
     style_axes(ax)
     add_source(ax, 'Source: Maddison Project Database (via Our World in Data)')
-    save(fig, 'japan_growth.png')
+    save(fig, 'japan_growth.pdf')
 
 
 # =====================================================================
@@ -584,7 +588,7 @@ def ussr_russia_gdp():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left')
     add_source(ax, 'Source: Maddison Project Database (via Our World in Data)')
-    save(fig, 'ussr_russia_gdp.png')
+    save(fig, 'ussr_russia_gdp.pdf')
 
 
 # =====================================================================
@@ -659,7 +663,7 @@ def convergence_us_states():
 
     style_axes(ax)
     add_source(ax, 'Source: Barro \\& Sala-i-Martin; BEA')
-    save(fig, 'convergence_us_states.png')
+    save(fig, 'convergence_us_states.pdf')
 
 
 # =====================================================================
@@ -744,7 +748,7 @@ def convergence_oecd():
 
     style_axes(ax)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_oecd.png')
+    save(fig, 'convergence_oecd.pdf')
 
 
 # =====================================================================
@@ -824,7 +828,7 @@ def convergence_asia():
 
     style_axes(ax)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_asia.png')
+    save(fig, 'convergence_asia.pdf')
 
 
 # =====================================================================
@@ -909,7 +913,7 @@ def convergence_global():
 
     style_axes(ax)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_global.png')
+    save(fig, 'convergence_global.pdf')
 
 
 # =====================================================================
@@ -945,7 +949,7 @@ def development_accounting():
 
     style_axes(ax)
     add_source(ax, 'Source: Hall \\& Jones (1999); Caselli (2005)')
-    save(fig, 'development_accounting.png')
+    save(fig, 'development_accounting.pdf')
 
 
 # =====================================================================
@@ -990,7 +994,7 @@ def tfp_growth_advanced():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper right')
     add_source(ax, 'Source: OECD; Conference Board; Fernald (2014)')
-    save(fig, 'tfp_growth_advanced.png')
+    save(fig, 'tfp_growth_advanced.pdf')
 
 
 # =====================================================================
@@ -1028,7 +1032,7 @@ def oecd_business_investment():
     ax.grid(True, which='major', axis='x', color='gray', linestyle=':', linewidth=0.5)
     ax.grid(False, axis='y')
     add_source(ax, 'Source: OCDE; FMI (moyenne 2015--2023)')
-    save(fig, 'oecd_business_investment.png')
+    save(fig, 'oecd_business_investment.pdf')
 
 
 # =====================================================================
@@ -1073,7 +1077,7 @@ def canada_productivity_growth():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'canada_productivity_growth.png')
+    save(fig, 'canada_productivity_growth.pdf')
 
 
 # =====================================================================
@@ -1151,7 +1155,7 @@ def kaya_decomposition():
     ax.legend(frameon=False, fontsize=9, loc='upper center',
               bbox_to_anchor=(0.5, 1.0), ncol=3)
     add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
-    save(fig, 'kaya_decomposition.png')
+    save(fig, 'kaya_decomposition.pdf')
 
 
 # =====================================================================
@@ -1249,7 +1253,7 @@ def kaya_decomposition_countries():
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=3)
     add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
-    save(fig, 'kaya_decomposition_countries.png')
+    save(fig, 'kaya_decomposition_countries.pdf')
 
 
 # =====================================================================
@@ -1317,7 +1321,7 @@ def decoupling():
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=3)
     add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
-    save(fig, 'decoupling.png')
+    save(fig, 'decoupling.pdf')
 
 
 # =====================================================================
@@ -1430,7 +1434,7 @@ def gdp_vs_co2_growth():
     for handle in leg.legend_handles:
         handle.set_sizes([60])
     add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
-    save(fig, 'gdp_vs_co2_growth.png')
+    save(fig, 'gdp_vs_co2_growth.pdf')
 
 
 # =====================================================================
@@ -1494,7 +1498,7 @@ def growth_decomp_canada_us_total():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_canada_us_total.png')
+    save(fig, 'growth_decomp_canada_us_total.pdf')
 
 
 # =====================================================================
@@ -1592,7 +1596,7 @@ def growth_decomp_canada_us():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_canada_us.png')
+    save(fig, 'growth_decomp_canada_us.pdf')
 
 
 # =====================================================================
@@ -1664,7 +1668,7 @@ def growth_decomp_asian_tigers():
     ax.legend(frameon=False, fontsize=11, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_asian_tigers.png')
+    save(fig, 'growth_decomp_asian_tigers.pdf')
 
 
 def growth_decomp_asian_tigers_comparison():
@@ -1777,7 +1781,7 @@ def growth_decomp_asian_tigers_comparison():
               loc='upper left', bbox_to_anchor=(0.0, 1.0))
 
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_asian_tigers_comparison.png')
+    save(fig, 'growth_decomp_asian_tigers_comparison.pdf')
 
 
 # =====================================================================
@@ -1827,7 +1831,7 @@ def catchup_growth():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=12)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'catchup_growth.png')
+    save(fig, 'catchup_growth.pdf')
 
 
 # =====================================================================
@@ -1887,7 +1891,7 @@ def miracle_vs_stagnation():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'miracle_vs_stagnation.png')
+    save(fig, 'miracle_vs_stagnation.pdf')
 
 
 # =====================================================================
@@ -1975,7 +1979,7 @@ def development_accounting_capital():
     _dev_accounting_scatter(
         data, 'ky_ratio',
         r"Ratio capital/PIB relatif aux É.-U.",
-        'development_accounting_capital.png',
+        'development_accounting_capital.pdf',
         ylim_top=4)
 
 
@@ -1985,7 +1989,7 @@ def development_accounting_labor():
     _dev_accounting_scatter(
         data, 'ln_ratio',
         r"Taux d'emploi relatif aux É.-U.",
-        'development_accounting_labor.png',
+        'development_accounting_labor.pdf',
         ylim_top=2)
 
 
@@ -1995,7 +1999,7 @@ def development_accounting_tfp():
     _dev_accounting_scatter(
         data, 'a_ratio',
         r"PTF relative aux É.-U.",
-        'development_accounting_tfp.png',
+        'development_accounting_tfp.pdf',
         ylim_top=2)
 
 
@@ -2104,7 +2108,7 @@ def malthusian_trap():
 
     style_axes(ax)
     add_source(ax, 'Source: Clark (2005), JPE 113(6)')
-    save(fig, 'malthusian_trap.png')
+    save(fig, 'malthusian_trap.pdf')
 
 
 # =====================================================================
@@ -2139,7 +2143,7 @@ def poverty():
 
     style_axes(ax)
     add_source(ax, 'Source: Our World in Data')
-    save(fig, 'poverty.png')
+    save(fig, 'poverty.pdf')
 
 
 # =====================================================================
@@ -2187,7 +2191,7 @@ def life_expectancy():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, 'Source: Our World in Data (2023)')
-    save(fig, 'life_expectancy.png')
+    save(fig, 'life_expectancy.pdf')
 
 
 # =====================================================================
@@ -2231,7 +2235,7 @@ def co2_emissions_by_region():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
     add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
-    save(fig, 'co2_emissions_by_region.png')
+    save(fig, 'co2_emissions_by_region.pdf')
 
 
 # =====================================================================
@@ -2283,7 +2287,7 @@ def production_vs_consumption_co2():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
     add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
-    save(fig, 'production_vs_consumption_co2.png')
+    save(fig, 'production_vs_consumption_co2.pdf')
 
 
 # =====================================================================
@@ -2344,6 +2348,7 @@ def co2_embedded_in_trade_map():
     cbar = fig.colorbar(sm, ax=ax, orientation='horizontal',
                         fraction=0.05, pad=0.02, aspect=40,
                         shrink=0.6)
+    cbar.solids.set_rasterized(False)
     cbar.set_ticks([-50, -25, 0, 25, 50])
     cbar.set_ticklabels([r'$-50$\%', r'$-25$\%', r'$0$\%',
                          r'$+25$\%', r'$+50$\%'])
@@ -2356,7 +2361,7 @@ def co2_embedded_in_trade_map():
 
     ax.set_axis_off()
     add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
-    save(fig, 'co2_embedded_in_trade_map.png')
+    save(fig, 'co2_embedded_in_trade_map.pdf')
 
 
 # =====================================================================
@@ -2397,7 +2402,7 @@ def solar_pv_cost():
     ax.grid(True, which='minor', axis='y', color='gray',
             linestyle=':', linewidth=0.3)
     add_source(ax, 'Source: IRENA (via Our World in Data)')
-    save(fig, 'solar_pv_cost.png')
+    save(fig, 'solar_pv_cost.pdf')
 
 
 def battery_cost():
@@ -2424,7 +2429,7 @@ def battery_cost():
 
     style_axes(ax)
     add_source(ax, 'Source: BloombergNEF')
-    save(fig, 'battery_cost.png')
+    save(fig, 'battery_cost.pdf')
 
 
 # =====================================================================
@@ -2485,5 +2490,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

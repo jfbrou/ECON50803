@@ -2,11 +2,16 @@
 ECON50803 — Session 1 : Figure Generation
 ============================================
 
-Generates all matplotlib figures for Session 1 slides.
+Generates all matplotlib figures for Session 1 slides as vector PDFs.
+PDF export preserves fonts, paths, and transparency without rasterizing plots.
 All figure labels, axis titles, legends, and annotations are in French.
 
 Run from Slides/S1/:
     python3 figures_s1.py
+    python3 intro_data.py                  # refresh official inputs for slides 7--13
+    python3 figures_s1.py --intro-only     # regenerate only those seven figures
+    python3 remaining_data.py             # refresh the remaining source snapshots
+    python3 figures_s1.py --remaining-only # regenerate the remaining figures offline
 """
 
 from pathlib import Path
@@ -14,8 +19,21 @@ from statsmodels.tsa.filters.hp_filter import hpfilter
 from stats_can import StatsCan
 
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
+from intro_data import load_series as intro_series, load_frame as intro_frame
+from remaining_data import (load_series as remaining_series,
+                            load_frame as remaining_frame,
+                            worldbank_panel)
+
+
+def _source_month(date):
+    """Use a single line in source notes; axis date labels use two lines."""
+    return french_date_label(date).replace('\n', ' ')
 
 
 # =====================================================================
@@ -23,7 +41,7 @@ from plot_utils import *
 # =====================================================================
 def can_unemployment():
     print('Figure 1: Canadian unemployment rate')
-    u = get_fred_data('LRUNTTTTCAM156S')
+    u = intro_series('unemployment')
 
     u_clean = u.dropna()
 
@@ -42,7 +60,7 @@ def can_unemployment():
 
     last_date = u_clean.index[-1]
     first_year = u_clean.index[0].year
-    ax.set_xlim(pd.to_datetime(str(first_year)), last_date + pd.DateOffset(months=3))
+    ax.set_xlim(pd.to_datetime(str(first_year)), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(first_year, last_date.year + 1, 10)])
     ax.set_xticklabels(range(first_year, last_date.year + 1, 10), fontsize=11)
     ax.set_ylim(2, 16)
@@ -56,8 +74,8 @@ def can_unemployment():
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    add_source(ax, 'Source: OECD (via FRED)')
-    save(fig, 'can_unemployment.png')
+    add_source(ax, f'Source: StatCan; OECD ({_source_month(last_date)})')
+    save(fig, 'can_unemployment.pdf')
 
 
 # =====================================================================
@@ -65,8 +83,8 @@ def can_unemployment():
 # =====================================================================
 def can_inflation_longrun():
     print('Figure 2: Canadian inflation (long-run)')
-    cpi = get_fred_data('CANCPIALLMINMEI')          # CPI index, 2015=100
-    infl = cpi.pct_change(12).dropna()               # 12-month % change
+    cpi = intro_series('cpi')                    # StatCan all-items CPI, 2002=100, NSA
+    infl = cpi.pct_change(12, fill_method=None).dropna()
 
     fig, ax = new_figure()
 
@@ -84,7 +102,7 @@ def can_inflation_longrun():
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
 
     last_date = infl.dropna().index[-1]
-    ax.set_xlim(pd.to_datetime('1965'), last_date + pd.DateOffset(months=3))
+    ax.set_xlim(pd.to_datetime('1965'), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(1965, last_date.year + 1, 5)])
     ax.set_xticklabels(range(1965, last_date.year + 1, 5), fontsize=11,
                        rotation=45, ha='right')
@@ -102,8 +120,8 @@ def can_inflation_longrun():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left',
               bbox_to_anchor=(0.55, 1.0))
-    add_source(ax, 'Source: OECD (via FRED)')
-    save(fig, 'can_inflation_longrun.png')
+    add_source(ax, f'Source: StatCan ({_source_month(last_date)})')
+    save(fig, 'can_inflation_longrun.pdf')
 
 
 # =====================================================================
@@ -111,21 +129,20 @@ def can_inflation_longrun():
 # =====================================================================
 def policy_rates():
     print('Figure 3: Policy rates (Fed + BoC)')
-    fed = get_fred_data('DFF', frequency='m', aggregation_method='avg')
-    boc = get_fred_data('IRSTCI01CAM156N')
+    fed = intro_series('fed_rate')
+    boc = intro_series('boc_rate')
 
     fig, ax = new_figure()
 
     ax.plot(fed, color=palette[0], linewidth=2,
-            label=r"Taux des fonds fédéraux (É.-U.)")
+            label=r"Taux effectif des fonds fédéraux (É.-U.)")
     ax.plot(boc, color=palette[1], linewidth=2,
-            label=r"Taux à un jour (Canada)")
+            label=r"Taux cible à un jour (Canada)")
 
-    last_year = max(fed.dropna().index[-1].year, boc.dropna().index[-1].year)
-    xlim_end = tick_ceil(last_year, 2)
-    ax.set_xlim(pd.to_datetime('2006'), pd.to_datetime(str(xlim_end)))
-    ax.set_xticks([pd.to_datetime(str(y)) for y in range(2006, xlim_end + 1, 2)])
-    ax.set_xticklabels(range(2006, xlim_end + 1, 2), fontsize=11)
+    last_date = max(fed.dropna().index[-1], boc.dropna().index[-1])
+    ax.set_xticks([pd.to_datetime(str(y)) for y in range(2006, last_date.year + 1, 2)])
+    ax.set_xticklabels(range(2006, last_date.year + 1, 2), fontsize=11)
+    ax.set_xlim(pd.to_datetime('2006'), last_date)
     ax.set_ylim(0, 6)
     ax.set_yticks(range(0, 6 + 1, 1))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 6 + 1, 1)], fontsize=11)
@@ -136,10 +153,10 @@ def policy_rates():
         ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=11, loc='center left',
-              bbox_to_anchor=(0.35, 0.55))
-    add_source(ax)
-    save(fig, 'policy_rates.png')
+    ax.legend(frameon=False, fontsize=11, loc='upper left',
+              bbox_to_anchor=(0.18, 1.0))
+    add_source(ax, f'Source: Fed de New York; FRED; BdC ({_source_month(last_date)})')
+    save(fig, 'policy_rates.pdf')
 
 
 # =====================================================================
@@ -147,12 +164,12 @@ def policy_rates():
 # =====================================================================
 def canada_inflation_recent():
     print('Figure 4: Canadian inflation (recent)')
-    cpi = get_fred_data('CANCPIALLMINMEI')          # CPI index, 2015=100
-    infl = cpi.pct_change(12).dropna()               # 12-month % change
+    cpi = intro_series('cpi')
+    infl = cpi.pct_change(12, fill_method=None).dropna()
 
     # Fetch BoC consumer inflation expectations (1-year ahead)
     # Survey date maps to expected inflation 1 year forward
-    exp_1yr = get_valet_series('CES_C1_SHORT_TERM', start='2014-01-01')
+    exp_1yr = intro_series('inflation_expectations')
     # Shift dates forward by 1 year (expectation horizon)
     exp_dates = exp_1yr.index + pd.DateOffset(years=1)
     exp_vals = exp_1yr.values / 100  # convert from % to fraction
@@ -204,8 +221,9 @@ def canada_inflation_recent():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
-    add_source(ax, 'Source: FRED; Bank of Canada (CSCE)')
-    save(fig, 'canada_inflation_recent.png')
+    quarter = (exp_1yr.index[-1].month - 1) // 3 + 1
+    add_source(ax, f'Source: StatCan; BdC (enquête T{quarter} {exp_1yr.index[-1].year})')
+    save(fig, 'canada_inflation_recent.pdf')
 
 
 # =====================================================================
@@ -213,67 +231,40 @@ def canada_inflation_recent():
 # =====================================================================
 def canada_employment_exports():
     print('Figure 5: Canadian employment by export dependence')
-    sc = StatsCan()
-
-    # Table 14-10-0355-01: Employment by industry, monthly, seasonally adjusted
-    df = sc.table_to_df('14-10-0355-01')
-
-    # Parse dates and keep only seasonally adjusted data
-    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
-    df = df[df['Data type'] == 'Seasonally adjusted']
-    df = df[df['REF_DATE'] >= '2023-01-01']
+    # Snapshot contains Canada-only, seasonally adjusted employment estimates.
+    # Never add provincial rows or standard errors to employment levels.
+    df = intro_frame('employment', parse_dates=['REF_DATE'])
 
     # Industries with high US-export dependence
     high_export = [
-        'Manufacturing',
-        'Mining, quarrying, and oil and gas extraction',
-        'Agriculture',
-        'Forestry, fishing, mining, quarrying, oil and gas',
+        'Manufacturing [31-33]',
+        'Agriculture [111-112, 1100, 1151-1152]',
+        'Forestry, fishing, mining, quarrying, oil and gas [21, 113-114, 1153, 2100]',
     ]
 
     # Industries with limited US-export dependence
     low_export = [
-        'Health care and social assistance',
-        'Educational services',
-        'Public administration',
-        'Construction',
-        'Accommodation and food services',
-        'Retail trade',
+        'Health care and social assistance [62]',
+        'Educational services [61]',
+        'Public administration [91]',
+        'Construction [23]',
+        'Accommodation and food services [72]',
+        'Retail trade [44-45]',
     ]
 
-    # Get available industry names
-    industries = df['North American Industry Classification System (NAICS)'].unique()
-
-    # Match industries to categories (partial matching for flexibility)
-    def match_industries(target_list, available):
-        matched = []
-        for t in target_list:
-            for a in available:
-                if t.lower() in a.lower():
-                    matched.append(a)
-                    break
-        return matched
-
-    high_matched = match_industries(high_export, industries)
-    low_matched = match_industries(low_export, industries)
+    industry_col = 'North American Industry Classification System (NAICS)'
+    levels = df.pivot(index='REF_DATE', columns=industry_col, values='VALUE')
+    # Exact, disjoint industry names avoid including both aggregates and their
+    # components, or accidentally matching wholesale-and-retail to retail alone.
+    high_matched, low_matched = high_export, low_export
 
     # Filter and aggregate, indexed to Jan 2023 = 100
     def get_index(industry_list):
-        mask = df['North American Industry Classification System (NAICS)'].isin(industry_list)
-        sub = df.loc[mask, ['REF_DATE', 'VALUE']].groupby('REF_DATE')['VALUE'].sum()
-        base = sub.loc['2023-01-01':'2023-01-31']
-        if len(base) > 0:
-            sub = sub / base.iloc[0] * 100
-        return sub
+        sub = levels[industry_list].sum(axis=1, min_count=len(industry_list))
+        return sub / sub.loc['2023-01-01'] * 100
 
     # Total employment
-    total_mask = df['North American Industry Classification System (NAICS)'].str.contains(
-        'Total employed, all industries|Industrial aggregate', case=False, na=False)
-    total = df.loc[total_mask, ['REF_DATE', 'VALUE']].groupby('REF_DATE')['VALUE'].sum()
-    if len(total) > 0:
-        base_total = total.loc['2023-01-01':'2023-01-31']
-        if len(base_total) > 0:
-            total = total / base_total.iloc[0] * 100
+    total = get_index(['Total employed, all industries'])
 
     fig, ax = new_figure()
 
@@ -308,24 +299,21 @@ def canada_employment_exports():
         ax.set_yticklabels([str(x) for x in range(ymin, ymax + 1, 2)],
                            fontsize=11)
 
-    # x-axis: end at the next 6-month tick (Jan or Jul) at or after last data
+    # Keep regular six-month ticks without extending beyond the observations.
     all_dates = pd.concat(all_series).index if all_series else pd.DatetimeIndex([])
     last_data = all_dates.max() if len(all_dates) > 0 else pd.to_datetime('2026-01-01')
-    # Generate enough ticks, then trim to the first one >= last_data
-    xtick_all = pd.date_range('2023-01-01', periods=20, freq='6MS')
-    xlim_right = xtick_all[xtick_all >= last_data].min()
-    xtick_dates = xtick_all[xtick_all <= xlim_right]
-    ax.set_xlim(pd.to_datetime('2023-01-01'), xlim_right)
+    xtick_dates = pd.date_range('2023-01-01', end=last_data, freq='6MS')
     ax.set_xticks(xtick_dates)
     ax.set_xticklabels([french_date_label(d) for d in xtick_dates], fontsize=11)
+    ax.set_xlim(pd.to_datetime('2023-01-01'), last_data)
     ax.set_ylabel(r"Indice d'emploi (janv. 2023 = 100)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, 'Source: Statistics Canada, Table 14-10-0355-01')
-    save(fig, 'canada_employment_exports.png')
+    add_source(ax, f'Source: StatCan, 14-10-0355-01 ({_source_month(last_data)})')
+    save(fig, 'canada_employment_exports.pdf')
 
 
 # =====================================================================
@@ -334,7 +322,7 @@ def canada_employment_exports():
 def hockey_stick_world():
     print('Figure 6: Hockey stick (GDP per capita, long-run)')
     # Download Maddison GDP per capita from OWID API (Maddison 2023 edition, data to 2022)
-    df = _get_owid_maddison()
+    df = intro_frame('maddison')
 
     fig, ax = new_figure()
 
@@ -353,21 +341,21 @@ def hockey_stick_world():
                 label=label_fr, linewidth=2)
         max_year = max(max_year, sub['Year'].max())
 
-    ax.set_xlim(0, max_year + 5)
+    ax.set_xlim(0, max_year)
     ax.set_xticks(range(0, max_year + 1, 250))
     ax.set_xticklabels(range(0, max_year + 1, 250), fontsize=11)
     ax.set_ylim(0, 60000)
     ax.set_yticks(range(0, 60000 + 1, 10000))
     ax.set_yticklabels([r'\$' + str(x) + 'K' for x in range(0, 60 + 1, 10)],
                        fontsize=11)
-    ax.set_ylabel(r"PIB réel par habitant", fontsize=11, rotation=0, ha='left')
+    ax.set_ylabel("PIB réel par habitant\n(dollars internationaux de 2011)", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left',
               bbox_to_anchor=(0.02, 1.0))
     add_source(ax, 'Source: Maddison Project Database 2023 (via Our World in Data)')
-    save(fig, 'hockey_stick_world.png')
+    save(fig, 'hockey_stick_world.pdf')
 
 
 # =====================================================================
@@ -375,61 +363,47 @@ def hockey_stick_world():
 # =====================================================================
 def us_tariff_rate():
     print('Figure 7: US effective tariff rate since 1790')
-    # Data from Yale Budget Lab "State of U.S. Tariffs: January 19, 2026"
-    xlsx = os.path.join(Path(__file__).resolve().parent.parent, 'Data', 'tariff_data.xlsx')
-    df = pd.read_excel(xlsx, sheet_name='F1', header=None,
-                       skiprows=5,  # skip title/subtitle/source/blank/header
-                       names=['Year', 'ETR', 'proj_post', 'cur_post',
-                              'proj_pre', 'cur_pre'])
-    # Keep only rows with a valid year
-    df = df.dropna(subset=['Year'])
-    df['Year'] = df['Year'].astype(int)
-
-    # Historical series (1790-2024)
-    hist = df[df['ETR'].notna()].copy()
-
-    # 2025 rates (pre-substitution)
-    row_2025 = df[df['Year'] == 2025].iloc[0]
-    etr_2025_overall = row_2025['proj_pre']  # ~17.5% overall
-
-    # Canada-specific ETR from T2 sheet
-    t2 = pd.read_excel(xlsx, sheet_name='T2', header=None,
-                        skiprows=5, names=['Partner', 'ETR_pre', 'ETR_post',
-                                           'Share_pre', 'Share_post',
-                                           'Contrib_pre', 'Contrib_post'])
-    t2 = t2.dropna(subset=['Partner'])
-    canada_row = t2[t2['Partner'].str.strip() == 'Canada'].iloc[0]
-    etr_2025_canada = canada_row['ETR_pre']  # ~8.1%
+    hist = intro_frame('tariffs_history').rename(columns={'year': 'Year', 'value': 'ETR'})
+    recent = intro_frame('tariffs', parse_dates=['date']).sort_values('date')
+    last = recent.iloc[-1]
+    vintage_date = last['date']
+    # Point-in-time statutory estimates from the latest published policy vintage;
+    # do not substitute its scheduled future rates or call it a 2025 annual rate.
+    etr_overall = last['total']
+    etr_canada = last['Canada']
+    vintage_x = vintage_date.year + (vintage_date.dayofyear - 1) / (366 if vintage_date.is_leap_year else 365)
 
     fig, ax = new_figure()
 
     # Historical line
     ax.plot(hist['Year'], hist['ETR'], color=palette[0], linewidth=2)
 
-    # Spike to 2025: dotted connectors + markers
+    # Dotted connectors distinguish current statutory estimates from history.
     last_hist_year = hist['Year'].iloc[-1]
     last_hist_etr = hist['ETR'].iloc[-1]
 
     # Overall US rate (coral)
-    ax.plot([last_hist_year, 2025], [last_hist_etr, etr_2025_overall],
+    ax.plot([last_hist_year, vintage_x], [last_hist_etr, etr_overall],
             color=palette[2], linewidth=2, linestyle=':')
-    ax.plot(2025, etr_2025_overall, 'o', color=palette[2], markersize=8, zorder=5)
+    ax.plot(vintage_x, etr_overall, 'o', color=palette[2], markersize=8,
+            zorder=5, clip_on=False)
 
     # Canada-specific rate (green)
-    ax.plot([last_hist_year, 2025], [last_hist_etr, etr_2025_canada],
+    ax.plot([last_hist_year, vintage_x], [last_hist_etr, etr_canada],
             color=palette[1], linewidth=2, linestyle=':')
-    ax.plot(2025, etr_2025_canada, 'o', color=palette[1], markersize=8, zorder=5)
+    ax.plot(vintage_x, etr_canada, 'o', color=palette[1], markersize=8,
+            zorder=5, clip_on=False)
 
     # Annotations — equal-length arrows
     # Figure is 8×4 in, axes span 97 yr × 20 pp → x_scale=0.0825 in/yr, y_scale=0.2 in/pp
     # Target visual arrow length ≈ 1.5 in for all three
-    ax.annotate(f'{etr_2025_overall:.1f}\\%  global',
-                xy=(2025, etr_2025_overall),
+    ax.annotate(f'{etr_overall:.1f}\\%  global',
+                xy=(vintage_x, etr_overall),
                 xytext=(2007, 19),
                 fontsize=11, color=palette[2], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[2], lw=1.5))
-    ax.annotate(f'{etr_2025_canada:.1f}\\%  Canada',
-                xy=(2025, etr_2025_canada),
+    ax.annotate(f'{etr_canada:.1f}\\%  Canada',
+                xy=(vintage_x, etr_canada),
                 xytext=(2008, 11),
                 fontsize=11, color=palette[1], fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
@@ -443,9 +417,9 @@ def us_tariff_rate():
                 arrowprops=dict(arrowstyle='->', color=palette[7],
                                 lw=1, alpha=0.6, shrinkB=12))
 
-    ax.set_xlim(1930, 2027)
-    ax.set_xticks(range(1930, 2020 + 1, 10))
-    ax.set_xticklabels(range(1930, 2020 + 1, 10), fontsize=11)
+    ax.set_xticks(range(1930, vintage_date.year + 1, 10))
+    ax.set_xticklabels(range(1930, vintage_date.year + 1, 10), fontsize=11)
+    ax.set_xlim(1930, vintage_x)
     ax.set_ylim(0, 20)
     ax.set_yticks(range(0, 20 + 1, 5))
     ax.set_yticklabels([str(x) + r'\%' for x in range(0, 20 + 1, 5)],
@@ -455,26 +429,36 @@ def us_tariff_rate():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, 'Source: Yale Budget Lab (January 2026)')
-    save(fig, 'us_tariff_rate.png')
+    add_source(ax, f'Source: Yale Budget Lab ({vintage_date.day} {_source_month(vintage_date)})')
+    ax.text(0, -0.18,
+            f'Historique : droits perçus / importations; point {vintage_date.year} : estimation statutaire (pondérations 2024).',
+            transform=ax.transAxes, fontsize=8, color=palette[7], ha='left')
+    save(fig, 'us_tariff_rate.pdf')
 
 
 # ── StatsCan GDP accounts helper ──────────────────────────────────────
-def _load_gdp_accounts():
-    """Load and pivot StatsCan table 36-10-0104-01 (GDP by expenditure,
-    chained 2017 dollars).  Returns a DataFrame with one column per
-    Estimates category, indexed by REF_DATE."""
-    sc = StatsCan()
-    df = sc.table_to_df('36-10-0104-01')
-    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
-    df = df[df['Prices'] == 'Chained (2017) dollars']
+def _load_gdp_accounts(prices='Current prices'):
+    """Pivot archived, seasonally adjusted StatCan expenditure accounts."""
+    df = remaining_frame('gdp_accounts', parse_dates=['REF_DATE'])
+    df = df[df['Prices'] == prices]
     df = df.pivot(index='REF_DATE', columns='Estimates',
                   values='VALUE').reset_index()
     return df
 
 
+def _can_gdp(real=True):
+    prices = 'Chained (2017) dollars' if real else 'Current prices'
+    return _load_gdp_accounts(prices).set_index('REF_DATE')['Gross domestic product at market prices'].dropna()
+
+
+def _quarter_label(date):
+    return f'T{(date.month - 1) // 3 + 1} {date.year}'
+
+
 def _gdp_share_plot(dates, ratio, ylabel, ylim, ytick_step, fname):
     """Generic GDP-share time-series plot with recession shading."""
+    valid = ratio.notna() & (dates >= pd.Timestamp('1970-01-01'))
+    dates, ratio = dates[valid], ratio[valid]
     fig, ax = new_figure()
     ax.plot(dates, ratio, color=palette[0], linewidth=2)
 
@@ -485,6 +469,8 @@ def _gdp_share_plot(dates, ratio, ylabel, ylim, ytick_step, fname):
                    for y in range(1970, last_year_tick + 1, 10)])
     ax.set_xticklabels(range(1970, last_year_tick + 1, 10), fontsize=11)
 
+    ylim = (min(ylim[0], np.floor(ratio.min() / ytick_step) * ytick_step),
+            max(ylim[1], np.ceil(ratio.max() / ytick_step) * ytick_step))
     ax.set_ylim(ylim)
     yticks = np.arange(
         np.ceil(ylim[0] / ytick_step) * ytick_step,
@@ -500,7 +486,7 @@ def _gdp_share_plot(dates, ratio, ylabel, ylim, ytick_step, fname):
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    add_source(ax, 'Source: Statistics Canada, Table 36-10-0104-01')
+    add_source(ax, f'Source: StatCan, 36-10-0104-01 ({_quarter_label(last_date)}; prix courants)')
     save(fig, fname)
 
 
@@ -512,7 +498,8 @@ def gdp_decomposition_canada():
     df = _load_gdp_accounts()
 
     # Use most recent full year of data
-    year = df['REF_DATE'].dt.year.max()
+    complete = df.dropna(subset=['Gross domestic product at market prices']).groupby(df['REF_DATE'].dt.year).size()
+    year = complete[complete == 4].index.max()
     dy = df[df['REF_DATE'].dt.year == year]
 
     # Components (World Bank convention: G = gov consumption only,
@@ -525,7 +512,7 @@ def gdp_decomposition_canada():
     X = dy['Exports of goods and services'].mean()
     M = dy['Less: imports of goods and services'].mean()
     NX = X - M
-    Y = C + G + I + NX
+    Y = dy['Gross domestic product at market prices'].mean()
 
     shares = [C / Y, I / Y, G / Y, np.abs(NX) / Y]
     labels = ['$C$', '$I$', '$G$', '$NX$']
@@ -563,8 +550,11 @@ def gdp_decomposition_canada():
                         arrowprops=dict(arrowstyle='-', color='black',
                                         lw=0.8))
 
-    add_source(ax, f'Source: Statistics Canada ({year})')
-    save(fig, 'gdp_decomposition_canada.png')
+    add_source(ax, f'Source: StatCan ({year}; prix courants)')
+    if NX < 0:
+        ax.text(0.5, -0.06, '$NX < 0$ : aire représentée en valeur absolue.',
+                transform=ax.transAxes, ha='center', fontsize=8, color=palette[7])
+    save(fig, 'gdp_decomposition_canada.pdf')
 
 
 # =====================================================================
@@ -591,22 +581,10 @@ def gdp_decomposition_4countries():
         'BRA': r"Brésil",
     }
 
-    # Fetch from World Bank API
-    data = {}
-    for iso, name in countries.items():
-        data[name] = {}
-        for comp, ind in indicators.items():
-            url = (f'https://api.worldbank.org/v2/country/{iso}/'
-                   f'indicator/{ind}?format=json&per_page=5&date=2019:2024')
-            resp = requests.get(url, timeout=20)
-            resp.raise_for_status()
-            records = resp.json()[1]
-            # Take most recent non-null value
-            for r in records:
-                if r['value'] is not None:
-                    data[name][comp] = r['value']
-                    data[name]['year'] = r['date']
-                    break
+    panel, year = worldbank_panel(list(indicators.values()), countries)
+    panel = panel.set_index('iso')
+    data = {name: {comp: panel.loc[iso, ind] for comp, ind in indicators.items()}
+            for iso, name in countries.items()}
 
     colors = [palette[0], palette[2], palette[1], palette[3]]  # C, I, G, NX
     fig, axes = plt.subplots(1, 4, figsize=(14, 4.5))
@@ -620,7 +598,7 @@ def gdp_decomposition_4countries():
         nx_sign = '$-$' if NX < 0 else ''
         shares = [C, I, G, np.abs(NX)]
         labels = ['$C$', '$I$', '$G$',
-                  f'$NX$\n{nx_sign}{np.abs(NX):.0f}\\%']
+                  f'$NX$\n{nx_sign}{np.abs(NX):.1f}\\%']
 
         wedges, texts = ax.pie(
             shares, labels=labels, colors=colors,
@@ -641,9 +619,9 @@ def gdp_decomposition_4countries():
 
         ax.set_title(f'\\textbf{{{name}}}', fontsize=20, pad=20)
 
-    fig.text(0.99, 0.005, f'Source: World Bank ({comps["year"]})',
-             fontsize=8, ha='right', va='bottom')
-    save(fig, 'gdp_decomposition_4countries.png')
+    fig.suptitle(f'Source: Banque mondiale ({year}; prix courants; aire de NX en valeur absolue)',
+                 x=0.99, y=0.99, fontsize=8, ha='right', va='top')
+    save(fig, 'gdp_decomposition_4countries.pdf')
 
 
 # =====================================================================
@@ -657,8 +635,8 @@ def consumption_share_gdp():
     ratio = df['Consumption'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$C / Y$',
-                    ylim=(0.47, 0.60), ytick_step=0.02,
-                    fname='consumption_share_gdp.png')
+                    ylim=(0.50, 0.60), ytick_step=0.02,
+                    fname='consumption_share_gdp.pdf')
 
 
 # =====================================================================
@@ -672,8 +650,8 @@ def investment_share_gdp():
     ratio = df['Investment'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$I / Y$',
-                    ylim=(0.15, 0.28), ytick_step=0.02,
-                    fname='investment_share_gdp.png')
+                    ylim=(0.16, 0.28), ytick_step=0.02,
+                    fname='investment_share_gdp.pdf')
 
 
 # =====================================================================
@@ -686,8 +664,8 @@ def government_share_gdp():
     ratio = df['Government'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$G / Y$',
-                    ylim=(0.20, 0.31), ytick_step=0.02,
-                    fname='government_share_gdp.png')
+                    ylim=(0.18, 0.26), ytick_step=0.02,
+                    fname='government_share_gdp.pdf')
 
 
 # =====================================================================
@@ -702,9 +680,97 @@ def trade_share_gdp():
     ratio = df['Trade'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$(X + M) / Y$',
-                    ylim=(0.28, 0.70), ytick_step=0.10,
-                    fname='trade_share_gdp.png')
+                    ylim=(0.30, 0.70), ytick_step=0.10,
+                    fname='trade_share_gdp.pdf')
 
+
+def _gdp_cycle_data():
+    """Consistent fixed-2017-price levels; a linear HP filter permits negatives.
+
+    Filter the full 1961-onward sample, then display 1981 onward. No logarithm
+    is applied to inventory investment, which is a signed flow. Constant-price
+    fixed investment plus inventory investment defines total I. Linearity gives
+    an exact decomposition of its cycle into fixed and inventory components.
+    """
+    df = remaining_frame('gdp_constant_prices', parse_dates=['REF_DATE'])
+    df = df.pivot(index='REF_DATE', columns='Estimates', values='VALUE')
+    levels = pd.DataFrame({
+        'C': df['Household final consumption expenditure']
+             + df["Non-profit institutions serving households' final consumption expenditure"],
+        'I_fixed': df['Gross fixed capital formation'],
+        'I_stocks': df['Investment in inventories'],
+        'G': df['General governments final consumption expenditure'],
+    }).dropna()
+    levels['I'] = levels['I_fixed'] + levels['I_stocks']
+    expected = pd.date_range(levels.index[0], levels.index[-1], freq='QS')
+    if not levels.index.equals(expected) or not (levels[['C', 'I', 'G']] > 0).all().all():
+        raise ValueError('Cycles require complete quarterly C/I/G levels.')
+    cycles, trends = pd.DataFrame(index=levels.index), pd.DataFrame(index=levels.index)
+    for column in levels:
+        cycles[column], trends[column] = hpfilter(levels[column], lamb=1600)
+    if not (trends[['C', 'I', 'G']] > 0).all().all():
+        raise ValueError('C/I/G trend denominators must be positive.')
+    if not np.allclose(cycles['I'], cycles['I_fixed'] + cycles['I_stocks'],
+                       rtol=1e-8, atol=1e-5):
+        raise ValueError('Investment cycle decomposition failed to reconcile.')
+    return levels.loc['1981-01-01':], cycles.loc['1981-01-01':], trends.loc['1981-01-01':]
+
+
+def _draw_gdp_cycles(data, series, ylabel, fname, tick_suffix=r'\%'):
+    last_date = data.index[-1]
+    fig, ax = new_figure(9, 4.5)
+    for label, column, color, width in series:
+        ax.plot(data.index, data[column], label=label, color=color,
+                linestyle='-', linewidth=width, zorder=3)
+    for start, end in recessions_ca:
+        if end >= data.index[0]:
+            ax.axvspan(max(start, data.index[0]), min(end, last_date),
+                       color='grey', alpha=0.18, linewidth=0, zorder=0)
+    ax.axhline(0, color=palette[7], linewidth=0.8, zorder=2)
+    ax.set_xlim(data.index[0], last_date)
+    first_year = data.index[0].year
+    tick_years = [first_year] + list(range((first_year // 10 + 1) * 10, last_date.year + 1, 10))
+    ticks = [pd.Timestamp(year, 1, 1) for year in tick_years]
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([date.year for date in ticks], fontsize=11)
+    lower = np.floor(data.to_numpy().min() / 5) * 5
+    upper = np.ceil(data.to_numpy().max() / 5) * 5
+    ticks_y = np.arange(lower, upper + 1, 5)
+    ax.set_ylim(lower, upper)
+    ax.set_yticks(ticks_y)
+    ax.set_yticklabels([f'{value:.0f}' + tick_suffix for value in ticks_y], fontsize=11)
+    ax.set_ylabel(ylabel, fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(loc='upper right', ncol=3, frameon=False, fontsize=11,
+              columnspacing=1.2, handlelength=2)
+    ax.text(0.01, 0.02, 'Zones grisées : récessions', transform=ax.transAxes,
+            fontsize=8, ha='left', va='bottom', color=palette[7])
+    add_source(ax, f'Source: StatCan, 36-10-0123-01 ({_quarter_label(last_date)}); prix constants de 2017, filtre HP ($\\lambda = 1600$).')
+    save(fig, fname)
+
+
+def gdp_component_cycles():
+    """C, total I and G: percentage deviations from their own level trends."""
+    print('Figure: GDP expenditure cycles (Canada)')
+    _, cycles, trends = _gdp_cycle_data()
+    data = 100 * cycles[['C', 'I', 'G']] / trends[['C', 'I', 'G']]
+    _draw_gdp_cycles(data, [('$C$', 'C', palette[0], 1.7),
+                            ('$I$', 'I', palette[2], 1.7),
+                            ('$G$', 'G', palette[1], 1.7)],
+                     r'Écart à la tendance (\%)', 'gdp_component_cycles.pdf')
+
+
+def investment_cycles_breakdown():
+    """Additive cycle contributions, in percentage points of total I's trend."""
+    print('Figure: Fixed investment and inventory cycle contributions')
+    _, cycles, trends = _gdp_cycle_data()
+    data = cycles[['I', 'I_fixed', 'I_stocks']].div(trends['I'], axis=0) * 100
+    _draw_gdp_cycles(data, [('Total ($I$)', 'I', palette[2], 2.2),
+                            ('Capital fixe', 'I_fixed', palette[0], 1.7),
+                            ('Variation des stocks', 'I_stocks', palette[1], 1.7)],
+                     r'Contribution au cycle de $I$ (pp)',
+                     'investment_cycles_breakdown.pdf', tick_suffix='')
 
 
 # =====================================================================
@@ -712,8 +778,8 @@ def trade_share_gdp():
 # =====================================================================
 def gdp_canada_usa():
     print('Figure: Real GDP — Canada vs USA (quarterly)')
-    can = get_fred_data('NGDPRSAXDCCAQ')   # Real GDP, quarterly, SA, CAD millions
-    usa = get_fred_data('GDPC1')           # Real GDP, quarterly, SA, USD billions
+    can = _can_gdp()
+    usa = remaining_series('us_gdp')
 
     # Index to 2000Q1 = 100
     can_base = can.loc['2000-01-01':'2000-03-31'].iloc[0]
@@ -726,7 +792,7 @@ def gdp_canada_usa():
     ax.plot(usa_idx, color=palette[1], linewidth=2.5,
             label=r"États-Unis")
 
-    last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
+    last_date = max(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
     xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
@@ -744,9 +810,9 @@ def gdp_canada_usa():
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, 'Source: OECD (via FRED)')
-    save(fig, 'gdp_canada_usa.png')
+    ax.legend(frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=11, loc='upper left')
+    add_source(ax, f'Source: StatCan; BEA/FRED ({_quarter_label(last_date)})')
+    save(fig, 'gdp_canada_usa.pdf')
 
 
 # =====================================================================
@@ -754,24 +820,9 @@ def gdp_canada_usa():
 # =====================================================================
 def gdp_per_capita_canada_usa():
     print('Figure: Real GDP per capita — Canada vs USA (quarterly)')
-    can_gdp = get_fred_data('NGDPRSAXDCCAQ')
-    usa_gdp = get_fred_data('GDPC1')
-
-    # Annual total population from World Bank, interpolated to quarterly
-    can_pop_a = _get_worldbank('SP.POP.TOTL', 'CAN', start=1999, end=2025)
-    can_pop_a.index = pd.to_datetime(can_pop_a.index, format='%Y')
-    usa_pop_a = _get_worldbank('SP.POP.TOTL', 'USA', start=1999, end=2025)
-    usa_pop_a.index = pd.to_datetime(usa_pop_a.index, format='%Y')
-
-    q_dates = can_gdp.loc['1999-01-01':].index
-    combined_can = can_pop_a.index.union(q_dates).sort_values().drop_duplicates()
-    combined_usa = usa_pop_a.index.union(q_dates).sort_values().drop_duplicates()
-    can_pop_q = can_pop_a.reindex(combined_can).interpolate(method='time').reindex(q_dates)
-    usa_pop_q = usa_pop_a.reindex(combined_usa).interpolate(method='time').reindex(q_dates)
-
-    # GDP per capita (units cancel when indexing)
-    can_pc = (can_gdp / can_pop_q).dropna()
-    usa_pc = (usa_gdp / usa_pop_q).dropna()
+    # Official quarterly series avoid extrapolating annual population.
+    can_pc = remaining_series('can_gdp_per_capita')
+    usa_pc = remaining_series('us_gdp_per_capita')
 
     # Index to 2000Q1 = 100
     can_base = can_pc.loc['2000-01-01':'2000-03-31'].iloc[0]
@@ -784,7 +835,7 @@ def gdp_per_capita_canada_usa():
     ax.plot(usa_idx, color=palette[1], linewidth=2.5,
             label=r"États-Unis")
 
-    last_date = min(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
+    last_date = max(can_idx.dropna().index[-1], usa_idx.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2000-01-01'), last_date)
     xticks = [pd.to_datetime(str(y)) for y in range(2000, last_date.year + 1, 5)]
     ax.set_xticks(xticks)
@@ -803,9 +854,9 @@ def gdp_per_capita_canada_usa():
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, 'Source: OECD (via FRED), World Bank')
-    save(fig, 'gdp_per_capita_canada_usa.png')
+    ax.legend(frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=11, loc='upper left')
+    add_source(ax, f'Source: StatCan; BEA/FRED ({_quarter_label(last_date)})')
+    save(fig, 'gdp_per_capita_canada_usa.pdf')
 
 
 # =====================================================================
@@ -820,45 +871,10 @@ def gdp_vs_gdp_per_capita():
     # Population (for bubble sizes)
     pop_ind = 'SP.POP.TOTL'
 
-    def _fetch_all(indicator, year=2023):
-        url = (f'https://api.worldbank.org/v2/country/all/'
-               f'indicator/{indicator}?format=json&per_page=500'
-               f'&date={year}:{year}')
-        resp = requests.get(url, timeout=30)
-        resp.raise_for_status()
-        pages = resp.json()[0]['pages']
-        records = resp.json()[1]
-        for p in range(2, pages + 1):
-            resp2 = requests.get(url + f'&page={p}', timeout=30)
-            records.extend(resp2.json()[1])
-        return {r['countryiso3code']: r['value'] for r in records
-                if r['value'] is not None and r['countryiso3code']}
-
-    gdp = _fetch_all(gdp_ind)
-    gdppc = _fetch_all(gdppc_ind)
-    pop = _fetch_all(pop_ind)
-
-    rows = []
-    for iso in gdp:
-        if iso in gdppc and iso in pop:
-            rows.append({
-                'iso': iso,
-                'gdp': gdp[iso] / 1e12,       # trillions
-                'gdppc': gdppc[iso],           # raw dollars
-                'pop': pop[iso],
-            })
-    df = pd.DataFrame(rows)
-
-    # Drop aggregates (World Bank region/income groups)
-    aggregates = {'WLD', 'EAS', 'ECS', 'LCN', 'MEA', 'NAC', 'SAS', 'SSF',
-                  'EMU', 'EUU', 'OED', 'HIC', 'LIC', 'LMC', 'MIC', 'UMC',
-                  'LDC', 'ARB', 'CSS', 'PST', 'TSA', 'TSS', 'TEA', 'TEC',
-                  'TLA', 'TMN', 'TNA', 'FCS', 'HPC', 'IBD', 'IBT', 'IDA',
-                  'IDB', 'IDX', 'PRE', 'SSA', 'SST', 'LMY', 'LTE', 'EAP',
-                  'EAR', 'ECR', 'LAC', 'MNA', 'INX', 'OSS', 'CEB', 'SXZ',
-                  'AFE', 'AFW', 'ECA'}
-    df = df[~df['iso'].isin(aggregates)]
-    df = df[df['gdp'] > 0]
+    panel, year = worldbank_panel([gdp_ind, gdppc_ind, pop_ind])
+    df = panel.rename(columns={gdp_ind: 'gdp', gdppc_ind: 'gdppc', pop_ind: 'pop'})
+    df['gdp'] = df['gdp'] / 1e12
+    df = df[(df.gdp > 0) & (df.gdppc > 0)]
 
     # Highlight countries (ISO → French display label)
     highlights = {
@@ -923,8 +939,8 @@ def gdp_vs_gdp_per_capita():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, 'Source: World Bank, WDI (2023)')
-    save(fig, 'gdp_vs_gdp_per_capita.png')
+    add_source(ax, f'Source: Banque mondiale, WDI ({year})')
+    save(fig, 'gdp_vs_gdp_per_capita.pdf')
 
 
 # =====================================================================
@@ -952,14 +968,13 @@ def gdp_ppp_time_series():
         'CAN': ('Canada', 'Canada'),
     }
 
-    data = {}
-    for iso, (name_en, name_fr) in countries_iso.items():
-        s = _get_worldbank(indicator, iso, start=2020, end=2025)
-        if len(s) > 0:
-            data[name_fr] = s.iloc[-1] / 1e12  # most recent year, in trillions
+    panel, year = worldbank_panel([indicator], countries_iso)
+    panel = panel.set_index('iso')
+    data = {name_fr: panel.loc[iso, indicator] / 1e12
+            for iso, (_, name_fr) in countries_iso.items()}
 
-    # Sort descending
-    data = dict(sorted(data.items(), key=lambda x: x[1], reverse=False))
+    # Largest economies at the top of the horizontal chart.
+    data = dict(sorted(data.items(), key=lambda x: x[1], reverse=True))
 
     fig, ax = plt.subplots(figsize=(8, 4.5))
     fig.patch.set_alpha(0.0)
@@ -987,8 +1002,8 @@ def gdp_ppp_time_series():
 
     ax.set_title(r"PIB réel en PPA (milliers de Mds, \$ int. 2021)",
                  fontsize=12, loc='left', pad=10)
-    add_source(ax, 'Source: World Bank, WDI')
-    save(fig, 'gdp_ppp_world.png')
+    add_source(ax, f'Source: Banque mondiale, WDI ({year})')
+    save(fig, 'gdp_ppp_world.pdf')
 
 
 # =====================================================================
@@ -1005,48 +1020,12 @@ def gdp_per_capita_vs_price_level():
     # Population
     pop_ind = 'SP.POP.TOTL'
 
-    # Fetch all countries at once (keyed by ISO3 code)
-    def _fetch_all(indicator, year=2024):
-        url = (f'https://api.worldbank.org/v2/country/all/'
-               f'indicator/{indicator}?format=json&per_page=500'
-               f'&date={year}:{year}')
-        resp = requests.get(url, timeout=30)
-        resp.raise_for_status()
-        pages = resp.json()[0]['pages']
-        records = resp.json()[1]
-        for p in range(2, pages + 1):
-            resp2 = requests.get(url + f'&page={p}', timeout=30)
-            records.extend(resp2.json()[1])
-        return {r['countryiso3code']: r['value'] for r in records
-                if r['value'] is not None and r['countryiso3code']}
-
-    gdppc = _fetch_all(gdppc_ind)
-    ppp = _fetch_all(ppp_ind)
-    xr = _fetch_all(xr_ind)
-    pop = _fetch_all(pop_ind)
-
-    # Price level = PPP / market exchange rate (US = 1 by definition)
-    rows = []
-    for iso in gdppc:
-        if iso in ppp and iso in xr and iso in pop:
-            if xr[iso] > 0:
-                pl = ppp[iso] / xr[iso]
-                rows.append({
-                    'iso': iso,
-                    'gdppc': gdppc[iso],
-                    'price_level': pl,
-                    'pop': pop[iso],
-                })
-    df = pd.DataFrame(rows)
-
-    # Drop aggregates (World Bank aggregates have non-standard codes)
-    aggregates = {'WLD', 'EAS', 'ECS', 'LCN', 'MEA', 'NAC', 'SAS', 'SSF',
-                  'EMU', 'EUU', 'OED', 'HIC', 'LIC', 'LMC', 'MIC', 'UMC',
-                  'LDC', 'ARB', 'CSS', 'PST', 'TSA', 'TSS', 'TEA', 'TEC',
-                  'TLA', 'TMN', 'TNA', 'FCS', 'HPC', 'IBD', 'IBT', 'IDA',
-                  'IDB', 'IDX', 'PRE', 'SSA', 'SST'}
-    df = df[~df['iso'].isin(aggregates)]
-    df = df[(df['gdppc'] > 500) & (df['price_level'] > 0.05)]
+    panel, year = worldbank_panel([gdppc_ind, ppp_ind, xr_ind, pop_ind])
+    df = panel.rename(columns={gdppc_ind: 'gdppc', pop_ind: 'pop'})
+    df['price_level'] = df[ppp_ind] / df[xr_ind]
+    us_price = df.loc[df.iso == 'USA', 'price_level'].iloc[0]
+    df['price_level'] = df['price_level'] / us_price
+    df = df[(df.gdppc > 500) & (df.price_level > 0.05)]
 
     # Highlight countries (ISO → French display label)
     highlights = {
@@ -1082,7 +1061,7 @@ def gdp_per_capita_vs_price_level():
         offsets = {
             'USA': (12, 10), 'CAN': (-50, -14), 'CHN': (14, 10),
             'IND': (12, -14), 'JPN': (-45, 14), 'BRA': (-45, 10),
-            'NGA': (-52, -10), 'NOR': (-55, -14), 'CHE': (-65, 10),
+            'NGA': (-52, -10), 'NOR': (-55, -14), 'CHE': (-65, -8),
         }
         ox, oy = offsets.get(iso, (12, 8))
         ax.annotate(name, xy=(row['gdppc'], row['price_level']),
@@ -1106,8 +1085,8 @@ def gdp_per_capita_vs_price_level():
 
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray', linestyle=':', linewidth=0.5)
-    add_source(ax, 'Source: World Bank, WDI (2024)')
-    save(fig, 'gdp_per_capita_vs_price_level.png')
+    add_source(ax, f'Source: Banque mondiale, WDI ({year})')
+    save(fig, 'gdp_per_capita_vs_price_level.pdf')
 
 
 # =====================================================================
@@ -1115,14 +1094,12 @@ def gdp_per_capita_vs_price_level():
 # =====================================================================
 def big_mac_index():
     print('Figure: Big Mac Index — dot chart')
-    url = ('https://raw.githubusercontent.com/TheEconomist/'
-           'big-mac-data/master/output-data/big-mac-full-index.csv')
-    df = pd.read_csv(url)
+    df = remaining_frame('big_mac')
 
     # Two most recent dates
     dates = sorted(df['date'].unique())
-    d_latest = dates[-1]       # Jan 2025
-    d_prev = dates[-2]         # Jul 2024
+    d_latest = dates[-1]
+    d_prev = dates[-2]
 
     latest = df[df['date'] == d_latest].set_index('iso_a3')
     prev = df[df['date'] == d_prev].set_index('iso_a3')
@@ -1151,7 +1128,7 @@ def big_mac_index():
     rdf = rdf.sort_values('pct_latest', ascending=True).reset_index(drop=True)
 
     # Translate country names to French for y-axis labels
-    rdf['name_fr'] = rdf['name'].apply(_tr)
+    rdf['name_fr'] = rdf['name'].replace({'Britain': 'Royaume-Uni'}).apply(_tr)
 
     fig, ax = plt.subplots(figsize=(7, 5.5))
     fig.patch.set_alpha(0.0)
@@ -1161,17 +1138,21 @@ def big_mac_index():
 
     # Previous period dots (lighter)
     ax.scatter(rdf['pct_prev'], y, s=55, color=palette[2], alpha=0.3,
-               zorder=3, label='Jul 2024')
+               zorder=3, label=_source_month(pd.Timestamp(d_prev)))
     # Latest dots
     colors = [palette[1] if iso == 'CAN' else palette[2] for iso in rdf['iso']]
     ax.scatter(rdf['pct_latest'], y, s=65, color=colors, alpha=0.85,
-               zorder=4, label='Jan 2025')
+               zorder=4, label=_source_month(pd.Timestamp(d_latest)))
 
     # Zero line
     ax.axvline(x=0, color='black', linewidth=0.8)
 
     # Price labels on the right margin (right-aligned)
-    price_x = 64
+    data_min = min(rdf.pct_latest.min(), rdf.pct_prev.min())
+    data_max = max(rdf.pct_latest.max(), rdf.pct_prev.max())
+    left = np.floor(data_min / 20) * 20 - 5
+    right_data = np.ceil(data_max / 20) * 20
+    price_x = right_data + 20
     for i, row in rdf.iterrows():
         idx = rdf.index.get_loc(i)
         ax.text(price_x, idx, f'\\${row["price_latest"]:.2f}',
@@ -1182,8 +1163,9 @@ def big_mac_index():
     ax.set_yticklabels(rdf['name_fr'], fontsize=10)
 
     # x-axis
-    ax.set_xlim(-65, 70)
-    xticks = range(-60, 41, 20)
+    ax.set_xlim(left, price_x + 6)
+    ax.set_ylim(-0.7, len(rdf) + 1.5)
+    xticks = np.arange(np.ceil(left / 20) * 20, right_data + 1, 20).astype(int)
     ax.set_xticks(list(xticks))
     ax.set_xticklabels([f'{x:+d}' if x != 0 else '0' for x in xticks],
                        fontsize=10)
@@ -1197,21 +1179,19 @@ def big_mac_index():
 
     # Horizontal grid lines
     for yi in y:
-        ax.axhline(y=yi, color='gray', linewidth=0.3, alpha=0.5)
+        ax.axhline(y=yi, xmin=0, xmax=(right_data - left) / (price_x + 6 - left),
+                   color='gray', linewidth=0.3, alpha=0.5)
 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.tick_params(axis='y', length=0)
 
-    ax.legend(frameon=False, fontsize=9, loc='upper left',
+    ax.legend(frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2,
               markerscale=1.2)
-    # Source top-left (below legend) to avoid collision with price column
-    ax.text(0, 1.01, r"Source: \textit{The Economist}, Big Mac Index",
-            fontsize=8, color='k', ha='left', va='bottom',
-            transform=ax.transAxes)
-    save(fig, 'big_mac_index.png')
+    add_source(ax, r"Source: \textit{The Economist}, Big Mac Index")
+    save(fig, 'big_mac_index.pdf')
 
 
 # ── Shared helper for GDP growth plots ────────────────────────────────
@@ -1224,15 +1204,17 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
     ax.axhline(y=0, color='black', linewidth=0.5)
 
     first_year = max(real_g.dropna().index[0].year, 1962)
-    last_date = min(real_g.dropna().index[-1], nom_g.dropna().index[-1])
+    last_date = max(real_g.dropna().index[-1], nom_g.dropna().index[-1])
     last_year_tick = (last_date.year // 10) * 10
     ax.set_xlim(pd.to_datetime(str(first_year)), last_date)
-    tick_years = list(range(first_year, last_year_tick + 11, 10))
+    tick_years = list(range(first_year, last_date.year + 1, 10))
     ax.set_xticks([pd.to_datetime(str(y)) for y in tick_years])
     ax.set_xticklabels(tick_years, fontsize=11)
+    ax.set_xlim(pd.to_datetime(str(first_year)), last_date)
 
-    ymin = -0.10
-    ymax = 0.25
+    visible = pd.concat([nom_g.loc[str(first_year):], real_g.loc[str(first_year):]])
+    ymin = min(-0.10, np.floor(visible.min() / 0.05) * 0.05)
+    ymax = max(0.25, np.ceil(visible.max() / 0.05) * 0.05)
     ax.set_ylim(ymin, ymax)
     yticks = np.arange(ymin, ymax + 0.001, 0.05)
     ax.set_yticks(yticks)
@@ -1245,9 +1227,9 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
             ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=11, loc='lower left',
+    ax.legend(frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=11, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
-    add_source(ax, 'Source: OECD (via FRED)')
+    add_source(ax, f'Source: StatCan ({_quarter_label(last_date)}; variation sur 4 trimestres)')
     save(fig, fname)
 
 
@@ -1256,11 +1238,11 @@ def _gdp_growth_plot(real_g, nom_g, show_real, fname):
 # =====================================================================
 def gdp_nominal_canada():
     print('Figure: Nominal GDP growth — Canada')
-    real = get_fred_data('NGDPRSAXDCCAQ')
-    nom = get_fred_data('NGDPSAXDCCAQ')
-    real_g = real.pct_change(4).dropna()
-    nom_g = nom.pct_change(4).dropna()
-    _gdp_growth_plot(real_g, nom_g, show_real=False, fname='gdp_nominal_canada.png')
+    real = _can_gdp()
+    nom = _can_gdp(real=False)
+    real_g = real.pct_change(4, fill_method=None).dropna()
+    nom_g = nom.pct_change(4, fill_method=None).dropna()
+    _gdp_growth_plot(real_g, nom_g, show_real=False, fname='gdp_nominal_canada.pdf')
 
 
 # =====================================================================
@@ -1268,11 +1250,11 @@ def gdp_nominal_canada():
 # =====================================================================
 def gdp_nominal_real_canada():
     print('Figure: Nominal vs real GDP growth — Canada')
-    real = get_fred_data('NGDPRSAXDCCAQ')
-    nom = get_fred_data('NGDPSAXDCCAQ')
-    real_g = real.pct_change(4).dropna()
-    nom_g = nom.pct_change(4).dropna()
-    _gdp_growth_plot(real_g, nom_g, show_real=True, fname='gdp_nominal_real_canada.png')
+    real = _can_gdp()
+    nom = _can_gdp(real=False)
+    real_g = real.pct_change(4, fill_method=None).dropna()
+    nom_g = nom.pct_change(4, fill_method=None).dropna()
+    _gdp_growth_plot(real_g, nom_g, show_real=True, fname='gdp_nominal_real_canada.pdf')
 
 
 # =====================================================================
@@ -1280,15 +1262,14 @@ def gdp_nominal_real_canada():
 # =====================================================================
 def inflation_cpi_deflator_canada():
     print('Figure: CPI vs GDP deflator inflation — Canada')
-    # CPI (monthly, index 2015=100) -> 12-month % change
-    cpi = get_fred_data('CANCPIALLMINMEI')
-    cpi_infl = cpi.pct_change(12).dropna()
+    cpi = intro_series('cpi')
+    cpi_infl = cpi.pct_change(12, fill_method=None).dropna()
 
     # GDP deflator = nominal GDP / real GDP -> 4-quarter % change
-    nom_gdp = get_fred_data('NGDPSAXDCCAQ')
-    real_gdp = get_fred_data('NGDPRSAXDCCAQ')
+    nom_gdp = _can_gdp(real=False)
+    real_gdp = _can_gdp()
     deflator = nom_gdp / real_gdp
-    defl_infl = deflator.pct_change(4).dropna()
+    defl_infl = deflator.pct_change(4, fill_method=None).dropna()
 
     fig, ax = new_figure()
 
@@ -1301,14 +1282,15 @@ def inflation_cpi_deflator_canada():
     ax.plot(defl_infl, color=palette[2], linewidth=2,
             label=r"Déflateur du PIB")
 
-    last_date = min(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
+    last_date = max(cpi_infl.dropna().index[-1], defl_infl.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
     ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=11)
 
-    ax.set_ylim(-0.02, 0.10)
-    ax.set_yticks(np.arange(-0.02, 0.10 + 0.001, 0.02))
-    ax.set_yticklabels([f'{x:.0f}' + r'\%' for x in np.arange(-2, 10 + 0.1, 2)],
+    ymax = max(0.10, np.ceil(defl_infl.loc['2016':].max() / 0.02) * 0.02)
+    ax.set_ylim(-0.02, ymax)
+    ax.set_yticks(np.arange(-0.02, ymax + 0.001, 0.02))
+    ax.set_yticklabels([f'{100*x:.0f}' + r'\%' for x in np.arange(-0.02, ymax + 0.001, 0.02)],
                        fontsize=11)
     ax.set_ylabel(r"Inflation (sur 12 mois)", fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
@@ -1319,8 +1301,8 @@ def inflation_cpi_deflator_canada():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, 'Source: OECD (via FRED)')
-    save(fig, 'inflation_cpi_deflator_canada.png')
+    add_source(ax, f'Source: StatCan (IPC : {_source_month(last_date)}; déflateur : {_quarter_label(defl_infl.index[-1])})')
+    save(fig, 'inflation_cpi_deflator_canada.pdf')
 
 
 # =====================================================================
@@ -1328,13 +1310,11 @@ def inflation_cpi_deflator_canada():
 # =====================================================================
 def inflation_headline_core_canada():
     print('Figure: Headline vs core CPI inflation — Canada')
-    # Headline CPI (monthly, index 2015=100)
-    cpi = get_fred_data('CANCPIALLMINMEI')
-    headline = cpi.pct_change(12).dropna()
+    cpi = intro_series('cpi')
+    headline = cpi.pct_change(12, fill_method=None).dropna()
 
-    # Core CPI — OECD definition: all items less food and energy
-    core_cpi = get_fred_data('CANCPICORMINMEI')
-    core = core_cpi.pct_change(12).dropna()
+    core_cpi = remaining_series('core_cpi')
+    core = core_cpi.pct_change(12, fill_method=None).dropna()
 
     fig, ax = new_figure()
 
@@ -1347,7 +1327,7 @@ def inflation_headline_core_canada():
     ax.plot(core, color=palette[2], linewidth=2,
             label=r"IPC de base (hors alim. \& énergie)")
 
-    last_date = min(headline.dropna().index[-1], core.dropna().index[-1])
+    last_date = max(headline.dropna().index[-1], core.dropna().index[-1])
     ax.set_xlim(pd.to_datetime('2016'), last_date)
     ax.set_xticks([pd.to_datetime(str(y)) for y in range(2016, last_date.year + 1)])
     ax.set_xticklabels(range(2016, last_date.year + 1), fontsize=11)
@@ -1366,8 +1346,8 @@ def inflation_headline_core_canada():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, 'Source: OECD (via FRED)')
-    save(fig, 'inflation_headline_core_canada.png')
+    add_source(ax, f'Source: StatCan ({_source_month(last_date)})')
+    save(fig, 'inflation_headline_core_canada.pdf')
 
 
 # =====================================================================
@@ -1375,19 +1355,16 @@ def inflation_headline_core_canada():
 # =====================================================================
 def inflation_highfreq_cavallo():
     print('Figure: High-frequency online prices (Cavallo et al.)')
-    url = ('https://www.pricinglab.org/files/'
-           'Cavallo_Llamas_Vazquez_domestic_imported_trend_line.csv')
-    df = pd.read_csv(url)
-    df['date'] = pd.to_datetime(df['date'], format='%d%b%Y')
+    # PricingLab tracks US online retail prices, grouped by the goods' origin.
+    # Imported-goods prices reflect tariff costs passed through by retailers;
+    # they are not border import prices with a tariff mechanically added.
+    # Methodology: https://www.pricinglab.org/tariff-tracker/
+    df = remaining_frame('pricinglab', parse_dates=['date'])
     df = df.sort_values('date').reset_index(drop=True)
 
     # Convert to cumulative % change from first observation
     dom_pct = (df['index_domestic'] - 1) * 100
     imp_pct = (df['index_imported'] - 1) * 100
-
-    # 14-day rolling average for smoothed lines
-    dom_smooth = dom_pct.rolling(14, center=True, min_periods=1).mean()
-    imp_smooth = imp_pct.rolling(14, center=True, min_periods=1).mean()
 
     fig, ax = new_figure()
 
@@ -1403,6 +1380,7 @@ def inflation_highfreq_cavallo():
     first_date = df['date'].min()
     last_date = df['date'].max()
     xticks = pd.date_range(first_date.replace(day=1), last_date, freq='2MS')
+    xticks = xticks[xticks >= first_date]
     ax.set_xlim(first_date, last_date)
     ax.set_xticks(xticks)
     ax.set_xticklabels([french_date_label(d) for d in xticks], fontsize=11)
@@ -1418,10 +1396,40 @@ def inflation_highfreq_cavallo():
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
+    # Keep the policy dates below the series and away from the legend.
+    # March 4: Canada/Mexico tariffs take effect and the extra China duty rises.
+    # April 2: announcement of reciprocal tariffs (baseline effective April 5).
+    event_color = '#64748B'
+    for date, label, offset, align in [
+            ('2025-03-04', '4 mars\n2025', -4, 'right'),
+            ('2025-04-02', '2 avril\n2025', 4, 'left')]:
+        event_date = pd.Timestamp(date)
+        ax.axvline(event_date, color=event_color, linewidth=0.9,
+                   linestyle=(0, (3, 3)), alpha=0.7, zorder=1)
+        ax.annotate(label, xy=(event_date, 0.04),
+                    xycoords=('data', 'axes fraction'),
+                    xytext=(offset, 0), textcoords='offset points',
+                    ha=align, va='bottom', fontsize=8.5, color=event_color)
+
+    # Label the observed holiday troughs, without changing the raw price data.
+    # The paper documents holiday discounts in 2024; the repeating 2025 dip
+    # bottoms out in the Black Friday/Cyber Monday weekend as well.
+    for year, text_date, text_y in [
+            (2024, '2024-10-14', -2.1),
+            (2025, '2025-12-14', -0.6)]:
+        holiday = df['date'].between(f'{year}-11-20', f'{year}-12-05')
+        trough = imp_pct.loc[holiday].idxmin()
+        ax.annotate(f'Vendredi\nfou {year}',
+                    xy=(df.loc[trough, 'date'], imp_pct.loc[trough]),
+                    xytext=(pd.Timestamp(text_date), text_y),
+                    ha='left', va='center', fontsize=9, color=event_color,
+                    arrowprops=dict(arrowstyle='->', color=event_color,
+                                    linewidth=0.8, shrinkA=3, shrinkB=3))
+
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
-    add_source(ax, r'Source: Cavallo, Llamas \& Vázquez (PricingLab)')
-    save(fig, 'inflation_highfreq_cavallo.png')
+    add_source(ax, fr'Source: Cavallo, Llamas \& Vázquez (PricingLab; {last_date.day} {_source_month(last_date)})')
+    save(fig, 'inflation_highfreq_cavallo.pdf')
 
 
 # =====================================================================
@@ -1429,29 +1437,20 @@ def inflation_highfreq_cavallo():
 # =====================================================================
 def hdi_vs_gdp_per_capita():
     print('Figure: HDI vs GDP per capita')
-    url = ('https://ourworldindata.org/grapher/'
-           'human-development-index-vs-gdp-per-capita.csv'
-           '?v=1&csvType=full&useColumnShortNames=true')
-    df = pd.read_csv(url, storage_options={'User-Agent': 'OWID fetch/1.0'})
-
-    # Normalise column names (OWID schema changed to lowercase + hdi__sex_total)
-    df.columns = df.columns.str.lower()
-    if 'hdi__sex_total' in df.columns:
-        df = df.rename(columns={'hdi__sex_total': 'hdi'})
-
-    # Most recent year with broad coverage
-    df = df[(df.year == 2022)
-            & df.hdi.notna()
-            & df.ny_gdp_pcap_pp_kd.notna()
-            & df.population_historical.notna()
-            & df.code.notna()]
-
-    world_pop = df.loc[df.entity == 'World', 'population_historical'].values
-    if len(world_pop) > 0:
-        df['pop_share'] = df['population_historical'] / world_pop[0]
-    else:
-        df['pop_share'] = df['population_historical'] / df['population_historical'].max()
-    df = df[df.entity != 'World']
+    hdi = remaining_frame('hdi').rename(columns={
+        'Code': 'code', 'Year': 'year', 'Entity': 'entity',
+        'Human Development Index': 'hdi'})
+    wdi = remaining_frame('worldbank').rename(columns={
+        'iso': 'code', 'NY.GDP.PCAP.PP.KD': 'ny_gdp_pcap_pp_kd',
+        'SP.POP.TOTL': 'population_historical'})
+    hdi = hdi[hdi.code.isin(wdi.code.unique())]
+    df = hdi.merge(wdi[['code', 'year', 'ny_gdp_pcap_pp_kd', 'population_historical']],
+                   on=['code', 'year'], validate='one_to_one')
+    df = df.dropna(subset=['hdi', 'ny_gdp_pcap_pp_kd', 'population_historical'])
+    coverage = df.groupby('year').code.nunique()
+    year = int(coverage[coverage >= 150].index.max())
+    df = df[df.year == year].copy()
+    df['pop_share'] = df.population_historical / df.population_historical.sum()
 
     # Highlight countries
     highlights = {
@@ -1491,7 +1490,7 @@ def hdi_vs_gdp_per_capita():
         ax.scatter(can.ny_gdp_pcap_pp_kd, can.hdi, s=sz,
                    color=palette[1], alpha=0.7, edgecolors='white',
                    linewidth=0.5, zorder=5, label='Canada')
-    ax.legend(loc='lower right', frameon=False, fontsize=11)
+    ax.legend(loc='lower right', frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=11)
 
     ax.set_xscale('log')
     ax.set_xlim(1000, 150000)
@@ -1509,8 +1508,8 @@ def hdi_vs_gdp_per_capita():
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray',
             linestyle=':', linewidth=0.5)
-    add_source(ax, 'Source: Our World in Data (2022)')
-    save(fig, 'hdi_vs_gdp_per_capita.png')
+    add_source(ax, f'Source: UNDP/OWID; Banque mondiale ({year})')
+    save(fig, 'hdi_vs_gdp_per_capita.pdf')
 
 
 # =====================================================================
@@ -1518,29 +1517,14 @@ def hdi_vs_gdp_per_capita():
 # =====================================================================
 def beyond_gdp():
     print('Figure: Beyond GDP — Jones and Klenow (2016)')
-    url = 'https://web.stanford.edu/~chadj/BeyondGDP500.xls'
-    df = pd.read_excel(url, sheet_name='Levels in 2007',
-                       skiprows=8, usecols=[0, 1, 2])
-    df.columns = ['country', 'welfare', 'y']
-    df = df.dropna(subset=['welfare', 'y'])
+    df = remaining_frame('jones_klenow').copy()
     df['welfare'] = df['welfare'] / 100
     df['y'] = df['y'] / 100
 
-    # Fetch 2007 population from World Bank for bubble sizing
-    pop_ind = 'SP.POP.TOTL'
-    pop_url = (f'https://api.worldbank.org/v2/country/all/'
-               f'indicator/{pop_ind}?format=json&per_page=500&date=2007:2007')
-    resp = requests.get(pop_url, timeout=30)
-    resp.raise_for_status()
-    pages = resp.json()[0]['pages']
-    records = resp.json()[1]
-    for p in range(2, pages + 1):
-        resp2 = requests.get(pop_url + f'&page={p}', timeout=30)
-        records.extend(resp2.json()[1])
-    pop_by_name = {}
-    for r in records:
-        if r['value'] is not None and r['country']['value']:
-            pop_by_name[r['country']['value']] = r['value']
+    # This historical paper comparison uses populations from the same year.
+    pops = remaining_frame('worldbank')
+    pops = pops[pops.year == 2007].dropna(subset=['SP.POP.TOTL'])
+    pop_by_name = dict(zip(pops.name, pops['SP.POP.TOTL']))
 
     # Match population to JK country names (fuzzy match common differences)
     name_map = {
@@ -1587,7 +1571,7 @@ def beyond_gdp():
         sz = max(500 * (can['pop'] / max_pop) ** 0.5, 10)
         ax.scatter(can.y, can.welfare, s=sz, color=palette[1], alpha=0.7,
                    edgecolors='white', linewidth=0.5, zorder=5, label='Canada')
-    ax.legend(loc='lower right', frameon=False, fontsize=11)
+    ax.legend(loc='lower right', frameon=True, facecolor='white', edgecolor='none', framealpha=1, fontsize=11)
 
     ax.set_xscale('log', base=2)
     ax.set_xlim(1 / 100, 2.7)
@@ -1610,8 +1594,8 @@ def beyond_gdp():
     style_axes(ax)
     ax.grid(True, which='major', axis='x', color='gray',
             linestyle=':', linewidth=0.5)
-    add_source(ax, 'Source: Jones and Klenow (2016)')
-    save(fig, 'beyond_gdp.png')
+    add_source(ax, 'Source: Jones et Klenow (2016); données de 2007')
+    save(fig, 'beyond_gdp.pdf')
 
 
 # =====================================================================
@@ -1620,25 +1604,7 @@ def beyond_gdp():
 def gdp_gni_ratio():
     print('Figure: GDP / GNI ratio — cross-country comparison')
 
-    # GDP/GNI ratios from World Bank WDI (NY.GDP.MKTP.CD / NY.GNP.MKTP.CD)
-    # Cached values; try live API first, fall back to cache if unavailable.
-    # Cache: 2023 data from World Bank WDI (accessed Feb 2026)
-    _CACHE_YEAR = 2023
-    _CACHE = {
-        'Irlande':                 1.61,   # IRL — multinationals inflate GDP
-        'Singapour':               1.10,   # SGP — financial hub, foreign profits
-        'Canada':                  0.98,   # CAN
-        r"États-Unis":         1.01,   # USA
-        'Allemagne':               1.01,   # DEU
-        'France':                  0.99,   # FRA
-        'Japon':                   0.97,   # JPN — large overseas investment income
-        'Royaume-Uni':             1.00,   # GBR
-        r"Brésil":            1.00,   # BRA
-        'Chine':                   1.01,   # CHN
-        'Inde':                    0.98,   # IND
-        'Philippines':             0.91,   # PHL — large remittance inflows → GNI > GDP
-    }
-
+    # Latest complete common-year WDI GDP/GNI comparison.
     countries = {
         'IRL': 'Irlande',
         'SGP': 'Singapour',
@@ -1654,24 +1620,12 @@ def gdp_gni_ratio():
         'PHL': 'Philippines',
     }
 
-    # Try live World Bank API; fall back to cache on failure
-    gdp_ind = 'NY.GDP.MKTP.CD'   # GDP (current US$)
-    gni_ind = 'NY.GNP.MKTP.CD'   # GNI (current US$)
-    ratios = {}
-    year_used = _CACHE_YEAR
-    try:
-        for iso, name_fr in countries.items():
-            gdp = _get_worldbank(gdp_ind, iso, start=2019, end=2025)
-            gni = _get_worldbank(gni_ind, iso, start=2019, end=2025)
-            common = gdp.index.intersection(gni.index)
-            if len(common) > 0:
-                yr = common[-1]
-                ratios[name_fr] = gdp.loc[yr] / gni.loc[yr]
-                year_used = yr
-    except Exception as e:
-        print(f'  World Bank API unavailable ({e.__class__.__name__}), '
-              f'using cached {_CACHE_YEAR} data')
-        ratios = dict(_CACHE)
+    gdp_ind = 'NY.GDP.MKTP.CD'
+    gni_ind = 'NY.GNP.MKTP.CD'
+    panel, year_used = worldbank_panel([gdp_ind, gni_ind], countries)
+    panel = panel.set_index('iso')
+    ratios = {name: panel.loc[iso, gdp_ind] / panel.loc[iso, gni_ind]
+              for iso, name in countries.items()}
 
     # Sort by ratio (ascending for horizontal bars)
     ratios = dict(sorted(ratios.items(), key=lambda x: x[1], reverse=False))
@@ -1708,7 +1662,7 @@ def gdp_gni_ratio():
 
     ax.set_title('Ratio PIB / RNB', fontsize=12, loc='left', pad=10)
     add_source(ax, f'Source: World Bank, WDI ({year_used})')
-    save(fig, 'gdp_gni_ratio.png')
+    save(fig, 'gdp_gni_ratio.pdf')
 
 
 # =====================================================================
@@ -1732,6 +1686,8 @@ if __name__ == '__main__':
         investment_share_gdp,
         government_share_gdp,
         trade_share_gdp,
+        gdp_component_cycles,
+        investment_cycles_breakdown,
         gdp_ppp_time_series,
         gdp_per_capita_vs_price_level,
         big_mac_index,
@@ -1748,6 +1704,11 @@ if __name__ == '__main__':
         beyond_gdp,
     ]
 
+    if '--intro-only' in sys.argv:
+        figures = figures[:7]
+    elif '--remaining-only' in sys.argv:
+        figures = figures[7:]
+
     failed = []
     for fn in figures:
         try:
@@ -1758,5 +1719,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

@@ -3,7 +3,7 @@ ECON50803 — Session 6 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 6 slides (commerce
-international et economie ouverte). All figure labels, axis titles,
+international et economie ouverte). Figures are exported as native vector PDFs. All figure labels, axis titles,
 legends, and annotations are in French.
 
 Run from Slides/S6/:
@@ -19,8 +19,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # ── Import shared utilities (palette, helpers, data loaders) ────────────
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
 
 
 # =====================================================================
@@ -66,7 +70,7 @@ def trade_openness():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'trade_openness.png')
+    save(fig, 'trade_openness.pdf')
 
 
 # =====================================================================
@@ -115,7 +119,7 @@ def us_nx_vs_ca():
     ax.legend(frameon=False, fontsize=9, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'us_nx_vs_ca.png')
+    save(fig, 'us_nx_vs_ca.pdf')
 
 
 # =====================================================================
@@ -228,7 +232,7 @@ def current_accounts_divergence():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'current_accounts_divergence.png')
+    save(fig, 'current_accounts_divergence.pdf')
 
 
 # =====================================================================
@@ -304,7 +308,7 @@ def saving_rates_divergence():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'saving_rates_divergence.png')
+    save(fig, 'saving_rates_divergence.pdf')
 
 
 # =====================================================================
@@ -351,7 +355,7 @@ def us_ca_balance_gdp():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'us_ca_balance_gdp.png')
+    save(fig, 'us_ca_balance_gdp.pdf')
 
 
 # =====================================================================
@@ -398,7 +402,7 @@ def ca_ca_balance_gdp():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'ca_ca_balance_gdp.png')
+    save(fig, 'ca_ca_balance_gdp.pdf')
 
 
 # =====================================================================
@@ -440,8 +444,10 @@ def us_twin_deficits():
     ax.set_xticks(xticks)
     ax.set_xticklabels([str(y) for y in xticks], fontsize=11)
 
-    ax.set_ylim(-12, 4)
-    yticks = list(range(-12, 5, 2))
+    ymin = min(-12, -tick_ceil(-min(ca.min(), budget.min()), 2))
+    ymax = max(4, tick_ceil(max(ca.max(), budget.max()), 2))
+    ax.set_ylim(ymin, ymax)
+    yticks = list(range(ymin, ymax + 1, 2))
     ax.set_yticks(yticks)
     ax.set_yticklabels([f'$-${abs(y)}\\%' if y < 0
                         else f'{y}\\%' for y in yticks], fontsize=11)
@@ -452,7 +458,7 @@ def us_twin_deficits():
     ax.legend(frameon=False, fontsize=10, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
     add_source(ax, r"Source: Banque mondiale, FRED")
-    save(fig, 'us_twin_deficits.png')
+    save(fig, 'us_twin_deficits.pdf')
 
 
 # =====================================================================
@@ -501,7 +507,7 @@ def ca_nx_vs_ca():
     ax.legend(frameon=False, fontsize=10, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'ca_nx_vs_ca.png')
+    save(fig, 'ca_nx_vs_ca.pdf')
 
 
 # =====================================================================
@@ -548,7 +554,7 @@ def us_investment_gdp():
 
     style_axes(ax)
     add_source(ax, r"Source: Banque mondiale")
-    save(fig, 'us_investment_gdp.png')
+    save(fig, 'us_investment_gdp.pdf')
 
 
 # =====================================================================
@@ -596,7 +602,7 @@ def lw_rstar():
 
     style_axes(ax)
     add_source(ax, r"Source: Laubach \& Williams, Fed de New York")
-    save(fig, 'lw_rstar.png')
+    save(fig, 'lw_rstar.pdf')
 
 
 # =====================================================================
@@ -668,7 +674,7 @@ def us_debt_gdp():
 
     style_axes(ax)
     add_source(ax, r"Source: Federal Reserve Economic Data")
-    save(fig, 'us_debt_gdp.png')
+    save(fig, 'us_debt_gdp.pdf')
 
 
 # =====================================================================
@@ -750,7 +756,7 @@ def china_saving_gender_ratio():
              r"Source : Penn World Tables 10.01, Our World in Data (Nations Unies)",
              fontsize=8, color='gray', ha='right', va='bottom',
              transform=ax1.transAxes)
-    save(fig, 'china_saving_gender_ratio.png')
+    save(fig, 'china_saving_gender_ratio.pdf')
 
 
 # =====================================================================
@@ -785,5 +791,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

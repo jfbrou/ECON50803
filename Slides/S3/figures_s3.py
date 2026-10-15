@@ -3,7 +3,7 @@ ECON50803 — Session 3 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 3 slides (labor market,
-inequality, AI). All figure labels, axis titles, legends, and annotations
+inequality, AI). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and annotations
 are in French.
 
 Run from Slides/S3/:
@@ -18,8 +18,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from plot_utils import *
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "plot-common"))
+import teaching_plot_utils
+teaching_plot_utils.init(
+    figures_dir=str(Path(__file__).resolve().parents[1] / 'Figures'),
+    env_file=str(Path(__file__).resolve().parents[2] / '.env'))
+from teaching_plot_utils import *
 
 
 # =====================================================================
@@ -54,7 +58,7 @@ def labor_market_indicators_us():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, r"Source: FRED (CIVPART, EMRATIO, UNRATE) --- États-Unis")
-    save(fig, 'labor_market_indicators_us.png')
+    save(fig, 'labor_market_indicators_us.pdf')
 
 
 # =====================================================================
@@ -121,9 +125,10 @@ def labor_market_indicators_ca():
     ax2.set_ylabel(r"Chômage (\%)", fontsize=11,
                    rotation=0, ha='right')
     ax2.yaxis.set_label_coords(1, 1.06)
-    ax2.set_ylim(4, 14)
-    ax2.set_yticks(range(4, 15, 2))
-    ax2.set_yticklabels([f'{y}' + r'\%' for y in range(4, 15, 2)],
+    unemployment_max = max(14, tick_ceil(unemployment.max(), 2))
+    ax2.set_ylim(4, unemployment_max)
+    ax2.set_yticks(range(4, unemployment_max + 1, 2))
+    ax2.set_yticklabels([f'{y}' + r'\%' for y in range(4, unemployment_max + 1, 2)],
                          fontsize=11, color=palette[2])
     ax2.tick_params(axis='y', colors=palette[2])
     ax2.spines['right'].set_color(palette[2])
@@ -144,7 +149,7 @@ def labor_market_indicators_ca():
     ax1.text(0.99, 0.02, r"Source: Statistique Canada, tableau 14-10-0287-01",
              fontsize=8, color='gray', ha='right', va='bottom',
              transform=ax1.transAxes)
-    save(fig, 'labor_market_indicators_ca.png')
+    save(fig, 'labor_market_indicators_ca.pdf')
 
 
 # =====================================================================
@@ -182,7 +187,7 @@ def participation_gender():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='center right')
     add_source(ax, r"Source: FRED (LNS11300001, LNS11300002) --- États-Unis")
-    save(fig, 'participation_gender.png')
+    save(fig, 'participation_gender.pdf')
 
 
 # =====================================================================
@@ -221,7 +226,7 @@ def aging_population():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, 'Source: Banque mondiale (SP.POP.DPND.OL)')
-    save(fig, 'aging_population.png')
+    save(fig, 'aging_population.pdf')
 
 
 # =====================================================================
@@ -258,7 +263,7 @@ def participation_decline_us():
 
     style_axes(ax)
     add_source(ax, r"Source: FRED (LNS11300061) --- Hommes 25--54 ans, É.-U.")
-    save(fig, 'participation_decline_us.png')
+    save(fig, 'participation_decline_us.pdf')
 
 
 # =====================================================================
@@ -292,7 +297,7 @@ def labor_share_decline():
 
     style_axes(ax)
     add_source(ax, r'Source: Penn World Table 10.01 (via FRED)')
-    save(fig, 'labor_share_canada.png')
+    save(fig, 'labor_share_canada.pdf')
 
 
 # =====================================================================
@@ -334,7 +339,7 @@ def inequality_skill_premium():
 
     style_axes(ax)
     add_source(ax, 'Source: Autor (2014); Goldin \\& Katz (2008); CPS')
-    save(fig, 'inequality_skill_premium.png')
+    save(fig, 'inequality_skill_premium.pdf')
 
 
 # =====================================================================
@@ -378,7 +383,7 @@ def rd_gdp_share():
             fontsize=14, color='k', ha='center', va='center')
 
     add_source(ax, r"Source: FRED (Y006RC, Y057RC, GDP) --- États-Unis")
-    save(fig, 'rd_gdp_share.png')
+    save(fig, 'rd_gdp_share.pdf')
 
 
 # =====================================================================
@@ -478,7 +483,7 @@ def canada_gdp_decomposition():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01 --- Canada')
-    save(fig, 'canada_gdp_decomposition.png')
+    save(fig, 'canada_gdp_decomposition.pdf')
 
 
 # =====================================================================
@@ -617,7 +622,7 @@ def canada_gdp_decomposition_countries():
     ax.legend(frameon=False, fontsize=9, loc='lower right',
               bbox_to_anchor=(1.0, 0.0))
     add_source(ax, r"Source: Penn World Tables 10.01 --- Période 2000--2019")
-    save(fig, 'canada_gdp_decomposition_countries.png')
+    save(fig, 'canada_gdp_decomposition_countries.pdf')
 
 
 # =====================================================================
@@ -692,7 +697,7 @@ def breakthrough_inventions():
 
     style_axes(ax)
     add_source(ax, 'Source: Kelly et al. (2021), AER: Insights')
-    save(fig, 'kelly_et_al_2021.png')
+    save(fig, 'kelly_et_al_2021.pdf')
 
 
 # =====================================================================
@@ -743,9 +748,10 @@ def rd_spending_global():
     ax.set_ylabel(r"Milliards \$US PPA (2021)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 2500)
-    ax.set_yticks(range(0, 2501, 500))
-    ax.set_yticklabels([f'{y:,}'.replace(',', r'\,') for y in range(0, 2501, 500)],
+    ymax = max(2500, tick_ceil(df.sum(axis=1).max(), 500))
+    ax.set_ylim(0, ymax)
+    ax.set_yticks(range(0, ymax + 1, 500))
+    ax.set_yticklabels([f'{y:,}'.replace(',', r'\,') for y in range(0, ymax + 1, 500)],
                        fontsize=11)
 
     style_axes(ax)
@@ -756,7 +762,7 @@ def rd_spending_global():
               loc='upper left', bbox_to_anchor=(0.0, 1.0))
 
     add_source(ax, 'Source: Banque mondiale (GERD = R\\&D/PIB $\\times$ PIB PPA)')
-    save(fig, 'rd_spending_global.png')
+    save(fig, 'rd_spending_global.pdf')
 
 
 # =====================================================================
@@ -802,7 +808,7 @@ def moores_law():
     ax.grid(True, which='major', axis='y', color='gray', linestyle=':', linewidth=0.5)
     ax.legend(frameon=False, fontsize=9, loc='upper left')
     add_source(ax, 'Source: Karl Rupp (via Wikipedia)')
-    save(fig, 'moores_law.png')
+    save(fig, 'moores_law.pdf')
 
 
 # =====================================================================
@@ -841,7 +847,7 @@ def zimbabwe_botswana():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=11, loc='upper left')
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'zimbabwe_botswana.png')
+    save(fig, 'zimbabwe_botswana.pdf')
 
 
 # =====================================================================
@@ -889,7 +895,7 @@ def education_plateau():
     ax.legend(frameon=False, fontsize=9, loc='center left',
               bbox_to_anchor=(0.0, 0.45))
     add_source(ax, 'Source: Barro-Lee; Our World in Data')
-    save(fig, 'education_plateau.png')
+    save(fig, 'education_plateau.pdf')
 
 
 # =====================================================================
@@ -938,7 +944,7 @@ def development_accounting_human_capital():
 
     style_axes(ax)
     add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'development_accounting_human_capital.png')
+    save(fig, 'development_accounting_human_capital.pdf')
 
 
 # =====================================================================
@@ -1025,7 +1031,7 @@ def tropics_map():
     ax.axis('off')
 
     add_source(ax, 'Source: Penn World Tables 10.01 (2019)')
-    save(fig, 'tropics.png')
+    save(fig, 'tropics.pdf')
 
 
 # =====================================================================
@@ -1079,7 +1085,7 @@ def education_prosperity():
     ax.grid(True, which='major', axis='both', color='gray',
             linestyle=':', linewidth=0.5)
     add_source(ax, 'Source: Our World in Data (2022)')
-    save(fig, 'schooling.png')
+    save(fig, 'schooling.pdf')
 
 
 # =====================================================================
@@ -1129,7 +1135,7 @@ def digital_adoption_index():
 
     style_axes(ax)
     add_source(ax, 'Source: Banque mondiale (DAI) et Penn World Tables 10.01')
-    save(fig, 'dai.png')
+    save(fig, 'dai.pdf')
 
 
 # =====================================================================
@@ -1235,7 +1241,7 @@ def canada_gdp_decomposition_5y():
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
     add_source(ax, 'Source: Penn World Tables 10.01 --- Canada')
-    save(fig, 'canada_gdp_decomposition_5y.png')
+    save(fig, 'canada_gdp_decomposition_5y.pdf')
 
 
 # =====================================================================
@@ -1293,7 +1299,7 @@ def participation_gender_ca():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
     add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
-    save(fig, 'participation_gender_ca.png')
+    save(fig, 'participation_gender_ca.pdf')
 
 
 # =====================================================================
@@ -1355,7 +1361,7 @@ def unemployment_ca():
 
     style_axes(ax)
     add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
-    save(fig, 'unemployment_ca.png')
+    save(fig, 'unemployment_ca.pdf')
 
 
 # =====================================================================
@@ -1403,7 +1409,7 @@ def participation_rate_ca():
 
     style_axes(ax)
     add_source(ax, r"Source: Statistique Canada, tableau 14-10-0287-01")
-    save(fig, 'participation_rate_ca.png')
+    save(fig, 'participation_rate_ca.pdf')
 
 
 # =====================================================================
@@ -1474,7 +1480,7 @@ def immigration_ca():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, r"Source: Statistique Canada, tableaux 17-10-0014-01 et 17-10-0005-01")
-    save(fig, 'immigration_ca.png')
+    save(fig, 'immigration_ca.pdf')
 
 
 def elephant_curve():
@@ -1523,7 +1529,7 @@ def elephant_curve():
 
     style_axes(ax)
     add_source(ax, r'Source: World Inequality Report 2022 (Chancel et al.)')
-    save(fig, 'elephant.png')
+    save(fig, 'elephant.pdf')
 
 
 def inequality_top1_share():
@@ -1569,7 +1575,7 @@ def inequality_top1_share():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(-0.01, 1.0))
     add_source(ax, 'Source: World Inequality Database (2025)')
-    save(fig, 'inequality_within_countries.png')
+    save(fig, 'inequality_within_countries.pdf')
 
 
 # =====================================================================
@@ -1611,7 +1617,7 @@ def outsourcing_inequality():
     ax.yaxis.set_label_coords(0, 1.05)
 
     add_source(ax, r'Source: Song, Price, Guvenen, Bloom \& von Wachter (QJE, 2019)')
-    save(fig, 'outsourcing_inequality.png')
+    save(fig, 'outsourcing_inequality.pdf')
 
 
 # =====================================================================
@@ -1678,7 +1684,7 @@ def job_polarization():
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(-0.01, 1.0))
     add_source(ax, r'Source: BLS, Current Population Survey (via FRED)')
-    save(fig, 'job_polarization.png')
+    save(fig, 'job_polarization.pdf')
 
 
 # =====================================================================
@@ -1833,7 +1839,7 @@ def gatsby_curve():
 
     add_source(ax, r"Source: Corak (2013); World Bank"
                r" (Gini, c.\,2005)")
-    save(fig, 'gatsby_curve.png')
+    save(fig, 'gatsby_curve.pdf')
 
 
 # =====================================================================
@@ -1997,7 +2003,7 @@ def baumol_cost_disease_canada():
 
     style_axes(ax)
     add_source(ax, r"Source: Statistique Canada, tableau 18-10-0005-01")
-    save(fig, 'baumol_cost_disease_canada.png')
+    save(fig, 'baumol_cost_disease_canada.pdf')
 
 
 # =====================================================================
@@ -2034,6 +2040,7 @@ if __name__ == '__main__':
         immigration_ca,
         inequality_top1_share,
         elephant_curve,
+        job_polarization,
         gatsby_curve,
         baumol_cost_disease_canada,
     ]
@@ -2048,5 +2055,6 @@ if __name__ == '__main__':
 
     if failed:
         print(f'\n{len(failed)} figure(s) failed: {", ".join(failed)}')
+        sys.exit(1)
     else:
         print('\nDone \u2014 all figures generated.')

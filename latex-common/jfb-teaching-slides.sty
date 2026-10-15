@@ -1,0 +1,330 @@
+% jfb-teaching-slides.sty — Style file for teaching Beamer slides (HEC Montréal)
+% Maintainer: Jean-Félix Brouillette
+% Usage: \documentclass[aspectratio=169]{beamer} then \usepackage{jfb-teaching-slides}
+% Then set: \jfbcoursename{ECON 50803} \jfbcoursetitle{Environnement macroéconomique}
+% Companion: jfb-research-slides.sty (seminar/conference decks in Palatino + English)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jfb-teaching-slides}[2026/03/13 JFB Beamer slides for teaching]
+
+% Base layer (colors + math macros)
+\RequirePackage{jfb-base}
+
+% ============================================================
+% 1. FONTS
+% ============================================================
+\RequirePackage[sfdefault,light]{FiraSans}
+\RequirePackage{FiraMono}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+
+% ============================================================
+% 2. BEAMER THEME AND FONTS
+% ============================================================
+\usetheme{default}
+\setbeamersize{text margin left=1.2cm, text margin right=1.2cm}
+
+\setbeamerfont{title}{series=\bfseries, size=\Large}
+\setbeamerfont{frametitle}{series=\bfseries, size=\large}
+\setbeamerfont{framesubtitle}{series=\mdseries, size=\normalsize}
+
+% ============================================================
+% 3. BEAMER COLORS
+% ============================================================
+\setbeamercolor{normal text}{fg=HECtext}
+\setbeamercolor{title}{fg=HECnavy}
+\setbeamercolor{frametitle}{fg=HECnavy}
+\setbeamercolor{structure}{fg=HECnavy}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{alerted text}{fg=HECcoral}
+\setbeamercolor{example text}{fg=HECgreen}
+
+% ============================================================
+% 4. NAVIGATION AND CHROME
+% ============================================================
+\setbeamertemplate{navigation symbols}{}
+
+% Frame title: bold text with thin green accent line
+\setbeamertemplate{frametitle}{%
+   \vspace{0.25cm}%
+   {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}%
+   \ifx\insertframesubtitle\empty\else%
+      \\[2pt]{\usebeamerfont{framesubtitle}\textcolor{HECgray}{\insertframesubtitle}}%
+   \fi%
+   \\[-4pt]\textcolor{HECgreen}{\rule{2.5cm}{1.5pt}}%
+   \\[-2pt]%
+}
+
+% Footer: course name left, slide number right, thin rule above
+\setbeamertemplate{footline}{%
+   \vspace{-0.1cm}%
+   \hbox to \paperwidth{%
+      \hspace{1.2cm}%
+      \textcolor{HEClightgray}{\rule{0.84\paperwidth}{0.4pt}}%
+      \hspace{1.2cm}%
+   }%
+   \vspace{0.05cm}%
+   \hbox to \paperwidth{%
+      \hspace{1.2cm}%
+      {\scriptsize\textcolor{HECgray}{\jfb@coursename\enspace\textbar\enspace\jfb@coursetitle}}%
+      \hfill%
+      {\scriptsize\textcolor{HECgray}{\insertframenumber}}%
+      \hspace{1.2cm}%
+   }%
+   \vspace{0.15cm}%
+}
+
+% ============================================================
+% 5. ITEMIZE / ENUMERATE STYLING
+% ============================================================
+\setbeamertemplate{itemize item}{\textcolor{HECnavy}{$\bullet$}}
+\setbeamertemplate{itemize subitem}{\textcolor{HECgray}{$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{HECgray}{\scalebox{0.6}{$\blacktriangleright$}}}
+\setbeamertemplate{enumerate item}{\textcolor{HECnavy}{\bfseries\insertenumlabel.}}
+\setbeamertemplate{enumerate subitem}{\textcolor{HECgray}{\insertsubenumlabel.}}
+
+% ============================================================
+% 6. PACKAGES
+% ============================================================
+\RequirePackage{tikz}
+\usetikzlibrary{decorations.pathreplacing, decorations.markings, calc, arrows.meta, positioning}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{ragged2e}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{multirow}
+\RequirePackage{threeparttable}
+\RequirePackage{makecell}
+\RequirePackage{colortbl}
+\RequirePackage{transparent}
+\RequirePackage{tcolorbox}
+\RequirePackage[round]{natbib}
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{calc}
+
+% Hyperlinks (hyperref loaded by Beamer)
+\hypersetup{colorlinks, linkcolor=HECnavy, urlcolor=HECnavy, citecolor=HECtext}
+
+% Captions
+\captionsetup[figure]{labelformat=empty, font=small, textfont=it}
+\captionsetup[table]{labelformat=empty, font=small}
+\setlength{\belowcaptionskip}{0cm}
+\apptocmd{\frame}{}{\justifying}
+
+% ============================================================
+% 7. TIKZ DIAGRAM STYLES (economics diagrams)
+% ============================================================
+
+\tikzset{
+   % --- Axes ---
+   econaxis/.style={-{Stealth[length=5pt, width=3.5pt]}, thick},
+   %
+   % --- Active curves (supply, demand, AD, AS, utility, production) ---
+   supply/.style={HECnavy, very thick},
+   demand/.style={HECnavy, very thick},
+   %
+   % --- Shifted / new curves (specify color per use) ---
+   curveshift/.style={very thick},
+   %
+   % --- Faded original / reference curves ---
+   original/.style={HECgray, dashed, very thick},
+   %
+   % --- Reference lines (dotted projections to axes) ---
+   refline/.style={dotted, thick, HECgray},
+   %
+   % --- Shift arrows ---
+   shiftarrow/.style={-{Stealth[length=4pt, width=2.5pt]}, thick},
+   %
+   % --- Equilibrium points (default green; override: eqpoint=HECcoral) ---
+   eqpoint/.style={fill=#1, draw=none},
+   eqpoint/.default=HECgreen,
+   eqfaded/.style={fill=#1, draw=none, opacity=0.3},
+   eqfaded/.default=HECnavy,
+   %
+   % --- Potential GDP / structural trend lines ---
+   potline/.style={HECgreen, very thick, densely dashed},
+   %
+   % --- Decorative braces ---
+   econbrace/.style={decorate, decoration={brace, mirror, amplitude=8pt}, very thick},
+   %
+   % --- Flow chart elements ---
+   flowbox/.style={rounded corners=6pt, minimum height=1.6cm, minimum width=2.8cm,
+                   inner sep=8pt, font=\large\bfseries, align=center},
+   flowarrow/.style={-{Stealth[length=7pt, width=5pt]}, line width=1.2pt, HECnavy},
+   %
+   % --- Label font hierarchy ---
+   curvelabel/.style={font=\small\bfseries},
+   pointlabel/.style={font=\footnotesize},
+   annotlabel/.style={font=\footnotesize\itshape, text=HECgray},
+}
+
+% ============================================================
+% 8. CUSTOM SLIDE TYPES
+% ============================================================
+
+% Title slide: navy sidebar with green accent line
+\newcommand{\titleframe}{%
+   {\setbeamertemplate{footline}{}%
+   \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+         \fill[HECnavy] (current page.north west) rectangle
+            ([xshift=0.6cm]current page.south west);
+         \fill[HECgreen] ([xshift=0.6cm]current page.north west) rectangle
+            ([xshift=0.65cm]current page.south west);
+      \end{tikzpicture}
+      \vspace{1cm}
+      \hspace{0.6cm}%
+      \begin{minipage}{0.85\textwidth}
+         {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+         \\[12pt]
+         \textcolor{HECgreen}{\rule{3cm}{2pt}}
+         \\[12pt]
+         {\large\textcolor{HECgray}{\insertauthor}}
+         \\[6pt]
+         {\normalsize\textcolor{HECgray}{\insertdate}}
+      \end{minipage}
+      \vfill
+      \hspace{0.6cm}%
+      {\footnotesize\textcolor{HECgray}{\jfb@institution\enspace\textbar\enspace MBA}}
+      \vspace{0.5cm}
+   \end{frame}}%
+}
+
+% Section divider: full navy background with centered title
+\newcommand{\sectionframe}[1]{%
+   {\setbeamertemplate{footline}{}%
+   \begin{frame}[plain]
+      \begin{tikzpicture}[remember picture, overlay]
+         \fill[HECnavy] ([shift={(-1pt,1pt)}]current page.north west) rectangle
+            ([shift={(1pt,-1pt)}]current page.south east);
+         \node[anchor=center] at (current page.center) {%
+            \begin{minipage}{0.8\paperwidth}
+               \centering
+               {\LARGE\bfseries\textcolor{white}{#1}}
+               \\[12pt]
+               \textcolor{HECgreen}{\rule{3cm}{2pt}}
+            \end{minipage}
+         };
+      \end{tikzpicture}
+   \end{frame}}%
+}
+
+% ============================================================
+% 9. CUSTOM BOX ENVIRONMENTS (arc=8pt, not breakable)
+% ============================================================
+
+\newtcolorbox{keyinsight}[1][Point cl\'{e}]{%
+   colback=HECgreen!5, colframe=HECgreen,
+   boxrule=0pt, leftrule=3pt, arc=8pt,
+   title={\textcolor{HECgreen}{\bfseries #1}},
+   coltitle=HECgreen, fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{bizimplication}[1][Implication d'affaires]{%
+   colback=HECnavy!5, colframe=HECnavy,
+   boxrule=0pt, leftrule=3pt, arc=8pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy, fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{warning}[1][Important]{%
+   colback=HECcoral!5, colframe=HECcoral,
+   boxrule=0pt, leftrule=3pt, arc=8pt,
+   title={\textcolor{HECcoral}{\bfseries #1}},
+   coltitle=HECcoral, fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{defbox}[1][D\'{e}finition]{%
+   colback=HEClightgray, colframe=HEClightgray,
+   boxrule=0pt, leftrule=3pt, arc=8pt,
+   left=10pt, right=10pt, top=6pt, bottom=6pt,
+   title={\textcolor{HECnavy}{\bfseries #1}},
+   coltitle=HECnavy, fonttitle=\bfseries,
+   attach title to upper={\\[4pt]}
+}
+
+\newtcolorbox{exercise}[1][Exercice]{%
+   colback=HECcoral!5, colframe=HECcoral,
+   boxrule=0pt, leftrule=3pt, arc=8pt,
+   title={\textcolor{HECcoral}{\bfseries #1}},
+   coltitle=HECcoral, fonttitle=\bfseries,
+   attach title to upper={\\[4pt]},
+   left=10pt, right=10pt, top=6pt, bottom=6pt
+}
+
+% ============================================================
+% 10. NEWSPAPER HEADLINES
+% ============================================================
+\newcounter{newshl}
+
+\newcommand{\newsheadline}[3][]{%
+   \stepcounter{newshl}%
+   \pgfmathsetmacro{\hlrow}{int((\thenewshl-1)/2)}%
+   \pgfmathsetmacro{\hlcol}{int(mod(\thenewshl-1,2))}%
+   \pgfmathsetmacro{\hlx}{0.8 + \hlcol * 7.8}%
+   \pgfmathsetmacro{\hly}{-1.5 - \hlrow * 2.0}%
+   \node[anchor=north west]
+      at ([shift={(\hlx cm,\hly cm)}]current page.north west) {%
+      \ifx\\#1\\%
+         \begin{minipage}[t]{5.8cm}%
+            \textbf{\textcolor{HECgray}{\footnotesize\MakeUppercase{#2}}}%
+            \\[-1pt]%
+            {\small\itshape #3}%
+         \end{minipage}%
+      \else%
+         \begin{minipage}[c]{1.2cm}%
+            \includegraphics[height=1.2cm]{logos/#1}%
+         \end{minipage}%
+         \hspace{6pt}%
+         \begin{minipage}[c][1.2cm][c]{4.3cm}%
+            \raggedright{\small\textcolor{HECtext!75}{#3}}%
+         \end{minipage}%
+      \fi%
+   };%
+}
+
+\newcommand{\headlinesoverlay}[1]{%
+   \only<2>{%
+      \fill[white, opacity=0.85]
+         (current page.south west) rectangle (current page.north east);%
+      \node[anchor=center] at ([yshift=-0.5cm]current page.center) {%
+         {\fontsize{36}{44}\selectfont\bfseries\textcolor{HECnavy}{#1}}%
+      };%
+   }%
+}
+
+% ============================================================
+% 11. NAVIGATION BUTTONS
+% ============================================================
+\newlength{\buttonwidth}
+\newlength{\currentxpos}
+\setlength{\currentxpos}{1.2cm}
+\newlength{\buttonsep}
+\setlength{\buttonsep}{0.05cm}
+
+\newcommand{\mybutton}[2]{%
+   \settowidth{\buttonwidth}{#1}%
+   \begin{textblock*}{\buttonwidth + 2ex}(\currentxpos, \paperheight - 2.5em)
+      \hyperlink{#2}{\beamerbutton{#1}}
+   \end{textblock*}%
+   \addtolength{\currentxpos}{\buttonwidth + \buttonsep}%
+}
+
+% ============================================================
+% 12. BACKUP SLIDES
+% ============================================================
+\newcommand{\backupbegin}{%
+   \newcounter{finalframe}%
+   \setcounter{finalframe}{\value{framenumber}}%
+}
+\newcommand{\backupend}{%
+   \setcounter{framenumber}{\value{finalframe}}%
+}
+
+\endinput

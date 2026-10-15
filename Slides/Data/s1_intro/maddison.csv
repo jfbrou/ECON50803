@@ -1,0 +1,1905 @@
+Entity,Year,GDP per capita
+Canada,1820,1441.0
+Canada,1830,1594.0
+Canada,1840,1852.0
+Canada,1850,2120.0
+Canada,1860,2313.0
+Canada,1870,2702.0
+Canada,1871,2797.0
+Canada,1872,2718.0
+Canada,1873,2936.0
+Canada,1874,2955.0
+Canada,1875,2844.0
+Canada,1876,2616.0
+Canada,1877,2753.0
+Canada,1878,2609.0
+Canada,1879,2813.0
+Canada,1880,2895.0
+Canada,1881,3252.0
+Canada,1882,3362.0
+Canada,1883,3331.0
+Canada,1884,3556.0
+Canada,1885,3304.0
+Canada,1886,3308.0
+Canada,1887,3379.0
+Canada,1888,3585.0
+Canada,1889,3569.0
+Canada,1890,3790.0
+Canada,1891,3840.0
+Canada,1892,3779.0
+Canada,1893,3720.0
+Canada,1894,3857.0
+Canada,1895,3779.0
+Canada,1896,3647.0
+Canada,1897,4004.0
+Canada,1898,4117.0
+Canada,1899,4457.0
+Canada,1900,4640.0
+Canada,1901,4937.0
+Canada,1902,5310.0
+Canada,1903,5314.0
+Canada,1904,5228.0
+Canada,1905,5678.0
+Canada,1906,6130.0
+Canada,1907,6177.0
+Canada,1908,5694.0
+Canada,1909,6137.0
+Canada,1910,6481.0
+Canada,1911,6715.0
+Canada,1912,6977.0
+Canada,1913,7088.0
+Canada,1914,6416.0
+Canada,1915,6747.0
+Canada,1916,7406.0
+Canada,1917,7653.0
+Canada,1918,7079.0
+Canada,1919,6406.0
+Canada,1920,6154.0
+Canada,1921,5351.0
+Canada,1922,6046.0
+Canada,1923,6338.0
+Canada,1924,6339.0
+Canada,1925,6918.0
+Canada,1926,7168.0
+Canada,1927,7726.0
+Canada,1928,8244.0
+Canada,1929,8074.0
+Canada,1930,7669.0
+Canada,1931,6382.0
+Canada,1932,5852.0
+Canada,1933,5372.0
+Canada,1934,5883.0
+Canada,1935,6298.0
+Canada,1936,6574.0
+Canada,1937,7130.0
+Canada,1938,7246.0
+Canada,1939,7600.0
+Canada,1940,8557.0
+Canada,1941,9645.0
+Canada,1942,11210.0
+Canada,1943,11577.0
+Canada,1944,11864.0
+Canada,1945,11370.0
+Canada,1946,11048.0
+Canada,1947,11298.0
+Canada,1948,11261.0
+Canada,1949,11260.0
+Canada,1950,11622.0
+Canada,1951,12007.0
+Canada,1952,12486.0
+Canada,1953,12726.0
+Canada,1954,12272.0
+Canada,1955,13072.0
+Canada,1956,13791.0
+Canada,1957,13719.0
+Canada,1958,13603.0
+Canada,1959,13829.0
+Canada,1960,13952.0
+Canada,1961,14080.0
+Canada,1962,14787.0
+Canada,1963,15248.0
+Canada,1964,15938.0
+Canada,1965,16694.0
+Canada,1966,17448.0
+Canada,1967,17658.0
+Canada,1968,18297.0
+Canada,1969,18988.0
+Canada,1970,19207.0
+Canada,1971,20024.0
+Canada,1972,20837.0
+Canada,1973,22058.0
+Canada,1974,22643.0
+Canada,1975,22819.0
+Canada,1976,23754.0
+Canada,1977,24265.0
+Canada,1978,24994.0
+Canada,1979,25775.0
+Canada,1980,25784.0
+Canada,1981,26256.0
+Canada,1982,25151.0
+Canada,1983,25625.0
+Canada,1984,26836.0
+Canada,1985,28025.0
+Canada,1986,28472.0
+Canada,1987,29246.0
+Canada,1988,30275.0
+Canada,1989,30458.0
+Canada,1990,30082.0
+Canada,1991,29151.697
+Canada,1992,29141.191
+Canada,1993,29657.574
+Canada,1994,30745.822
+Canada,1995,31330.72
+Canada,1996,31594.242
+Canada,1997,32709.691
+Canada,1998,33785.746
+Canada,1999,35345.723
+Canada,2000,36942.562
+Canada,2001,37307.207
+Canada,2002,38123.99
+Canada,2003,38559.977
+Canada,2004,39491.57
+Canada,2005,40485.02
+Canada,2006,41247.15
+Canada,2007,41806.863
+Canada,2008,41896.426
+Canada,2009,40312.62
+Canada,2010,41209.426
+Canada,2011,42197.0
+Canada,2012,42476.344
+Canada,2013,43008.83
+Canada,2014,43800.64
+Canada,2015,43761.527
+Canada,2016,43702.08
+Canada,2017,44493.652
+Canada,2018,45087.887
+Canada,2019,45284.215
+Canada,2020,42493.63
+Canada,2021,44379.594
+Canada,2022,45529.645
+France,1,956.0
+France,1276,1366.393
+France,1277,1417.4048
+France,1278,1319.0684
+France,1279,1316.7462
+France,1280,1311.8418
+France,1281,1285.5691
+France,1282,1382.7443
+France,1283,1376.4803
+France,1284,1367.225
+France,1285,1122.3462
+France,1286,1237.4888
+France,1287,1395.5033
+France,1288,1302.734
+France,1289,1364.1765
+France,1290,1275.3016
+France,1291,1255.8231
+France,1292,1136.3077
+France,1293,1040.3223
+France,1294,1082.6333
+France,1295,1290.9218
+France,1296,1301.7876
+France,1297,1375.4855
+France,1298,1316.5112
+France,1299,1181.7694
+France,1300,1268.3297
+France,1301,1256.841
+France,1302,1608.3954
+France,1303,1506.4077
+France,1304,1190.4598
+France,1305,1404.7817
+France,1306,1167.387
+France,1307,1354.6462
+France,1308,1580.197
+France,1309,1522.1388
+France,1310,1548.0424
+France,1311,1299.5131
+France,1312,1360.4386
+France,1313,1385.6504
+France,1314,1360.3514
+France,1315,1228.4558
+France,1316,959.8248
+France,1317,1372.8257
+France,1318,1369.3146
+France,1319,1298.3457
+France,1320,1129.8586
+France,1321,1198.1992
+France,1322,1158.3602
+France,1323,1339.016
+France,1324,1168.028
+France,1325,1282.1124
+France,1326,1310.6654
+France,1327,1358.0782
+France,1328,1410.5416
+France,1329,1343.496
+France,1330,1382.605
+France,1331,1443.1237
+France,1332,1526.4474
+France,1333,1348.6603
+France,1334,1482.9583
+France,1335,1611.2675
+France,1336,1502.946
+France,1337,1446.2878
+France,1338,1467.685
+France,1339,1373.2986
+France,1340,1521.1095
+France,1341,1749.1069
+France,1342,1391.4028
+France,1343,1485.618
+France,1344,1566.6233
+France,1345,1572.8997
+France,1346,1439.847
+France,1347,1525.5688
+France,1348,1414.8728
+France,1349,1394.1803
+France,1350,1420.8379
+France,1351,1112.5127
+France,1352,1342.3987
+France,1353,1414.7096
+France,1354,1445.2821
+France,1355,1366.8962
+France,1356,1659.017
+France,1357,2087.4536
+France,1358,1602.5197
+France,1359,1453.3741
+France,1360,1543.352
+France,1361,1544.2974
+France,1362,2006.9365
+France,1363,1751.1244
+France,1364,1491.4227
+France,1365,1946.4097
+France,1366,1787.7166
+France,1367,1767.551
+France,1368,1712.4961
+France,1369,1496.12
+France,1370,1409.6755
+France,1371,1590.5076
+France,1372,2092.9246
+France,1373,1804.6511
+France,1374,1797.0912
+France,1375,1703.7012
+France,1376,1646.0918
+France,1377,1698.6868
+France,1378,1637.3561
+France,1379,1617.4108
+France,1380,1723.1217
+France,1381,1444.6709
+France,1382,1690.7242
+France,1383,1799.0862
+France,1384,1898.6615
+France,1385,1854.0756
+France,1386,1674.8042
+France,1387,1692.5249
+France,1388,1602.5411
+France,1389,1595.3966
+France,1390,1501.1136
+France,1391,1431.9095
+France,1392,1478.654
+France,1393,1716.179
+France,1394,1609.4425
+France,1395,1698.7153
+France,1396,1456.8473
+France,1397,1631.7134
+France,1398,1721.0737
+France,1399,1628.7186
+France,1400,1611.8853
+France,1401,1519.6133
+France,1402,1546.2439
+France,1403,1584.7471
+France,1404,1691.2551
+France,1405,1587.8978
+France,1406,1610.8809
+France,1407,1597.8732
+France,1408,1571.952
+France,1409,1594.0382
+France,1410,1553.2002
+France,1411,1614.0565
+France,1412,1574.7443
+France,1413,1610.0719
+France,1414,1739.5382
+France,1415,1651.0267
+France,1416,1540.1729
+France,1417,1624.4562
+France,1418,1606.3206
+France,1419,1521.9714
+France,1420,1599.623
+France,1421,1631.2628
+France,1422,1605.151
+France,1423,1666.8602
+France,1424,1683.731
+France,1425,1509.5112
+France,1426,1597.3833
+France,1427,1645.7386
+France,1428,1615.9478
+France,1429,1384.59
+France,1430,1618.2633
+France,1431,1552.9746
+France,1432,1490.0719
+France,1433,1480.427
+France,1434,1497.6248
+France,1435,1491.1783
+France,1436,1501.2125
+France,1437,1343.7804
+France,1438,1181.6656
+France,1439,1289.6832
+France,1440,1416.7845
+France,1441,1539.0104
+France,1442,1419.0769
+France,1443,1519.786
+France,1444,1706.4083
+France,1445,1641.9417
+France,1446,1479.6384
+France,1447,1517.4811
+France,1448,1575.4348
+France,1449,1704.5756
+France,1450,1522.1066
+France,1451,1698.8483
+France,1452,1674.1462
+France,1453,1844.6185
+France,1454,1772.4021
+France,1455,1451.9695
+France,1456,1358.3412
+France,1457,1357.8759
+France,1458,1420.5774
+France,1459,1393.5494
+France,1460,1272.9297
+France,1461,1451.2091
+France,1462,1619.3983
+France,1463,1674.1931
+France,1464,1625.6165
+France,1465,1618.585
+France,1466,1624.7767
+France,1467,1732.5519
+France,1468,1730.6943
+France,1469,1777.7446
+France,1470,1724.3057
+France,1471,1577.6975
+France,1472,1707.5236
+France,1473,1563.034
+France,1474,1630.7373
+France,1475,1571.1837
+France,1476,1549.7596
+France,1477,1505.4514
+France,1478,1441.7799
+France,1479,1467.8086
+France,1480,1574.1465
+France,1481,1408.6857
+France,1482,1287.963
+France,1483,1280.2374
+France,1484,1552.6895
+France,1485,1515.3033
+France,1486,1439.2651
+France,1487,1528.5011
+France,1488,1442.1527
+France,1489,1417.5792
+France,1490,1484.6577
+France,1491,1492.3997
+France,1492,1469.629
+France,1493,1407.8547
+France,1494,1547.5466
+France,1495,1687.254
+France,1496,1692.6816
+France,1497,1620.6036
+France,1498,1533.2258
+France,1499,1566.758
+France,1500,1669.8368
+France,1501,1501.1251
+France,1502,1398.872
+France,1503,1479.0094
+France,1504,1397.7341
+France,1505,1355.206
+France,1506,1513.0354
+France,1507,1502.7952
+France,1508,1448.6398
+France,1509,1584.4226
+France,1510,1589.5966
+France,1511,1588.7809
+France,1512,1411.006
+France,1513,1424.7446
+France,1514,1524.3862
+France,1515,1458.887
+France,1516,1331.3102
+France,1517,1360.3234
+France,1518,1430.6859
+France,1519,1410.4637
+France,1520,1338.2413
+France,1521,1340.4131
+France,1522,1375.1813
+France,1523,1441.6855
+France,1524,1366.9487
+France,1525,1414.6318
+France,1526,1525.9703
+France,1527,1417.1279
+France,1528,1303.4188
+France,1529,1343.0624
+France,1530,1329.1915
+France,1531,1238.6921
+France,1532,1342.5453
+France,1533,1497.3652
+France,1534,1408.1527
+France,1535,1537.9564
+France,1536,1557.1814
+France,1537,1647.0706
+France,1538,1506.0486
+France,1539,1486.3503
+France,1540,1501.6132
+France,1541,1579.6841
+France,1542,1616.8888
+France,1543,1520.5988
+France,1544,1426.3351
+France,1545,1205.8086
+France,1546,1346.4753
+France,1547,1614.9984
+France,1548,1556.4996
+France,1549,1375.8206
+France,1550,1431.7344
+France,1551,1335.9977
+France,1552,1330.0944
+France,1553,1376.5054
+France,1554,1375.9304
+France,1555,1388.4755
+France,1556,1263.3158
+France,1557,1289.7416
+France,1558,1362.336
+France,1559,1353.2432
+France,1560,1290.4823
+France,1561,1278.849
+France,1562,1269.5238
+France,1563,1316.4514
+France,1564,1328.61
+France,1565,1308.9203
+France,1566,1177.7274
+France,1567,1316.2607
+France,1568,1422.421
+France,1569,1528.081
+France,1570,1386.3135
+France,1571,1240.7745
+France,1572,1233.6935
+France,1573,1167.307
+France,1574,1191.0795
+France,1575,1304.0892
+France,1576,1382.1284
+France,1577,1383.786
+France,1578,1463.1628
+France,1579,1345.312
+France,1580,1288.0773
+France,1581,1445.0612
+France,1582,1367.2292
+France,1583,1345.8705
+France,1584,1357.5756
+France,1585,1399.574
+France,1586,1116.3335
+France,1587,1116.6212
+France,1588,1325.5208
+France,1589,1372.0208
+France,1590,1390.0759
+France,1591,1258.5271
+France,1592,1223.8527
+France,1593,1255.2606
+France,1594,1532.2882
+France,1595,1529.3214
+France,1596,1508.5372
+France,1597,1221.6857
+France,1598,1439.0449
+France,1599,1446.0906
+France,1600,1575.7119
+France,1601,1571.2477
+France,1602,1637.476
+France,1603,1561.2797
+France,1604,1739.3207
+France,1605,1583.6287
+France,1606,1578.0879
+France,1607,1487.4752
+France,1608,1501.5748
+France,1609,1582.3751
+France,1610,1666.4532
+France,1611,1704.075
+France,1612,1572.817
+France,1613,1674.8519
+France,1614,1541.0413
+France,1615,1508.7526
+France,1616,1494.1552
+France,1617,1699.6509
+France,1618,1582.0576
+France,1619,1493.7488
+France,1620,1741.8516
+France,1621,1612.0006
+France,1622,1777.3511
+France,1623,1568.0293
+France,1624,1768.2288
+France,1625,1724.6862
+France,1626,1423.2004
+France,1627,1494.455
+France,1628,1415.2937
+France,1629,1471.4778
+France,1630,1457.03
+France,1631,1406.8789
+France,1632,1472.0535
+France,1633,1471.385
+France,1634,1675.4584
+France,1635,1481.1901
+France,1636,1444.4215
+France,1637,1345.8063
+France,1638,1505.8352
+France,1639,1503.9141
+France,1640,1561.9038
+France,1641,1489.9661
+France,1642,1650.1327
+France,1643,1452.4084
+France,1644,1397.7031
+France,1645,1562.2952
+France,1646,1695.9005
+France,1647,1714.0845
+France,1648,1611.9829
+France,1649,1486.0232
+France,1650,1559.0819
+France,1651,1611.761
+France,1652,1548.978
+France,1653,1733.599
+France,1654,1609.462
+France,1655,1739.3148
+France,1656,1886.9994
+France,1657,1903.554
+France,1658,1730.9274
+France,1659,1798.2192
+France,1660,1878.45
+France,1661,1917.3323
+France,1662,1806.3756
+France,1663,1807.562
+France,1664,1975.1116
+France,1665,1944.4133
+France,1666,2075.6528
+France,1667,2043.6355
+France,1668,2166.9866
+France,1669,2157.9507
+France,1670,2019.7247
+France,1671,2181.3032
+France,1672,1933.4053
+France,1673,2144.278
+France,1674,1937.4894
+France,1675,1950.5101
+France,1676,1934.4109
+France,1677,1763.4662
+France,1678,1798.4114
+France,1679,1742.883
+France,1680,1837.1229
+France,1681,1769.9314
+France,1682,1917.1437
+France,1683,1953.9238
+France,1684,1820.2832
+France,1685,1705.9518
+France,1686,1750.2732
+France,1687,1851.6473
+France,1688,1941.835
+France,1689,1940.819
+France,1690,1800.2869
+France,1691,1723.5846
+France,1692,1565.6835
+France,1693,1517.6545
+France,1694,1623.4886
+France,1695,1673.7211
+France,1696,1829.0471
+France,1697,1720.3716
+France,1698,1636.5406
+France,1699,1516.8198
+France,1700,1757.917
+France,1701,1776.4618
+France,1702,1708.6582
+France,1703,1778.6199
+France,1704,1907.8228
+France,1705,1848.7836
+France,1706,1961.0417
+France,1707,1998.7808
+France,1708,1796.769
+France,1709,1301.2716
+France,1710,1504.354
+France,1711,1702.3844
+France,1712,1654.9578
+France,1713,1569.4813
+France,1714,1658.5327
+France,1715,1931.9984
+France,1716,2068.1921
+France,1717,2362.0159
+France,1718,1995.6526
+France,1719,1965.826
+France,1720,1859.178
+France,1721,2055.8035
+France,1722,1856.622
+France,1723,1792.9893
+France,1724,1718.9618
+France,1725,1772.6028
+France,1726,1753.237
+France,1727,1879.8574
+France,1728,1896.1257
+France,1729,1892.0421
+France,1730,1885.0883
+France,1731,1898.201
+France,1732,1957.0159
+France,1733,2006.0576
+France,1734,1947.6866
+France,1735,1897.8805
+France,1736,1866.6646
+France,1737,1864.1233
+France,1738,1838.4174
+France,1739,1766.1866
+France,1740,1667.4412
+France,1741,1641.1106
+France,1742,1789.5206
+France,1743,1974.6588
+France,1744,2044.9849
+France,1745,1925.0576
+France,1746,1856.5692
+France,1747,1798.3673
+France,1748,1696.9667
+France,1749,1704.6578
+France,1750,1743.4982
+France,1751,1752.8531
+France,1752,1727.1702
+France,1753,1932.1814
+France,1754,1819.1097
+France,1755,1940.9264
+France,1756,1971.7367
+France,1757,1871.188
+France,1758,1837.1747
+France,1759,1799.9043
+France,1760,1843.0281
+France,1761,1912.1754
+France,1762,2020.1149
+France,1763,2002.9077
+France,1764,1884.9619
+France,1765,1831.7267
+France,1766,1848.9745
+France,1767,1778.1849
+France,1768,1726.5978
+France,1769,1690.6312
+France,1770,1578.4601
+France,1771,1596.489
+France,1772,1679.0604
+France,1773,1729.9089
+France,1774,1805.2689
+France,1775,1745.3429
+France,1776,1853.3687
+France,1777,1811.2681
+France,1778,1795.7003
+France,1779,1905.6895
+France,1780,1979.351
+France,1781,1920.4524
+France,1782,1954.6962
+France,1783,1875.7897
+France,1784,1888.5303
+France,1785,1889.9576
+France,1786,1934.0798
+France,1787,1974.7498
+France,1788,2016.1776
+France,1789,1698.0148
+France,1790,1763.7655
+France,1791,1765.8439
+France,1792,1618.2173
+France,1793,1601.7513
+France,1794,1593.638
+France,1795,1597.6545
+France,1796,1633.3368
+France,1797,1652.1222
+France,1798,1706.1676
+France,1799,1737.0356
+France,1800,1659.6478
+France,1801,1579.5901
+France,1802,1583.4694
+France,1803,1737.1416
+France,1804,2008.143
+France,1805,1891.7369
+France,1806,1861.9406
+France,1807,1812.0725
+France,1808,2022.1609
+France,1809,2010.8484
+France,1810,1916.6487
+France,1811,1765.3041
+France,1812,1601.3053
+France,1813,1858.498
+France,1814,1990.3743
+France,1815,1786.3486
+France,1816,1583.7054
+France,1817,1433.1451
+France,1818,1605.58
+France,1819,1660.4761
+France,1820,1809.1045
+France,1821,1951.8644
+France,1822,1874.7687
+France,1823,1933.733
+France,1824,1985.812
+France,1825,1898.264
+France,1826,1948.8735
+France,1827,1908.201
+France,1828,1896.1698
+France,1829,1945.748
+France,1830,1898.1508
+France,1831,1924.7241
+France,1832,2091.7205
+France,1833,2052.414
+France,1834,2055.4949
+France,1835,2124.2776
+France,1836,2089.476
+France,1837,2118.767
+France,1838,2210.644
+France,1839,2128.7825
+France,1840,2275.7524
+France,1841,2320.7622
+France,1842,2259.9558
+France,1843,2369.6716
+France,1844,2444.243
+France,1845,2358.9246
+France,1846,2356.3037
+France,1847,2606.6997
+France,1848,2437.9539
+France,1849,2505.5588
+France,1850,2545.0276
+France,1851,2498.843
+France,1852,2652.94
+France,1853,2515.0432
+France,1854,2626.9683
+France,1855,2577.9907
+France,1856,2686.8047
+France,1857,2835.7173
+France,1858,3028.6494
+France,1859,2826.9219
+France,1860,3016.0
+France,1861,2820.0
+France,1862,3051.0
+France,1863,3145.0
+France,1864,3169.0
+France,1865,3067.0
+France,1866,3083.0
+France,1867,2890.0
+France,1868,3159.0
+France,1869,3198.0
+France,1870,2990.0
+France,1871,3027.0
+France,1872,3312.0
+France,1873,3064.0
+France,1874,3438.0
+France,1875,3537.0
+France,1876,3233.0
+France,1877,3390.0
+France,1878,3333.0
+France,1879,3113.0
+France,1880,3379.0
+France,1881,3497.0
+France,1882,3647.0
+France,1883,3647.0
+France,1884,3591.0
+France,1885,3518.0
+France,1886,3566.0
+France,1887,3585.0
+France,1888,3617.0
+France,1889,3701.0
+France,1890,3787.0
+France,1891,3877.0
+France,1892,3974.0
+France,1893,4041.0
+France,1894,4186.0
+France,1895,4095.0
+France,1896,4280.0
+France,1897,4207.0
+France,1898,4399.0
+France,1899,4640.0
+France,1900,4584.0
+France,1901,4505.0
+France,1902,4423.0
+France,1903,4513.0
+France,1904,4538.0
+France,1905,4613.0
+France,1906,4691.0
+France,1907,4894.0
+France,1908,4854.0
+France,1909,5048.0
+France,1910,4726.0
+France,1911,5180.0
+France,1912,5601.0
+France,1913,5555.0
+France,1914,5158.0
+France,1915,5177.0
+France,1916,5520.0
+France,1917,4748.0
+France,1918,3819.0
+France,1919,4481.0
+France,1920,5144.0
+France,1921,4901.0
+France,1922,5754.0
+France,1923,5984.0
+France,1924,6661.0
+France,1925,6641.0
+France,1926,6773.0
+France,1927,6621.0
+France,1928,7063.0
+France,1929,7508.0
+France,1930,7224.0
+France,1931,6751.0
+France,1932,6311.0
+France,1933,6757.0
+France,1934,6682.0
+France,1935,6513.0
+France,1936,6765.0
+France,1937,7152.0
+France,1938,7119.0
+France,1939,7640.0
+France,1940,6443.0
+France,1941,5274.0
+France,1942,4752.0
+France,1943,4559.0
+France,1944,3861.0
+France,1945,4101.0
+France,1946,6145.0
+France,1947,6596.0
+France,1948,7002.0
+France,1949,7884.0
+France,1950,8266.0
+France,1951,8705.0
+France,1952,8869.0
+France,1953,9060.0
+France,1954,9428.0
+France,1955,9881.0
+France,1956,10278.0
+France,1957,10779.0
+France,1958,10927.0
+France,1959,11124.0
+France,1960,11792.0
+France,1961,12302.0
+France,1962,12859.0
+France,1963,13330.0
+France,1964,14057.0
+France,1965,14609.0
+France,1966,15213.0
+France,1967,15792.0
+France,1968,16365.0
+France,1969,17352.0
+France,1970,18187.0
+France,1971,18881.0
+France,1972,19549.0
+France,1973,20441.0
+France,1974,20902.0
+France,1975,20653.0
+France,1976,21465.0
+France,1977,22177.0
+France,1978,22698.0
+France,1979,23326.0
+France,1980,23537.0
+France,1981,23655.0
+France,1982,24120.0
+France,1983,24300.0
+France,1984,24519.0
+France,1985,24755.0
+France,1986,25238.0
+France,1987,25756.0
+France,1988,26763.0
+France,1989,27576.0
+France,1990,28129.0
+France,1991,28294.264
+France,1992,28619.805
+France,1993,28336.16
+France,1994,28907.977
+France,1995,29418.863
+France,1996,29736.645
+France,1997,30341.807
+France,1998,31323.078
+France,1999,32284.611
+France,2000,33409.68
+France,2001,33920.098
+France,2002,34152.773
+France,2003,34292.03
+France,2004,35093.824
+France,2005,35495.465
+France,2006,36166.16
+France,2007,36845.684
+France,2008,36761.793
+France,2009,35534.926
+France,2010,36086.727
+France,2011,36691.0
+France,2012,36625.926
+France,2013,36647.22
+France,2014,36818.54
+France,2015,37077.89
+France,2016,37343.84
+France,2017,38037.336
+France,2018,38555.465
+France,2019,39084.656
+France,2020,35913.82
+France,2021,38242.133
+France,2022,39065.71
+United Kingdom,1000,1151.0
+United Kingdom,1252,1320.0
+United Kingdom,1253,1328.0
+United Kingdom,1254,1317.0
+United Kingdom,1255,1285.0
+United Kingdom,1256,1255.0
+United Kingdom,1257,1240.0
+United Kingdom,1258,1418.0
+United Kingdom,1259,1191.0
+United Kingdom,1260,1292.0
+United Kingdom,1261,1286.0
+United Kingdom,1262,1219.0
+United Kingdom,1263,1205.0
+United Kingdom,1264,1182.0
+United Kingdom,1265,1185.0
+United Kingdom,1266,1401.0
+United Kingdom,1267,1313.0
+United Kingdom,1268,1211.0
+United Kingdom,1269,1225.0
+United Kingdom,1270,1192.0
+United Kingdom,1271,1177.0
+United Kingdom,1272,1220.0
+United Kingdom,1273,1149.0
+United Kingdom,1274,1143.0
+United Kingdom,1275,1304.0
+United Kingdom,1276,1146.0
+United Kingdom,1277,1222.0
+United Kingdom,1278,1265.0
+United Kingdom,1279,1048.0
+United Kingdom,1280,1058.0
+United Kingdom,1281,1118.0
+United Kingdom,1282,1078.0
+United Kingdom,1283,1019.0
+United Kingdom,1284,1048.0
+United Kingdom,1285,1055.0
+United Kingdom,1286,1034.0
+United Kingdom,1287,1125.0
+United Kingdom,1288,1085.0
+United Kingdom,1289,995.0
+United Kingdom,1290,1004.0
+United Kingdom,1291,1006.0
+United Kingdom,1292,1060.0
+United Kingdom,1293,1086.0
+United Kingdom,1294,1078.0
+United Kingdom,1295,1155.0
+United Kingdom,1296,1202.0
+United Kingdom,1297,1151.0
+United Kingdom,1298,1211.0
+United Kingdom,1299,1167.0
+United Kingdom,1300,1159.0
+United Kingdom,1301,1168.0
+United Kingdom,1302,1199.0
+United Kingdom,1303,1249.0
+United Kingdom,1304,1130.0
+United Kingdom,1305,1162.0
+United Kingdom,1306,1129.0
+United Kingdom,1307,1184.0
+United Kingdom,1308,1199.0
+United Kingdom,1309,1229.0
+United Kingdom,1310,1213.0
+United Kingdom,1311,1257.0
+United Kingdom,1312,1224.0
+United Kingdom,1313,1246.0
+United Kingdom,1314,1247.0
+United Kingdom,1315,1121.0
+United Kingdom,1316,1072.0
+United Kingdom,1317,1136.0
+United Kingdom,1318,1270.0
+United Kingdom,1319,1292.0
+United Kingdom,1320,1266.0
+United Kingdom,1321,1085.0
+United Kingdom,1322,1156.0
+United Kingdom,1323,1215.0
+United Kingdom,1324,1122.0
+United Kingdom,1325,1230.0
+United Kingdom,1326,1245.0
+United Kingdom,1327,1222.0
+United Kingdom,1328,1135.0
+United Kingdom,1329,1193.0
+United Kingdom,1330,1161.0
+United Kingdom,1331,1106.0
+United Kingdom,1332,1163.0
+United Kingdom,1333,1197.0
+United Kingdom,1334,1156.0
+United Kingdom,1335,1107.0
+United Kingdom,1336,1159.0
+United Kingdom,1337,1283.0
+United Kingdom,1338,1307.0
+United Kingdom,1339,1066.0
+United Kingdom,1340,1194.0
+United Kingdom,1341,1205.0
+United Kingdom,1342,1261.0
+United Kingdom,1343,1225.0
+United Kingdom,1344,1307.0
+United Kingdom,1345,1216.0
+United Kingdom,1346,1155.0
+United Kingdom,1347,1199.0
+United Kingdom,1348,1229.0
+United Kingdom,1349,1154.0
+United Kingdom,1350,1314.0
+United Kingdom,1351,1519.0
+United Kingdom,1352,1574.0
+United Kingdom,1353,1579.0
+United Kingdom,1354,1512.0
+United Kingdom,1355,1559.0
+United Kingdom,1356,1537.0
+United Kingdom,1357,1567.0
+United Kingdom,1358,1575.0
+United Kingdom,1359,1592.0
+United Kingdom,1360,1581.0
+United Kingdom,1361,1526.0
+United Kingdom,1362,1486.0
+United Kingdom,1363,1443.0
+United Kingdom,1364,1603.0
+United Kingdom,1365,1531.0
+United Kingdom,1366,1578.0
+United Kingdom,1367,1481.0
+United Kingdom,1368,1471.0
+United Kingdom,1369,1373.0
+United Kingdom,1370,1539.0
+United Kingdom,1371,1489.0
+United Kingdom,1372,1347.0
+United Kingdom,1373,1458.0
+United Kingdom,1374,1341.0
+United Kingdom,1375,1294.0
+United Kingdom,1376,1495.0
+United Kingdom,1377,1539.0
+United Kingdom,1378,1523.0
+United Kingdom,1379,1398.0
+United Kingdom,1380,1462.0
+United Kingdom,1381,1500.0
+United Kingdom,1382,1553.0
+United Kingdom,1383,1485.0
+United Kingdom,1384,1680.0
+United Kingdom,1385,1532.0
+United Kingdom,1386,1714.0
+United Kingdom,1387,1728.0
+United Kingdom,1388,1599.0
+United Kingdom,1389,1656.0
+United Kingdom,1390,1554.0
+United Kingdom,1391,1743.0
+United Kingdom,1392,1967.0
+United Kingdom,1393,1630.0
+United Kingdom,1394,1795.0
+United Kingdom,1395,1723.0
+United Kingdom,1396,1738.0
+United Kingdom,1397,1705.0
+United Kingdom,1398,1830.0
+United Kingdom,1399,1762.0
+United Kingdom,1400,1717.0
+United Kingdom,1401,1696.0
+United Kingdom,1402,1742.0
+United Kingdom,1403,1770.0
+United Kingdom,1404,1801.0
+United Kingdom,1405,1805.0
+United Kingdom,1406,1674.0
+United Kingdom,1407,1677.0
+United Kingdom,1408,1552.0
+United Kingdom,1409,1607.0
+United Kingdom,1410,1708.0
+United Kingdom,1411,1673.0
+United Kingdom,1412,1635.0
+United Kingdom,1413,1483.0
+United Kingdom,1414,1686.0
+United Kingdom,1415,1726.0
+United Kingdom,1416,1665.0
+United Kingdom,1417,1821.0
+United Kingdom,1418,1729.0
+United Kingdom,1419,1821.0
+United Kingdom,1420,1778.0
+United Kingdom,1421,1661.0
+United Kingdom,1422,1716.0
+United Kingdom,1423,1812.0
+United Kingdom,1424,1827.0
+United Kingdom,1425,1765.0
+United Kingdom,1426,1712.0
+United Kingdom,1427,1668.0
+United Kingdom,1428,1567.0
+United Kingdom,1429,1622.0
+United Kingdom,1430,1669.0
+United Kingdom,1431,1681.0
+United Kingdom,1432,1664.0
+United Kingdom,1433,1717.0
+United Kingdom,1434,1823.0
+United Kingdom,1435,1623.0
+United Kingdom,1436,1515.0
+United Kingdom,1437,1457.0
+United Kingdom,1438,1533.0
+United Kingdom,1439,1605.0
+United Kingdom,1440,1623.0
+United Kingdom,1441,1438.0
+United Kingdom,1442,1492.0
+United Kingdom,1443,1808.0
+United Kingdom,1444,1810.0
+United Kingdom,1445,1564.0
+United Kingdom,1446,1667.0
+United Kingdom,1447,1711.0
+United Kingdom,1448,1772.0
+United Kingdom,1449,1629.0
+United Kingdom,1450,1683.0
+United Kingdom,1451,1685.0
+United Kingdom,1452,1663.0
+United Kingdom,1453,1676.0
+United Kingdom,1454,1677.0
+United Kingdom,1455,1663.0
+United Kingdom,1456,1680.0
+United Kingdom,1457,1536.0
+United Kingdom,1458,1625.0
+United Kingdom,1459,1599.0
+United Kingdom,1460,1598.0
+United Kingdom,1461,1603.0
+United Kingdom,1462,1752.0
+United Kingdom,1463,1772.0
+United Kingdom,1464,1615.0
+United Kingdom,1465,1567.0
+United Kingdom,1466,1554.0
+United Kingdom,1467,1600.0
+United Kingdom,1468,1669.0
+United Kingdom,1469,1645.0
+United Kingdom,1470,1597.0
+United Kingdom,1471,1525.0
+United Kingdom,1472,1575.0
+United Kingdom,1473,1560.0
+United Kingdom,1474,1642.0
+United Kingdom,1475,1592.0
+United Kingdom,1476,1475.0
+United Kingdom,1477,1541.0
+United Kingdom,1478,1583.0
+United Kingdom,1479,1672.0
+United Kingdom,1480,1718.0
+United Kingdom,1481,1640.0
+United Kingdom,1482,1566.0
+United Kingdom,1483,1641.0
+United Kingdom,1484,1623.0
+United Kingdom,1485,1532.0
+United Kingdom,1486,1696.0
+United Kingdom,1487,1548.0
+United Kingdom,1488,1579.0
+United Kingdom,1489,1612.0
+United Kingdom,1490,1620.0
+United Kingdom,1491,1632.0
+United Kingdom,1492,1649.0
+United Kingdom,1493,1620.0
+United Kingdom,1494,1695.0
+United Kingdom,1495,1659.0
+United Kingdom,1496,1605.0
+United Kingdom,1497,1710.0
+United Kingdom,1498,1724.0
+United Kingdom,1499,1728.0
+United Kingdom,1500,1697.0
+United Kingdom,1501,1633.0
+United Kingdom,1502,1689.0
+United Kingdom,1503,1757.0
+United Kingdom,1504,1758.0
+United Kingdom,1505,1773.0
+United Kingdom,1506,1776.0
+United Kingdom,1507,1740.0
+United Kingdom,1508,1760.0
+United Kingdom,1509,1837.0
+United Kingdom,1510,1768.0
+United Kingdom,1511,1799.0
+United Kingdom,1512,1715.0
+United Kingdom,1513,1785.0
+United Kingdom,1514,1777.0
+United Kingdom,1515,1820.0
+United Kingdom,1516,1800.0
+United Kingdom,1517,1800.0
+United Kingdom,1518,1805.0
+United Kingdom,1519,1784.0
+United Kingdom,1520,1755.0
+United Kingdom,1521,1791.0
+United Kingdom,1522,1818.0
+United Kingdom,1523,1847.0
+United Kingdom,1524,1866.0
+United Kingdom,1525,1848.0
+United Kingdom,1526,1852.0
+United Kingdom,1527,1713.0
+United Kingdom,1528,1722.0
+United Kingdom,1529,1741.0
+United Kingdom,1530,1755.0
+United Kingdom,1531,1689.0
+United Kingdom,1532,1741.0
+United Kingdom,1533,1725.0
+United Kingdom,1534,1795.0
+United Kingdom,1535,1665.0
+United Kingdom,1536,1639.0
+United Kingdom,1537,1758.0
+United Kingdom,1538,1657.0
+United Kingdom,1539,1780.0
+United Kingdom,1540,1713.0
+United Kingdom,1541,1659.0
+United Kingdom,1542,1711.0
+United Kingdom,1543,1649.0
+United Kingdom,1544,1734.0
+United Kingdom,1545,1680.0
+United Kingdom,1546,1705.0
+United Kingdom,1547,1841.0
+United Kingdom,1548,1755.0
+United Kingdom,1549,1678.0
+United Kingdom,1550,1654.0
+United Kingdom,1551,1604.0
+United Kingdom,1552,1528.0
+United Kingdom,1553,1781.0
+United Kingdom,1554,1616.0
+United Kingdom,1555,1599.0
+United Kingdom,1556,1295.0
+United Kingdom,1557,1419.0
+United Kingdom,1558,1843.0
+United Kingdom,1559,1744.0
+United Kingdom,1560,1753.0
+United Kingdom,1561,1778.0
+United Kingdom,1562,1762.0
+United Kingdom,1563,1913.0
+United Kingdom,1564,1843.0
+United Kingdom,1565,1839.0
+United Kingdom,1566,2056.0
+United Kingdom,1567,1920.0
+United Kingdom,1568,1911.0
+United Kingdom,1569,1895.0
+United Kingdom,1570,1737.0
+United Kingdom,1571,1737.0
+United Kingdom,1572,1675.0
+United Kingdom,1573,1914.0
+United Kingdom,1574,1689.0
+United Kingdom,1575,1876.0
+United Kingdom,1576,1929.0
+United Kingdom,1577,1630.0
+United Kingdom,1578,1854.0
+United Kingdom,1579,1820.0
+United Kingdom,1580,1716.0
+United Kingdom,1581,1654.0
+United Kingdom,1582,1476.0
+United Kingdom,1583,1661.0
+United Kingdom,1584,1597.0
+United Kingdom,1585,1396.0
+United Kingdom,1586,1356.0
+United Kingdom,1587,1502.0
+United Kingdom,1588,1690.0
+United Kingdom,1589,1474.0
+United Kingdom,1590,1558.0
+United Kingdom,1591,1568.0
+United Kingdom,1592,1692.0
+United Kingdom,1593,1792.0
+United Kingdom,1594,1454.0
+United Kingdom,1595,1453.0
+United Kingdom,1596,1379.0
+United Kingdom,1597,1316.0
+United Kingdom,1598,1569.0
+United Kingdom,1599,1788.0
+United Kingdom,1600,1691.0
+United Kingdom,1601,1671.0
+United Kingdom,1602,1751.0
+United Kingdom,1603,1849.0
+United Kingdom,1604,1967.0
+United Kingdom,1605,1752.0
+United Kingdom,1606,1831.0
+United Kingdom,1607,1660.0
+United Kingdom,1608,1571.0
+United Kingdom,1609,1812.0
+United Kingdom,1610,1919.0
+United Kingdom,1611,1757.0
+United Kingdom,1612,1675.0
+United Kingdom,1613,1612.0
+United Kingdom,1614,1555.0
+United Kingdom,1615,1681.0
+United Kingdom,1616,1586.0
+United Kingdom,1617,1749.0
+United Kingdom,1618,1740.0
+United Kingdom,1619,1586.0
+United Kingdom,1620,1842.0
+United Kingdom,1621,1832.0
+United Kingdom,1622,1581.0
+United Kingdom,1623,1568.0
+United Kingdom,1624,1781.0
+United Kingdom,1625,1798.0
+United Kingdom,1626,1730.0
+United Kingdom,1627,1733.0
+United Kingdom,1628,1947.0
+United Kingdom,1629,1430.0
+United Kingdom,1630,1416.0
+United Kingdom,1631,1451.0
+United Kingdom,1632,1630.0
+United Kingdom,1633,1501.0
+United Kingdom,1634,1519.0
+United Kingdom,1635,1571.0
+United Kingdom,1636,1526.0
+United Kingdom,1637,1476.0
+United Kingdom,1638,1624.0
+United Kingdom,1639,1640.0
+United Kingdom,1640,1683.0
+United Kingdom,1641,1499.0
+United Kingdom,1642,1635.0
+United Kingdom,1643,1725.0
+United Kingdom,1644,1745.0
+United Kingdom,1645,1511.0
+United Kingdom,1646,1524.0
+United Kingdom,1647,1515.0
+United Kingdom,1648,1535.0
+United Kingdom,1649,1508.0
+United Kingdom,1650,1446.0
+United Kingdom,1651,1527.0
+United Kingdom,1652,1720.0
+United Kingdom,1653,1920.0
+United Kingdom,1654,1903.0
+United Kingdom,1655,1982.0
+United Kingdom,1656,1835.0
+United Kingdom,1657,1727.0
+United Kingdom,1658,1702.0
+United Kingdom,1659,1441.0
+United Kingdom,1660,1578.0
+United Kingdom,1661,1610.0
+United Kingdom,1662,1664.0
+United Kingdom,1663,1959.0
+United Kingdom,1664,1828.0
+United Kingdom,1665,1907.0
+United Kingdom,1666,2135.0
+United Kingdom,1667,2196.0
+United Kingdom,1668,1940.0
+United Kingdom,1669,1991.0
+United Kingdom,1670,1934.0
+United Kingdom,1671,1873.0
+United Kingdom,1672,1860.0
+United Kingdom,1673,1897.0
+United Kingdom,1674,1806.0
+United Kingdom,1675,1853.0
+United Kingdom,1676,2191.0
+United Kingdom,1677,2029.0
+United Kingdom,1678,2103.0
+United Kingdom,1679,1963.0
+United Kingdom,1680,2209.0
+United Kingdom,1681,2004.0
+United Kingdom,1682,2150.0
+United Kingdom,1683,2323.0
+United Kingdom,1684,1946.0
+United Kingdom,1685,2110.0
+United Kingdom,1686,1949.0
+United Kingdom,1687,2169.0
+United Kingdom,1688,2333.0
+United Kingdom,1689,2233.0
+United Kingdom,1690,2386.0
+United Kingdom,1691,2400.0
+United Kingdom,1692,2595.0
+United Kingdom,1693,2197.0
+United Kingdom,1694,2616.0
+United Kingdom,1695,2502.0
+United Kingdom,1696,2392.0
+United Kingdom,1697,2361.0
+United Kingdom,1698,2417.0
+United Kingdom,1699,2324.0
+United Kingdom,1700,2412.0
+United Kingdom,1701,2613.0
+United Kingdom,1702,2526.0
+United Kingdom,1703,2345.0
+United Kingdom,1704,2778.0
+United Kingdom,1705,2630.0
+United Kingdom,1706,2220.0
+United Kingdom,1707,2485.0
+United Kingdom,1708,2636.0
+United Kingdom,1709,2278.0
+United Kingdom,1710,2066.0
+United Kingdom,1711,2255.0
+United Kingdom,1712,2257.0
+United Kingdom,1713,2157.0
+United Kingdom,1714,2364.0
+United Kingdom,1715,2294.0
+United Kingdom,1716,2367.0
+United Kingdom,1717,2483.0
+United Kingdom,1718,2606.0
+United Kingdom,1719,2542.0
+United Kingdom,1720,2715.0
+United Kingdom,1721,2611.0
+United Kingdom,1722,2636.0
+United Kingdom,1723,2563.0
+United Kingdom,1724,2528.0
+United Kingdom,1725,2585.0
+United Kingdom,1726,2483.0
+United Kingdom,1727,2455.0
+United Kingdom,1728,2554.0
+United Kingdom,1729,2452.0
+United Kingdom,1730,2538.0
+United Kingdom,1731,2499.0
+United Kingdom,1732,2654.0
+United Kingdom,1733,2699.0
+United Kingdom,1734,2662.0
+United Kingdom,1735,2576.0
+United Kingdom,1736,2745.0
+United Kingdom,1737,2582.0
+United Kingdom,1738,2619.0
+United Kingdom,1739,2584.0
+United Kingdom,1740,2526.0
+United Kingdom,1741,2595.0
+United Kingdom,1742,2683.0
+United Kingdom,1743,2621.0
+United Kingdom,1744,2565.0
+United Kingdom,1745,2577.0
+United Kingdom,1746,2641.0
+United Kingdom,1747,2750.0
+United Kingdom,1748,2713.0
+United Kingdom,1749,2681.0
+United Kingdom,1750,2702.0
+United Kingdom,1751,2627.0
+United Kingdom,1752,2738.0
+United Kingdom,1753,2743.0
+United Kingdom,1754,2648.0
+United Kingdom,1755,2710.0
+United Kingdom,1756,2643.0
+United Kingdom,1757,2783.0
+United Kingdom,1758,2815.0
+United Kingdom,1759,2850.0
+United Kingdom,1760,2915.0
+United Kingdom,1761,3011.0
+United Kingdom,1762,2917.0
+United Kingdom,1763,2914.0
+United Kingdom,1764,2898.0
+United Kingdom,1765,2853.0
+United Kingdom,1766,2879.0
+United Kingdom,1767,2891.0
+United Kingdom,1768,2911.0
+United Kingdom,1769,3056.0
+United Kingdom,1770,2952.0
+United Kingdom,1771,2989.0
+United Kingdom,1772,2890.0
+United Kingdom,1773,2920.0
+United Kingdom,1774,2834.0
+United Kingdom,1775,2895.0
+United Kingdom,1776,2962.0
+United Kingdom,1777,3017.0
+United Kingdom,1778,2966.0
+United Kingdom,1779,2931.0
+United Kingdom,1780,3049.0
+United Kingdom,1781,3102.0
+United Kingdom,1782,3048.0
+United Kingdom,1783,3027.0
+United Kingdom,1784,3009.0
+United Kingdom,1785,2962.0
+United Kingdom,1786,2981.0
+United Kingdom,1787,2898.0
+United Kingdom,1788,2861.0
+United Kingdom,1789,2888.0
+United Kingdom,1790,3072.0
+United Kingdom,1791,3046.0
+United Kingdom,1792,3134.0
+United Kingdom,1793,3051.0
+United Kingdom,1794,2925.0
+United Kingdom,1795,3207.0
+United Kingdom,1796,3233.0
+United Kingdom,1797,3167.0
+United Kingdom,1798,3161.0
+United Kingdom,1799,3207.0
+United Kingdom,1800,3343.0
+United Kingdom,1801,3351.0
+United Kingdom,1802,3360.0
+United Kingdom,1803,3252.0
+United Kingdom,1804,3204.0
+United Kingdom,1805,3347.0
+United Kingdom,1806,3287.0
+United Kingdom,1807,3454.0
+United Kingdom,1808,3250.0
+United Kingdom,1809,3309.0
+United Kingdom,1810,3478.0
+United Kingdom,1811,3397.0
+United Kingdom,1812,3207.0
+United Kingdom,1813,3328.0
+United Kingdom,1814,3204.0
+United Kingdom,1815,3489.0
+United Kingdom,1816,3250.0
+United Kingdom,1817,3253.0
+United Kingdom,1818,3201.0
+United Kingdom,1819,3103.0
+United Kingdom,1820,3306.0
+United Kingdom,1821,3308.0
+United Kingdom,1822,3315.0
+United Kingdom,1823,3359.0
+United Kingdom,1824,3492.0
+United Kingdom,1825,3521.0
+United Kingdom,1826,3290.0
+United Kingdom,1827,3499.0
+United Kingdom,1828,3461.0
+United Kingdom,1829,3443.0
+United Kingdom,1830,3550.0
+United Kingdom,1831,3545.0
+United Kingdom,1832,3612.0
+United Kingdom,1833,3599.0
+United Kingdom,1834,3639.0
+United Kingdom,1835,3861.0
+United Kingdom,1836,3937.0
+United Kingdom,1837,3857.0
+United Kingdom,1838,3963.0
+United Kingdom,1839,3881.0
+United Kingdom,1840,4018.0
+United Kingdom,1841,3894.0
+United Kingdom,1842,3808.0
+United Kingdom,1843,3950.0
+United Kingdom,1844,4245.0
+United Kingdom,1845,4387.0
+United Kingdom,1846,4334.0
+United Kingdom,1847,4234.0
+United Kingdom,1848,4361.0
+United Kingdom,1849,4422.0
+United Kingdom,1850,4332.0
+United Kingdom,1851,4477.0
+United Kingdom,1852,4626.0
+United Kingdom,1853,4734.0
+United Kingdom,1854,4909.0
+United Kingdom,1855,4748.0
+United Kingdom,1856,5013.0
+United Kingdom,1857,5019.0
+United Kingdom,1858,4879.0
+United Kingdom,1859,5031.0
+United Kingdom,1860,5086.0
+United Kingdom,1861,5024.0
+United Kingdom,1862,4764.0
+United Kingdom,1863,5165.0
+United Kingdom,1864,5255.0
+United Kingdom,1865,5333.0
+United Kingdom,1866,5451.0
+United Kingdom,1867,5424.0
+United Kingdom,1868,5636.0
+United Kingdom,1869,5635.0
+United Kingdom,1870,5829.0
+United Kingdom,1871,5797.0
+United Kingdom,1872,5769.0
+United Kingdom,1873,5842.0
+United Kingdom,1874,5874.0
+United Kingdom,1875,5950.0
+United Kingdom,1876,5938.0
+United Kingdom,1877,5923.0
+United Kingdom,1878,5879.0
+United Kingdom,1879,5786.0
+United Kingdom,1880,5997.0
+United Kingdom,1881,6146.0
+United Kingdom,1882,6269.0
+United Kingdom,1883,6264.0
+United Kingdom,1884,6220.0
+United Kingdom,1885,6132.0
+United Kingdom,1886,6170.0
+United Kingdom,1887,6358.0
+United Kingdom,1888,6585.0
+United Kingdom,1889,6876.0
+United Kingdom,1890,6845.0
+United Kingdom,1891,6781.0
+United Kingdom,1892,6553.0
+United Kingdom,1893,6486.0
+United Kingdom,1894,6851.0
+United Kingdom,1895,6996.0
+United Kingdom,1896,7211.0
+United Kingdom,1897,7229.0
+United Kingdom,1898,7500.0
+United Kingdom,1899,7729.0
+United Kingdom,1900,7594.0
+United Kingdom,1901,7516.0
+United Kingdom,1902,7635.0
+United Kingdom,1903,7482.0
+United Kingdom,1904,7455.0
+United Kingdom,1905,7603.0
+United Kingdom,1906,7782.0
+United Kingdom,1907,7855.0
+United Kingdom,1908,7461.0
+United Kingdom,1909,7557.0
+United Kingdom,1910,7718.0
+United Kingdom,1911,7874.0
+United Kingdom,1912,7954.0
+United Kingdom,1913,8212.0
+United Kingdom,1914,8131.0
+United Kingdom,1915,8639.0
+United Kingdom,1916,8702.0
+United Kingdom,1917,8665.0
+United Kingdom,1918,8630.0
+United Kingdom,1919,7605.0
+United Kingdom,1920,7017.0
+United Kingdom,1921,6792.0
+United Kingdom,1922,7391.0
+United Kingdom,1923,7587.0
+United Kingdom,1924,7844.0
+United Kingdom,1925,8199.0
+United Kingdom,1926,7868.0
+United Kingdom,1927,8472.0
+United Kingdom,1928,8539.0
+United Kingdom,1929,8772.0
+United Kingdom,1930,8673.0
+United Kingdom,1931,8190.0
+United Kingdom,1932,8206.0
+United Kingdom,1933,8411.0
+United Kingdom,1934,8939.0
+United Kingdom,1935,9244.0
+United Kingdom,1936,9620.0
+United Kingdom,1937,9911.0
+United Kingdom,1938,9988.0
+United Kingdom,1939,9982.0
+United Kingdom,1940,10928.0
+United Kingdom,1941,11926.0
+United Kingdom,1942,12176.0
+United Kingdom,1943,12344.0
+United Kingdom,1944,11803.0
+United Kingdom,1945,11247.0
+United Kingdom,1946,10751.0
+United Kingdom,1947,10527.0
+United Kingdom,1948,10753.0
+United Kingdom,1949,11088.0
+United Kingdom,1950,11061.0
+United Kingdom,1951,11354.0
+United Kingdom,1952,11303.0
+United Kingdom,1953,11709.0
+United Kingdom,1954,12145.0
+United Kingdom,1955,12541.0
+United Kingdom,1956,12639.0
+United Kingdom,1957,12779.0
+United Kingdom,1958,12698.0
+United Kingdom,1959,13134.0
+United Kingdom,1960,13780.0
+United Kingdom,1961,14118.0
+United Kingdom,1962,14131.0
+United Kingdom,1963,14583.0
+United Kingdom,1964,15251.0
+United Kingdom,1965,15545.0
+United Kingdom,1966,15757.0
+United Kingdom,1967,16018.0
+United Kingdom,1968,16593.0
+United Kingdom,1969,16820.0
+United Kingdom,1970,17162.0
+United Kingdom,1971,17440.0
+United Kingdom,1972,18002.0
+United Kingdom,1973,19168.0
+United Kingdom,1974,18903.0
+United Kingdom,1975,18884.0
+United Kingdom,1976,19311.0
+United Kingdom,1977,19740.0
+United Kingdom,1978,20448.0
+United Kingdom,1979,20988.0
+United Kingdom,1980,20612.0
+United Kingdom,1981,20319.0
+United Kingdom,1982,20650.0
+United Kingdom,1983,21366.0
+United Kingdom,1984,21869.0
+United Kingdom,1985,22579.0
+United Kingdom,1986,23498.0
+United Kingdom,1987,24536.0
+United Kingdom,1988,25679.0
+United Kingdom,1989,26164.0
+United Kingdom,1990,26189.0
+United Kingdom,1991,25792.014
+United Kingdom,1992,25790.186
+United Kingdom,1993,26349.342
+United Kingdom,1994,27277.543
+United Kingdom,1995,27861.215
+United Kingdom,1996,28472.248
+United Kingdom,1997,29259.764
+United Kingdom,1998,30077.385
+United Kingdom,1999,30932.537
+United Kingdom,2000,31946.037
+United Kingdom,2001,32660.441
+United Kingdom,2002,33271.3
+United Kingdom,2003,34232.426
+United Kingdom,2004,34865.78
+United Kingdom,2005,35623.625
+United Kingdom,2006,36214.07
+United Kingdom,2007,36816.676
+United Kingdom,2008,36264.79
+United Kingdom,2009,34402.36
+United Kingdom,2010,34754.473
+United Kingdom,2011,34971.0
+United Kingdom,2012,35243.64
+United Kingdom,2013,35660.56
+United Kingdom,2014,36521.86
+United Kingdom,2015,37101.227
+United Kingdom,2016,37593.906
+United Kingdom,2017,38283.938
+United Kingdom,2018,38704.6
+United Kingdom,2019,39113.01
+United Kingdom,2020,34651.184
+United Kingdom,2021,37134.33
+United Kingdom,2022,38406.53
+United States,1650,897.0
+United States,1720,1768.9856
+United States,1775,2419.0
+United States,1800,2545.488
+United States,1801,2591.7695
+United States,1802,2635.48
+United States,1803,2590.484
+United States,1804,2587.9128
+United States,1805,2643.1936
+United States,1806,2690.7607
+United States,1807,2717.7583
+United States,1808,2526.204
+United States,1809,2652.1929
+United States,1810,2725.472
+United States,1811,2780.7527
+United States,1812,2731.9
+United States,1813,2762.7544
+United States,1814,2815.464
+United States,1815,2803.8936
+United States,1816,2690.7607
+United States,1817,2688.1897
+United States,1818,2694.6177
+United States,1819,2690.7607
+United States,1820,2674.048
+United States,1821,2715.1873
+United States,1822,2791.0376
+United States,1823,2760.183
+United States,1824,2836.0337
+United States,1825,2897.7424
+United States,1826,2918.312
+United States,1827,2929.8823
+United States,1828,2929.8823
+United States,1829,2833.4624
+United States,1830,3039.1584
+United States,1831,3225.5703
+United States,1832,3342.56
+United States,1833,3459.5496
+United States,1834,3294.993
+United States,1835,3419.696
+United States,1836,3469.8345
+United States,1837,3360.5583
+United States,1838,3329.704
+United States,1839,3491.6897
+United States,1840,3319.4192
+United States,1841,3252.568
+United States,1842,3222.9993
+United States,1843,3274.423
+United States,1844,3453.1216
+United States,1845,3505.8313
+United States,1846,3526.401
+United States,1847,3618.964
+United States,1848,3712.8127
+United States,1849,3616.3928
+United States,1850,3631.82
+United States,1851,3778.3784
+United States,1852,3971.2185
+United States,1853,4242.48
+United States,1854,4254.0503
+United States,1855,4161.4873
+United States,1856,4247.6226
+United States,1857,4156.3447
+United States,1858,4176.9146
+United States,1859,4288.7617
+United States,1860,4401.8945
+United States,1861,4311.9023
+United States,1862,4446.8906
+United States,1863,4733.579
+United States,1864,4889.1367
+United States,1865,4637.159
+United States,1866,4599.877
+United States,1867,4751.5776
+United States,1868,4815.8574
+United States,1869,4943.132
+United States,1870,4803.0015
+United States,1871,4918.7056
+United States,1872,4991.985
+United States,1873,5116.688
+United States,1874,4964.9873
+United States,1875,5105.1177
+United States,1876,5049.837
+United States,1877,5098.6895
+United States,1878,5198.9663
+United States,1879,5715.778
+United States,1880,6255.7295
+United States,1881,6317.4385
+United States,1882,6557.8457
+United States,1883,6559.1313
+United States,1884,6523.1343
+United States,1885,6424.143
+United States,1886,6471.7104
+United States,1887,6616.9834
+United States,1888,6447.284
+United States,1889,6705.6895
+United States,1890,6664.5503
+United States,1891,6811.109
+United States,1892,7324.063
+United States,1893,6834.2495
+United States,1894,6510.2783
+United States,1895,7159.5063
+United States,1896,6885.674
+United States,1897,7406.342
+United States,1898,7426.911
+United States,1899,7959.1494
+United States,1900,8037.5713
+United States,1901,8770.363
+United States,1902,8684.228
+United States,1903,8941.348
+United States,1904,8663.658
+United States,1905,9121.332
+United States,1906,9980.113
+United States,1907,9950.544
+United States,1908,8975.976
+United States,1909,9798.118
+United States,1910,9636.783
+United States,1911,9735.89
+United States,1912,9976.567
+United States,1913,10107.97
+United States,1914,9096.372
+United States,1915,9164.177
+United States,1916,10222.32
+United States,1917,9769.078
+United States,1918,10471.306
+United States,1919,10449.78
+United States,1920,10152.927
+United States,1921,9674.881
+United States,1922,10009.715
+United States,1923,11071.243
+United States,1924,11126.713
+United States,1925,11149.772
+United States,1926,11647.768
+United States,1927,11532.397
+United States,1928,11451.069
+United States,1929,11954.235
+United States,1930,10694.982
+United States,1931,9930.964
+United States,1932,8380.504
+United States,1933,8048.2246
+United States,1934,8667.092
+United States,1935,9680.839
+United States,1936,10568.013
+United States,1937,11295.099
+United States,1938,10526.134
+United States,1939,11171.448
+United States,1940,12005.095
+United States,1941,13553.401
+United States,1942,14869.861
+United States,1943,16050.218
+United States,1944,16999.328
+United States,1945,16477.553
+United States,1946,14822.467
+United States,1947,14311.547
+United States,1948,14734.232
+United States,1949,14196.672
+United States,1950,15240.0
+United States,1951,16125.0
+United States,1952,16444.0
+United States,1953,16917.0
+United States,1954,16512.0
+United States,1955,17370.0
+United States,1956,17397.0
+United States,1957,17406.0
+United States,1958,16946.0
+United States,1959,17900.0
+United States,1960,18057.0
+United States,1961,18175.0
+United States,1962,18976.0
+United States,1963,19514.0
+United States,1964,20360.0
+United States,1965,21390.0
+United States,1966,22529.0
+United States,1967,22842.0
+United States,1968,23691.0
+United States,1969,24195.0
+United States,1970,23958.0
+United States,1971,24394.0
+United States,1972,25414.0
+United States,1973,26602.0
+United States,1974,26286.0
+United States,1975,25956.0
+United States,1976,27058.0
+United States,1977,28001.0
+United States,1978,29286.0
+United States,1979,29949.0
+United States,1980,29611.0
+United States,1981,30056.0
+United States,1982,29210.0
+United States,1983,30158.0
+United States,1984,32076.0
+United States,1985,33023.0
+United States,1986,33850.0
+United States,1987,34730.0
+United States,1988,35863.0
+United States,1989,36756.0
+United States,1990,36982.0
+United States,1991,36463.957
+United States,1992,37240.3
+United States,1993,37761.535
+United States,1994,38807.28
+United States,1995,39390.625
+United States,1996,40412.75
+United States,1997,41722.67
+United States,1998,43072.758
+United States,1999,44575.848
+United States,2000,45886.47
+United States,2001,45878.008
+United States,2002,46266.297
+United States,2003,47157.996
+United States,2004,48492.72
+United States,2005,49654.76
+United States,2006,50489.86
+United States,2007,50901.746
+United States,2008,50275.746
+United States,2009,48452.934
+United States,2010,49266.914
+United States,2011,49675.0
+United States,2012,50436.434
+United States,2013,51010.797
+United States,2014,51796.62
+United States,2015,52808.152
+United States,2016,53301.016
+United States,2017,54152.363
+United States,2018,55454.668
+United States,2019,56469.26
+United States,2020,54379.207
+United States,2021,57522.703
+United States,2022,58487.465
