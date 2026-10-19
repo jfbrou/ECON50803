@@ -1,0 +1,113 @@
+{
+  "retrieved_on": "2026-10-16",
+  "urls": {
+    "BCA": "https://www.imf.org/external/datamapper/api/v1/BCA",
+    "NGDPD": "https://www.imf.org/external/datamapper/api/v1/NGDPD",
+    "indicators": "https://www.imf.org/external/datamapper/api/v1/indicators",
+    "saving": "https://api.worldbank.org/v2/country/CHN;USA;NOR;SAU;KOR;CAN/indicator/NY.GNS.ICTR.ZS?format=json&per_page=1000&date=1980:2025"
+  },
+  "current_accounts": {
+    "source": "World Economic Outlook (October 2026)",
+    "units_input": "Billions of current US dollars, both numerator and denominator.",
+    "units_output": "Percent of world GDP.",
+    "group_members": {
+      "Exportateurs de pétrole": [
+        "SAU",
+        "RUS",
+        "NOR",
+        "ARE",
+        "KWT",
+        "QAT",
+        "IRN",
+        "IRQ",
+        "NGA",
+        "DZA",
+        "KAZ",
+        "AGO",
+        "VEN"
+      ],
+      "Europe du Nord": [
+        "DEU",
+        "NLD",
+        "CHE",
+        "SWE",
+        "DNK"
+      ],
+      "Chine": [
+        "CHN"
+      ],
+      "Asie de l'Est": [
+        "JPN",
+        "KOR",
+        "SGP",
+        "MYS",
+        "THA",
+        "HKG"
+      ],
+      "Anglosphère": [
+        "USA",
+        "GBR",
+        "AUS"
+      ],
+      "Europe périphérique": [
+        "ESP",
+        "ITA",
+        "GRC",
+        "PRT",
+        "TUR"
+      ],
+      "Canada": [
+        "CAN"
+      ]
+    },
+    "plotted_range": [
+      2001,
+      2025
+    ],
+    "coverage": "Original Session 6 groups plus separate Canada, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.",
+    "transformation": "Sum BCA by group; divide by WEOWORLD NGDPD; multiply by 100. Positive/negative group balances stack on the corresponding side of zero in each year.",
+    "excluded_years": "2026 and later forecasts excluded; 1995-2000 excluded from plot for incomplete country coverage. Unfilled gaps retained in cached data.",
+    "indicator_metadata": {
+      "BCA": {
+        "label": "Current account balance\nU.S. dollars",
+        "description": "The current account is the record of all transactions in the balance of payments covering the exports and imports of goods and services, payments of income, and current transfers between residents of a country and nonresidents.",
+        "source": "World Economic Outlook (October 2026)",
+        "unit": "Billions of U.S. dollars",
+        "dataset": "WEO",
+        "last-modified": "2026-10-08 14:43:37"
+      },
+      "NGDPD": {
+        "label": "GDP, current prices",
+        "description": "Gross domestic product is the most commonly used single measure of a country's overall economic activity. It represents the total value at current prices of final goods and services produced within a country during a specified time period, such as one year.",
+        "source": "World Economic Outlook (October 2026)",
+        "unit": "Billions of U.S. dollars",
+        "dataset": "WEO",
+        "last-modified": "2026-10-08 14:43:33"
+      }
+    }
+  },
+  "saving": {
+    "source": "World Bank, World Development Indicators",
+    "last_updated": "2026-10-08",
+    "indicator": "NY.GNS.ICTR.ZS",
+    "units": "Gross national saving as percent of each country's GDP.",
+    "countries": [
+      "CHN",
+      "USA",
+      "NOR",
+      "SAU",
+      "KOR",
+      "CAN"
+    ],
+    "last_year_by_country": {
+      "CHN": 2024,
+      "USA": 2024,
+      "NOR": 2025,
+      "SAU": 2025,
+      "KOR": 2025,
+      "CAN": 2025
+    },
+    "missing_values": "No zero-filling, interpolation, or extrapolation. NaNs break lines."
+  },
+  "refresh_command": "python -c \"import figures_s3 as f; f.refresh_international_timeseries(); f.current_accounts_divergence(); f.saving_rates_divergence()\""
+}

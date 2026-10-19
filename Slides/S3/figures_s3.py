@@ -3,7 +3,7 @@ ECON50803 — Session 3 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 3 slides (labor market,
-inequality, AI). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and annotations
+inequality, saving, current accounts, AI). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and annotations
 are in French.
 
 Run from Slides/S3/:
@@ -146,8 +146,8 @@ def labor_market_indicators_ca():
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax1.legend(lines1 + lines2, labels1 + labels2,
                frameon=False, fontsize=10, loc='lower left')
-    ax1.text(0.99, 0.02, r"Source: Statistique Canada, tableau 14-10-0287-01",
-             fontsize=8, color='gray', ha='right', va='bottom',
+    ax1.text(0.99, 0.98, r"Source: Statistique Canada, tableau 14-10-0287-01",
+             fontsize=8, color='gray', ha='right', va='top',
              transform=ax1.transAxes)
     save(fig, 'labor_market_indicators_ca.pdf')
 
@@ -2007,6 +2007,612 @@ def baumol_cost_disease_canada():
 
 
 # =====================================================================
+# Session 6 time-series comparisons, updated with Canada
+# =====================================================================
+_CA_GROUPS = {
+    'Exportateurs de pétrole': (['SAU', 'RUS', 'NOR', 'ARE', 'KWT', 'QAT', 'IRN',
+                                 'IRQ', 'NGA', 'DZA', 'KAZ', 'AGO', 'VEN'], '#b8f0d4'),
+    'Europe du Nord': (['DEU', 'NLD', 'CHE', 'SWE', 'DNK'], '#6ee0a8'),
+    'Chine': (['CHN'], '#1a9e5a'),
+    "Asie de l'Est": (['JPN', 'KOR', 'SGP', 'MYS', 'THA', 'HKG'], palette[1]),
+    'Anglosphère': (['USA', 'GBR', 'AUS'], '#cc2f33'),
+    'Europe périphérique': (['ESP', 'ITA', 'GRC', 'PRT', 'TUR'], '#ff9a9d'),
+    'Canada': (['CAN'], palette[0]),
+}
+_SAVING_COUNTRIES = {
+    'CHN': ('China', palette[0]), 'USA': ('United States', palette[2]),
+    'NOR': ('Norway', palette[1]), 'SAU': ('Arabie saoudite', palette[3]),
+    'KOR': ('South Korea', palette[4]), 'CAN': ('Canada', palette[6]),
+}
+_INTERNATIONAL_DATA_DIR = Path(__file__).resolve().parents[1] / 'Data'
+_CA_TIME_DATA = _INTERNATIONAL_DATA_DIR / 's3_current_accounts_timeseries.csv'
+_SAVING_TIME_DATA = _INTERNATIONAL_DATA_DIR / 's3_saving_rates_timeseries.csv'
+_TIME_METADATA = _INTERNATIONAL_DATA_DIR / 's3_international_timeseries.json'
+
+
+def refresh_international_timeseries(as_of=None):
+    """Cache the latest completed annual observations; never zero-fill gaps.
+
+    IMF BCA and world NGDPD both use billions of current US dollars. The
+    original Session 6 country groups are unchanged, with Canada separate.
+    Use their complete common consecutive interval (currently 2001-2025).
+    Savings retain each country's own endpoint, without extrapolation.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).date()
+    last_year = retrieved_on.year - 1
+    urls = {
+        'BCA': 'https://www.imf.org/external/datamapper/api/v1/BCA',
+        'NGDPD': 'https://www.imf.org/external/datamapper/api/v1/NGDPD',
+        'indicators': 'https://www.imf.org/external/datamapper/api/v1/indicators',
+        'saving': (f'https://api.worldbank.org/v2/country/{";".join(_SAVING_COUNTRIES)}/'
+                   f'indicator/NY.GNS.ICTR.ZS?format=json&per_page=1000&date=1980:{last_year}'),
+    }
+
+    def fetch(item):
+        key, url = item
+        response = requests.get(url, timeout=50)
+        response.raise_for_status()
+        return key, response.json()
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        payloads = dict(pool.map(fetch, urls.items()))
+    ca_values = payloads['BCA']['values']['BCA']
+    gdp_values = payloads['NGDPD']['values']['NGDPD']['WEOWORLD']
+    indicators = payloads['indicators']['indicators']
+    assert indicators['BCA']['source'] == indicators['NGDPD']['source']
+    assert indicators['BCA']['unit'] == indicators['NGDPD']['unit'] == 'Billions of U.S. dollars'
+    codes = [iso for members, _ in _CA_GROUPS.values() for iso in members]
+    assert len(codes) == len(set(codes)), 'A country occurs in more than one group'
+    ca = pd.DataFrame({iso: pd.Series(ca_values[iso], dtype=float) for iso in codes})
+    ca.index = ca.index.astype(int)
+    world_gdp = pd.Series(gdp_values, dtype=float)
+    world_gdp.index = world_gdp.index.astype(int)
+    ca['world_gdp_billion_usd'] = world_gdp
+    ca = ca.sort_index().loc[1995:last_year]
+    complete = ca.notna().all(axis=1)
+    if not complete.any():
+        raise ValueError('No common complete year for the original country groups')
+    first_complete = int(complete[complete].index.min())
+    last_complete = int(complete[complete].index.max())
+    if not complete.loc[first_complete:last_complete].all():
+        raise ValueError('Interior data gap in the regional current-account comparison')
+    if not (ca.world_gdp_billion_usd > 0).all():
+        raise ValueError('Invalid world GDP denominator')
+
+    wb_meta, wb_records = payloads['saving']
+    assert wb_meta['pages'] == 1 and wb_records
+    saving = pd.DataFrame(index=range(1980, last_year + 1), columns=_SAVING_COUNTRIES, dtype=float)
+    for record in wb_records:
+        if record['value'] is not None:
+            saving.loc[int(record['date']), record['countryiso3code']] = record['value']
+    if saving.notna().sum().min() == 0:
+        raise ValueError('An original saving series or Canada is entirely missing')
+    ca.index.name = saving.index.name = 'year'
+    _INTERNATIONAL_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    ca.to_csv(_CA_TIME_DATA)
+    saving.to_csv(_SAVING_TIME_DATA)
+    metadata = {
+        'retrieved_on': retrieved_on.isoformat(), 'urls': urls,
+        'current_accounts': {
+            'source': indicators['BCA']['source'],
+            'units_input': 'Billions of current US dollars, both numerator and denominator.',
+            'units_output': 'Percent of world GDP.',
+            'group_members': {label: members for label, (members, _) in _CA_GROUPS.items()},
+            'plotted_range': [first_complete, last_complete],
+            'coverage': 'Original Session 6 groups plus separate Canada, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.',
+            'transformation': 'Sum BCA by group; divide by WEOWORLD NGDPD; multiply by 100. Positive/negative group balances stack on the corresponding side of zero in each year.',
+            'excluded_years': '2026 and later forecasts excluded; 1995-2000 excluded from plot for incomplete country coverage. Unfilled gaps retained in cached data.',
+            'indicator_metadata': {key: indicators[key] for key in ['BCA', 'NGDPD']},
+        },
+        'saving': {
+            'source': 'World Bank, World Development Indicators',
+            'last_updated': wb_meta['lastupdated'], 'indicator': 'NY.GNS.ICTR.ZS',
+            'units': 'Gross national saving as percent of each country\'s GDP.',
+            'countries': list(_SAVING_COUNTRIES),
+            'last_year_by_country': {iso: int(saving[iso].last_valid_index()) for iso in saving},
+            'missing_values': 'No zero-filling, interpolation, or extrapolation. NaNs break lines.',
+        },
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_international_timeseries(); f.current_accounts_divergence(); f.saving_rates_divergence()"',
+    }
+    _TIME_METADATA.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(f'Current accounts: complete panel {first_complete}-{last_complete}')
+    print('Saving endpoints:', metadata['saving']['last_year_by_country'])
+
+
+def current_accounts_divergence():
+    """Restore the Session 6 regional stacked time series (% of world GDP)."""
+    metadata = json.loads(_TIME_METADATA.read_text())
+    first, last = metadata['current_accounts']['plotted_range']
+    raw = pd.read_csv(_CA_TIME_DATA, index_col='year').loc[first:last]
+    assert raw.notna().all().all()
+    values = {name: raw[members].sum(axis=1) / raw.world_gdp_billion_usd * 100
+              for name, (members, _) in _CA_GROUPS.items()}
+    fig, ax = new_figure(10, 5)
+    positive = np.zeros(len(raw))
+    negative = np.zeros(len(raw))
+    # Keep Canada's small contribution next to zero rather than burying it.
+    plot_order = ['Canada'] + [name for name in _CA_GROUPS if name != 'Canada']
+    handles = {}
+    for name in plot_order:
+        series = values[name].to_numpy()
+        bottom = np.where(series >= 0, positive, negative)
+        handles[name] = ax.bar(raw.index, series, bottom=bottom, width=0.75,
+                               color=_CA_GROUPS[name][1], label=name,
+                               edgecolor='none', linewidth=0, zorder=3)
+        positive += np.maximum(series, 0)
+        negative += np.minimum(series, 0)
+    ax.axhline(0, color='black', linewidth=0.7, zorder=4)
+    # Half a bar at either end is the categorical extent of the annual data.
+    ax.set_xlim(first - 0.5, last + 0.5)
+    ticks = sorted(set([first, last] + list(range(2005, last + 1, 5))))
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([str(year) for year in ticks], fontsize=11)
+    bound = max(3.0, np.ceil(max(positive.max(), abs(negative.min())) / 0.5) * 0.5)
+    ax.set_ylim(-bound, bound)
+    yticks = np.arange(-bound, bound + 0.25, 0.5)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{value:.1f}' + r'\%' for value in yticks], fontsize=11)
+    ax.set_ylabel(r'(\% du PIB mondial)', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.legend([handles[name] for name in _CA_GROUPS], list(_CA_GROUPS),
+              fontsize=9, ncol=4, loc='lower right', frameon=False,
+              handlelength=1.1, handletextpad=0.4, columnspacing=1.0)
+    style_axes(ax)
+    ax.set_axisbelow(True)
+    # Leave the empty strip containing the legend free of grid lines.
+    for line, value in zip(ax.yaxis.get_gridlines(), yticks):
+        if value < negative.min() - 0.2:
+            line.set_visible(False)
+    vintage = re.search(r'\((\w+) (\d{4})\)', metadata['current_accounts']['source'])
+    month = {'April': 'avril', 'October': 'oct.'}[vintage.group(1)]
+    add_source(ax, f'Source : FMI, WEO ({month} {vintage.group(2)})')
+    save(fig, 's3_current_accounts_divergence.pdf')
+
+
+def saving_rates_divergence():
+    """Restore the five Session 6 saving-rate histories and add Canada."""
+    saving = pd.read_csv(_SAVING_TIME_DATA, index_col='year')
+    assert set(saving.columns) == set(_SAVING_COUNTRIES)
+    fig, ax = new_figure(10, 5)
+    for iso, (name, color) in _SAVING_COUNTRIES.items():
+        # Retain the full index: NaNs must break lines, not be bridged.
+        ax.plot(saving.index, saving[iso], color=color,
+                linewidth=2.7 if iso == 'CAN' else 2,
+                label=COUNTRY_FR.get(name, name))
+    first = int(saving.dropna(how='all').index.min())
+    last = int(saving.dropna(how='all').index.max())
+    ax.set_xlim(first, last)
+    ticks = list(range(first, last + 1, 5))
+    if last not in ticks:
+        ticks.append(last)
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([str(year) for year in ticks], fontsize=11)
+    ax.set_ylim(10, 60)
+    ax.set_yticks(range(10, 61, 10))
+    ax.set_yticklabels([str(value) + r'\%' for value in range(10, 61, 10)], fontsize=11)
+    ax.set_ylabel(r'Épargne brute (\% du PIB)', fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.legend(frameon=False, fontsize=9, loc='upper left', ncol=3,
+              bbox_to_anchor=(0.02, 0.99), columnspacing=1.4, handlelength=2)
+    style_axes(ax)
+    add_source(ax, r'Source : Banque mondiale')
+    save(fig, 's3_saving_rates_divergence.pdf')
+
+
+# =====================================================================
+# AI capital-market evidence: construction spending and real Treasury yield
+# =====================================================================
+_AI_EVIDENCE_DIR = Path(__file__).resolve().parents[1] / 'Data'
+_AI_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_construction.csv'
+_AI_REAL_YIELD_DATA = _AI_EVIDENCE_DIR / 's3_ai_real_yield.csv'
+_AI_EVIDENCE_META = _AI_EVIDENCE_DIR / 's3_ai_capital_evidence.json'
+_AI_REAL_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_real_monthly.csv'
+_AI_BOOMS_DATA = _AI_EVIDENCE_DIR / 's3_ai_investment_booms.csv'
+
+
+def refresh_ai_capital_evidence(as_of=None):
+    """Cache public source data; normal figure generation remains offline."""
+    from concurrent.futures import ThreadPoolExecutor
+    from io import BytesIO
+    from hashlib import sha256
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    urls = {
+        'construction': 'https://www.census.gov/construction/c30/xlsx/privsatime.xlsx',
+        'real_yield': 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10&cosd=2015-01-01',
+    }
+
+    def fetch(item):
+        name, url = item
+        response = requests.get(url, timeout=50)
+        response.raise_for_status()
+        return name, response.content
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        payloads = dict(pool.map(fetch, urls.items()))
+    sheet = pd.read_excel(BytesIO(payloads['construction']), sheet_name='Private SA', header=None)
+    header = sheet.index[sheet[0].eq('Date')].item()
+    value_col = sheet.columns[sheet.loc[header].eq('Data center')].item()
+    date_text = sheet[0].astype(str)
+    dates = pd.to_datetime(date_text.str.replace(r'[pr]$', '', regex=True),
+                           format='%b-%y', errors='coerce')
+    construction = pd.DataFrame({
+        'date': dates, 'millions_usd_saar': pd.to_numeric(sheet[value_col], errors='coerce'),
+        'release_flag': date_text.str.extract(r'([pr])$', expand=False).fillna(''),
+    }).dropna(subset=['date', 'millions_usd_saar']).sort_values('date')
+    construction = construction[construction.date <= retrieved_on]
+    assert len(construction) > 100 and construction.date.is_unique
+    assert (construction.millions_usd_saar > 0).all()
+    assert len(pd.date_range(construction.date.min(), construction.date.max(), freq='MS')) == len(construction)
+    real_yield = pd.read_csv(BytesIO(payloads['real_yield']))
+    real_yield = real_yield.rename(columns={'observation_date': 'date', 'DFII10': 'percent'})
+    real_yield['date'] = pd.to_datetime(real_yield.date)
+    real_yield['percent'] = pd.to_numeric(real_yield.percent, errors='coerce')
+    real_yield = real_yield[real_yield.date <= retrieved_on].sort_values('date')
+    assert real_yield.date.is_unique and real_yield.percent.notna().sum() > 1000
+    real_yield = real_yield[real_yield.date <= real_yield.loc[real_yield.percent.notna(), 'date'].max()]
+    _AI_EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    construction.to_csv(_AI_CONSTRUCTION_DATA, index=False)
+    real_yield.to_csv(_AI_REAL_YIELD_DATA, index=False)
+    metadata = {
+        'retrieved_on': retrieved_on.date().isoformat(),
+        'construction': {
+            'url': urls['construction'], 'source': 'US Census Bureau, Private SA, Data center',
+            'units_input': 'Millions of current US dollars, seasonally adjusted annual rate.',
+            'units_plot': 'Billions of current US dollars, seasonally adjusted annual rate.',
+            'transformation': 'Divide by 1000 only; do not annualise a second time; no inflation adjustment.',
+            'coverage': 'Private construction value put in place. Excludes servers/racks and land acquisition. Not exclusively AI facilities.',
+            'definitions_url': 'https://www.census.gov/construction/c30/definitions.html',
+            'last_date': construction.date.max().date().isoformat(),
+            'release_flags': 'p = preliminary; r = revised; flags preserved from source workbook.',
+            'download_sha256': sha256(payloads['construction']).hexdigest(),
+        },
+        'real_yield': {
+            'url': urls['real_yield'], 'source': 'Federal Reserve Board, H.15, via FRED, DFII10',
+            'units': 'Percent per annum, daily, not seasonally adjusted.',
+            'coverage': '10-year inflation-indexed constant-maturity US Treasury yield; observed market real yield, not an estimate of the natural rate or causal AI effect.',
+            'transformation': 'None; missing holiday observations retained as gaps; no interpolation.',
+            'last_date': real_yield.loc[real_yield.percent.notna(), 'date'].max().date().isoformat(),
+            'download_sha256': sha256(payloads['real_yield']).hexdigest(),
+        },
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_ai_capital_evidence(); f.ai_datacenter_construction(); f.ai_real_yield()"',
+    }
+    _AI_EVIDENCE_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Construction endpoint:', metadata['construction']['last_date'])
+    print('Real-yield endpoint:', metadata['real_yield']['last_date'])
+    refresh_ft_ai_evidence(as_of=as_of)
+
+
+def refresh_ft_ai_evidence(as_of=None):
+    """Refresh OWID's real monthly series used by the FT (18 October 2026)."""
+    from io import BytesIO
+    from hashlib import sha256
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    url = ('https://ourworldindata.org/grapher/monthly-spending-data-center-us.csv'
+           '?v=1&csvType=full&useColumnShortNames=false')
+    response = requests.get(url, headers={'User-Agent': 'Our World In Data data fetch/1.0'}, timeout=50)
+    response.raise_for_status()
+    data = pd.read_csv(BytesIO(response.content))
+    data = data.loc[data.Code.eq('USA'), ['Month', 'Data center construction']]
+    data.columns = ['date', 'constant_2021_usd_monthly']
+    data['date'] = pd.to_datetime(data.date)
+    data = data[data.date <= retrieved_on].sort_values('date')
+    assert data.date.is_unique and (data.constant_2021_usd_monthly > 0).all()
+    assert len(pd.date_range(data.date.min(), data.date.max(), freq='MS')) == len(data)
+    data.to_csv(_AI_REAL_CONSTRUCTION_DATA, index=False)
+    metadata = json.loads(_AI_EVIDENCE_META.read_text(encoding='utf-8'))
+    metadata['construction_real_monthly'] = {
+        'url': url, 'retrieved_on': retrieved_on.date().isoformat(),
+        'source': 'US Census Bureau / BLS, processed by Our World in Data; same series as FT chart.',
+        'methodology_url': 'https://ourworldindata.org/grapher/monthly-spending-data-center-us',
+        'units_input': 'Constant 2021 US dollars per month, not seasonally adjusted.',
+        'units_plot': 'Billions of constant 2021 US dollars per month, not seasonally adjusted.',
+        'transformation': 'Divide by 1e9 only. OWID deflates Census monthly NSA values with an equal-weight composite of industrial and warehouse construction PPIs, each rebased to 2021 = 100. No annualization or smoothing.',
+        'coverage': 'Private construction, excluding IT hardware and land. Includes non-AI data centers. Latest months preliminary.',
+        'last_date': data.date.max().date().isoformat(),
+        'download_sha256': sha256(response.content).hexdigest(),
+    }
+    metadata['investment_booms'] = {
+        'url': 'https://www.brookings.edu/wp-content/uploads/2026/09/4c_Van-Nieuwerburgh.pdf',
+        'source': 'Stijn Van Nieuwerburgh, Financing the AI Buildout, September 2026 conference draft, Table 1 and Appendix C.',
+        'article_url': 'https://www.ft.com/content/9ea5a37d-15c9-4d5b-94d6-719048c9cd3c',
+        'ft_chart_url': 'https://flo.uri.sh/visualisation/30593759/embed?auto=1',
+        'units': 'Average annual capital expenditure as percent of contemporaneous US GDP over each episode.',
+        'transformation': 'Manual transcription of exact Table 1 values; display rounded to one decimal as in FT. AI is a conditional scenario, not realized spending or a forecast.',
+        'caveats': 'Historical coverage differs across episodes. AI includes IT equipment, buildings and associated power infrastructure; historical railroads exclude at least some rolling stock. See Appendix C.',
+    }
+    _AI_EVIDENCE_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Real monthly construction endpoint:', data.date.max().date())
+
+
+def _ai_evidence_date_axis(ax, dates, step=2):
+    first, last = dates.min(), dates.max()
+    ticks = [pd.Timestamp(year=year, month=1, day=1)
+             for year in range(first.year, last.year, step)]
+    ticks = sorted(set([first] + [date for date in ticks if date >= first]))
+    labels = [str(date.year) for date in ticks]
+    # Avoid an extra empty year after the actual last observation.
+    ticks.append(last)
+    labels.append(f'{MONTH_FR[last.month]}\n{last.year}')
+    ax.set_xlim(first, last)
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(labels, fontsize=11)
+
+
+def ai_datacenter_construction():
+    data = pd.read_csv(_AI_REAL_CONSTRUCTION_DATA, parse_dates=['date'])
+    fig, ax = new_figure(10, 4.5)
+    values = data.constant_2021_usd_monthly / 1e9
+    ax.plot(data.date, values, color=palette[0], linewidth=2.3)
+    _ai_evidence_date_axis(ax, data.date)
+    ymax = tick_ceil(values.max(), 1)
+    ax.set_ylim(0, ymax)
+    ax.set_yticks(range(0, ymax + 1))
+    ax.set_yticklabels([str(value) for value in range(0, ymax + 1)], fontsize=11)
+    ax.set_ylabel(r'Mds \$ US de 2021 / mois', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    launch = pd.Timestamp('2022-11-30')
+    ax.axvline(launch, color=palette[7], linewidth=0.9)
+    ax.text(launch - pd.Timedelta(days=100), 0.85, r'Lancement de ChatGPT',
+            transform=ax.get_xaxis_transform(), ha='right', va='center',
+            fontsize=10, color=palette[0])
+    add_source(ax, r'Sources : Census / BLS / OWID (via FT)')
+    save(fig, 's3_ai_datacenter_construction.pdf')
+
+
+def ai_investment_booms():
+    """Historical annual averages versus a conditional 2025–32 AI scenario."""
+    data = pd.read_csv(_AI_BOOMS_DATA)
+    fig, ax = new_figure(10, 4.5)
+    positions = np.arange(len(data))
+    colors = [palette[2] if flag else palette[0] for flag in data.is_scenario]
+    ax.barh(positions, data.average_annual_percent_gdp, color=colors, height=0.62, zorder=3)
+    ax.set_yticks(positions)
+    labels = [f'{row.label_fr} ({row.start_year}--{row.end_year})'
+              + (r' : scénario' if row.is_scenario else '') for row in data.itertuples()]
+    ax.set_yticklabels(labels, fontsize=11)
+    ax.invert_yaxis()
+    ax.set_xlim(0, 4)
+    ax.set_xticks(range(5))
+    ax.set_xticklabels([str(value) + r'\%' for value in range(5)], fontsize=11)
+    ax.set_xlabel(r'Investissement annuel moyen, en \% du PIB américain', fontsize=11)
+    style_axes(ax, xgrid=True)
+    ax.yaxis.grid(False)
+    ax.tick_params(axis='y', length=0)
+    for position, value in zip(positions, data.average_annual_percent_gdp):
+        ax.text(value + 0.06, position, f'{value:.1f}'.replace('.', ',') + r'\%',
+                va='center', fontsize=11, color=palette[0])
+    add_source(ax, r'Source : Van Nieuwerburgh (2026), tableau 1, via FT')
+    save(fig, 's3_ai_investment_booms.pdf')
+
+
+def ai_real_yield():
+    data = pd.read_csv(_AI_REAL_YIELD_DATA, parse_dates=['date'])
+    fig, ax = new_figure(10, 3.5)
+    ax.plot(data.date, data.percent, color=palette[0], linewidth=1.5)
+    _ai_evidence_date_axis(ax, data.date)
+    ymin, ymax = np.floor(data.percent.min()), np.ceil(data.percent.max())
+    ticks = np.arange(ymin, ymax + 0.5, 1)
+    ax.set_ylim(ymin, ymax)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:.0f}' + r'\%' for value in ticks], fontsize=11)
+    ax.axhline(0, color=palette[7], linewidth=0.7)
+    ax.set_ylabel(r'Rendement réel à 10 ans (\%)', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    add_source(ax, r'Source : Federal Reserve / FRED (DFII10)')
+    save(fig, 's3_ai_real_yield.pdf')
+
+
+# =====================================================================
+# AI distribution: computer capital income and comparable labour shares
+# =====================================================================
+_AI_LABOUR_SHARES = _AI_EVIDENCE_DIR / 's3_ai_labour_shares.csv'
+_AI_COMPUTER_SHARE = _AI_EVIDENCE_DIR / 's3_ai_computer_income_share.csv'
+_AI_DISTRIBUTION_META = _AI_EVIDENCE_DIR / 's3_ai_distribution_evidence.json'
+
+
+def refresh_ai_distribution_evidence(as_of=None):
+    """Refresh comparable PWT labour shares; cache the paper's rounded IT endpoints."""
+    from io import BytesIO
+    from hashlib import sha256
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    url = ('https://fred.stlouisfed.org/graph/fredgraph.csv'
+           '?id=LABSHPCAA156NRUG,LABSHPUSA156NRUG')
+    response = requests.get(url, timeout=50)
+    response.raise_for_status()
+    data = pd.read_csv(BytesIO(response.content), parse_dates=['observation_date'])
+    data = data.rename(columns={'observation_date': 'date',
+                               'LABSHPCAA156NRUG': 'Canada',
+                               'LABSHPUSA156NRUG': 'United States'})
+    data = data.loc[(data.date.dt.year >= 1960) & (data.date <= retrieved_on)].sort_values('date')
+    assert data.date.is_unique and len(data) > 50
+    for country in ['Canada', 'United States']:
+        data[country] = pd.to_numeric(data[country], errors='coerce')
+        assert data[country].dropna().between(0, 1).all()
+    data.to_csv(_AI_LABOUR_SHARES, index=False)
+
+    # Rounded values explicitly reported in the text accompanying Figure 2;
+    # the final observation in that figure is 2023. Do not invent annual data.
+    pd.DataFrame({'year': [2000, 2023], 'approximate_percent': [4.3, 3.0]}).to_csv(
+        _AI_COMPUTER_SHARE, index=False)
+    metadata = {
+        'retrieved_on': retrieved_on.date().isoformat(),
+        'labour_shares': {
+            'url': url, 'source': 'Penn World Table 11.0, labsh, via FRED',
+            'series': {'Canada': 'LABSHPCAA156NRUG', 'United States': 'LABSHPUSA156NRUG'},
+            'units_input': 'Annual ratio, at current national prices, not seasonally adjusted.',
+            'units_plot': 'Percent of GDP. Compensation includes the estimated labour income of self-employed workers.',
+            'transformation': 'Multiply by 100; no smoothing or interpolation; retain missing observations as gaps.',
+            'last_date': {country: data.loc[data[country].notna(), 'date'].max().date().isoformat()
+                          for country in ['Canada', 'United States']},
+            'interpretation': 'Descriptive historical series, not a causal estimate of automation or generative AI.',
+            'download_sha256': sha256(response.content).hexdigest(),
+        },
+        'computer_income_share': {
+            'url': 'https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf',
+            'source': 'C. Jones and Tonetti (May 2026), Figure 2, printed page 14, PDF page 15; BLS (2024).',
+            'units': 'Share of private business value added paid to IT capital, percent; not purchases of computers, investment/GDP, technology-company profits, or all capital income.',
+            'transformation': 'Manually transcribed rounded endpoints, approximately 4.3% in 2000 and 3.0% in 2023. Not an annual series; no interpolation.',
+            'vintage': 'Historical evidence as reported in the May 2026 working paper; not a claim about the post-2023 AI boom.',
+        },
+        'theory': {
+            'more_versus_better': 'https://doi.org/10.1257/aer.20221180',
+            'scarcity_and_weak_links': 'https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf',
+            'conditions': 'Strong complementarity across tasks (elasticity below one), fixed task allocation for the better-machine comparative static. Not every worker benefits; labour-share changes and wage changes are distinct.',
+        },
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_ai_distribution_evidence(); f.ai_computer_income_share(); f.ai_labour_shares()"',
+    }
+    _AI_DISTRIBUTION_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Labour share endpoints:', metadata['labour_shares']['last_date'])
+
+
+def ai_computer_income_share():
+    data = pd.read_csv(_AI_COMPUTER_SHARE)
+    fig, ax = new_figure(6, 4.4)
+    positions = np.arange(len(data))
+    ax.bar(positions, data.approximate_percent, width=0.5,
+           color=[palette[0], palette[1]], zorder=3)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(data.year.astype(str), fontsize=12)
+    ax.set_xlim(-0.65, 1.65)
+    ax.set_ylim(0, 5.3)
+    ax.set_yticks(range(0, 6))
+    ax.set_yticklabels([str(value) + r'\%' for value in range(0, 6)], fontsize=11)
+    ax.set_ylabel(r'Part du revenu versée au capital informatique',
+                  rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.10)
+    style_axes(ax)
+    for position, value in zip(positions, data.approximate_percent):
+        label = r'$\approx$ ' + f'{value:.1f}'.replace('.', ',') + r'\%'
+        ax.text(position, value + 0.12, label, ha='center', fontsize=12, color=palette[0])
+    add_source(ax, r'Source : BLS, via C. Jones et Tonetti (2026)')
+    save(fig, 's3_ai_computer_income_share.pdf')
+
+
+def ai_labour_shares():
+    data = pd.read_csv(_AI_LABOUR_SHARES, parse_dates=['date'])
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.1), sharey=True)
+    fig.patch.set_alpha(0)
+    for ax, country, label, color in zip(
+            axes, ['Canada', 'United States'], ['Canada', 'États-Unis'], [palette[0], palette[2]]):
+        ax.patch.set_alpha(0)
+        valid = data.loc[data[country].notna()]
+        last = valid.date.max().year
+        ax.plot(data.date.dt.year, data[country] * 100, color=color, linewidth=2.2)
+        ax.set_xlim(valid.date.min().year, last)
+        # Keep the last actual year without crowding it with a nearby decade tick.
+        ticks = [year for year in range(1960, last, 20) if last - year >= 8] + [last]
+        ax.set_xticks(ticks)
+        ax.set_xticklabels(ticks, fontsize=11)
+        ax.set_ylim(55, 80)
+        ax.set_yticks(range(55, 81, 5))
+        ax.set_yticklabels([str(value) + r'\%' for value in range(55, 81, 5)], fontsize=11)
+        ax.text(0.04, 0.91, label, transform=ax.transAxes, fontsize=12, color=color)
+        endpoint = f'{last} : ' + f'{valid[country].iloc[-1] * 100:.1f}'.replace('.', ',') + r'\%'
+        ax.text(0.97, 0.91, endpoint, transform=ax.transAxes, ha='right',
+                color=color, fontsize=10)
+        style_axes(ax)
+    axes[0].set_ylabel(r'Part du travail dans le PIB', rotation=0, ha='left', fontsize=11)
+    axes[0].yaxis.set_label_coords(0, 1.02)
+    add_source(axes[1], r'Source : Penn World Table 11.0 / FRED')
+    save(fig, 's3_ai_labour_shares.pdf')
+
+
+# =====================================================================
+# US twin deficits: paired annual bars (the two balances are not additive)
+# =====================================================================
+_TWIN_DATA = Path(__file__).resolve().parents[1] / 'Data' / 's3_us_twin_deficits.csv'
+_TWIN_META = _TWIN_DATA.with_suffix('.json')
+
+
+def refresh_twin_deficits(as_of=None):
+    """Cache the two original source series on their common observed years."""
+    from concurrent.futures import ThreadPoolExecutor
+    from io import BytesIO
+    from hashlib import sha256
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    urls = {
+        'current_account': ('https://api.worldbank.org/v2/country/USA/indicator/'
+                            'BN.CAB.XOKA.GD.ZS?format=json&date=1970:'
+                            f'{retrieved_on.year - 1}&per_page=1000'),
+        'federal_budget': 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=FYFSGDA188S&cosd=1970-01-01',
+    }
+
+    def fetch(item):
+        name, url = item
+        response = requests.get(url, timeout=50)
+        response.raise_for_status()
+        return name, response.content
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        payloads = dict(pool.map(fetch, urls.items()))
+    ca_rows = json.loads(payloads['current_account'])[1]
+    ca = pd.Series({int(row['date']): row['value'] for row in ca_rows
+                    if row['value'] is not None}, name='current_account_percent_gdp')
+    budget = pd.read_csv(BytesIO(payloads['federal_budget']), parse_dates=['observation_date'])
+    budget = budget[budget.observation_date <= retrieved_on]
+    budget = pd.Series(pd.to_numeric(budget.FYFSGDA188S, errors='coerce').to_numpy(),
+                       index=budget.observation_date.dt.year,
+                       name='federal_budget_percent_gdp')
+    data = pd.concat([ca, budget], axis=1).dropna().sort_index()
+    data = data.loc[data.index >= 1970]
+    data.index.name = 'year'
+    assert data.index.is_unique and len(data) > 40
+    assert list(data.index) == list(range(data.index.min(), data.index.max() + 1))
+    data.to_csv(_TWIN_DATA)
+    metadata = {
+        'retrieved_on': retrieved_on.date().isoformat(), 'urls': urls,
+        'source_ids': {'current_account': 'World Bank BN.CAB.XOKA.GD.ZS',
+                       'federal_budget': 'FRED FYFSGDA188S (OMB / St. Louis Fed)'},
+        'units': 'Percent of US GDP; surpluses positive, deficits negative.',
+        'coverage': 'US current account (calendar year) and federal budget balance (fiscal-year balance divided by annual GDP). Not the budget of all levels of government.',
+        'transformation': 'No sign changes, summing, smoothing, or interpolation. Align only common nonmissing observed years.',
+        'range': [int(data.index.min()), int(data.index.max())],
+        'display': 'Paired bars rather than stacked bars because the balances are not additive.',
+        'download_sha256': {name: sha256(payload).hexdigest() for name, payload in payloads.items()},
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_twin_deficits(); f.us_twin_deficits()"',
+    }
+    _TWIN_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Twin deficits:', metadata['range'])
+
+
+def us_twin_deficits():
+    data = pd.read_csv(_TWIN_DATA, index_col='year')
+    fig, ax = new_figure(10, 5)
+    ax.bar(data.index - 0.2, data.current_account_percent_gdp, width=0.38,
+           color=palette[0], label='Compte courant', edgecolor='none', zorder=3)
+    ax.bar(data.index + 0.2, data.federal_budget_percent_gdp, width=0.38,
+           color=palette[2], label='Solde budgétaire fédéral', edgecolor='none', zorder=3)
+    ax.axhline(0, color='black', linewidth=0.7, zorder=4)
+    first, last = data.index.min(), data.index.max()
+    ax.set_xlim(first - 0.5, last + 0.5)
+    ticks = [year for year in range(first, last, 10) if last - year >= 7] + [last]
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(ticks, fontsize=11)
+    ymin = min(-12, -tick_ceil(-data.min().min(), 2))
+    ymax = max(4, tick_ceil(data.max().max(), 2))
+    ax.set_ylim(ymin, ymax)
+    ticks = np.arange(ymin, ymax + 1, 2)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:.0f}' + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'(\% du PIB)', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.set_axisbelow(True)
+    ax.legend(loc='upper left', ncol=2, frameon=False, fontsize=10,
+              handlelength=1.1, handletextpad=0.4, columnspacing=1.4)
+    add_source(ax, r'Sources : Banque mondiale / FRED')
+    save(fig, 's3_us_twin_deficits.pdf')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -2043,6 +2649,14 @@ if __name__ == '__main__':
         job_polarization,
         gatsby_curve,
         baumol_cost_disease_canada,
+        current_accounts_divergence,
+        saving_rates_divergence,
+        us_twin_deficits,
+        ai_datacenter_construction,
+        ai_investment_booms,
+        ai_real_yield,
+        ai_computer_income_share,
+        ai_labour_shares,
     ]
 
     failed = []

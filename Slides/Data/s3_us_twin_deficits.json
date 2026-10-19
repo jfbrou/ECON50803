@@ -1,0 +1,27 @@
+{
+  "cached_on": "2026-10-19",
+  "range": [
+    1970,
+    2024
+  ],
+  "source_ids": {
+    "current_account": "World Bank BN.CAB.XOKA.GD.ZS",
+    "federal_budget": "FRED FYFSGDA188S"
+  },
+  "units": "Percent of US GDP; surpluses positive, deficits negative.",
+  "coverage": "US current account (calendar year) and federal budget (fiscal-year balance divided by annual GDP).",
+  "cache_method": "Preserve values plotted in the existing native vector PDF. The World Bank API timed out twice, so no source refresh or extra years were introduced.",
+  "reference_pdf": "Slides/Figures/us_twin_deficits.pdf",
+  "reference_sha256": "550c9f7a6915e3238b628e7e6a8019682c17e564d6cbe55fe260521b17634794",
+  "recovery": "Read the two 55-vertex stroked line paths (navy and coral) with pypdf ContentStream. Consecutive vertices are annual observations 1970–2024. Convert ordinate y via (y - zero)/points_per_percentage_point; round to six decimals. This uses vector coordinates, not raster digitization.",
+  "calibration": {
+    "zero_ordinate": 247.56416320000002,
+    "points_per_percentage_point": 13.714712700000002,
+    "bottom_tick": -16,
+    "top_tick": 4
+  },
+  "precision": "Rounding of original PDF coordinates gives deviations below 0.000001 percentage point; cached observations are for reproducing the original visual, not new statistical estimates.",
+  "validation": "The final federal-budget value agrees with FRED 2024 -6.19625% to within 0.00001 percentage point.",
+  "display": "Paired bars, not stacked, because the two balances are not additive.",
+  "refresh_command": "python -c \"import figures_s3 as f; f.refresh_twin_deficits(); f.us_twin_deficits()\""
+}

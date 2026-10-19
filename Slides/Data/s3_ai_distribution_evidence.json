@@ -1,0 +1,33 @@
+{
+  "retrieved_on": "2026-10-19",
+  "labour_shares": {
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LABSHPCAA156NRUG,LABSHPUSA156NRUG",
+    "source": "Penn World Table 11.0, labsh, via FRED",
+    "series": {
+      "Canada": "LABSHPCAA156NRUG",
+      "United States": "LABSHPUSA156NRUG"
+    },
+    "units_input": "Annual ratio, at current national prices, not seasonally adjusted.",
+    "units_plot": "Percent of GDP. Compensation includes the estimated labour income of self-employed workers.",
+    "transformation": "Multiply by 100; no smoothing or interpolation; retain missing observations as gaps.",
+    "last_date": {
+      "Canada": "2023-01-01",
+      "United States": "2023-01-01"
+    },
+    "interpretation": "Descriptive historical series, not a causal estimate of automation or generative AI.",
+    "download_sha256": "f8e6e763f0c006be1d40816d93b70626cd593e46209bd2c919337fb5ffd770ec"
+  },
+  "computer_income_share": {
+    "url": "https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf",
+    "source": "C. Jones and Tonetti (May 2026), Figure 2, printed page 14, PDF page 15; BLS (2024).",
+    "units": "Share of private business value added paid to IT capital, percent; not purchases of computers, investment/GDP, technology-company profits, or all capital income.",
+    "transformation": "Manually transcribed rounded endpoints, approximately 4.3% in 2000 and 3.0% in 2023. Not an annual series; no interpolation.",
+    "vintage": "Historical evidence as reported in the May 2026 working paper; not a claim about the post-2023 AI boom."
+  },
+  "theory": {
+    "more_versus_better": "https://doi.org/10.1257/aer.20221180",
+    "scarcity_and_weak_links": "https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf",
+    "conditions": "Strong complementarity across tasks (elasticity below one), fixed task allocation for the better-machine comparative static. Not every worker benefits; labour-share changes and wage changes are distinct."
+  },
+  "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_distribution_evidence(); f.ai_computer_income_share(); f.ai_labour_shares()\""
+}

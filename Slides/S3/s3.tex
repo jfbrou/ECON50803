@@ -1,31 +1,61 @@
 \documentclass[aspectratio=169]{beamer}
 \input{../preamble.tex}
 
-\title{Marché du travail, inégalités et IA}
+\title{Marchés du travail et du capital}
 \author{Jean-Félix Brouillette}
 \date{Séance 3}
 
 \begin{document}
 
+% Narrative: labour -> saving/investment -> current account -> integrated AI application.
+% Detailed nominal wage rigidity is treated in Session 4.
+% Broad inequality survey omitted from the core sequence; retained in Git history.
 % ============================================================================
+% 1
 \titleframe
-% ============================================================================
 
 % ============================================================================
+
+% 2
+\begin{frame}[t]{Deux ressources, deux décisions}
+\vspace{0.3cm}
+   Pour agrandir une entreprise, il faut \textbf{recruter} et \textbf{investir}.
+   \vspace{0.4cm}
+   \begin{itemize}
+      \setlength\itemsep{0.35cm}
+      \item Qu'est-ce qui détermine les \textbf{salaires} et l'emploi\,?
+      \item Quels projets sont rentables au \textbf{taux d'intérêt} courant\,?
+      \item Qui finance ces projets : les épargnants d'ici ou d'ailleurs\,?
+   \end{itemize}
+   \vspace{0.35cm}
+   \begin{keyinsight}[Le fil conducteur]
+      \RaggedRight
+      Séance 2 : pourquoi le travail et le capital comptent.\\
+      Aujourd'hui : comment ils sont mobilisés et rémunérés.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+% 3
 \begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item \textbf{Indicateurs du marché du travail}
-      \item Un modèle simple du marché du travail
-      \item Applications du modèle
-      \item Technologie, IA, et inégalités
+\begin{enumerate}
+      \setlength\itemsep{0.4cm}
+      \item Le marché du travail : emploi et salaires
+      \item L'épargne et l'investissement
+      \item Le compte courant et le financement international
+      \item L'IA : travail, capital et productivité
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
+
+% 4
 \sectionframe{Indicateurs du marché du travail}
+
 % ============================================================================
 
+% 5
 \begin{frame}[t]{Comment mesure-t-on le marché du travail\,?}
    Les statistiques sur l'emploi proviennent de deux enquêtes complémentaires :
    \vspace{0.25cm}
@@ -47,9 +77,12 @@
       \end{itemize}
    \end{enumerate}
    \vspace{0.25cm}
-   Les marchés financiers réagissent fortement aux rapports mensuels sur l'emploi\ldots
+   Les rapports sur l'emploi font réagir les marchés financiers.
 \end{frame}
 
+% ============================================================================
+
+% 6
 \begin{frame}[t]{Trois catégories}\examtag
    \small
    La population en âge de travailler se divise en trois groupes :
@@ -73,12 +106,17 @@
    \end{tikzpicture}
    \end{center}
    \begin{defbox}
+      \RaggedRight
       \textbf{Chômeur :} sans emploi, disponible et en \textbf{recherche active}.
    \end{defbox}
 \end{frame}
 
+% ============================================================================
+
+% 7
 \begin{frame}[t]{Trois ratios essentiels}\examtag
    \begin{defbox}[Indicateurs du marché du travail]
+      \RaggedRight
       \vspace{-0.5cm}
       \begin{align*}
          \text{Taux de participation} &= \frac{E + U}{\text{Pop.\ en âge de travailler}} \times 100 \\[5pt]
@@ -88,6 +126,9 @@
    \end{defbox}
 \end{frame}
 
+% ============================================================================
+
+% 8
 \begin{frame}{Le marché du travail canadien}
    \begin{figure}
       \centering
@@ -95,81 +136,62 @@
    \end{figure}
 \end{frame}
 
+% ============================================================================
+
+% 9
 \begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas\,?}\examtag
    \footnotesize
    \vspace{-0.2cm}
    \begin{warning}[Limites du taux de chômage]
+      \RaggedRight
       \vspace{-0.4cm}
       \begin{itemize}
          \setlength\itemsep{0.07cm}
          \item \textbf{Travailleurs découragés :} une baisse du chômage peut refléter des \textit{retraits} du marché, non pas des embauches
          \item \textbf{Sous-emploi :} travail à temps partiel faute de trouver un emploi à temps plein
          \item \textbf{Qualité des emplois :} un taux très faible peut signifier que les travailleurs n'ont pas les ressources pour chercher assez longtemps afin de trouver un bon \textit{match}
-         \item \textbf{Démographie :} le vieillissement fait baisser le chômage (les retraités quittent la population active) sans amélioration réelle du marché du travail
+         \item \textbf{Démographie :} les départs à la retraite réduisent la participation; le taux de chômage ne résume pas cet effet
       \end{itemize}
    \end{warning}
    \vspace{0.05cm}
    \begin{bizimplication}
+      \RaggedRight
       Pour évaluer la santé réelle du marché du travail, regardez le taux de participation, le taux d'emploi \textbf{et} les mesures de sous-emploi (U-6 aux États-Unis).
    \end{bizimplication}
 \end{frame}
 
+% ============================================================================
+
+% 10
 \begin{frame}[t]{Les conséquences du chômage}
-   \small
-   \textbf{Pour le travailleur :}
-   \vspace{0.1cm}
+\textbf{Pour le travailleur :}
    \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item 10--20\,\% de pertes de \textbf{revenus à vie}
-      \item Principalement dû à des \textbf{salaires plus bas}, moins à une baisse de l’emploi
+      \setlength\itemsep{0.15cm}
+      \item Perte de revenu et risque de retrouver un emploi \textbf{moins bien payé}
+      \item Perte de compétences et de contacts professionnels
    \end{itemize}
-   \vspace{0.25cm}
-   \textbf{Pour l’entreprise :}
-   \vspace{0.1cm}
+   \vspace{0.3cm}
+   \textbf{Pour l'entreprise :}
    \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item \textbf{Coûts de recrutement} élevés
-      \item Perte de \textbf{savoir organisationnel}
+      \setlength\itemsep{0.15cm}
+      \item Coûts de recrutement et de formation
+      \item Perte de savoir organisationnel
    \end{itemize}
-   \vspace{0.1cm}
-   \begin{keyinsight}[Le saviez-vous\,?]
-      En récession, le taux de chômage augmente principalement parce que les entreprises \textbf{cessent d’embaucher}, pas parce qu’elles licencient davantage.
+   \vspace{0.2cm}
+   \begin{keyinsight}
+      \RaggedRight
+      Le chômage dépend des \textbf{sorties d'emploi}, mais aussi de la vitesse à laquelle les personnes retrouvent un emploi.
    \end{keyinsight}
 \end{frame}
 
-\begin{frame}{De la mesure à l'interprétation}
-   Nous pouvons \textit{mesurer} le marché du travail avec précision.
-   \vspace{0.3cm}
-
-   Mais qu'est-ce qui \textbf{détermine} le niveau d'emploi et les salaires\,?
-   \vspace{0.3cm}
-
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Devrait-on augmenter le salaire minimum\,?
-      \item Quelles sont les causes de l'augmentation des inégalités salariales\,?
-      \item Est-ce que les impôts sur le revenu sont trop élevés\,?
-      \item Comment l'immigration affecte-t-elle le marché du travail\,?
-   \end{itemize}
-   \vspace{0.3cm}
-   Pour répondre, il nous faut un modèle $\to$ \textbf{offre et demande de travail}
-\end{frame}
-
 % ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Indicateurs du marché du travail}
-      \item \textbf{Un modèle simple du marché du travail}
-      \item Applications du modèle
-      \item Technologie, IA, et inégalités
-   \end{enumerate}
-\end{frame}
 
-% ============================================================================
+% 11
 \sectionframe{Un modèle simple du marché du travail}
+
 % ============================================================================
 
+% 12
 \begin{frame}[t]{L'offre de travail}\examtag
    \begin{columns}[T]
       \begin{column}{0.5\textwidth}
@@ -187,16 +209,14 @@
       \end{column}
       \begin{column}{0.46\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.9]
-            % Supply: y = 0.857x + 0.074. Y-int (0,0.07). At x=4.7: y=4.10
-            \draw[supply] (0,0.07) -- (4.7,4.10) node[right, curvelabel] {$L^S$};
-            % Shifted supply (+1.0 right): y = 0.857x - 0.783. X-int (0.91,0). At x=5.7: y=4.10
-            \draw[curveshift, HECgreen, dotted] (0.91,0) -- (5.7,4.10)
-               node[right, curvelabel] {$L^{S\prime}$};
-            \draw[shiftarrow, HECgreen] (2.5,2.2) -- (3.5,2.2);
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.9]
+% Parallel supply shift: 1.25 units to the right.
+\draw[supply] (0,0.07) -- (4.7,4.1) node[right, curvelabel] {$L^S$};
+\draw[curveshift, HECgreen, dotted] (1.168362,0) -- (5.7,3.885638) node[right, curvelabel] {$L^{S\prime}$};
+\draw[shiftarrow, HECgreen] (2.692452,2.2) -- (3.525786,2.2);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
+\end{tikzpicture}
          \vspace{0.1cm}
 
          {\footnotesize\textcolor{HECgray}{$\uparrow$ population $\to$ $L^S$ se déplace à droite}}
@@ -204,6 +224,9 @@
    \end{columns}
 \end{frame}
 
+% ============================================================================
+
+% 13
 \begin{frame}[t]{La demande de travail}\examtag
    \begin{columns}[T]
       \begin{column}{0.5\textwidth}
@@ -222,23 +245,24 @@
       \end{column}
       \begin{column}{0.46\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.9]
-            % Demand: y = -0.927x + 4.213. Y-int (0,4.21). X-int (4.54,0)
-            \draw[demand] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
-            % Shifted demand (+1.0 right): y = -0.927x + 5.14. Y-int (0,5.14). X-int (5.54,0)
-            \draw[curveshift, HECgreen, dotted] (0,5.14) -- (5.54,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            \draw[shiftarrow, HECgreen] (2.2,2.2) -- (3.2,2.2);
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,5.5) node[above] {$w$};
-         \end{tikzpicture}
-         \vspace{0.1cm}
+         \begin{tikzpicture}[scale=.87]
+% Parallel demand shift: 1.25 units to the right.
+\draw[demand] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen, dotted] (0,5.369141) -- (5.79,0) node[above right, curvelabel] {$L^{D\prime}$};
+\draw[shiftarrow, HECgreen] (2.375887,2.2) -- (3.20922,2.2);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,5.8) node[above] {$w$};
+\end{tikzpicture}
+         \vspace{0cm}
 
          {\footnotesize\textcolor{HECgray}{$\uparrow$ productivité $\to$ $L^D$ se déplace à droite}}
       \end{column}
    \end{columns}
 \end{frame}
 
+% ============================================================================
+
+% 14
 \begin{frame}[t]{L'équilibre de plein emploi}\examtag
    \begin{columns}[T]
       \begin{column}{0.48\textwidth}
@@ -251,6 +275,7 @@
          \end{itemize}
          \vspace{0.2cm}
          \begin{keyinsight}
+            \RaggedRight
             À l'équilibre, le salaire s'ajuste de sorte que ceux qui veulent travailler trouvent un emploi.
          \end{keyinsight}
       \end{column}
@@ -272,6 +297,9 @@
    \end{columns}
 \end{frame}
 
+% ============================================================================
+
+% 15
 \begin{frame}{À quoi correspond le chômage\,?}\examtag
    \centering
    \begin{tikzpicture}[scale=1.2]
@@ -288,64 +316,33 @@
    \end{tikzpicture}
 \end{frame}
 
+% ============================================================================
+
+% 16
 \begin{frame}{À quoi correspond le chômage\,?}
-   \centering
+   \framesubtitle{Un salaire qui ne s'ajuste pas immédiatement}\centering
    \begin{tikzpicture}[scale=1.2]
-      % Rigid wage: horizontal dashed line at w*
-      \draw[refline] (0,1.8) node[left, pointlabel] {$w^*$} -- (3.2,1.8);
-      % Vertical dotted lines to x-axis
-      \draw[refline] (1.8,1.8) -- (1.8,0);
-      \draw[refline] (3.0,1.8) -- (3.0,0);
-      % Supply: y = 0.6x. Start (0,0). At x=5.7: y=3.42
-      \draw[supply] (0,0) -- (5.7,3.42) node[right, curvelabel] {$L^S$};
-      % Original demand (faded): y = -0.6x + 3.6. Y-int (0,3.6). X-int (6.0,0)
-      \draw[original] (0,3.6) -- (6.0,0) node[above right, curvelabel] {$L^D$};
-      % Shifted demand (left by 1.2): y = -0.6x + 2.88. Y-int (0,2.88). X-int (4.8,0)
-      \draw[curveshift, HECcoral] (0,2.88) -- (4.8,0) node[above right, curvelabel] {$L^{D\prime}$};
-      % Shift arrow between the two demand curves
-      \draw[shiftarrow, HECcoral] (3.9,1.2) -- (2.9,1.2);
-      % Intersection points at w*
-      \filldraw[eqpoint=HECcoral] (1.8,1.8) circle (3pt);   % on new demand: L_D = 1.8
-      \filldraw[eqpoint=HECnavy] (3.0,1.8) circle (3pt);    % on supply: L_S = 3.0
-      % Underbrace for unemployment gap
-      \draw [econbrace, HECcoral]
-         (1.8, -0.1) -- (3.0, -0.1)
-         node [midway, below=10pt, HECcoral] {\textbf{Chômage}};
-      % Axes
-      \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
-      \draw[econaxis] (0,0) -- (0,4.0) node[above] {$w$};
-   \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Le modèle en action}
-   On utilise maintenant ce modèle pour analyser \textbf{quatre phénomènes réels} :
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.25cm}
-      \item La participation des femmes au marché du travail
-      \item Le vieillissement démographique
-      \item L'immigration
-      \item Le rôle de l'inflation en récession
-   \end{enumerate}
-   \vspace{0.3cm}
-   Dans chaque cas : Quelle courbe se déplace\,? Quel effet sur $w$ et $L$\,? CT vs.\ LT\,?
+% Supply: w = 0.6 L; demand: w = 3.6 - 0.6 L.
+% Shifted demand: w = 2.7 - 0.6 L; at w = 1.8, L_D = 1.5.
+\draw[refline] (0,1.8) node[left, pointlabel] {$w^*$} -- (3.2,1.8);
+\draw[refline] (1.5,1.8) -- (1.5,0);
+\draw[refline] (3,1.8) -- (3,0);
+\draw[supply] (0,0) -- (5.7,3.42) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.6) -- (6,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECcoral] (0,2.7) -- (4.5,0) node[above right, curvelabel] {$L^{D\prime}$};
+\filldraw[eqpoint=HECcoral] (1.5,1.8) circle (3pt);
+\filldraw[eqpoint=HECnavy] (3,1.8) circle (3pt);
+\draw[econbrace, HECcoral] (1.5,-0.1) -- (3,-0.1)
+   node[midway, below=10pt, HECcoral] {\textbf{Chômage}};
+\draw[shiftarrow, HECcoral] (3.75,1.2) -- (2.75,1.2);
+\draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4) node[above] {$w$};
+\end{tikzpicture}
 \end{frame}
 
 % ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Indicateurs du marché du travail}
-      \item {\color{gray!50}Un modèle simple du marché du travail}
-      \item \textbf{Applications du modèle}
-      \item Technologie, IA, et inégalités
-   \end{enumerate}
-\end{frame}
 
-% ============================================================================
-\sectionframe{Applications du modèle}
-% ============================================================================
-
+% 17
 \begin{frame}[t]{Deux horizons temporels}\examtag
    \begin{columns}[T]
       \begin{column}{0.48\textwidth}
@@ -371,13 +368,15 @@
    \end{columns}
    \vspace{0.3cm}
    \begin{defbox}[Horizon d'ajustement]
+      \RaggedRight
       \textbf{Court terme :} $K$ est fixe, seul $L$ s'ajuste. \\
       \textbf{Long terme :} $K$ s'ajuste via le mécanisme de Solow.
    \end{defbox}
 \end{frame}
 
-% --- Application 1 : La participation des femmes ----------------------------
+% ============================================================================
 
+% 18
 \begin{frame}{La révolution silencieuse}
    \begin{figure}
       \centering
@@ -385,82 +384,66 @@
    \end{figure}
 \end{frame}
 
+% ============================================================================
+
+% 19
 \begin{frame}{Participation des femmes : le modèle}
    \begin{columns}[c]
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\smallskip
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines to x-axis
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (3.0,0) -- (3.0,1.625);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (3.0,0) {$L_1$};
-            % Dotted lines to y-axis (wages)
-            \draw[refline] (0,2.0) -- (2.5,2.0);
-            \draw[refline] (0,1.625) -- (3.0,1.625);
-            \node[pointlabel, left] at (0,2.0) {$w_0$};
-            \node[pointlabel, left] at (0,1.625) {$w_1$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[demand] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
-            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1: (3.0, 1.625)
-            \filldraw[eqpoint] (3.0,1.625) circle (3pt);
-            % Thin shift arrow
-            \draw[shiftarrow, HECgreen] (3.7,2.8) -- (4.4,2.8);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: 1.25 units; capital fixed.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (3.125,0) -- (3.125,1.53125);
+\node[pointlabel, below] at (3.125,0) {$L_1$};
+\draw[refline] (0,1.53125) -- (3.125,1.53125);
+\node[pointlabel, left] at (0,1.53125) {$w_1$};
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[demand] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen] (1.083333,0) -- (5.7,3.4625) node[right, curvelabel] {$L^{S\prime}$};
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqpoint] (3.125,1.53125) circle (3pt);
+\draw[shiftarrow, HECgreen] (3.775,2.8) -- (4.608333,2.8);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\smallskip
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines
-            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (3.5,2.0);
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (3.5,0) -- (3.5,2.0);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (3.5,0) {$L_2$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[original] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (green): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
-            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % Shifted demand (navy): y = -0.75x + 4.625. Y-int (0,4.63). X-int (6.17,0)
-            \draw[curveshift, HECnavy] (0,4.63) -- (6.17,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (3.0, 1.625)
-            \filldraw[eqfaded=HECgreen] (3.0,1.625) circle (2.5pt);
-            % E2: (3.5, 2.0)
-            \filldraw[eqpoint=HECnavy] (3.5,2.0) circle (3pt);
-            % Axes
-            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: 1.25 units; capital adjustment restores w_0.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (3.75,0) -- (3.75,2);
+\node[pointlabel, below] at (3.75,0) {$L_2$};
+\draw[refline] (0,2) -- (3.75,2);
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen] (1.083333,0) -- (5.7,3.4625) node[right, curvelabel] {$L^{S\prime}$};
+\draw[curveshift, HECnavy] (0,4.8125) -- (6.416667,0) node[above right, curvelabel] {$L^{D\prime}$};
+\draw[shiftarrow, HECnavy] (1.108333,3.2) -- (1.941667,3.2);
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqfaded] (3.125,1.53125) circle (2.5pt);
+\filldraw[eqpoint] (3.75,2) circle (3pt);
+\draw[econaxis] (0,0) -- (6.75,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,5) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
 
-% --- Application 2 : Le vieillissement démographique -------------------------
+% ============================================================================
 
+% 20
 \begin{frame}{Le vieillissement de la population}
    \begin{figure}
       \centering
@@ -468,90 +451,66 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{L'effet sur le marché du travail}
-   \framesubtitle{Le taux de participation plafonne puis décline}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{participation_rate_ca.pdf}
-   \end{figure}
-\end{frame}
+% ============================================================================
 
+% 21
 \begin{frame}{Vieillissement : le modèle}\examtag
    \begin{columns}[c]
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines to x-axis
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (2.0,0) -- (2.0,2.375);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (2.0,0) {$L_1$};
-            % Dotted lines to y-axis (wages)
-            \draw[refline] (0,2.0) -- (2.5,2.0);
-            \draw[refline] (0,2.375) -- (2.0,2.375);
-            \node[pointlabel, left] at (0,2.0) {$w_0$};
-            \node[pointlabel, left] at (0,2.375) {$w_1$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[demand] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875. Y-int (0,0.88). At x=4.7: y=4.40
-            \draw[curveshift, HECcoral] (0,0.88) -- (4.7,4.40)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1: (2.0, 2.375)
-            \filldraw[eqpoint=HECcoral] (2.0,2.375) circle (3pt);
-            % Thin shift arrow
-            \draw[shiftarrow, HECcoral] (3.4,2.8) -- (2.7,2.8);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: -1.25 units; capital fixed.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (1.875,0) -- (1.875,2.46875);
+\node[pointlabel, below] at (1.875,0) {$L_1$};
+\draw[refline] (0,2.46875) -- (1.875,2.46875);
+\node[pointlabel, left] at (0,2.46875) {$w_1$};
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[demand] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECcoral] (0,1.0625) -- (4.45,4.4) node[right, curvelabel] {$L^{S\prime}$};
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqpoint=HECcoral] (1.875,2.46875) circle (3pt);
+\draw[shiftarrow, HECcoral] (3.358333,2.8) -- (2.525,2.8);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines
-            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (2.5,2.0);
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (1.5,0) -- (1.5,2.0);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (1.5,0) {$L_2$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[original] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (coral, -1.0 left): y = 0.75x + 0.875. Y-int (0,0.88). At x=4.7: y=4.40
-            \draw[curveshift, HECcoral] (0,0.88) -- (4.7,4.40)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
-            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (2.0, 2.375)
-            \filldraw[eqfaded=HECcoral] (2.0,2.375) circle (2.5pt);
-            % E2: (1.5, 2.0)
-            \filldraw[eqpoint=HECnavy] (1.5,2.0) circle (3pt);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: -1.25 units; capital adjustment restores w_0.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (1.25,0) -- (1.25,2);
+\node[pointlabel, below] at (1.25,0) {$L_2$};
+\draw[refline] (0,2) -- (2.5,2);
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECcoral] (0,1.0625) -- (4.45,4.4) node[right, curvelabel] {$L^{S\prime}$};
+\draw[curveshift, HECnavy] (0,2.9375) -- (3.916667,0) node[above right, curvelabel] {$L^{D\prime}$};
+\draw[shiftarrow, HECnavy] (3.625,1) -- (2.791667,1);
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqfaded] (1.875,2.46875) circle (2.5pt);
+\filldraw[eqpoint=HECcoral] (1.25,2) circle (3pt);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
 
-% --- Application 3 : L'immigration -------------------------------------------
+% ============================================================================
 
+% 22
 \begin{frame}{L'immigration au Canada}
    \begin{figure}
       \centering
@@ -559,621 +518,1169 @@
    \end{figure}
 \end{frame}
 
+% ============================================================================
+
+% 23
 \begin{frame}{Immigration : le modèle}\examtag
    \begin{columns}[c]
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECcoral}{Court terme} --- $K$ fixe}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines to x-axis
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (3.0,0) -- (3.0,1.625);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (3.0,0) {$L_1$};
-            % Dotted lines to y-axis (wages)
-            \draw[refline] (0,2.0) -- (2.5,2.0);
-            \draw[refline] (0,1.625) -- (3.0,1.625);
-            \node[pointlabel, left] at (0,2.0) {$w_0$};
-            \node[pointlabel, left] at (0,1.625) {$w_1$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Demand (navy solid): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[demand] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (green, +1.0 right): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
-            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1: (3.0, 1.625)
-            \filldraw[eqpoint] (3.0,1.625) circle (3pt);
-            % Thin shift arrow
-            \draw[shiftarrow, HECgreen] (3.7,2.8) -- (4.4,2.8);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: 1.25 units; capital fixed.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (3.125,0) -- (3.125,1.53125);
+\node[pointlabel, below] at (3.125,0) {$L_1$};
+\draw[refline] (0,1.53125) -- (3.125,1.53125);
+\node[pointlabel, left] at (0,1.53125) {$w_1$};
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[demand] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen] (1.083333,0) -- (5.7,3.4625) node[right, curvelabel] {$L^{S\prime}$};
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqpoint] (3.125,1.53125) circle (3pt);
+\draw[shiftarrow, HECgreen] (3.775,2.8) -- (4.608333,2.8);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          {\small\textbf{\textcolor{HECnavy}{Long terme} --- $K$ s'ajuste}}
          \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines
-            \draw[refline] (0,2.0) node[left, pointlabel] {$w_0$} -- (3.5,2.0);
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (3.5,0) -- (3.5,2.0);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (3.5,0) {$L_2$};
-            % Original supply (dashed gray): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[original] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[original] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted supply (green): y = 0.75x - 0.625. X-int (0.83,0). At x=5.7: y=3.65
-            \draw[curveshift, HECgreen] (0.83,0) -- (5.7,3.65)
-               node[right, curvelabel] {$L^{S\prime}$};
-            % Shifted demand (navy): y = -0.75x + 4.625. Y-int (0,4.63). X-int (6.17,0)
-            \draw[curveshift, HECnavy] (0,4.63) -- (6.17,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % E1 faded: (3.0, 1.625)
-            \filldraw[eqfaded=HECgreen] (3.0,1.625) circle (2.5pt);
-            % E2: (3.5, 2.0)
-            \filldraw[eqpoint=HECnavy] (3.5,2.0) circle (3pt);
-            % Axes
-            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$w$};
-         \end{tikzpicture}
+         \begin{tikzpicture}[scale=.88]
+% Parallel supply shift: 1.25 units; capital adjustment restores w_0.
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (3.75,0) -- (3.75,2);
+\node[pointlabel, below] at (3.75,0) {$L_2$};
+\draw[refline] (0,2) -- (3.75,2);
+\draw[original] (0,0.125) -- (5.7,4.4) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen] (1.083333,0) -- (5.7,3.4625) node[right, curvelabel] {$L^{S\prime}$};
+\draw[curveshift, HECnavy] (0,4.8125) -- (6.416667,0) node[above right, curvelabel] {$L^{D\prime}$};
+\draw[shiftarrow, HECnavy] (1.108333,3.2) -- (1.941667,3.2);
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqfaded] (3.125,1.53125) circle (2.5pt);
+\filldraw[eqpoint] (3.75,2) circle (3pt);
+\draw[econaxis] (0,0) -- (6.75,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,5) node[above] {$w$};
+\end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
 
-% --- Application 4 : L'inflation en récession --------------------------------
+% ============================================================================
 
-\begin{frame}{Récessions et chômage au Canada}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{unemployment_ca.pdf}
-   \end{figure}
+% 24
+\begin{frame}[t]{Comment le capital s'ajuste-t-il\,?}
+\vspace{0.3cm}
+   Dans nos exemples, le capital finit par s'ajuster à la main-d'œuvre disponible.
+   \vspace{0.4cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item Qu'est-ce qui incite une entreprise à \textbf{investir}\,?
+      \item Qu'est-ce qui détermine le \textbf{coût du financement}\,?
+      \item D'où viennent les ressources pour réaliser ces projets\,?
+   \end{enumerate}
+   \vspace{0.35cm}
+   \begin{keyinsight}
+      \RaggedRight
+      Il nous faut maintenant un modèle de l'\textbf{épargne et de l'investissement}.
+   \end{keyinsight}
 \end{frame}
 
-\begin{frame}{Pourquoi les salaires ne baissent-ils pas\,?}
-   \vspace{-0.5cm}
-   \begin{defbox}[Rigidité nominale des salaires]
-      Les salaires nominaux résistent fortement à la baisse, même en récession.
+% ============================================================================
+
+% 25
+\sectionframe{L'épargne et l'investissement}
+
+% ============================================================================
+
+% 26
+\begin{frame}[t]{Capital, investissement et financement}\examtag
+\begin{defbox}[Stock vs.\ flux]
+   \RaggedRight
+      \textbf{Capital ($K$)} : machines, bâtiments, logiciels déjà en place\\[5pt]
+      \textbf{Investissement ($I$)} : production de nouveaux actifs
    \end{defbox}
    \vspace{0.3cm}
-   Trois raisons principales :
-   \vspace{0.15cm}
+   \textbf{Exemple :} une entreprise construit une usine et émet des obligations.
    \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Conventions collectives} --- les salaires sont fixés par contrat pour 2--3 ans
-      \item \textbf{Contrats implicites} --- baisser les salaires détruit le moral et la productivité
-      \item \textbf{Normes sociales} --- une baisse de salaire est perçue comme une injustice
+      \setlength\itemsep{0.15cm}
+      \item La construction de l'usine est un \textbf{investissement}.
+      \item L'émission d'obligations est son \textbf{financement}.
    \end{itemize}
-   \vspace{0.3cm}
-   Résultat : les entreprises préfèrent \textbf{licencier} que baisser les salaires.
+   \vspace{0.2cm}
+   Acheter une action existante ne crée pas directement du nouveau capital.
 \end{frame}
 
-\begin{frame}{Pourquoi l'inflation aide en récession}
-   Si les salaires nominaux ne peuvent pas baisser, comment rétablir l'équilibre\,?
-   \vspace{0.3cm}
+% ============================================================================
 
-   \textbf{L'inflation} offre une solution élégante :
-   \vspace{0.2cm}
-   \begin{center}
-      $\displaystyle w_{\text{réel}} = \frac{w_{\text{nominal}}}{P}$
-   \end{center}
-   \vspace{0.2cm}
-   Si $P \uparrow$ et $w_{\text{nominal}}$ reste fixe $\to$ $w_{\text{réel}} \downarrow$ $\to$ retour vers l'équilibre.
-   \vspace{0.3cm}
-
-   Les travailleurs acceptent plus facilement une \textbf{stagnation} salariale avec 2\,\% d'inflation (baisse réelle invisible) qu'une \textbf{baisse nominale} de 2\,\%.
-\end{frame}
-
-\begin{frame}{Rigidité salariale : le modèle}
-   \begin{columns}[c]
-      \begin{column}{0.52\textwidth}
+% 27
+\begin{frame}[t]{La courbe d'investissement}\examtag
+   \begin{columns}[T]
+      \begin{column}{0.50\textwidth}
          \centering
-         {\small\textbf{\textcolor{HECcoral}{Récession} --- $w$ rigide}}
-         \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Rigid wage line at w0 = 2.0, from y-axis to L^S at w0 (x=2.5)
-            \draw[refline, HECcoral] (0,2.0) -- (2.5,2.0);
-            % Dotted lines to x-axis
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (1.5,0) -- (1.5,2.0);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (1.5,0) {$L_1$};
-            % Wage label on y-axis
-            \node[pointlabel, left] at (0,2.0) {$w_0$};
-            % Supply (solid): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[supply, HECgray] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[original] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted demand (navy, -1.0 left): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
-            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            % E0: (2.5, 2.0)
-            \filldraw[eqpoint=HECgray] (2.5,2.0) circle (3pt);
-            % At w0 on L^D': -0.75x + 3.125 = 2.0 → x = 1.5
-            \filldraw[eqpoint=HECcoral] (1.5,2.0) circle (3pt);
-            % Unemployment bracket
-            \draw[HECcoral, thick, {Stealth[length=3pt]}-{Stealth[length=3pt]}]
-               (1.55,0.35) -- (2.45,0.35)
-               node[midway, above=1pt, pointlabel, HECcoral]
-               {chômage};
-            % Shift arrow (between L^D and L^D' at y=1.2)
-            \draw[shiftarrow, HECnavy] (3.4,1.2) -- (2.7,1.2);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
+         % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+         \begin{tikzpicture}[scale=0.88]
+            % I curve (downward sloping — higher r → less investment)
+            \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+               node[above, curvelabel, text=HECcoral] {$I(r)$};
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
          \end{tikzpicture}
       \end{column}
-      \begin{column}{0.52\textwidth}
-         \centering
-         {\small\textbf{\textcolor{HECnavy}{Avec inflation} --- $w_{\text{réel}} \downarrow$}}
-         \par\vspace{1pt}
-         \begin{tikzpicture}[scale=0.9]
-            % Dotted lines to x-axis
-            \draw[refline] (2.5,0) -- (2.5,2.0);
-            \draw[refline] (2.0,0) -- (2.0,1.625);
-            \node[pointlabel, below] at (2.5,0) {$L_0$};
-            \node[pointlabel, below] at (2.0,0) {$L_1$};
-            % Dotted lines to y-axis
-            \draw[refline] (0,2.0) -- (2.5,2.0);
-            \draw[refline] (0,1.625) -- (2.0,1.625);
-            \node[pointlabel, left] at (0,2.0) {$w_0$};
-            \node[pointlabel, left] at (0,1.625) {$w_1$};
-            % Supply (solid): y = 0.75x + 0.125. Y-int (0,0.13). At x=5.7: y=4.40
-            \draw[supply, HECgray] (0,0.13) -- (5.7,4.40)
-               node[right, curvelabel] {$L^S$};
-            % Original demand (dashed gray): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-            \draw[original] (0,3.88) -- (5.17,0)
-               node[above right, curvelabel] {$L^D$};
-            % Shifted demand (navy): y = -0.75x + 3.125. Y-int (0,3.13). X-int (4.17,0)
-            \draw[curveshift, HECnavy] (0,3.13) -- (4.17,0)
-               node[above right, curvelabel] {$L^{D\prime}$};
-            % E0 faded: (2.5, 2.0)
-            \filldraw[eqfaded=HECgray] (2.5,2.0) circle (2.5pt);
-            % New equilibrium: L^S = L^D' → (2.0, 1.625)
-            \filldraw[eqpoint] (2.0,1.625) circle (3pt);
-            % Arrow on y-axis: inflation lowers real wage
-            \draw[shiftarrow, HECgreen]
-               (0.15,1.95) -- (0.15,1.675);
-            % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$L$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$w$};
-         \end{tikzpicture}
+      \begin{column}{0.45\textwidth}
+         \small
+         \vspace{0.3cm}
+         \textbf{Pourquoi la pente négative\,?}
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item $r \uparrow$ $\to$ coût du capital $\uparrow$ $\to$ moins de projets rentables
+         \end{itemize}
+         \vspace{0.3cm}
+         \textbf{Autres déterminants} (déplacements) :
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.12cm}
+            \item Productivité ($A$), technologie
+            \item Demande anticipée, confiance
+            \item Incertitude, réglementation
+         \end{itemize}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Indicateurs du marché du travail}
-      \item {\color{gray!50}Un modèle simple du marché du travail}
-      \item {\color{gray!50}Applications du modèle}
-      \item \textbf{Technologie, IA, et inégalités}
-   \end{enumerate}
-\end{frame}
 
-% ============================================================================
-\sectionframe{Technologie, IA, et inégalités}
-% ============================================================================
-
-\begin{frame}{Les inégalités augmentent à l'intérieur des pays}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{inequality_within_countries.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Mais elles diminuent entre les pays}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{elephant.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{La part du PIB allant au travail est en baisse}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{labor_share_canada.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{D'où vient la montée des inégalités intra-pays\,?}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item \textbf{Mondialisation et délocalisation}
-      \item Érosion des institutions du marché du travail
-      \item Progrès technologique asymmétrique, automatisation et IA
-   \end{enumerate}
-\end{frame}
-
-% --- 1. Mondialisation --------------------------------------------------------
-
-\begin{frame}{Mondialisation et le \guillemotleft~choc chinois~\guillemotright}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{china_shock.png}
-   \end{figure}
-\end{frame}
-
-\begin{frame}[t]{Autor, Dorn et Hanson (2013)}
-   \textbf{Les états U.S. plus exposés aux importations chinoises ont connu :}
+% 28
+\begin{frame}[t]{Qui épargne\,?}\examtag
+   \begin{defbox}[Épargne nationale]
+      \RaggedRight
+      \vspace{-0.25cm}
+      \begin{equation*} S = S_P + S_G \end{equation*}
+      La part du revenu qui n'est pas consommée.
+   \end{defbox}
    \vspace{0.25cm}
    \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item Un \textbf{chômage} plus élevé
-      \item Une \textbf{participation} plus faible à la population active
-      \item Des \textbf{salaires} plus bas
-      \item Des transferts plus élevés (chômage, invalidité, retraite)
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Épargne privée ($S_P$) :} ménages et entreprises.
+      \item \textbf{Épargne publique ($S_G$) :} dans le modèle, $S_G = T - G$.
+   \end{itemize}
+   \vspace{0.3cm}
+   {\small $T$ : impôts nets des transferts; $G$ : consommation publique.\\[4pt]
+   L'investissement public fait partie de $I$, pas de $G$.}
+\end{frame}
+
+% ============================================================================
+
+% 29
+\begin{frame}[t]{La courbe d'épargne}\examtag
+   \begin{columns}[T]
+      \begin{column}{0.50\textwidth}
+         \centering
+         % S curve: r = 0.75q → passes through origin (0, 0)
+         \begin{tikzpicture}[scale=0.88]
+            % S curve (upward sloping — higher r → more saving)
+            \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
+               node[right, curvelabel, text=HECnavy] {$S(r)$};
+            % Axes (drawn last for z-order)
+            \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$r$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \small
+         \vspace{0.3cm}
+         \textbf{Hypothèse du modèle :}
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Un rendement réel plus élevé encourage à reporter la consommation à plus tard
+         \end{itemize}
+         \vspace{0.3cm}
+         \textbf{Autres déterminants} (déplacements) :
+         \vspace{0.1cm}
+         \begin{itemize}
+            \setlength\itemsep{0.12cm}
+            \item Revenu, confiance
+            \item Démographie (âge)
+            \item Politique budgétaire ($T$, $G$)
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\vspace{0.5cm}
+\par\smallskip{\scriptsize\color{HECgray}La réponse de l'épargne au taux d'intérêt peut être faible : effets de substitution et de revenu.}
+\end{frame}
+
+% ============================================================================
+
+% 30
+\begin{frame}[t]{Équilibre en économie fermée}\examtag
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
+       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
+\filldraw[eqpoint] (3,2.25) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
+
+   \textbf{Sans financement extérieur :}
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item Les projets n'utilisent que l'épargne nationale.
+      \item Le taux d'intérêt \textbf{réel} s'ajuste.
+      \item À l'équilibre, $S = I$.
    \end{itemize}
    \vspace{0.2cm}
    \begin{keyinsight}
-      Le commerce avec la Chine profite aux É.-U.\ dans l'ensemble, mais il y a des \textbf{perdants} concentrés géographiquement.
+      \RaggedRight
+      Si les projets désirés dépassent l'épargne offerte, $r$ augmente.
    \end{keyinsight}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Délocalisation et sous-traitance}
-   Aux États-Unis, \textbf{2/3} de la hausse des inégalités salariales s'est produite \textbf{entre} les entreprises, pas au sein de celles-ci.
-   \vspace{0.4cm}
+% ============================================================================
 
-   \textbf{Exemple :} une banque sous-traite la conciergerie $\to$ le concierge passe d'une firme à hauts salaires à une firme spécialisée à \textbf{bas salaires}.
-   \vspace{0.4cm}
+% 31
+\begin{frame}[t]{De nouvelles occasions d'investir}
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
+       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
+       \draw[refline] (4.2,0) node[below, pointlabel] {$I_1$} -- (4.2,3.15);
+       \draw[refline] (0,3.15) node[left, pointlabel] {$r_1$} -- (4.2,3.15);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
+       \draw[curveshift, HECgreen] (0,6.3) -- (7.2,0.9) node[above right, curvelabel] {$I'$};
+       \draw[shiftarrow, HECgreen] (1.733333,3.5) -- (3.333333,3.5);
+\filldraw[eqpoint] (3,2.25) circle (3pt);\filldraw[eqpoint=HECgreen] (4.2,3.15) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6.6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
 
-   \begin{keyinsight}
-      La sous-traitance trie les travailleurs en entreprises homogènes : les firmes à haute productivité gardent les emplois qualifiés et externalisent le reste. \\
-      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Song et al.\ (\textit{QJE}, 2019); Bilal \& Lhuillier (\textit{JPE}, 2024)}}
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{D'où vient la montée des inégalités intra-pays\,?}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Mondialisation et délocalisation}
-      \item \textbf{Érosion des institutions du marché du travail}
-      \item Progrès technologique asymmétrique, automatisation et IA
-   \end{enumerate}
-\end{frame}
-
-% --- 2. Érosion des institutions ---------------------------------------------
-
-\begin{frame}[t]{Érosion des institutions du marché du travail}
-   \vspace{0.1cm}
+   Une nouvelle technologie rend davantage de projets rentables.
    \begin{itemize}
-      \setlength\itemsep{0.4cm}
-      \item \textbf{Syndicats} --- Baisse du taux de syndicalisation, mais n'explique qu'environ 10\,\% de l'augmentation des inégalités
-      \newline{\scriptsize\color{HECgray}(Farber, Herbst, Kuziemko \& Naidu, \textit{QJE}, 2021)}
-
-      \item \textbf{Salaire minimum} --- Baisse du salaire minimum \textit{réel}, mais n'affecte que le bas de l'échelle salariale
-
-      \item \textbf{Fiscalité} --- Réductions d'impôts pour les hauts revenus dans les années 1980, mais depuis~:
-      \begin{itemize}
-         \setlength\itemsep{0.05cm}
-         \item 7 économies avancées sur 10 ont \textbf{augmenté} la progressivité de leur fiscalité
-         \item Les transferts sociaux sont passés de 17\,\% à 22\,\% du PIB (OCDE)
-         \item Le 1\,\% le plus riche paie une part croissante de l'impôt sur le revenu
-      \end{itemize}
-      \vspace{-0.1cm}
-      \quad {\scriptsize\color{HECgray}(\textit{The Economist}, 20 février 2026)}
+      \setlength\itemsep{0.15cm}
+      \item $I$ se déplace vers la \textbf{droite}.
+      \item Le taux réel augmente.
+      \item L'investissement réalisé augmente.
    \end{itemize}
+   \vspace{0.2cm}
+   \begin{bizimplication}
+      \RaggedRight
+      Les nouveaux projets se disputent les mêmes ressources.
+   \end{bizimplication}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-\begin{frame}{D'où vient la montée des inégalités intra-pays\,?}
-   \begin{enumerate}
-      \setlength\itemsep{0.5cm}
-      \item {\color{gray!50}Mondialisation et délocalisation}
-      \item {\color{gray!50}Érosion des institutions du marché du travail}
-      \item \textbf{Progrès technologique asymmétrique, automatisation et IA}
-   \end{enumerate}
+% ============================================================================
+
+% 32
+\begin{frame}[t]{Et si l'épargne diminue\,?}
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
+       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
+       \draw[refline] (1.8,0) node[below, pointlabel] {$I_1$} -- (1.8,3.15);
+       \draw[refline] (0,3.15) node[left, pointlabel] {$r_1$} -- (1.8,3.15);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
+       \draw[curveshift, HECgreen] (0,1.8) -- (4.8,5.4) node[above, curvelabel] {$S'$};
+       \draw[shiftarrow, HECgreen] (4.266667,3.5) -- (2.666667,3.5);
+\filldraw[eqpoint] (3,2.25) circle (3pt);\filldraw[eqpoint=HECgreen] (1.8,3.15) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
+
+   À revenu et donné, les ménages consomment davantage.
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item $S$ se déplace vers la \textbf{gauche}.
+      \item Le taux réel augmente.
+      \item L'investissement diminue.
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{warning}[Vieillissement]
+      \RaggedRight
+      Le vieillissement réduit l'épargne, mais modifie aussi les besoins d'investissement.
+   \end{warning}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-% --- 3. Progrès technologique asymmétrique et IA ------------------------------------
+% ============================================================================
 
-\begin{frame}{Progrès technologique asymmétrique}
-   \textbf{Le progrès dans les TIC a augmenté la demande de travailleurs qualifiés :}
+% 33
+\begin{frame}[t]{L'épargne publique compte aussi}\examtag
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
+       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
+       \draw[refline] (1.8,0) node[below, pointlabel] {$I_1$} -- (1.8,3.15);
+       \draw[refline] (0,3.15) node[left, pointlabel] {$r_1$} -- (1.8,3.15);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
+       \draw[curveshift, HECgreen] (0,1.8) -- (4.8,5.4) node[above, curvelabel] {$S'$};
+       \draw[shiftarrow, HECgreen] (4.266667,3.5) -- (2.666667,3.5);
+\filldraw[eqpoint] (3,2.25) circle (3pt);\filldraw[eqpoint=HECgreen] (1.8,3.15) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
+
+   L'État augmente sa consommation ($G$), sans relever les impôts ($T$).
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item $S_G = T - G$ diminue.
+      \item Si $S_P$ ne compense pas, $S$ diminue.
+      \item En économie fermée, $r$ augmente et $I$ diminue.
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{defbox}[Effet d'éviction]
+      \RaggedRight
+      Une partie de l'investissement privé cède la place à la consommation publique.
+   \end{defbox}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+
+% 34
+\begin{frame}[t]{À vous : même taux, même diagnostic\,?}
+\begin{exercise}[Économie fermée]
+   \RaggedRight
+      Le taux d'intérêt réel augmente dans deux scénarios :
+      \begin{enumerate}
+         \setlength\itemsep{0.2cm}
+         \item Les entreprises découvrent de nouveaux projets rentables.
+         \item Les ménages décident de consommer davantage.
+      \end{enumerate}
+   \end{exercise}
    \vspace{0.3cm}
    \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item Informatique, ingénierie, gestion et finance
-      \item Les tâches \textbf{routinières} sont désormais effectuées par des ordinateurs
+      \setlength\itemsep{0.2cm}
+      \item Quelle courbe se déplace dans chaque cas\,?
+      \item L'investissement augmente-t-il ou diminue-t-il\,?
+      \item Que faut-il observer pour distinguer les deux scénarios\,?
    \end{itemize}
-   \vspace{0.5cm}
-   \textbf{Conséquence :} la \textit{prime à la qualification} (éducation) augmente --- l'écart salarial entre travailleurs qualifiés et non qualifiés se creuse.
 \end{frame}
 
-\begin{frame}{Impacts sur le marché du travail}
+% ============================================================================
+
+% 35
+\sectionframe{Le compte courant et \\ le financement international}
+
+% ============================================================================
+
+% 36
+\begin{frame}[t]{Faut-il se limiter à l'épargne canadienne\,?}
+\vspace{0.2cm}
+   Une entreprise canadienne peut financer son usine auprès d'un \textbf{fonds de pension allemand} ou d'un \textbf{investisseur japonais}.
+   \vspace{0.4cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item Le Canada peut investir \textbf{plus} que son épargne nationale.
+      \item Les Canadiens peuvent aussi financer des projets à l'étranger.
+      \item Le coût du financement dépend des conditions \textbf{mondiales}.
+   \end{itemize}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      \RaggedRight
+      Ouvrir l'économie permet de dissocier l'épargne nationale et l'investissement domestique.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+% 37
+\begin{frame}[t]{Qu'est-ce que le compte courant\,?}\examtag
+Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde, moins ce qu'il lui verse, en termes de commerce, de revenus et de transferts.
+   \begin{equation*}
+      CA = \underbrace{NX}_{\text{Export.\ nettes}} + \underbrace{\text{Revenus nets}}_{\text{Intérêts, dividendes, etc.}} + \underbrace{\text{Transferts nets}}_{\text{Aide, envois de fonds}}
+   \end{equation*}
+   \vspace{0.2cm}
+   \begin{keyinsight}[$CA \approx NX$ : une approximation raisonnable]
+      \RaggedRight
+      La balance commerciale explique souvent l'essentiel du compte courant. On peut donc assimiler $CA$ à $NX$ pour notre analyse, sauf lorsque les revenus et transferts sont importants.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+% 38
+\begin{frame}{Le compte courant américain}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_ca_balance_gdp.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
+% Session 6 regional time series, updated with Canada and a fixed country panel.
+% 39
+\begin{frame}{Les déséquilibres mondiaux des comptes courants}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_current_accounts_divergence.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
+% 40
+\begin{frame}[t]{Du PIB au compte courant}\examtag
+Partons de l'identité comptable du PIB (rappel séance 1) :
+   \vspace{0.2cm}
+   \begin{align*}
+      Y &= C + I + G + NX \\[8pt]
+      \underbrace{Y - C - G}_{\textcolor{HECgreen}{\boldsymbol{S}}} &= I + NX \\[10pt]
+      \textcolor{HECgreen}{S - I} &= \textcolor{HECgreen}{NX = CA} \\
+   \end{align*}
+   \vspace{0.25cm}
+   $S = Y - C - G$ est l'\textbf{épargne nationale} : ce qui reste du revenu après $C$ et $G$.
+\end{frame}
+
+% ============================================================================
+
+% 41
+\begin{frame}[t]{L'identité fondamentale}\examtag
+\centering
+   {\LARGE $\mathbf{CA = S - I}$}
+   \vspace{0.4cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgreen}{\large\bfseries $S > I$ $\to$ $CA > 0$}\\[8pt]
+         \small Le pays épargne plus qu'il n'investit.\\[5pt]
+         Il met des ressources nettes à disposition du \textbf{reste du monde}.\\[6pt]
+         {\color{HECgray}Ex.\ en 2025 : \href{https://www.bundesbank.de/en/press/press-releases/german-balance-of-payments-in-december-2025-945046}{Allemagne}, \href{https://www.safe.gov.cn/en/2026/0327/2406.html}{Chine}}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECcoral}{\large\bfseries $S < I$ $\to$ $CA < 0$}\\[8pt]
+         \small Le pays investit plus qu'il n'épargne.\\[5pt]
+         Il reçoit un financement net du \textbf{reste du monde}.\\[6pt]
+         {\color{HECgray}Ex.\ en 2025 : \href{https://www.bea.gov/news/2026/us-international-transactions-and-investment-position-4th-quarter-and-year-2025}{É.-U.}, \href{https://www150.statcan.gc.ca/n1/daily-quotidien/260226/dq260226a-eng.htm}{Canada}}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \begin{keyinsight}
+      \RaggedRight
+      Le compte courant reflète l'\textbf{écart entre épargne et investissement}. Un déficit ne prouve pas, à lui seul, un manque de compétitivité.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+% Session 6 saving-rate histories, with Canada; retain each series' actual endpoint.
+% 42
+\begin{frame}[t]{La divergence des taux d'épargne}
    \centering
-   \begin{tikzpicture}[scale=0.85]
-      % ── Graph 1: Unskilled Labor ──
-      \begin{scope}
-         \node[font=\bfseries] at (2.75,4.8) {Travail non qualifié};
-         % Reference lines (bottom layer)
-         \draw[refline] (2.5,0) -- (2.5,2);
-         \draw[refline] (0,2) -- (2.5,2);
-         \node[pointlabel, below] at (2.5,0) {$L_0$};
-         \node[pointlabel, left] at (0,2) {$w_0$};
-         \draw[refline] (1.75,0) -- (1.75,1.44);
-         \draw[refline] (0,1.44) -- (1.75,1.44);
-         \node[pointlabel, below] at (1.75,0) {$L_1$};
-         \node[pointlabel, left] at (0,1.44) {$w_1$};
-         % Supply: y = 0.75x + 0.125. Y-int (0,0.13). At x=5.2: y=4.03
-         \draw[supply] (0,0.13) -- (5.2,4.03) node[right, curvelabel] {$L^S$};
-         % Old demand (faded): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-         \draw[original] (0,3.88) -- (5.17,0) node[above right, curvelabel] {$L^D$};
-         % New demand (shifted left by 1.5): y = -0.75x + 2.75. Y-int (0,2.75). X-int (3.67,0)
-         \draw[curveshift, HECcoral] (0,2.75) -- (3.67,0) node[above right, curvelabel] {$L^{D\prime}$};
-         % Old equilibrium: (2.5, 2.0)
-         \filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
-         % New equilibrium: intersection of S and D'
-         % 0.75x + 0.125 = -0.75x + 2.75 → x = 1.75, y = 1.4375
-         \filldraw[eqpoint=HECcoral] (1.75,1.44) circle (3pt);
-         % Demand shift arrow (between curves, at y=1.0)
-         % On old D at y=1.0: x = (3.875-1.0)/0.75 = 3.83
-         % On new D at y=1.0: x = (2.75-1.0)/0.75 = 2.33
-         \draw[shiftarrow, HECcoral] (3.6,1.0) -- (2.6,1.0);
-         % Axes (topmost layer)
-         \draw[econaxis] (0,0) -- (5.5,0) node[right] {$L$};
-         \draw[econaxis] (0,0) -- (0,4.5) node[above] {$w$};
-      \end{scope}
-      % ── Graph 2: Skilled Labor ──
-      \begin{scope}[xshift=7.5cm]
-         \node[font=\bfseries] at (3.3,5.6) {Travail qualifié};
-         % Reference lines (bottom layer)
-         \draw[refline] (2.5,0) -- (2.5,2);
-         \draw[refline] (0,2) -- (2.5,2);
-         \node[pointlabel, below] at (2.5,0) {$L_0$};
-         \node[pointlabel, left] at (0,2) {$w_0$};
-         \draw[refline] (3.25,0) -- (3.25,2.56);
-         \draw[refline] (0,2.56) -- (3.25,2.56);
-         \node[pointlabel, below] at (3.25,0) {$L_1$};
-         \node[pointlabel, left] at (0,2.56) {$w_1$};
-         % Supply: y = 0.75x + 0.125. Y-int (0,0.13). At x=6.4: y=4.93
-         \draw[supply] (0,0.13) -- (6.4,4.93) node[right, curvelabel] {$L^S$};
-         % Old demand (faded): y = -0.75x + 3.875. Y-int (0,3.88). X-int (5.17,0)
-         \draw[original] (0,3.88) -- (5.17,0) node[above right, curvelabel] {$L^D$};
-         % New demand (shifted right by 1.5): y = -0.75x + 5.0. Y-int (0,5.0). X-int (6.67,0)
-         \draw[curveshift, HECgreen] (0,5.0) -- (6.67,0) node[above right, curvelabel] {$L^{D\prime}$};
-         % Old equilibrium: (2.5, 2.0)
-         \filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
-         % New equilibrium: intersection of S and D'
-         % 0.75x + 0.125 = -0.75x + 5.0 → x = 3.25, y = 2.5625
-         \filldraw[eqpoint] (3.25,2.56) circle (3pt);
-         % Demand shift arrow (between curves, at y=1.0)
-         % On old D at y=1.0: x = (3.875-1.0)/0.75 = 3.83
-         % On new D at y=1.0: x = (5.0-1.0)/0.75 = 5.33
-         \draw[shiftarrow, HECgreen] (4.0,1.0) -- (5.0,1.0);
-         % Axes (topmost layer)
-         \draw[econaxis] (0,0) -- (7.0,0) node[right] {$L$};
-         \draw[econaxis] (0,0) -- (0,5.3) node[above] {$w$};
-      \end{scope}
+   \includegraphics[width=0.95\textwidth, height=0.76\textheight, keepaspectratio]{s3_saving_rates_divergence.pdf}
+   \par\smallskip
+   {\scriptsize\color{HECgray}Chine et États-Unis : jusqu'en 2024 ; autres pays : jusqu'en 2025.}
+\end{frame}
+
+% ============================================================================
+
+% 43
+\begin{frame}[t]{Les déficits jumeaux}\examtag
+Puisque $S = S_P + S_G$, on peut écrire :
+   \begin{equation*} CA = S_P + S_G - I \end{equation*}
+   \vspace{0.15cm}
+   Si $S_P$ et $I$ ne changent pas, une baisse de l'épargne publique ($S_G \downarrow$) se traduit par une détérioration du compte courant ($CA \downarrow$).
+   \vspace{0.25cm}
+   \begin{warning}[Déficits jumeaux]
+      \RaggedRight
+      Un déficit budgétaire peut creuser le déficit courant.
+   \end{warning}
+\end{frame}
+
+% ============================================================================
+
+% 44
+\begin{frame}{Les déficits jumeaux américains}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.74\textheight, keepaspectratio]{s3_us_twin_deficits.pdf}
+   \end{figure}
+   \centering{\scriptsize\color{HECgray}Compte courant : année civile ; budget fédéral : exercice budgétaire.}
+\end{frame}
+
+% ============================================================================
+
+% 45
+\begin{frame}[t]{De l'économie fermée à l'économie ouverte}
+   \small
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECgray}{Économie fermée}}
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item $S = I$ toujours
+            \item Pas d'emprunt possible à l'étranger
+            \item $r$ s'ajuste pour égaliser $S$ et $I$
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECnavy}{Économie ouverte}}
+         \vspace{0.2cm}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item $S \neq I$ est possible
+            \item La différence est le compte courant
+            \item $CA = S - I$
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.3cm}
+   \begin{defbox}[Petite vs grande économie ouverte]
+      \RaggedRight
+      \footnotesize
+      \textbf{Grande économie ouverte} (É.-U., Chine) : ses décisions affectent $r^W$. Un choc domestique modifie partiellement le taux mondial.\\[4pt]
+      \textbf{Petite économie ouverte} (Canada, Suisse) : $r^W$ est \textbf{donné}. À $r^W$ donné, les chocs domestiques modifient surtout le compte courant.
+   \end{defbox}
+\end{frame}
+
+% ============================================================================
+
+% 46
+\begin{frame}[t]{Diagramme S-I en économie ouverte}
+   \centering
+   % S curve: r = 0.75q → passes through origin (0, 0)
+   % I curve: r = -0.75q + 4.5 → y-intercept (0, 4.5), x-intercept (6.0, 0)
+   % Closed eq: q=3.0, r=2.25
+   % World rate: r^W = 1.8 (below closed eq → domestic I > S → deficit)
+   % At r^W=1.8: S(1.8) = 1.8/0.75 = 2.4, I(1.8) = (4.5-1.8)/0.75 = 3.6
+   % CA = S - I = 2.4 - 3.6 = -1.2 (deficit)
+   \begin{tikzpicture}[scale=.94]
+      % World interest rate (horizontal)
+      \draw[HECgreen, very thick, dotted] (0,1.8) -- (6.5,1.8)
+         node[right, curvelabel, text=HECgreen] {$r^W$};
+      % Reference lines at r^W
+      \draw[refline] (2.4,0) node[below, pointlabel] {$S$} -- (2.4,1.8);
+      \draw[refline] (3.6,0) node[below, pointlabel] {$I$} -- (3.6,1.8);
+      % S curve (HECnavy, upward)
+      \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
+         node[right, curvelabel, text=HECnavy] {$S$};
+      % I curve (HECcoral, downward)
+      \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+         node[above, curvelabel, text=HECcoral] {$I$};
+      % Open-economy allocations at r^W
+      \filldraw[eqpoint=HECnavy] (2.4,1.8) circle (2.7pt);
+      \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (2.7pt);
+      % CA deficit brace
+      \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
+         (2.4,-0.7) -- (3.6,-0.7)
+         node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$ (déficit)}
+         node[midway, below=20pt, font=\scriptsize, text=HECcoral] {Financement net reçu du reste du monde};
+      % Axes (drawn last for z-order)
+      \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
+      \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{La polarisation de l'emploi}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{job_polarization.pdf}
-   \end{figure}
+% ============================================================================
+
+% 47
+\begin{frame}[t]{Le diagramme à deux panneaux}
+   \centering
+   \vfill
+   % Panel 1 (World): S^W: r = 0.42q + 0.13, I^W: r = -0.65q + 4.42
+   %   Equilibrium: 0.42q + 0.13 = -0.65q + 4.42 → 1.07q = 4.29 → q = 4.01, r = 1.82 ≈ 1.8
+   % Panel 2 (Domestic): S: r = 0.75q, I: r = -0.75q + 4.5
+   %   At r^W = 1.8: S = 2.4, I = 3.6, CA = -1.2
+   \begin{tikzpicture}[scale=0.87]
+      % ── Panel 1: World ──────────────────────────
+      \begin{scope}[xshift=0cm]
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.25,5.2) {Monde};
+         % r^W horizontal (green dotted, spans full width)
+         \draw[HECgreen, very thick, dotted] (0,1.8) -- (6.5,1.8);
+         % S^W: r = 0.42q + 0.13
+         \draw[very thick, HECnavy] (0,0.13) -- (6.0,2.65)
+            node[above, xshift=-4pt, curvelabel, text=HECnavy] {$S^W$};
+         % I^W: r = -0.65q + 4.42
+         \draw[very thick, HECcoral] (0,4.42) -- (6.0,0.52)
+            node[above, xshift=-2pt, curvelabel, text=HECcoral] {$I^W$};
+         % Equilibrium
+         \draw[refline] (4.01,0) node[below, pointlabel] {$S^W = I^W$} -- (4.01,1.8);
+         \node[left, pointlabel] at (0,1.8) {$r^W$};
+         \filldraw[eqpoint=HECgreen] (4.01,1.8) circle (3pt);
+         \node[pointlabel, HECgreen, above right] at (4.01,1.8) {$E^W$};
+         % Axes
+         \draw[econaxis] (0,0) -- (6.5,0) node[right] {$S, I$};
+         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+      \end{scope}
+
+      % ── Panel 2: Domestic ──────────────────────
+      \begin{scope}[xshift=7.5cm]
+         \node[font=\normalsize\bfseries, text=HECnavy] at (3.0,5.2) {Domestique};
+         % r^W horizontal
+         \draw[HECgreen, very thick, dotted] (0,1.8) -- (5.8,1.8);
+         \node[left, pointlabel, text=HECgreen] at (0,1.8) {$r^W$};
+         % S: r = 0.75q
+         \draw[very thick, HECnavy] (0,0) -- (5.5,4.125)
+            node[above left, curvelabel, text=HECnavy] {$S$};
+         % I: r = -0.75q + 4.5
+         \draw[very thick, HECcoral] (0,4.5) -- (6.0,0)
+            node[above, curvelabel, text=HECcoral] {$I$};
+         % Allocations at r^W
+         \draw[refline] (2.4,0) node[below, pointlabel] {$S$} -- (2.4,1.8);
+         \draw[refline] (3.6,0) node[below, pointlabel] {$I$} -- (3.6,1.8);
+         \filldraw[eqpoint=HECnavy] (2.4,1.8) circle (2.7pt);
+         \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (2.7pt);
+         % CA deficit brace
+         \draw[decorate, decoration={brace, amplitude=8pt, mirror}, very thick, HECcoral]
+            (2.4,-0.55) -- (3.6,-0.55)
+            node[midway, below=8pt, font=\small\bfseries, text=HECcoral] {$CA < 0$};
+         % Axes
+         \draw[econaxis] (0,0) -- (6.2,0) node[right] {$S, I$};
+         \draw[econaxis] (0,0) -- (0,4.8) node[above] {$r$};
+      \end{scope}
+   \end{tikzpicture}
+   \vfill
 \end{frame}
 
-% --- Automatisation et IA ---------------------------------------------------
+% ============================================================================
 
-\begin{frame}[t]{Automatisation et IA : deux forces opposées}
-   \framesubtitle{Acemoglu \& Restrepo (2019, \textit{JEP})}
-   La production requiert un ensemble de \textbf{tâches}. La technologie change quelles tâches sont effectuées par les machines vs.\ les humains.
-   \vspace{0.3cm}
+% 48
+\begin{frame}[t]{Le même boom d'investissement, économie ouverte}
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (2.4,0) node[below, pointlabel] {$S_0$} -- (2.4,1.8);
+       \draw[refline] (3.6,0) node[below, pointlabel] {$I_0$} -- (3.6,1.8);\draw[refline] (6,0) node[below, pointlabel] {$I_1$} -- (6,1.8);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};\draw[HECgreen, very thick] (0,1.8) -- (6.7,1.8) node[right, curvelabel] {$r^W_0$};\draw[curveshift, HECgreen] (0,6.3) -- (7.2,0.9) node[above right, curvelabel] {$I'$};
+           \draw[shiftarrow, HECgreen] (1.733333,3.5) -- (3.333333,3.5);
+\filldraw[eqpoint] (2.4,1.8) circle (3pt);
+       \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (3pt);\filldraw[eqpoint=HECgreen] (6,1.8) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6.6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
 
-   \textbf{Effet de déplacement :}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item L'automatisation remplace certaines tâches $\to$ réduit la demande de travail
-      \item Caisses automatiques, chaînes d'assemblage robotisées, etc.
-   \end{itemize}
-   \vspace{0.3cm}
-
-   \textbf{Effet de réintégration :}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Réduction des coûts $\to$ hausse de la production $\to$ nouvelles tâches
-      \item Les ATMs ont \textit{réduit} le nombre de caissiers par succursale, mais les banques ont ouvert \textbf{plus de succursales} $\to$ l'emploi total a augmenté
-   \end{itemize}
-\end{frame}
-
-\begin{frame}[t]{Le danger de l'automatisation \guillemotleft~so-so~\guillemotright}
-   L'automatisation \guillemotleft~so-so~\guillemotright qui déplace des travailleurs \textit{sans} gains de productivité significatifs crée le pire scénario :
-   \vspace{0.15cm}
+   Les occasions d'investir augmentent, à $r^W$ donné.
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item \textbf{Caisses libre-service :} déplacent des caissiers, mais n'accélèrent pas vraiment le passage en caisse
-      \item \textbf{Systèmes téléphoniques automatisés :} frustrent les clients sans réduire les coûts de manière significative
+      \item $I$ augmente.
+      \item $S$ reste inchangée.
+      \item $CA = S - I$ diminue.
    \end{itemize}
-   \vspace{0.1cm}
-
-   \begin{warning}[Automatisation \guillemotleft~so-so~\guillemotright]
-      Une technologie qui remplace des travailleurs par des machines à peine plus productives augmente les inégalités sans faire croître le gâteau. \\
-      \mbox{}\hfill{\scriptsize\textcolor{HECgray}{Acemoglu \& Restrepo (2019)}}
-   \end{warning}
+   \vspace{0.2cm}
+   \begin{bizimplication}
+      \RaggedRight
+      Le financement extérieur permet d'investir davantage, à taux mondial inchangé.
+   \end{bizimplication}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Automatisation et inégalités}
-   \framesubtitle{Moll, Rachel \& Restrepo (2022, \textit{Econometrica})}
+% ============================================================================
+
+% 49
+\begin{frame}[t]{Et si le taux mondial augmente\,?}
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (2.4,0) node[below, pointlabel] {$S_0$} -- (2.4,1.8);
+       \draw[refline] (3.6,0) node[below, pointlabel] {$I_0$} -- (3.6,1.8);\draw[refline] (4,0) -- (4,3);
+           \draw[refline] (2,0) -- (2,3);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};\draw[HECgreen, very thick] (0,1.8) -- (6.7,1.8) node[right, curvelabel] {$r^W_0$};\draw[HECgreen, very thick] (0,3) -- (6.7,3) node[right, curvelabel] {$r^W_1$};
+           \draw[shiftarrow, HECgreen] (5.8,2) -- (5.8,2.8);
+\filldraw[eqpoint] (2.4,1.8) circle (3pt);
+       \filldraw[eqpoint=HECcoral] (3.6,1.8) circle (3pt);\filldraw[eqpoint] (4,3) circle (3pt);
+           \filldraw[eqpoint=HECcoral] (2,3) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
+
+   À courbes $S$ et $I$ inchangées :
+   \begin{itemize}
+      \setlength\itemsep{0.2cm}
+      \item L'épargne augmente dans le modèle.
+      \item L'investissement diminue.
+      \item Le compte courant s'améliore.
+   \end{itemize}
+   \vspace{0.2cm}
+   \begin{bizimplication}
+      \RaggedRight
+      Un projet canadien peut devenir moins rentable même si les ventes prévues restent inchangées.
+   \end{bizimplication}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+
+% 50
+\begin{frame}[t]{Emprunter pour investir ou pour consommer\,?}
+\small
+Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que finance l'emprunt.
+   \vspace{0.1cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECgreen}{Investissements productifs}}
+         \RaggedRight
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Usines, logiciels, infrastructures productives
+            \item Les revenus futurs augmentent et peuvent permettre de rembourser.
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \textbf{\textcolor{HECcoral}{Consommation et gaspillage}}
+         \RaggedRight
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Consommation excessive, dépenses publiques improductives
+            \item La dette augmente sans les revenus nécessaires pour rembourser.
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.2cm}
+   \begin{keyinsight}[Emprunter pour produire davantage demain]
+      \RaggedRight
+      Un déficit peut être bénéfique si les investissements financés rapportent davantage que le coût de l'emprunt.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+
+% 51
+\sectionframe{IA : travail, capital et productivité}
+
+% ============================================================================
+
+% 52
+\begin{frame}[t]{Aujourd'hui : un déploiement déjà visible}
+   \vspace{0.15cm}
+   \begin{bizimplication}[Dans les entreprises]
+      \RaggedRight
+      L'IA entre dans les tâches : recherche d'information, analyse, rédaction et programmation.
+   \end{bizimplication}
+   \vspace{0.2cm}
+   \begin{keyinsight}[Dans l'économie]
+      \RaggedRight
+      Puces, centres de données, électricité : du capital à financer.
+   \end{keyinsight}
+   \vspace{0.3cm}
+   \textbf{Et demain\,?} Qui bénéficiera de l'IA, qui financera son déploiement et quels seront les gains de niveau de vie\,?
+\end{frame}
+
+% ============================================================================
+
+% 53
+\begin{frame}[t]{Un métier est un ensemble de tâches}
+   \textbf{Exemple : un analyste de crédit.}
+   \par\vspace{0.25cm}
+   \small
+   \renewcommand{\arraystretch}{1.4}
+   \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.32\textwidth} >{\RaggedRight\arraybackslash}X}
+      \toprule
+      \textbf{Tâche} & \textbf{Apport possible de l'IA} \\
+      \midrule
+      Rassembler l'information & Classer les pièces et repérer les éléments manquants \\
+      Préparer l'analyse & Résumer le dossier et simuler des scénarios \\
+      Décider et échanger & Éclairer le jugement et préparer l'entretien client \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.3cm}
+   \begin{bizimplication}
+      \RaggedRight
+      Automatiser une tâche peut déplacer le travail vers la vérification, le jugement et la relation client.
+   \end{bizimplication}
+\end{frame}
+
+% ============================================================================
+
+% 54
+\begin{frame}[t]{Le boom des centres de données}
+   \centering
+   \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{s3_ai_datacenter_construction.pdf}
+   \par\smallskip
+   {\footnotesize Construction privée aux États-Unis, corrigée de l'inflation ; serveurs exclus.}
+   \par\smallskip
+   {\scriptsize\color{HECgray}Données mensuelles non désaisonnalisées ; les centres de données ne servent pas uniquement à l'IA.}
+\end{frame}
+
+% ============================================================================
+
+% 55
+\begin{frame}[t]{Le financement est devenu plus coûteux}
+   \centering
+   \includegraphics[width=0.95\textwidth, height=0.70\textheight, keepaspectratio]{s3_ai_real_yield.pdf}
+   \par\smallskip
+   {\footnotesize Ce contexte compte pour les centres de données comme pour les autres projets.}
+   \par\smallskip
+   {\scriptsize\color{HECgray}Rendement réel de marché, sans effet causal identifié de l'IA ; hors prime de risque des entreprises.}
+\end{frame}
+
+% ============================================================================
+
+% 56
+\begin{frame}{Demain : quels effets sur l'emploi\,?}
+   \centering
+   \begin{tikzpicture}[scale=.78]
+\begin{scope}
+\node[font=\bfseries] at (3.7,5.9) {Travail substituable};
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (1.5625,0) -- (1.5625,1.296875);
+\node[pointlabel, below] at (1.5625,0) {$L_1$};
+\draw[refline] (0,1.296875) -- (1.5625,1.296875);
+\node[pointlabel, left] at (0,1.296875) {$w_1$};
+\draw[supply] (0,0.125) -- (6.4,4.925) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECcoral] (0,2.46875) -- (3.291667,0) node[above right, curvelabel] {$L^{D\prime}$};
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqpoint=HECcoral] (1.5625,1.296875) circle (3pt);
+\draw[shiftarrow, HECcoral] (3.520834,1) -- (2.270834,1);
+\draw[econaxis] (0,0) -- (7.4,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,5.6) node[above] {$w$};
+\end{scope}
+\begin{scope}[xshift=8.5cm]
+\node[font=\bfseries] at (3.7,5.9) {Travail complémentaire};
+\draw[refline] (2.5,0) -- (2.5,2);
+\node[pointlabel, below] at (2.5,0) {$L_0$};
+\draw[refline] (0,2) -- (2.5,2);
+\node[pointlabel, left] at (0,2) {$w_0$};
+\draw[refline] (3.4375,0) -- (3.4375,2.703125);
+\node[pointlabel, below] at (3.4375,0) {$L_1$};
+\draw[refline] (0,2.703125) -- (3.4375,2.703125);
+\node[pointlabel, left] at (0,2.703125) {$w_1$};
+\draw[supply] (0,0.125) -- (6.4,4.925) node[right, curvelabel] {$L^S$};
+\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
+\draw[curveshift, HECgreen] (0,5.28125) -- (7.041667,0) node[above right, curvelabel] {$L^{D\prime}$};
+\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
+\filldraw[eqpoint] (3.4375,2.703125) circle (3pt);
+\draw[shiftarrow, HECgreen] (4.145834,1) -- (5.395834,1);
+\draw[econaxis] (0,0) -- (7.4,0) node[right] {$L$};
+\draw[econaxis] (0,0) -- (0,5.6) node[above] {$w$};
+\end{scope}
+\end{tikzpicture}
+\end{frame}
+
+% ============================================================================
+
+% 57
+\begin{frame}[t]{Plus de calcul, une moindre part du revenu}
    \begin{columns}[c]
-      \begin{column}{0.58\textwidth}
-         \begin{figure}
-            \centering
-            \includegraphics[height=5.25cm]{moll_rachel_restrepo_2022_3.png}
-         \end{figure}
+      \begin{column}{0.54\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{s3_ai_computer_income_share.pdf}
+         \par\smallskip
+         {\scriptsize\color{HECgray}États-Unis, secteur privé ; valeurs arrondies.}
       \end{column}
-      \begin{column}{0.38\textwidth}
-         \begin{figure}
-            \centering
-            \includegraphics[height=4.5cm]{moll_rachel_restrepo_2022_2.png}
-         \end{figure}
+      \begin{column}{0.42\textwidth}
+         \small\RaggedRight
+         \textbf{Le calcul devient abondant et moins cher.}
+         \par\vspace{0.2cm}
+         Même avec plus de simulations, l'analyste doit encore juger le risque.
+         \vspace{0.25cm}
+         \begin{keyinsight}[Le facteur rare]
+            \RaggedRight\small
+            Si les tâches se complètent, les compétences humaines encore nécessaires peuvent capter davantage de valeur.
+         \end{keyinsight}
       \end{column}
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Leçons de l'histoire}
+% ============================================================================
+
+% 58
+\begin{frame}[t]{Automatiser mieux ou automatiser davantage\,?}
    \small
-   \textbf{Chaque vague technologique a suscité des craintes de chômage de masse :}
-   \vspace{0.2cm}
+   Lorsque les tâches sont \textbf{complémentaires}, deux forces s'opposent :
+   \par\vspace{0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \RaggedRight
+         \textbf{\textcolor{HECgreen}{Des machines plus efficaces}}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item À tâches automatisées inchangées, le calcul coûte moins cher.
+            \item Le travail humain restant devient relativement rare : sa part du revenu peut augmenter.
+         \end{itemize}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \RaggedRight
+         \textbf{\textcolor{HECcoral}{Davantage de tâches automatisées}}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Les machines reprennent des tâches auparavant humaines.
+            \item À efficacité donnée, la part du travail diminue dans le modèle.
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.15cm}
+   \begin{keyinsight}[Part du revenu et niveau des salaires]
+      \RaggedRight
+      La part du travail peut baisser même si les salaires réels augmentent.
+   \end{keyinsight}
+   \par\smallskip{\scriptsize\color{HECgray}\href{https://doi.org/10.1257/aer.20221180}{B. Jones et Liu (2024, AER)} ; \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{C. Jones et Tonetti (2026)}. Effets du modèle.}
+\end{frame}
+
+% ============================================================================
+
+% 59
+\begin{frame}[t]{La part du travail n'est pas constante}
+   \centering
+   \includegraphics[width=0.97\textwidth, height=0.68\textheight, keepaspectratio]{s3_ai_labour_shares.pdf}
+   \par\smallskip
+   {\footnotesize Rémunération du travail / PIB, travailleurs autonomes inclus.}
+   \par\smallskip
+   {\scriptsize\color{HECgray}Ces tendances précèdent l'IA générative et ont plusieurs causes : ce graphique n'en isole pas l'effet.}
+\end{frame}
+
+% ============================================================================
+
+% 60
+\begin{frame}[t]{Un investissement d'une ampleur historique\,?}
+   \centering
+   \includegraphics[width=0.96\textwidth, height=0.66\textheight, keepaspectratio]{s3_ai_investment_booms.pdf}
+   \par\smallskip
+   {\footnotesize IA : bâtiments, équipements informatiques et infrastructure électrique.}
+   \par\smallskip
+   {\scriptsize\color{HECgray}IA : scénario conditionnel, pas une dépense réalisée ; comparaisons historiques approximatives.}
+\end{frame}
+
+% ============================================================================
+
+% 61
+\begin{frame}[t]{Pourquoi l'IA peut-elle relever le taux réel\,?}
+\begin{columns}[c]
+      \begin{column}{0.53\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=.78]
+\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
+       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
+       \draw[refline] (4.2,0) node[below, pointlabel] {$I_1$} -- (4.2,3.15);
+       \draw[refline] (0,3.15) node[left, pointlabel] {$r_1$} -- (4.2,3.15);
+\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
+       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
+       \draw[curveshift, HECgreen] (0,6.3) -- (7.2,0.9) node[above right, curvelabel] {$I'$};
+       \draw[shiftarrow, HECgreen] (1.733333,3.5) -- (3.333333,3.5);
+\filldraw[eqpoint] (3,2.25) circle (3pt);\filldraw[eqpoint=HECgreen] (4.2,3.15) circle (3pt);
+       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
+       \draw[econaxis] (0,0) -- (0,6.6) node[above] {$r$};
+    \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \small
+
+   Davantage de projets deviennent rentables : $I$ se déplace à droite.
    \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Guichets automatiques} (années 1970--90) : le nombre de caissiers par succursale a baissé, mais l'emploi total a \textit{augmenté}.
-      \item \textbf{Tableurs} (années 1980) : Excel n'a pas éliminé les comptables --- il a réduit le coût des calculs et augmenté la demande d'analyse financière.
-      \item \textbf{Traitements de texte} (années 1980) : les secrétaires se sont réorientées vers la coordination et la gestion de projets.
+      \setlength\itemsep{0.15cm}
+      \item À l'échelle mondiale, cela peut relever le taux réel.
+      \item D'autres projets deviennent moins rentables.
    \end{itemize}
    \vspace{0.1cm}
-
-   \begin{keyinsight}[Le saviez-vous\,?]
-      Socrate s'opposait à l'invention de l'\textit{écriture}, craignant qu'elle détruise la mémoire et la capacité de penser\ldots
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}[t]{Et qu'en est-il de l'IA\,?}
-   \framesubtitle{Yotzov et al.\ (NBER, 2026) --- 6\,000 dirigeants (É.-U., R.-U., Allemagne, Australie)}
-   \small
-   \begin{columns}[t]
-      \begin{column}{0.47\textwidth}
-         \quad \textbf{Aujourd'hui}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item \textbf{69\,\%} des entreprises l'utilisent
-            \item Les dirigeants l'utilisent en moyenne \textbf{1.5\,h/semaine}
-            \item \textbf{80\,\%+} des entreprises ne rapportent \textit{aucun impact} sur l'emploi ou la productivité
-         \end{itemize}
-      \end{column}
-      \hspace{-1cm}
-      \begin{column}{0.47\textwidth}
-         \quad \textbf{Anticipations (3 prochaines années)}
-         \vspace{0.1cm}
-         \begin{itemize}
-            \setlength\itemsep{0.1cm}
-            \item Productivité : \textbf{+1.4\,\%}
-            \item Production : \textbf{+0.8\,\%}
-            \item Emploi selon les \textit{dirigeants} : \textbf{$-$0.7\,\%}
-            \item Emploi selon les \textit{employés} : \textbf{+0.5\,\%}
-         \end{itemize}
+   \begingroup\footnotesize
+   \begin{exercise}[À vous : le Canada]
+      \RaggedRight\footnotesize
+      Au Canada, $I$ augmente ; $S$ et $r^W$ restent fixes. Que devient $CA$\,?
+   \end{exercise}
+   \endgroup
+   \par\smallskip{\scriptsize\color{HECgray}Mécanisme à épargne donnée.}
       \end{column}
    \end{columns}
-   \vspace{0.15cm}
-   \begin{warning}
-      Les dirigeants prévoient des suppressions de postes; les employés anticipent des créations nettes. Qui a raison\,? Pour l'instant, les données ne tranchent pas.
-   \end{warning}
 \end{frame}
 
-\begin{frame}[t]{Pourquoi l'impact de l'IA tarde-t-il\,?}
-   \framesubtitle{Le paradoxe de Solow}
-   \vspace{0.2cm}
-   \begin{keyinsight}[Robert Solow, 1987]
-      \small
-      \guillemotleft~\textit{On voit l'âge des ordinateurs partout, sauf dans les statistiques de productivité.}\guillemotright
+% ============================================================================
+
+% 62
+\begin{frame}[t]{Et si l'IA accélérait aussi l'innovation\,?}
+   \begin{itemize}
+      \setlength\itemsep{0.18cm}
+      \item \textbf{Produire mieux :} réaliser plus efficacement une activité existante.
+      \item \textbf{Innover :} concevoir, simuler et tester de nouveaux produits ou procédés.
+   \end{itemize}
+   \vspace{0.1cm}
+   \begin{bizimplication}[Développer un médicament]
+      \RaggedRight
+      L'IA peut proposer des molécules prometteuses. Les essais et le passage à l'échelle restent incontournables.
+   \end{bizimplication}
+   \vspace{0.15cm}
+   \begin{keyinsight}[Lien avec la séance 2]
+      \RaggedRight
+      L'IA peut faire progresser $A$ en facilitant la découverte de nouvelles idées.
    \end{keyinsight}
-   \vspace{0.3cm}
-   \begin{itemize}
-      \setlength\itemsep{0.3cm}
-      \item La même chose se produit avec l'IA --- les gains de productivité \textbf{agrégée} tardent à se matérialiser\ldots
-      \item Pourquoi\,? La réponse tient en un mot~: \textbf{complémentarité}
-   \end{itemize}
+   \par\smallskip{\scriptsize\color{HECgray}\href{https://www.kellogg.northwestern.edu/faculty/jones-ben/htm/Artificial_Intelligence_in_Research_and_Development.pdf}{B. Jones (2025), IA et R\&D (document de travail)}}
 \end{frame}
 
-\begin{frame}[t]{Complémentarité, maillons faibles et goulots d'étranglement}
+% ============================================================================
+
+% 63
+\begin{frame}[t]{Le paradoxe de Solow, version IA}
    \small
+   Une technologie très visible peut avoir des gains de productivité encore peu visibles.
+   \par\vspace{0.15cm}
+   \textbf{Une enquête :} Yotzov et al. (2026), près de 6\,000 dirigeants dans quatre pays.
+   \vspace{0.3cm}
+   \begin{columns}[T]
+      \begin{column}{0.45\textwidth}
+         \RaggedRight
+         {\LARGE\bfseries\color{HECnavy}$\approx 70\,\%$}\par\smallskip
+         des entreprises utilisent l'IA.
+      \end{column}
+      \begin{column}{0.48\textwidth}
+         \RaggedRight
+         {\LARGE\bfseries\color{HECcoral}$> 80\,\%$}\par\smallskip
+         ne déclarent aucun effet sur l'emploi ou la productivité durant les trois dernières années.
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \begin{keyinsight}[Adopter un outil ne suffit pas]
+      \RaggedRight
+      Les gains dépendent aussi de la diffusion, de la formation et de la réorganisation du travail.
+   \end{keyinsight}
+   \par\smallskip{\scriptsize\color{HECgray}\href{https://www.atlantafed.org/research-and-data/publications/working-papers/2026/03/24/03-firm-data-on-ai}{Yotzov et al. (2026), Firm Data on AI. Déclarations, et non estimation causale.}}
+\end{frame}
+
+% ============================================================================
+
+% 64
+\begin{frame}[t]{Accélérer une étape ne suffit pas}
+   \textbf{Retour à l'analyste de crédit :} préparer, puis valider un dossier.
+   \par\vspace{0.2cm}
+   \renewcommand{\arraystretch}{1.4}
+   \centering
+   \begin{tabular}{lrrr}
+      \toprule
+      & \textbf{Préparation} & \textbf{Validation} & \textbf{Total} \\
+      \midrule
+      Avant & 10 min & 50 min & \textbf{60 min} \\
+      Avec l'IA & 1 min & 50 min & \textbf{51 min} \\
+      \bottomrule
+   \end{tabular}
+   \par\vspace{0.2cm}
+   \begin{keyinsight}[Le goulot d'étranglement]
+      \RaggedRight
+      La préparation prend \textbf{90\,\%} de temps en moins ; le dossier complet, seulement \textbf{15\,\%} de moins. Le goulot reste la validation.
+   \end{keyinsight}
+   \par\smallskip{\scriptsize\color{HECgray}Exemple séquentiel. Maillons faibles : \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{C. Jones et Tonetti (2026), document de travail}.}
+\end{frame}
+
+% ============================================================================
+
+% 65
+\begin{frame}[t]{Baumol : pourquoi certains services deviennent plus chers}
+   \small
+   \textbf{Un quatuor :} quatre musiciens sont toujours nécessaires pour jouer une œuvre en direct.
+   \vspace{0.1cm}
    \begin{enumerate}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{La production est une chaîne de tâches complémentaires} (théorie O-ring)
-      \newline{\scriptsize\color{HECgray}Le joint O-ring de la navette Challenger; les chaînes d'approvisionnement paralysées pendant le Covid; toute l'industrie mondiale des puces dépend des machines d'une seule entreprise néerlandaise (ASML)}
-      \newline{\scriptsize\color{HECgray}(Kremer, \textit{QJE}, 1993; Jones, \textit{AEJ:~Macro}, 2011)}
-
-      \item \textbf{L'IA n'automatise (encore) que certaines tâches} (paradoxe de Moravec)
-      \newline{\scriptsize\color{HECgray}Ce qui est simple pour un humain (jugement, motricité, bon sens) est difficile pour l'IA --- et vice versa}
-
-      \item \textbf{Les tâches non automatisées deviennent les goulots d'étranglement}
-      \newline{\scriptsize\color{HECgray}L'économie ne peut croître plus vite que son maillon le plus faible}
-      \newline{\scriptsize\color{HECgray}(Jones \& Tonetti, 2026; Aghion, Jones \& Jones, 2018)}
-
-      \item \textbf{Conséquence~: la maladie des coûts de Baumol}
-      \newline{\scriptsize\color{HECgray}Les secteurs difficiles à automatiser ne deviennent pas plus productifs, mais doivent compétionner pour les mêmes salaires $\to$ leurs prix montent~: santé, éducation, construction, garde d'enfants}
+      \setlength\itemsep{0.18cm}
+      \item Dans les secteurs productifs, davantage de production par heure permet de relever les salaires.
+      \item Les activités à productivité lente doivent aussi attirer et retenir leur personnel.
+      \item Si leurs salaires suivent sans gain comparable de production, leur \textbf{coût par service rendu augmente}.
    \end{enumerate}
+   \vspace{0.05cm}
+   \begin{keyinsight}[Le lien avec l'IA]
+      \RaggedRight
+      Les activités essentielles qui progressent lentement peuvent peser davantage dans les dépenses. Les améliorer devient décisif pour les gains d'ensemble.
+   \end{keyinsight}
+   \par\smallskip{\scriptsize\color{HECgray}\href{https://web.stanford.edu/~chadj/AJJ-AIandGrowth.pdf}{Aghion, B. Jones et C. Jones (2019)}}
 \end{frame}
 
-\begin{frame}{La maladie des coûts de Baumol au Canada}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.82\textheight, keepaspectratio]{baumol_cost_disease_canada.pdf}
-   \end{figure}
+% ============================================================================
+
+% 66
+\begin{frame}[t]{Baumol au Canada : où sont les prochains gains\,?}
+   \centering
+   \includegraphics[width=0.95\textwidth, height=0.70\textheight, keepaspectratio]{baumol_cost_disease_canada.pdf}
+   \par\smallskip
+   {\small \textbf{Discussion :} où l'IA pourrait-elle lever ces contraintes\,?}
+   \par\smallskip
+   {\scriptsize\color{HECgray}Les écarts de prix reflètent aussi d'autres facteurs que la productivité.}
 \end{frame}
 
+% ============================================================================
 
-% --- Faut-il s'inquiéter? ----------------------------------------------------
-
-\begin{frame}[t]{Faut-il s'inquiéter de la montée des inégalités\,?}
-   \textbf{L'argument \guillemotleft~pour~\guillemotright{} les inégalités~:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Sans récompenses différenciées, qui prendrait des risques, innoverait, travaillerait 80~heures par semaine\,?
-      \item L'inégalité des \textbf{résultats} n'est pas le problème en soi
+% 67
+\begin{frame}[t]{Ce que les deux marchés nous apprennent}
+\begin{itemize}
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Emploi et salaires :} l'offre de travail rencontre les besoins des entreprises.
+      \item \textbf{Investissement et taux réel :} les projets rencontrent les ressources épargnées.
+      \item \textbf{Compte courant :} l'épargne et l'investissement peuvent différer grâce au financement international.
    \end{itemize}
    \vspace{0.3cm}
-   \textbf{Le vrai problème --- l'inégalité des \textbf{chances}~:}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Combien de futurs Albert Einstein et Marie Curie grandissent dans des familles sans accès à une éducation de qualité\,?
-      \item Inégalité des chances $\to$ \textbf{talent gaspillé} $\to$ \textbf{croissance perdue}
-      \item Empiriquement, inégalité des résultats $\to$ inégalité des chances\ldots
-   \end{itemize}
-\end{frame}
-
-\begin{frame}{La \guillemotleft~Courbe de Gatsby~\guillemotright}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{gatsby_curve.pdf}
-   \end{figure}
+   \begin{keyinsight}[La question suivante]
+      \RaggedRight
+      Que se passe-t-il lorsque les dépenses changent rapidement, mais que les prix et les salaires s'ajustent lentement\,?
+   \end{keyinsight}
 \end{frame}
 
 % ============================================================================
 
-\begin{frame}{}
-   \centering
-   \vspace{1.5cm}
-   {\Large\textbf{Qu'est-ce que vous retenez de cette séance\,?}}
-\end{frame}
-
-% ============================================================================
+% 68
 \sectionframe{Et pour la suite\,?}
+
 % ============================================================================
 
+% 69
 \begin{frame}{Thèmes et séances à venir}
-   \renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.5}
    \centering
    \small
-   \begin{tabularx}{\textwidth}{>{\bfseries}X l}
+   \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.43\textwidth}}
       \toprule
       \textbf{Thème} & \textbf{Séance} \\
       \midrule
-      Pourquoi l'économie connaît des hauts et des bas\,? & S4 : Cycles économiques \\
-      Pourquoi/comment combattre les récessions\,? & S5 : Pol.\ mon.\ et budgétaire \\
-      Quel avenir pour la mondialisation\,? & S6 : Commerce international \\
+      Pourquoi l'économie connaît-elle des hauts et des bas\,? & S4 : Cycles économiques \\
+      Pourquoi et comment combattre les récessions\,? & S5 : Pol. monétaire et budgétaire \\
       \bottomrule
    \end{tabularx}
 \end{frame}
+
+% ============================================================================
 
 \end{document}

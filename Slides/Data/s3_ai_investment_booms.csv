@@ -1,0 +1,7 @@
+label_fr,start_year,end_year,average_annual_percent_gdp,is_scenario
+Canaux,1836,1841,0.66,False
+Chemins de fer,1870,1890,2.24,False
+Électrification,1905,1925,0.5,False
+Routes,1956,1973,1.13,False
+Télécoms et fibre,1996,2003,1.1,False
+Infrastructure IA,2025,2032,3.63,True

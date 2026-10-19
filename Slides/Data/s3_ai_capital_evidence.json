@@ -1,0 +1,46 @@
+{
+  "retrieved_on": "2026-10-17",
+  "construction": {
+    "url": "https://www.census.gov/construction/c30/xlsx/privsatime.xlsx",
+    "source": "US Census Bureau, Private SA, Data center",
+    "units_input": "Millions of current US dollars, seasonally adjusted annual rate.",
+    "units_plot": "Billions of current US dollars, seasonally adjusted annual rate.",
+    "transformation": "Divide by 1000 only; do not annualise a second time; no inflation adjustment.",
+    "coverage": "Private construction value put in place. Excludes servers/racks and land acquisition. Not exclusively AI facilities.",
+    "definitions_url": "https://www.census.gov/construction/c30/definitions.html",
+    "last_date": "2026-08-01",
+    "release_flags": "p = preliminary; r = revised; flags preserved from source workbook.",
+    "download_sha256": "e9faea98ea4fc9c57ffbb4e7e576a5907e17e2324dce7d4e58a17aaa8bb2c560"
+  },
+  "real_yield": {
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10&cosd=2015-01-01",
+    "source": "Federal Reserve Board, H.15, via FRED, DFII10",
+    "units": "Percent per annum, daily, not seasonally adjusted.",
+    "coverage": "10-year inflation-indexed constant-maturity US Treasury yield; observed market real yield, not an estimate of the natural rate or causal AI effect.",
+    "transformation": "None; missing holiday observations retained as gaps; no interpolation.",
+    "last_date": "2026-10-15",
+    "download_sha256": "24e9b76b9a33bb5364a5e91fad58256450389a78696c77ae670d88096cac15f9"
+  },
+  "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_capital_evidence(); f.ai_datacenter_construction(); f.ai_real_yield()\"",
+  "construction_real_monthly": {
+    "url": "https://ourworldindata.org/grapher/monthly-spending-data-center-us.csv?v=1&csvType=full&useColumnShortNames=false",
+    "retrieved_on": "2026-10-18",
+    "source": "US Census Bureau / BLS, processed by Our World in Data; same series as FT chart.",
+    "methodology_url": "https://ourworldindata.org/grapher/monthly-spending-data-center-us",
+    "units_input": "Constant 2021 US dollars per month, not seasonally adjusted.",
+    "units_plot": "Billions of constant 2021 US dollars per month, not seasonally adjusted.",
+    "transformation": "Divide by 1e9 only. OWID deflates Census monthly NSA values with an equal-weight composite of industrial and warehouse construction PPIs, each rebased to 2021 = 100. No annualization or smoothing.",
+    "coverage": "Private construction, excluding IT hardware and land. Includes non-AI data centers. Latest months preliminary.",
+    "last_date": "2026-08-01",
+    "download_sha256": "f1705a3defb4fc5d9e2c2f98fff2aa9b873ceca9787f0d376b38473fca5c4f72"
+  },
+  "investment_booms": {
+    "url": "https://www.brookings.edu/wp-content/uploads/2026/09/4c_Van-Nieuwerburgh.pdf",
+    "source": "Stijn Van Nieuwerburgh, Financing the AI Buildout, September 2026 conference draft, Table 1 and Appendix C.",
+    "article_url": "https://www.ft.com/content/9ea5a37d-15c9-4d5b-94d6-719048c9cd3c",
+    "ft_chart_url": "https://flo.uri.sh/visualisation/30593759/embed?auto=1",
+    "units": "Average annual capital expenditure as percent of contemporaneous US GDP over each episode.",
+    "transformation": "Manual transcription of exact Table 1 values; display rounded to one decimal as in FT. AI is a conditional scenario, not realized spending or a forecast.",
+    "caveats": "Historical coverage differs across episodes. AI includes IT equipment, buildings and associated power infrastructure; historical railroads exclude at least some rolling stock. See Appendix C."
+  }
+}
