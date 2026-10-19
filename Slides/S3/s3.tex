@@ -8,6 +8,7 @@
 \begin{document}
 
 % Narrative: labour -> saving/investment -> current account -> integrated AI application.
+% AI growth: Solow puzzle -> weak links -> Baumol -> three automation scenarios.
 % Detailed nominal wage rigidity is treated in Session 4.
 % Broad inequality survey omitted from the core sequence; retained in Git history.
 % ============================================================================
@@ -19,19 +20,20 @@
 % 2
 \begin{frame}[t]{Deux ressources, deux décisions}
 \vspace{0.3cm}
-   Pour agrandir une entreprise, il faut \textbf{recruter} et \textbf{investir}.
+   Pour faire croître une entreprise, il faut \textbf{recruter} et \textbf{investir}.
    \vspace{0.4cm}
    \begin{itemize}
       \setlength\itemsep{0.35cm}
-      \item Qu'est-ce qui détermine les \textbf{salaires} et l'emploi\,?
-      \item Quels projets sont rentables au \textbf{taux d'intérêt} courant\,?
+      \item Qu'est-ce qui détermine les \textbf{salaires et l'emploi}\,?
+      \item Qu'est-ce qui détermine les \textbf{conditions d'emprunt/investissement}\,?
       \item Qui finance ces projets : les épargnants d'ici ou d'ailleurs\,?
    \end{itemize}
    \vspace{0.35cm}
    \begin{keyinsight}[Le fil conducteur]
       \RaggedRight
-      Séance 2 : pourquoi le travail et le capital comptent.\\
-      Aujourd'hui : comment ils sont mobilisés et rémunérés.
+      Séance 2 : pourquoi le travail et le capital comptent\,?\\
+      \vspace{0.15cm}
+      Aujourd'hui : comment sont-ils déterminés et rémunérés\,?
    \end{keyinsight}
 \end{frame}
 
@@ -880,33 +882,11 @@
 % ============================================================================
 
 % 34
-\begin{frame}[t]{À vous : même taux, même diagnostic\,?}
-\begin{exercise}[Économie fermée]
-   \RaggedRight
-      Le taux d'intérêt réel augmente dans deux scénarios :
-      \begin{enumerate}
-         \setlength\itemsep{0.2cm}
-         \item Les entreprises découvrent de nouveaux projets rentables.
-         \item Les ménages décident de consommer davantage.
-      \end{enumerate}
-   \end{exercise}
-   \vspace{0.3cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Quelle courbe se déplace dans chaque cas\,?
-      \item L'investissement augmente-t-il ou diminue-t-il\,?
-      \item Que faut-il observer pour distinguer les deux scénarios\,?
-   \end{itemize}
-\end{frame}
-
-% ============================================================================
-
-% 35
 \sectionframe{Le compte courant et \\ le financement international}
 
 % ============================================================================
 
-% 36
+% 35
 \begin{frame}[t]{Faut-il se limiter à l'épargne canadienne\,?}
 \vspace{0.2cm}
    Une entreprise canadienne peut financer son usine auprès d'un \textbf{fonds de pension allemand} ou d'un \textbf{investisseur japonais}.
@@ -926,7 +906,7 @@
 
 % ============================================================================
 
-% 37
+% 36
 \begin{frame}[t]{Qu'est-ce que le compte courant\,?}\examtag
 Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde, moins ce qu'il lui verse, en termes de commerce, de revenus et de transferts.
    \begin{equation*}
@@ -935,13 +915,13 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
    \vspace{0.2cm}
    \begin{keyinsight}[$CA \approx NX$ : une approximation raisonnable]
       \RaggedRight
-      La balance commerciale explique souvent l'essentiel du compte courant. On peut donc assimiler $CA$ à $NX$ pour notre analyse, sauf lorsque les revenus et transferts sont importants.
+      La balance commerciale explique souvent l'essentiel du compte courant.
    \end{keyinsight}
 \end{frame}
 
 % ============================================================================
 
-% 38
+% 37
 \begin{frame}{Le compte courant américain}
    \begin{figure}
       \centering
@@ -952,7 +932,7 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
 % ============================================================================
 
 % Session 6 regional time series, updated with Canada and a fixed country panel.
-% 39
+% 38
 \begin{frame}{Les déséquilibres mondiaux des comptes courants}
    \begin{figure}
       \centering
@@ -962,7 +942,7 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
 
 % ============================================================================
 
-% 40
+% 39
 \begin{frame}[t]{Du PIB au compte courant}\examtag
 Partons de l'identité comptable du PIB (rappel séance 1) :
    \vspace{0.2cm}
@@ -977,7 +957,7 @@ Partons de l'identité comptable du PIB (rappel séance 1) :
 
 % ============================================================================
 
-% 41
+% 40
 \begin{frame}[t]{L'identité fondamentale}\examtag
 \centering
    {\LARGE $\mathbf{CA = S - I}$}
@@ -1008,17 +988,17 @@ Partons de l'identité comptable du PIB (rappel séance 1) :
 % ============================================================================
 
 % Session 6 saving-rate histories, with Canada; retain each series' actual endpoint.
-% 42
-\begin{frame}[t]{La divergence des taux d'épargne}
-   \centering
-   \includegraphics[width=0.95\textwidth, height=0.76\textheight, keepaspectratio]{s3_saving_rates_divergence.pdf}
-   \par\smallskip
-   {\scriptsize\color{HECgray}Chine et États-Unis : jusqu'en 2024 ; autres pays : jusqu'en 2025.}
+% 41
+\begin{frame}{La divergence des taux d'épargne}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_saving_rates_divergence.pdf}
+   \end{figure}
 \end{frame}
 
 % ============================================================================
 
-% 43
+% 42
 \begin{frame}[t]{Les déficits jumeaux}\examtag
 Puisque $S = S_P + S_G$, on peut écrire :
    \begin{equation*} CA = S_P + S_G - I \end{equation*}
@@ -1033,7 +1013,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 44
+% 43
 \begin{frame}{Les déficits jumeaux américains}
    \begin{figure}
       \centering
@@ -1044,7 +1024,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 45
+% 44
 \begin{frame}[t]{De l'économie fermée à l'économie ouverte}
    \small
    \vspace{0.1cm}
@@ -1081,7 +1061,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 46
+% 45
 \begin{frame}[t]{Diagramme S-I en économie ouverte}
    \centering
    % S curve: r = 0.75q → passes through origin (0, 0)
@@ -1119,7 +1099,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 47
+% 46
 \begin{frame}[t]{Le diagramme à deux panneaux}
    \centering
    \vfill
@@ -1180,7 +1160,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 48
+% 47
 \begin{frame}[t]{Le même boom d'investissement, économie ouverte}
 \begin{columns}[c]
       \begin{column}{0.53\textwidth}
@@ -1218,7 +1198,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 49
+% 48
 \begin{frame}[t]{Et si le taux mondial augmente\,?}
 \begin{columns}[c]
       \begin{column}{0.53\textwidth}
@@ -1258,7 +1238,7 @@ Puisque $S = S_P + S_G$, on peut écrire :
 
 % ============================================================================
 
-% 50
+% 49
 \begin{frame}[t]{Emprunter pour investir ou pour consommer\,?}
 \small
 Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que finance l'emprunt.
@@ -1292,79 +1272,83 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 51
-\sectionframe{IA : travail, capital et productivité}
+% 50
+\sectionframe{IA : les premiers effets observés}
 
 % ============================================================================
 
-% 52
+% 51
 \begin{frame}[t]{Aujourd'hui : un déploiement déjà visible}
    \vspace{0.15cm}
    \begin{bizimplication}[Dans les entreprises]
       \RaggedRight
-      L'IA entre dans les tâches : recherche d'information, analyse, rédaction et programmation.
+      L'IA se fait attribuer de plus en plus de tâches : recherche d'information, analyse, rédaction, programmation, etc.
    \end{bizimplication}
-   \vspace{0.2cm}
+   \vspace{0.1cm}
    \begin{keyinsight}[Dans l'économie]
       \RaggedRight
-      Puces, centres de données, électricité : du capital à financer.
+      Réorganisation du travail, investissements massifs dans les centres de données et demande d'électricité croissante.
    \end{keyinsight}
-   \vspace{0.3cm}
-   \textbf{Et demain\,?} Qui bénéficiera de l'IA, qui financera son déploiement et quels seront les gains de niveau de vie\,?
+   \vspace{0.25cm}
+   \textbf{Notre fil conducteur :} les premiers effets, le partage des gains, puis la croissance future.
+\end{frame}
+
+% ============================================================================
+
+% 52
+\begin{frame}[t]{Polarisation, automatisation et IA}
+   \framesubtitle{Une même logique économique : confier des tâches humaines aux machines.}
+   {\centering
+   \includegraphics[width=0.95\textwidth, height=0.65\textheight, keepaspectratio]{job_polarization.pdf}\par}
+   \par\smallskip
+   {\footnotesize\centering L'IA va-t-elle étendre l'automatisation aux tâches cognitives moins routinières\,?\par}
 \end{frame}
 
 % ============================================================================
 
 % 53
-\begin{frame}[t]{Un métier est un ensemble de tâches}
-   \textbf{Exemple : un analyste de crédit.}
-   \par\vspace{0.25cm}
-   \small
-   \renewcommand{\arraystretch}{1.4}
-   \begin{tabularx}{\textwidth}{>{\RaggedRight\arraybackslash}p{0.32\textwidth} >{\RaggedRight\arraybackslash}X}
-      \toprule
-      \textbf{Tâche} & \textbf{Apport possible de l'IA} \\
-      \midrule
-      Rassembler l'information & Classer les pièces et repérer les éléments manquants \\
-      Préparer l'analyse & Résumer le dossier et simuler des scénarios \\
-      Décider et échanger & Éclairer le jugement et préparer l'entretien client \\
-      \bottomrule
-   \end{tabularx}
-   \vspace{0.3cm}
-   \begin{bizimplication}
-      \RaggedRight
-      Automatiser une tâche peut déplacer le travail vers la vérification, le jugement et la relation client.
-   \end{bizimplication}
+\begin{frame}{L'entrée sur le marché du travail se complique}
+   \begin{columns}[c]
+      \begin{column}{0.28\textwidth}
+         \centering
+         {\Huge\bfseries\color{HECcoral}$-19\,\%$}
+         \par\smallskip
+         \textbf{Écart relatif d'emploi}
+         \par\smallskip
+         {\small 22--25 ans}
+         \par\smallskip
+         {\scriptsize Novembre 2022 -- juin 2026}
+      \end{column}
+      \begin{column}{0.66\textwidth}
+         \small\RaggedRight
+         Dans les métiers les plus exposés à l'IA, l'emploi des \mbox{22--25 ans} est inférieur à ce qu'il aurait été s'il avait suivi celui des métiers moins exposés.
+         \par\vspace{0.15cm}
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Le décalage passe surtout par \textbf{moins d'embauches}.
+            \item Pas d'écart comparable chez les travailleurs seniors.
+         \end{itemize}
+      \end{column}
+   \end{columns}
+   \vspace{0.5cm}
+   {\scriptsize\color{HECgray}\RaggedRight Données de paie ADP aux États-Unis. Écart descriptif : l'étude n'isole pas un effet causal de l'IA.\par}
+   \par\smallskip
+   {\scriptsize\color{HECgray}\href{https://digitaleconomy.stanford.edu/app/uploads/2026/08/Canaries_August2026.pdf}{Brynjolfsson, Chandar et Chen (août 2026), \textit{Canaries in the Coal Mine?}}}
 \end{frame}
 
 % ============================================================================
 
 % 54
-\begin{frame}[t]{Le boom des centres de données}
-   \centering
-   \includegraphics[width=0.95\textwidth, height=0.75\textheight, keepaspectratio]{s3_ai_datacenter_construction.pdf}
-   \par\smallskip
-   {\footnotesize Construction privée aux États-Unis, corrigée de l'inflation ; serveurs exclus.}
-   \par\smallskip
-   {\scriptsize\color{HECgray}Données mensuelles non désaisonnalisées ; les centres de données ne servent pas uniquement à l'IA.}
+\begin{frame}[t]{Que prévoient les entreprises pour l'emploi\,?}
+   \framesubtitle{Baslandze et al. (2026) : 734 dirigeants financiers américains interrogés fin 2025.}
+   {\centering
+   \includegraphics[width=0.95\textwidth, height=0.73\textheight, keepaspectratio]{s3_ai_cfo_employment.pdf}\par}
 \end{frame}
 
 % ============================================================================
 
 % 55
-\begin{frame}[t]{Le financement est devenu plus coûteux}
-   \centering
-   \includegraphics[width=0.95\textwidth, height=0.70\textheight, keepaspectratio]{s3_ai_real_yield.pdf}
-   \par\smallskip
-   {\footnotesize Ce contexte compte pour les centres de données comme pour les autres projets.}
-   \par\smallskip
-   {\scriptsize\color{HECgray}Rendement réel de marché, sans effet causal identifié de l'IA ; hors prime de risque des entreprises.}
-\end{frame}
-
-% ============================================================================
-
-% 56
-\begin{frame}{Demain : quels effets sur l'emploi\,?}
+\begin{frame}{L'IA peut remplacer ou compléter le travail}
    \centering
    \begin{tikzpicture}[scale=.78]
 \begin{scope}
@@ -1410,79 +1394,27 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
+% 56
+\begin{frame}{La prime salariale universitaire}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{inequality_skill_premium.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
 % 57
-\begin{frame}[t]{Plus de calcul, une moindre part du revenu}
-   \begin{columns}[c]
-      \begin{column}{0.54\textwidth}
-         \centering
-         \includegraphics[width=\linewidth]{s3_ai_computer_income_share.pdf}
-         \par\smallskip
-         {\scriptsize\color{HECgray}États-Unis, secteur privé ; valeurs arrondies.}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small\RaggedRight
-         \textbf{Le calcul devient abondant et moins cher.}
-         \par\vspace{0.2cm}
-         Même avec plus de simulations, l'analyste doit encore juger le risque.
-         \vspace{0.25cm}
-         \begin{keyinsight}[Le facteur rare]
-            \RaggedRight\small
-            Si les tâches se complètent, les compétences humaines encore nécessaires peuvent capter davantage de valeur.
-         \end{keyinsight}
-      \end{column}
-   \end{columns}
+\begin{frame}{Le boom des centres de données aux États-Unis}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_datacenter_construction.pdf}
+   \end{figure}
 \end{frame}
 
 % ============================================================================
 
 % 58
-\begin{frame}[t]{Automatiser mieux ou automatiser davantage\,?}
-   \small
-   Lorsque les tâches sont \textbf{complémentaires}, deux forces s'opposent :
-   \par\vspace{0.25cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \RaggedRight
-         \textbf{\textcolor{HECgreen}{Des machines plus efficaces}}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item À tâches automatisées inchangées, le calcul coûte moins cher.
-            \item Le travail humain restant devient relativement rare : sa part du revenu peut augmenter.
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \RaggedRight
-         \textbf{\textcolor{HECcoral}{Davantage de tâches automatisées}}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Les machines reprennent des tâches auparavant humaines.
-            \item À efficacité donnée, la part du travail diminue dans le modèle.
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.15cm}
-   \begin{keyinsight}[Part du revenu et niveau des salaires]
-      \RaggedRight
-      La part du travail peut baisser même si les salaires réels augmentent.
-   \end{keyinsight}
-   \par\smallskip{\scriptsize\color{HECgray}\href{https://doi.org/10.1257/aer.20221180}{B. Jones et Liu (2024, AER)} ; \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{C. Jones et Tonetti (2026)}. Effets du modèle.}
-\end{frame}
-
-% ============================================================================
-
-% 59
-\begin{frame}[t]{La part du travail n'est pas constante}
-   \centering
-   \includegraphics[width=0.97\textwidth, height=0.68\textheight, keepaspectratio]{s3_ai_labour_shares.pdf}
-   \par\smallskip
-   {\footnotesize Rémunération du travail / PIB, travailleurs autonomes inclus.}
-   \par\smallskip
-   {\scriptsize\color{HECgray}Ces tendances précèdent l'IA générative et ont plusieurs causes : ce graphique n'en isole pas l'effet.}
-\end{frame}
-
-% ============================================================================
-
-% 60
 \begin{frame}[t]{Un investissement d'une ampleur historique\,?}
    \centering
    \includegraphics[width=0.96\textwidth, height=0.66\textheight, keepaspectratio]{s3_ai_investment_booms.pdf}
@@ -1494,9 +1426,9 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 61
-\begin{frame}[t]{Pourquoi l'IA peut-elle relever le taux réel\,?}
-\begin{columns}[c]
+% 59
+\begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
+   \begin{columns}[c]
       \begin{column}{0.53\textwidth}
          \centering
          \begin{tikzpicture}[scale=.78]
@@ -1514,172 +1446,242 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
     \end{tikzpicture}
       \end{column}
       \begin{column}{0.43\textwidth}
-         \small
-
-   Davantage de projets deviennent rentables : $I$ se déplace à droite.
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item À l'échelle mondiale, cela peut relever le taux réel.
-      \item D'autres projets deviennent moins rentables.
-   \end{itemize}
-   \vspace{0.1cm}
-   \begingroup\footnotesize
-   \begin{exercise}[À vous : le Canada]
-      \RaggedRight\footnotesize
-      Au Canada, $I$ augmente ; $S$ et $r^W$ restent fixes. Que devient $CA$\,?
-   \end{exercise}
-   \endgroup
-   \par\smallskip{\scriptsize\color{HECgray}Mécanisme à épargne donnée.}
+         \small\RaggedRight
+         \textbf{1. Plus de projets à financer}
+         \par\smallskip
+         À taux donné, $I$ se déplace à droite.
+         \par\vspace{0.4cm}
+         \textbf{2. Le taux réel augmente}
+         \par\smallskip
+         À épargne donnée, la hausse de $r$ équilibre le marché.
+         \par\vspace{0.4cm}
+         \textbf{3. D'autres projets sont évincés}
+         \par\smallskip
+         Certains investissements ne sont plus assez rentables.
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
 
+% 60
+\begin{frame}{Le financement est devenu plus coûteux}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_real_yield.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
+% 61
+\sectionframe{Qui captera les gains de l'IA\,?}
+
+% ============================================================================
+
 % 62
-\begin{frame}[t]{Et si l'IA accélérait aussi l'innovation\,?}
-   \begin{itemize}
-      \setlength\itemsep{0.18cm}
-      \item \textbf{Produire mieux :} réaliser plus efficacement une activité existante.
-      \item \textbf{Innover :} concevoir, simuler et tester de nouveaux produits ou procédés.
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{bizimplication}[Développer un médicament]
-      \RaggedRight
-      L'IA peut proposer des molécules prometteuses. Les essais et le passage à l'échelle restent incontournables.
-   \end{bizimplication}
-   \vspace{0.15cm}
-   \begin{keyinsight}[Lien avec la séance 2]
-      \RaggedRight
-      L'IA peut faire progresser $A$ en facilitant la découverte de nouvelles idées.
-   \end{keyinsight}
-   \par\smallskip{\scriptsize\color{HECgray}\href{https://www.kellogg.northwestern.edu/faculty/jones-ben/htm/Artificial_Intelligence_in_Research_and_Development.pdf}{B. Jones (2025), IA et R\&D (document de travail)}}
+\begin{frame}[t]{Travail ou capital : qui captera les gains\,?}
+   \framesubtitle{Demain : comment l'automatisation modifiera-t-elle le partage du revenu\,?}
+   \centering
+   \makebox[\textwidth][c]{\includegraphics[width=1.03\textwidth, height=0.75\textheight, keepaspectratio]{s3_ai_labour_shares.pdf}}
 \end{frame}
 
 % ============================================================================
 
 % 63
-\begin{frame}[t]{Le paradoxe de Solow, version IA}
+\begin{frame}[t]{Progrès technique : qui fait mieux, qui fait quoi\,?}
    \small
-   Une technologie très visible peut avoir des gains de productivité encore peu visibles.
-   \par\vspace{0.15cm}
-   \textbf{Une enquête :} Yotzov et al. (2026), près de 6\,000 dirigeants dans quatre pays.
-   \vspace{0.3cm}
+   Quand les tâches humaines--machines sont \textbf{complémentaires}, deux forces s'opposent :
+   \par\vspace{0.25cm}
    \begin{columns}[T]
-      \begin{column}{0.45\textwidth}
+      \begin{column}{0.47\textwidth}
          \RaggedRight
-         {\LARGE\bfseries\color{HECnavy}$\approx 70\,\%$}\par\smallskip
-         des entreprises utilisent l'IA.
+         \textbf{\textcolor{HECgreen}{Des machines plus efficaces}}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item La production des machines devient abondante.
+            \item Le travail humain devient le goulot d'étranglement.
+            \item Le facteur rare capture la valeur\,!
+         \end{itemize}
       \end{column}
-      \begin{column}{0.48\textwidth}
+      \begin{column}{0.47\textwidth}
          \RaggedRight
-         {\LARGE\bfseries\color{HECcoral}$> 80\,\%$}\par\smallskip
-         ne déclarent aucun effet sur l'emploi ou la productivité durant les trois dernières années.
+         \textbf{\textcolor{HECcoral}{Davantage de tâches automatisées}}
+         \begin{itemize}
+            \setlength\itemsep{0.2cm}
+            \item Les machines reprennent des tâches auparavant humaines.
+            \item À efficacité donnée, la part du revenu total capturée par le travailleur diminue...
+         \end{itemize}
       \end{column}
    \end{columns}
-   \vspace{0.25cm}
-   \begin{keyinsight}[Adopter un outil ne suffit pas]
+   \vspace{0.15cm}
+   \begin{keyinsight}[Quelle force l'emportera\,?]
       \RaggedRight
-      Les gains dépendent aussi de la diffusion, de la formation et de la réorganisation du travail.
+      La part du travail augmente si la rareté du travail humain domine ; elle diminue si le transfert de tâches aux machines l'emporte.
+      \par\mbox{}\hfill{\scriptsize\textcolor{HECgray}{\href{https://doi.org/10.1257/aer.20221180}{B. Jones et Liu (2024, AER)}}}
    \end{keyinsight}
-   \par\smallskip{\scriptsize\color{HECgray}\href{https://www.atlantafed.org/research-and-data/publications/working-papers/2026/03/24/03-firm-data-on-ai}{Yotzov et al. (2026), Firm Data on AI. Déclarations, et non estimation causale.}}
 \end{frame}
 
 % ============================================================================
 
 % 64
-\begin{frame}[t]{Accélérer une étape ne suffit pas}
-   \textbf{Retour à l'analyste de crédit :} préparer, puis valider un dossier.
-   \par\vspace{0.2cm}
-   \renewcommand{\arraystretch}{1.4}
-   \centering
-   \begin{tabular}{lrrr}
-      \toprule
-      & \textbf{Préparation} & \textbf{Validation} & \textbf{Total} \\
-      \midrule
-      Avant & 10 min & 50 min & \textbf{60 min} \\
-      Avec l'IA & 1 min & 50 min & \textbf{51 min} \\
-      \bottomrule
-   \end{tabular}
-   \par\vspace{0.2cm}
-   \begin{keyinsight}[Le goulot d'étranglement]
-      \RaggedRight
-      La préparation prend \textbf{90\,\%} de temps en moins ; le dossier complet, seulement \textbf{15\,\%} de moins. Le goulot reste la validation.
+\begin{frame}[t]{Ordinateurs : la course entre prix et quantité}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.68\textwidth}
+         \centering
+         \includegraphics[width=\linewidth, height=0.57\textheight, keepaspectratio]{s3_ai_computer_income_share.pdf}
+      \end{column}
+      \begin{column}{0.29\textwidth}
+         \small\RaggedRight
+         % P is the price per unit of computing services, Q their effective volume;
+         % P Q denotes payments to IT capital, not computer manufacturers' sales.
+         \textbf{\textcolor{HECnavy}{Quantité : $Q \uparrow$}}
+         \par\smallskip
+         {\footnotesize Environ \textbf{100 millions} de fois plus de transistors par puce depuis les années 1970.\par}
+         \par\vspace{0.2cm}
+         \textbf{\textcolor{HECcoral}{Prix : $P \downarrow$}}
+         \par\smallskip
+         {\footnotesize Le progrès technique rend le calcul bien moins cher.\par}
+         \par\vspace{0.2cm}
+         {\footnotesize\textbf{Part du revenu}\par}
+         \par\smallskip
+         $\displaystyle\frac{P \times Q}{\text{revenu total}}$
+      \end{column}
+   \end{columns}
+   \par\vspace{-0.1cm}
+   \begin{keyinsight}[Le facteur rare capte la valeur]
+      \RaggedRight\small
+      Si le calcul abonde et complète le travail, l'humain reste le facteur rare.
    \end{keyinsight}
-   \par\smallskip{\scriptsize\color{HECgray}Exemple séquentiel. Maillons faibles : \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{C. Jones et Tonetti (2026), document de travail}.}
 \end{frame}
 
 % ============================================================================
 
 % 65
-\begin{frame}[t]{Baumol : pourquoi certains services deviennent plus chers}
-   \small
-   \textbf{Un quatuor :} quatre musiciens sont toujours nécessaires pour jouer une œuvre en direct.
-   \vspace{0.1cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.18cm}
-      \item Dans les secteurs productifs, davantage de production par heure permet de relever les salaires.
-      \item Les activités à productivité lente doivent aussi attirer et retenir leur personnel.
-      \item Si leurs salaires suivent sans gain comparable de production, leur \textbf{coût par service rendu augmente}.
-   \end{enumerate}
-   \vspace{0.05cm}
-   \begin{keyinsight}[Le lien avec l'IA]
-      \RaggedRight
-      Les activités essentielles qui progressent lentement peuvent peser davantage dans les dépenses. Les améliorer devient décisif pour les gains d'ensemble.
-   \end{keyinsight}
-   \par\smallskip{\scriptsize\color{HECgray}\href{https://web.stanford.edu/~chadj/AJJ-AIandGrowth.pdf}{Aghion, B. Jones et C. Jones (2019)}}
-\end{frame}
+\sectionframe{L'IA peut-elle accélérer la croissance\,?}
 
 % ============================================================================
 
 % 66
-\begin{frame}[t]{Baumol au Canada : où sont les prochains gains\,?}
-   \centering
-   \includegraphics[width=0.95\textwidth, height=0.70\textheight, keepaspectratio]{baumol_cost_disease_canada.pdf}
-   \par\smallskip
-   {\small \textbf{Discussion :} où l'IA pourrait-elle lever ces contraintes\,?}
-   \par\smallskip
-   {\scriptsize\color{HECgray}Les écarts de prix reflètent aussi d'autres facteurs que la productivité.}
+\begin{frame}[t]{L'IA partout, les gains de productivité où\,?}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.13\textwidth}
+         {\Large\bfseries\color{HECgreen}1987}
+      \end{column}
+      \begin{column}{0.83\textwidth}
+         \RaggedRight
+         {\large\itshape\color{HECnavy}“You can see the computer age everywhere\\but in the productivity statistics.”\par}
+         \par\smallskip
+         {\scriptsize\href{https://www.standupeconomist.com/pdf/misc/solow-computer-productivity.pdf}{Robert Solow, \textit{New York Times Book Review}, 12 juillet 1987, p.\ 36.}\par}
+      \end{column}
+   \end{columns}
+   \par\vspace{0.2cm}
+   {\color{HECgray!30}\rule{\textwidth}{0.4pt}}
+   \par\vspace{0.2cm}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.13\textwidth}
+         {\Large\bfseries\color{HECgreen}2026}
+      \end{column}
+      \begin{column}{0.83\textwidth}
+         \small\RaggedRight
+         \textbf{Le paradoxe de Solow, version IA\,?}
+         \par\smallskip
+         \begin{columns}[T,onlytextwidth]
+            \begin{column}{0.43\textwidth}
+               \RaggedRight
+               {\LARGE\bfseries\color{HECnavy}$\approx 70\,\%$}\par\smallskip
+               des entreprises utilisent l'IA.
+            \end{column}
+            \begin{column}{0.53\textwidth}
+               \RaggedRight
+               {\LARGE\bfseries\color{HECcoral}$> 80\,\%$}\par\smallskip
+               ne déclarent aucun effet sur l'emploi ou la productivité en trois ans.
+            \end{column}
+         \end{columns}
+         \par\vspace{0.1cm}
+         {\scriptsize\href{https://www.atlantafed.org/research-and-data/publications/working-papers/2026/03/24/03-firm-data-on-ai}{Yotzov et al. (2026) : près de 6\,000 dirigeants, quatre pays ; enquête déclarative.}\par}
+      \end{column}
+   \end{columns}
+   \par\vspace{0.1cm}
+   \begin{keyinsight}[Adopter un outil ne suffit pas]
+      \small\RaggedRight
+      Diffuser l'outil, former les équipes et réorganiser les processus prend du temps.
+   \end{keyinsight}
 \end{frame}
 
 % ============================================================================
 
 % 67
-\begin{frame}[t]{Ce que les deux marchés nous apprennent}
-\begin{itemize}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Emploi et salaires :} l'offre de travail rencontre les besoins des entreprises.
-      \item \textbf{Investissement et taux réel :} les projets rencontrent les ressources épargnées.
-      \item \textbf{Compte courant :} l'épargne et l'investissement peuvent différer grâce au financement international.
-   \end{itemize}
-   \vspace{0.3cm}
-   \begin{keyinsight}[La question suivante]
-      \RaggedRight
-      Que se passe-t-il lorsque les dépenses changent rapidement, mais que les prix et les salaires s'ajustent lentement\,?
+\begin{frame}[t]{Une infinité de chaussures droites... et alors\,?}
+   Une paire exige \textbf{une chaussure gauche et une chaussure droite}.
+   \par\vspace{0.2cm}
+   {\small Production par jour, à capacité inchangée pour les chaussures gauches.\par}
+   \par\vspace{0.2cm}
+   \renewcommand{\arraystretch}{1.4}
+   \centering
+   \begin{tabular}{lccc}
+      \toprule
+      & \textbf{Gauches} & \textbf{Droites} & \textbf{Paires} \\
+      \midrule
+      Avant & 100 & 100 & \textbf{100} \\
+      Droites automatisées & 100 & $\infty$ & \textbf{100} \\
+      \bottomrule
+   \end{tabular}
+   \par\vspace{0.25cm}
+   \begin{keyinsight}[Les complémentarités limitent les gains]
+      \small\RaggedRight
+      Automatiser un maillon ne suffit pas : l'autre limite la production.
+      \par\mbox{}\hfill{\scriptsize\textcolor{HECgray}{Exemple pédagogique ; \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{maillons faibles : C. Jones et Tonetti (2026).}}}
    \end{keyinsight}
+   % Perfect complements: pairs = min(left shoes,right shoes).
+   % Hold left-shoe capacity fixed. Reallocating workers or expanding that
+   % capacity could raise pair output; the example isolates the weak-link logic.
 \end{frame}
 
 % ============================================================================
 
 % 68
-\sectionframe{Et pour la suite\,?}
+\begin{frame}{Baumol : les activités lentes prennent plus de place}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.80\textheight, keepaspectratio]{baumol_cost_disease_canada.pdf}
+   \end{figure}
+   % Oral intuition: a quartet still needs four musicians. If their wages
+   % follow those elsewhere without productivity gains, its relative cost rises.
+   % AI-growth link: improve essential activities whose productivity grows slowly.
+   % Conceptual reference: Aghion, B. Jones and C. Jones (2019),
+   % https://web.stanford.edu/~chadj/AJJ-AIandGrowth.pdf
+   % The price chart illustrates relative-price differences; productivity is
+   % only one of their determinants, so it does not identify a causal effect.
+\end{frame}
 
 % ============================================================================
 
 % 69
-\begin{frame}{Thèmes et séances à venir}
-\renewcommand{\arraystretch}{1.5}
+\begin{frame}[t]{Trois futurs, des débuts semblables}
    \centering
-   \small
-   \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.43\textwidth}}
-      \toprule
-      \textbf{Thème} & \textbf{Séance} \\
-      \midrule
-      Pourquoi l'économie connaît-elle des hauts et des bas\,? & S4 : Cycles économiques \\
-      Pourquoi et comment combattre les récessions\,? & S5 : Pol. monétaire et budgétaire \\
-      \bottomrule
-   \end{tabularx}
+   \includegraphics[width=\textwidth, height=0.54\textheight, keepaspectratio]{s3_ai_growth_scenarios.pdf}
+   \par\vspace{0.05cm}
+   \begin{keyinsight}[Des goulots d'étranglement, une « explosion lente »]
+      \small\RaggedRight
+      Même rares, les tâches encore humaines freinent l'ensemble.
+   \end{keyinsight}
+   % Figure 5b is annual growth of output per person, not total GDP growth.
+   % Labour share = 1 - the capital share in Figure 5a; not an employment share.
+   % Full automation permits explosive growth; the historical asymptotic case
+   % tends to finite balanced growth; partial automation retains human weak links.
+   % These are conditional model paths, not calendar-date forecasts.
 \end{frame}
+
+% ============================================================================
+
+% 70
+\sectionframe{Et pour la suite\,?}
+
+% ============================================================================
+
+% 71
+\courseroadmap{3}
 
 % ============================================================================
 

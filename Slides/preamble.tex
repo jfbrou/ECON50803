@@ -22,6 +22,35 @@
 \graphicspath{{../Figures/}}
 \newcommand*\includetables[1]{\input{../Tables/#1.tex}}
 
+% --- Shared closing roadmap -----------------------------------------------
+% The argument is the session just completed. On the white slide background,
+% HECnavy!40 gives completed themes the appearance of 40% opacity.
+\newcommand{\coursethemestyle}[3]{%
+   \ifnum#1>#2\relax
+      \textcolor{HECnavy}{#3}%
+   \else
+      \textcolor{HECnavy!40}{#3}%
+   \fi
+}
+\newcommand{\courseroadmap}[1]{%
+   \begin{frame}{Les thèmes du cours}
+      \renewcommand{\arraystretch}{1.4}
+      \centering
+      \small
+      \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.40\textwidth}}
+         \toprule
+         \textbf{Question centrale} & \textbf{Séance} \\
+         \midrule
+         \coursethemestyle{1}{#1}{Comment mesurer la production, les prix et le niveau de vie\,?} & \coursethemestyle{1}{#1}{S1 : Mesurer l'économie} \\
+         \coursethemestyle{2}{#1}{Pourquoi certains pays sont-ils plus riches que d'autres\,?} & \coursethemestyle{2}{#1}{S2 : Croissance de long terme} \\
+         \coursethemestyle{3}{#1}{Qu'est-ce qui détermine l'emploi, les salaires et l'investissement\,?} & \coursethemestyle{3}{#1}{S3 : Marchés du travail et du capital} \\
+         \coursethemestyle{4}{#1}{Pourquoi l'économie connaît-elle des hauts et des bas\,?} & \coursethemestyle{4}{#1}{S4 : Cycles économiques} \\
+         \coursethemestyle{5}{#1}{Pourquoi et comment combattre les récessions\,?} & \coursethemestyle{5}{#1}{S5 : Politique monétaire et budgétaire} \\
+         \bottomrule
+      \end{tabularx}
+   \end{frame}
+}
+
 % --- TikZ style overrides (preserve pre-migration visual choices) ----------
 % The shared jfb-teaching-slides.sty defines stronger defaults (e.g.
 % supply/demand in HECnavy, eqpoint default HECgreen). Keep the original

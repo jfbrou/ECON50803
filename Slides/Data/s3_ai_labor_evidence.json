@@ -1,0 +1,53 @@
+{
+  "verified_on": "2026-10-19",
+  "purpose": "Recent empirical evidence for the Session 3 labor-market sequence. Publication dates and observation periods are distinguished on the slides.",
+  "job_polarization": {
+    "figure": "job_polarization.pdf",
+    "status": "Restored existing vector figure without changing the historical series or its established four-group construction.",
+    "period_displayed": "1983–2025",
+    "source": "BLS Current Population Survey, via FRED. The chart is descriptive historical context, not a causal AI estimate.",
+    "series": {
+      "nonroutine_cognitive": [
+        "LNU02032201"
+      ],
+      "nonroutine_manual": [
+        "LNU02032204"
+      ],
+      "routine_cognitive": [
+        "LNU02032205"
+      ],
+      "routine_manual": [
+        "LNU02032210",
+        "LNU02032211",
+        "LNU02032212"
+      ]
+    },
+    "interpretation": "Broad occupational proxies, not a task-level classification of every job. Indexed employment levels, not employment shares or wages.",
+    "historical_comparability_url": "https://www.bls.gov/cps/constio198399.htm"
+  },
+  "workplace_productivity": {
+    "authors": "Erik Brynjolfsson, Danielle Li, Lindsey Raymond",
+    "title": "Generative AI at Work",
+    "publication": "Quarterly Journal of Economics, 140(2), 889–942, 2025",
+    "url": "https://doi.org/10.1093/qje/qjae044",
+    "evidence": "Abstract, Introduction and Table II. 5,172 customer-support agents; staggered deployment mainly fall 2020 and winter 2021; issues resolved per hour increase about 15% on average.",
+    "scope": "One Fortune 500 business-software firm and its subcontractors. Most agents located outside the US. Larger gains for less experienced and lower-skill agents.",
+    "limits": "Staggered rollout study, not a general estimate of AI effects on employment or wages. Do not relabel 2020–2021 data as post-ChatGPT evidence."
+  },
+  "denmark": {
+    "authors": "Anders Humlum, Emilie Vestergaard",
+    "title": "Still Waters, Rapid Currents: Early Labor Market Transformation under Generative AI",
+    "version": "March 13, 2026; previously circulated as Large Language Models, Small Labor Market Effects",
+    "url": "https://www.andershumlum.com/s/chatbots_260313.pdf",
+    "evidence": "Abstract and Section 3. Administrative records through December 2024 linked to adoption surveys. Difference-in-differences estimates find no detectable effects on earnings or recorded hours, ruling out effects larger than 2% two years after ChatGPT launch.",
+    "limits": "The 2% bound concerns earnings and recorded hours; it is not a bound for every occupation-specific employment estimate. New AI tasks and work reorganization are documented despite small average effects."
+  },
+  "young_us_workers": {
+    "authors": "Erik Brynjolfsson, Bharat Chandar, Ruyu Chen",
+    "title": "Canaries in the Coal Mine? Six Facts about the Recent Employment Effects of Artificial Intelligence",
+    "version": "Revised August 12, 2026",
+    "url": "https://digitaleconomy.stanford.edu/app/uploads/2026/08/Canaries_August2026.pdf",
+    "evidence": "Abstract and Sections 2.2–2.4. ADP sample through June 2026. For ages 22–25, employment in the top two AI-exposure quintiles is 19% below a counterfactual keeping pace with the bottom three quintiles since November 2022; adjustment mainly via reduced hiring.",
+    "limits": "19% is a relative kept-pace shortfall, not the absolute employment decline, percentage-point change or a causal AI estimate. Experienced workers show no comparable exposure gap; pretrends and sample representativeness remain concerns."
+  }
+}

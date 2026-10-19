@@ -21,8 +21,25 @@
     "url": "https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf",
     "source": "C. Jones and Tonetti (May 2026), Figure 2, printed page 14, PDF page 15; BLS (2024).",
     "units": "Share of private business value added paid to IT capital, percent; not purchases of computers, investment/GDP, technology-company profits, or all capital income.",
-    "transformation": "Manually transcribed rounded endpoints, approximately 4.3% in 2000 and 3.0% in 2023. Not an annual series; no interpolation.",
-    "vintage": "Historical evidence as reported in the May 2026 working paper; not a claim about the post-2023 AI boom."
+    "transformation": "Recover all 37 annual vertices from the native vector curve in Figure 2. Calibrate against its year and percent tick marks; round to six decimals. No smoothing, interpolation of missing years, or extrapolation. Values reproduce the published curve, rather than newly downloaded BLS microdata.",
+    "vintage": "Historical evidence as reported in the May 2026 working paper; not a claim about the post-2023 AI boom.",
+    "retrieved_on": "2026-10-19",
+    "range": [
+      1987,
+      2023
+    ],
+    "observations": 37,
+    "download_sha256": "9423ce1f512f3ff29899129556bf3e339f2b852094d4b4b4fdbe2f35671b2835",
+    "vector_calibration": {
+      "x_1985": 112,
+      "x_2025": 782,
+      "y_3_percent": 381.26901245,
+      "y_4_5_percent": 38.28654861
+    },
+    "precision": "Approximate values recovered from plotted vector coordinates; extra decimals preserve curve geometry and are not statistical precision.",
+    "transistor_comparison": "Paper, printed page 14: 100 million times more transistors on a computer chip than in the 1970s; an order-of-magnitude illustration, not a separate measured series in this figure.",
+    "price_quantity_exposition": "Classroom P is remuneration per unit of effective computing services and Q is their quality-adjusted volume; P times Q is income paid to IT capital, not computer manufacturers' sales. The denominator is total private-business value added. The post-2000 share decline means P times Q grows more slowly than that denominator, not necessarily that nominal P times Q falls. The price/quantity and scarcity explanation is the paper's interpretation, not a separate causal decomposition estimated from this plotted series.",
+    "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_computer_income_share(); f.ai_computer_income_share()\""
   },
   "theory": {
     "more_versus_better": "https://doi.org/10.1257/aer.20221180",

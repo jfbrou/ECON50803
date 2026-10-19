@@ -1,0 +1,15 @@
+{
+  "verified_on": "2026-10-19",
+  "authors": ["Salomé Baslandze", "Zachary Edwards", "John R. Graham", "Ty McClure", "Michael Sparks", "Brent Meyer", "Sonya Ravindranath Waddell", "Daniel Weitz"],
+  "title": "Artificial Intelligence, Productivity, and the Workforce: Evidence from Corporate Executives",
+  "version": "May 27, 2026",
+  "url": "https://www.richmondfed.org/-/media/RichmondFedOrg/research/national_economy/cfo_survey/academic_publications/AI_survey.pdf",
+  "source_location": "Figure 1, Total employment row, printed page 7 / PDF page 8. Values checked against original figure.",
+  "survey": "734 US senior financial executives, primarily CFOs, surveyed near year-end 2025. CFO Survey (Duke, Richmond Fed, Atlanta Fed), supplemented by FEI, NASDAQ and Duke alumni respondents.",
+  "units": "Percent change in own-firm total employment attributed to AI use: reported 2025 and anticipated 2026. Size-group averages, not economy-wide employment changes.",
+  "size_groups": "Small: fewer than 500 employees; large: 500 or more employees.",
+  "construction": "Authors convert categorical responses to numerical averages using category midpoints; open upper/lower categories use 5 percentage points beyond the boundary. No change is zero; not sure is missing. Plotted values are the published rounded means, not independently computed microdata estimates.",
+  "interpretation": "Self-reported and expected AI effects, not an independently identified causal estimate or observed 2026 administrative job loss.",
+  "refresh_policy": "Update the four values only from a verified new version of Figure 1; keep source version and metadata synchronized.",
+  "generation_command": "python -c \"import figures_s3 as f; f.ai_cfo_employment()\""
+}

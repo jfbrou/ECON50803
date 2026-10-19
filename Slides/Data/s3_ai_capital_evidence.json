@@ -4,8 +4,7 @@
     "url": "https://www.census.gov/construction/c30/xlsx/privsatime.xlsx",
     "source": "US Census Bureau, Private SA, Data center",
     "units_input": "Millions of current US dollars, seasonally adjusted annual rate.",
-    "units_plot": "Billions of current US dollars, seasonally adjusted annual rate.",
-    "transformation": "Divide by 1000 only; do not annualise a second time; no inflation adjustment.",
+    "transformation": "No transformation in cached CSV; see construction_share_gdp for the plotted ratio.",
     "coverage": "Private construction value put in place. Excludes servers/racks and land acquisition. Not exclusively AI facilities.",
     "definitions_url": "https://www.census.gov/construction/c30/definitions.html",
     "last_date": "2026-08-01",
@@ -42,5 +41,23 @@
     "units": "Average annual capital expenditure as percent of contemporaneous US GDP over each episode.",
     "transformation": "Manual transcription of exact Table 1 values; display rounded to one decimal as in FT. AI is a conditional scenario, not realized spending or a forecast.",
     "caveats": "Historical coverage differs across episodes. AI includes IT equipment, buildings and associated power infrastructure; historical railroads exclude at least some rolling stock. See Appendix C."
+  },
+  "construction_share_gdp": {
+    "retrieved_on": "2026-10-19",
+    "source": "US Census Bureau private data-center construction; BEA nominal GDP via FRED (GDP).",
+    "construction_input": "s3_ai_datacenter_construction.csv",
+    "construction_download_sha256": "e9faea98ea4fc9c57ffbb4e7e576a5907e17e2324dce7d4e58a17aaa8bb2c560",
+    "construction_vintage": "2026-10-17",
+    "gdp_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2014-01-01",
+    "gdp_download_sha256": "872832187b1284d3d0c0e6e304de65fbcdf3f616c9b57664031a8e886f9f2ae8",
+    "gdp_units": "Billions of current US dollars, seasonally adjusted annual rate, quarterly.",
+    "units_plot": "Percent of nominal US GDP, quarterly, seasonally adjusted.",
+    "transformation": "Average three monthly construction SAAR values (millions of current dollars) in each complete quarter, divide by contemporaneous nominal GDP SAAR (billions) times 1000, then multiply by 100. Both inputs already annualized; no additional annualization or deflation.",
+    "coverage": "Private construction value put in place. Excludes servers/racks and land acquisition. Not exclusively AI facilities.",
+    "last_quarter": "2026Q2",
+    "last_date": "2026-06-30",
+    "last_percent_gdp": 0.20497887737515008,
+    "endpoint_policy": "Only complete quarters with observed GDP and all three construction months; no GDP interpolation, forward filling, forecasts, or partial-quarter averages.",
+    "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_construction_gdp(); f.ai_datacenter_construction()\""
   }
 }

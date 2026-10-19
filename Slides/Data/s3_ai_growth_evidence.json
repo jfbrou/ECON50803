@@ -1,0 +1,108 @@
+{
+  "verified_on": "2026-10-19",
+  "jones_tonetti": {
+    "authors": "Charles I. Jones and Christopher Tonetti",
+    "title": "Past Automation and Future A.I.: How Weak Links Tame the Growth Explosion",
+    "version": "May 2026, version 0.5; working paper",
+    "url": "https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf",
+    "locations": "Introduction, printed pp. 2–3; Figure 5 and discussion, printed pp. 40–41.",
+    "mechanism": "Automation of production and of idea production creates a feedback loop. Strong task complementarity makes the remaining essential labor tasks bottlenecks. Aggregate acceleration depends on assumptions about how broadly rapid machine-productivity improvements spread.",
+    "historical_continuation_calibration": {
+      "initial_annual_growth_percent": 2.0,
+      "annual_growth_2075_percent": 2.6,
+      "object": "Growth of output per person, not total GDP growth or a cumulative level gain. Historical private-business calibration."
+    },
+    "alternative_calibration": "Moore's Law Everywhere uses much faster machine-productivity growth calibrated to the computer sector and yields much faster aggregate acceleration. It is an assumption-driven alternative, not an observed forecast.",
+    "classroom_example": "Perfect-complements teaching illustration, not an empirical estimate: one left and one right shoe are required for each pair. Hold left-shoe capacity at 100 per day. Raising right-shoe capacity from 100 to arbitrarily large output leaves pair output at 100. This holds the left-shoe capacity fixed; labor reallocation or investment in that capacity can raise output.",
+    "three_scenarios": {
+      "source": "Figure 5a (capital share) and 5b (growth), printed p. 40 / zero-indexed PDF page 40; discussion pp. 39--43.",
+      "calibration": "AI as a continuation of historical private-business patterns; not the faster Moore's Law Everywhere calibration of Figure 6.",
+      "units": "Annual growth of output per person, percent; labour income as percent of total factor income. Both are model simulations, not observations or forecasts.",
+      "definitions": {
+        "full": "All tasks automated in finite time.",
+        "asymptotic": "Automated task share tends to 100 percent without reaching it in finite time; the paper labels this Baseline.",
+        "partial": "A positive set of essential tasks is never automated."
+      },
+      "long_run": {
+        "full": "Explosive growth.",
+        "asymptotic": "Positive finite balanced-growth rate in this historical calibration; not a universal result for asymptotic automation.",
+        "partial": "Growth ultimately limited by human-task productivity, 0.5 percent per year in the calibration."
+      },
+      "transformation": "Recover annual vertices of all three scenarios in both panels. x=112/782 maps to 2020/2160. y=427/36 maps to 0/20 percent in growth and 0/100 percent in capital share. Compute labour share as 100 minus the capital-share percentage, consistent with s_L = 1 - s_K in this model. Join scenario/year one-to-one. No simulation re-estimation, smoothing, interpolation, or extrapolation. Omit the separate constant-growth reference line.",
+      "labor_share_interpretation": "A share of factor income, not the share of employed workers, a wage level, or a prediction that individual earnings change in the same direction. Full automation tends to zero labour share; partial automation tends to 100 percent; the asymptotic baseline tends to roughly 64 percent in this calibration.",
+      "observations": {
+        "partial": 130,
+        "full": 120,
+        "asymptotic": 130
+      },
+      "last_plotted_year": {
+        "full": 2139,
+        "asymptotic": 2149,
+        "partial": 2149
+      },
+      "precision": "Approximate values recovered from the published figure; six decimals preserve its geometry, not economic precision.",
+      "short_run": "Figure 5 and its discussion describe nearly indistinguishable paths for approximately the next 50 years. The shaded 2020--2070 interval highlights this comparison, not a predicted structural break.",
+      "mechanism": "Strong complementarity means remaining essential human tasks constrain aggregate production. Automation of goods and ideas accelerates growth, but weak links delay the acceleration.",
+      "download_sha256": "9423ce1f512f3ff29899129556bf3e339f2b852094d4b4b4fdbe2f35671b2835",
+      "verified_on": "2026-10-19",
+      "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_growth_scenarios(); f.ai_growth_scenarios()\""
+    }
+  },
+  "anthropic_scenarios": {
+    "authors": "Anton Korinek, Charles I. Jones, Szymon Sacher, Tess Cotter and Peter McCrory",
+    "title": "Economic Scenarios for Transformative AI",
+    "version": "September 2026, Anthropic Institute Working Paper 2026-02",
+    "url": "https://web.stanford.edu/~chadj/econscenarios.pdf",
+    "explorer_url": "https://www.anthropic.com/institute/econ-scenarios",
+    "location": "Table 3, printed p. 31 / zero-indexed PDF page 30; rows GDP growth and Labor share, verified against the original table.",
+    "scenario_names": [
+      "No AI",
+      "Modest",
+      "Substantial",
+      "Extreme"
+    ],
+    "annual_gdp_growth_2030_percent": [
+      2.0,
+      2.4,
+      5.4,
+      15.4
+    ],
+    "labor_share_2030_percent": [
+      60.0,
+      59.4,
+      56.1,
+      45.2
+    ],
+    "timing": "Beginning of 2030. GDP growth rates are log changes over the preceding 12 months, not cumulative gains to 2030. Labor share is labor income as a percentage of total income.",
+    "scope": "US economy, conditional model scenarios determined by AI capabilities, diffusion, automation versus augmentation, productivity gains, new tasks and worker reallocation frictions. Neither assigned probabilities nor asserted most-likely forecasts."
+  },
+  "classroom_presentation": {
+    "sequence": [
+      "Solow puzzle",
+      "Left/right shoe complementarity and bottleneck example",
+      "Baumol: full-slide Canadian price chart",
+      "Three Jones--Tonetti automation scenarios: similar short run, divergent long run"
+    ],
+    "content_slides": [
+      66,
+      67,
+      68,
+      69
+    ],
+    "jones_tonetti_scope": "Figure 5a--b historical calibration: paired growth and labour-share panels with common years and scenario colours. Labour share is one minus the published capital share. The asymptotic case is the published Baseline.",
+    "anthropic_scope": "Removed from slide 69; verified values retained only as source history.",
+    "baumol_scope": "Existing Statistics Canada price chart shown as a full-slide figure without changing data. Quartet intuition and the AI-growth link remain in the source for oral exposition. Relative-price differences have causes other than productivity; the chart does not identify a causal Baumol effect."
+  },
+  "solow_quote": {
+    "author": "Robert M. Solow",
+    "quote": "You can see the computer age everywhere but in the productivity statistics.",
+    "title": "We’d Better Watch Out",
+    "publication": "The New York Times Book Review",
+    "date": "1987-07-12",
+    "page": 36,
+    "original_scan_url": "https://www.standupeconomist.com/pdf/misc/solow-computer-productivity.pdf",
+    "verified_on": "2026-10-19",
+    "verification": "Read the original scanned review: quotation in the middle column, date and page number at the bottom. The displayed quotation uses the original English wording.",
+    "classroom_design": "1987 quotation paired with 2026 firm survey evidence. Survey responses are not a causal estimate of aggregate productivity growth."
+  }
+}

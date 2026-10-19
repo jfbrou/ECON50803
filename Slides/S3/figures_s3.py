@@ -303,43 +303,153 @@ def labor_share_decline():
 # =====================================================================
 # Figure 6: College/high-school wage premium (US)
 # =====================================================================
+_SKILL_PREMIUM_DIR = Path(__file__).resolve().parents[1] / 'Data'
+_SKILL_PREMIUM_DATA = _SKILL_PREMIUM_DIR / 's3_college_wage_premium.csv'
+_SKILL_PREMIUM_ANNUAL = _SKILL_PREMIUM_DIR / 's3_college_wage_premium_annual.csv'
+_SKILL_PREMIUM_META = _SKILL_PREMIUM_DIR / 's3_college_wage_premium.json'
+
+
+def _labour_history_xaxis(ax):
+    """Common annual time axis for polarization and the college wage premium."""
+    ax.set_xlim(1983, 2025)
+    ax.set_xticks(range(1985, 2026, 5))
+    ax.set_xticklabels(range(1985, 2026, 5), fontsize=12)
+
+
+def refresh_college_wage_premium(as_of=None):
+    """Cache matched official annual and quarterly BLS earnings; plot offline."""
+    from concurrent.futures import ThreadPoolExecutor
+    from hashlib import sha256
+    from io import BytesIO
+    import json
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    series = {'college_usd': 'LEU0252918500Q', 'highschool_usd': 'LEU0252917300Q',
+              'college_annual_usd': 'LEU0252918500A', 'highschool_annual_usd': 'LEU0252917300A'}
+
+    def fetch(item):
+        name, series_id = item
+        url = f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}'
+        response = requests.get(url, timeout=40)
+        response.raise_for_status()
+        table = pd.read_csv(BytesIO(response.content), parse_dates=['observation_date'])
+        values = pd.to_numeric(table[series_id], errors='coerce')
+        values.index = table.observation_date
+        values = values.rename(name).loc[values.index <= retrieved_on]
+        assert values.index.is_unique and values.notna().sum() > 40
+        assert (values.dropna() > 0).all()
+        return values, {'id': series_id, 'url': url,
+                        'download_sha256': sha256(response.content).hexdigest()}
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        fetched = list(pool.map(fetch, series.items()))
+    data = pd.concat([result[0] for result in fetched[:2]], axis=1).sort_index()
+    quarters = data.index.to_period('Q')
+    assert quarters.is_unique
+    data.index = quarters
+    # Keep all quarters, including missing 2025Q4; do not bridge missing values.
+    data = data.reindex(pd.period_range(quarters.min(), quarters.max(), freq='Q'))
+    valid = data.dropna(subset=['college_usd', 'highschool_usd'])
+    data = data.loc[valid.index.min():valid.index.max()].copy()
+    data['premium_percent'] = 100 * (data.college_usd / data.highschool_usd - 1)
+    data['date'] = data.index.to_timestamp(how='end').normalize()
+    assert (data.date <= retrieved_on).all()
+    assert data.premium_percent.dropna().between(0, 200).all()
+    _SKILL_PREMIUM_DIR.mkdir(parents=True, exist_ok=True)
+    data.to_csv(_SKILL_PREMIUM_DATA, index_label='quarter')
+    annual = pd.concat([result[0] for result in fetched[2:]], axis=1).sort_index()
+    annual.columns = ['college_usd', 'highschool_usd']
+    annual.index = annual.index.to_period('Y')
+    annual = annual.loc[annual.index.to_timestamp(how='end').normalize() <= retrieved_on].dropna()
+    assert annual.index.is_unique and annual.index.min().year <= 1983
+    assert annual.index.equals(pd.period_range(annual.index.min(), annual.index.max(), freq='Y'))
+    annual['premium_percent'] = 100 * (annual.college_usd / annual.highschool_usd - 1)
+    annual['date'] = annual.index.to_timestamp(how='end').normalize()
+    annual.to_csv(_SKILL_PREMIUM_ANNUAL, index_label='year')
+    metadata = {
+        'retrieved_on': retrieved_on.date().isoformat(),
+        'source': 'BLS Current Population Survey, Weekly and Hourly Earnings, via FRED.',
+        'series': {name: item[1] for name, item in zip(series, fetched)},
+        'population': 'US wage and salary workers, full time, age 25 and over, both sexes. Excludes self-employed.',
+        'college_definition': "Bachelor's degree and higher, not bachelor's only.",
+        'comparison_definition': 'High school graduates, no college; excludes less than high school and some-college groups.',
+        'units_input': 'Median usual weekly nominal earnings, dollars, official annual and quarterly series, not seasonally adjusted.',
+        'transformation': '100 * (college median / high-school median - 1), within each frequency. Annual values are the official annual medians, not averages of quarterly ratios. Common price deflation cancels. No smoothing, interpolation, or imputation.',
+        'plot_frequency': 'Official annual observations, 1983–2025, matching the job-polarization plot: limits 1983 and 2025, ticks every five years from 1985. Quarterly observations remain cached but are not displayed on this common annual axis.',
+        'historical_comparability': 'Before 1992, groups reflect years of school completed (4 years high school / 4 or more years college). From 1992, classification uses degrees. The 1994 CPS redesign also limits strict comparability; no artificial correction is applied.',
+        'historical_methodology_url': 'https://aspe.hhs.gov/reports/welfare-indicators-risk-factors-fourteenth-report-congress-0',
+        'first_annual_year': int(annual.index.min().year),
+        'last_annual_year': int(annual.index.max().year),
+        'missing_quarters': [str(q) for q in data.index[data.premium_percent.isna()]],
+        'missing_observation_note': 'BLS did not produce reliable 2025Q4 estimates because October CPS data were not collected during the federal government shutdown.',
+        'methodology_url': 'https://www.bls.gov/news.release/wkyeng.htm',
+        'first_quarter': str(data.index.min()),
+        'last_quarter': str(data.index.max()),
+        'last_percent': float(data.premium_percent.iloc[-1]),
+        'interpretation': 'Descriptive difference in group medians, not an adjusted education return or a causal AI effect. Education is not a direct measure of AI complementarity. Composition changes can affect the gap.',
+        'related_paper': {
+            'authors': 'José Azar, Mireia Giné, Javier Sanz-Espín',
+            'title': 'The College Wage Premium in the Generative AI Era',
+            'version': 'Revised September 10, 2026',
+            'url': 'https://ssrn.com/abstract=7364838',
+            'scope': 'Background reading only. This BLS median-ratio figure is not a reproduction of their CPS adjusted/log-wage estimates.',
+        },
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_college_wage_premium(); f.inequality_skill_premium()"',
+    }
+    _SKILL_PREMIUM_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('College wage premium endpoint:', data.index.max(), f'{data.premium_percent.iloc[-1]:.3f}%')
+
+
 def inequality_skill_premium():
-    print('Figure 6: College wage premium (US)')
-
-    # College/high-school wage ratio over time
-    # Source: Autor (2014); Goldin & Katz (2008); CPS data
-    years = list(range(1965, 2024, 5)) + [2023]
-    premium = [1.45, 1.40, 1.35, 1.38, 1.50, 1.58, 1.65, 1.72, 1.78,
-               1.82, 1.85, 1.88, 1.90]
-
-    fig, ax = new_figure(8, 4.5)
-
-    ax.plot(years, premium, 'o-', color=palette[0], linewidth=2.5,
-            markersize=6)
-
-    # Annotation for the rise
-    ax.annotate("Hausse du rendement\n" + r"de l'éducation",
-                xy=(2005, 1.82), xytext=(1975, 1.82),
-                fontsize=11, color=palette[1], fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=palette[1], lw=1.5))
-
-    ax.set_xlim(1963, 2025)
-    ax.set_xticks(range(1965, 2025, 10))
-    ax.set_xticklabels(range(1965, 2025, 10), fontsize=11)
-    ax.set_ylabel(r"Ratio salarial (université / secondaire)",
-                  fontsize=11, rotation=0, ha='left')
+    """Unadjusted college/high-school median weekly earnings gap, percent."""
+    data = pd.read_csv(_SKILL_PREMIUM_ANNUAL, parse_dates=['date'])
+    data = data.loc[data.year.between(1983, 2025)]
+    assert data.premium_percent.notna().sum() > 40
+    fig, ax = new_figure(10, 5)
+    ax.plot(data.year, data.premium_percent, color=palette[0], linewidth=2.3)
+    _labour_history_xaxis(ax)
+    ymin = np.floor(data.premium_percent.min() / 10) * 10
+    ymax = np.ceil(data.premium_percent.max() / 10) * 10
+    ticks = np.arange(ymin, ymax + 1, 10)
+    ax.set_ylim(ymin, ymax)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:.0f}' + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'Prime salariale universitaire (\%)', rotation=0, ha='left', fontsize=11)
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(1.2, 2.0)
-    ax.set_yticks([1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0])
-    ax.set_yticklabels([f'{y:.1f}' for y in
-                        [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]],
-                       fontsize=11)
-
-    ax.axhline(y=1.0, color='gray', linewidth=0.5, linestyle=':')
-
     style_axes(ax)
-    add_source(ax, 'Source: Autor (2014); Goldin \\& Katz (2008); CPS')
+    add_source(ax, r'Source : BLS / CPS (via FRED), données annuelles')
     save(fig, 'inequality_skill_premium.pdf')
+
+
+def ai_cfo_employment():
+    """Employment effects attributed to AI by CFOs, Baslandze et al., Fig. 1."""
+    data = pd.read_csv(_SKILL_PREMIUM_DIR / 's3_ai_cfo_employment.csv')
+    fig, ax = new_figure(10, 5)
+    centers = np.arange(len(data))
+    for shift, column, color, label in [
+            (-0.18, 'reported_2025_percent', palette[0], '2025 : déclaré'),
+            (0.18, 'expected_2026_percent', palette[2], '2026 : anticipé')]:
+        values = data[column]
+        ax.bar(centers + shift, values, width=0.32, color=color, zorder=3, label=label)
+        for x, value in zip(centers + shift, values):
+            label_y = value + (0.025 if value >= 0 else -0.025)
+            text = f'{value:+.2f}'.replace('.', ',') + r'\%'
+            ax.text(x, label_y, text, ha='center', va='bottom' if value >= 0 else 'top',
+                    fontsize=11, color=color)
+    ax.axhline(0, color=palette[7], linewidth=0.8, zorder=2)
+    ax.set_xlim(-0.65, 1.65)
+    ax.set_ylim(-0.85, 0.4)
+    ax.set_xticks(centers)
+    ax.set_xticklabels(['Moins de 500 salariés', '500 salariés ou plus'], fontsize=11)
+    ticks = [-0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4]
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:.1f}'.replace('.', ',') + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'Effet sur l\textquotesingle emploi (\%)', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(loc='upper left', frameon=False, fontsize=10, ncol=2)
+    add_source(ax, r'Source : Baslandze et al. (2026), figure 1')
+    save(fig, 's3_ai_cfo_employment.pdf')
 
 
 # =====================================================================
@@ -1663,9 +1773,7 @@ def job_polarization():
     ax.plot(years, df['rm'], color=palette[1], linewidth=2.5, linestyle=':',
             label='Routinier manuel')
 
-    ax.set_xlim(1983, 2025)
-    ax.set_xticks(range(1985, 2026, 5))
-    ax.set_xticklabels(range(1985, 2026, 5), fontsize=12)
+    _labour_history_xaxis(ax)
     ax.set_ylim(100, 260)
     ax.set_yticks(range(100, 261, 20))
     ax.set_yticklabels([f'{y}' for y in range(100, 261, 20)], fontsize=12)
@@ -2209,6 +2317,8 @@ _AI_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_construction.csv'
 _AI_REAL_YIELD_DATA = _AI_EVIDENCE_DIR / 's3_ai_real_yield.csv'
 _AI_EVIDENCE_META = _AI_EVIDENCE_DIR / 's3_ai_capital_evidence.json'
 _AI_REAL_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_real_monthly.csv'
+_AI_NOMINAL_GDP_DATA = _AI_EVIDENCE_DIR / 's3_ai_us_nominal_gdp.csv'
+_AI_CONSTRUCTION_GDP_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_gdp_share.csv'
 _AI_BOOMS_DATA = _AI_EVIDENCE_DIR / 's3_ai_investment_booms.csv'
 
 
@@ -2261,8 +2371,7 @@ def refresh_ai_capital_evidence(as_of=None):
         'construction': {
             'url': urls['construction'], 'source': 'US Census Bureau, Private SA, Data center',
             'units_input': 'Millions of current US dollars, seasonally adjusted annual rate.',
-            'units_plot': 'Billions of current US dollars, seasonally adjusted annual rate.',
-            'transformation': 'Divide by 1000 only; do not annualise a second time; no inflation adjustment.',
+            'transformation': 'No transformation in cached CSV; see construction_share_gdp for the plotted ratio.',
             'coverage': 'Private construction value put in place. Excludes servers/racks and land acquisition. Not exclusively AI facilities.',
             'definitions_url': 'https://www.census.gov/construction/c30/definitions.html',
             'last_date': construction.date.max().date().isoformat(),
@@ -2283,6 +2392,72 @@ def refresh_ai_capital_evidence(as_of=None):
     print('Construction endpoint:', metadata['construction']['last_date'])
     print('Real-yield endpoint:', metadata['real_yield']['last_date'])
     refresh_ft_ai_evidence(as_of=as_of)
+    refresh_ai_construction_gdp(as_of=as_of)
+
+
+def refresh_ai_construction_gdp(as_of=None):
+    """Match nominal construction and GDP at complete quarterly frequency.
+
+    Uses the cached Census monthly SAAR series refreshed by
+    refresh_ai_capital_evidence; never extrapolates quarterly GDP.
+    """
+    from io import BytesIO
+    from hashlib import sha256
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
+    construction = pd.read_csv(_AI_CONSTRUCTION_DATA, parse_dates=['date'])
+    construction = construction[construction.date <= retrieved_on]
+    assert construction.date.is_unique
+    assert (construction.millions_usd_saar > 0).all()
+    assert len(pd.date_range(construction.date.min(), construction.date.max(), freq='MS')) == len(construction)
+    construction['quarter'] = construction.date.dt.to_period('Q')
+    quarterly = construction.groupby('quarter').agg(
+        construction_millions_usd_saar=('millions_usd_saar', 'mean'),
+        months=('millions_usd_saar', 'count'))
+    quarterly = quarterly.loc[quarterly.months.eq(3)].drop(columns='months')
+
+    url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=GDP&cosd=2014-01-01'
+    response = requests.get(url, timeout=50)
+    response.raise_for_status()
+    gdp = pd.read_csv(BytesIO(response.content)).rename(
+        columns={'observation_date': 'date', 'GDP': 'gdp_billions_usd_saar'})
+    gdp['date'] = pd.to_datetime(gdp.date)
+    gdp['gdp_billions_usd_saar'] = pd.to_numeric(gdp.gdp_billions_usd_saar, errors='coerce')
+    gdp = gdp.loc[gdp.date <= retrieved_on].dropna().sort_values('date')
+    assert gdp.date.is_unique and (gdp.gdp_billions_usd_saar > 0).all()
+    gdp.to_csv(_AI_NOMINAL_GDP_DATA, index=False)
+    gdp['quarter'] = gdp.date.dt.to_period('Q')
+    data = quarterly.join(gdp.set_index('quarter')[['gdp_billions_usd_saar']], how='inner')
+    assert len(data) > 40 and data.index.is_unique
+    assert len(pd.period_range(data.index.min(), data.index.max(), freq='Q')) == len(data)
+    data['percent_gdp'] = 100 * data.construction_millions_usd_saar / (1000 * data.gdp_billions_usd_saar)
+    data['date'] = data.index.to_timestamp(how='end').normalize()
+    assert (data.date <= retrieved_on).all()
+    assert data.percent_gdp.between(0, 1).all()
+    data.to_csv(_AI_CONSTRUCTION_GDP_DATA, index_label='quarter')
+    metadata = json.loads(_AI_EVIDENCE_META.read_text(encoding='utf-8'))
+    metadata['construction'].pop('units_plot', None)
+    metadata['construction']['transformation'] = 'No transformation in cached CSV; see construction_share_gdp for the plotted ratio.'
+    metadata['construction_share_gdp'] = {
+        'retrieved_on': retrieved_on.date().isoformat(),
+        'source': 'US Census Bureau private data-center construction; BEA nominal GDP via FRED (GDP).',
+        'construction_input': _AI_CONSTRUCTION_DATA.name,
+        'construction_download_sha256': metadata['construction']['download_sha256'],
+        'construction_vintage': metadata['retrieved_on'],
+        'gdp_url': url,
+        'gdp_download_sha256': sha256(response.content).hexdigest(),
+        'gdp_units': 'Billions of current US dollars, seasonally adjusted annual rate, quarterly.',
+        'units_plot': 'Percent of nominal US GDP, quarterly, seasonally adjusted.',
+        'transformation': 'Average three monthly construction SAAR values (millions of current dollars) in each complete quarter, divide by contemporaneous nominal GDP SAAR (billions) times 1000, then multiply by 100. Both inputs already annualized; no additional annualization or deflation.',
+        'coverage': metadata['construction']['coverage'],
+        'last_quarter': str(data.index.max()),
+        'last_date': data.date.max().date().isoformat(),
+        'last_percent_gdp': float(data.percent_gdp.iloc[-1]),
+        'endpoint_policy': 'Only complete quarters with observed GDP and all three construction months; no GDP interpolation, forward filling, forecasts, or partial-quarter averages.',
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_ai_construction_gdp(); f.ai_datacenter_construction()"',
+    }
+    _AI_EVIDENCE_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Construction / GDP endpoint:', data.index.max(), f'{data.percent_gdp.iloc[-1]:.6f}%')
 
 
 def refresh_ft_ai_evidence(as_of=None):
@@ -2343,16 +2518,21 @@ def _ai_evidence_date_axis(ax, dates, step=2):
 
 
 def ai_datacenter_construction():
-    data = pd.read_csv(_AI_REAL_CONSTRUCTION_DATA, parse_dates=['date'])
-    fig, ax = new_figure(10, 4.5)
-    values = data.constant_2021_usd_monthly / 1e9
+    data = pd.read_csv(_AI_CONSTRUCTION_GDP_DATA, parse_dates=['date'])
+    fig, ax = new_figure(10, 5)
+    values = data.percent_gdp
     ax.plot(data.date, values, color=palette[0], linewidth=2.3)
     _ai_evidence_date_axis(ax, data.date)
-    ymax = tick_ceil(values.max(), 1)
+    labels = [label.get_text() for label in ax.get_xticklabels()]
+    labels[-1] = f'T{data.date.iloc[-1].quarter}\n{data.date.iloc[-1].year}'
+    ax.set_xticklabels(labels, fontsize=11)
+    ymax = np.ceil(values.max() / 0.05) * 0.05
+    ticks = np.arange(0, ymax + 0.025, 0.05)
     ax.set_ylim(0, ymax)
-    ax.set_yticks(range(0, ymax + 1))
-    ax.set_yticklabels([str(value) for value in range(0, ymax + 1)], fontsize=11)
-    ax.set_ylabel(r'Mds \$ US de 2021 / mois', rotation=0, ha='left', fontsize=11)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:.2f}'.replace('.', ',') + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'Construction privée (\% du PIB)',
+                  rotation=0, ha='left', fontsize=11)
     ax.yaxis.set_label_coords(0, 1.02)
     style_axes(ax)
     launch = pd.Timestamp('2022-11-30')
@@ -2360,7 +2540,7 @@ def ai_datacenter_construction():
     ax.text(launch - pd.Timedelta(days=100), 0.85, r'Lancement de ChatGPT',
             transform=ax.get_xaxis_transform(), ha='right', va='center',
             fontsize=10, color=palette[0])
-    add_source(ax, r'Sources : Census / BLS / OWID (via FT)')
+    add_source(ax, r'Sources : Census / BEA (via FRED)')
     save(fig, 's3_ai_datacenter_construction.pdf')
 
 
@@ -2392,7 +2572,7 @@ def ai_investment_booms():
 
 def ai_real_yield():
     data = pd.read_csv(_AI_REAL_YIELD_DATA, parse_dates=['date'])
-    fig, ax = new_figure(10, 3.5)
+    fig, ax = new_figure(10, 5)
     ax.plot(data.date, data.percent, color=palette[0], linewidth=1.5)
     _ai_evidence_date_axis(ax, data.date)
     ymin, ymax = np.floor(data.percent.min()), np.ceil(data.percent.max())
@@ -2404,6 +2584,11 @@ def ai_real_yield():
     ax.set_ylabel(r'Rendement réel à 10 ans (\%)', rotation=0, ha='left', fontsize=11)
     ax.yaxis.set_label_coords(0, 1.02)
     style_axes(ax)
+    launch = pd.Timestamp('2022-11-30')
+    ax.axvline(launch, color=palette[7], linewidth=0.9)
+    ax.text(launch - pd.Timedelta(days=100), 0.85, r'Lancement de ChatGPT',
+            transform=ax.get_xaxis_transform(), ha='right', va='center',
+            fontsize=10, color=palette[0])
     add_source(ax, r'Source : Federal Reserve / FRED (DFII10)')
     save(fig, 's3_ai_real_yield.pdf')
 
@@ -2416,10 +2601,80 @@ _AI_COMPUTER_SHARE = _AI_EVIDENCE_DIR / 's3_ai_computer_income_share.csv'
 _AI_DISTRIBUTION_META = _AI_EVIDENCE_DIR / 's3_ai_distribution_evidence.json'
 
 
-def refresh_ai_distribution_evidence(as_of=None):
-    """Refresh comparable PWT labour shares; cache the paper's rounded IT endpoints."""
+def refresh_ai_computer_income_share(as_of=None, pdf_path=None):
+    """Cache Figure 2 from Jones–Tonetti, just like the other source refreshes.
+
+    Requires pypdf only for refreshing; normal plotting reads the cached CSV.
+    Supply pdf_path to reuse a local copy of the paper without a download.
+    """
     from io import BytesIO
     from hashlib import sha256
+    from pypdf import PdfReader
+    from pypdf.generic import ContentStream
+
+    retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).date().isoformat()
+    if pdf_path is not None:
+        pdf_bytes = Path(pdf_path).read_bytes()
+    else:
+        response = requests.get('https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf', timeout=50)
+        response.raise_for_status()
+        pdf_bytes = response.content
+    reader = PdfReader(BytesIO(pdf_bytes))
+    page = reader.pages[14]
+    assert 'Figure 2: The Share of Factor Income Paid to Computers' in page.extract_text()
+    form = page['/Resources']['/XObject']['/Im1'].get_object()
+    traces, short_ticks, points, color = [], [], [], None
+    for arguments, operation in ContentStream(form, reader).operations:
+        if operation in [b'RG', b'rg']:
+            color = tuple(float(value) for value in arguments)
+        elif operation in [b'm', b'l']:
+            points.append(tuple(float(value) for value in arguments))
+        elif operation in [b'S', b's', b'f', b'f*', b'B', b'n']:
+            if len(points) == 37 and color == (0.0, 0.4471, 0.7412):
+                traces.append(points[:])
+            if len(points) == 2:
+                (x0, y0), (x1, y1) = points
+                if abs(y0 - y1) < 1e-6 and 6 < abs(x1 - x0) < 7:
+                    short_ticks.append(y0)
+            points = []
+    assert len(traces) == 1 and len(short_ticks) == 4
+    # Original axis: x = 112 at 1985; x = 782 at 2025.
+    # Short horizontal ticks, top to bottom: 4.5, 4, 3.5, 3 percent.
+    ticks = sorted(short_ticks)
+    top_y, bottom_y = ticks[0], ticks[-1]
+    scale = (bottom_y - top_y) / 1.5
+    assert max(abs((b - a) / scale - 0.5) for a, b in zip(ticks, ticks[1:])) < 1e-6
+    rows = []
+    for x, y in traces[0]:
+        year = 1985 + (x - 112) / (782 - 112) * 40
+        assert abs(year - round(year)) < 1e-6
+        rows.append((round(year), round(3 + (bottom_y - y) / scale, 6)))
+    assert [year for year, _ in rows] == list(range(1987, 2024))
+    assert max(rows, key=lambda row: row[1])[0] == 2000
+    assert abs(rows[-1][1] - 3.0) < 0.05
+    pd.DataFrame(rows, columns=['year', 'approximate_percent']).to_csv(_AI_COMPUTER_SHARE, index=False)
+    metadata = json.loads(_AI_DISTRIBUTION_META.read_text(encoding='utf-8'))
+    metadata['computer_income_share'].update({
+        'retrieved_on': retrieved_on,
+        'transformation': 'Recover all 37 annual vertices from the native vector curve in Figure 2. Calibrate against its year and percent tick marks; round to six decimals. No smoothing, interpolation of missing years, or extrapolation. Values reproduce the published curve, rather than newly downloaded BLS microdata.',
+        'range': [1987, 2023], 'observations': len(rows),
+        'download_sha256': sha256(pdf_bytes).hexdigest(),
+        'vector_calibration': {'x_1985': 112, 'x_2025': 782,
+                               'y_3_percent': bottom_y, 'y_4_5_percent': top_y},
+        'precision': 'Approximate values recovered from plotted vector coordinates; extra decimals preserve curve geometry and are not statistical precision.',
+        'transistor_comparison': 'Paper, printed page 14: 100 million times more transistors on a computer chip than in the 1970s; an order-of-magnitude illustration, not a separate measured series in this figure.',
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_ai_computer_income_share(); f.ai_computer_income_share()"',
+    })
+    _AI_DISTRIBUTION_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(f'Recovered {len(rows)} computer-share observations, {rows[0][0]}–{rows[-1][0]}.')
+
+
+def refresh_ai_distribution_evidence(as_of=None):
+    """Refresh both distribution sources; normal figure generation stays offline."""
+    from io import BytesIO
+    from hashlib import sha256
+
+    refresh_ai_computer_income_share(as_of=as_of)
 
     retrieved_on = pd.Timestamp(as_of or pd.Timestamp.today()).normalize()
     url = ('https://fred.stlouisfed.org/graph/fredgraph.csv'
@@ -2437,10 +2692,7 @@ def refresh_ai_distribution_evidence(as_of=None):
         assert data[country].dropna().between(0, 1).all()
     data.to_csv(_AI_LABOUR_SHARES, index=False)
 
-    # Rounded values explicitly reported in the text accompanying Figure 2;
-    # the final observation in that figure is 2023. Do not invent annual data.
-    pd.DataFrame({'year': [2000, 2023], 'approximate_percent': [4.3, 3.0]}).to_csv(
-        _AI_COMPUTER_SHARE, index=False)
+    computer_metadata = json.loads(_AI_DISTRIBUTION_META.read_text(encoding='utf-8'))['computer_income_share']
     metadata = {
         'retrieved_on': retrieved_on.date().isoformat(),
         'labour_shares': {
@@ -2454,13 +2706,7 @@ def refresh_ai_distribution_evidence(as_of=None):
             'interpretation': 'Descriptive historical series, not a causal estimate of automation or generative AI.',
             'download_sha256': sha256(response.content).hexdigest(),
         },
-        'computer_income_share': {
-            'url': 'https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf',
-            'source': 'C. Jones and Tonetti (May 2026), Figure 2, printed page 14, PDF page 15; BLS (2024).',
-            'units': 'Share of private business value added paid to IT capital, percent; not purchases of computers, investment/GDP, technology-company profits, or all capital income.',
-            'transformation': 'Manually transcribed rounded endpoints, approximately 4.3% in 2000 and 3.0% in 2023. Not an annual series; no interpolation.',
-            'vintage': 'Historical evidence as reported in the May 2026 working paper; not a claim about the post-2023 AI boom.',
-        },
+        'computer_income_share': computer_metadata,
         'theory': {
             'more_versus_better': 'https://doi.org/10.1257/aer.20221180',
             'scarcity_and_weak_links': 'https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf',
@@ -2474,23 +2720,21 @@ def refresh_ai_distribution_evidence(as_of=None):
 
 def ai_computer_income_share():
     data = pd.read_csv(_AI_COMPUTER_SHARE)
-    fig, ax = new_figure(6, 4.4)
-    positions = np.arange(len(data))
-    ax.bar(positions, data.approximate_percent, width=0.5,
-           color=[palette[0], palette[1]], zorder=3)
-    ax.set_xticks(positions)
-    ax.set_xticklabels(data.year.astype(str), fontsize=12)
-    ax.set_xlim(-0.65, 1.65)
-    ax.set_ylim(0, 5.3)
-    ax.set_yticks(range(0, 6))
-    ax.set_yticklabels([str(value) + r'\%' for value in range(0, 6)], fontsize=11)
+    fig, ax = new_figure(7.2, 4.2)
+    assert data.year.tolist() == list(range(1987, 2024))
+    ax.plot(data.year, data.approximate_percent, color=palette[0], linewidth=2.5)
+    ticks = [1987, 1995, 2005, 2015, 2023]
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(ticks, fontsize=11)
+    ax.set_xlim(data.year.min(), data.year.max())
+    ax.set_ylim(2.8, 4.5)
+    ticks = [3, 3.5, 4, 4.5]
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{value:g}'.replace('.', ',') + r'\%' for value in ticks], fontsize=11)
     ax.set_ylabel(r'Part du revenu versée au capital informatique',
                   rotation=0, ha='left', fontsize=11)
     ax.yaxis.set_label_coords(0, 1.10)
     style_axes(ax)
-    for position, value in zip(positions, data.approximate_percent):
-        label = r'$\approx$ ' + f'{value:.1f}'.replace('.', ',') + r'\%'
-        ax.text(position, value + 0.12, label, ha='center', fontsize=12, color=palette[0])
     add_source(ax, r'Source : BLS, via C. Jones et Tonetti (2026)')
     save(fig, 's3_ai_computer_income_share.pdf')
 
@@ -2613,6 +2857,142 @@ def us_twin_deficits():
 
 
 # =====================================================================
+# Jones--Tonetti growth and labour shares: native curves from Figure 5a--b
+# =====================================================================
+_AI_GROWTH_SCENARIOS = _AI_EVIDENCE_DIR / 's3_ai_growth_scenarios.csv'
+_AI_GROWTH_META = _AI_EVIDENCE_DIR / 's3_ai_growth_evidence.json'
+
+
+def refresh_ai_growth_scenarios(as_of=None, pdf_path=None):
+    """Recover published simulation vertices; plotting itself stays offline."""
+    from io import BytesIO
+    from hashlib import sha256
+    from pypdf import PdfReader
+    from pypdf.generic import ContentStream
+
+    url = 'https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf'
+    if pdf_path is None:
+        response = requests.get(url, timeout=50)
+        response.raise_for_status()
+        payload = response.content
+    else:
+        payload = Path(pdf_path).read_bytes()
+    reader = PdfReader(BytesIO(payload))
+    page = reader.pages[40]
+    assert 'Figure 5: The Future if AI = Private Business' in page.extract_text()
+    scenarios = {(0.4902, 0.149, 0.8039): 'full',
+                 (0.0, 0.4471, 0.7412): 'asymptotic',
+                 (0.4667, 0.6392, 0.1882): 'partial'}
+    panels = []
+    for form_name, column, upper, complement in [
+            ('/Im4', 'annual_growth_percent', 20, False),
+            ('/Im3', 'labor_share_percent', 100, True)]:
+        form = page['/Resources']['/XObject'][form_name].get_object()
+        rows, points, color, counts = [], [], None, {}
+        for args, operation in ContentStream(form, reader).operations:
+            if operation in [b'RG', b'rg']:
+                color = tuple(float(value) for value in args)
+            elif operation in [b'm', b'l']:
+                points.append(tuple(float(value) for value in args))
+            elif operation in [b'S', b's', b'f', b'f*', b'B', b'n']:
+                if len(points) > 50 and color in scenarios:
+                    name = scenarios[color]
+                    assert name not in counts
+                    counts[name] = len(points)
+                    for x, y in points:
+                        year = 2020 + (x - 112) / 670 * 140
+                        assert abs(year - round(year)) < 1e-4
+                        percent = (427 - y) / (427 - 36) * upper
+                        if complement:
+                            percent = 100 - percent
+                        rows.append((name, round(year), round(percent, 6)))
+                points = []
+        assert counts == {'partial': 130, 'full': 120, 'asymptotic': 130}
+        panels.append(pd.DataFrame(rows, columns=['scenario', 'year', column]))
+    data = panels[0].merge(panels[1], on=['scenario', 'year'],
+                          how='outer', validate='one_to_one')
+    assert data.notna().all().all()
+    for name, group in data.groupby('scenario'):
+        assert group.year.tolist() == list(range(2020, int(group.year.max()) + 1))
+        assert group.annual_growth_percent.between(0, 20).all()
+        assert group.labor_share_percent.between(0, 100).all()
+        assert abs(group.loc[group.year == 2020, 'labor_share_percent'].iloc[0] - 61.8) < 0.1
+    early = data.loc[data.year == 2070, 'annual_growth_percent']
+    assert early.max() - early.min() < 0.1
+    data.to_csv(_AI_GROWTH_SCENARIOS, index=False)
+    metadata = json.loads(_AI_GROWTH_META.read_text(encoding='utf-8'))
+    metadata['jones_tonetti']['three_scenarios'] = {
+        'source': 'Figure 5a (capital share) and 5b (growth), printed p. 40 / zero-indexed PDF page 40; discussion pp. 39--43.',
+        'calibration': 'AI as a continuation of historical private-business patterns; not the faster Moore\'s Law Everywhere calibration of Figure 6.',
+        'units': 'Annual growth of output per person, percent; labour income as percent of total factor income. Both are model simulations, not observations or forecasts.',
+        'definitions': {'full': 'All tasks automated in finite time.',
+                        'asymptotic': 'Automated task share tends to 100 percent without reaching it in finite time; the paper labels this Baseline.',
+                        'partial': 'A positive set of essential tasks is never automated.'},
+        'long_run': {'full': 'Explosive growth.',
+                     'asymptotic': 'Positive finite balanced-growth rate in this historical calibration; not a universal result for asymptotic automation.',
+                     'partial': 'Growth ultimately limited by human-task productivity, 0.5 percent per year in the calibration.'},
+        'transformation': 'Recover annual vertices of all three scenarios in both panels. x=112/782 maps to 2020/2160. y=427/36 maps to 0/20 percent in growth and 0/100 percent in capital share. Compute labour share as 100 minus the capital-share percentage, consistent with s_L = 1 - s_K in this model. Join scenario/year one-to-one. No simulation re-estimation, smoothing, interpolation, or extrapolation. Omit the separate constant-growth reference line.',
+        'labor_share_interpretation': 'A share of factor income, not the share of employed workers, a wage level, or a prediction that individual earnings change in the same direction. Full automation tends to zero labour share; partial automation tends to 100 percent; the asymptotic baseline tends to roughly 64 percent in this calibration.',
+        'observations': counts,
+        'last_plotted_year': {'full': 2139, 'asymptotic': 2149, 'partial': 2149},
+        'precision': 'Approximate values recovered from the published figure; six decimals preserve its geometry, not economic precision.',
+        'short_run': 'Figure 5 and its discussion describe nearly indistinguishable paths for approximately the next 50 years. The shaded 2020--2070 interval highlights this comparison, not a predicted structural break.',
+        'mechanism': 'Strong complementarity means remaining essential human tasks constrain aggregate production. Automation of goods and ideas accelerates growth, but weak links delay the acceleration.',
+        'download_sha256': sha256(payload).hexdigest(),
+        'verified_on': pd.Timestamp(as_of or pd.Timestamp.today()).date().isoformat(),
+        'refresh_command': 'python -c "import figures_s3 as f; f.refresh_ai_growth_scenarios(); f.ai_growth_scenarios()"',
+    }
+    metadata['classroom_presentation']['sequence'] = [
+        'Solow puzzle', 'Left/right shoe complementarity and bottleneck example',
+        'Baumol: full-slide Canadian price chart',
+        'Three Jones--Tonetti automation scenarios: similar short run, divergent long run']
+    metadata['classroom_presentation']['content_slides'] = [66, 67, 68, 69]
+    metadata['classroom_presentation']['jones_tonetti_scope'] = 'Figure 5a--b historical calibration: paired growth and labour-share panels with common years and scenario colours. Labour share is one minus the published capital share. The asymptotic case is the published Baseline.'
+    metadata['classroom_presentation']['anthropic_scope'] = 'Removed from slide 69; verified values retained only as source history.'
+    _AI_GROWTH_META.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print('Recovered Jones--Tonetti growth scenarios:', counts)
+
+
+def ai_growth_scenarios():
+    data = pd.read_csv(_AI_GROWTH_SCENARIOS)
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.0), sharex=True)
+    fig.patch.set_alpha(0)
+    specs = [('full', palette[2], r'Complète (100\% en temps fini)'),
+             ('asymptotic', palette[0], r'Asymptotique (vers 100\%)'),
+             ('partial', palette[1], r'Partielle (des tâches humaines)')]
+    for ax, column, upper, step, title, source in [
+            (axes[0], 'annual_growth_percent', 20, 5,
+             r'Croissance annuelle du PIB par habitant',
+             r'Source : C. Jones et Tonetti (2026), fig. 5b'),
+            (axes[1], 'labor_share_percent', 100, 25,
+             r'Part du revenu du travail',
+             r'Source : fig. 5a, $s_L = 1 - s_K$')]:
+        ax.patch.set_alpha(0)
+        ax.axvspan(2020, 2070, color=palette[0], alpha=0.035, linewidth=0)
+        for name, color, label in specs:
+            series = data.loc[data.scenario == name].sort_values('year')
+            ax.plot(series.year, series[column], color=color,
+                    linewidth=2.5, label=label)
+        ax.set_xlim(data.year.min(), data.year.max())
+        ticks = [2020, 2070, 2100, int(data.year.max())]
+        ax.set_xticks(ticks)
+        ax.set_xticklabels(ticks, fontsize=11)
+        ax.set_ylim(0, upper)
+        ticks = np.arange(0, upper + 1, step)
+        ax.set_yticks(ticks)
+        ax.set_yticklabels([str(value) + r'\%' for value in ticks], fontsize=11)
+        ax.set_ylabel(title, rotation=0, ha='left', fontsize=12)
+        ax.yaxis.set_label_coords(0, 1.12)
+        style_axes(ax)
+        add_source(ax, source)
+    axes[0].legend(loc='upper left', frameon=False, fontsize=9.5,
+                   handlelength=1.6, labelspacing=0.65)
+    axes[0].text(2045, 7.5, r'Débuts très proches' + '\n' + r'pendant environ 50 ans',
+                 ha='center', va='center', fontsize=10.5, color=palette[0])
+    save(fig, 's3_ai_growth_scenarios.pdf')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -2627,6 +3007,7 @@ if __name__ == '__main__':
         participation_decline_us,
         labor_share_decline,
         inequality_skill_premium,
+        ai_cfo_employment,
         rd_gdp_share,
         canada_gdp_decomposition,
         canada_gdp_decomposition_countries,
@@ -2657,6 +3038,7 @@ if __name__ == '__main__':
         ai_real_yield,
         ai_computer_income_share,
         ai_labour_shares,
+        ai_growth_scenarios,
     ]
 
     failed = []

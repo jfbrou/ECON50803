@@ -1,0 +1,53 @@
+{
+  "retrieved_on": "2026-10-19",
+  "source": "BLS Current Population Survey, Weekly and Hourly Earnings, via FRED.",
+  "series": {
+    "college_usd": {
+      "id": "LEU0252918500Q",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LEU0252918500Q",
+      "download_sha256": "80ace4effb00b47093d8c5b5caabb6d995ab63ef88cd9a93066926c509eb9eef"
+    },
+    "highschool_usd": {
+      "id": "LEU0252917300Q",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LEU0252917300Q",
+      "download_sha256": "090d576f9d7fa97beb55530fa1ba44f12ae830e2387f361766f79af29fadf48e"
+    },
+    "college_annual_usd": {
+      "id": "LEU0252918500A",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LEU0252918500A",
+      "download_sha256": "9d826be2ad714b1d93a9f3c8b1bda0717532e18126e99a625610dcbdb0200c06"
+    },
+    "highschool_annual_usd": {
+      "id": "LEU0252917300A",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LEU0252917300A",
+      "download_sha256": "c81103599e5553a26ff162171075357681baae53c2c773b1cc59e7221451bf91"
+    }
+  },
+  "population": "US wage and salary workers, full time, age 25 and over, both sexes. Excludes self-employed.",
+  "college_definition": "Bachelor's degree and higher, not bachelor's only.",
+  "comparison_definition": "High school graduates, no college; excludes less than high school and some-college groups.",
+  "units_input": "Median usual weekly nominal earnings, dollars, official annual and quarterly series, not seasonally adjusted.",
+  "transformation": "100 * (college median / high-school median - 1), within each frequency. Annual values are the official annual medians, not averages of quarterly ratios. Common price deflation cancels. No smoothing, interpolation, or imputation.",
+  "plot_frequency": "Official annual observations, 1983–2025, matching the job-polarization plot: limits 1983 and 2025, ticks every five years from 1985. Quarterly observations remain cached but are not displayed on this common annual axis.",
+  "historical_comparability": "Before 1992, groups reflect years of school completed (4 years high school / 4 or more years college). From 1992, classification uses degrees. The 1994 CPS redesign also limits strict comparability; no artificial correction is applied.",
+  "historical_methodology_url": "https://aspe.hhs.gov/reports/welfare-indicators-risk-factors-fourteenth-report-congress-0",
+  "first_annual_year": 1979,
+  "last_annual_year": 2025,
+  "missing_quarters": [
+    "2025Q4"
+  ],
+  "missing_observation_note": "BLS did not produce reliable 2025Q4 estimates because October CPS data were not collected during the federal government shutdown.",
+  "methodology_url": "https://www.bls.gov/news.release/wkyeng.htm",
+  "first_quarter": "2000Q1",
+  "last_quarter": "2026Q2",
+  "last_percent": 77.86720321931591,
+  "interpretation": "Descriptive difference in group medians, not an adjusted education return or a causal AI effect. Education is not a direct measure of AI complementarity. Composition changes can affect the gap.",
+  "related_paper": {
+    "authors": "José Azar, Mireia Giné, Javier Sanz-Espín",
+    "title": "The College Wage Premium in the Generative AI Era",
+    "version": "Revised September 10, 2026",
+    "url": "https://ssrn.com/abstract=7364838",
+    "scope": "Background reading only. This BLS median-ratio figure is not a reproduction of their CPS adjusted/log-wage estimates."
+  },
+  "refresh_command": "python -c \"import figures_s3 as f; f.refresh_college_wage_premium(); f.inequality_skill_premium()\""
+}
