@@ -87,7 +87,7 @@ jobs:
 
           # Build ordered list of exercise links (exercises + solutions)
           exercise_links=""
-          for num in 1 2 3 4 5 6; do
+          for num in 1 2 3 4 5; do
             ex="_site/exercices/exercices_s${num}.pdf"
             sol="_site/exercices/exercices_s${num}_solutions.pdf"
             if [ -f "$ex" ]; then

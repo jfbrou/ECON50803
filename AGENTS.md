@@ -48,7 +48,7 @@ ECON50803/
 │   ├── exercices_s1.tex             # Session 1 exercises
 │   ├── exercices_s1.pdf             # Compiled (without solutions)
 │   ├── exercices_s1_solutions.pdf   # Compiled (with solutions)
-│   ├── exercices_s2.tex … s6.tex    # Sessions 2-6 exercises
+│   ├── exercices_s2.tex … s5.tex    # Sessions 2-5 exercises
 │   └── Nicolas Vincent/             # Vincent's past exercises/exams (git-ignored)
 ├── Articles/                        # Supplementary reading PDFs
 ├── .github/workflows/
@@ -312,6 +312,7 @@ Each session exercise file has two sections:
   - Inventory investment included in pizzeria profits (250$ = 150$ operating + 100$ inventory)
 - 7 pages without solutions, 11 pages with solutions
 
-### Sessions 2-6 exercises (placeholder)
-- Files created with basic structure but minimal content
-- To be populated following S1 conventions
+### Exercise coverage
+- Exercise handouts and solution PDFs are available for sessions 1-5.
+- Session 3 includes the saving-investment and current-account exercises previously assigned to session 6.
+- Session 6 has no separate exercise handout: its remaining trade-openness question was removed.
