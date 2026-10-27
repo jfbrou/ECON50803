@@ -1,0 +1,5 @@
+$pdflatex = 'pdflatex -interaction=nonstopmode -synctex=1 %O %S';
+$pdf_mode = 1;
+# Shared theme: sibling repository locally, nested checkout in CI.
+ensure_path('TEXINPUTS', '../../../latex-common//');
+ensure_path('TEXINPUTS', '../../latex-common//');
