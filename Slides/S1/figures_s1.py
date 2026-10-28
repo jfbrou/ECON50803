@@ -620,7 +620,7 @@ def gdp_decomposition_4countries():
         ax.set_title(f'\\textbf{{{name}}}', fontsize=20, pad=20)
 
     fig.suptitle(f'Source: Banque mondiale ({year}; prix courants; aire de NX en valeur absolue)',
-                 x=0.99, y=0.99, fontsize=8, ha='right', va='top')
+                 x=0.99, y=0.99, fontsize=12, color=palette[0], ha='right', va='top')
     save(fig, 'gdp_decomposition_4countries.pdf')
 
 
@@ -635,7 +635,7 @@ def consumption_share_gdp():
     ratio = df['Consumption'] / df['Gross domestic product at market prices']
     _gdp_share_plot(df['REF_DATE'], ratio,
                     ylabel=r'$C / Y$',
-                    ylim=(0.50, 0.60), ytick_step=0.02,
+                    ylim=(0.52, 0.60), ytick_step=0.02,
                     fname='consumption_share_gdp.pdf')
 
 
