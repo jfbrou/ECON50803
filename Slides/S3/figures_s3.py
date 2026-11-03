@@ -214,18 +214,19 @@ def aging_population():
 
     ax.set_xlim(1960, 2025)
     ax.set_xticks(range(1960, 2030, 10))
-    ax.set_xticklabels(range(1960, 2030, 10), fontsize=11)
+    ax.set_xticklabels(range(1960, 2030, 10), fontsize=14)
     ax.set_ylabel(r"Ratio de dépendance des aînés (\%)",
-                  fontsize=11, rotation=0, ha='left')
+                  fontsize=14, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(5, 55)
     ax.set_yticks(range(5, 56, 10))
-    ax.set_yticklabels([f'{y}' + r'\%' for y in range(5, 56, 10)], fontsize=11)
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(5, 56, 10)], fontsize=14)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper left',
+    ax.legend(frameon=False, fontsize=13, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
     add_source(ax, 'Source: Banque mondiale (SP.POP.DPND.OL)')
+    ax.texts[-1].set_fontsize(10)
     save(fig, 'aging_population.pdf')
 
 
@@ -435,20 +436,21 @@ def ai_cfo_employment():
             label_y = value + (0.025 if value >= 0 else -0.025)
             text = f'{value:+.2f}'.replace('.', ',') + r'\%'
             ax.text(x, label_y, text, ha='center', va='bottom' if value >= 0 else 'top',
-                    fontsize=11, color=color)
+                    fontsize=14, color=color)
     ax.axhline(0, color=palette[7], linewidth=0.8, zorder=2)
     ax.set_xlim(-0.65, 1.65)
-    ax.set_ylim(-0.85, 0.4)
+    ax.set_ylim(-0.8, 0.2)
     ax.set_xticks(centers)
-    ax.set_xticklabels(['Moins de 500 salariés', '500 salariés ou plus'], fontsize=11)
-    ticks = [-0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4]
+    ax.set_xticklabels(['Moins de 500 salariés', '500 salariés ou plus'], fontsize=14)
+    ticks = [-0.8, -0.6, -0.4, -0.2, 0, 0.2]
     ax.set_yticks(ticks)
-    ax.set_yticklabels([f'{value:.1f}'.replace('.', ',') + r'\%' for value in ticks], fontsize=11)
-    ax.set_ylabel(r'Effet sur l\textquotesingle emploi (\%)', rotation=0, ha='left', fontsize=11)
+    ax.set_yticklabels([f'{value:.1f}'.replace('.', ',') + r'\%' for value in ticks], fontsize=14)
+    ax.set_ylabel(r'Effet sur l\textquotesingle emploi (\%)', rotation=0, ha='left', fontsize=14)
     ax.yaxis.set_label_coords(0, 1.02)
     style_axes(ax)
-    ax.legend(loc='upper left', frameon=False, fontsize=10, ncol=2)
+    ax.legend(loc='upper right', frameon=False, fontsize=13, ncol=2)
     add_source(ax, r'Source : Baslandze et al. (2026), figure 1')
+    ax.texts[-1].set_fontsize(10)
     save(fig, 's3_ai_cfo_employment.pdf')
 
 
@@ -2583,6 +2585,97 @@ def ai_datacenter_construction():
     save(fig, 's3_ai_datacenter_construction.pdf')
 
 
+def ai_datacenter_and_real_yield():
+    """Overlay construction/GDP and the Fed-published TIPS5F5 real forward rate."""
+    construction = pd.read_csv(_AI_CONSTRUCTION_GDP_DATA, parse_dates=['date'])
+    rates = pd.read_csv(_AI_EVIDENCE_DIR / 'ess_ai_real_forward_5y5y.csv', parse_dates=['date']).dropna(subset=['percent'])
+    # Retain each series at its own observation frequency; no extrapolation.
+    start = max(construction.date.min(), rates.date.min())
+    end = max(construction.date.max(), rates.date.max())
+    construction = construction[construction.date >= start]
+    rates = rates[rates.date >= start]
+    fig, ax = new_figure(10, 5)
+    ax2 = ax.twinx()
+    ax.plot(construction.date, construction.percent_gdp, color=palette[0],
+            linewidth=2.7, label=r'Construction (\% du PIB, gauche)')
+    ax2.plot(rates.date, rates.percent, color=palette[2], linewidth=1.5,
+             label=r'Taux réel 5 ans dans 5 ans (\%, droite)')
+    _ai_evidence_date_axis(ax, pd.Series([start, end]))
+    ymax = np.ceil(construction.percent_gdp.max() / 0.05) * 0.05
+    ticks = np.arange(0, ymax + 0.025, 0.05)
+    ax.set_ylim(0, ymax)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{v:.2f}'.replace('.', ',') + r'\%' for v in ticks], fontsize=12)
+    ymin, ymax_r = np.floor(rates.percent.min()), np.ceil(rates.percent.max())
+    ticks_r = np.arange(ymin, ymax_r + 0.5, 1)
+    ax2.set_ylim(ymin, ymax_r)
+    ax2.set_yticks(ticks_r)
+    ax2.set_yticklabels([f'{v:.0f}' + r'\%' for v in ticks_r], fontsize=12)
+    style_axes(ax)
+    ax2.grid(False)
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_color(palette[2])
+    ax.tick_params(axis='y', colors=palette[0])
+    ax2.tick_params(axis='y', colors=palette[2])
+    launch = pd.Timestamp('2022-11-30')
+    ax.axvline(launch, color=palette[7], linewidth=0.8)
+    ax.text(launch, 1.025, 'ChatGPT',
+            transform=ax.get_xaxis_transform(), ha='center', va='bottom', fontsize=11, color=palette[0])
+    handles = ax.get_lines()[:1] + ax2.get_lines()[:1]
+    ax.legend(handles, [h.get_label() for h in handles], frameon=False,
+              loc='upper left', fontsize=11)
+    add_source(ax, 'Sources : Census / BEA ; Fed (GSW, TIPS5F5)')
+    save(fig, 'ess_ai_datacenter_real_yield.pdf')
+
+
+def saving_glut_evidence():
+    """Regional net lending and global sovereign real rates, matched 2001-2018."""
+    rates = pd.read_csv(_INTERNATIONAL_DATA_DIR / 'ess_global_real_rate.csv', index_col='year')
+    rate = rates.global_real_rate_percent.rolling(5, min_periods=5).mean().loc[2001:2018]
+    raw = pd.read_csv(_CA_TIME_DATA, index_col='year').loc[2001:2018]
+    assert raw.notna().all().all() and rate.notna().all()
+    fig = plt.figure(figsize=(13, 5.5))
+    grid = fig.add_gridspec(2, 2, width_ratios=[1.6, 1], height_ratios=[1, 0.20])
+    ax, ar = fig.add_subplot(grid[0, 0]), fig.add_subplot(grid[0, 1])
+    axes = [ax, ar]
+    legend_ax = fig.add_subplot(grid[1, 0])
+    legend_ax.axis('off')
+    pos = np.zeros(len(raw)); neg = pos.copy()
+    for name, (members, color) in _CA_GROUPS.items():
+        if name == 'Canada':
+            continue
+        values = raw[members].sum(axis=1).to_numpy() / raw.world_gdp_billion_usd.to_numpy() * 100
+        bottom = np.where(values >= 0, pos, neg)
+        ax.bar(raw.index, values, bottom=bottom, width=0.75, color=color, label=name, zorder=3)
+        pos += np.maximum(values, 0); neg += np.minimum(values, 0)
+    ax.axhline(0, color=palette[7], linewidth=0.7)
+    ax.set_ylim(-3, 3)
+    ax.set_yticks([-3, -1.5, 0, 1.5, 3])
+    ax.set_yticklabels([r'-3\%', r'-1,5\%', r'0\%', r'1,5\%', r'3\%'], fontsize=12)
+    ax.set_title(r'Prêts nets régionaux ($S - I$, \% du PIB mondial)', fontsize=13, loc='left', pad=22)
+    add_source(ax, 'Source : FMI, WEO (oct. 2026)')
+    ar.plot(rate.index, rate.values, color=palette[0], linewidth=2.5)
+    bound = np.ceil(rate.max())
+    ar.set_ylim(0, bound)
+    rate_ticks = np.arange(0, bound + 1, 1)
+    ar.set_yticks(rate_ticks)
+    ar.set_yticklabels([f'{v:.0f}' + r'\%' for v in rate_ticks], fontsize=12)
+    ar.set_title('Taux réel mondial (ex post)', fontsize=13, loc='left', pad=22)
+    add_source(ar, 'Source : Schmelzing (2020), Banque d’Angleterre')
+    ar.text(0.03, 0.05, 'Obligations souveraines\nÉconomies avancées\nMoyenne mobile sur 5 ans',
+            transform=ar.transAxes, va='bottom', fontsize=10, color=palette[0])
+    for axis in axes:
+        axis.set_xlim(2000.5, 2018.5) if axis is ax else axis.set_xlim(2001,2018)
+        axis.set_xticks([2001, 2006, 2012, 2018])
+        axis.set_xticklabels(['2001','2006','2012','2018'], fontsize=12)
+        style_axes(axis)
+    handles, labels = ax.get_legend_handles_labels()
+    legend_ax.legend(handles, labels, loc='upper left', bbox_to_anchor=(0, 1),
+                     borderaxespad=0, ncol=3, frameon=False, fontsize=10,
+                     columnspacing=1.1, handlelength=1.2)
+    save(fig, 'ess_saving_glut_evidence.pdf')
+
+
 def ai_investment_booms():
     """Historical annual averages versus a conditional 2025–32 AI scenario."""
     data = pd.read_csv(_AI_BOOMS_DATA)
@@ -3073,6 +3166,8 @@ if __name__ == '__main__':
         saving_rates_divergence,
         us_twin_deficits,
         ai_datacenter_construction,
+        ai_datacenter_and_real_yield,
+        saving_glut_evidence,
         ai_investment_booms,
         ai_real_yield,
         ai_computer_income_share,

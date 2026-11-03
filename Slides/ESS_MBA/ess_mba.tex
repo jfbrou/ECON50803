@@ -8,32 +8,59 @@
 \date{L'essentiel du MBA\\École des dirigeants\\Édition octobre 2026}
 
 % Build from Slides/ESS_MBA/: latexmk -pdf ess_mba.tex
-% 78 static slides: 70 selected S1--S5 frames, a shared title frame,
-% four shared section frames, a resource guide and two closing summaries.
+% 80 static slides: 71 selected/adapted S1--S6 frames, a shared title frame,
+% five shared section frames, a resource guide and two closing summaries.
 % ECON50803 visual identity is inherited from preamble.tex without overrides.
 % Figures remain shared vector assets with their original source vintages.
 % Only standalone-course references, minor accuracy/clarity points and
 % necessary layout/arrow repairs are adapted in the copied frames.
 % Source provenance and any adaptation appear above each selected frame.
-% Timing, including a 10-minute break after slide 47: 3h30.
+% Order follows S1 measurement, S2 growth, S3 labor/capital/AI, S4 cycles, S5 policy.
+% Timing, including a 10-minute break after slide 57: 3h30.
 \newcolumntype{J}{>{\raggedright\arraybackslash}X}
 \begin{document}
 
 % ============================================================================
-% 01 | \titleframe
+% 1 | \titleframe
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \titleframe
 
 % ============================================================================
-% 02 | \begin{frame}{Un monde complexe et incertain}
+% 2 | \begin{frame}{Présentation}
+% Source: S1/s1.tex | \begin{frame}{Présentation}
+% Adaptation: Brief programme introduction; omit office and office-hour logistics.
+% ============================================================================
+\begin{frame}{Présentation}
+   \begin{columns}[c]
+      \begin{column}{0.35\textwidth}
+         \begin{center}
+            \includegraphics[width=1.0\textwidth]{headshot}
+         \end{center}
+      \end{column}
+      \hspace{-1cm}
+      \begin{column}{0.65\textwidth}
+         \textbf{Jean-Félix Brouillette} \\[0.15cm]
+         Professeur adjoint en économie appliquée \\[0.3cm]
+         {\small B.A.A.\ et M.Sc.\ en économie, HEC Montréal \\
+         Ph.D.\ en économie, Stanford University} \\[0.3cm]
+         \begin{itemize}
+            \setlength\itemsep{0.15cm}
+            \item Courriel : {\small \href{mailto:jean-felix.brouillette@hec.ca}{jean-felix.brouillette@hec.ca}}
+         \end{itemize}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+% 3 | \begin{frame}{Un monde complexe et incertain}
 % Source: S1/s1.tex | \begin{frame}{Un monde complexe et incertain}
 % ============================================================================
 \begin{frame}{Un monde complexe et incertain}
    \begin{tikzpicture}[remember picture, overlay]
       \setcounter{newshl}{0}
-      % The Globe and Mail, 2026-09-15; headline supplied by the user.
-      \newsheadline[globeandmail]{The Globe and Mail}{\href{https://www.theglobeandmail.com/business/article-carney-tax-mega-deduction-investment-summit/}{\guillemotleft~Ottawa plans `mega deduction' tax incentive to spur investment~\guillemotright}}
+      % The Globe and Mail, 2026-10-28; headline supplied by the user.
+      \newsheadline[globeandmail]{The Globe and Mail}{\href{https://www.theglobeandmail.com/business/article-bank-of-canada-raises-interest-rate-october-2026/}{\guillemotleft~BoC hikes rate to 2.5\% to contain oil-price shock~\guillemotright}}
       % Financial Times, 2026-08-26; verified in the publisher's search results on 2026-10-15.
       \newsheadline[ft]{Financial Times}{\href{https://www.ft.com/content/9cb63980-cd43-419d-a7e5-42039b9fd01e?syn-25a6b1a6=1}{\guillemotleft~The multiplying risks of financing data centres~\guillemotright}}
       % Bloomberg, 2026-09-23.
@@ -45,19 +72,19 @@
       \newsheadline[lapresse]{La Presse}{\href{https://www.lapresse.ca/affaires/economie/2026-10-06/etude-de-la-banque-du-canada/la-replique-tarifaire-du-canada-alimente-l-inflation.php}{\guillemotleft~La réplique tarifaire du Canada alimente l'inflation~\guillemotright}}
       % Le Devoir, 2026-10-09; current title and canonical URL verified on the publisher's page on 2026-10-15.
       \newsheadline[ledevoir]{Le Devoir}{\href{https://www.ledevoir.com/economie/1015754/economie-quebecoise-perdu-49-000-emplois-septembre}{\guillemotleft~L'économie québécoise a perdu 49\,000 emplois en septembre~\guillemotright}}
-% Static summary: retain the original headline slide without its second overlay.
+% Static summary: no second headline overlay.
    \end{tikzpicture}
 \end{frame}
 
 % ============================================================================
-% 03 | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
+% 4 | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
 % Source: S1/s1.tex | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
 % ============================================================================
 \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
    \small\raggedright
-   Les événements macroéconomiques perturbent les \textbf{stratégies d'affaires}, influencent les \textbf{coûts, salaires et taux d'intérêt}, et sont sources de \textbf{risque} mais aussi d'\textbf{opportunité}. \\ \vspace{0.25cm}
+   Les événements macroéconomiques perturbent les \textbf{stratégies d'affaires} et sont sources de \textbf{risque} mais aussi d'\textbf{opportunité}. \\ \vspace{0.25cm}
 
-   Les entreprises dont les gestionnaires font de \textbf{meilleures prévisions macroéconomiques} sont plus \textbf{productives}, plus \textbf{rentables} et captent une plus grande \textbf{part de marché}.
+   Les entreprises dont les gestionnaires font de \textbf{meilleures prévisions macroéconomiques} sont plus \textbf{productives} et plus \textbf{rentables}.
    \vspace{0.1cm}
    \begin{itemize}
       \footnotesize
@@ -72,22 +99,24 @@
 \end{frame}
 
 % ============================================================================
-% 04 | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
+% 5 | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
 % Source: S1/s1.tex | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
-% Adaptation: Financing example: loans, not leases.
+% Adaptation: Replace the interest-rate example with the S1 micro-versus-macro intuition.
 % ============================================================================
 \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
    \small
-   Vous êtes CFO et tout d'un coup la BdC hausse son taux directeur de 50 p.b. :
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Vos emprunts à taux variable coûtent plus cher
-      \item Émettre de la dette pour construire une nouvelle usine devient prohibitif
-      \item Vos clients, écrasés par leurs hypothèques, réduisent leurs dépenses
-      \item Le dollar s'apprécie et vos exportations deviennent moins compétitives
-   \end{itemize}
+   La \textbf{micro}économie étudie les décisions \textbf{individuelles} des ménages et des entreprises.
+   \par\vspace{0.2cm}
+   Mais ces décisions s'\textbf{agrègent} et influencent la \textbf{macro}économie dans son ensemble.
+   \par\vspace{0.2cm}
+   En retour, cette \textbf{agrégation} compte énormément pour les décisions individuelles.
    \vspace{0.15cm}
+   \begin{itemize}
+      \setlength\itemsep{0.15cm}
+      \item Le paradoxe de l'épargne
+      \item Se lever à un match de hockey
+   \end{itemize}
+   \par\vspace{0.3cm}
    La \textbf{macroéconomie} s'intéresse à :
    \vspace{0.15cm}
    \begin{itemize}
@@ -99,7 +128,7 @@
 \end{frame}
 
 % ============================================================================
-% 05 | \begin{frame}{Objectifs du cours}
+% 6 | \begin{frame}{Objectifs du cours}
 % Source: S1/s1.tex | \begin{frame}{Objectifs du cours}
 % ============================================================================
 \begin{frame}{Objectifs du cours}
@@ -118,7 +147,7 @@
 \end{frame}
 
 % ============================================================================
-% 06 | \begin{frame}{Thèmes abordés}
+% 7 | \begin{frame}{Thèmes abordés}
 % Source: S1/s1.tex | \begin{frame}{Thèmes abordés}
 % Adaptation: Remove an omitted inequality-survey promise.
 % ============================================================================
@@ -139,14 +168,14 @@
 \end{frame}
 
 % ============================================================================
-% 07 | \sectionframe{Mesurer l'économie}
+% 8 | \sectionframe{Mesurer l'économie}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Mesurer l'économie}
 
 % ============================================================================
-% 08 | \begin{frame}{Qu'est-ce que le PIB\,?}
-% Source: S1/s1.tex | \begin{frame}{Qu'est-ce que le PIB\,?}
+% 9 | \begin{frame}{Qu'est-ce que le PIB\,?}
+% Source: S1/s1.tex | What GDP measures
 % ============================================================================
 \begin{frame}{Qu'est-ce que le PIB\,?}
    \begin{defbox}[Produit intérieur brut (PIB)]
@@ -165,132 +194,138 @@
 \end{frame}
 
 % ============================================================================
-% 09 | \begin{frame}{L'approche par les dépenses : $Y = C + I + G + NX$}
-% Source: S1/s1.tex | \begin{frame}{L'approche par les dépenses : $Y = C + I + G + NX$}
+% 10 | \begin{frame}{Quatre sources de demande}
+% Source: S1/s1.tex | Expenditure identity and C, I, G, NX definitions
+% Adaptation: Consolidate four component definitions into one manager-facing overview.
 % ============================================================================
-\begin{frame}{L'approche par les dépenses : $Y = C + I + G + NX$}
-   \begin{figure}
-      \centering
-      \includegraphics[height=0.8\textheight]{gdp_decomposition_canada.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-% 10 | \begin{frame}[t]{Consommation ($C$)}
-% Source: S1/s1.tex | \begin{frame}[t]{Consommation ($C$)}
-% ============================================================================
-\begin{frame}[t]{Consommation ($C$)}
-   \textbf{Dépenses des ménages} en biens et services finaux :
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Biens durables} --- voitures, meubles, électroménagers (longue vie utile)
-      \item \textbf{Biens non durables} --- alimentation, vêtements, essence (courte vie utile)
-      \item \textbf{Services} --- loyer, soins de santé, coiffure, éducation
-   \end{itemize}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      Les services représentent plus de 60\,\% de la consommation au Canada. Ce virage vers les services caractérise les économies avancées.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 11 | \begin{frame}[t]{Investissement ($I$)}
-% Source: S1/s1.tex | \begin{frame}[t]{Investissement ($I$)}
-% ============================================================================
-\begin{frame}[t]{Investissement ($I$)}
-   \textbf{Dépenses en biens destinés à produire dans le futur :}
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Capital fixe des entreprises} --- machines, équipements, usines, logiciels
-      \item \textbf{Résidentiel} --- construction de nouveaux logements
-      \item \textbf{Stocks} --- biens invendus entreposés
-   \end{itemize}
-   \vspace{0.3cm}
-   \begin{warning}[Confusion fréquente]
-      En économie, \guillemotleft~investissement~\guillemotright\ $=$ \textbf{formation de capital physique}, pas l'achat de titres financiers. Acheter un camion de livraison $=$ investissement; acheter des actions de Tesla, non.
-   \end{warning}
-\end{frame}
-
-% ============================================================================
-% 12 | \begin{frame}[t]{Dépenses gouvernementales ($G$)}
-% Source: S1/s1.tex | \begin{frame}[t]{Dépenses gouvernementales ($G$)}
-% ============================================================================
-\begin{frame}[t]{Dépenses gouvernementales ($G$)}
-   \small
-   Le gouvernement est un producteur \textbf{majeur} de biens et services :
-   \vspace{0.05cm}
-   \begin{itemize}
-      \footnotesize
-      \setlength\itemsep{0.05cm}
-      \item Défense, éducation, santé, police, justice, pompiers, etc.
-      \item Infrastructures (routes, ponts, transport en commun) selon NIPA ($G$) vs.\ SNA ($I$)
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{defbox}[Évalué au coût]
-      Souvent sans prix de marché, donc $G$ est mesuré par le \textbf{coût des intrants}.
-   \end{defbox}
+\begin{frame}{Quatre sources de demande}
+   \centering
+   {\Large $Y = C + I + G + NX$}\par\vspace{0.25cm}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HEClightgray, boxrule=0pt, arc=8pt, height=1.85cm, left=8pt, right=8pt, top=6pt, bottom=6pt]
+            \RaggedRight
+            \textbf{\textcolor{HECnavy}{$C$ — Consommation}}\par\vspace{3pt}
+            \footnotesize Dépenses des \textbf{ménages} destinées à être consommées aujourd'hui.
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HEClightgray, boxrule=0pt, arc=8pt, height=1.85cm, left=8pt, right=8pt, top=6pt, bottom=6pt]
+            \RaggedRight
+            \textbf{\textcolor{HECnavy}{$I$ — Investissement}}\par\vspace{3pt}
+            \footnotesize Dépenses des \textbf{entreprises} destinées à accroître la production future.
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
    \vspace{0.1cm}
-   \begin{warning}[Transferts $\neq$ dépenses gouvernementales]
-      Les transferts (assurance-emploi, pensions, aide sociale) ne font \textbf{pas} partie de $G$ : ils redistribuent le revenu existant, sans nouvelle production.
-   \end{warning}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HEClightgray, boxrule=0pt, arc=8pt, height=1.85cm, left=8pt, right=8pt, top=6pt, bottom=6pt]
+            \RaggedRight
+            \textbf{\textcolor{HECnavy}{$G$ — Dépenses publiques}}\par\vspace{3pt}
+            \footnotesize Dépenses des \textbf{gouvernements} en biens et services publics, hors transferts.
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[colback=HEClightgray, colframe=HEClightgray, boxrule=0pt, arc=8pt, height=1.85cm, left=8pt, right=8pt, top=6pt, bottom=6pt]
+            \RaggedRight
+            \textbf{\textcolor{HECnavy}{$NX$ — Exportations nettes}}\par\vspace{3pt}
+            \footnotesize Exportations moins importations : $X - M$. Compter la production \textbf{domestique}.
+         \end{tcolorbox}
+      \end{column}
+   \end{columns}
 \end{frame}
 
 % ============================================================================
-% 13 | \begin{frame}[t]{Exportations et importations ($NX$)}
-% Source: S1/s1.tex | \begin{frame}[t]{Exportations et importations ($NX$)}
-% ============================================================================
-\begin{frame}[t]{Exportations et importations ($NX$)}
-   $C$, $I$ et $G$ incluent les dépenses en biens \textbf{étrangers} (importations).\\[4pt]
-   Puisque le PIB mesure la production \textit{intérieure}, il faut une correction :
-   \vspace{0.1cm}
-   \begin{equation*}
-      Y = \underbrace{C + I + G}_{\text{dépenses totales}} + \underbrace{X - M}_{\text{export.\ nettes}}
-   \end{equation*}
-   \vspace{-0.3cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item $X$ (exportations) : production intérieure vendue à l'étranger
-      \item $M$ (importations) : production étrangère déjà comptée dans $C$, $I$, $G$
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{defbox}[Ouverture commerciale]
-      $(X + M) / Y$ mesure l'importance du commerce pour une économie.
-   \end{defbox}
-\end{frame}
-
-% ============================================================================
-% 14 | \begin{frame}{PIB par les dépenses : comparaison internationale}
-% Source: S1/s1.tex | \begin{frame}{PIB par les dépenses : comparaison internationale}
+% 11 | \begin{frame}{PIB par les dépenses : comparaison internationale}
+% Source: S1/s1.tex | International GDP composition
 % ============================================================================
 \begin{frame}{PIB par les dépenses : comparaison internationale}
    \vspace{-0.15cm}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth, height=0.62\textheight, keepaspectratio]{gdp_decomposition_4countries.pdf}
+      \includegraphics[width=\textwidth, height=0.55\textheight, keepaspectratio]{gdp_decomposition_4countries.pdf}
    \end{figure}
-   \vspace{-0.25cm}
-   \begin{keyinsight}[Différents modèles de croissance]
-      Chine : investissement ($I$ = 40\,\%). É.-U.\ : consommation ($C$ = 68\,\%).
+   \vspace{-0.65cm}
+   \begin{keyinsight}[Stratégies de croissance et opportunités d'affaires]
+      \small \textbf{Investissement élevé (Chine)} $\to$ producteurs d'équipements.\\[3pt]
+      \textbf{Consommation élevée (É.-U.)} $\to$ biens et services aux ménages.
    \end{keyinsight}
 \end{frame}
 
 % ============================================================================
-% 15 | \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
-% Source: S1/s1.tex | \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+% 12 | \begin{frame}[t]{Comparer le PIB entre pays : convertir les devises}
+% Source: S1/s1.tex | Comment comparer des unités différentes
+% Adaptation: Original S1 exchange-rate content; explicitly frame it as cross-country GDP comparison.
 % ============================================================================
-\begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+\begin{frame}[t]{Comparer le PIB entre pays : convertir les devises}
+   \small
+
+   \textbf{Comment comparer les PIB de pays utilisant des devises différentes ?}
+   \vspace{0.15cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.15cm}
+      \item \textbf{Taux de change du marché :}  $\smallquad e^{N} = \mathdollar_D / \mathdollar_F$
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Largement disponibles et mis à jour fréquemment
+         \item Problème : très volatils, et ignorent les différences de niveaux de prix
+      \end{itemize}
+      \item \textbf{Parité de pouvoir d'achat (PPA) :} $\smallquad e^{PPA} = P_D / P_F$
+      \vspace{0.1cm}
+      \begin{itemize}
+         \setlength\itemsep{0.1cm}
+         \item Meilleures comparaisons de niveaux de vie
+         \item Un dollar achète plus à Lagos qu'à New York
+         \item Les biens/services sont-ils comparables d'un pays à l'autre\,?
+         \item Mis à jour moins fréquemment
+         \item Taux de change réel : $e^{R} = e^{N} / e^{PPA}$
+      \end{itemize}
+   \end{enumerate}
+\end{frame}
+
+% ============================================================================
+% 13 | \begin{frame}{Prix plus élevés dans les pays riches (effet Balassa-Samuelson)}
+% Source: S1/s1.tex | Price levels versus GDP per capita
+% ============================================================================
+\begin{frame}{Prix plus élevés dans les pays riches}
    \begin{figure}
       \centering
-      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.pdf}
+      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+% 14 | \begin{frame}[t]{PIB vs.\ revenu national brut (RNB)}
+% Source: S1/s1.tex | PIB vs. revenu national brut
+% Adaptation: Explain PNB terminology and distinguish primary income from remittances/transfers.
+% ============================================================================
+\begin{frame}[t]{PIB vs.\ revenu national brut (RNB)}
+   \begin{defbox}[Production et revenus]
+      \small \textbf{PIB} : production sur le \textit{territoire}, peu importe qui perçoit les revenus.\\[2pt]
+      \textbf{RNB} : revenus des \textit{résidents}, qu'ils proviennent du pays ou de l'étranger.
+   \end{defbox}
+   \vspace{0.15cm}
+   \begin{keyinsight}[Pouvoir d'achat des clients potentiels]
+      \small Pour évaluer leur pouvoir d'achat, le \textbf{RNB par habitant en PPA} est souvent plus révélateur que le PIB par habitant.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 15 | \begin{frame}{L'économie des farfadets}
+% Source: S1/s1.tex | GDP versus GNI country comparisons
+% ============================================================================
+\begin{frame}{L'économie des farfadets}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.75\textheight, keepaspectratio]{gdp_gni_ratio.pdf}
    \end{figure}
 \end{frame}
 
 % ============================================================================
 % 16 | \begin{frame}[t]{PIB et prix}
-% Source: S1/s1.tex | \begin{frame}[t]{PIB et prix}
-% Adaptation: Math-source product convention only.
+% Source: S1/s1.tex | PIB et prix
 % ============================================================================
 \begin{frame}[t]{PIB et prix}
    \begin{defbox}
@@ -309,33 +344,59 @@
 \end{frame}
 
 % ============================================================================
-% 17 | \begin{frame}{Qu'est-ce que l'inflation\,?}
-% Source: S1/s1.tex | \begin{frame}{Qu'est-ce que l'inflation\,?}
-% Adaptation: Make percentage units explicit.
+% 17 | \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+% Source: S1/s1.tex | Canadian nominal and real GDP chart
 % ============================================================================
-\begin{frame}{Qu'est-ce que l'inflation\,?}
-   \begin{defbox}[Inflation]
-      Le taux de variation en \% du \textbf{niveau général des prix} entre deux périodes.
-   \end{defbox}
-
-   \begin{equation*}
-      \pi_t = \frac{P_t - P_{t-1}}{P_{t-1}} \cdot 100 = \%\Delta P \quad \text{où $P_t =$ niveau des prix au temps $t$}
-   \end{equation*}
-
-   \vspace{0.3cm}
-
-   \textbf{Question clé :} comment mesurer $P_t$\,?
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Déflateur du PIB :} prix de tous les biens produits domestiquement (large)
-      \item \textbf{Indice des prix à la consommation (IPC) :} prix d'un panier de biens de consommation (le plus courant)
-   \end{itemize}
+\begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_nominal_real_canada.pdf}
+   \end{figure}
 \end{frame}
 
 % ============================================================================
-% 18 | \begin{frame}{Inflation globale vs.\ de base}
-% Source: S1/s1.tex | \begin{frame}{Inflation globale vs.\ de base}
+% 18 | \begin{frame}[t]{Inflation : des prix qui augmentent plus ou moins vite}
+% Source: S1/s1.tex | Inflation definition
+% Adaptation: Make percentage units and inflation-versus-price-level distinction explicit.
+% ============================================================================
+\begin{frame}[t]{Inflation : des prix qui augmentent plus ou moins vite}
+   \small
+   \begin{defbox}[Inflation]
+      Variation en pourcentage du \textbf{niveau général des prix}.
+   \end{defbox}
+   \begin{equation*}
+      \pi_t = \frac{P_t - P_{t-1}}{P_{t-1}} \cdot 100
+   \end{equation*}
+   \vspace{0.1cm}
+   \small Dans les médias : généralement la variation des prix \textbf{sur 12 mois}.
+   \vspace{0.1cm}
+   \begin{keyinsight}[Désinflation $\neq$ déflation]
+      \small De 5\,\% à 2\,\% : les prix \textbf{augmentent moins vite}. La \textbf{déflation} désigne une baisse du niveau général des prix.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 19 | \begin{frame}[t]{Comment mesure-t-on l'IPC\,?}
+% Source: S1/s1.tex | CPI definition; Statistics Canada CPI FAQ
+% Adaptation: Dedicated basket explanation, verified against Statistics Canada; no invented numerical weights.
+% ============================================================================
+\begin{frame}[t]{Comment mesure-t-on l'IPC\,?}
+   \small
+   \begin{enumerate}
+      \setlength\itemsep{0.3cm}
+      \item \textbf{Un panier représentatif} des dépenses des ménages : alimentation, logement, transport, services\ldots
+      \item \textbf{Des prix comparables dans le temps}, en tenant compte des changements de quantité et de qualité.
+      \item \textbf{Des pondérations selon les dépenses} : une catégorie plus importante pèse davantage dans l'indice. Le panier est actualisé régulièrement.
+   \end{enumerate}
+   \vspace{0.3cm}
+   \begin{bizimplication}[Pour votre organisation]
+      \small L'IPC mesure les prix à la \textbf{consommation}. Il ne représente pas nécessairement l'évolution de \textbf{vos coûts d'entreprise}.
+   \end{bizimplication}
+\end{frame}
+
+% ============================================================================
+% 20 | \begin{frame}{Inflation globale vs.\ de base}
+% Source: S1/s1.tex | Headline and core inflation
 % ============================================================================
 \begin{frame}{Inflation globale vs.\ de base}
    \begin{figure}
@@ -345,8 +406,28 @@
 \end{frame}
 
 % ============================================================================
-% 19 | \begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
-% Source: S1/s1.tex | \begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
+% 21 | \begin{frame}[t]{Corriger les prix : deux difficultés}
+% Source: S1/s1.tex | Quality adjustment examples; new-product bias and the price of light
+% Adaptation: One concise slide without numerical claims; retain Honda and lighting intuitions.
+% ============================================================================
+\begin{frame}[t]{Corriger les prix : deux difficultés}
+   \small
+   \textbf{\textcolor{HECnavy}{1. Comparer une qualité équivalente}}
+   \par\vspace{0.2cm}
+   Une voiture plus chère mais mieux équipée : quelle part du prix reflète de l'inflation vs.\ un \textbf{meilleur produit} ? Les agences corrigent pour la qualité, mais imparfaitement.
+   \par\vspace{0.4cm}
+   \textbf{\textcolor{HECgreen}{2. Intégrer les nouveaux produits}}
+   \par\vspace{0.2cm}
+   Un nouveau produit n'a pas de prix antérieur. Comparer des bougies et des ampoules exige de mesurer le \textbf{service rendu : les lumens}, pas seulement le prix de chaque produit.
+   \par\vspace{0.25cm}
+   \begin{keyinsight}[Une mesure utile, mais imparfaite]
+      \small Mal mesurer les gains de qualité ou les quantités derrières les nouveaux produits peut conduire à \textbf{surestimer l'inflation} et à \textbf{sous-estimer les gains réels}.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 22 | \begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
+% Source: S1/s1.tex | Hermes and Costco market examples
 % ============================================================================
 \begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
    \small
@@ -357,7 +438,7 @@
    \end{itemize}
    \vspace{0.1cm}
    \begin{bizimplication}[Stratégie de marché]
-      \small Vous vendez des sacs à main de luxe. Viser un pays au PIB élevé ou au PIB par habitant élevé\,? Et si vous vendez des biens abordables à faibles marges\,?
+      \small Vous vendez des sacs à main Hermès (luxe). Viser un pays au PIB élevé ou au PIB par habitant élevé\,? Et si vous êtes COSTCO (biens abordables à faibles marges)\,?
    \end{bizimplication}
    \vspace{0.1cm}
    \begin{bizimplication}[Rémunération]
@@ -366,8 +447,431 @@
 \end{frame}
 
 % ============================================================================
-% 20 | \begin{frame}[t]{Trois catégories}
-% Source: S3/s3.tex | \begin{frame}[t]{Trois catégories}
+% 23 | \begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
+% Source: S1/s1.tex | Total Canada-US GDP comparison
+% ============================================================================
+\begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_canada_usa.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+% 24 | \begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
+% Source: S1/s1.tex | Per-capita Canada-US GDP comparison
+% ============================================================================
+\begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{gdp_per_capita_canada_usa.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+% 25 | \begin{frame}[t]{Tout ce qui est comptable sauf ce qui compte\,?}
+% Source: S1/s1.tex | Limits of GDP as a welfare measure
+% Adaptation: Keep the existing welfare limitations, omitting the final open-ended prompt.
+% ============================================================================
+\begin{frame}[t]{Tout ce qui est comptable sauf ce qui compte\,?}
+   \small
+   Le PIB est utile mais incomplet. Il omet :
+   \vspace{0.25cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Inégalités :} le PIB peut croître même si la majorité s'appauvrit
+      \item \textbf{Loisir :} travailler 80h/sem.\ augmente le PIB, peut-être pas le bien-être
+      \item \textbf{Santé :} espérance de vie, santé mentale, morbidité
+      \item \textbf{Environnement :} pollution, épuisement des ressources, climat
+      \item \textbf{Liberté politique :} démocratie, droits de la personne, corruption
+      \item \textbf{Sécurité :} criminalité, conflits, terrorisme
+   \end{itemize}
+\end{frame}
+
+% ============================================================================
+% 26 | \begin{frame}{IDH vs.\ PIB par habitant}
+% Source: S1/s1.tex | HDI definition and HDI-GDP comparison
+% Adaptation: Shared scatter with a small bottom note defining HDI.
+% ============================================================================
+\begin{frame}{IDH vs.\ PIB par habitant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.73\textheight, keepaspectratio]{hdi_vs_gdp_per_capita.pdf}
+   \end{figure}
+   \vspace{-0.15cm}
+   {\scriptsize\color{HECgray} L'IDH combine santé, éducation et RNB par habitant en PPA.}
+\end{frame}
+
+% ============================================================================
+% 27 | \begin{frame}[t]{Où trouver l'information économique\,?}
+% Source: Programme-specific resource guide
+% Adaptation: Retained unchanged at the end of the measurement sequence.
+% ============================================================================
+\begin{frame}[t]{Où trouver l'information économique\,?}
+   \small
+   \renewcommand{\arraystretch}{1.2}
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.26\textwidth}J@{}}
+      \textcolor{HECnavy}{Canada et Québec} &
+      \href{https://www.statcan.gc.ca/fr/debut}{Statistique Canada},
+      \href{https://statistique.quebec.ca/fr}{Institut de la statistique du Québec},
+      \href{https://www.banqueducanada.ca/}{Banque du Canada} \\
+      \addlinespace[14pt]
+      \textcolor{HECnavy}{International} &
+      \href{https://fred.stlouisfed.org/}{FRED},
+      \href{https://www.oecd.org/fr.html}{OCDE},
+      \href{https://www.imf.org/fr/home}{FMI},
+      \href{https://donnees.banquemondiale.org/}{Banque mondiale},
+      \href{https://ourworldindata.org/}{Our World in Data} \\
+      \addlinespace[14pt]
+      \textcolor{HECnavy}{Presse} &
+      \href{https://www.ft.com/}{\textit{Financial Times}},
+      \href{https://www.economist.com/}{\textit{The Economist}},
+      \href{https://www.wsj.com/}{\textit{The Wall Street Journal}} \\
+      \addlinespace[14pt]
+      \textcolor{HECnavy}{Blogues et balados} &
+      \href{https://www.grumpy-economist.com/}{\textit{The Grumpy Economist}},
+      \href{https://marginalrevolution.com/}{\mbox{\textit{Marginal Revolution}}},
+      \href{https://freakonomics.com/podcasts/}{\mbox{\textit{Freakonomics Radio}}},
+      \href{https://shows.acast.com/the-economics-show-with-soumaya-keynes}{\textit{The Economics Show}}
+   \end{tabularx}
+   \vspace{0.10cm}
+   \begin{keyinsight}[Lire avec recul]
+      \small\RaggedRight
+      Vérifiez la \textbf{date}, les \textbf{unités} et les \textbf{révisions}. Distinguez \textbf{données}, \textbf{prévisions} et \textbf{opinions}; croisez les sources.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 28 | \sectionframe{Croissance de long terme}
+% Source: Shared ECON50803 title/section style
+% ============================================================================
+\sectionframe{Croissance de long terme}
+
+% ============================================================================
+% 29 | \begin{frame}{Croissance de long terme et stratégies d'affaires}
+% Source: S2/s2.tex | Croissance de long terme et stratégies d’affaires
+% ============================================================================
+\begin{frame}{Croissance de long terme et stratégies d'affaires}
+   \begin{bizimplication}
+      Plusieurs décisions d'affaires dépendent non seulement du revenu actuel d'un pays, mais aussi de ses perspectives de croissance à long terme.
+   \end{bizimplication}
+   \vspace{0.2cm}
+   \textbf{Pénétration de marché} (exportations)
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Potentiel de taille de marché
+      \item Croissance démographique
+      \item Évolution et distribution des revenus
+   \end{itemize}
+   \vspace{0.2cm}
+   \textbf{Décisions d'investissement} (IDE)
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Infrastructure, productivité, main-d'œuvre, environnement politique, etc.
+   \end{itemize}
+\end{frame}
+
+% ============================================================================
+% 30 | \begin{frame}{Des expériences de croissance très différentes}
+% Source: S2/s2.tex | Regional growth trajectories
+% ============================================================================
+\begin{frame}{Des expériences de croissance très différentes}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth]{regional_divergence.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+% 31 | \begin{frame}[t]{Quels sont les ingrédients\,?}
+% Source: S2/s2.tex | \begin{frame}[t]{Quels sont les ingrédients\,?}
+% ============================================================================
+\begin{frame}[t]{Quels sont les ingrédients\,?}
+   \vfill
+   \begin{columns}[c]
+      \begin{column}{0.30\textwidth}
+         \centering
+         {\large\textbf{\textcolor{HECnavy}{Capital ($K$)}}}\\[8pt]
+         \footnotesize
+         Machines, équipements,\\bâtiments, infrastructures
+      \end{column}
+      \begin{column}{0.40\textwidth}
+         \centering
+         \includegraphics[width=0.94\textwidth, keepaspectratio]{terminator.png}
+      \end{column}
+      \begin{column}{0.30\textwidth}
+         \centering
+         {\large\textbf{\textcolor{HECnavy}{Travail ($L$)}}}\\[8pt]
+         \footnotesize
+         Heures travaillées,\\nombre d'employés
+      \end{column}
+   \end{columns}
+   \vspace{0.25cm}
+   \centering
+   {\small\textbf{\textcolor{HECgreen}{Productivité totale des facteurs ($A$)}}}\par\vspace{3pt}
+   {\footnotesize L'efficacité avec laquelle on combine capital et travail.}
+   \vfill
+\end{frame}
+
+% ============================================================================
+% 32 | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
+% Source: S2/s2.tex | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
+% ============================================================================
+\begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
+   \small
+   Deux distributeurs de papier : \textbf{mêmes camions, mêmes heures de travail}.
+   \vspace{0.25cm}
+   \begin{columns}[T]
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgray}{\textbf{Michael Scott Paper Company}}\\[5pt]
+         \textcolor{HECgray}{PTF faible}\\[6pt]
+         \footnotesize
+         Trajets improvisés\\
+         Camions mal chargés\\
+         Allers-retours inutiles\\[6pt]
+         $\to$ \textbf{20 livraisons / jour}
+      \end{column}
+      \begin{column}{0.06\textwidth}
+         \centering
+         \vspace{0.8cm}
+         {\Large\textcolor{HECgray}{vs}}
+      \end{column}
+      \begin{column}{0.47\textwidth}
+         \centering
+         \textcolor{HECgreen}{\textbf{Dunder Mifflin}}\\[5pt]
+         \textcolor{HECgreen}{PTF élevée}\\[6pt]
+         \footnotesize
+         Tournées coordonnées\\
+         Chargements préparés\\
+         Moins de trajets à vide\\[6pt]
+         $\to$ \textbf{40 livraisons / jour}
+      \end{column}
+   \end{columns}
+   \vspace{0.2cm}
+   \vspace{0.15cm}
+   \begin{keyinsight}
+      La PTF ($A$) mesure \textbf{l'efficacité avec laquelle on utilise le capital et le travail}.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 33 | \begin{frame}{Canada vs.\ États-Unis : d'où vient la croissance\,?}
+% Source: S2/s2.tex | Canada vs. États-Unis : croissance du PIB
+% Adaptation: Reuse the pre-pandemic decomposition; link total GDP to market expansion.
+% ============================================================================
+\begin{frame}{Canada vs.\ États-Unis : d'où vient la croissance\,?}
+   \centering
+   \includegraphics[width=\textwidth, height=0.70\textheight, keepaspectratio]{growth_decomp_canada_us_total.pdf}
+   \par\vspace{0.1cm}
+   {\small Le PIB total renseigne sur la \textbf{taille du marché}; ses moteurs orientent les opportunités.}
+\end{frame}
+
+% ============================================================================
+% 34 | \begin{frame}{Et la croissance du revenu par habitant\,?}
+% Source: S2/s2.tex | Canada vs. États-Unis : PIB par habitant
+% Adaptation: Retain the K/Y decomposition and explain its labels without adding algebra.
+% ============================================================================
+\begin{frame}{Et la croissance du revenu par habitant\,?}
+   \centering
+   \includegraphics[width=\textwidth, height=0.70\textheight, keepaspectratio]{growth_decomp_canada_us.pdf}
+   \par\vspace{0.1cm}
+   {\scriptsize\color{HECgray} $A$ : productivité; $K/Y$ : profondeur du capital; $L/N$ : taux d'emploi.}
+\end{frame}
+
+% ============================================================================
+% 35 | \begin{frame}[t]{À chaque moteur de croissance, des débouchés}
+% Source: S2/s2.tex | Growth accounting and productivity examples
+% Adaptation: Manager-facing application; distinguish measured PTF from evidence of technology adoption.
+% ============================================================================
+\begin{frame}[t]{À chaque moteur de croissance son opportunité d'affaires}
+   \small
+   \vspace{0.5cm}
+   \renewcommand{\arraystretch}{1.5}
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.34\textwidth}J@{}}
+      \toprule
+      Moteur à repérer & Occasions d'affaires à explorer \\
+      \midrule
+      Expansion de l'emploi & Pouvoir d'achat et nouveaux consommateurs. \\
+      Accumulation de capital & Équipements, infrastructures, ingénierie, etc. \\
+      Adoption technologique & Licences, logiciels, formation, coentreprises, etc. \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.5cm}
+   \begin{bizimplication}[De la statistique macro à l'opportunité d'affaires]
+      \small Identifier le moteur, puis déterminer \textbf{quels besoins votre offre peut satisfaire}.
+   \end{bizimplication}
+\end{frame}
+
+% ============================================================================
+% 36 | \begin{frame}{Le capital peut-il soutenir la croissance indéfiniment\,?}
+% Source: S2/s2.tex | Croissance explosive : capital-production-investment triangle
+% Adaptation: Explicit question about the limits of capital-led growth.
+% ============================================================================
+\begin{frame}{Le capital peut-il soutenir la croissance indéfiniment\,?}
+   \vspace{0.2cm}
+   \centering
+   \begin{tikzpicture}[scale=1.2,
+      box/.style={rectangle, rounded corners=8pt, draw=HECnavy, line width=0.8pt,
+                  fill=HEClightgray, minimum width=2.8cm, minimum height=0.85cm,
+                  align=center, font=\small, inner sep=5pt}
+   ]
+      % Horizontal layout: K -- Y on top, I centered below
+      \node[box] (K) at (-3,0) {Plus de capital\\[1pt]$K \uparrow$};
+      \node[box] (Y) at (3,0) {Plus de production\\[1pt]$Y \uparrow$};
+      \node[box] (I) at (0,-2.8) {Plus d'investissement\\[1pt]$I \uparrow$};
+
+      % Arrows: short, tidy bends
+      \draw[flowarrow] (K) -- (Y);
+      \draw[flowarrow] (Y) -- (I);
+      \draw[flowarrow] (I) -- (K);
+
+      % Center question mark
+      \node[font=\fontsize{30}{30}\selectfont, HECgray!30] at (0,-0.9) {?};
+   \end{tikzpicture}
+   \vspace{0.3cm}
+
+   {\large \textcolor{HECcoral}{\textbf{Ce cycle ne s'arrête-t-il jamais\,?}}}
+\end{frame}
+
+% ============================================================================
+% 37 | \begin{frame}[t]{Rendements décroissants : capital}
+% Source: S2/s2.tex | \begin{frame}[t]{Rendements décroissants : capital}
+% ============================================================================
+\begin{frame}[t]{Rendements décroissants : capital}
+   \begin{columns}[c]
+      \begin{column}{0.58\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{production_function_capital.pdf}
+      \end{column}
+      \begin{column}{0.40\textwidth}
+         \small
+         \textbf{Non :} à travail et technologie donnés, chaque machine supplémentaire \textbf{ajoute de moins en moins} à la production.
+         \vspace{0.3cm}
+
+         \textbf{Analogie :} donner 10 ordinateurs à un seul employé --- le 10\textsuperscript{e} n'aide plus du tout\,!
+         \vspace{0.3cm}
+
+         \begin{warning}
+            \small Plus de $K$ $\to$ plus de $Y$, mais à un rythme \textbf{décroissant}
+         \end{warning}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+% 38 | \begin{frame}{Le capital permet de rattraper\ldots}
+% Source: S2/s2.tex | La phase de rattrapage en action
+% Adaptation: Full-slide catch-up figure; remove the blue takeaway box.
+% ============================================================================
+\begin{frame}{Le capital permet de rattraper\ldots}
+   \centering
+   \includegraphics[width=\textwidth, height=0.80\textheight, keepaspectratio]{catchup_growth.pdf}
+\end{frame}
+
+% ============================================================================
+% 39 | \begin{frame}[t]{\ldots mais la productivité soutient la croissance}
+% Source: S2/s2.tex | Le profil de croissance selon Solow; Leçons du modèle de Solow
+% Adaptation: Two-stage intuition without formal steady-state terminology.
+% ============================================================================
+\begin{frame}[t]{\ldots mais la productivité soutient la croissance}
+   \textbf{\textcolor{HECnavy}{Rattraper : équiper davantage les travailleurs}}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Machines, bâtiments et infrastructures augmentent la production...
+      \item ...mais à technologie donnée, les gains additionnels diminuent!
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{\textcolor{HECgreen}{Progresser durablement : améliorer les façons de produire}}
+   \vspace{0.1cm}
+   \begin{itemize}
+      \setlength\itemsep{0.1cm}
+      \item Technologies, compétences, innovation, organisation de la production.
+      \item Le capital et ces améliorations se complètent.
+   \end{itemize}
+   \vspace{0.25cm}
+   \begin{keyinsight}
+      \small Investir davantage peut relever durablement le \textbf{niveau de production}, sans augmenter durablement son \textbf{taux de croissance}.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+% 40 | \begin{frame}[t]{Trois types d'économies}
+% Source: S2/s2.tex | Sommaire : théories de la productivité
+% Adaptation: Three growth trajectories with business implications; replace Doing Business pair.
+% ============================================================================
+\begin{frame}[t]{Trois types d'économies}
+   \vspace{0.5cm}
+   \renewcommand{\arraystretch}{1.55}
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.27\textwidth} J@{}}
+      \toprule
+      Économies & Caractéristiques de la croissance \\
+      \midrule
+      \textcolor{HECnavy}{Matures} & Productivité, innovation et renouvellement du capital. \\
+      \addlinespace[12pt]
+      \textcolor{HECgreen}{En rattrapage} & Accumulation de capital et adoption de technologies. \\
+      \addlinespace[12pt]
+      \textcolor{HECcoral}{En stagnation} & Investissement et gains de productivité faibles, souvent dans un \textbf{contexte institutionnel fragile}. \\
+      \bottomrule
+   \end{tabularx}
+\end{frame}
+
+% ============================================================================
+% 41 | \sectionframe{Marchés du travail et du capital}
+% Source: Shared ECON50803 title/section style
+% ============================================================================
+\sectionframe{Marchés du travail et du capital}
+
+% ============================================================================
+% 42 | \begin{frame}{Recruter et investir : comprendre les marchés}
+% Source: S3/s3.tex | Deux ressources, deux décisions
+% Adaptation: Two decisions and one repeated teaching sequence.
+% ============================================================================
+\begin{frame}{Recruter et investir : comprendre les marchés}
+   \normalsize\RaggedRight Le travail et le capital sont deux moteurs de croissance. \\
+   \par\vspace{0.1cm}
+   Comment fonctionnent leurs marchés ?
+   \par\vspace{0.2cm}
+   \begin{tcolorbox}[colback=HEClightgray, colframe=HEClightgray, boxrule=0pt, arc=8pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
+      \begin{columns}[c,onlytextwidth]
+         \begin{column}{0.31\textwidth}
+            \RaggedRight
+            {\Large\textbf{\textcolor{HECnavy}{Recruter}}}\par\vspace{4pt}
+            {\footnotesize Marché du travail}
+         \end{column}
+         \begin{column}{0.64\textwidth}
+            \RaggedRight\small
+            Combien de travailleurs disponibles ?\\[5pt]
+            À quel \textbf{salaire réel} ?
+         \end{column}
+      \end{columns}
+   \end{tcolorbox}
+   \vspace{0.15cm}
+   \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=8pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
+      \begin{columns}[c,onlytextwidth]
+         \begin{column}{0.31\textwidth}
+            \RaggedRight
+            {\Large\textbf{\textcolor{HECgreen}{Investir}}}\par\vspace{4pt}
+            {\footnotesize Marché du capital}
+         \end{column}
+         \begin{column}{0.64\textwidth}
+            \RaggedRight\small
+            Quelles ressources pour financer les projets ?\\[5pt]
+            À quel \textbf{taux d'intérêt réel} ?
+         \end{column}
+      \end{columns}
+   \end{tcolorbox}
+   \vspace{0.25cm}
+   \centering\small\textcolor{HECnavy}{Équilibre}\quad$\longrightarrow$\quad\textcolor{HECnavy}{Choc}\quad$\longrightarrow$\quad\textcolor{HECnavy}{Observations}
+\end{frame}
+
+% ============================================================================
+% 43 | \begin{frame}[t]{Trois catégories}
+% Source: S3/s3.tex | Trois catégories
+% Adaptation: Restore the employment-status flow diagram before the ratios.
 % ============================================================================
 \begin{frame}[t]{Trois catégories}
    \small
@@ -398,8 +902,9 @@
 \end{frame}
 
 % ============================================================================
-% 21 | \begin{frame}[t]{Trois ratios essentiels}
-% Source: S3/s3.tex | \begin{frame}[t]{Trois ratios essentiels}
+% 44 | \begin{frame}[t]{Trois ratios essentiels}
+% Source: S3/s3.tex | Trois ratios essentiels
+% Adaptation: Restore the original S3 slide without exam marker.
 % ============================================================================
 \begin{frame}[t]{Trois ratios essentiels}
    \begin{defbox}[Indicateurs du marché du travail]
@@ -414,184 +919,50 @@
 \end{frame}
 
 % ============================================================================
-% 22 | \begin{frame}{Le marché du travail canadien}
-% Source: S3/s3.tex | \begin{frame}{Le marché du travail canadien}
+% 45 | \begin{frame}{Le marché du travail canadien}
+% Source: S3/s3.tex | Le marché du travail canadien
+% Adaptation: Enlarged chart without bottom note.
 % ============================================================================
 \begin{frame}{Le marché du travail canadien}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{labor_market_indicators_ca.pdf}
-   \end{figure}
+   \centering
+   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth, height=0.84\textheight, keepaspectratio]{labor_market_indicators_ca.pdf}}
 \end{frame}
 
 % ============================================================================
-% 23 | \begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas\,?}
+% 46 | \begin{frame}[t]{L'équilibre de plein emploi}
+% Source: S3/s3.tex | L'équilibre de plein emploi
+% Adaptation: Larger diagram, short supply/demand definitions, no bottom note.
 % ============================================================================
-\begin{frame}[t]{Pourquoi le taux de chômage ne suffit-il pas\,?}
-   \footnotesize
-   \vspace{-0.2cm}
-   \begin{warning}[Limites du taux de chômage]
-      \RaggedRight
-      \vspace{-0.4cm}
-      \begin{itemize}
-         \setlength\itemsep{0.07cm}
-         \item \textbf{Travailleurs découragés :} une baisse du chômage peut refléter des \textit{retraits} du marché, non pas des embauches
-         \item \textbf{Sous-emploi :} travail à temps partiel faute de trouver un emploi à temps plein
-         \item \textbf{Qualité des emplois :} un taux très faible peut signifier que les travailleurs n'ont pas les ressources pour chercher assez longtemps afin de trouver un bon \textit{match}
-         \item \textbf{Démographie :} les départs à la retraite réduisent la participation; le taux de chômage ne résume pas cet effet
-      \end{itemize}
-   \end{warning}
-   \vspace{0.05cm}
-   \begin{bizimplication}
-      \RaggedRight
-      Pour évaluer la santé réelle du marché du travail, regardez le taux de participation, le taux d'emploi \textbf{et} les mesures de sous-emploi (U-6 aux États-Unis).
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-% 24 | \begin{frame}[t]{Ce que le PIB ne mesure \textit{pas}}
-% Source: S1/s1.tex | \begin{frame}[t]{Ce que le PIB ne mesure \textit{pas}}
-% Adaptation: Correct Italy revision magnitude and clarify partially measured activity.
-% ============================================================================
-\begin{frame}[t]{Ce que le PIB ne mesure \textit{pas}}
-   Le PIB omet une partie de l’activité économique ou la mesure imparfaitement :
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{Production domestique} --- cuisine, garde d'enfants, réparations à domicile
-      \item \textbf{Bénévolat} --- services communautaires, organismes de bienfaisance
-      \item \textbf{Économie souterraine} --- revenus non déclarés, travail informel : estimés en partie
-   \end{itemize}
-   \vspace{0.2cm}
-   \begin{keyinsight}[Sexe, drogues et PIB]
-      En 2014, l'Italie a intégré certaines activités illégales (drogues, prostitution, contrebande) dans ses comptes nationaux : environ 1\,\% de PIB mesuré en plus pour 2011.
-      \hfill{\scriptsize\textit{\color{black!50}\href{https://www.istat.it/wp-content/uploads/2024/01/Alleva_National-Accounts_-27112017.pdf}{ISTAT, 2017, p.\ 9}}}
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 25 | \begin{frame}[t]{Où trouver l'information économique\,?}
-% Source: Programme-specific resource guide; destinations checked 2026-10-26.
-% Replaces the Jones--Tonetti scenario slide, after the indicators section.
-% ============================================================================
-\begin{frame}[t]{Où trouver l'information économique\,?}
-   \small
-   \renewcommand{\arraystretch}{1.2}
-   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.26\textwidth}J@{}}
-      \textcolor{HECnavy}{Canada et Québec} &
-      \href{https://www.statcan.gc.ca/fr/debut}{Statistique Canada},
-      \href{https://statistique.quebec.ca/fr}{Institut de la statistique du Québec},
-      \href{https://www.banqueducanada.ca/}{Banque du Canada} \\
-      \addlinespace[14pt]
-      \textcolor{HECnavy}{International} &
-      \href{https://fred.stlouisfed.org/}{FRED},
-      \href{https://www.oecd.org/fr.html}{OCDE},
-      \href{https://www.imf.org/fr/home}{FMI},
-      \href{https://donnees.banquemondiale.org/}{Banque mondiale},
-      \href{https://ourworldindata.org/}{Our World in Data} \\
-      \addlinespace[14pt]
-      \textcolor{HECnavy}{Presse} &
-      \href{https://www.ft.com/}{\textit{Financial Times}},
-      \href{https://www.economist.com/}{\textit{The Economist}},
-      \href{https://www.wsj.com/}{\textit{The Wall Street Journal}} \\
-      \addlinespace[14pt]
-      \textcolor{HECnavy}{Blogues et balados} &
-      \href{https://www.grumpy-economist.com/}{\textit{The Grumpy Economist}} (John H.\ Cochrane),
-      \href{https://marginalrevolution.com/}{\mbox{\textit{Marginal Revolution}}},
-      \href{https://freakonomics.com/podcasts/}{\mbox{\textit{Freakonomics Radio}}}
-   \end{tabularx}
-   \vspace{0.10cm}
-   \begin{keyinsight}[Lire avec recul]
-      \small\RaggedRight
-      Vérifiez la \textbf{date}, les \textbf{unités} et les \textbf{révisions}. Distinguez \textbf{données}, \textbf{prévisions} et \textbf{opinions}; croisez les sources.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 26 | \sectionframe{Production et croissance\\Travail, capital et IA}
-% Source: Shared ECON50803 title/section style
-% ============================================================================
-\sectionframe{Production et croissance\\Travail, capital et IA}
-
-% ============================================================================
-% 27 | \begin{frame}{La croissance est un phénomène récent}
-% Source: S2/s2.tex | \begin{frame}{La croissance est un phénomène récent}
-% ============================================================================
-\begin{frame}{La croissance est un phénomène récent}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{hockey_stick_world.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-% 28 | \begin{frame}[t]{Quels sont les ingrédients\,?}
-% Source: S2/s2.tex | \begin{frame}[t]{Quels sont les ingrédients\,?}
-% ============================================================================
-\begin{frame}[t]{Quels sont les ingrédients\,?}
-   \vfill
-   \begin{columns}[c]
-      \begin{column}{0.30\textwidth}
-         \centering
-         {\large\textbf{\textcolor{HECnavy}{Capital ($K$)}}}\\[8pt]
-         \footnotesize
-         Machines, équipements,\\bâtiments, infrastructures
+\begin{frame}{L'équilibre de plein emploi}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Offre de travail ($L^{S}$)}}\par\vspace{4pt}
+            Les personnes prêtes à travailler selon le salaire.
+         \end{tcolorbox}
+         \vspace{0.02cm}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Demande de travail ($L^{D}$)}}\par\vspace{4pt}
+            Demande d'emplois par les entreprises selon le salaire.
+         \end{tcolorbox}
+         \vspace{0.02cm}
+         \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{À l'équilibre}\par\vspace{4pt}
+            Emploi $L^{*}$ et salaire réel $w^{*}$.
+         \end{tcolorbox}
       \end{column}
-      \begin{column}{0.40\textwidth}
+      \begin{column}{0.58\textwidth}
          \centering
-         \includegraphics[width=\textwidth, keepaspectratio]{terminator.png}
-      \end{column}
-      \begin{column}{0.30\textwidth}
-         \centering
-         {\large\textbf{\textcolor{HECnavy}{Travail ($L$)}}}\\[8pt]
-         \footnotesize
-         Heures travaillées,\\nombre d'employés
-      \end{column}
-   \end{columns}
-   \vfill
-\end{frame}
-
-% ============================================================================
-% 29 | \begin{frame}{Le vieillissement de la population}
-% Source: S3/s3.tex | \begin{frame}{Le vieillissement de la population}
-% ============================================================================
-\begin{frame}{Le vieillissement de la population}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth]{aging_population.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-% 30 | \begin{frame}[t]{L'équilibre de plein emploi}
-% Source: S3/s3.tex | \begin{frame}[t]{L'équilibre de plein emploi}
-% ============================================================================
-\begin{frame}[t]{L'équilibre de plein emploi}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         L'intersection donne :
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $L^* =$ emploi d'équilibre
-            \item $w^* =$ salaire \textit{réel} d'équilibre
-         \end{itemize}
-         \vspace{0.2cm}
-         \begin{keyinsight}
-            \RaggedRight
-            À l'équilibre, le salaire s'ajuste de sorte que ceux qui veulent travailler trouvent un emploi.
-         \end{keyinsight}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=0.9]
+         \begin{tikzpicture}[scale=1.25]
             \draw[refline] (2.32,0) node[below, pointlabel] {$L^*$} -- (2.32,2.06);
             \draw[refline] (0,2.06) node[left, pointlabel] {$w^*$} -- (2.32,2.06);
             % Supply: y = 0.857x + 0.074. Y-int (0,0.07). At x=4.7: y=4.10
             \draw[supply] (0,0.07) -- (4.7,4.10) node[right, curvelabel] {$L^S$};
             % Demand: y = -0.927x + 4.213. Y-int (0,4.21). X-int (4.54,0)
-            \draw[demand] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
+            \draw[demand, HECcoral] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$L^D$};
             % Intersection at (2.32, 2.06)
             \filldraw[eqpoint] (2.32,2.06) circle (3pt);
             \draw[econaxis] (0,0) -- (5,0) node[right] {$L$};
@@ -602,7 +973,110 @@
 \end{frame}
 
 % ============================================================================
-% 31 | \begin{frame}[t]{Capital, investissement et financement}
+% 47 | \begin{frame}{L'IA automatise des tâches : la demande de travail recule}
+% Source: S3/s3.tex | L'IA peut remplacer ou compléter le travail
+% Adaptation: Retain the original negative-demand panel; scenario concerns substitutable jobs, not every worker.
+% ============================================================================
+\begin{frame}{L'IA : un choc négatif de demande de travail}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Pourquoi la demande ?}}\par\vspace{5pt}
+            L'IA remplace certaines tâches : à salaire donné, les entreprises demandent moins de travail.
+         \end{tcolorbox}
+         \vspace{0.1cm}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Le nouvel équilibre}}\par\vspace{5pt}
+            Pour les emplois substituables, emploi et salaire réel diminuent, à offre donnée.
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \begin{tikzpicture}[x=1.136364cm, y=1.147959cm]
+            % S = 0.2 + 0.8 L; D0 = 4.6 - 0.8 L; D1 = 3.2 - 0.8 L.
+            \draw[refline] (2.75,0) node[below, pointlabel] {$L_{0}$} -- (2.75,2.4);
+            \draw[refline] (0,2.4) node[left, pointlabel] {$w_{0}$} -- (2.75,2.4);
+            \draw[refline] (1.875,0) node[below, pointlabel] {$L_{1}$} -- (1.875,1.7);
+            \draw[refline] (0,1.7) node[left, pointlabel] {$w_{1}$} -- (1.875,1.7);
+            \draw[supply] (0,0.2) -- (5,4.2) node[right, curvelabel] {$L^{S}$};
+            \draw[original, HECcoral!45] (0,4.6) -- (4.9,0.68) node[right, curvelabel] {$L^{D}_{0}$};
+            \draw[curveshift, HECcoral] (0,3.2) -- (3.6,0.32) node[right, curvelabel] {$L^{D}_{1}$};
+            \filldraw[eqpoint=HECgray] (2.75,2.4) circle (3pt);
+            \filldraw[eqpoint=HECcoral] (1.875,1.7) circle (3pt);
+            \draw[shiftarrow, HECcoral] (4.05,1.15) -- (2.85,1.15);
+            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$w$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+% 48 | \begin{frame}[t]{IA et emploi : ce que déclarent et anticipent les entreprises}
+% Source: S3/s3.tex | Que prévoient les entreprises pour l’emploi
+% Adaptation: Evidence after the model; distinguish self-reports/expectations from causal effects.
+% ============================================================================
+\begin{frame}[t]{IA et emploi : ce que déclarent et anticipent les entreprises}
+   \framesubtitle{Baslandze et al. (2026) : 734 dirigeants financiers américains interrogés fin 2025.}
+   {\centering
+   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_cfo_employment.pdf}}\par}
+\end{frame}
+
+% ============================================================================
+% 49 | \begin{frame}{Le vieillissement de la population}
+% Source: S3/s3.tex | Le vieillissement de la population
+% Adaptation: Enlarged demographic chart without bottom note.
+% ============================================================================
+\begin{frame}{Le vieillissement de la population}
+   \centering
+   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth, height=0.84\textheight, keepaspectratio]{aging_population.pdf}}
+\end{frame}
+
+% ============================================================================
+% 50 | \begin{frame}{Le vieillissement : un choc négatif d'offre de travail}
+% Source: S3 labor-market framework | Retirement-driven supply contraction.
+% Adaptation: Isolate the labor-supply channel at unchanged labor demand.
+% ============================================================================
+\begin{frame}{Le vieillissement : un choc négatif d'offre de travail}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Pourquoi l'offre ?}}\par\vspace{5pt}
+            Les départs à la retraite réduisent le nombre de personnes prêtes à travailler à salaire donné.
+         \end{tcolorbox}
+         \vspace{0.1cm}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Le nouvel équilibre}}\par\vspace{5pt}
+            À demande donnée, l'emploi diminue et le salaire réel augmente.
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \begin{tikzpicture}[x=1.136364cm, y=1.147959cm]
+            % S0 = 0.2 + 0.8 L; S1 = 1.6 + 0.8 L; D = 4.6 - 0.8 L.
+            \draw[refline] (2.75,0) node[below, pointlabel] {$L_{0}$} -- (2.75,2.4);
+            \draw[refline] (0,2.4) node[left, pointlabel] {$w_{0}$} -- (2.75,2.4);
+            \draw[refline] (1.875,0) node[below, pointlabel] {$L_{1}$} -- (1.875,3.1);
+            \draw[refline] (0,3.1) node[left, pointlabel] {$w_{1}$} -- (1.875,3.1);
+            \draw[original, HECnavy!45] (0,0.2) -- (5,4.2) node[right, curvelabel] {$L^{S}_{0}$};
+            \draw[supply] (0,1.6) -- (3.25,4.2) node[right, curvelabel] {$L^{S}_{1}$};
+            \draw[demand, HECcoral] (0,4.6) -- (4.9,0.68) node[right, curvelabel] {$L^{D}$};
+            \filldraw[eqpoint=HECgray] (2.75,2.4) circle (3pt);
+            \filldraw[eqpoint] (1.875,3.1) circle (3pt);
+            \draw[shiftarrow, HECnavy] (4.1,3.7) -- (2.9,3.7);
+            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$L$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$w$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+% 51 | \begin{frame}[t]{Capital, investissement et financement}
 % Source: S3/s3.tex | \begin{frame}[t]{Capital, investissement et financement}
 % ============================================================================
 \begin{frame}[t]{Capital, investissement et financement}
@@ -613,506 +1087,201 @@
    \end{defbox}
    \vspace{0.3cm}
    \textbf{Exemple :} une entreprise construit une usine et émet des obligations.
+   \vspace{0.15cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
       \item La construction de l'usine est un \textbf{investissement}.
       \item L'émission d'obligations est son \textbf{financement}.
    \end{itemize}
-   \vspace{0.2cm}
+   \vspace{0.25cm}
    Acheter une action existante ne crée pas directement du nouveau capital.
 \end{frame}
 
 % ============================================================================
-% 32 | \begin{frame}[t]{Rendements décroissants : capital}
-% Source: S2/s2.tex | \begin{frame}[t]{Rendements décroissants : capital}
+% 52 | \begin{frame}[t]{Financer les projets : épargne et investissement}
+% Source: S3/s3.tex | Équilibre en économie fermée; Qui épargne
+% Adaptation: Three-part explanation paired with the existing diagram.
 % ============================================================================
-\begin{frame}[t]{Rendements décroissants : capital}
-   \begin{columns}[c]
+\begin{frame}{Financer les projets : épargne et investissement}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Offre : épargne ($S$)}}\par\vspace{4pt}
+            Revenu non consommé pour financer des projets.
+         \end{tcolorbox}
+         \vspace{0.02cm}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Demande : invest. ($I$)}}\par\vspace{4pt}
+            Un taux plus élevé réduit le \# de projets rentables.
+         \end{tcolorbox}
+         \vspace{0.02cm}
+         \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=6pt, bottom=6pt]
+            \RaggedRight\small
+            \textbf{À l'équilibre}\par\vspace{4pt}
+            Le taux réel $r^{*}$ assure $S = I$.
+         \end{tcolorbox}
+      \end{column}
       \begin{column}{0.58\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{production_function_capital.pdf}
-      \end{column}
-      \begin{column}{0.40\textwidth}
-         \small
-         À travail fixe, chaque machine supplémentaire \textbf{ajoute de moins en moins} à la production.
-         \vspace{0.3cm}
-
-         \textbf{Analogie :} donner 10 ordinateurs à un seul employé --- le 10\textsuperscript{e} n'aide plus du tout\,!
-         \vspace{0.3cm}
-
-         \begin{warning}
-            \small Plus de $K$ $\to$ plus de $Y$, mais à un rythme \textbf{décroissant}
-         \end{warning}
+         \begin{tikzpicture}[scale=1.25]
+            \draw[refline] (2.32,0) node[below, pointlabel] {$S^{*} = I^{*}$} -- (2.32,2.06);
+            \draw[refline] (0,2.06) node[left, pointlabel] {$r^{*}$} -- (2.32,2.06);
+            \draw[supply] (0,0.07) -- (4.7,4.10) node[right, curvelabel] {$S$};
+            \draw[demand, HECcoral] (0,4.21) -- (4.54,0) node[above right, curvelabel] {$I$};
+            \filldraw[eqpoint] (2.32,2.06) circle (3pt);
+            \draw[econaxis] (0,0) -- (5,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$r$};
+         \end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-% 33 | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
-% Source: S2/s2.tex | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
+% 53 | \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
+% Source: S3/s3.tex | Pourquoi l'IA peut-elle relever le taux réel
+% Adaptation: Retain the investment-demand shock before its data-center evidence.
 % ============================================================================
-\begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
-   \small
-   Deux boulangeries avec les \textbf{mêmes ingrédients} (farine, beurre, œufs, employés).
-   \vspace{0.25cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \centering
-         \textcolor{HECgray}{\large\textbf{Boulangerie \#1}}\\[3pt]
-         \textcolor{HECgray}{PTF faible}\\[4pt]
-         \footnotesize
-         Recettes de base\\
-         Fours mal calibrés\\
-         Organisation chaotique\\[4pt]
-         $\to$ 100 pains / jour
-      \end{column}
-      \begin{column}{0.06\textwidth}
-         \centering
-         \vspace{0.8cm}
-         {\Large\textcolor{HECgray}{vs}}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \centering
-         \textcolor{HECgreen}{\large\textbf{Boulangerie \#2}}\\[3pt]
-         \textcolor{HECgreen}{PTF élevée}\\[4pt]
-         \footnotesize
-         Techniques de levain maîtrisées\\
-         Fours optimisés\\
-         Processus rodé\\[4pt]
-         $\to$ 200 pains / jour
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   \begin{keyinsight}
-      La PTF ($A$) capte \textbf{tout ce qui n'est pas $K$ ou $L$} : technologie, savoir-faire, gestion, organisation\ldots\ C'est la capacité à faire \textbf{plus avec les mêmes ressources}.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 34 | \begin{frame}{Décomposition de la croissance canadienne}
-% Source: S2/s2.tex | \begin{frame}{Décomposition de la croissance canadienne}
-% ============================================================================
-\begin{frame}{Décomposition de la croissance canadienne}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-% 35 | \begin{frame}[t]{Sommaire : théories de la productivité}
-% Source: S2/s2.tex | \begin{frame}[t]{Sommaire : théories de la productivité}
-% ============================================================================
-\begin{frame}[t]{Sommaire : théories de la productivité}
-   \small
-   \vspace{0.1cm}
-   La croissance à l'échelle mondiale peut être caractérisée par\ldots
-   \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.30\textwidth}
-         \begin{tcolorbox}[colback=HECgreen!8, colframe=HECgreen, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
-            \centering\footnotesize\textbf{Économies matures}\\[3pt]
-            En ralentissement\ldots
+\begin{frame}{L'IA : un choc positif de demande d'investissement}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Pourquoi la demande ?}}\par\vspace{5pt}
+            Centres de données, puces, énergie : à taux réel donné, les entreprises souhaitent investir davantage.
+         \end{tcolorbox}
+         \vspace{0.1cm}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Le nouvel équilibre}}\par\vspace{5pt}
+            À offre d'épargne donnée, l'investissement et le taux réel augmentent.
          \end{tcolorbox}
       \end{column}
-      \begin{column}{0.30\textwidth}
-         \begin{tcolorbox}[colback=HECnavy!8, colframe=HECnavy, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
-            \centering\footnotesize\textbf{Économies émergentes}\\[3pt]
-            En rattrapage\ldots
-         \end{tcolorbox}
-      \end{column}
-      \begin{column}{0.30\textwidth}
-         \begin{tcolorbox}[colback=HECcoral!8, colframe=HECcoral, boxrule=0.5pt, arc=8pt,
-            top=4pt, bottom=4pt, left=6pt, right=6pt]
-            \centering\footnotesize\textbf{Économies stagnantes}\\[3pt]
-            Peinent à décoller\ldots
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   Le succès repose sur des \textbf{conditions appropriées} :
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item La prospérité coïncide rarement avec un contexte institutionnel faible
-      \item Des institutions inclusives encouragent l'innovation et la productivité
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{bizimplication}[Expansion internationale]
-      \footnotesize La qualité institutionnelle compte autant que la taille du marché.
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-% 36 | \begin{frame}[t]{Qui épargne\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{Qui épargne\,?}
-% ============================================================================
-\begin{frame}[t]{Qui épargne\,?}
-   \begin{defbox}[Épargne nationale]
-      \RaggedRight
-      \vspace{-0.25cm}
-      \begin{equation*} S = S_P + S_G \end{equation*}
-      La part du revenu qui n'est pas consommée.
-   \end{defbox}
-   \vspace{0.25cm}
-   \begin{itemize}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Épargne privée ($S_P$) :} ménages et entreprises.
-      \item \textbf{Épargne publique ($S_G$) :} dans le modèle, $S_G = T - G$.
-   \end{itemize}
-   \vspace{0.3cm}
-   {\small $T$ : impôts nets des transferts; $G$ : consommation publique.\\[4pt]
-   L'investissement public fait partie de $I$, pas de $G$.}
-\end{frame}
-
-% ============================================================================
-% 37 | \begin{frame}[t]{Équilibre en économie fermée}
-% Source: S3/s3.tex | \begin{frame}[t]{Équilibre en économie fermée}
-% ============================================================================
-\begin{frame}[t]{Équilibre en économie fermée}
-\begin{columns}[c]
-      \begin{column}{0.53\textwidth}
+      \begin{column}{0.58\textwidth}
          \centering
-         \begin{tikzpicture}[scale=.78]
-\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
-       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
-\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
-       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
-\filldraw[eqpoint] (3,2.25) circle (3pt);
-       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
-       \draw[econaxis] (0,0) -- (0,6) node[above] {$r$};
-    \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.43\textwidth}
-         \small
-
-   \textbf{Sans financement extérieur :}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item Les projets n'utilisent que l'épargne nationale.
-      \item Le taux d'intérêt \textbf{réel} s'ajuste.
-      \item À l'équilibre, $S = I$.
-   \end{itemize}
-   \vspace{0.2cm}
-   \begin{keyinsight}
-      \RaggedRight
-      Si les projets désirés dépassent l'épargne offerte, $r$ augmente.
-   \end{keyinsight}
+         \begin{tikzpicture}[x=1.136364cm, y=1.147959cm]
+            % S = 0.2 + 0.8 I; D0 = 3.2 - 0.8 I; D1 = 4.6 - 0.8 I.
+            \draw[refline] (1.875,0) node[below, pointlabel] {$I_{0}$} -- (1.875,1.7);
+            \draw[refline] (0,1.7) node[left, pointlabel] {$r_{0}$} -- (1.875,1.7);
+            \draw[refline] (2.75,0) node[below, pointlabel] {$I_{1}$} -- (2.75,2.4);
+            \draw[refline] (0,2.4) node[left, pointlabel] {$r_{1}$} -- (2.75,2.4);
+            \draw[supply] (0,0.2) -- (5,4.2) node[right, curvelabel] {$S$};
+            \draw[original, HECcoral!45] (0,3.2) -- (3.6,0.32) node[right, curvelabel] {$I_{0}$};
+            \draw[demand, HECcoral] (0,4.6) -- (4.9,0.68) node[right, curvelabel] {$I_{1}$};
+            \filldraw[eqpoint=HECgray] (1.875,1.7) circle (3pt);
+            \filldraw[eqpoint=HECcoral] (2.75,2.4) circle (3pt);
+            \draw[shiftarrow, HECcoral] (2.85,1.15) -- (4.05,1.15);
+            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$r$};
+         \end{tikzpicture}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-% 38 | \begin{frame}[t]{Faut-il se limiter à l'épargne canadienne\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{Faut-il se limiter à l'épargne canadienne\,?}
-% ============================================================================
-\begin{frame}[t]{Faut-il se limiter à l'épargne canadienne\,?}
-\vspace{0.2cm}
-   Une entreprise canadienne peut financer son usine auprès d'un \textbf{fonds de pension allemand} ou d'un \textbf{investisseur japonais}.
-   \vspace{0.4cm}
-   \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item Le Canada peut investir \textbf{plus} que son épargne nationale.
-      \item Les Canadiens peuvent aussi financer des projets à l'étranger.
-      \item Le coût du financement dépend des conditions \textbf{mondiales}.
-   \end{itemize}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      \RaggedRight
-      Ouvrir l'économie permet de dissocier l'épargne nationale et l'investissement domestique.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 39 | \begin{frame}[t]{Que prévoient les entreprises pour l'emploi\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{Que prévoient les entreprises pour l'emploi\,?}
-% ============================================================================
-\begin{frame}[t]{Que prévoient les entreprises pour l'emploi\,?}
-   \framesubtitle{Baslandze et al. (2026) : 734 dirigeants financiers américains interrogés fin 2025.}
-   {\centering
-   \includegraphics[width=0.95\textwidth, height=0.73\textheight, keepaspectratio]{s3_ai_cfo_employment.pdf}\par}
-\end{frame}
-
-% ============================================================================
-% 40 | \begin{frame}{L'IA peut remplacer ou compléter le travail}
-% Source: S3/s3.tex | \begin{frame}{L'IA peut remplacer ou compléter le travail}
-% ============================================================================
-\begin{frame}{L'IA peut remplacer ou compléter le travail}
-   \centering
-   \begin{tikzpicture}[scale=.78]
-\begin{scope}
-\node[font=\bfseries] at (3.7,5.9) {Travail substituable};
-\draw[refline] (2.5,0) -- (2.5,2);
-\node[pointlabel, below] at (2.5,0) {$L_0$};
-\draw[refline] (0,2) -- (2.5,2);
-\node[pointlabel, left] at (0,2) {$w_0$};
-\draw[refline] (1.5625,0) -- (1.5625,1.296875);
-\node[pointlabel, below] at (1.5625,0) {$L_1$};
-\draw[refline] (0,1.296875) -- (1.5625,1.296875);
-\node[pointlabel, left] at (0,1.296875) {$w_1$};
-\draw[supply] (0,0.125) -- (6.4,4.925) node[right, curvelabel] {$L^S$};
-\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
-\draw[curveshift, HECcoral] (0,2.46875) -- (3.291667,0) node[above right, curvelabel] {$L^{D\prime}$};
-\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
-\filldraw[eqpoint=HECcoral] (1.5625,1.296875) circle (3pt);
-\draw[shiftarrow, HECcoral] (3.520834,1) -- (2.270834,1);
-\draw[econaxis] (0,0) -- (7.4,0) node[right] {$L$};
-\draw[econaxis] (0,0) -- (0,5.6) node[above] {$w$};
-\end{scope}
-\begin{scope}[xshift=8.5cm]
-\node[font=\bfseries] at (3.7,5.9) {Travail complémentaire};
-\draw[refline] (2.5,0) -- (2.5,2);
-\node[pointlabel, below] at (2.5,0) {$L_0$};
-\draw[refline] (0,2) -- (2.5,2);
-\node[pointlabel, left] at (0,2) {$w_0$};
-\draw[refline] (3.4375,0) -- (3.4375,2.703125);
-\node[pointlabel, below] at (3.4375,0) {$L_1$};
-\draw[refline] (0,2.703125) -- (3.4375,2.703125);
-\node[pointlabel, left] at (0,2.703125) {$w_1$};
-\draw[supply] (0,0.125) -- (6.4,4.925) node[right, curvelabel] {$L^S$};
-\draw[original] (0,3.875) -- (5.166667,0) node[above right, curvelabel] {$L^D$};
-\draw[curveshift, HECgreen] (0,5.28125) -- (7.041667,0) node[above right, curvelabel] {$L^{D\prime}$};
-\filldraw[eqpoint=HECgray] (2.5,2) circle (3pt);
-\filldraw[eqpoint] (3.4375,2.703125) circle (3pt);
-\draw[shiftarrow, HECgreen] (4.145834,1) -- (5.395834,1);
-\draw[econaxis] (0,0) -- (7.4,0) node[right] {$L$};
-\draw[econaxis] (0,0) -- (0,5.6) node[above] {$w$};
-\end{scope}
-\end{tikzpicture}
-\end{frame}
-
-% ============================================================================
-% 41 | \begin{frame}{Le boom des centres de données aux États-Unis}
-% Source: S3/s3.tex | \begin{frame}{Le boom des centres de données aux États-Unis}
+% 54 | \begin{frame}{Le boom des centres de données aux États-Unis}
+% Source: S3/s3.tex | Le boom des centres de données aux États-Unis
+% Adaptation: Evidence immediately after the investment-demand shock.
 % ============================================================================
 \begin{frame}{Le boom des centres de données aux États-Unis}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_datacenter_construction.pdf}
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{ess_ai_datacenter_real_yield.pdf}
    \end{figure}
 \end{frame}
 
 % ============================================================================
-% 42 | \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
-% Source: S3/s3.tex | \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
+% 55 | \begin{frame}[t]{Les marchés de capitaux sont mondiaux}
+% Source: S6/s6.tex | Les marchés de capitaux sont mondiaux
+% Adaptation: Keep the financing example and main implication; omit the open-economy derivation.
 % ============================================================================
-\begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
-   \begin{columns}[c]
-      \begin{column}{0.53\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=.78]
-\draw[refline] (3,0) node[below, pointlabel] {$I_0$} -- (3,2.25);
-       \draw[refline] (0,2.25) node[left, pointlabel] {$r_0$} -- (3,2.25);
-       \draw[refline] (4.2,0) node[below, pointlabel] {$I_1$} -- (4.2,3.15);
-       \draw[refline] (0,3.15) node[left, pointlabel] {$r_1$} -- (4.2,3.15);
-\draw[very thick, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
-       \draw[very thick, HECcoral] (0,4.5) -- (6,0) node[above right, curvelabel] {$I$};
-       \draw[curveshift, HECgreen] (0,6.3) -- (7.2,0.9) node[above right, curvelabel] {$I'$};
-       \draw[shiftarrow, HECgreen] (1.733333,3.5) -- (3.333333,3.5);
-\filldraw[eqpoint] (3,2.25) circle (3pt);\filldraw[eqpoint=HECgreen] (4.2,3.15) circle (3pt);
-       \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
-       \draw[econaxis] (0,0) -- (0,6.6) node[above] {$r$};
-    \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.43\textwidth}
-         \small\RaggedRight
-         \textbf{1. Plus de projets à financer}
-         \par\smallskip
-         À taux donné, $I$ se déplace à droite.
-         \par\vspace{0.4cm}
-         \textbf{2. Le taux réel augmente}
-         \par\smallskip
-         À épargne donnée, la hausse de $r$ équilibre le marché.
-         \par\vspace{0.4cm}
-         \textbf{3. D'autres projets sont évincés}
-         \par\smallskip
-         Certains investissements ne sont plus assez rentables.
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% ============================================================================
-% 43 | \begin{frame}[t]{Ordinateurs : la course entre prix et quantité}
-% Source: S3/s3.tex | \begin{frame}[t]{Ordinateurs : la course entre prix et quantité}
-% ============================================================================
-\begin{frame}[t]{Ordinateurs : la course entre prix et quantité}
-   \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.68\textwidth}
-         \centering
-         \includegraphics[width=\linewidth, height=0.57\textheight, keepaspectratio]{s3_ai_computer_income_share.pdf}
-      \end{column}
-      \begin{column}{0.29\textwidth}
-         \small\RaggedRight
-         % P is the price per unit of computing services, Q their effective volume;
-         % P Q denotes payments to IT capital, not computer manufacturers' sales.
-         \textbf{\textcolor{HECnavy}{Quantité : $Q \uparrow$}}
-         \par\smallskip
-         {\footnotesize Environ \textbf{100 millions} de fois plus de transistors par puce depuis les années 1970.\par}
-         \par\vspace{0.2cm}
-         \textbf{\textcolor{HECcoral}{Prix : $P \downarrow$}}
-         \par\smallskip
-         {\footnotesize Le progrès technique rend le calcul bien moins cher.\par}
-         \par\vspace{0.2cm}
-         {\footnotesize\textbf{Part du revenu}\par}
-         \par\smallskip
-         $\displaystyle\frac{P \times Q}{\text{revenu total}}$
-      \end{column}
-   \end{columns}
-   \par\vspace{-0.1cm}
-   \begin{keyinsight}[Le facteur rare capte la valeur]
+\begin{frame}{Les marchés de capitaux sont mondiaux}
+   \RaggedRight
+   L'investissement au Canada peut être financé par l'\textbf{épargne mondiale}.
+   \par\vspace{0.35cm}
+   \begin{center}
+      \begin{tikzpicture}[
+         lender/.style={rounded corners=7pt, fill=HECnavy!5, text width=4.2cm, minimum height=1cm, align=center, inner sep=8pt, font=\small},
+         borrower/.style={rounded corners=7pt, fill=HECgreen!8, text width=3.8cm, minimum height=2.2cm, align=center, inner sep=10pt, font=\small},
+         flow/.style={-{Stealth[length=6pt]}, thick, HECnavy!65}
+      ]
+         \node[lender] (pension) at (0,1.4) {\textbf{Fonds de pension}\\Allemagne};
+         \node[lender] (sovereign) at (0,0) {\textbf{Fonds souverain}\\Norvège};
+         \node[lender] (bank) at (0,-1.4) {\textbf{Banque}\\Japon};
+         \node[borrower] (firm) at (7,0) {\textbf{Entreprise canadienne}\\[7pt]Construction d'une usine};
+         \draw[flow] (pension.east) -- (firm.north west);
+         \draw[flow] (sovereign.east) -- (firm.west);
+         \draw[flow] (bank.east) -- (firm.south west);
+      \end{tikzpicture}
+   \end{center}
+   \vspace{0.15cm}
+   \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=8pt, bottom=8pt]
       \RaggedRight\small
-      Si le calcul abonde et complète le travail, l'humain reste le facteur rare.
-   \end{keyinsight}
+      Le \textbf{coût du capital} dépend des conditions financières \textbf{mondiales}.
+   \end{tcolorbox}
 \end{frame}
 
 % ============================================================================
-% 44 | \begin{frame}[t]{L'IA partout, les gains de productivité où\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{L'IA partout, les gains de productivité où\,?}
+% 56 | \begin{frame}{Savings glut : une offre d'épargne accrue}
+% Source: S3/s3.tex | La courbe d'épargne; Et si l'épargne diminue
+% Adaptation: Match the other shocks; indexed saving curves, fixed investment demand.
 % ============================================================================
-\begin{frame}[t]{L'IA partout, les gains de productivité où\,?}
-   \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.13\textwidth}
-         {\Large\bfseries\color{HECgreen}1987}
+\begin{frame}{Le saving glut : un choc positif d'offre d'épargne}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECnavy}{Pourquoi l'offre ?}}\par\vspace{5pt}
+            À taux réel donné, les épargnants souhaitent placer davantage de fonds sur les marchés mondiaux.
+         \end{tcolorbox}
+         \vspace{0.1cm}
+         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, left=9pt, right=9pt, top=8pt, bottom=8pt]
+            \RaggedRight\small
+            \textbf{\textcolor{HECcoral}{Le nouvel équilibre}}\par\vspace{5pt}
+            À demande donnée, le taux réel diminue et l'investissement augmente.
+         \end{tcolorbox}
       \end{column}
-      \begin{column}{0.83\textwidth}
-         \RaggedRight
-         {\large\itshape\color{HECnavy}“You can see the computer age everywhere\\but in the productivity statistics.”\par}
-         \par\smallskip
-         {\scriptsize\href{https://www.standupeconomist.com/pdf/misc/solow-computer-productivity.pdf}{Robert Solow, \textit{New York Times Book Review}, 12 juillet 1987, p.\ 36.}\par}
-      \end{column}
-   \end{columns}
-   \par\vspace{0.2cm}
-   {\color{HECgray!30}\rule{\textwidth}{0.4pt}}
-   \par\vspace{0.2cm}
-   \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.13\textwidth}
-         {\Large\bfseries\color{HECgreen}2026}
-      \end{column}
-      \begin{column}{0.83\textwidth}
-         \small\RaggedRight
-         \textbf{Le paradoxe de Solow, version IA\,?}
-         \par\smallskip
-         \begin{columns}[T,onlytextwidth]
-            \begin{column}{0.43\textwidth}
-               \RaggedRight
-               {\LARGE\bfseries\color{HECnavy}$\approx 70\,\%$}\par\smallskip
-               des entreprises utilisent l'IA.
-            \end{column}
-            \begin{column}{0.53\textwidth}
-               \RaggedRight
-               {\LARGE\bfseries\color{HECcoral}$> 80\,\%$}\par\smallskip
-               ne déclarent aucun effet sur l'emploi ou la productivité en trois ans.
-            \end{column}
-         \end{columns}
-         \par\vspace{0.1cm}
-         {\scriptsize\href{https://www.atlantafed.org/research-and-data/publications/working-papers/2026/03/24/03-firm-data-on-ai}{Yotzov et al. (2026) : près de 6\,000 dirigeants, quatre pays ; enquête déclarative.}\par}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \begin{tikzpicture}[x=1.136364cm, y=1.147959cm]
+            % S0 = 1.6 + 0.8 I; S1 = 0.2 + 0.8 I; D = 4.6 - 0.8 I.
+            \draw[refline] (1.875,0) node[below, pointlabel] {$I_{0}$} -- (1.875,3.1);
+            \draw[refline] (0,3.1) node[left, pointlabel] {$r_{0}$} -- (1.875,3.1);
+            \draw[refline] (2.75,0) node[below, pointlabel] {$I_{1}$} -- (2.75,2.4);
+            \draw[refline] (0,2.4) node[left, pointlabel] {$r_{1}$} -- (2.75,2.4);
+            \draw[original, HECnavy!45] (0,1.6) -- (3.25,4.2) node[right, curvelabel] {$S_{0}$};
+            \draw[supply] (0,0.2) -- (5,4.2) node[right, curvelabel] {$S_{1}$};
+            \draw[demand, HECcoral] (0,4.6) -- (4.9,0.68) node[right, curvelabel] {$I$};
+            \filldraw[eqpoint=HECgray] (1.875,3.1) circle (3pt);
+            \filldraw[eqpoint] (2.75,2.4) circle (3pt);
+            \draw[shiftarrow, HECnavy] (2.9,3.7) -- (4.1,3.7);
+            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$S, I$};
+            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$r$};
+         \end{tikzpicture}
       \end{column}
    \end{columns}
-   \par\vspace{0.1cm}
-   \begin{keyinsight}[Adopter un outil ne suffit pas]
-      \small\RaggedRight
-      Diffuser l'outil, former les équipes et réorganiser les processus prend du temps.
-   \end{keyinsight}
 \end{frame}
 
 % ============================================================================
-% 45 | \begin{frame}[t]{Une infinité de chaussures droites... et alors\,?}
-% Source: S3/s3.tex | \begin{frame}[t]{Une infinité de chaussures droites... et alors\,?}
+% 57 | \begin{frame}{Des capacités d'épargne très différentes}
+% Source: S6 regional net-lending figure (updated IMF cache); Schmelzing (2020) global real rates.
+% Adaptation: Matched 2001--2018 panels; real rate is ex post, advanced-economy GDP-weighted, trailing 5-year mean.
 % ============================================================================
-\begin{frame}[t]{Une infinité de chaussures droites... et alors\,?}
-   Une paire exige \textbf{une chaussure gauche et une chaussure droite}.
-   \par\vspace{0.2cm}
-   {\small Production par jour, à capacité inchangée pour les chaussures gauches.\par}
-   \par\vspace{0.2cm}
-   \renewcommand{\arraystretch}{1.4}
+\begin{frame}{Excédents d'épargne et baisse des taux mondiaux}
    \centering
-   \begin{tabular}{lccc}
-      \toprule
-      & \textbf{Gauches} & \textbf{Droites} & \textbf{Paires} \\
-      \midrule
-      Avant & 100 & 100 & \textbf{100} \\
-      Droites automatisées & 100 & $\infty$ & \textbf{100} \\
-      \bottomrule
-   \end{tabular}
-   \par\vspace{0.25cm}
-   \begin{keyinsight}[Les complémentarités limitent les gains]
-      \small\RaggedRight
-      Automatiser un maillon ne suffit pas : l'autre limite la production.
-      \par\mbox{}\hfill{\scriptsize\textcolor{HECgray}{Exemple pédagogique ; \href{https://web.stanford.edu/~chadj/JonesTonetti_Automation.pdf}{maillons faibles : C. Jones et Tonetti (2026).}}}
-   \end{keyinsight}
-   % Perfect complements: pairs = min(left shoes,right shoes).
-   % Hold left-shoe capacity fixed. Reallocating workers or expanding that
-   % capacity could raise pair output; the example isolates the weak-link logic.
+   \includegraphics[width=1.02\textwidth, height=0.84\textheight, keepaspectratio]{ess_saving_glut_evidence.pdf}
 \end{frame}
 
 % ============================================================================
-% 46 | \begin{frame}{Baumol : les activités lentes prennent plus de place}
-% Source: S3/s3.tex | \begin{frame}{Baumol : les activités lentes prennent plus de place}
-% ============================================================================
-\begin{frame}{Baumol : les activités lentes prennent plus de place}
-   \begin{figure}
-      \centering
-      \includegraphics[width=\textwidth, height=0.80\textheight, keepaspectratio]{baumol_cost_disease_canada.pdf}
-   \end{figure}
-   % Oral intuition: a quartet still needs four musicians. If their wages
-   % follow those elsewhere without productivity gains, its relative cost rises.
-   % AI-growth link: improve essential activities whose productivity grows slowly.
-   % Conceptual reference: Aghion, B. Jones and C. Jones (2019),
-   % https://web.stanford.edu/~chadj/AJJ-AIandGrowth.pdf
-   % The price chart illustrates relative-price differences; productivity is
-   % only one of their determinants, so it does not identify a causal effect.
-\end{frame}
-
-% ============================================================================
-% 47 | \begin{frame}[t]{Long terme vs.\ court terme}
-% Source: S4/s4.tex | \begin{frame}[t]{Long terme vs.\ court terme}
-% Adaptation: Remove references to other class sessions.
-% ============================================================================
-\begin{frame}[t]{Long terme vs.\ court terme}
-   \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \quad \textbf{\textcolor{HECnavy}{Long terme}}
-         \begin{equation*}
-            \textcolor{HECgreen}{Y_{\text{POT}}} = A \cdot K^{\alpha} \cdot \textcolor{HECgreen}{L_{\text{PE}}}^{1 - \alpha}
-         \end{equation*}
-         \vspace{-0.5cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\textcolor{HECgreen}{L_{\text{PE}}}$ : niveau d'emploi de LT
-            \item $\textcolor{HECgreen}{Y_{\text{POT}}}$ : PIB potentiel
-            \item Marché de l'emploi en équilibre
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-         \quad \textbf{\textcolor{HECcoral}{Court terme}}
-         \begin{equation*}
-            \textcolor{HECcoral}{Y} = A \cdot K^{\alpha} \cdot \textcolor{HECcoral}{L}^{1 - \alpha}
-         \end{equation*}
-         \vspace{-0.5cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item $\textcolor{HECcoral}{L}$ : niveau d'emploi de CT
-            \item $\textcolor{HECcoral}{Y}$ : PIB réel
-            \item Chômage ou surchauffe possible
-         \end{itemize}
-      \end{column}
-   \end{columns}
-   \vspace{0.25cm}
-   \begin{keyinsight}
-      Le niveau d'emploi de CT ($\textcolor{HECcoral}{L}$) fluctue beaucoup, donc le PIB réel ($\textcolor{HECcoral}{Y}$) fluctue également autour de son potentiel ($\textcolor{HECgreen}{Y_{\text{POT}}}$). Pourquoi\,?
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 48 | \sectionframe{Les cycles économiques}
+% 58 | \sectionframe{Les cycles économiques}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Les cycles économiques}
 
 % ============================================================================
-% 49 | \begin{frame}{Que sont les cycles économiques\,?}
-% Source: S4/s4.tex | \begin{frame}{Que sont les cycles économiques\,?}
+% 59 | Que sont les cycles économiques ?
+% Source: S4 | Que sont les cycles économiques
 % ============================================================================
 \begin{frame}{Que sont les cycles économiques\,?}
    \centering
@@ -1156,580 +1325,224 @@
 \end{frame}
 
 % ============================================================================
-% 50 | \begin{frame}{Le PIB réel et potentiel du Canada}
-% Source: S4/s4.tex | \begin{frame}{Le PIB réel et potentiel du Canada}
+% 60 | Les composantes ne fluctuent pas toutes autant
+% Source: S1/S4 | Composantes cycliques; investissement plus volatil
+% ============================================================================
+\begin{frame}{Les composantes ne fluctuent pas toutes autant}
+\centering
+\includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{gdp_component_cycles.pdf}
+\end{frame}
+
+% ============================================================================
+% 61 | Le PIB réel et potentiel du Canada
+% Source: S4 | PIB potentiel et écart de production; figure canadienne
 % ============================================================================
 \begin{frame}{Le PIB réel et potentiel du Canada}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_potential.pdf}
-   \end{figure}
+\centering
+\includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{canada_gdp_potential.pdf}
 \end{frame}
 
 % ============================================================================
-% 51 | \begin{frame}[t]{Expansion et récession : comparer les composantes}
-% Source: S1/s1.tex | \begin{frame}[t]{Expansion et récession : comparer les composantes}
+% 62 | Trois éléments pour comprendre les fluctuations
+% Source: S4 | DA-OA framework; potential output and nominal rigidities
 % ============================================================================
-\begin{frame}[t]{Expansion et récession : comparer les composantes}
-   \vspace{-0.2cm}
-   \begin{figure}
-      \centering
-      \includegraphics[width=\textwidth, height=0.79\textheight, keepaspectratio]{gdp_component_cycles.pdf}
-   \end{figure}
-   \vspace{-0.25cm}
-   \footnotesize Au-dessus de 0 : niveau supérieur à sa \textbf{propre tendance}. $I$ inclut les stocks.
+\begin{frame}{Trois éléments pour comprendre les fluctuations}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Demande agrégée (DA)}}\par\vspace{4pt}$DA = C + I + G + NX$
+\end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Offre agrégée (OA)}}\par\vspace{4pt}Prix et coûts déterminent la production offerte.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECgreen!5, colframe=HECgreen!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECgreen}{PIB potentiel}}\par\vspace{4pt}Capacité soutenable : $A$, $K$, $L$.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.88]
+\draw[potline] (3.6,0) -- (3.6,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P^{*}$} -- (3.6,2.55);
+\draw[demand] (0,4.71) -- (7,0.51) node[above right, curvelabel] {DA};
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {OA};
+\filldraw[eqpoint] (3.6,2.55) circle (3pt);
+\draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}\par\vspace{4pt}{\footnotesize $Y$ : PIB réel\quad $P$ : niveau des prix}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
-% 52 | \begin{frame}[t]{Les prix et les salaires sont rigides}
-% Source: S4/s4.tex | \begin{frame}[t]{Les prix et les salaires sont rigides}
+% 63 | DA : qui achète la production ?
+% Source: S4 | DA-OA framework; potential output and nominal rigidities
 % ============================================================================
-\begin{frame}[t]{Les prix et les salaires sont rigides}
-   \textbf{Au niveau micro :}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item Durée moyenne d'un prix $\approx$ 8 mois
-      \item Probabilité qu'un prix change : 11--15\,\% par mois
-      \item Les salaires changent $\sim$1 fois par an
-      \item Baisses de salaires très rares
-      \item Les biens à forte intensité de main-d'\oe uvre ont les prix les plus rigides
-   \end{itemize}
-   \vspace{0.4cm}
-   \textbf{Au niveau macro :}
-   \vspace{0.15cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item L'inflation ne réagit pleinement aux chocs qu'après 2--3 ans
-      \item Plus difficile à mesurer\ldots
-   \end{itemize}
+\begin{frame}{Pourquoi DA a-t-elle une pente négative ?}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Pouvoir d'achat}}\par\vspace{4pt}
+Si $P$ augmente, l'argent détenu permet d'acheter moins : $\downarrow C$ et $\downarrow I$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Exportations nettes}}\par\vspace{4pt}
+Nos produits deviennent plus chers donc les exportations reculent et les importations augmentent : $\downarrow NX = X - M$.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95]
+% DA: P = 4.9 - 0.8 Y. Points (1.5,3.7) and (4,1.7).
+\draw[refline] (1.5,0) node[below, pointlabel] {$Y_{1}$} -- (1.5,3.7);
+\draw[refline] (0,3.7) node[left, pointlabel] {$P_{1}$} -- (1.5,3.7);
+\draw[refline] (4,0) node[below, pointlabel] {$Y_{0}$} -- (4,1.7);
+\draw[refline] (0,1.7) node[left, pointlabel] {$P_{0}$} -- (4,1.7);
+\draw[demand] (0,4.9) -- (5.5,0.5) node[right, curvelabel] {DA};
+\filldraw[eqpoint] (1.5,3.7) circle (3pt);
+\filldraw[eqpoint] (4,1.7) circle (3pt);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
-% 53 | \begin{frame}[t]{Un cadre pour analyser les fluctuations}
-% Source: S4/s4.tex | \begin{frame}[t]{Un cadre pour analyser les fluctuations}
+% 64 | Pourquoi OA a-t-elle une pente positive ?
+% Source: S4 | DA-OA framework; potential output and nominal rigidities
 % ============================================================================
-\begin{frame}[t]{Un cadre pour analyser les fluctuations}
-   \small
-   En microéconomie, on utilise l'offre et la demande pour analyser un marché particulier (sirop d'érable, pétrole, etc.). En macro, on fait la même chose --- mais pour l'\textbf{économie dans son ensemble}.
-
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item \textbf{Demande agrégée (AD)} --- quantités demandées par les ménages ($C$), les entreprises ($I$), le gouvernement ($G$) et le reste du monde ($NX$)
-      \item \textbf{Offre agrégée (AS)} --- quantités produites par l'ensemble des entreprises
-   \end{itemize}
-
-   \vspace{0.2cm}
-   \begin{bizimplication}[Ce cadre permet de répondre à des questions comme\ldots]
-      \footnotesize
-      \vspace{-0.5cm}
-      \begin{itemize}
-         \setlength\itemsep{0.05cm}
-         \item Pourquoi la pandémie a-t-elle causé \textit{à la fois} une récession et de l'inflation\,?
-         \item Pourquoi un choc pétrolier force la BdC à choisir entre inflation et chômage\,?
-      \end{itemize}
-   \end{bizimplication}
+\begin{frame}{Pourquoi OA a-t-elle une pente positive ?}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des salaires rigides}}\par\vspace{4pt}Les contrats empêchent les salaires nominaux de suivre immédiatement les prix.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des marges plus élevées}}\par\vspace{4pt}Si $P$ augmente avant les salaires, les marges s'améliorent. Les entreprises produisent davantage : $\uparrow Y$.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95]
+\draw[refline] (1.5,0) node[below, pointlabel] {$Y_{0}$} -- (1.5,1.7);
+\draw[refline] (0,1.7) node[left, pointlabel] {$P_{0}$} -- (1.5,1.7);
+\draw[refline] (4,0) node[below, pointlabel] {$Y_{1}$} -- (4,3.7);
+\draw[refline] (0,3.7) node[left, pointlabel] {$P_{1}$} -- (4,3.7);
+\draw[supply, HECcoral] (0,0.5) -- (5.1,4.58) node[right, curvelabel] {OA};
+\filldraw[eqpoint=HECcoral] (1.5,1.7) circle (3pt);
+\filldraw[eqpoint=HECcoral] (4,3.7) circle (3pt);
+\draw[econaxis] (0,0) -- (6,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
-% 54 | \begin{frame}[t]{La demande agrégée (AD)}
-% Source: S4/s4.tex | \begin{frame}[t]{La demande agrégée (AD)}
+% 65 | Demande en baisse, coûts rigides : une récession
+% Source: S4 | Negative demand shock; equilibria and arrow endpoints verified.
 % ============================================================================
-\begin{frame}[t]{La demande agrégée (AD)}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.45\textwidth}
-         \begin{defbox}[Demande agrégée]
-            Relation entre niveau des prix ($P$) et niveau de dépenses ($Y$) :
-            \vspace{0.15cm}
-
-            \centering
-            $Y = C + I + G + NX$
-         \end{defbox}
-         \vspace{0.3cm}
-         \begin{keyinsight}
-            Augmentation des prix $\to$ baisse de la quantité demandée.
-         \end{keyinsight}
-      \end{column}
-      \begin{column}{0.52\textwidth}
-         \centering
-         \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % AD curve: y = -0.7778x + 4.389, y-int (0,4.389), x-int (5.64,0)
-            \draw[demand] (0,4.389) -- (5.64,0)
-               node[above right, curvelabel, text=HECnavy] {AD};
-            % Points on the curve: y = 4 - (7/9)(x - 0.5)
-            % At x=2: y=2.83, at x=4: y=1.28
-            % Dotted reference lines
-            \draw[refline] (2,0) node[below, pointlabel] {$Y_1$} -- (2,2.83);
-            \draw[refline] (0,2.83) node[left, pointlabel] {$P_1$} -- (2,2.83);
-            \draw[refline] (4,0) node[below, pointlabel] {$Y_2$} -- (4,1.28);
-            \draw[refline] (0,1.28) node[left, pointlabel] {$P_2$} -- (4,1.28);
-            % Arrow showing movement along curve
-            \draw[-{Stealth[length=6pt]}, HECcoral, very thick] (2,2.83) -- (4,1.28);
-            % Equilibrium dots
-            \filldraw[eqpoint] (4,1.28) circle (3pt);
-            \filldraw[eqpoint] (2,2.83) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (5.95,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.7) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-   \end{columns}
+\begin{frame}{Demande en baisse, coûts rigides : une récession}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{La demande recule}}\par\vspace{4pt}Les dépenses reculent : DA se déplace à gauche.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts rigides}}\par\vspace{4pt}Les salaires ne baissent pas tout de suite : $Y_{1} < Y_{\text{POT}}$.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+% OA0 = 0.6 Y + 0.5; DA0 = 4.1 - 0.6 Y; DA1 = 3.02 - 0.6 Y.
+\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.3) node[left, pointlabel] {$P_{0}$} -- (3,2.3);
+\draw[refline] (0,1.76) node[left, pointlabel] {$P_{1}$} -- (2.1,1.76);
+\draw[refline] (2.1,0) node[below, pointlabel] {$Y_{1}$} -- (2.1,1.76);
+\draw[original, HECnavy!45] (0,4.1) -- (6.833333,0) node[above right, curvelabel] {$DA_{0}$};
+\draw[demand] (0,3.02) -- (5.033333,0) node[above right, curvelabel] {$DA_{1}$};
+\draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {OA};
+\draw[shiftarrow, HECnavy] (4.75,1.1) -- (3.45,1.1);
+\filldraw[eqpoint=HECgray] (3,2.3) circle (3pt);
+\filldraw[eqpoint] (2.1,1.76) circle (3pt);
+\draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
-% 55 | \begin{frame}[t]{Ce qui déplace la courbe AD}
-% Source: S4/s4.tex | \begin{frame}[t]{Ce qui déplace la courbe AD}
+% 66 | Et si les salaires et les coûts s’ajustaient immédiatement ?
+% Source: S4 | Counterfactual immediate nominal adjustment; fixed A, K, L and potential.
 % ============================================================================
-\begin{frame}[t]{Ce qui déplace la courbe AD}
-   \small
-   Tout choc qui modifie les \textbf{dépenses souhaitées} à un niveau de prix donné :
-   \vspace{0.5cm}
-   \begin{columns}[T]
-      \begin{column}{0.52\textwidth}
-         \textbf{\textcolor{HECgreen}{Déplacements vers la droite}}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Hausse de la confiance ($C \uparrow$)
-            \item Optimisme des entreprises ($I \uparrow$)
-            \item Hausse des dépenses gouv.\ ($G \uparrow$)
-            \item Boom d'exportations ($NX \uparrow$)
-         \end{itemize}
-         \vspace{0.2cm}
-         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent AD vers la gauche.}}
-      \end{column}
-      \begin{column}{0.46\textwidth}
-         \centering
-         \vspace{0.2cm}
-         \begin{tikzpicture}[scale=0.735]
-            % Original AD (dashed gray): y = -0.7346x + 4.170, y-int (0,4.170), x-int (5.68,0)
-            \draw[original] (0,4.170) -- (5.68,0)
-               node[above right, pointlabel] {AD};
-            % Shifted AD' (green, solid): y = -0.75x + 5.325, y-int (0,5.325), x-int (7.1,0)
-            \draw[curveshift, HECgreen] (0,5.325) -- (7.1,0)
-               node[above right, curvelabel] {AD$'$};
-            % Shift arrow: horizontal from AD to AD' at y=2.2
-            \draw[shiftarrow, HECgreen] (2.92,2.2) -- (3.93,2.2);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.4,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.63) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-   \end{columns}
+\begin{frame}{Et si les salaires et les coûts s’ajustaient immédiatement ?}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts flexibles}}\par\vspace{4pt}Des salaires plus bas permettent de produire à prix plus faibles : OA à droite.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECgreen!5, colframe=HECgreen!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
+\RaggedRight\small\textbf{\textcolor{HECgreen}{Production au potentiel}}\par\vspace{4pt}Avec ajustement immédiat, $Y = Y_{\text{POT}}$ : choc absorbé par une baisse des prix.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+% Immediate adjustment: OA1 = 0.6 Y - 0.58. DA1 intersects OA1 at (3,1.22).
+\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.3) node[left, pointlabel] {$P_{0}$} -- (3,2.3);
+\draw[refline] (0,1.76) node[left, pointlabel] {$P_{1}$} -- (2.1,1.76);
+\draw[refline] (2.1,0) node[below, pointlabel] {$Y_{1}$} -- (2.1,1.76);
+\draw[refline] (0,1.22) node[left, pointlabel] {$P_{2}$} -- (3,1.22);
+\draw[original, HECnavy!35] (0,4.1) -- (6.833333,0) node[above right, curvelabel] {$DA_{0}$};
+\draw[demand] (0,3.02) -- (5.033333,0) node[above right, curvelabel] {$DA_{1}$};
+\draw[original, HECcoral!45] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {$OA_{0}$};
+\draw[supply, HECcoral] (0.966667,0) -- (6.9,3.56) node[right, curvelabel] {$OA_{1}$};
+\draw[shiftarrow, HECcoral] (4.75,3.2) -- (6.05,3.2);
+\filldraw[eqpoint=HECgray] (3,2.3) circle (2.5pt);
+\filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.5pt);
+\filldraw[eqpoint=HECcoral] (3,1.22) circle (3pt);
+\draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \end{frame}
 
 % ============================================================================
-% 56 | \begin{frame}[t]{L'offre agrégée (AS)}
-% Source: S4/s4.tex | \begin{frame}[t]{L'offre agrégée (AS)}
+% 67 | Les prix et les salaires s’ajustent lentement : les données
+% Source: Nakamura and Steinsson (2008), QJE; Grigsby, Hurst and Yildirmaz (2021), AER.
 % ============================================================================
-\begin{frame}[t]{L'offre agrégée (AS)}
-   \small
-   \begin{columns}[T]
-      \begin{column}{0.45\textwidth}
-         \begin{defbox}[Offre agrégée]
-            Production des entreprises ($Y$) à un niveau des prix donné ($P$).
-            \vspace{0.25cm}
-
-            \textbf{Hypothèse clé :} les salaires nominaux sont rigides à court terme.
-         \end{defbox}
-         \vspace{0.25cm}
-         \begin{keyinsight}
-            À prix plus élevés $\to$ les firmes veulent produire davantage.
-         \end{keyinsight}
-      \end{column}
-      \begin{column}{0.52\textwidth}
-         \centering
-         \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % AS curve: y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.2,4.16)
-            \draw[supply, HECcoral] (0,0.1135) -- (5.2,4.16)
-               node[right, curvelabel, text=HECcoral] {AS};
-            % Dotted reference lines
-            \draw[refline] (1.5,0) node[below, pointlabel] {$Y_1$} -- (1.5,1.28);
-            \draw[refline] (0,1.28) node[left, pointlabel] {$P_1$} -- (1.5,1.28);
-            \draw[refline] (3.5,0) node[below, pointlabel] {$Y_2$} -- (3.5,2.83);
-            \draw[refline] (0,2.83) node[left, pointlabel] {$P_2$} -- (3.5,2.83);
-            % Arrow showing movement along curve
-            % Points on the curve: y = 0.5 + (7/9)(x - 0.5)
-            % At x=1.5: y=1.28, at x=3.5: y=2.83
-            \draw[-{Stealth[length=6pt]}, HECnavy, very thick] (1.5,1.28) -- (3.5,2.83);
-            % Equilibrium dots
-            \filldraw[eqpoint] (3.5,2.83) circle (3pt);
-            \filldraw[eqpoint] (1.5,1.28) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (5.5,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-   \end{columns}
+\begin{frame}{Les prix et les salaires s’ajustent lentement : les données}
+\small Résultats de deux études sur données américaines.
+\par\vspace{0.3cm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
+\RaggedRight\textbf{\textcolor{HECnavy}{Prix réguliers}}\par\vspace{8pt}
+{\Large\textbf{8–11 mois}}\par\vspace{8pt}
+\small Durée médiane estimée des prix, hors soldes et changements de produit.
+\par\vspace{12pt}
+{\scriptsize\color{HECgray}\hfill\href{https://eml.berkeley.edu/~enakamura/papers/fivefacts.pdf}{Nakamura et Steinsson (2008)}}
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
+\RaggedRight\textbf{\textcolor{HECcoral}{Salaires de base}}\par\vspace{8pt}
+{\Large\textbf{Environ 35\,\%}}\par\vspace{8pt}
+\small Sans changement sur un an. Seuls 2\,\% des salariés restant chez le même employeur subissent une baisse.
+\par\vspace{12pt}
+{\scriptsize\color{HECgray}\hfill\href{https://www.aeaweb.org/articles?id=10.1257/aer.20190318}{Grigsby, Hurst et Yildirmaz (2021)}}
+\end{tcolorbox}
+\end{column}
+\end{columns}
 \end{frame}
-
 % ============================================================================
-% 57 | \begin{frame}[t]{Ce qui déplace la courbe AS}
-% Source: S4/s4.tex | \begin{frame}[t]{Ce qui déplace la courbe AS}
-% ============================================================================
-\begin{frame}[t]{Ce qui déplace la courbe AS}
-   \small
-   Tout ce qui modifie les \textbf{coûts de production} des entreprises à prix donnés :
-   \vspace{0.5cm}
-   \begin{columns}[T]
-      \begin{column}{0.52\textwidth}
-         \textbf{\textcolor{HECgreen}{Déplacements vers la droite}}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Progrès technologique ($A \uparrow$)
-            \item Baisse du prix du pétrole
-            \item Baisse des salaires nominaux
-            \item Amélioration des chaînes d'approvisionnement
-         \end{itemize}
-         \vspace{0.2cm}
-         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent AS vers la gauche.}}
-      \end{column}
-      \begin{column}{0.46\textwidth}
-         \centering
-         \vspace{0.2cm}
-         \begin{tikzpicture}[scale=0.82]
-            % Original AS (dashed gray): y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.26,4.2)
-            \draw[original] (0,0.1135) -- (5.26,4.2)
-               node[right, pointlabel] {AS};
-            % Shifted AS' (green, solid): y = 0.7778x - 0.6667, x-int (0.86,0), far end (6.25,4.2)
-            \draw[curveshift, HECgreen] (0.86,0) -- (6.25,4.2)
-               node[right, curvelabel] {AS$'$};
-            % Shift arrow: horizontal from AS to AS' at y=2.2
-            % On AS: x = 0.5 + (9/7)(2.2 - 0.5) = 2.69
-            % On AS': x = 1.5 + (9/7)(2.2 - 0.5) = 3.69
-            \draw[shiftarrow, HECgreen] (2.87,2.2) -- (3.51,2.2);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (6.55,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% ============================================================================
-% 58 | \begin{frame}{Équilibre de court terme}
-% Source: S4/s4.tex | \begin{frame}{Équilibre de court terme}
-% ============================================================================
-\begin{frame}{Équilibre de court terme}
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % AD: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {AD};
-      % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
-      % Intersection: -0.6x+4.1 = 0.6x+0.5 => x=3.0, y=2.3
-      \draw[refline] (3.0,0) node[below, pointlabel] {$Y^*$} -- (3.0,2.3);
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \filldraw[eqpoint] (3.0,2.3) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-\end{frame}
-
-% ============================================================================
-% 59 | \begin{frame}[t]{Choc de demande négatif : le choc}
-% Source: S4/s4.tex | \begin{frame}[t]{Choc de demande négatif : le choc}
-% Adaptation: Remove a transition to an omitted long-run-adjustment slide.
-% ============================================================================
-\begin{frame}[t]{Choc de demande négatif : le choc}
-   \vspace{0.1cm}
-   \begin{columns}[T]
-      \begin{column}{0.55\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=0.875]
-            % Y_POT
-            \draw[potline] (3.0,0) -- (3.0,4.2)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % Dotted reference lines
-            \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
-            \draw[refline, HECcoral] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
-            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
-            \draw[supply] (0,0.5) -- (5.7,3.92)
-               node[right, curvelabel, text=HECnavy] {AS};
-            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
-            \draw[original] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECgray] {AD};
-            % AD' shifted left: y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
-            \draw[curveshift, HECcoral] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel, text=HECcoral] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
-            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
-            \node[pointlabel, HECgray, above right] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
-            \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
-            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % Shock arrow (AD → AD') at y=1.3: AD at x=4.67, AD' at x=2.83
-            \draw[shiftarrow, HECcoral] (4.45,1.3) -- (3.2,1.3);
-            \node[pointlabel, HECcoral, above] at (3.75,1.3) {Choc};
-            % Axes
-            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Court terme :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.15cm}
-            \item AD se déplace à gauche
-            \item Nouvel équilibre $E_1$ : $Y$ $\downarrow$ $+$ $P$ $\downarrow$
-            \item $Y_1 < Y_{\text{POT}}$ $\to$ récession
-         \end{enumerate}
-         \vspace{0.3cm}
-         \textcolor{HECgray}{\footnotesize L'économie est en dessous de son potentiel.}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% ============================================================================
-% 60 | \begin{frame}{Le choc d'offre : Ormuz et le pétrole}
-% Source: S4/s4.tex | \begin{frame}{Le choc d'offre : Ormuz et le pétrole}
-% ============================================================================
-\begin{frame}{Le choc d'offre : Ormuz et le pétrole}
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AD original (stays in place): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[demand] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[original] (0,0.5) -- (6.9,4.64)
-         node[right, pointlabel] {AS};
-      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-         node[right, curvelabel] {AS$'$};
-      % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[shiftarrow, HECcoral] (4.32,3.2) -- (3.17,3.2);
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,2.80);
-      \draw[refline] (0,2.80) node[left, pointlabel] {$P'$} -- (2.17,2.80);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      \filldraw[eqpoint=HECcoral] (2.17,2.80) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-\end{frame}
-
-% ============================================================================
-% 61 | \begin{frame}{Anatomie d'une récession}
-% Source: S4/s4.tex | \begin{frame}{Anatomie d'une récession}
-% Adaptation: Match the selected applications.
-% ============================================================================
-\begin{frame}{Anatomie d'une récession}
-   Analyser une récession comme un \textbf{incendie} en quatre étapes :
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Étincelle} --- ce qui déclenche la récession (\guillemotleft~le choc~\guillemotright)
-      \item \textbf{Transmission} --- comment le choc se propage (AD, AS, ou les deux)
-      \item \textbf{Carburant} --- ce qui amplifie la transmission
-      \item \textbf{Pare-feu} --- la réponse politique visant à limiter les dégâts
-   \end{enumerate}
-   \vspace{0.3cm}
-   \begin{bizimplication}[Application]
-      Ce cadre aide à comprendre les effets des \textbf{tarifs} et des \textbf{chocs pétroliers}.
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-% 62 | \begin{frame}[t]{Sans représailles : un choc de demande}
-% Source: S4/s4.tex | \begin{frame}[t]{Sans représailles : un choc de demande}
-% Adaptation: Illustrative tariff rate; shift-arrow endpoints kept off the curves.
-% ============================================================================
-\begin{frame}[t]{Sans représailles : un choc de demande}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         % --- Algebraic verification ---
-         % AD: P = -0.6Y + 4.1;  AS: P = 0.6Y + 0.5
-         % Original eq: Y* = 3.0, P* = 2.3
-         % AD': P = -0.6Y + 3.1 (tariffs shift AD left)
-         % AD' ∩ AS: -0.6Y+3.1 = 0.6Y+0.5 → Y' = 2.167, P' = 1.80
-         % AD' y-int (0,3.1), x-int (5.167,0)
-         % Shift arrow at P=1.2: AD x=4.833, AD' x=3.167
-         % ---
-         \begin{tikzpicture}[scale=0.875]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5, unchanged
-            \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
-            % AD original (dashed gray): y = -0.6x + 4.1
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AD' shifted left: y = -0.6x + 3.1
-            \draw[demand] (0,3.1) -- (5.167,0)
-               node[above right, curvelabel] {AD$'$};
-            % AD shift arrow at P=1.2
-            \draw[shiftarrow, HECnavy] (4.63,1.2) -- (3.37,1.2);
-            % Reference lines
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-            \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,1.80);
-            \draw[refline] (0,1.80) node[left, pointlabel] {$P'$} -- (2.17,1.80);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint=HECnavy] (2.17,1.80) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         Forte exposition aux exportations vers les États-Unis.\
-         \vspace{0.2cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Exemple : tarifs de 25\,\% $\to$ $NX \downarrow$
-            \item La demande pour les biens canadiens \textbf{chute}
-         \end{itemize}
-         \vspace{0.3cm}
-         \textbf{AD se déplace vers la gauche}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat : récession ($Y \downarrow$, $P \downarrow$)}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% ============================================================================
-% 63 | \begin{frame}[t]{Avec représailles : le dilemme}
-% Source: S4/s4.tex | \begin{frame}[t]{Avec représailles : le dilemme}
-% Adaptation: Illustrative retaliation; arrow endpoints and potential-output guide cleared.
-% ============================================================================
-\begin{frame}[t]{Avec représailles : le dilemme}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         % --- Algebraic verification ---
-         % Original: AD: P = -0.6Y + 4.1, AS: P = 0.6Y + 0.5, eq (3.0, 2.3)
-         % AD': P = -0.6Y + 3.5 (moderate leftward shift — M↓ partially offsets X↓)
-         %   intercept shift 0.6 → horizontal shift 1.0 unit
-         % AS': P = 0.6Y + 1.9 (large leftward shift — tariffs on US inputs raise costs)
-         %   intercept shift 1.4 → horizontal shift 2.333 units
-         % AD' ∩ AS': -0.6Y+3.5 = 0.6Y+1.9 → 1.2Y = 1.6 → Y' = 4/3 ≈ 1.333, P' = 27/10 = 2.7
-         % Stagflation: Y' < Y* (1.333 < 3.0) and P' > P* (2.7 > 2.3)
-         % AD' y-int (0,3.5), x-int (5.833,0)
-         % AS' y-int (0,1.9), far end (4.667,4.7)
-         % AD shift arrow at P=1.0: AD x=5.167, AD' x=4.167
-         % AS shift arrow at P=3.5: AS x=5.0, AS' x=2.667
-         % ---
-         \begin{tikzpicture}[scale=0.875]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AD original (dashed gray): P = -0.6Y + 4.1
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AS original (dashed gray): P = 0.6Y + 0.5
-            \draw[original] (0,0.5) -- (7.0,4.7)
-               node[right, pointlabel] {AS};
-            % AD' shifted left (moderate): P = -0.6Y + 3.5
-            \draw[demand] (0,3.5) -- (5.833,0)
-               node[above right, curvelabel] {AD$'$};
-            % AS' shifted left (large — main retaliation channel): P = 0.6Y + 1.9
-            \draw[supply, HECcoral] (0,1.9) -- (4.667,4.7)
-               node[right, curvelabel] {AS$'$};
-            % AD shift arrow at P=1.0
-            \draw[shiftarrow, HECnavy] (4.97,1.0) -- (4.37,1.0);
-            % AS shift arrow at P=3.5
-            \draw[shiftarrow, HECcoral] (4.8,3.5) -- (3.18,3.5);
-            % Reference lines
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-            \draw[refline] (1.333,0) node[below, pointlabel] {$Y'$} -- (1.333,2.7);
-            \draw[refline] (0,2.7) node[left, pointlabel] {$P'$} -- (1.333,2.7);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint=HECcoral] (1.333,2.7) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         Exemple de représailles : 25\,\% sur des intrants américains.\
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item \textbf{AS$\leftarrow$} : coûts de production $\uparrow$ (intrants importés plus chers)
-            \item \textbf{AD partiellement restauré} : $M \downarrow$ $\to$ $NX$ se rétablit en partie
-         \end{itemize}
-         \vspace{0.2cm}
-         \textbf{Double déplacement : AD$\leftarrow$ et AS$\leftarrow$}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat : stagflation ($Y \downarrow$, $P \uparrow$)}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-% ============================================================================
-% 64 | \begin{frame}{Un scénario : pétrole cher $\to$ aubaine pour les exportateurs}
-% Source: S4/s4.tex | \begin{frame}{Scénario A : Pétrole cher $\to$ aubaine pour les exportateurs}
-% Adaptation: Standalone scenario title; clear arrow endpoints and labels.
-% ============================================================================
-\begin{frame}{Un scénario : pétrole cher $\to$ aubaine pour les exportateurs}
-   \centering
-   \begin{tikzpicture}[scale=1.17]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[original] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (7.0,4.7)
-      \draw[original] (0,0.5) -- (7.0,4.7)
-         node[right, pointlabel] {AS};
-      % AD' shifted slightly right: y = -0.6x + 4.5, y-int (0,4.5), x-int (7.5,0)
-      \draw[demand] (0,4.5) -- (7.5,0)
-         node[above right, curvelabel] {AD$'$};
-      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-         node[right, curvelabel] {AS$'$};
-      % Small AD shift arrow (rightward): from AD to AD' at y=1.5
-      % AD at y=1.5: x=(4.1-1.5)/0.6=4.33; AD' at y=1.5: x=(4.5-1.5)/0.6=5.0
-      \draw[shiftarrow, HECnavy] (4.46,1.5) -- (4.87,1.5);
-      % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[shiftarrow, HECcoral] (4.32,3.2) -- (3.17,3.2);
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (2.5,0) node[below, pointlabel] {$Y'$} -- (2.5,3.0);
-      \draw[refline] (0,3.0) node[left, pointlabel] {$P'$} -- (2.5,3.0);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      \filldraw[eqpoint=HECcoral] (2.5,3.0) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.8,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-   \vspace{-0.2cm}
-   \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow$ modéré, prix $\uparrow\uparrow$}}
-\end{frame}
-
-% ============================================================================
-% 65 | \sectionframe{Les politiques économiques}
+% 68 | \sectionframe{Les politiques économiques}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Les politiques économiques}
 
 % ============================================================================
-% 66 | \begin{frame}[t]{Deux institutions, deux leviers}
+% 69 | \begin{frame}[t]{Deux institutions, deux leviers}
 % Source: S5/s5.tex | \begin{frame}[t]{Deux institutions, deux leviers}
 % ============================================================================
 \begin{frame}[t]{Deux institutions, deux leviers}
@@ -1745,7 +1558,7 @@
             \item Taux d'intérêt directeur
             \item Décision rapide (8 annonces/an)
             \item \textbf{Indépendante} du gouvernement
-            \item Agit sur AD via $C$ et $I$
+            \item Agit sur DA via $C$ et $I$
          \end{itemize}
       \end{column}
       \begin{column}{0.06\textwidth}
@@ -1763,14 +1576,14 @@
             \item Dépenses ($G$), impôts ($T$), transferts
             \item Processus législatif (lent)
             \item Décision \textbf{politique}
-            \item Agit sur AD via $G$, $C$ et $I$
+            \item Agit sur DA via $G$, $C$ et $I$
          \end{itemize}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-% 67 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
+% 70 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % Source: S5/s5.tex | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % ============================================================================
 \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
@@ -1790,7 +1603,7 @@
 \end{frame}
 
 % ============================================================================
-% 68 | \begin{frame}{Le taux directeur depuis 1996}
+% 71 | \begin{frame}{Le taux directeur depuis 1996}
 % Source: S5/s5.tex | \begin{frame}{Le taux directeur depuis 1996}
 % ============================================================================
 \begin{frame}{Le taux directeur depuis 1996}
@@ -1801,7 +1614,7 @@
 \end{frame}
 
 % ============================================================================
-% 69 | \begin{frame}{Le mécanisme de transmission}
+% 72 | \begin{frame}{Le mécanisme de transmission}
 % Source: S5/s5.tex | \begin{frame}{Le mécanisme de transmission}
 % ============================================================================
 \begin{frame}{Le mécanisme de transmission}
@@ -1832,7 +1645,7 @@
 \end{frame}
 
 % ============================================================================
-% 70 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
+% 73 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
 % Source: S5/s5.tex | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
 % ============================================================================
 \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
@@ -1848,19 +1661,19 @@
             \draw[refline] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
             \draw[refline, HECnavy] (0,2.3) node[left, pointlabel] {$P_2$} -- (3.0,2.3);
             \draw[refline] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
-            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            % OA: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
             \draw[supply] (0,0.5) -- (6.8,4.58)
-               node[right, curvelabel, text=HECnavy] {AS};
-            % AD' (recession, now dashed): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+               node[right, curvelabel, text=HECnavy] {OA};
+            % DA' (recession, now dashed): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
             \draw[original] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel, text=HECgray] {AD$'$};
-            % AD'' (after policy, back to original): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+               node[above right, curvelabel, text=HECgray] {DA$'$};
+            % DA'' (after policy, back to original): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
             \draw[demand] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECnavy] {AD$''$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
+               node[above right, curvelabel, text=HECnavy] {DA$''$};
+            % E1: DA' ∩ OA at (2.08, 1.75)
             \filldraw[eqpoint=HECgray] (2.08,1.75) circle (3pt);
             \node[pointlabel, HECgray, above left] at (2.08,1.75) {$E_1$};
-            % E2: AD'' ∩ AS at (3.0, 2.3) — back at potential
+            % E2: DA'' ∩ OA at (3.0, 2.3) — back at potential
             \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
             \node[pointlabel, HECnavy, above right] at (3.0,2.3) {$E_2$};
             % Policy arrow
@@ -1879,7 +1692,7 @@
             \setlength\itemsep{0.1cm}
             \item BdC $\downarrow$ taux directeur
             \item Taux du marché $\downarrow$
-            \item $C\uparrow$, $I\uparrow$, $NX\uparrow$ $\to$ AD$''$ à droite
+            \item $C\uparrow$, $I\uparrow$, $NX\uparrow$ $\to$ DA$''$ à droite
             \item Retour à $Y_{\text{POT}}$ en $E_2$
          \end{enumerate}
          \vspace{0.2cm}
@@ -1891,7 +1704,7 @@
 \end{frame}
 
 % ============================================================================
-% 71 | \begin{frame}[t]{Les délais de transmission}
+% 74 | \begin{frame}[t]{Les délais de transmission}
 % Source: S5/s5.tex | \begin{frame}[t]{Les délais de transmission}
 % ============================================================================
 \begin{frame}[t]{Les délais de transmission}
@@ -1912,9 +1725,9 @@
 \end{frame}
 
 % ============================================================================
-% 72 | \begin{frame}[t]{Le dilemme des chocs d'offre}
+% 75 | \begin{frame}[t]{Le dilemme des chocs d'offre}
 % Source: S5/s5.tex | \begin{frame}[t]{Le dilemme des chocs d'offre}
-% Adaptation: P is a price level, consistent with the AD-AS axes.
+% Adaptation: P is a price level, consistent with the DA-OA axes.
 % ============================================================================
 \begin{frame}[t]{Le dilemme des chocs d'offre}
    \small
@@ -1930,22 +1743,22 @@
             \draw[refline, HECcoral] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
             \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
             \draw[refline, HECcoral] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
-            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
+            % OA original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
             \draw[original] (0,0.5) -- (6.8,4.58)
-               node[right, curvelabel, text=HECgray] {AS};
-            % AD: y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+               node[right, curvelabel, text=HECgray] {OA};
+            % DA: y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
             \draw[demand] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECnavy] {AD};
-            % AS' shifted left: y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
+               node[above right, curvelabel, text=HECnavy] {DA};
+            % OA' shifted left: y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
             \draw[curveshift, HECcoral] (0,1.4) -- (5.33,4.6)
-               node[right, curvelabel, text=HECcoral] {AS$'$};
-            % E0: AS ∩ AD at (3.0, 2.3)
+               node[right, curvelabel, text=HECcoral] {OA$'$};
+            % E0: OA ∩ DA at (3.0, 2.3)
             \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
             \node[pointlabel, HECgray, below left] at (3.0,2.3) {$E_0$};
-            % E1: AS' ∩ AD at (2.25, 2.75)
+            % E1: OA' ∩ DA at (2.25, 2.75)
             \filldraw[eqpoint=HECcoral] (2.25,2.75) circle (3pt);
             \node[pointlabel, HECcoral, above left] at (2.25,2.75) {$E_1$};
-            % Shock arrow (AS → AS') — horizontal between the two AS curves
+            % Shock arrow (OA → OA') — horizontal between the two OA curves
             \draw[shiftarrow, HECcoral] (4.8,3.5) -- (3.7,3.5);
             \node[pointlabel, HECcoral, above] at (4.6,3.5) {Choc};
             % Axes
@@ -1959,7 +1772,7 @@
          \vspace{0.1cm}
          \begin{enumerate}
             \setlength\itemsep{0.1cm}
-            \item AS se déplace à gauche
+            \item OA se déplace à gauche
             \item $Y$ $\downarrow$ \textbf{et} $P$ $\uparrow$ simultanément
             \item La banque centrale ne peut pas corriger les deux à la fois
          \end{enumerate}
@@ -1980,7 +1793,7 @@
 \end{frame}
 
 % ============================================================================
-% 73 | \begin{frame}[t]{L'autre levier : le gouvernement}
+% 76 | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Source: S5/s5.tex | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Adaptation: Keep the Canadian G/I convention and the transfer channel consistent.
 % ============================================================================
@@ -2003,7 +1816,31 @@
 \end{frame}
 
 % ============================================================================
-% 74 | \begin{frame}[t]{Déficit vs dette : flux vs stock}
+% 77 | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
+% Source: S5/s5.tex | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
+% ============================================================================
+\begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
+   \small
+   \vfill
+   \renewcommand{\arraystretch}{1.75}
+   \centering
+   \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small\raggedright\arraybackslash}p{0.42\textwidth}}
+      \toprule
+      & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
+      \midrule
+      Décideur & Banque centrale & Gouvernement \\
+      Rapidité & Rapide (8 annonces/an) & Lente (processus législatif) \\
+      Indépendance & Oui & Non (politique) \\
+      Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C, I$ via transferts/impôts \\
+      Précision & Faible (effets diffus) & Peut cibler des secteurs \\
+      Limite & Délai, incert., borne zéro & \textcolor{HECcoral}{\textbf{Endettement}} \\
+      \bottomrule
+   \end{tabularx}
+   \vfill
+\end{frame}
+
+% ============================================================================
+% 78 | \begin{frame}[t]{Déficit vs dette : flux vs stock}
 % Source: S5/s5.tex | \begin{frame}[t]{Déficit vs dette : flux vs stock}
 % Adaptation: Qualify the simplified stock-flow identity.
 % ============================================================================
@@ -2037,53 +1874,7 @@
 \end{frame}
 
 % ============================================================================
-% 75 | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-% Source: S5/s5.tex | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-% ============================================================================
-\begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-   \small
-   \vfill
-   \renewcommand{\arraystretch}{1.75}
-   \centering
-   \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small\raggedright\arraybackslash}p{0.42\textwidth}}
-      \toprule
-      & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
-      \midrule
-      Décideur & Banque centrale & Gouvernement \\
-      Rapidité & Rapide (8 annonces/an) & Lente (processus législatif) \\
-      Indépendance & Oui & Non (politique) \\
-      Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C, I$ via transferts/impôts \\
-      Précision & Faible (effets diffus) & Peut cibler des secteurs \\
-      Limite & Délai, incert., borne zéro & \textcolor{HECcoral}{\textbf{Endettement}} \\
-      \bottomrule
-   \end{tabularx}
-   \vfill
-\end{frame}
-
-% ============================================================================
-% 76 | \begin{frame}{Que faire face à une récession\,?}
-% Source: S4/s4.tex | \begin{frame}{Que faire face à une récession\,?}
-% Adaptation: Remove a reference to another class session.
-% ============================================================================
-\begin{frame}{Que faire face à une récession\,?}
-   \vspace{0.3cm}
-   \textbf{Analyse en quatre étapes :}
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item {\color{gray!50}Étincelle --- ce qui déclenche la récession}
-      \item {\color{gray!50}Transmission --- comment le choc se propage}
-      \item {\color{gray!50}Carburant --- ce qui amplifie la transmission}
-      \item \textbf{\textcolor{HECnavy}{Pare-feu --- réponse politique pour limiter les dégâts}}
-   \end{enumerate}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      L'économie peut se corriger seule, mais \textbf{attendre coûte cher} (chômage, faillites). C'est le fondement de la politique contracyclique.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 77 | \begin{frame}[t]{Ce que cela change pour votre organisation}
+% 79 | \begin{frame}[t]{Ce que cela change pour votre organisation}
 % Source: Programme-specific closing synthesis
 % ============================================================================
 \begin{frame}[t]{Ce que cela change pour votre organisation}
@@ -2108,7 +1899,7 @@ Relier les signaux macroéconomiques à votre exposition, puis réviser les hypo
 \end{frame}
 
 % ============================================================================
-% 78 | \begin{frame}[t]{Les grands thèmes du cours}
+% 80 | \begin{frame}[t]{Les grands thèmes du cours}
 % Source: Programme-specific closing synthesis
 % ============================================================================
 \begin{frame}[t]{Les grands thèmes du cours}
