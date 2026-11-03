@@ -1,0 +1,22 @@
+{
+  "retrieved_at_utc": "2026-11-03T16:22:23.668548+00:00",
+  "sources": {
+    "owid-co2-data.csv": "https://owid-public.owid.io/data/co2/owid-co2-data.csv",
+    "wdi_real_gdp.json": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.KD?date=1990:2025&format=json&per_page=20000",
+    "wdi_world_real_gdp.json": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.MKTP.KD?date=1970:2025&format=json&per_page=100"
+  },
+  "transformations": {
+    "kaya_decomposition_countries": "2000–2024 log changes divided by 24 years; EU GDP sum of all 27 current members, requiring complete coverage; identity components sum to total CO2 growth",
+    "decoupling": "GDP and territorial fossil CO2 indexed to 100 in 1990, through 2024; GDP from WDI constant 2015 USD throughout, without splicing",
+    "gdp_vs_co2_growth": "2000–2024 annual log growth of real GDP per capita and territorial CO2 per capita; observations with missing endpoints excluded",
+    "production_vs_consumption_co2": "Latest common year for all eight countries, 2023; never mix vintages",
+    "co2_emissions_by_region": "Latest common territorial emissions year, 2024; no forecasts",
+    "kaya_decomposition": "World annual log-growth decomposition, periods 1970–80, 1980–90, 1990–2000, 2000–10, 2010–19, 2019–24. World Bank constant-2015-USD GDP for every period; OWID population, energy, territorial CO2. All components sum to actual CO2 log growth. Last period starts before pandemic, not at 2020 trough. Latest common year 2024."
+  },
+  "pandemic_policy": "Keep pre-pandemic convergence/growth-accounting comparisons unchanged. Environmental long-run changes use 2000–2024; annual time series retain the pandemic dip/rebound. Do not interpret short-run pandemic contractions as structural decoupling.",
+  "sha256": {
+    "owid-co2-data.csv": "7ec10de1e9502c20c70bfff54476d7893922f7594aa299d9291d87fe49f3e342",
+    "wdi_real_gdp.json": "831aed00265c3bf3344324ddb92c4f3a1058c1a2bedd27128e60a7049530928a",
+    "wdi_world_real_gdp.json": "99d36b5612efe918343dcf2e142e79a9c6f8cc2891c166af47314841973d66a3"
+  }
+}

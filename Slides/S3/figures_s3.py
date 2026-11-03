@@ -739,8 +739,8 @@ def canada_gdp_decomposition_countries():
 # Figure 10: Breakthrough patents per million people (Kelly et al. 2021)
 # =====================================================================
 def breakthrough_inventions():
-    """Breakthrough patents per million people from Kelly et al. (2021) data."""
-    print('Figure 10: Breakthrough patents (Kelly et al. 2021)')
+    """US breakthrough patents and trailing ten-year TFP growth (Session 2)."""
+    print('Figure 10: Breakthrough patents and US TFP growth')
 
     # ── Load patent-level breakthrough data ──────────────────────────
     data_dir = os.path.join(Path(__file__).resolve().parent.parent, 'Data')
@@ -772,6 +772,20 @@ def breakthrough_inventions():
     # (pop_series is in millions, so count / pop_series = per million)
     bt_per_m = bt_by_year / pop_series
 
+    # Long-Term Productivity Database, BCL v2.7 (February 2026).
+    # Source and checksum: Slides/Data/s2_us_tfp.json. Raw workbook is linked
+    # to Dropbox; compute volume growth from the published USA TFP level.
+    tfp_path = Path(data_dir) / 'BCLDatabase_online_v2.7.xlsx'
+    tfp = pd.read_excel(tfp_path, sheet_name='TFP', index_col=0)['USA'].dropna()
+    tfp.index = tfp.index.astype(int)
+    if not tfp.index.is_unique or not np.all(np.diff(tfp.index) == 1) or (tfp <= 0).any():
+        raise ValueError('TFP levels must be positive with consecutive, unique annual dates.')
+    tfp_growth = 100 * np.log(tfp).diff()
+    # Trailing window, not a lead: year t averages annual growth in t-9,...,t.
+    # No incomplete windows; no extrapolation before the first valid average.
+    tfp_smoothed = tfp_growth.rolling(10, min_periods=10).mean().dropna()
+    tfp_smoothed = tfp_smoothed.loc[bt_per_m.index.min():bt_per_m.index.max()]
+
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(bt_per_m.index, bt_per_m.values, color=palette[0], linewidth=1.8)
@@ -783,22 +797,22 @@ def breakthrough_inventions():
             r"(électricité, transport)",
             fontsize=8, color=palette[0], va='bottom', ha='center')
 
-    ax.text(1932, 78,
+    ax.text(1924, 78,
             r"\textbf{2\textsuperscript{e} vague :}" "\n"
             r"Entre-deux-guerres" "\n"
             r"(chimie, électricité)",
             fontsize=8, color=palette[0], va='bottom', ha='center')
 
-    ax.text(1978, 78,
+    ax.text(1976, 80,
             r"\textbf{3\textsuperscript{e} vague :}" "\n"
             r"Technologies de l'information" "\n"
             r"(ordinateurs, communications)",
             fontsize=8, color=palette[0], va='bottom', ha='center')
 
-    ax.set_xlim(1840, 2018)
+    ax.set_xlim(bt_per_m.index.min(), bt_per_m.index.max())
     ax.set_ylim(0, 100)
-    ax.set_xticks(range(1840, 2021, 20))
-    ax.set_xticklabels([str(y) for y in range(1840, 2021, 20)], fontsize=11)
+    ax.set_xticks(range(1840, 2017, 20))
+    ax.set_xticklabels([str(y) for y in range(1840, 2017, 20)], fontsize=11)
     ax.set_yticks(range(0, 101, 20))
     ax.set_yticklabels([str(y) for y in range(0, 101, 20)], fontsize=11)
     ax.set_ylabel(r"Brevets majeurs par million d'habitants",
@@ -806,7 +820,32 @@ def breakthrough_inventions():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, 'Source: Kelly et al. (2021), AER: Insights')
+    # Different units require a second, explicitly labelled axis. Keep every
+    # observed smoothed TFP value visible, including the wartime peak.
+    ax2 = ax.twinx()
+    red = palette[2]
+    tfp_line, = ax2.plot(tfp_smoothed.index, tfp_smoothed.values,
+                         color=red, linewidth=2.0, zorder=3)
+    if not tfp_smoothed.between(-1, 7).all():
+        raise ValueError('Expand the TFP axis to include all displayed growth observations.')
+    ax2.set_ylim(-1, 7)
+    ax2.set_yticks(range(-1, 8))
+    ax2.set_yticklabels([str(y) + r'\%' for y in range(-1, 8)],
+                        color=red, fontsize=10)
+    ax2.set_ylabel(r'Croissance de la PTF (\%/an)', color=red, fontsize=10)
+    ax2.tick_params(axis='y', colors=red)
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_color(red)
+    ax2.grid(False)
+    ax.legend([ax.lines[0], tfp_line],
+              ['Brevets majeurs (axe gauche)',
+               'PTF (axe droit, moyenne mobile sur 10 ans)'],
+              loc='upper left', frameon=False, fontsize=8)
+    ax.text(1, 1.13, r'\textbf{États-Unis}', ha='right', va='bottom',
+            transform=ax.transAxes, fontsize=10, color=palette[0])
+    ax.text(1, 1.08,
+            r'Sources : Kelly et al. (2021); Bergeaud, Cette \& Lecat (BCL v2.7, 2026)',
+            ha='right', va='bottom', transform=ax.transAxes, fontsize=7)
     save(fig, 'kelly_et_al_2021.pdf')
 
 

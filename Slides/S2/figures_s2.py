@@ -49,8 +49,30 @@ def _load_owid_co2():
     if _owid_co2_cache is None:
         url = ('https://raw.githubusercontent.com/owid/co2-data/'
                'master/owid-co2-data.csv')
-        _owid_co2_cache = pd.read_csv(url)
+        snapshot = Path(__file__).resolve().parents[1] / 'Data/s2_refresh_20261103/owid-co2-data.csv'
+        _owid_co2_cache = pd.read_csv(snapshot if snapshot.exists() else url)
     return _owid_co2_cache
+
+
+def _load_climate_with_current_gdp():
+    """Use WDI real GDP throughout 1990 onward; no splicing of GDP sources."""
+    import json
+    df = _load_owid_co2().copy()
+    path = Path(__file__).resolve().parents[1] / 'Data/s2_refresh_20261103/wdi_real_gdp.json'
+    url = ('https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.KD'
+           '?date=1990:2025&format=json&per_page=20000')
+    if path.exists():
+        records = json.loads(path.read_text())[1]
+    else:
+        import requests
+        response = requests.get(url, timeout=90)
+        response.raise_for_status()
+        records = response.json()[1]
+    lookup = {(r['countryiso3code'], int(r['date'])): r['value']
+              for r in records if r['value'] is not None}
+    df['gdp'] = [lookup.get((code, year), np.nan)
+                 for code, year in zip(df['iso_code'], df['year'])]
+    return df
 
 
 # =====================================================================
@@ -1087,13 +1109,28 @@ def kaya_decomposition():
     print('Figure 14: Kaya decomposition — global CO2')
 
     df = _load_owid_co2()
-    w = df[df['country'] == 'World'].set_index('year')
+    w = df[df['country'] == 'World'].set_index('year').copy()
+    import json
+    path = Path(__file__).resolve().parents[1] / 'Data/s2_refresh_20261103/wdi_world_real_gdp.json'
+    if path.exists():
+        records = json.loads(path.read_text())[1]
+    else:
+        import requests
+        response = requests.get('https://api.worldbank.org/v2/country/WLD/indicator/'
+                                'NY.GDP.MKTP.KD?date=1970:2025&format=json&per_page=100', timeout=90)
+        response.raise_for_status()
+        records = response.json()[1]
+    gdp = pd.Series({int(r['date']): r['value'] for r in records if r['value'] is not None})
+    w['gdp'] = gdp.reindex(w.index)
+    last_year = int(w.dropna(subset=['gdp', 'population', 'primary_energy_consumption', 'co2']).index.max())
+    assert last_year == 2024
+
 
     # Compute average annual growth rates (%) by decade using log differences
     # Kaya identity: CO2 = N × (Y/N) × (E/Y) × (CO2/E)
-    decade_starts = [1970, 1980, 1990, 2000, 2010]
-    decade_ends   = [1980, 1990, 2000, 2010, 2019]
-    decade_labels = ['1970s', '1980s', '1990s', '2000s', '2010--19']
+    decade_starts = [1970, 1980, 1990, 2000, 2010, 2019]
+    decade_ends   = [1980, 1990, 2000, 2010, 2019, last_year]
+    decade_labels = ['1970--80', '1980--90', '1990--2000', '2000--10', '2010--19', '2019--24']
 
     population, gdp_per_cap, energy_int, carbon_int = [], [], [], []
     for y0, y1 in zip(decade_starts, decade_ends):
@@ -1119,6 +1156,9 @@ def kaya_decomposition():
         energy_int.append(g_ey)
         carbon_int.append(g_ce)
 
+    expected = [100 * np.log(w.loc[y1, 'co2'] / w.loc[y0, 'co2']) / (y1 - y0)
+                for y0, y1 in zip(decade_starts, decade_ends)]
+    assert np.allclose(np.array(population) + gdp_per_cap + energy_int + carbon_int, expected)
     x = np.arange(len(decade_labels))
     width = 0.55
 
@@ -1147,14 +1187,14 @@ def kaya_decomposition():
     ax.set_ylabel(r"Taux de croissance annuel moyen (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(-3, 5)
-    ax.set_yticks(range(-3, 6))
-    ax.set_yticklabels([f'{y}' + r'\%' for y in range(-3, 6)], fontsize=11)
+    ax.set_ylim(-2, 4)
+    ax.set_yticks(range(-2, 5))
+    ax.set_yticklabels([f'{y}' + r'\%' for y in range(-2, 5)], fontsize=11)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=9, loc='upper center',
               bbox_to_anchor=(0.5, 1.0), ncol=3)
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    add_source(ax, 'Source : Global Carbon Project / OWID; Banque mondiale (1970--2024)')
     save(fig, 'kaya_decomposition.pdf')
 
 
@@ -1162,10 +1202,10 @@ def kaya_decomposition():
 # Figure: Kaya decomposition by country (2000–2020)
 # =====================================================================
 def kaya_decomposition_countries():
-    """Kaya decomposition for Canada, USA, China, India, EU-27 (2000–2019)."""
-    print('Figure: Kaya decomposition by country (2000–2019)')
+    """Kaya decomposition for Canada, USA, China, India, EU-27 (2000–2024)."""
+    print('Figure: Kaya decomposition by country (2000–2024)')
 
-    df = _load_owid_co2()
+    df = _load_climate_with_current_gdp()
 
     # EU-27: aggregate GDP and energy; CO2 and population available directly
     eu27_members = [
@@ -1183,7 +1223,7 @@ def kaya_decomposition_countries():
         ('India',                   'Inde'),
     ]
 
-    y0, y1 = 2000, 2019
+    y0, y1 = 2000, 2024
     n = y1 - y0
 
     population, gdp_per_cap, energy_int, carbon_int, net_co2 = [], [], [], [], []
@@ -1192,7 +1232,7 @@ def kaya_decomposition_countries():
         if entity == '_EU27':
             eu = df[df['country'] == 'European Union (27)'].set_index('year')
             eu_gdp = (df[df['country'].isin(eu27_members)]
-                      .groupby('year')['gdp'].sum())
+                      .groupby('year')['gdp'].sum(min_count=27))
             pop0, pop1 = eu.loc[y0, 'population'], eu.loc[y1, 'population']
             gdp0, gdp1 = eu_gdp.loc[y0], eu_gdp.loc[y1]
             nrg0, nrg1 = eu.loc[y0, 'primary_energy_consumption'], eu.loc[y1, 'primary_energy_consumption']
@@ -1242,7 +1282,7 @@ def kaya_decomposition_countries():
     ax.axhline(y=0, color='gray', linewidth=0.8)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=12)
-    ax.set_ylabel(r"Taux de croissance annuel moyen, 2000--2019 (\%)",
+    ax.set_ylabel(r"Taux de croissance annuel moyen, 2000--2024 (\%)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.set_ylim(-4, 8)
@@ -1250,9 +1290,10 @@ def kaya_decomposition_countries():
     ax.set_yticklabels([f'{y}' + r'\%' for y in range(-4, 9, 2)], fontsize=11)
 
     style_axes(ax)
+    ax.yaxis.grid(True, color='0.40', linestyle=':', linewidth=0.95, alpha=1.0)
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=3)
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    add_source(ax, 'Source : Global Carbon Project / OWID; Banque mondiale (2000--2024)')
     save(fig, 'kaya_decomposition_countries.pdf')
 
 
@@ -1262,7 +1303,7 @@ def kaya_decomposition_countries():
 def decoupling():
     print('Figure 15: Decoupling — GDP vs CO2')
 
-    df = _load_owid_co2()
+    df = _load_climate_with_current_gdp()
 
     # --- Countries/regions to plot ---
     regions = [
@@ -1279,9 +1320,9 @@ def decoupling():
         'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia',
         'Slovenia', 'Spain', 'Sweden']
     eu_gdp_raw = (df[df['country'].isin(eu27_members)]
-                  .groupby('year')['gdp'].sum())
+                  .groupby('year')['gdp'].sum(min_count=27))
 
-    yr_min, yr_max = 1990, 2022
+    yr_min, yr_max = 1990, 2024
     yrs = list(range(yr_min, yr_max + 1))
 
     fig, ax = new_figure(9, 4.5)
@@ -1300,8 +1341,8 @@ def decoupling():
 
         ax.plot(yrs, gdp_idx, color=color, linewidth=2.5,
                 label=f'PIB --- {label}')
-        ax.plot(yrs, co2_idx, color=color, linewidth=1.8, linestyle=':',
-                alpha=0.7, label=f'CO$_2$ --- {label}')
+        ax.plot(yrs, co2_idx, color=color, linewidth=2.3, linestyle=':',
+                alpha=1.0, label=f'CO$_2$ --- {label}')
 
     ax.axhline(y=100, color='gray', linewidth=0.5, linestyle=':')
 
@@ -1312,15 +1353,15 @@ def decoupling():
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
-    ax.set_ylim(None, 220)
-    yticks = [60, 80, 100, 120, 140, 160, 180, 200, 220]
+    ax.set_ylim(60, 260)
+    yticks = [60, 100, 140, 180, 220, 260]
     ax.set_yticks(yticks)
     ax.set_yticklabels([str(y) for y in yticks], fontsize=11)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=9, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=3)
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    add_source(ax, 'Source : Global Carbon Project / OWID; Banque mondiale (jusqu’en 2024)')
     save(fig, 'decoupling.pdf')
 
 
@@ -1328,12 +1369,12 @@ def decoupling():
 # Figure: CO2/capita growth vs GDP/capita growth scatter (2000–2019)
 # =====================================================================
 def gdp_vs_co2_growth():
-    """Scatter of avg annual CO2/cap growth vs GDP/cap growth (2000–2019)."""
-    print('Figure: CO2/capita growth vs GDP/capita growth scatter (2000–2019)')
+    """Scatter of avg annual CO2/cap growth vs GDP/cap growth (2000–2024)."""
+    print('Figure: CO2/capita growth vs GDP/capita growth scatter (2000–2024)')
 
-    df = _load_owid_co2()
+    df = _load_climate_with_current_gdp()
 
-    y0, y1 = 2000, 2019
+    y0, y1 = 2000, 2024
     n = y1 - y0
 
     # Exclude aggregates
@@ -1393,7 +1434,15 @@ def gdp_vs_co2_growth():
         return 20 + 600 * np.sqrt(pop / pop_max)
 
     # Quadrant background fills
-    xlim, ylim = (-2, 9), (-4, 16)
+    # Tight limits with enough padding for the full bubble areas, not just centres.
+    def padded_limits(values, step):
+        low, high = values.min(), values.max()
+        margin = 0.045 * (high - low)
+        return (np.floor((low - margin) / step) * step,
+                np.ceil((high + margin) / step) * step)
+    xlim = padded_limits(rdf['g_gdppc'], 0.5)
+    ylim = padded_limits(rdf['g_co2pc'], 0.5)
+    print(f'  Scatter limits: x={xlim}, y={ylim}; {len(rdf)} countries')
     ax.axhspan(ylim[0], 0, xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
                color=palette[1], alpha=0.10, zorder=0)   # GDP↑ CO2↓ → green
     ax.axhspan(0, ylim[1], xmin=(0 - xlim[0]) / (xlim[1] - xlim[0]), xmax=1,
@@ -1416,15 +1465,17 @@ def gdp_vs_co2_growth():
     ax.axhline(y=0, color='gray', linewidth=0.8, zorder=1)
     ax.axvline(x=0, color='gray', linewidth=0.8, zorder=1)
 
-    ax.set_xlim(-2, 9)
-    ax.set_ylim(-4, 16)
-    ax.set_xticks(range(-2, 10, 1))
-    ax.set_xticklabels([f'{v}' + r'\%' for v in range(-2, 10, 1)], fontsize=10)
-    ax.set_yticks(range(-4, 17, 4))
-    ax.set_yticklabels([f'{v}' + r'\%' for v in range(-4, 17, 4)], fontsize=11)
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    xticks = np.arange(np.ceil(xlim[0]), np.floor(xlim[1]) + 1)
+    yticks = np.arange(2 * np.ceil(ylim[0] / 2), ylim[1] + 0.01, 2)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels([f'{v:g}' + r'\%' for v in xticks], fontsize=10)
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{v:g}' + r'\%' for v in yticks], fontsize=11)
 
-    ax.set_xlabel(r"Croissance du PIB/hab. (\%/an, 2000--2019)", fontsize=11)
-    ax.set_ylabel(r"Croissance CO$_2$/hab. (\%/an, 2000--2019)",
+    ax.set_xlabel(r"Croissance du PIB/hab. (\%/an, 2000--2024)", fontsize=11)
+    ax.set_ylabel(r"Croissance CO$_2$/hab. (\%/an, 2000--2024)",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -1433,7 +1484,7 @@ def gdp_vs_co2_growth():
                     bbox_to_anchor=(0.0, 1.0), markerscale=1.0)
     for handle in leg.legend_handles:
         handle.set_sizes([60])
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project; Maddison)')
+    add_source(ax, 'Source : Global Carbon Project / OWID; Banque mondiale (2000--2024)')
     save(fig, 'gdp_vs_co2_growth.pdf')
 
 
@@ -2212,15 +2263,17 @@ def co2_emissions_by_region():
         'South America': (r"Amérique du Sud",     palette[1], 1.5),
     }
 
+    last_year = min(int(df.loc[(df['country'] == entity) & df['co2'].notna(), 'year'].max())
+                    for entity in regions)
     fig, ax = new_figure(9, 4.5)
 
     for entity, (label, color, lw) in regions.items():
         sub = df[(df['country'] == entity) & df['co2'].notna()]
-        sub = sub[sub['year'].between(1900, 2024)]
+        sub = sub[sub['year'].between(1900, last_year)]
         ax.plot(sub['year'], sub['co2'] / 1000, color=color,
                 label=label, linewidth=lw)
 
-    ax.set_xlim(1900, 2024)
+    ax.set_xlim(1900, last_year)
     ax.set_xticks(range(1900, 2025, 20))
     ax.set_xticklabels(range(1900, 2025, 20), fontsize=11)
     ax.set_ylabel(r"Émissions de CO$_2$ (Gt/an)",
@@ -2234,7 +2287,7 @@ def co2_emissions_by_region():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
+    add_source(ax, f'Source : Global Carbon Project / OWID (jusqu’en {last_year})')
     save(fig, 'co2_emissions_by_region.pdf')
 
 
@@ -2252,18 +2305,14 @@ def production_vs_consumption_co2():
     labels_fr = [r"É.-U.", 'Canada', 'Allemagne', 'R.-U.',
                  'France', 'Russie', 'Chine', 'Inde']
 
-    # Use 2022 data, fall back to 2021
-    prod_vals, cons_vals = [], []
-    for c in countries:
-        sub = df[df['country'] == c].set_index('year')
-        for yr in [2022, 2021, 2020]:
-            if yr in sub.index:
-                p = sub.loc[yr, 'co2_per_capita']
-                cc = sub.loc[yr, 'consumption_co2_per_capita']
-                if pd.notna(p) and pd.notna(cc):
-                    prod_vals.append(p)
-                    cons_vals.append(cc)
-                    break
+    # Latest common year: never mix country-specific vintages in a cross-section.
+    valid = df[df['country'].isin(countries)].dropna(
+        subset=['co2_per_capita', 'consumption_co2_per_capita'])
+    common = valid.groupby('year')['country'].nunique()
+    year = int(common[common == len(countries)].index.max())
+    values = valid[valid['year'] == year].set_index('country').loc[countries]
+    prod_vals = values['co2_per_capita'].to_numpy()
+    cons_vals = values['consumption_co2_per_capita'].to_numpy()
 
     x = np.arange(len(countries))
     width = 0.35
@@ -2280,13 +2329,13 @@ def production_vs_consumption_co2():
     ax.set_ylabel(r"Tonnes CO$_2$ par habitant",
                   fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 18)
-    ax.set_yticks(range(0, 19, 2))
-    ax.set_yticklabels([str(v) for v in range(0, 19, 2)], fontsize=11)
+    ax.set_ylim(0, 16)
+    ax.set_yticks(range(0, 17, 2))
+    ax.set_yticklabels([str(v) for v in range(0, 17, 2)], fontsize=11)
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right')
-    add_source(ax, 'Source: Our World in Data (Global Carbon Project)')
+    add_source(ax, f'Source : Global Carbon Project / OWID ({year})')
     save(fig, 'production_vs_consumption_co2.pdf')
 
 
@@ -2433,6 +2482,47 @@ def battery_cost():
 
 
 # =====================================================================
+# Administrative barriers to entry: historical Doing Business comparison
+# =====================================================================
+def business_entry_delays():
+    """Selected startup delays as published in Doing Business 2005."""
+    import json
+    print('Figure: Historical business-entry delays')
+    metadata = Path(__file__).resolve().parents[1] / 'Data/s2_business_entry.json'
+    info = json.loads(metadata.read_text())
+    labels = {'CANADA': 'Canada', 'UNITED STATES': r'États-Unis',
+              'FRANCE': 'France', 'NEW ZEALAND': 'Nouvelle-Zélande',
+              'GERMANY': 'Allemagne', 'BRAZIL': 'Brésil'}
+    rows = sorted(info['observations'], key=lambda row: row['days'])
+    names = [labels[row['country']] for row in rows]
+    fig, ax = new_figure(10, 4.5)
+    y = np.arange(len(rows))
+    for offset, values, color, label in [
+            (-0.18, [row['days'] for row in rows], palette[0], 'Rapport 2005'),
+            (0.18, [info['comparison_2019'][row['country']] for row in rows], palette[1], 'Données 2019')]:
+        ax.barh(y + offset, values, height=0.32, color=color, label=label, zorder=3)
+        for pos, value in zip(y + offset, values):
+            text = f'{value:g}'.replace('.', ',')
+            ax.annotate(text, (value, pos), xytext=(5, 0), textcoords='offset points',
+                        ha='left', va='center', color=color, fontsize=14)
+    ax.set_yticks(y)
+    ax.set_yticklabels(names, fontsize=15)
+    ax.invert_yaxis()
+    ax.set_xlim(0, 160)
+    ax.set_xticks(range(0, 161, 40))
+    # Explicit text labels avoid the default formatter's serif math numerals.
+    ax.set_xticklabels([str(v) for v in range(0, 161, 40)], fontsize=14)
+    ax.set_xlabel('Délai de création d’une entreprise (jours calendaires)', fontsize=14)
+    style_axes(ax, xgrid=True)
+    ax.yaxis.grid(False)
+    ax.tick_params(axis='y', length=0)
+    ax.legend(loc='upper right', frameon=False, fontsize=15)
+    add_source(ax, 'Source : Banque mondiale, Doing Business 2005 et données 2019')
+    ax.texts[-1].set_fontsize(10)
+    save(fig, 'business_entry_delays.pdf')
+
+
+# =====================================================================
 # Main
 # =====================================================================
 if __name__ == '__main__':
@@ -2464,6 +2554,7 @@ if __name__ == '__main__':
         development_accounting_labor,
         development_accounting_tfp,
         tfp_growth_advanced,
+        business_entry_delays,
         oecd_business_investment,
         canada_productivity_growth,
         malthusian_trap,

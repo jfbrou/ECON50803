@@ -1,0 +1,15 @@
+{
+  "source_url": "https://www.longtermproductivity.com/download/BCLDatabase_online_v2.7.xlsx",
+  "source_authors": "Bergeaud, Cette and Lecat",
+  "database_version": "2.7 (February 2026)",
+  "citation": "Bergeaud, Cette and Lecat (2016), Productivity Trends in Advanced Countries between 1890 and 2012, Review of Income and Wealth 62(3), 420–444",
+  "retrieved_at_utc": "2026-11-03T15:49:59.188492+00:00",
+  "sha256": "0942674fec8ee88929c1bd16f8ddd25ccc4828eaf5c37c9a38a1b3bf497bd28c",
+  "sheet": "TFP",
+  "country_column": "USA",
+  "source_years": [
+    1890,
+    2024
+  ],
+  "transformation": "100 * diff(log(TFP)); trailing arithmetic mean of 10 annual growth observations; complete windows only; first value 1900. Display ends in 2016, matching the patent series. No interpolation or extrapolation."
+}

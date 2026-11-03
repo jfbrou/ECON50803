@@ -32,12 +32,26 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{Shenzhen : d'un village de pêcheurs à une mégapole}
+% Image fournie : https://www.arch2o.com/wp-content/uploads/2017/03/Arch2O-then-vs-now-the-dramatic-change-in-the-skyline-of-10-worldwide-major-cities-7-e1602338467865-700x742.jpg
+% Version nettoyée : légendes et bordure sombre supprimées; original conservé.
+% Recadrages du PNG nettoyé (1218 x 1291 pixels, séparateur horizontal exclu).
+\begin{frame}{Séoul en 1900}
    \begin{figure}
       \centering
       \begin{tikzpicture}
          \node[rounded corners=4pt, inner sep=0pt, clip] {%
-            \includegraphics[width=0.75\textwidth]{shenzhen_before_after.jpg}%
+            \includegraphics[width=0.88\textwidth, trim=0 646bp 0 0, clip]{seoul_before_after_clean.png}%
+         };
+      \end{tikzpicture}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Séoul au XXIe siècle}
+   \begin{figure}
+      \centering
+      \begin{tikzpicture}
+         \node[rounded corners=4pt, inner sep=0pt, clip] {%
+            \includegraphics[width=0.88\textwidth, trim=0 0 0 674bp, clip]{seoul_before_after_clean.png}%
          };
       \end{tikzpicture}
    \end{figure}
@@ -97,7 +111,7 @@
       \item La comptabilité du développement
       \item Le modèle de Solow
       \item Théories de la productivité
-      \item Le casse-tête de la productivité canadienne
+%       \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -185,18 +199,18 @@
 
 \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}\examtag
    \small
-   Deux boulangeries avec les \textbf{mêmes ingrédients} (farine, beurre, œufs, employés).
+   Deux distributeurs de papier : \textbf{mêmes camions, mêmes heures de travail}.
    \vspace{0.25cm}
    \begin{columns}[T]
       \begin{column}{0.47\textwidth}
          \centering
-         \textcolor{HECgray}{\large\textbf{Boulangerie \#1}}\\[3pt]
-         \textcolor{HECgray}{PTF faible}\\[4pt]
+         \textcolor{HECgray}{\textbf{Michael Scott Paper Company}}\\[5pt]
+         \textcolor{HECgray}{PTF faible}\\[6pt]
          \footnotesize
-         Recettes de base\\
-         Fours mal calibrés\\
-         Organisation chaotique\\[4pt]
-         $\to$ 100 pains / jour
+         Trajets improvisés\\
+         Camions mal chargés\\
+         Allers-retours inutiles\\[6pt]
+         $\to$ \textbf{20 livraisons / jour}
       \end{column}
       \begin{column}{0.06\textwidth}
          \centering
@@ -205,18 +219,19 @@
       \end{column}
       \begin{column}{0.47\textwidth}
          \centering
-         \textcolor{HECgreen}{\large\textbf{Boulangerie \#2}}\\[3pt]
-         \textcolor{HECgreen}{PTF élevée}\\[4pt]
+         \textcolor{HECgreen}{\textbf{Dunder Mifflin}}\\[5pt]
+         \textcolor{HECgreen}{PTF élevée}\\[6pt]
          \footnotesize
-         Techniques de levain maîtrisées\\
-         Fours optimisés\\
-         Processus rodé\\[4pt]
-         $\to$ 200 pains / jour
+         Tournées coordonnées\\
+         Chargements préparés\\
+         Moins de trajets à vide\\[6pt]
+         $\to$ \textbf{40 livraisons / jour}
       \end{column}
    \end{columns}
-   \vspace{0.25cm}
+   \vspace{0.2cm}
+   \vspace{0.15cm}
    \begin{keyinsight}
-      La PTF ($A$) capte \textbf{tout ce qui n'est pas $K$ ou $L$} : technologie, savoir-faire, gestion, organisation\ldots\ C'est la capacité à faire \textbf{plus avec les mêmes ressources}.
+      La PTF ($A$) mesure \textbf{l'efficacité avec laquelle on utilise le capital et le travail}.
    \end{keyinsight}
 \end{frame}
 
@@ -273,6 +288,9 @@
    \vspace{0.2cm}
    \begin{keyinsight}
       La \textbf{taille} d'un pays ne détermine pas son \textbf{niveau de vie}. Le Liechtenstein, Singapour, et le Luxembourg sont tous petits, mais très riches.
+      \begin{equation*}
+         \frac{2 Y}{2 L} = \frac{Y}{L}
+      \end{equation*}
    \end{keyinsight}
 \end{frame}
 
@@ -285,7 +303,7 @@
       \item La comptabilité du développement
       \item Le modèle de Solow
       \item Théories de la productivité
-      \item Le casse-tête de la productivité canadienne
+%       \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -345,19 +363,16 @@
    \vspace{0.15cm}
    \begin{itemize}
       \setlength\itemsep{0.15cm}
-      \item La production augmente ($Y \uparrow$)
-      \item Les entreprises investissent davantage ($I \uparrow$ et donc $K \uparrow$)
+      \item La production augmente ($Y \uparrow \, = C + I + G + NX$)
+      \item Les entreprises peuvent investir davantage ($I \uparrow$ et donc $K \uparrow$)
       \item $K/L$ augmente $\to$ la décomposition naïve \textbf{attribue le mérite au capital\,!} \\
    \end{itemize}
    \vspace{0.25cm}
-   En réécrivant la fonction de production :
+   Avec un peu d'algèbre\ldots
    \begin{equation*}
-      \frac{Y}{N} = A \cdot \left(\frac{K}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{L}\right)^{\alpha} \cdot \frac{L}{N} = A \cdot \left(\frac{K}{Y} \cdot \frac{Y}{N} \cdot \frac{N}{L}\right)^{\alpha} \cdot \frac{L}{N}
+      \frac{Y}{N} = A \cdot \textcolor{HEC3}{\left(\frac{K}{L}\right)^{\alpha}} \cdot \frac{L}{N} \qquad \text{est équivalent à} \qquad \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \textcolor{HEC2}{\left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}}} \cdot \frac{L}{N}
    \end{equation*}
-   Encore un peu d'algèbre\ldots
-   \begin{equation*}
-      \frac{Y}{N} = A^{\frac{1}{1 - \alpha}} \cdot \left(\frac{K}{Y}\right)^{\frac{\alpha}{1 - \alpha}} \cdot \frac{L}{N}
-   \end{equation*}
+   Lorsque $A$ augmente, \textcolor{HEC3}{$K / L$} augmente, mais \textcolor{HEC2}{$K / Y$} reste stable!
 \end{frame}
 
 \begin{frame}[t]{Rendre à César ce qui est à César}\examtag
@@ -375,6 +390,7 @@
    \end{enumerate}
    \vspace{0.35cm}
    On mesure $Y / N$, $K / Y$, et $L / N$ \textbf{directement}, et on en déduit $A$.
+   \vspace{0.1cm}
    \begin{itemize}
       \item $A$ : mesure de notre ignorance\ldots
    \end{itemize}
@@ -438,7 +454,7 @@
       \item \textbf{La comptabilité du développement}
       \item Le modèle de Solow
       \item Théories de la productivité
-      \item Le casse-tête de la productivité canadienne
+%       \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -501,7 +517,7 @@
       \item {\color{gray!50}La comptabilité du développement}
       \item \textbf{Le modèle de Solow}
       \item Théories de la productivité
-      \item Le casse-tête de la productivité canadienne
+%       \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -599,7 +615,7 @@
          \begin{itemize}
             \setlength\itemsep{0.5cm}
             \item \textcolor{HECgreen}{\textbf{Robinet}} = investissement \\ Débit : 5 litres/minute
-            \item \textcolor{HECcoral}{\textbf{Drain}} = dépréciation $+$ croissance de la population \\ Taux : 10\,\%/minute du stock
+            \item \textcolor{HECcoral}{\textbf{Drain}} = dépréciation $+$ croissance de la population \\ Taux : 10\,\% du stock/minute
          \end{itemize}
       \end{column}
       \hspace{-1cm}
@@ -705,7 +721,7 @@
    \begin{itemize}
       \setlength\itemsep{0.15cm}
       \item Croissance \textbf{rapide} tirée par l'accumulation de $K$
-      \item Ex. : Allemagne/Japon après-guerre, Chine 1980--2010
+      \item Ex. : Allemagne/Japon après-guerre
    \end{itemize}
    \vspace{0.25cm}
    \textbf{État stationnaire} \textcolor{HECgray}{(long terme)}
@@ -842,7 +858,7 @@
       \item {\color{gray!50}La comptabilité du développement}
       \item {\color{gray!50}Le modèle de Solow}
       \item \textbf{Théories de la productivité}
-      \item Le casse-tête de la productivité canadienne
+%       \item Le casse-tête de la productivité canadienne
       \item La croissance et ses conséquences
    \end{enumerate}
 \end{frame}
@@ -929,7 +945,7 @@
    \end{figure}
 \end{frame}
 
-\begin{frame}{La R\&D est un effort mondial}
+\begin{frame}{La R\&D est un effort mondial (les idées voyagent)}
    \begin{figure}
       \centering
       \includegraphics[width=0.95\textwidth]{rd_spending_global.pdf}
@@ -965,7 +981,7 @@
       \vspace{0.15cm}
       \begin{itemize}
          \setlength\itemsep{0.15cm}
-         \item Électrification des usines (40 ans\,!), Solow paradox
+         \item Électrification des usines (40 ans\,!), paradoxe de Solow
          \item La plupart des pays croissent en adoptant, pas en inventant
       \end{itemize}
    \end{enumerate}
@@ -1013,18 +1029,12 @@
 
 \begin{frame}[t]{Géographie, climat, et culture}
    \small
-   \textbf{Pourquoi les pays chauds sont-ils plus pauvres\,?}
+   \textbf{Pourquoi les pays des tropiques sont-ils plus pauvres\,?}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
       \item Rendements agricoles plus faibles à haute température
       \item Maladies endémiques (malaria, parasites tropicaux)
-   \end{itemize}
-   \vspace{0.2cm}
-   \textbf{Autres facteurs\,?}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
       \item Ressources naturelles (maladie hollandaise)
       \item Pays enclavés (sans accès à la mer)
       \item Culture, religion, valeurs
@@ -1126,7 +1136,7 @@
       \setlength\itemsep{0.1cm}
       \item État de droit (droits de propriété)
       \item Idéologie (méritocratie)
-      \item Bureaucratie (\guillemotleft~paperasserie~\guillemotright)
+      \item Bureaucratie (\guillemotleft~red tape~\guillemotright)
       \item Stabilité politique
       \item Corruption
    \end{itemize}
@@ -1134,6 +1144,34 @@
    \begin{keyinsight}
       Les règles du jeu façonnent les \textbf{incitations} à participer aux activités productives.
    \end{keyinsight}
+\end{frame}
+
+\begin{frame}{Un outil pour comparer les environnements d'affaires}
+   \begin{defbox}[Ease of Doing Business Index — Banque mondiale]
+      Un indice de \textbf{facilité de faire des affaires}, fondé sur les règles, permis et démarches applicables à une entreprise type.
+   \end{defbox}
+   \vspace{0.25cm}
+   \textbf{Pour un gestionnaire : anticiper les frictions avant d'investir.}
+   \vspace{0.3cm}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.31\textwidth}
+         {\color{HECgreen}\textbf{Où s'implanter ?}}\par\vspace{0.15cm}
+         \small Comparer les obstacles à la création et à l'expansion.
+      \end{column}
+      \begin{column}{0.31\textwidth}
+         {\color{HECgreen}\textbf{Quels délais prévoir ?}}\par\vspace{0.15cm}
+         \small Anticiper les permis, les raccordements et les démarches.
+      \end{column}
+      \begin{column}{0.31\textwidth}
+         {\color{HECgreen}\textbf{Quels risques vérifier ?}}\par\vspace{0.15cm}
+         \small Examiner la fiscalité, l'accès au crédit et l'exécution des contrats.
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{Créer une entreprise : des délais qui peuvent changer}
+   \centering
+   \includegraphics[width=\textwidth, height=0.80\textheight, keepaspectratio]{business_entry_delays.pdf}
 \end{frame}
 
 \begin{frame}[t]{Acemoglu, Johnson \& Robinson (Prix Nobel 2024)}
@@ -1193,6 +1231,107 @@
 \end{frame}
 
 % ============================================================================
+% Début : section productivité canadienne désactivée temporairement.
+% \begin{frame}{Plan}
+%    \begin{enumerate}
+%       \setlength\itemsep{0.3cm}
+%       \item {\color{gray!50}La fonction de production}
+%       \item {\color{gray!50}La comptabilité de la croissance}
+%       \item {\color{gray!50}La comptabilité du développement}
+%       \item {\color{gray!50}Le modèle de Solow}
+%       \item {\color{gray!50}Théories de la productivité}
+%       \item \textbf{Le casse-tête de la productivité canadienne}
+%       \item La croissance et ses conséquences
+%    \end{enumerate}
+% \end{frame}
+
+% % ============================================================================
+% \sectionframe{Le casse-tête de la productivité canadienne}
+% % ============================================================================
+
+% \begin{frame}{Le Canada décroche}
+%    \begin{figure}
+%       \centering
+%       \includegraphics[width=0.95\textwidth, keepaspectratio]{gdp_per_capita_canada_usa.pdf}
+%    \end{figure}
+% \end{frame}
+
+% {
+% \setbeamertemplate{footline}{}
+% \begin{frame}{Le Canada a un problème de productivité}
+%    \begin{tikzpicture}[remember picture, overlay]
+%       \setcounter{newshl}{0}
+%       \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Productivity is an urgent problem for Canada. The response? A 15-year study~\guillemotright}
+%       \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Bank of Canada's Rogers Flags Weak Productivity `Emergency'~\guillemotright}
+%       \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~La productivité en chute fait craindre pour le niveau de vie des Canadiens~\guillemotright}
+%       \newsheadline[lapresse]{La Presse}{\guillemotleft~Urgence productivité : pourquoi notre niveau de vie prend le bord\,?~\guillemotright}
+%       \newsheadline[ledevoir]{Le Devoir}{\guillemotleft~Le très mauvais bilan du Canada et du Québec en matière de productivité~\guillemotright}
+%       \newsheadline[nationalpost]{National Post}{\guillemotleft~Businesses rank being `stifled by red tape' as more of a threat than Trump tariffs~\guillemotright}
+%    \end{tikzpicture}
+% \end{frame}
+% }
+
+% \begin{frame}[t]{Un problème de productivité\,?}
+%    \small
+%    Le PIB par habitant du Canada tire de la patte. Est-ce un problème de \textbf{productivité}\,?
+%    \vspace{0.2cm}
+
+%    \begin{defbox}[Deux mesures de la productivité]
+%       \vspace{-0.5cm}
+%       \begin{itemize}
+%          \setlength\itemsep{0.15cm}
+%          \item \textbf{Productivité du travail :} $Y / L = A^{\frac{1}{1 - \alpha}} \cdot (K / Y)^{\frac{\alpha}{1 - \alpha}}$
+
+%          Fonction de $A$ et de $K/Y$. Mesure la plus souvent citée dans les médias.
+
+%          \item \textbf{Productivité totale des facteurs (PTF) :} $A$
+
+%          L'efficacité \guillemotleft~pure~\guillemotright\ avec laquelle on combine $K$ et $L$
+%       \end{itemize}
+%    \end{defbox}
+%    \vspace{0.1cm}
+%    \begin{keyinsight}[Rappel]
+%       On peut décomposer le PIB par habitant: $Y / N = (Y / L) \cdot (L / N)$. Où est le problème\,?
+%    \end{keyinsight}
+% \end{frame}
+
+% \begin{frame}{Décomposition de la croissance canadienne}
+%    \begin{figure}
+%       \centering
+%       \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition.pdf}
+%    \end{figure}
+% \end{frame}
+
+% \begin{frame}{Le Canada en comparaison internationale}
+%    \begin{figure}
+%       \centering
+%       \includegraphics[width=0.95\textwidth, height=0.82\textheight, keepaspectratio]{canada_gdp_decomposition_countries.pdf}
+%    \end{figure}
+% \end{frame}
+
+% \begin{frame}{Ce qu'on sait jusqu'à présent}
+%    \begin{itemize}
+%       \setlength\itemsep{0.25cm}
+%       \item Depuis les années 2000, \textbf{l'écart de croissance} de la productivité entre le Canada et les É.-U.\ s'explique \textbf{entièrement} par le secteur pétrolier {\small\color{HECgray}(Loertscher \& Pujolas, \textit{Canadian Journal of Economics}, 2024)}
+%       \item Le ralentissement est \textbf{généralisé} à travers plusieurs industries. Seulement \textbf{20\,\%} du ralentissement s'explique par une réallocation de l'activité vers des secteurs à faible productivité (e.g., FIRE, ressources)
+%       \item Le ralentissement n'est \textbf{pas} dû à un manque d'investissement en capital
+%       % Gu & Lesica, Statistics Canada, released 2025-12-22, Chart 9: business sector in 2019.
+%       % Firm-size composition accounts for 5.82 / 26.72 = 22% of the Canada-US labour productivity level gap.
+%       % The paper groups small and medium firms together; 60% also includes their relative productivity disadvantage.
+%       \item Le poids plus élevé des \textbf{PME}, moins productives en moyenne, explique \textbf{environ 22\,\% de l'écart de niveau} de productivité du travail avec les É.-U.\ (secteur des entreprises, 2019) \href{https://www150.statcan.gc.ca/n1/pub/36-28-0001/2025012/article/00002-fra.htm}{{\small\color{HECgray}(Gu \& Lesica, StatCan, 2025)}}
+%       \item Quelques pistes d'explication~: réglementation/taxation, culture de capital de risque et taille de marché (exportations)
+%    \end{itemize}
+% \end{frame}
+
+% \begin{frame}[t]{La main d'{\oe}uvre comme source de croissance}
+%    \begin{figure}
+%       \centering
+%       \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition_5y.pdf}
+%    \end{figure}
+% \end{frame}
+
+% % ============================================================================
+% Fin de la section désactivée.
 \begin{frame}{Plan}
    \begin{enumerate}
       \setlength\itemsep{0.3cm}
@@ -1201,106 +1340,7 @@
       \item {\color{gray!50}La comptabilité du développement}
       \item {\color{gray!50}Le modèle de Solow}
       \item {\color{gray!50}Théories de la productivité}
-      \item \textbf{Le casse-tête de la productivité canadienne}
-      \item La croissance et ses conséquences
-   \end{enumerate}
-\end{frame}
-
-% ============================================================================
-\sectionframe{Le casse-tête de la productivité canadienne}
-% ============================================================================
-
-\begin{frame}{Le Canada décroche}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{gdp_per_capita_canada_usa.pdf}
-   \end{figure}
-\end{frame}
-
-{
-\setbeamertemplate{footline}{}
-\begin{frame}{Le Canada a un problème de productivité}
-   \begin{tikzpicture}[remember picture, overlay]
-      \setcounter{newshl}{0}
-      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Productivity is an urgent problem for Canada. The response? A 15-year study~\guillemotright}
-      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Bank of Canada's Rogers Flags Weak Productivity `Emergency'~\guillemotright}
-      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~La productivité en chute fait craindre pour le niveau de vie des Canadiens~\guillemotright}
-      \newsheadline[lapresse]{La Presse}{\guillemotleft~Urgence productivité : pourquoi notre niveau de vie prend le bord\,?~\guillemotright}
-      \newsheadline[ledevoir]{Le Devoir}{\guillemotleft~Le très mauvais bilan du Canada et du Québec en matière de productivité~\guillemotright}
-      \newsheadline[nationalpost]{National Post}{\guillemotleft~Businesses rank being `stifled by red tape' as more of a threat than Trump tariffs~\guillemotright}
-   \end{tikzpicture}
-\end{frame}
-}
-
-\begin{frame}[t]{Un problème de productivité\,?}
-   \small
-   Le PIB par habitant du Canada tire de la patte. Est-ce un problème de \textbf{productivité}\,?
-   \vspace{0.2cm}
-
-   \begin{defbox}[Deux mesures de la productivité]
-      \vspace{-0.5cm}
-      \begin{itemize}
-         \setlength\itemsep{0.15cm}
-         \item \textbf{Productivité du travail :} $Y / L = A^{\frac{1}{1 - \alpha}} \cdot (K / Y)^{\frac{\alpha}{1 - \alpha}}$
-
-         Fonction de $A$ et de $K/Y$. Mesure la plus souvent citée dans les médias.
-
-         \item \textbf{Productivité totale des facteurs (PTF) :} $A$
-
-         L'efficacité \guillemotleft~pure~\guillemotright\ avec laquelle on combine $K$ et $L$
-      \end{itemize}
-   \end{defbox}
-   \vspace{0.1cm}
-   \begin{keyinsight}[Rappel]
-      On peut décomposer le PIB par habitant: $Y / N = (Y / L) \cdot (L / N)$. Où est le problème\,?
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{Décomposition de la croissance canadienne}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Le Canada en comparaison internationale}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.82\textheight, keepaspectratio]{canada_gdp_decomposition_countries.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Ce qu'on sait jusqu'à présent}
-   \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item Depuis les années 2000, \textbf{l'écart de croissance} de la productivité entre le Canada et les É.-U.\ s'explique \textbf{entièrement} par le secteur pétrolier {\small\color{HECgray}(Loertscher \& Pujolas, \textit{Canadian Journal of Economics}, 2024)}
-      \item Le ralentissement est \textbf{généralisé} à travers plusieurs industries. Seulement \textbf{20\,\%} du ralentissement s'explique par une réallocation de l'activité vers des secteurs à faible productivité (e.g., FIRE, ressources)
-      \item Le ralentissement n'est \textbf{pas} dû à un manque d'investissement en capital
-      % Gu & Lesica, Statistics Canada, released 2025-12-22, Chart 9: business sector in 2019.
-      % Firm-size composition accounts for 5.82 / 26.72 = 22% of the Canada-US labour productivity level gap.
-      % The paper groups small and medium firms together; 60% also includes their relative productivity disadvantage.
-      \item Le poids plus élevé des \textbf{PME}, moins productives en moyenne, explique \textbf{environ 22\,\% de l'écart de niveau} de productivité du travail avec les É.-U.\ (secteur des entreprises, 2019) \href{https://www150.statcan.gc.ca/n1/pub/36-28-0001/2025012/article/00002-fra.htm}{{\small\color{HECgray}(Gu \& Lesica, StatCan, 2025)}}
-      \item Quelques pistes d'explication~: réglementation/taxation, culture de capital de risque et taille de marché (exportations)
-   \end{itemize}
-\end{frame}
-
-\begin{frame}[t]{La main d'{\oe}uvre comme source de croissance}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{canada_gdp_decomposition_5y.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-\begin{frame}{Plan}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item {\color{gray!50}La fonction de production}
-      \item {\color{gray!50}La comptabilité de la croissance}
-      \item {\color{gray!50}La comptabilité du développement}
-      \item {\color{gray!50}Le modèle de Solow}
-      \item {\color{gray!50}Théories de la productivité}
-      \item {\color{gray!50}Le casse-tête de la productivité canadienne}
+%       \item {\color{gray!50}Le casse-tête de la productivité canadienne}
       \item \textbf{La croissance et ses conséquences}
    \end{enumerate}
 \end{frame}

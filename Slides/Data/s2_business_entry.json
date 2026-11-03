@@ -1,0 +1,62 @@
+{
+  "source_url": "https://archive.doingbusiness.org/content/dam/doingBusiness/media/Annual-Reports/English/DB05-FullReport.pdf",
+  "report": "Doing Business 2005, historical cross-section as originally published",
+  "report_sha256": "d2c8b4fd058e0a893a96f8376483424b2dfdf372f667461a6ecfab6870f0adee",
+  "observations": [
+    {
+      "country": "BRAZIL",
+      "days": 152.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 107
+    },
+    {
+      "country": "CANADA",
+      "days": 3.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 108
+    },
+    {
+      "country": "FRANCE",
+      "days": 8.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 113
+    },
+    {
+      "country": "GERMANY",
+      "days": 45.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 114
+    },
+    {
+      "country": "NEW ZEALAND",
+      "days": 12.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 124
+    },
+    {
+      "country": "UNITED STATES",
+      "days": 5.0,
+      "report": "Doing Business 2005",
+      "pdf_page": 134
+    }
+  ],
+  "units": "Calendar days to complete legal startup procedures for the standardized business case; not a population survey of all startups",
+  "brazil_update": {
+    "year": 2019,
+    "days": 16.6,
+    "source_url": "https://genderdata.worldbank.org/en/indicator/ic-reg-durs",
+    "archive_url": "https://ourworldindata.org/grapher/time-required-to-start-business.csv",
+    "note": "Displayed rounded to 17 days, separately dated. Changes in coverage and methodology mean this is not a harmonized estimate of a causal reform effect."
+  },
+  "retrieved_at_utc": "2026-11-03T16:11:42.317430+00:00",
+  "note": "Doing Business was discontinued in September 2021. Historical data must not be presented as current conditions.",
+  "comparison_2019": {
+    "CANADA": 1.5,
+    "UNITED STATES": 4.2,
+    "FRANCE": 4.0,
+    "NEW ZEALAND": 0.5,
+    "GERMANY": 8.0,
+    "BRAZIL": 16.6
+  },
+  "comparison_note": "Original Doing Business 2005 report compared with 2019 observations from the World Bank WDI archive preserved by OWID. Earlier report edition is not observation year 2005; evolving methodology and geographical coverage limit strict comparability."
+}
