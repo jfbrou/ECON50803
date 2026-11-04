@@ -552,6 +552,49 @@ def us_consumer_confidence():
 # =====================================================================
 # Figure 9: Oil price close-up Feb–Mar 2026
 # =====================================================================
+def ess_canadian_cost_shocks():
+    """Brent spot prices and Canadian tariff assumptions at the October 2026 MPR."""
+    url = ('https://fred.stlouisfed.org/graph/fredgraph.csv'
+           '?id=DCOILBRENTEU&cosd=2026-01-01&coed=2026-10-27')
+    data = pd.read_csv(url, parse_dates=['observation_date'])
+    brent = data.set_index('observation_date')['DCOILBRENTEU'].dropna()
+    # Bank of Canada, October 2026 MPR, Tariff and other assumptions, Table 1.
+    # Canadian average rates on US goods, after remissions, by Report vintage.
+    tariff = [1.2, 1.5, 1.5, 3.9]
+    fig, (oil, duties) = plt.subplots(1, 2, figsize=(10.8, 5.1),
+                                      gridspec_kw={'width_ratios': [1.4, 1]})
+    oil.plot(brent.index, brent, color=palette[0], linewidth=2)
+    oil.set_xlim(brent.index.min(), brent.index.max())
+    oil.set_ylim(60, 140)
+    oil_ticks = range(60, 141, 10)
+    oil.set_yticks(oil_ticks, labels=[str(value) for value in oil_ticks])
+    oil.set_xticks(pd.to_datetime(['2026-01-02', '2026-04-01', '2026-07-01', '2026-10-01']))
+    oil.set_xticklabels(['Janv.', 'Avr.', 'Juill.', 'Oct.'])
+    oil.set_title('Brent au comptant (USD/baril)', loc='left', fontsize=13, pad=21)
+    start = pd.Timestamp('2026-02-28')
+    oil.axvline(start, color=palette[7], lw=0.9)
+    oil.text(start, 1.015, '28 févr. -- guerre en Iran', ha='center', va='bottom',
+             transform=oil.get_xaxis_transform(), fontsize=9)
+    add_source(oil, 'Source : EIA, via FRED')
+    bars = duties.bar(['Janv.', 'Avr.', 'Juill.', 'Oct.'], tariff,
+                      color=[palette[7]] * 3 + [palette[2]], width=0.60, zorder=3)
+    duties.set_ylim(0, 4)
+    duties.set_yticks(range(5), labels=[str(t) + r'\%' for t in range(5)])
+    for bar, value in zip(bars, tariff):
+        near_top = value > 3.7
+        duties.annotate(str(value).replace('.', ',') + r'\%',
+                        (bar.get_x() + bar.get_width() / 2, value),
+                        xytext=(0, -4 if near_top else 3), textcoords='offset points',
+                        va='top' if near_top else 'bottom', ha='center', fontsize=11)
+    duties.set_title('Droits canadiens sur les biens américains', loc='left', fontsize=12, pad=21)
+    add_source(duties, 'Source : Banque du Canada, RPM, tableau 1')
+    for ax in (oil, duties):
+        style_axes(ax)
+        ax.tick_params(axis='both', labelsize=11)
+        ax.set_xlabel('2026')
+    save(fig, 'ess_chocs_couts_canada_2026.pdf')
+
+
 def oil_price_2026():
     print('Figure 6: Oil price (6 months)')
 
@@ -1057,6 +1100,7 @@ if __name__ == '__main__':
         us_gdp_covid,
         us_consumer_confidence,
         oil_price_2026,
+        ess_canadian_cost_shocks,
         cyclical_components_canada,
         phillips_curve_usa,
         yield_curve_usa,

@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \input{../preamble.tex}
+\tcbuselibrary{skins}
 \graphicspath{{../Figures/}}
 \jfbcoursename{L'essentiel du MBA}
 \jfbcoursetitle{Environnement macroéconomique}
@@ -8,8 +9,8 @@
 \date{L'essentiel du MBA\\École des dirigeants\\Édition octobre 2026}
 
 % Build from Slides/ESS_MBA/: latexmk -pdf ess_mba.tex
-% 80 static slides: 71 selected/adapted S1--S6 frames, a shared title frame,
-% five shared section frames, a resource guide and two closing summaries.
+% 91 static slides: 84 selected/adapted course and Canadian case-study frames, a shared title frame,
+% five shared section frames and a resource guide.
 % ECON50803 visual identity is inherited from preamble.tex without overrides.
 % Figures remain shared vector assets with their original source vintages.
 % Only standalone-course references, minor accuracy/clarity points and
@@ -77,29 +78,7 @@
 \end{frame}
 
 % ============================================================================
-% 4 | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
-% Source: S1/s1.tex | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
-% ============================================================================
-\begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
-   \small\raggedright
-   Les événements macroéconomiques perturbent les \textbf{stratégies d'affaires} et sont sources de \textbf{risque} mais aussi d'\textbf{opportunité}. \\ \vspace{0.25cm}
-
-   Les entreprises dont les gestionnaires font de \textbf{meilleures prévisions macroéconomiques} sont plus \textbf{productives} et plus \textbf{rentables}.
-   \vspace{0.1cm}
-   \begin{itemize}
-      \footnotesize
-      \setlength\itemsep{0.1cm}
-      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Tanaka, Bloom, David \& Koga, \textit{J.\ Monetary Econ.}, 2020}
-      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Bloom, Kawakubo, Meng, Mizen, Riley, Senga \& Van Reenen, \textit{ReStat}, 2025}
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{bizimplication}
-      Comprendre la macro n'est pas un luxe intellectuel, c'est un \textbf{avantage concurrentiel}. Et le \textbf{jargon macro} sera au c\oe ur de vos conversations de gestionnaires.
-   \end{bizimplication}
-\end{frame}
-
-% ============================================================================
-% 5 | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
+% 4 | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
 % Source: S1/s1.tex | \begin{frame}[t]{Qu'est-ce que la macroéconomie\,?}
 % Adaptation: Replace the interest-rate example with the S1 micro-versus-macro intuition.
 % ============================================================================
@@ -125,6 +104,28 @@
       \item Les \textbf{interconnexions} entre consommateurs, entreprises et gouvernement
       \item Les tendances \textbf{long terme}, fluctuations \textbf{court terme} et \textbf{politiques économiques}
    \end{itemize}
+\end{frame}
+
+% ============================================================================
+% 5 | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
+% Source: S1/s1.tex | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
+% ============================================================================
+\begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
+   \small\raggedright
+   Les événements macroéconomiques perturbent les \textbf{stratégies d'affaires} et sont sources de \textbf{risque} mais aussi d'\textbf{opportunité}. \\ \vspace{0.25cm}
+
+   Les entreprises dont les gestionnaires font de \textbf{meilleures prévisions macroéconomiques} sont plus \textbf{productives} et plus \textbf{rentables}.
+   \vspace{0.1cm}
+   \begin{itemize}
+      \footnotesize
+      \setlength\itemsep{0.1cm}
+      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Tanaka, Bloom, David \& Koga, \textit{J.\ Monetary Econ.}, 2020}
+      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Bloom, Kawakubo, Meng, Mizen, Riley, Senga \& Van Reenen, \textit{ReStat}, 2025}
+   \end{itemize}
+   \vspace{0.15cm}
+   \begin{bizimplication}
+      Comprendre la macro n'est pas un luxe intellectuel, c'est un \textbf{avantage concurrentiel}. Et le \textbf{jargon macro} sera au c\oe ur de vos conversations de gestionnaires.
+   \end{bizimplication}
 \end{frame}
 
 % ============================================================================
@@ -1516,37 +1517,306 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \par\vspace{0.3cm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=28pt, enhanced, overlay={\node[anchor=south east, inner sep=10pt, font=\scriptsize, text=HECgray] at (frame.south east) {\href{https://eml.berkeley.edu/~enakamura/papers/fivefacts.pdf}{Nakamura et Steinsson (2008)}};}, equal height group=rigidityevidence]
 \RaggedRight\textbf{\textcolor{HECnavy}{Prix réguliers}}\par\vspace{8pt}
 {\Large\textbf{8–11 mois}}\par\vspace{8pt}
-\small Durée médiane estimée des prix, hors soldes et changements de produit.
-\par\vspace{12pt}
-{\scriptsize\color{HECgray}\hfill\href{https://eml.berkeley.edu/~enakamura/papers/fivefacts.pdf}{Nakamura et Steinsson (2008)}}
+\small Durée médiane estimée des prix, hors soldes et changements de produit.\\[6pt]
+88–91\,\% des prix restent inchangés sur un mois.
+% Complement of the 9--12 percent median monthly regular-price change frequency.
+
 \end{tcolorbox}
 \end{column}
 \begin{column}{0.48\textwidth}
-\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt]
-\RaggedRight\textbf{\textcolor{HECcoral}{Salaires de base}}\par\vspace{8pt}
-{\Large\textbf{Environ 35\,\%}}\par\vspace{8pt}
-\small Sans changement sur un an. Seuls 2\,\% des salariés restant chez le même employeur subissent une baisse.
-\par\vspace{12pt}
-{\scriptsize\color{HECgray}\hfill\href{https://www.aeaweb.org/articles?id=10.1257/aer.20190318}{Grigsby, Hurst et Yildirmaz (2021)}}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=28pt, enhanced, overlay={\node[anchor=south east, inner sep=10pt, font=\scriptsize, text=HECgray] at (frame.south east) {\href{https://www.aeaweb.org/articles?id=10.1257/aer.20190318}{Grigsby, Hurst et Yildirmaz (2021)}};}, equal height group=rigidityevidence]
+\RaggedRight\textbf{\textcolor{HECcoral}{Salaires de base nominaux}}\par\vspace{8pt}
+{\Large\textbf{Seulement 2\,\%}}\par\vspace{8pt}
+\small des salariés restant chez le même employeur subissent une baisse du salaire de base nominal sur un an.\\[6pt]
+Environ 35\,\% ne connaissent aucun changement.
+
 \end{tcolorbox}
 \end{column}
 \end{columns}
 \end{frame}
 % ============================================================================
-% 68 | \sectionframe{Les politiques économiques}
+% 68 | Exemples de chocs : demande ou offre ?
+% Source: S4 | Drivers of aggregate demand and aggregate supply, condensed examples.
+% ============================================================================
+\begin{frame}{Exemples de chocs : demande ou offre ?}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt, equal height group=shocklists]
+\RaggedRight\textbf{\textcolor{HECnavy}{Chocs de demande (DA)}}\par\vspace{5pt}
+\small Dépenses souhaitées, à prix donné.
+\par\vspace{9pt}
+\textbf{Confiance en baisse}\\
+Consommation en recul : DA $\leftarrow$\\[7pt]
+\textbf{Taux d'intérêt en hausse}\\
+Achats et projets reportés : DA $\leftarrow$\\[7pt]
+\textbf{Dépenses publiques en hausse}\\
+Commandes en hausse : DA $\rightarrow$\\[7pt]
+\textbf{Demande étrangère en hausse}\\
+Exportations en hausse : DA $\rightarrow$
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt, equal height group=shocklists]
+\RaggedRight\textbf{\textcolor{HECcoral}{Chocs d'offre (OA et $Y_{\text{POT}}$)}}\par\vspace{12pt}
+\small\textbf{\textcolor{HECcoral}{Coûts à court terme}}\\[5pt]
+\textbf{Pétrole plus cher} ou \textbf{chaînes d'approvisionnement perturbées}.\\[5pt]
+OA $\leftarrow$ et $Y_{\text{POT}}$ inchangé
+\par\vspace{14pt}
+\textbf{\textcolor{HECgreen}{Capacité productive durable}}\\[5pt]
+\textbf{Productivité, capital ou main-d'œuvre en hausse} ($A$, $K$, $L$).\\[5pt]
+$Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
+\end{tcolorbox}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% 69 | Les tarifs américains freinent les exportations et l’investissement
+% Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/tariff-assumptions/
+% ============================================================================
+\begin{frame}{Les tarifs américains freinent les exportations et l’investissement}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Des commandes en moins}}\par\vspace{4pt}Les tarifs douaniers rendent les biens canadiens plus chers. Les clients américains en commandent moins.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Des projets reportés}}\par\vspace{4pt}L'incertitude tarifaire freine les investissements des entreprises canadiennes.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
+\draw[refline] (0,2.07) node[left, pointlabel] {$P_{1}$} -- (2.8,2.07);
+\draw[refline] (2.8,0) node[below, pointlabel] {$Y_{1}$} -- (2.8,2.07);
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
+\draw[demand] (0,3.75) -- (5.55,0.42) node[right, curvelabel] {$DA_{1}$};
+\draw[shiftarrow, HECnavy] (5.6,1.2) -- (4.5,1.2);
+\filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
+\filldraw[eqpoint=HECnavy] (2.8,2.07) circle (3pt);
+\draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% 70 | L’emploi canadien selon l’exposition aux exportations américaines
+% Source: Session 1, figure « Un avenir incertain »; Statistique Canada 14-10-0355-01, septembre 2026.
+% ============================================================================
+\begin{frame}{L’emploi canadien selon l’exposition aux exportations américaines}
+   \centering
+   \includegraphics[width=0.95\textwidth,height=0.78\textheight,keepaspectratio]{canada_employment_exports.pdf}
+\end{frame}
+
+% ============================================================================
+% 71 | Le pétrole et les contre-tarifs augmentent les coûts au Canada
+% Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/ ; https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/tariff-assumptions/
+% ============================================================================
+\begin{frame}{Le pétrole et les contre-tarifs augmentent les coûts au Canada}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Guerre en Iran}}\par\vspace{4pt}Hausse du prix du carburant. Transporter une même cargaison coûte plus cher.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Contre-tarifs canadiens}}\par\vspace{4pt}Les contre-tarifs augmentent le coût des intrants importés des États-Unis.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
+\draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (2.8,3.03);
+\draw[refline] (2.8,0) node[below, pointlabel] {$Y_{1}$} -- (2.8,3.03);
+\draw[demand] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA$};
+\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA_{0}$};
+\draw[supply, HECcoral] (0,1.35) -- (5.7,4.77) node[above, curvelabel] {$OA_{1}$};
+\draw[shiftarrow, HECcoral] (5.6,3.9) -- (4.5,3.9);
+\filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
+\filldraw[eqpoint=HECcoral] (2.8,3.03) circle (3pt);
+\draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% 72 | Deux sources de pression sur les coûts en 2026
+% Source: EIA/FRED DCOILBRENTEU, January–October 2026; Bank of Canada, October MPR, Table 1. Duties after remissions, goods only.
+% ============================================================================
+\begin{frame}{Deux sources de pression sur les coûts en 2026}
+   \centering
+   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth,height=0.84\textheight,keepaspectratio]{ess_chocs_couts_canada_2026.pdf}}
+\end{frame}
+
+% ============================================================================
+% 73 | Pétrole : les producteurs canadiens exportent et investissent davantage
+% Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/in-focus-3/
+% ============================================================================
+\begin{frame}{Pétrole : les producteurs canadiens exportent et investissent davantage}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Des commandes de pétrole}}\par\vspace{4pt}La guerre réduit les livraisons du Golfe. Des raffineurs étrangers commandent davantage de barils canadiens.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Investissement pétrolier}}\par\vspace{4pt}À prix élevés, de nouveaux puits deviennent rentables. Les producteurs canadiens investissent davantage ($I$).
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
+\draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (4.4,3.03);
+\draw[refline] (4.4,0) node[below, pointlabel] {$Y_{1}$} -- (4.4,3.03);
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
+\draw[demand] (1.05,5.04) -- (6.9,1.53) node[right, curvelabel] {$DA_{1}$};
+\draw[shiftarrow, HECnavy] (5.35,1.65) -- (6.45,1.65);
+\filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
+\filldraw[eqpoint=HECnavy] (4.4,3.03) circle (3pt);
+\draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% 74 | La Mégadéduction à la productivité soutient l’investissement
+% Source: https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/perspectives-canadiennes/ — official investment outlook, not a fiscal multiplier or a realized treatment effect.
+% ============================================================================
+\begin{frame}{La Mégadéduction à la productivité soutient l’investissement}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Investir coûte moins cher}}\par\vspace{4pt}Une machine coûte moins cher après impôt. À taux donné, davantage de projets deviennent rentables.
+\end{tcolorbox}\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{Prévision pour 2027 et 2028}}\par\vspace{4pt}La BdC prévoit une hausse de l’investissement des entreprises de 4\,\% par an.\par\vspace{4pt}{\scriptsize\raggedleft\href{https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/perspectives-canadiennes/}{BdC, RPM d’octobre, graphique 15}\par}
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.86]
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
+\draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (4.4,3.03);
+\draw[refline] (4.4,0) node[below, pointlabel] {$Y_{1}$} -- (4.4,3.03);
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
+\draw[demand] (1.05,5.04) -- (6.9,1.53) node[right, curvelabel] {$DA_{1}$};
+\draw[shiftarrow, HECnavy] (5.35,1.65) -- (6.45,1.65);
+\filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
+\filldraw[eqpoint=HECnavy] (4.4,3.03) circle (3pt);
+\draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ============================================================================
+% 75 | Canada : des prix plus élevés, un PIB sous son potentiel
+% Source: https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/conjoncture-canadienne/
+% Illustrative short-run shifts; the CPI figures are observed twelve-month changes.
+% ============================================================================
+\begin{frame}[label=chocs-canada]{Des chocs qui alimentent l'inflation}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECcoral}{L’offre recule}}\par\vspace{4pt}Le carburant et les intrants importés coûtent plus cher.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\RaggedRight\small\textbf{\textcolor{HECnavy}{La demande se raffermit}}\par\vspace{4pt}Le pétrole et l’investissement soutiennent la demande malgré les tarifs.
+\end{tcolorbox}
+\end{column}
+\begin{column}{0.57\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.84]
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
+\draw[refline] (0,3.51) node[left, pointlabel] {$P_{1}$} -- (3.2,3.51);
+\draw[refline] (3.2,0) node[below, pointlabel] {$Y_{1}$} -- (3.2,3.51);
+\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA_{0}$};
+\draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
+\draw[supply, HECcoral] (0,1.59) -- (5.5,4.89) node[above, curvelabel] {$OA_{1}$};
+\draw[demand] (0.85,4.92) -- (6.9,1.29) node[right, curvelabel] {$DA_{1}$};
+\draw[shiftarrow, HECcoral] (5.94,4.08) -- (4.36,4.08);
+\draw[shiftarrow, HECnavy] (5.70,1.4) -- (6.53,1.4);
+\filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
+\filldraw[eqpoint=HECnavy] (3.2,3.51) circle (3pt);
+\draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+\draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=4pt, bottom=4pt]
+\RaggedRight\small\textbf{Les deux chocs alimentent l’inflation.} En septembre 2026, l’IPC canadien a augmenté de \textbf{3,1\,\%} sur un an (\textbf{2,2\,\%} hors essence).\hfill{\scriptsize\mbox{\href{https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/conjoncture-canadienne/}{Banque du Canada, RPM d’octobre 2026}}}
+\end{tcolorbox}
+\end{frame}
+
+% ============================================================================
+% 76 | \sectionframe{Les politiques économiques}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Les politiques économiques}
 
 % ============================================================================
-% 69 | \begin{frame}[t]{Deux institutions, deux leviers}
+% 77 | Après un choc de demande, pourquoi ne pas attendre la reprise ?
+% Source: S5 #7–8; same post-shock demand, supply curves and equilibria as ESS #65–66.
+% Earnings scarring: Oreopoulos, von Wachter and Heisz (2012), doi:10.1257/app.4.1.1.
+% ============================================================================
+\begin{frame}{Après un choc, pourquoi ne pas attendre la reprise\,?}
+   \RaggedRight Quand le chômage augmente, la pression sur les salaires diminue.
+   \par\vspace{0.14cm}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.865]
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,1.22) node[left,pointlabel] {$P_{2}$} -- (3,1.22);
+            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA_{0}$};
+            \draw[supply,HECcoral] (1.3,0.2) -- (6.8,3.5) node[right,curvelabel] {$OA_{1}$};
+            \draw[demand] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
+            \draw[shiftarrow,HECcoral] (4.75,3.2) -- (6.05,3.2);
+            \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.7pt);
+            \filldraw[eqpoint=HECcoral] (3,1.22) circle (3pt);
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.05) node[above] {$P$};
+         \end{tikzpicture}\\[2pt]
+         {\footnotesize Les prix baissent et le PIB revient à son potentiel.}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5,colframe=HECnavy!5,boxrule=0pt,arc=7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
+            \RaggedRight\small\textbf{\textcolor{HECnavy}{OA se déplace (lentement)}}\par\smallskip
+            Le travail coûte moins cher que prévu. Au même prix de vente, les entreprises offrent davantage.
+         \end{tcolorbox}
+         \begin{keyinsight}[Des séquelles possibles]
+            \small\RaggedRight
+            \textbullet~ Perte de compétences\par
+            \textbullet~ Pertes de revenu durables\par
+            \textbullet~ Fermetures d’entreprises
+         \end{keyinsight}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+% ============================================================================
+% 78 | \begin{frame}[t]{Deux institutions, deux leviers}
 % Source: S5/s5.tex | \begin{frame}[t]{Deux institutions, deux leviers}
 % ============================================================================
 \begin{frame}[t]{Deux institutions, deux leviers}
-   \vspace{0.3cm}
+   \vspace{1cm}
    \begin{columns}[T]
       \begin{column}{0.47\textwidth}
          \centering
@@ -1583,7 +1853,7 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 70 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
+% 79 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % Source: S5/s5.tex | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % ============================================================================
 \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
@@ -1603,18 +1873,18 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 71 | \begin{frame}{Le taux directeur depuis 1996}
-% Source: S5/s5.tex | \begin{frame}{Le taux directeur depuis 1996}
+% 80 | \begin{frame}{Le taux directeur et l’inflation au Canada depuis 1996}
+% Source: S5/figures_s5.py | rate_vs_inflation_ca; StatCan v39079 and v41690973.
 % ============================================================================
-\begin{frame}{Le taux directeur depuis 1996}
+\begin{frame}{Le taux directeur et l’inflation au Canada depuis 1996}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{overnight_rate_ca.pdf}
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{rate_vs_inflation_ca.pdf}
    \end{figure}
 \end{frame}
 
 % ============================================================================
-% 72 | \begin{frame}{Le mécanisme de transmission}
+% 81 | \begin{frame}{Le mécanisme de transmission}
 % Source: S5/s5.tex | \begin{frame}{Le mécanisme de transmission}
 % ============================================================================
 \begin{frame}{Le mécanisme de transmission}
@@ -1645,66 +1915,46 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 73 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
+% 82 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
+% Inflation targeting under a demand shock: https://www.banqueducanada.ca/2002/01/poursuite-cibles-inflation-canada/
 % Source: S5/s5.tex | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
 % ============================================================================
-\begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
-   \vspace{0.1cm}
-   \begin{columns}[T]
+\begin{frame}{Politique expansionniste : la réponse de la BdC}
+   \RaggedRight Quand la demande faiblit, la production baisse et les prix montent moins vite.
+   \par\vspace{0.14cm}
+   \begin{columns}[c,onlytextwidth]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.875]
-            % Y_POT
-            \draw[potline] (3.0,0) -- (3.0,4.2)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % Dotted reference lines
-            \draw[refline] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
-            \draw[refline, HECnavy] (0,2.3) node[left, pointlabel] {$P_2$} -- (3.0,2.3);
-            \draw[refline] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
-            % OA: y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
-            \draw[supply] (0,0.5) -- (6.8,4.58)
-               node[right, curvelabel, text=HECnavy] {OA};
-            % DA' (recession, now dashed): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
-            \draw[original] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel, text=HECgray] {DA$'$};
-            % DA'' (after policy, back to original): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
-            \draw[demand] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECnavy] {DA$''$};
-            % E1: DA' ∩ OA at (2.08, 1.75)
-            \filldraw[eqpoint=HECgray] (2.08,1.75) circle (3pt);
-            \node[pointlabel, HECgray, above left] at (2.08,1.75) {$E_1$};
-            % E2: DA'' ∩ OA at (3.0, 2.3) — back at potential
-            \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
-            \node[pointlabel, HECnavy, above right] at (3.0,2.3) {$E_2$};
-            % Policy arrow
-            \draw[shiftarrow, HECnavy] (3.1,1.3) -- (4.45,1.3);
-            \node[pointlabel, HECnavy, above] at (3.5,1.3) {$\downarrow$ taux};
-            % Axes
-            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
+         \begin{tikzpicture}[scale=0.865]
+            % Same demand shortfall and potential output as on slide 65.
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,2.3) node[left,pointlabel] {$P_{2}$} -- (3,2.3);
+            \draw[original,HECnavy!55] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
+            \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{2}$};
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[shiftarrow,HECnavy] (3.45,1.1) -- (4.75,1.1);
+            \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.7pt);
+            \filldraw[eqpoint=HECnavy] (3,2.3) circle (3pt);
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.05) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Réponse de politique monétaire :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.1cm}
-            \item BdC $\downarrow$ taux directeur
-            \item Taux du marché $\downarrow$
-            \item $C\uparrow$, $I\uparrow$, $NX\uparrow$ $\to$ DA$''$ à droite
-            \item Retour à $Y_{\text{POT}}$ en $E_2$
-         \end{enumerate}
-         \vspace{0.2cm}
-         \begin{keyinsight}[Avantage]
-            Retour à $Y_{\text{POT}}$ \textbf{plus rapide} que l'ajustement par les salaires.
+      \begin{column}{0.43\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5,colframe=HECnavy!5,boxrule=0pt,arc=7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
+            \RaggedRight\small\textbf{\textcolor{HECnavy}{La BdC abaisse son taux}}\par\smallskip
+            Un crédit moins cher soutient les achats et l’investissement. Un dollar plus faible favorise aussi les exportations nettes.
+         \end{tcolorbox}
+         \begin{keyinsight}[Deux objectifs compatibles]
+            \RaggedRight\small La reprise rapproche le PIB de son potentiel et l’inflation de sa cible de 2\%.
          \end{keyinsight}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-% 74 | \begin{frame}[t]{Les délais de transmission}
+% 83 | \begin{frame}[t]{Les délais de transmission}
 % Source: S5/s5.tex | \begin{frame}[t]{Les délais de transmission}
 % ============================================================================
 \begin{frame}[t]{Les délais de transmission}
@@ -1725,75 +1975,88 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 75 | \begin{frame}[t]{Le dilemme des chocs d'offre}
-% Source: S5/s5.tex | \begin{frame}[t]{Le dilemme des chocs d'offre}
-% Adaptation: P is a price level, consistent with the DA-OA axes.
+% 84 | Le dilemme d’un choc d’offre négatif
+% Source: S5/s5.tex | Le dilemme des chocs d'offre. The diagram shows the short-run cost shock before a policy response.
 % ============================================================================
-\begin{frame}[t]{Le dilemme des chocs d'offre}
-   \small
-   \vspace{0.1cm}
-   \begin{columns}[T]
+\begin{frame}{Le dilemme d’un choc d’offre négatif}
+   \RaggedRight Un pétrole plus cher fait monter les prix et réduit la production à court terme.
+   \par\vspace{0.14cm}
+   \begin{columns}[c,onlytextwidth]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.9]
-            % Y_POT
-            \draw[potline] (3.0,0) -- (3.0,4.2)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % Dotted reference lines
-            \draw[refline, HECcoral] (2.25,0) node[below, pointlabel] {$Y_1$} -- (2.25,2.75);
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
-            \draw[refline, HECcoral] (0,2.75) node[left, pointlabel] {$P_1$} -- (2.25,2.75);
-            % OA original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (6.8,4.58)
-            \draw[original] (0,0.5) -- (6.8,4.58)
-               node[right, curvelabel, text=HECgray] {OA};
-            % DA: y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
-            \draw[demand] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECnavy] {DA};
-            % OA' shifted left: y = 0.6x + 1.4 → y-int (0,1.4), far end (5.33,4.6)
-            \draw[curveshift, HECcoral] (0,1.4) -- (5.33,4.6)
-               node[right, curvelabel, text=HECcoral] {OA$'$};
-            % E0: OA ∩ DA at (3.0, 2.3)
-            \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
-            \node[pointlabel, HECgray, below left] at (3.0,2.3) {$E_0$};
-            % E1: OA' ∩ DA at (2.25, 2.75)
+         \begin{tikzpicture}[scale=0.865]
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (2.25,0) node[below,pointlabel] {$Y_{1}$} -- (2.25,2.75);
+            \draw[refline] (0,2.3) node[left,pointlabel] {$P_{0}$} -- (3,2.3);
+            \draw[refline] (0,2.75) node[left,pointlabel] {$P_{1}$} -- (2.25,2.75);
+            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA_{0}$};
+            \draw[supply,HECcoral] (0,1.4) -- (5.3,4.58) node[above,curvelabel] {$OA_{1}$};
+            \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA$};
+            \draw[shiftarrow,HECcoral] (4.8,3.5) -- (3.7,3.5);
+            \filldraw[eqpoint=HECgray] (3,2.3) circle (2.7pt);
             \filldraw[eqpoint=HECcoral] (2.25,2.75) circle (3pt);
-            \node[pointlabel, HECcoral, above left] at (2.25,2.75) {$E_1$};
-            % Shock arrow (OA → OA') — horizontal between the two OA curves
-            \draw[shiftarrow, HECcoral] (4.8,3.5) -- (3.7,3.5);
-            \node[pointlabel, HECcoral, above] at (4.6,3.5) {Choc};
-            % Axes
-            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.9) node[above] {$P$};
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.05) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Le problème :}
-         \vspace{0.1cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.1cm}
-            \item OA se déplace à gauche
-            \item $Y$ $\downarrow$ \textbf{et} $P$ $\uparrow$ simultanément
-            \item La banque centrale ne peut pas corriger les deux à la fois
-         \end{enumerate}
-         \vspace{0.15cm}
-         \footnotesize
-         \renewcommand{\arraystretch}{1.15}
-         \begin{tabular}{@{}lcc@{}}
-            & PIB ($Y$) & prix ($P$) \\[2pt]
-            \hline\\[-6pt]
-            $\uparrow$ taux directeur & $\downarrow$ & $\downarrow$ \\[2pt]
-            $\downarrow$ taux directeur & $\uparrow$ & $\uparrow$ \\[2pt]
-         \end{tabular}
-         \vspace{0.15cm}
-
-         \textcolor{HECgray}{\scriptsize Avec un choc de demande, la BdC peut stabiliser $Y$ et $P$ en même temps. Avec un choc d'offre, elle doit \textbf{choisir}.}
+      \begin{column}{0.43\textwidth}
+         \begin{tcolorbox}[colback=HECnavy!5,colframe=HECnavy!5,boxrule=0pt,arc=7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
+            \RaggedRight\small\textbf{\textcolor{HECnavy}{Que peut faire la BdC\,?}}\par\smallskip
+            \textbf{Relever le taux} freine l’inflation, mais le PIB recule encore.\par\smallskip
+            \textbf{Abaisser le taux} soutient le PIB, mais attise l’inflation.
+         \end{tcolorbox}
+         \begin{keyinsight}[Deux objectifs en conflit]
+            \RaggedRight\small Stabiliser les prix ou bien la production\,?
+         \end{keyinsight}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
-% 76 | \begin{frame}[t]{L'autre levier : le gouvernement}
+% 85 | Rappel des chocs au Canada (reprise de la diapositive 75)
+% ============================================================================
+\againframe<2>{chocs-canada}
+
+% ============================================================================
+% 86 | La hausse du taux directeur du 28 octobre 2026
+% Decision and 2027 annual inflation forecast: https://www.banqueducanada.ca/2026/10/fad-communique-2026-10-28/
+% Q3 output gap: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/
+% Slide 75 ends at (3.2,3.51). Compare the same horizon with and without the hike.
+% Illustrative shift only: OA1 = 1.59 + 0.6 Y; DA1 = 5.43 - 0.6 Y; DA2 = 4.53 - 0.6 Y.
+% ============================================================================
+\begin{frame}{Le 28 octobre 2026, la BdC relève son taux de 2,25 à 2,50\,\%}
+   \RaggedRight\small Le PIB est légèrement sous son potentiel, mais la BdC prévoit 3\,\% d’inflation en 2027.
+   \par\vspace{0.12cm}
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \begin{tikzpicture}[scale=0.80]
+            \draw[potline] (3.6,0) -- (3.6,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (0,3.51) node[left,pointlabel] {$P_{1}$} -- (3.2,3.51);
+            \draw[refline] (0,3.06) node[left,pointlabel] {$P_{2}$} -- (2.45,3.06);
+            \draw[supply,HECcoral] (0,1.59) -- (5.5,4.89) node[above,curvelabel] {$OA$};
+            \draw[original,HECnavy!60] (0.85,4.92) -- (5.45,2.16)
+               node[right,font=\scriptsize,text=HECnavy] {$DA$ sans hausse};
+            \draw[demand] (0,4.53) -- (5.45,1.26)
+               node[right,font=\scriptsize,text=HECnavy] {$DA$ avec hausse};
+            \draw[shiftarrow,HECnavy] (5.15,2.22) -- (4.05,2.22);
+            \filldraw[eqpoint=HECgray] (3.2,3.51) circle (2.7pt);
+            \filldraw[eqpoint=HECnavy] (2.45,3.06) circle (3pt);
+            \draw[econaxis] (0,0) -- (7.25,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+         \begin{keyinsight}[L’arbitrage de la BdC]
+            \RaggedRight\small Un crédit plus cher freine les dépenses. Les prix montent moins vite, mais le PIB s’éloigne du potentiel à court terme.
+         \end{keyinsight}
+      \end{column}
+   \end{columns}
+   \par{\raggedleft\scriptsize\href{https://www.banqueducanada.ca/2026/10/fad-communique-2026-10-28/}{Banque du Canada, décision} et \href{https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/}{RPM d’octobre 2026}\par}
+\end{frame}
+
+% ============================================================================
+% 87 | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Source: S5/s5.tex | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Adaptation: Keep the Canadian G/I convention and the transfer channel consistent.
 % ============================================================================
@@ -1803,9 +2066,9 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
    \vspace{0.2cm}
    \begin{enumerate}
       \setlength\itemsep{0.2cm}
-      \item \textbf{Dépenses publiques ($G \uparrow$)} --- effet direct sur le PIB (services publics, défense, santé)
-      \item \textbf{Transferts aux ménages} --- effet indirect via $C$ (chèques, assurance-emploi)
-      \item \textbf{Baisses d'impôts ($T \downarrow$)} --- effet indirect via $C$ et $I$ (revenu disponible $\uparrow$)
+      \item \textbf{Dépenses publiques ($G \uparrow$)} --- effet direct sur le PIB ($G$)
+      \item \textbf{Transferts aux ménages} --- effet indirect via $C$ (e.g., assurance-emploi)
+      \item \textbf{Baisses d'impôts} --- effet indirect via $C$ et $I$ (revenu disponible)
    \end{enumerate}
    \vspace{0.2cm}
    Certains de ces canaux agissent comme des \textbf{stabilisateurs automatiques} : l'assurance-emploi et l'impôt progressif ajustent $T$ et les transferts \textbf{sans décision politique}.
@@ -1816,13 +2079,13 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 77 | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
+% 88 | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
 % Source: S5/s5.tex | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
 % ============================================================================
 \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
    \small
    \vfill
-   \renewcommand{\arraystretch}{1.75}
+   \renewcommand{\arraystretch}{1.50}
    \centering
    \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small\raggedright\arraybackslash}p{0.42\textwidth}}
       \toprule
@@ -1831,6 +2094,7 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
       Décideur & Banque centrale & Gouvernement \\
       Rapidité & Rapide (8 annonces/an) & Lente (processus législatif) \\
       Indépendance & Oui & Non (politique) \\
+      Courbe déplacée & Demande agrégée ($DA$) & Demande agrégée ($DA$) \\
       Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C, I$ via transferts/impôts \\
       Précision & Faible (effets diffus) & Peut cibler des secteurs \\
       Limite & Délai, incert., borne zéro & \textcolor{HECcoral}{\textbf{Endettement}} \\
@@ -1840,82 +2104,91 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 78 | \begin{frame}[t]{Déficit vs dette : flux vs stock}
-% Source: S5/s5.tex | \begin{frame}[t]{Déficit vs dette : flux vs stock}
-% Adaptation: Qualify the simplified stock-flow identity.
+% 89 | La dette fédérale canadienne avant la Grande Récession
+% Finance Canada, Fiscal Reference Tables 2025, table 2, fiscal years ending March 1994–2007.
 % ============================================================================
-\begin{frame}[t]{Déficit vs dette : flux vs stock}
-   \small
-   \vspace{-0.25cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \begin{defbox}[Déficit budgétaire]
-            \footnotesize
-            Recettes $<$ Dépenses en une année.\\[4pt]
-            Le déficit est un \textbf{flux} : il mesure le déséquilibre \textit{pendant} une période.
-         \end{defbox}
+\begin{frame}{La dette fédérale canadienne}
+   \centering
+   \href{https://www.canada.ca/en/department-finance/services/publications/fiscal-reference-tables/2025/part-1.html}{\includegraphics[width=0.97\textwidth,height=0.80\textheight,keepaspectratio]{ess_dette_federale_pib_canada.pdf}}
+\end{frame}
+
+% ============================================================================
+% 90 | Austerity with interest rates held fixed (illustrative counterfactual, S5).
+% OA: P = 0.5 + 0.6 Y; DA0: P = 4.1 - 0.6 Y; DA1: P = 3.02 - 0.6 Y.
+% ============================================================================
+\begin{frame}[t]{L’austérité peut provoquer une récession...}
+   \vfill
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{minipage}[t][4.5cm][t]{\linewidth}
+         \RaggedRight
+         {\footnotesize\bfseries\textcolor{HECnavy}{POLITIQUE BUDGÉTAIRE}}\par\vspace{4pt}
+         {\large\bfseries \textcolor{HEC3}{Réduire le déficit}}\par\medskip
+         {\small L’État réduit ses dépenses. À taux d’intérêt inchangé, la demande agrégée recule.\par}
+         \vspace{0.24cm}
+         {\color{HECgreen}\rule{0.72cm}{1.5pt}}\par\vspace{2pt}
+         {\small\bfseries Le PIB passe sous son potentiel.\par}
+         \end{minipage}
       \end{column}
-      \begin{column}{0.47\textwidth}
-         \begin{defbox}[Dette publique]
-            \footnotesize
-            Accumulation des déficits passés et des ajustements.\\[4pt]
-            La dette est un \textbf{stock} : elle mesure le total \textit{à un moment donné}.
-         \end{defbox}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \begin{tikzpicture}[x=0.93cm,y=0.97cm]
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,2.3) node[left,pointlabel] {$P_{0}$} -- (3,2.3);
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[original,HECnavy!55] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{0}$};
+            \draw[demand] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
+            \draw[shiftarrow,HECnavy] (4.75,1.10) -- (3.45,1.10);
+            \filldraw[eqpoint=HECgray] (3,2.3) circle (2.7pt);
+            \filldraw[eqpoint=HECnavy] (2.1,1.76) circle (3pt);
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.05) node[above] {$P$};
+         \end{tikzpicture}
       \end{column}
    \end{columns}
-   \vspace{0.3cm}
-   \centering
-   Relation simplifiée, hors ajustements comptables\,:\\[4pt]
-   {\large $\text{Dette}_{t} = \text{Dette}_{t-1} + \text{Déficit}_{t}$}
-   \vspace{0.15cm}
-   \begin{keyinsight}
-      On mesure souvent la dette en \textbf{\,\% du PIB} pour la comparer entre pays et dans le temps. Un pays qui croît rapidement peut absorber plus de dette.
-   \end{keyinsight}
+   \vfill
 \end{frame}
 
 % ============================================================================
-% 79 | \begin{frame}[t]{Ce que cela change pour votre organisation}
-% Source: Programme-specific closing synthesis
+% 91 | Monetary easing after the fiscal contraction (S5). Full offset is illustrative.
+% The Bank describes easing in late 1995–96 and a recovery in domestic demand starting in mid-1996.
+% https://www.bankofcanada.ca/1998/10/canadian-experience-targets-inflation-control/
 % ============================================================================
-\begin{frame}[t]{Ce que cela change pour votre organisation}
-   \RaggedRight
-
-\small\renewcommand{\arraystretch}{1.6}
-\begin{tabularx}{\textwidth}{@{}>{\bfseries}lJ@{}}
-\toprule
-Canal & Hypothèses à suivre\\
-\midrule
-Clients & Volumes, prix de vente, pouvoir d'achat et marchés d'exportation\\
-Fournisseurs & Énergie, transport, intrants et délais d'approvisionnement\\
-Employés & Disponibilité, compétences, salaires et complémentarités technologiques\\
-Financement & Coût du crédit, renouvellements et rentabilité des projets\\
-\bottomrule
-\end{tabularx}
-
-\par\vspace{0.15cm}
-\begin{keyinsight}[Raisonner en scénarios]\small\RaggedRight
-Relier les signaux macroéconomiques à votre exposition, puis réviser les hypothèses lorsque les données changent.
-\end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 80 | \begin{frame}[t]{Les grands thèmes du cours}
-% Source: Programme-specific closing synthesis
-% ============================================================================
-\begin{frame}[t]{Les grands thèmes du cours}
-\RaggedRight\small
-\renewcommand{\arraystretch}{1.35}
-\begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.26\textwidth}J@{}}
-\toprule
-\textbf{Thème} & \textbf{Idée à retenir}\\
-\midrule
-\textcolor{HECnavy!40}{Mesurer l'économie} & \textcolor{HECnavy!40}{Distinguer production, prix, population et emploi.}\\
-\textcolor{HECnavy!40}{Croissance} & \textcolor{HECnavy!40}{Le capital aide ; la productivité soutient le niveau de vie.}\\
-\textcolor{HECnavy!40}{Travail et capital} & \textcolor{HECnavy!40}{Salaires et financement reflètent les besoins et les ressources disponibles.}\\
-\textcolor{HECnavy!40}{Cycles} & \textcolor{HECnavy!40}{Distinguer les chocs de demande et d'offre.}\\
-\textcolor{HECnavy!40}{Politiques} & \textcolor{HECnavy!40}{Choisir les instruments selon le diagnostic et leurs limites.}\\
-\bottomrule
-\end{tabularx}
+\begin{frame}[t]{...mais une baisse des taux peut soutenir la reprise\,!}
+   \vfill
+   \begin{columns}[c,onlytextwidth]
+      \begin{column}{0.39\textwidth}
+         \begin{minipage}[t][4.5cm][t]{\linewidth}
+         \RaggedRight
+         {\footnotesize\bfseries\textcolor{HECnavy}{POLITIQUE MONÉTAIRE}}\par\vspace{4pt}
+         {\large\bfseries \textcolor{HEC2}{Soutenir la demande}}\par\medskip
+         {\small Si l’inflation le permet, la BdC baisse son taux. Un crédit moins cher stimule la consommation et l’investissement.\par}
+         \vspace{0.24cm}
+         {\color{HECgreen}\rule{0.72cm}{1.5pt}}\par\vspace{2pt}
+         {\small\bfseries Le PIB peut revenir au potentiel sans nouvel emprunt public.\par}
+         \end{minipage}
+      \end{column}
+      \begin{column}{0.58\textwidth}
+         \centering
+         \begin{tikzpicture}[x=0.93cm,y=0.97cm]
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
+            \draw[refline] (0,2.3) node[left,pointlabel] {$P_{2}$} -- (3,2.3);
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[original,HECnavy!55] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
+            \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{2}$};
+            \draw[shiftarrow,HECnavy] (3.45,1.10) -- (4.75,1.10);
+            \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.7pt);
+            \filldraw[eqpoint=HECnavy] (3,2.3) circle (3pt);
+            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,5.05) node[above] {$P$};
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}
+   \vfill
 \end{frame}
 
 \end{document}

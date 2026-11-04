@@ -167,55 +167,48 @@ def transmission_taux():
 
 
 # =====================================================================
-# Figure 3: Policy rate vs CPI inflation (Canada, 2000–present)
+# Figure 3: Canadian policy rate and year-over-year CPI inflation since 1996
 # =====================================================================
 def rate_vs_inflation_ca():
-    """Bank of Canada overnight rate vs CPI inflation."""
-    print('Figure 3: Policy rate vs CPI inflation (Canada)')
+    """Daily overnight target and monthly all-items CPI with its 1–3% target range."""
+    from stats_can.sc import vectors_to_df
 
-    # FRED IRSTCI01CAM156N: monthly overnight rate (full history)
-    overnight = get_fred_data('IRSTCI01CAM156N', observation_start='2000-01-01')
-    overnight = overnight.dropna()
-
-    # Compute CPI y/y inflation from CPI level (CANCPIALLMINMEI)
-    cpi_level = get_fred_data('CANCPIALLMINMEI', observation_start='1999-01-01')
-    cpi = cpi_level.pct_change(periods=12) * 100
-    cpi = cpi.dropna()
-    cpi = cpi.loc['2000-01-01':]
+    start = pd.Timestamp('1996-01-01')
+    today = pd.Timestamp.today().normalize()
+    # StatCan v39079 is the BoC's announced target, available back to 1992.
+    daily_periods = (today - start).days + 1
+    rate = vectors_to_df('39079', periods=daily_periods)['v39079'].dropna().sort_index()
+    rate = rate.loc[start:today]
+    # StatCan v41690973: national, all-items CPI, not seasonally adjusted.
+    months = today.to_period('M').ordinal - start.to_period('M').ordinal + 13
+    level = vectors_to_df('41690973', periods=months)['v41690973'].sort_index().asfreq('MS')
+    inflation = level.pct_change(12, fill_method=None).mul(100).loc[start:today]
+    inflation.index = inflation.index + pd.offsets.MonthEnd(0)
 
     fig, ax = new_figure(9, 4.5)
+    for begin, end in recessions_ca:
+        if begin >= start:
+            recession = ax.axvspan(begin, end, color='grey', alpha=0.14, linewidth=0)
+    band = ax.axhspan(1, 3, color=palette[1], alpha=0.20, linewidth=0)
+    target = ax.axhline(2, color='#17854f', linewidth=1, linestyle='--')
+    rate_line, = ax.step(rate.index, rate, where='post', color=palette[0], linewidth=1.8)
+    cpi_line, = ax.plot(inflation.index, inflation, color=palette[2], linewidth=1.5)
 
-    ax.plot(overnight.index, overnight.values, color=palette[0],
-            linewidth=2, label='Taux directeur')
-    ax.plot(cpi.index, cpi.values, color=palette[2],
-            linewidth=2, label='Inflation IPC (a/a)')
-
-    # Inflation target at 2%
-    ax.axhline(2, color=palette[1], linewidth=1.5, linestyle='--',
-               label=r"Cible d'inflation (2\%)")
-
-    # Recession shading (Canadian)
-    for start, end in recessions_ca:
-        if start >= pd.Timestamp('2000-01-01'):
-            ax.axvspan(start, end, color='grey', alpha=0.3, linewidth=0)
-
-    # ── Axis formatting ─────────────────────────────────────────────
-    ax.set_xlim(pd.Timestamp('2000-01-01'), max(overnight.index.max(),
-                                                  cpi.index.max()))
-    xticks = list(range(2000, 2028, 2))
-    ax.set_xticks([pd.Timestamp(f'{y}-01-01') for y in xticks])
-    ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
-
-    ax.set_ylim(-2, 10)
-    ax.set_yticks(range(-2, 12, 2))
-    ax.set_yticklabels([f'{y}\\%' for y in range(-2, 12, 2)], fontsize=11)
-    ax.set_ylabel(r"\%", fontsize=11, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.02)
-
+    end = max(rate.index[-1], inflation.last_valid_index())
+    years = list(range(start.year, end.year + 1, 2))
+    ax.set_xticks([pd.Timestamp(year, 1, 1) for year in years], labels=years, fontsize=10)
+    ax.set_xlim(start, end)
+    low = 2 * int(np.floor(min(rate.min(), inflation.min()) / 2))
+    high = tick_ceil(max(rate.max(), inflation.max()), 2)
+    yticks = list(range(low, high + 1, 2))
+    ax.set_yticks(yticks, labels=[rf'{y}\%' for y in yticks], fontsize=11)
+    ax.set_ylim(low, high)
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper left',
-              bbox_to_anchor=(0.0, 1.0))
-    add_source(ax, r"Source: FRED")
+    ax.legend([rate_line, cpi_line, (band, target), recession],
+              ['Taux directeur', 'Inflation de l’IPC (sur 12 mois)',
+               r'Cible de 2\,\% (fourchette de 1 à 3\,\%)', 'Récessions'],
+              loc='upper left', ncol=2, frameon=False, fontsize=10)
+    add_source(ax, 'Sources : Banque du Canada, Statistique Canada')
     save(fig, 'rate_vs_inflation_ca.pdf')
 
 
@@ -386,6 +379,48 @@ def boc_balance_sheet():
     style_axes(ax)
     add_source(ax, r"Source: Banque du Canada")
     save(fig, 'boc_balance_sheet.pdf')
+
+
+def federal_debt_gdp_ca():
+    """Federal accumulated deficit in % of GDP, by March fiscal year-end."""
+    from io import BytesIO
+    import requests
+
+    url = ('https://www.canada.ca/en/department-finance/services/publications/'
+           'fiscal-reference-tables/2025/part-1.html')
+    response = requests.get(url, timeout=30)
+    response.raise_for_status()
+    fiscal, = pd.read_html(BytesIO(response.content), attrs={'id': 'tbl2'})
+    years = fiscal['Year'].astype(str)
+    rows = fiscal.loc[years.str.fullmatch(r'\d{4}-\d{2}'), ['Year', 'Accumulated deficit']].copy()
+    rows['year_end'] = rows['Year'].str[:4].astype(int) + 1
+    debt = pd.to_numeric(rows.set_index('year_end')['Accumulated deficit']).sort_index().loc[1994:2007]
+    if debt.isna().any() or not np.array_equal(debt.index, np.arange(1994, 2008)):
+        raise ValueError('Expected federal debt observations for every March from 1994 to 2007')
+
+    fig, ax = new_figure(9, 4.4)
+    ax.plot(debt.index, debt, color=palette[0], linewidth=2.6)
+    for year, align in [(debt.idxmax(), 'center'), (debt.index[-1], 'right')]:
+        value = debt.loc[year]
+        ax.plot(year, value, 'o', color=palette[0], markersize=4, clip_on=False)
+        label = f'{value:.1f}'.replace('.', ',') + r'\,\%'
+        offset = (0, 8) if align == 'center' else (0, 16)
+        ax.annotate(label, (year, value), xytext=offset, textcoords='offset points',
+                    ha=align, fontsize=11, color=palette[0])
+
+    # Plain-text ticks use the course's Fira Sans instead of TeX math numerals.
+    xticks = debt.index
+    yticks = range(30, 71, 10)
+    ax.set_xticks(xticks, labels=[str(year) for year in xticks], fontsize=11)
+    ax.set_yticks(yticks, labels=[str(value) for value in yticks], fontsize=11)
+    ax.set_xlim(xticks[0], xticks[-1])
+    ax.set_ylim(yticks[0], yticks[-1])
+    ax.set_xlabel("Année de clôture de l’exercice (31 mars)", fontsize=11)
+    ax.set_ylabel(r"Déficit accumulé, en \% du PIB", fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.025)
+    style_axes(ax)
+    add_source(ax, r"Finances Canada, Tableaux de référence financiers (2025), tableau 2")
+    save(fig, 'ess_dette_federale_pib_canada.pdf')
 
 
 # =====================================================================
@@ -1062,6 +1097,7 @@ if __name__ == '__main__':
         boc_tightening_cycles,
         boc_balance_sheet,
         debt_to_gdp,
+        federal_debt_gdp_ca,
         phillips_curve_decades,
         fed_dot_plot,
         gross_vs_net_debt,
