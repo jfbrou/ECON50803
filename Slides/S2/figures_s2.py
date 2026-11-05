@@ -27,16 +27,21 @@ from teaching_plot_utils import *
 
 
 # ── PWT loader (cached) ───────────────────────────────────────────────
+PWT_VERSION = "11.0"
+PWT_END_YEAR = 2023
+PWT_PATH = Path(__file__).resolve().parents[1] / "Data/pwt110/pwt110.dta"
 _pwt_cache = None
 
 
 def _load_pwt():
-    """Load Penn World Tables 10.01 (cached)."""
+    """Load the official PWT 11.0 snapshot (1950--2023), cached locally."""
     global _pwt_cache
     if _pwt_cache is None:
-        _pwt_cache = pd.read_stata(
-            '/Users/jfbrou/Dropbox/GitHub/ECON20852/Data/pwt1001.dta')
+        _pwt_cache = pd.read_stata(PWT_PATH)
+        if int(_pwt_cache['year'].max()) != PWT_END_YEAR:
+            raise ValueError('Unexpected PWT vintage or coverage')
     return _pwt_cache
+
 
 
 # ── OWID CO2 loader (cached) ────────────────────────────────────────────
@@ -291,8 +296,9 @@ def growth_decomp_china_us():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    add_source(ax, 'Source : Penn World Table 11.0')
     save(fig, 'growth_decomp_china_us.pdf')
+
 
 
 # =====================================================================
@@ -691,251 +697,155 @@ def convergence_us_states():
 # =====================================================================
 # Figure 8: Convergence — OECD countries (1960–2014)
 # =====================================================================
+def _convergence_data(start, end, codes=None):
+    """Initial current-PPP output level; subsequent national-accounts growth."""
+    pwt = _load_pwt()
+    initial = pwt.loc[pwt['year'].eq(start)].set_index('countrycode')
+    final = pwt.loc[pwt['year'].eq(end)].set_index('countrycode')
+    sample = initial.index.intersection(final.index)
+    if codes is not None:
+        sample = sample.intersection(codes)
+    initial, final = initial.loc[sample], final.loc[sample]
+    valid = (np.isfinite(initial[['cgdpo', 'rgdpna', 'pop']]).all(axis=1)
+             & initial[['cgdpo', 'rgdpna', 'pop']].gt(0).all(axis=1)
+             & np.isfinite(final[['rgdpna', 'pop']]).all(axis=1)
+             & final[['rgdpna', 'pop']].gt(0).all(axis=1)
+             & initial['i_outlier'].isin([0, 'Regular'])
+             & final['i_outlier'].isin([0, 'Regular']))
+    initial, final = initial.loc[valid], final.loc[valid]
+    us = pwt.loc[pwt['year'].eq(start) & pwt['countrycode'].eq('USA')].iloc[0]
+    ratio = (initial['cgdpo'] / initial['pop']) / (us['cgdpo'] / us['pop'])
+    growth = (np.log(final['rgdpna'].astype(float) / final['pop'])
+              - np.log(initial['rgdpna'].astype(float) / initial['pop'])) * 100 / (end - start)
+    return pd.DataFrame({'y_ratio': ratio, 'growth': growth}).rename_axis('code').reset_index()
+
+
+def _label_convergence(ax, data, markers):
+    """Place ISO labels with deterministic offsets, avoiding nearby markers."""
+    from matplotlib.transforms import Bbox
+    ax.figure.canvas.draw()
+    renderer = ax.figure.canvas.get_renderer()
+    points = ax.transData.transform(markers[['y_ratio', 'growth']].to_numpy())
+    occupied = [Bbox.from_bounds(x - 4, y - 4, 8, 8) for x, y in points]
+    # Keep country labels clear of the regression line as well as the markers.
+    for line in ax.lines:
+        line_points = ax.transData.transform(np.column_stack([line.get_xdata(), line.get_ydata()]))
+        occupied.extend(Bbox.from_bounds(x - 2, y - 2, 4, 4) for x, y in line_points
+                        if ax.bbox.contains(x, y))
+    offsets = [(5, 5), (-5, 5), (5, -10), (-5, -10),
+               (0, 11), (0, -15), (10, 0), (-10, 0),
+               (12, 12), (-12, 12), (12, -16), (-12, -16)]
+    offsets += [(dx, dy) for radius in [22, 30, 40]
+                for dx, dy in [(radius, 0), (-radius, 0), (0, radius), (0, -radius),
+                               (radius, radius), (-radius, radius),
+                               (radius, -radius), (-radius, -radius)]]
+    for _, row in data.iterrows():
+        candidates = []
+        for dx, dy in offsets:
+            label = ax.annotate(row['code'], (row['y_ratio'], row['growth']),
+                                xytext=(dx, dy), textcoords='offset points',
+                                ha='left' if dx > 0 else 'right' if dx < 0 else 'center',
+                                fontsize=9)
+            box = label.get_window_extent(renderer).expanded(1.08, 1.12)
+            collisions = sum(box.overlaps(other) for other in occupied)
+            inside = (ax.bbox.contains(box.x0, box.y0) and ax.bbox.contains(box.x1, box.y1))
+            candidates.append((collisions + 100 * (not inside), dx, dy, box))
+            label.remove()
+            if collisions == 0 and inside:
+                break
+        _, dx, dy, box = min(candidates, key=lambda item: item[0])
+        ax.annotate(row['code'], (row['y_ratio'], row['growth']),
+                    xytext=(dx, dy), textcoords='offset points',
+                    ha='left' if dx > 0 else 'right' if dx < 0 else 'center', fontsize=9)
+        occupied.append(box)
+
+
+def _plot_convergence(data, start, filename, global_sample=False,
+                      x_limits=None, y_limits=None, y_tick_step=None):
+    fig, ax = new_figure(8, 4)
+    if global_sample:
+        for member, color, label in [(False, palette[0], 'Hors OCDE'),
+                                     (True, palette[1], 'OCDE')]:
+            sample = data.loc[data['is_oecd'].eq(member)]
+            ax.scatter(sample['y_ratio'], sample['growth'], s=50, color=color,
+                       alpha=0.7, label=label, zorder=5)
+    else:
+        log_ratios = np.log(data['y_ratio'].to_numpy())
+        slope, intercept, _, _, _ = stats.linregress(log_ratios, data['growth'])
+        ax.scatter(data['y_ratio'], data['growth'], s=65, color=palette[0], alpha=0.7, zorder=5)
+    ax.set_xscale('log', base=2)
+    lo = int(np.floor(np.log2(data['y_ratio'].min() * 0.85)))
+    hi = int(np.ceil(np.log2(data['y_ratio'].max() * 1.15)))
+    ticks = [2.0 ** power for power in range(lo, hi + 1)]
+    if x_limits is not None:
+        ticks = sorted(set([*x_limits, *[x for x in ticks if x_limits[0] <= x <= x_limits[1]]]))
+    ax.set_xlim(ticks[0], ticks[-1])
+    ax.set_xticks(ticks)
+    from fractions import Fraction
+    ax.set_xticklabels([str(Fraction(x).limit_denominator(128)) for x in ticks], fontsize=12)
+    ax.set_xlabel(f'PIB réel par habitant relatif aux É.-U. ({start})', fontsize=12)
+    ax.xaxis.set_label_coords(0.5, -0.1)
+    step = y_tick_step if y_tick_step is not None else (1 if global_sample else 0.5)
+    low = np.floor((data['growth'].min() - 0.25) / step) * step
+    high = np.ceil((data['growth'].max() + 0.25) / step) * step
+    if y_limits is not None:
+        low, high = y_limits
+    yticks = np.arange(low, high + step / 2, step)
+    ax.set_ylim(low, high)
+    if not global_sample:
+        # Extend the fitted line over the full x-domain; clip at the y-boundaries.
+        fit = np.linspace(*np.log(ax.get_xlim()), 200)
+        ax.plot(np.exp(fit), slope * fit + intercept, color=palette[1],
+                linewidth=2, zorder=2, clip_on=True)
+    if not (data['y_ratio'].between(*ax.get_xlim()).all()
+            and data['growth'].between(*ax.get_ylim()).all()):
+        raise ValueError(f'Convergence axes would clip country observations: {filename}')
+    ax.set_yticks(yticks)
+    ax.set_yticklabels([f'{y:g}'.replace('.', ',') + r'\%' for y in yticks], fontsize=12)
+    ax.set_ylabel(f'Croissance du PIB/hab. ({start}--{PWT_END_YEAR})',
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    add_source(ax, 'Source : Penn World Table 11.0')
+    if global_sample:
+        ax.legend(frameon=False, fontsize=10, loc='upper right')
+        # Keep every country marker, but only label illustrative cases.
+        codes = ['CAN', 'USA', 'KOR', 'CHN', 'SGP', 'IND', 'HTI', 'COD', 'MDG', 'GBR', 'ARG']
+        labels = data.loc[data['code'].isin(codes)]
+    else:
+        labels = data
+    fig.tight_layout()
+    _label_convergence(ax, labels, data)
+    save(fig, filename)
+
+
 def convergence_oecd():
-    print('Figure 8: Convergence — OECD countries')
-
-    # Compute GDP per capita relative to US (1960) vs avg annual growth
-    # 1960-2019 from Penn World Tables 10.01 (rgdpna / pop)
-    pwt = _load_pwt()
-
-    # OECD founding members (1961) + key later additions + comparators
-    oecd_codes = [
-        'USA', 'CAN', 'GBR', 'FRA', 'DEU', 'ITA', 'BEL', 'NLD', 'LUX',
-        'AUT', 'CHE', 'DNK', 'SWE', 'NOR', 'ISL', 'IRL', 'PRT', 'ESP',
-        'GRC', 'TUR',                          # founding / early members
-        'JPN', 'FIN', 'AUS', 'NZL', 'MEX',     # joined 1964-94
-        'KOR', 'HKG', 'SGP', 'TWN', 'ISR',     # key additions / comparators
-        'POL', 'HUN', 'CZE', 'SVN', 'CHL', 'COL', 'CRI',  # later members
-    ]
-
-    year0, year1 = 1960, 2019
-    # Get US GDP per capita in base year
-    us = pwt[(pwt['countrycode'] == 'USA') & (pwt['year'] == year0)]
-    y_usa = us.iloc[0]['rgdpna'] / us.iloc[0]['pop']
-
-    rows = []
-    for code in oecd_codes:
-        sub = pwt[pwt['countrycode'] == code]
-        d0 = sub[sub['year'] == year0]
-        d1 = sub[sub['year'] == year1]
-        if d0.empty or d1.empty:
-            continue
-        rgdp0, pop0 = d0.iloc[0]['rgdpna'], d0.iloc[0]['pop']
-        rgdp1, pop1 = d1.iloc[0]['rgdpna'], d1.iloc[0]['pop']
-        if any(pd.isna(v) for v in [rgdp0, pop0, rgdp1, pop1]):
-            continue
-        ypc0 = rgdp0 / pop0
-        ypc1 = rgdp1 / pop1
-        y_ratio = ypc0 / y_usa
-        g = (np.log(ypc1) - np.log(ypc0)) / (year1 - year0) * 100
-        rows.append({'code': code, 'y_ratio': y_ratio, 'growth': g})
-
-    df = pd.DataFrame(rows)
-
-    fig, ax = new_figure(8, 4)
-
-    # Green solid regression line (behind points)
-    log_ratios = np.log(df['y_ratio'].values)
-    slope, intercept, _, _, _ = stats.linregress(log_ratios, df['growth'].values)
-    x_fit = np.linspace(log_ratios.min() - 0.2, log_ratios.max() + 0.2, 100)
-    ax.plot(np.exp(x_fit), slope * x_fit + intercept, color=palette[1],
-            linewidth=2, zorder=2)
-
-    ax.scatter(df['y_ratio'], df['growth'], s=75, color=palette[0], alpha=0.7,
-               zorder=5)
-
-    # Label all countries with ISO3 codes
-    for _, row in df.iterrows():
-        ax.annotate(row['code'],
-                    (row['y_ratio'], row['growth']),
-                    textcoords='offset points', xytext=(5, 5),
-                    ha='left', fontsize=10)
-
-    # Log base 2 x-axis with fraction labels
-    ax.set_xscale('log', base=2)
-    ax.set_xlim(1 / 5, 1.25)
-    ax.set_xticks([1 / 4, 1 / 2, 1])
-    ax.set_xticklabels(['1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1960)",
-                  fontsize=12, ha='center')
-    ax.xaxis.set_label_coords(0.5, -0.1)
-
-    ax.set_ylim(1.25, 4)
-    ax.set_yticks(np.arange(1.5, 4 + 0.5, 0.5))
-    ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 4 + 0.5, 0.5)],
-                       fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1960--2019)",
-                  fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
-
-    style_axes(ax)
-    add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_oecd.pdf')
+    print('Figure: Convergence — OECD and comparators')
+    codes = ['USA', 'CAN', 'GBR', 'FRA', 'DEU', 'ITA', 'BEL', 'NLD', 'LUX',
+             'AUT', 'CHE', 'DNK', 'SWE', 'NOR', 'ISL', 'IRL', 'PRT', 'ESP',
+             'GRC', 'TUR', 'JPN', 'FIN', 'AUS', 'NZL', 'MEX', 'KOR', 'HKG',
+             'SGP', 'TWN', 'ISR', 'POL', 'HUN', 'CZE', 'SVN', 'CHL', 'COL', 'CRI']
+    _plot_convergence(_convergence_data(1960, PWT_END_YEAR, codes), 1960, 'convergence_oecd.pdf',
+                      x_limits=(1 / 16, 3 / 2), y_limits=(1, 6), y_tick_step=1)
 
 
-# =====================================================================
-# Figure 8b: Convergence — Emerging Asian economies (1990–2019)
-# =====================================================================
 def convergence_asia():
-    print('Figure 8b: Convergence — Emerging Asian economies')
-
-    # Compute GDP per capita relative to US (1990) vs avg annual growth
-    # 1990-2019 from Penn World Tables 10.01 (rgdpna / pop)
-    pwt = _load_pwt()
-
-    asian_codes = [
-        'CHN', 'IND', 'IDN', 'MMR', 'VNM', 'LKA', 'PHL',
-        'THA', 'MYS', 'SGP', 'KOR', 'TWN', 'HKG',
-    ]
-
-    year0, year1 = 1990, 2019
-    # Get US GDP per capita in base year
-    us = pwt[(pwt['countrycode'] == 'USA') & (pwt['year'] == year0)]
-    y_usa = us.iloc[0]['rgdpna'] / us.iloc[0]['pop']
-
-    rows = []
-    for code in asian_codes:
-        sub = pwt[pwt['countrycode'] == code]
-        d0 = sub[sub['year'] == year0]
-        d1 = sub[sub['year'] == year1]
-        if d0.empty or d1.empty:
-            continue
-        rgdp0, pop0 = d0.iloc[0]['rgdpna'], d0.iloc[0]['pop']
-        rgdp1, pop1 = d1.iloc[0]['rgdpna'], d1.iloc[0]['pop']
-        if any(pd.isna(v) for v in [rgdp0, pop0, rgdp1, pop1]):
-            continue
-        ypc0 = rgdp0 / pop0
-        ypc1 = rgdp1 / pop1
-        y_ratio = ypc0 / y_usa
-        g = (np.log(ypc1) - np.log(ypc0)) / (year1 - year0) * 100
-        rows.append({'code': code, 'y_ratio': y_ratio, 'growth': g})
-
-    df = pd.DataFrame(rows)
-
-    fig, ax = new_figure(8, 4)
-
-    # Green solid regression line (behind points)
-    log_ratios = np.log(df['y_ratio'].values)
-    slope, intercept, _, _, _ = stats.linregress(log_ratios, df['growth'].values)
-    x_fit = np.linspace(log_ratios.min() - 0.2, log_ratios.max() + 0.2, 100)
-    ax.plot(np.exp(x_fit), slope * x_fit + intercept, color=palette[1],
-            linewidth=2, zorder=2)
-
-    ax.scatter(df['y_ratio'], df['growth'], s=75, color=palette[0], alpha=0.7,
-               zorder=5)
-
-    # Label all countries with ISO3 codes
-    for _, row in df.iterrows():
-        ax.annotate(row['code'],
-                    (row['y_ratio'], row['growth']),
-                    textcoords='offset points', xytext=(5, 5),
-                    ha='left', fontsize=10)
-
-    # Log base 2 x-axis with fraction labels
-    ax.set_xscale('log', base=2)
-    ax.set_xlim(1 / 32, 1)
-    ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1])
-    ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1'], fontsize=12)
-    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1990)",
-                  fontsize=12, ha='center')
-    ax.xaxis.set_label_coords(0.5, -0.1)
-
-    ax.set_ylim(1.5, 6.5)
-    ax.set_yticks(np.arange(1.5, 6.5 + 1, 1))
-    ax.set_yticklabels([f'{x:.1f}' + r'\%' for x in np.arange(1.5, 6.5 + 1, 1)],
-                       fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1990--2019)",
-                  fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
-
-    style_axes(ax)
-    add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_asia.pdf')
+    print('Figure: Convergence — Asian economies')
+    codes = ['CHN', 'IND', 'IDN', 'MMR', 'VNM', 'LKA', 'PHL', 'THA', 'MYS',
+             'SGP', 'KOR', 'TWN', 'HKG']
+    _plot_convergence(_convergence_data(1990, PWT_END_YEAR, codes), 1990, 'convergence_asia.pdf',
+                      x_limits=(1 / 64, 1), y_limits=(2, 8), y_tick_step=1)
 
 
-# =====================================================================
-# Figure 9: Convergence — Global (mixed picture)
-# =====================================================================
 def convergence_global():
-    print('Figure 9: Convergence — Global')
-
-    # Compute GDP per capita relative to US (1960) vs avg annual growth
-    # 1960-2019 from Penn World Tables 10.01, ALL countries with data
-    pwt = _load_pwt()
-
-    # OECD member codes for color-coding
-    oecd_codes = {
-        'AUS', 'AUT', 'BEL', 'CAN', 'CHL', 'COL', 'CRI', 'CZE', 'DNK',
-        'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'IRL', 'ISR',
-        'ITA', 'JPN', 'KOR', 'LVA', 'LTU', 'LUX', 'MEX', 'NLD', 'NZL',
-        'NOR', 'POL', 'PRT', 'SVK', 'SVN', 'ESP', 'SWE', 'CHE', 'TUR',
-        'GBR', 'USA',
-    }
-
-    year0, year1 = 1960, 2019
-    # Get US GDP per capita in base year
-    us = pwt[(pwt['countrycode'] == 'USA') & (pwt['year'] == year0)]
-    y_usa = us.iloc[0]['rgdpna'] / us.iloc[0]['pop']
-
-    rows = []
-    for code in pwt['countrycode'].unique():
-        sub = pwt[pwt['countrycode'] == code]
-        d0 = sub[sub['year'] == year0]
-        d1 = sub[sub['year'] == year1]
-        if d0.empty or d1.empty:
-            continue
-        rgdp0, pop0 = d0.iloc[0]['rgdpna'], d0.iloc[0]['pop']
-        rgdp1, pop1 = d1.iloc[0]['rgdpna'], d1.iloc[0]['pop']
-        if any(pd.isna(v) for v in [rgdp0, pop0, rgdp1, pop1]):
-            continue
-        ypc0 = rgdp0 / pop0
-        ypc1 = rgdp1 / pop1
-        y_ratio = ypc0 / y_usa
-        g = (np.log(ypc1) - np.log(ypc0)) / (year1 - year0) * 100
-        is_oecd = code in oecd_codes
-        rows.append({'code': code, 'y_ratio': y_ratio, 'growth': g,
-                     'is_oecd': is_oecd})
-
-    df = pd.DataFrame(rows)
-
-    fig, ax = new_figure(8, 4)
-
-    # Non-OECD in navy, OECD in green with black edge
-    non_oecd = df[~df['is_oecd']]
-    oecd_df = df[df['is_oecd']]
-    ax.scatter(non_oecd['y_ratio'], non_oecd['growth'],
-               s=50, color=palette[0], alpha=0.7)
-    ax.scatter(oecd_df['y_ratio'], oecd_df['growth'],
-               s=50, color=palette[1], edgecolors='k', linewidth=0.5, alpha=0.7)
-
-    # Label all countries with ISO3 codes
-    for _, row in df.iterrows():
-        ax.annotate(row['code'],
-                    (row['y_ratio'], row['growth']),
-                    textcoords='offset points', xytext=(5, 5),
-                    ha='left', fontsize=8)
-
-    # Log base 2 x-axis with fraction labels
-    ax.set_xscale('log', base=2)
-    ax.set_xlim(1 / 40, 2)
-    ax.set_xticks([1/32, 1/16, 1/8, 1/4, 1/2, 1, 2])
-    ax.set_xticklabels(['1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
-                       fontsize=12)
-    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (1960)",
-                  fontsize=12, ha='center')
-    ax.xaxis.set_label_coords(0.5, -0.1)
-
-    ax.set_ylim(-2, 6)
-    ax.set_yticks(range(-2, 6 + 1, 2))
-    ax.set_yticklabels([str(x) + r'\%' for x in range(-2, 6 + 1, 2)],
-                       fontsize=12)
-    ax.set_ylabel(r"Taux de croissance du PIB réel par habitant (1960--2019)",
-                  fontsize=12, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.01)
-
-    style_axes(ax)
-    add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'convergence_global.pdf')
+    print('Figure: Convergence — Global')
+    codes = {'AUS', 'AUT', 'BEL', 'CAN', 'CHL', 'COL', 'CRI', 'CZE', 'DNK', 'EST',
+             'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'IRL', 'ISR', 'ITA', 'JPN',
+             'KOR', 'LVA', 'LTU', 'LUX', 'MEX', 'NLD', 'NZL', 'NOR', 'POL', 'PRT',
+             'SVK', 'SVN', 'ESP', 'SWE', 'CHE', 'TUR', 'GBR', 'USA'}
+    data = _convergence_data(1960, PWT_END_YEAR)
+    data['is_oecd'] = data['code'].isin(codes)
+    _plot_convergence(data, 1960, 'convergence_global.pdf', global_sample=True)
 
 
 # =====================================================================
@@ -1491,235 +1401,139 @@ def gdp_vs_co2_growth():
 # =====================================================================
 # Figure: Growth decomposition — Canada vs USA (total GDP, 3 periods)
 # =====================================================================
+# Same capital share in growth and development accounting.
+ACCOUNTING_ALPHA = 1 / 3
+
+
+def _growth_accounting(country, start, end, per_capita=True):
+    """Annual log growth contributions from PWT 11.0, in percentage points.
+
+    Growth uses rgdpna (national-accounts real GDP), rkna (capital services at constant national prices),
+    emp (persons engaged), and pop (total population). PTF is the residual
+    from Y = A K^alpha L^(1-alpha), with the same A in both decompositions.
+    """
+    data = _load_pwt()
+    rows = data.loc[data['countrycode'].eq(country)].set_index('year')
+    columns = ['rgdpna', 'rkna', 'emp', 'pop']
+    endpoints = rows.loc[[start, end], columns].astype(float)
+    if not np.isfinite(endpoints.to_numpy()).all() or (endpoints <= 0).any().any():
+        raise ValueError(f'Invalid PWT endpoints: {country}, {start}--{end}')
+    growth = np.log(endpoints.loc[end] / endpoints.loc[start]) * 100 / (end - start)
+    alpha = ACCOUNTING_ALPHA
+    productivity = growth['rgdpna'] - alpha * growth['rkna'] - (1 - alpha) * growth['emp']
+    if per_capita:
+        output = growth['rgdpna'] - growth['pop']
+        capital = alpha * (growth['rkna'] - growth['emp'])
+        labor = growth['emp'] - growth['pop']
+    else:
+        output = growth['rgdpna']
+        capital = alpha * growth['rkna']
+        labor = (1 - alpha) * growth['emp']
+    components = np.array([productivity, capital, labor])
+    if not np.isclose(components.sum(), output, atol=1e-10, rtol=0):
+        raise ValueError('Growth contributions do not sum to output growth')
+    return components
+
+
+
+def _stack_growth_components(ax, x, values, width, labels=None):
+    """Stack positive and negative contributions separately; return bar tops."""
+    positive = np.zeros(len(x))
+    negative = np.zeros(len(x))
+    for i, color in enumerate(palette[:3]):
+        contribution = values[:, i]
+        bottom = np.where(contribution >= 0, positive, negative)
+        ax.bar(x, contribution, width, bottom=bottom, color=color,
+               label=labels[i] if labels is not None else None)
+        positive += np.maximum(contribution, 0)
+        negative += np.minimum(contribution, 0)
+    return positive
+
+
+def _plot_canada_us_accounting(per_capita):
+    periods = [('1970--1990', 1970, 1990),
+               ('1990--2007', 1990, 2007),
+               ('2007--2023', 2007, PWT_END_YEAR)]
+    x = np.arange(len(periods))
+    width, gap = 0.35, 0.03
+    labels = (['PTF', 'Capital par travailleur', 'Emploi/population'] if per_capita
+              else ['PTF', 'Capital', 'Travail'])
+    fig, ax = new_figure(9, 4.5)
+    for i, (country, label) in enumerate([('CAN', 'Canada'), ('USA', r'É.-U.')]):
+        values = np.array([_growth_accounting(country, start, end, per_capita)
+                           for _, start, end in periods])
+        positions = x + (2 * i - 1) * (width + gap) / 2
+        tops = _stack_growth_components(ax, positions, values, width,
+                                        labels=labels if i == 0 else None)
+        for position, top in zip(positions, tops):
+            ax.text(position, top + 0.04, label, ha='center', fontsize=10,
+                    fontweight='bold', color=palette[7])
+
+    ax.set_xticks(x)
+    ax.set_xticklabels([p[0] for p in periods], fontsize=13)
+    ylabel = ('Croissance du PIB/hab. (pp/an)' if per_capita
+              else 'Croissance du PIB (pp/an)')
+    ax.set_ylabel(ylabel, fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    lower, upper = (-0.5, 2.5) if per_capita else (-0.5, 3.5)
+    ticks = np.arange(lower, upper + 0.25, 0.5)
+    ax.set_ylim(lower, upper)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{y:g}'.replace('.', ',') for y in ticks], fontsize=12)
+    ax.axhline(0, color='black', linewidth=0.5)
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper right')
+    add_source(ax, 'Source : Penn World Table 11.0')
+    filename = ('growth_decomp_canada_us.pdf' if per_capita
+                else 'growth_decomp_canada_us_total.pdf')
+    save(fig, filename)
+
+
+
 def growth_decomp_canada_us_total():
     print('Figure: Growth decomposition — Canada vs USA (total GDP)')
-
-    # Computed from PWT 10.01: %ΔY ≈ %ΔA + α·%ΔK + (1-α)·%ΔL, α=0.3
-    periods = ['1970--1990', '1990--2007', '2007--2019']
-    data = {
-        'CAN_A':  [0.15, 0.58, 0.12],
-        'CAN_K':  [1.39, 1.09, 0.79],
-        'CAN_L':  [1.71, 1.01, 0.75],
-        'US_A':   [0.81, 1.23, 0.62],
-        'US_K':   [1.07, 1.07, 0.60],
-        'US_L':   [1.31, 0.72, 0.46],
-    }
-
-    x = np.arange(len(periods))
-    width = 0.35
-    gap = 0.03
-
-    fig, ax = new_figure(9, 4.5)
-
-    def stack_bars(ax, xpos, a_vals, k_vals, l_vals, w, label=False):
-        ax.bar(xpos, a_vals, w, color=palette[0],
-               label='PTF' if label else None)
-        ax.bar(xpos, k_vals, w, bottom=a_vals, color=palette[1],
-               label='Capital' if label else None)
-        ak_bottom = [a + k for a, k in zip(a_vals, k_vals)]
-        ax.bar(xpos, l_vals, w, bottom=ak_bottom, color=palette[2],
-               label='Travail' if label else None)
-
-    stack_bars(ax, x - width/2 - gap/2,
-               data['CAN_A'], data['CAN_K'], data['CAN_L'], width, label=True)
-    stack_bars(ax, x + width/2 + gap/2,
-               data['US_A'], data['US_K'], data['US_L'], width)
-
-    # Country labels
-    for i in range(len(periods)):
-        can_top = data['CAN_A'][i] + data['CAN_K'][i] + data['CAN_L'][i]
-        us_top = data['US_A'][i] + data['US_K'][i] + data['US_L'][i]
-        ax.text(i - width/2 - gap/2, can_top + 0.04, 'Canada',
-                ha='center', fontsize=10, fontweight='bold', color=palette[7])
-        ax.text(i + width/2 + gap/2, us_top + 0.04, r"É.-U.",
-                ha='center', fontsize=10, fontweight='bold', color=palette[7])
-
-    ax.set_xticks(x)
-    ax.set_xticklabels(periods, fontsize=13)
-    ax.set_ylabel(r"Croissance du PIB (pp, moy. annuelle)",
-                  fontsize=11, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 3.5)
-    yticks = [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5]
-    ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{y:.1f}' + r'\%' for y in yticks], fontsize=12)
-    ax.axhline(y=0, color='black', linewidth=0.5)
-
-    style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper right',
-              bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_canada_us_total.pdf')
+    _plot_canada_us_accounting(per_capita=False)
 
 
 # =====================================================================
-# Figure: Growth decomposition — Canada vs USA (per-capita, K/Y version)
+# Figure: Growth decomposition — Canada vs USA (per-capita, K/L)
 # =====================================================================
 def growth_decomp_canada_us():
-    print('Figure: Growth decomposition — Canada vs USA (per capita, K/Y)')
-
-    # K/Y decomposition: Y/N = A^{1/(1-α)} · (K/Y)^{α/(1-α)} · (L/N)
-    # Growth: %Δ(Y/N) = 1.5·%ΔA + 0.5·%Δ(K/Y) + %Δ(L/N)
-    df = _load_pwt()
-    alpha = 1 / 3
-    amp_ky = alpha / (1 - alpha)       # 0.5
-
-    period_defs = [('1970--1990', 1970, 1990),
-                   ('1990--2007', 1990, 2007),
-                   ('2007--2019', 2007, 2019)]
-
-    results = {}
-    for code, key in [('CAN', 'CAN'), ('USA', 'US')]:
-        c = df[df['countrycode'] == code].set_index('year')
-        A_vals, KY_vals, LN_vals = [], [], []
-        for _, y0, y1 in period_defs:
-            T = y1 - y0
-            yn0 = c.loc[y0, 'rgdpna'] / c.loc[y0, 'pop']
-            yn1 = c.loc[y1, 'rgdpna'] / c.loc[y1, 'pop']
-            ky0 = c.loc[y0, 'rkna'] / c.loc[y0, 'rgdpna']
-            ky1 = c.loc[y1, 'rkna'] / c.loc[y1, 'rgdpna']
-            ln0 = c.loc[y0, 'emp'] / c.loc[y0, 'pop']
-            ln1 = c.loc[y1, 'emp'] / c.loc[y1, 'pop']
-
-            g_yn = ((yn1 / yn0) ** (1 / T) - 1) * 100
-            g_ky = ((ky1 / ky0) ** (1 / T) - 1) * 100
-            g_ln = ((ln1 / ln0) ** (1 / T) - 1) * 100
-
-            ky_contrib = amp_ky * g_ky
-            ln_contrib = g_ln
-            a_contrib = g_yn - ky_contrib - ln_contrib
-
-            A_vals.append(a_contrib)
-            KY_vals.append(ky_contrib)
-            LN_vals.append(ln_contrib)
-
-        results[f'{key}_A'] = A_vals
-        results[f'{key}_KY'] = KY_vals
-        results[f'{key}_LN'] = LN_vals
-
-    x = np.arange(len(period_defs))
-    period_labels = [p[0] for p in period_defs]
-    width = 0.35
-    gap = 0.03
-
-    fig, ax = new_figure(9, 4.5)
-
-    def stack_bars(ax, xpos, a_vals, ky_vals, ln_vals, w, label=False):
-        ax.bar(xpos, a_vals, w, color=palette[0],
-               label='$A$' if label else None)
-        ax.bar(xpos, ky_vals, w, bottom=a_vals, color=palette[1],
-               label='$K/Y$' if label else None)
-        ln_pos = [max(0, v) for v in ln_vals]
-        ln_neg = [min(0, v) for v in ln_vals]
-        pos_bottom = [a + k for a, k in zip(a_vals, ky_vals)]
-        ax.bar(xpos, ln_pos, w, bottom=pos_bottom, color=palette[2],
-               label='$L/N$' if label else None)
-        ax.bar(xpos, ln_neg, w, color=palette[2])
-
-    stack_bars(ax, x - width/2 - gap/2,
-               results['CAN_A'], results['CAN_KY'], results['CAN_LN'],
-               width, label=True)
-    stack_bars(ax, x + width/2 + gap/2,
-               results['US_A'], results['US_KY'], results['US_LN'], width)
-
-    for i in range(len(period_defs)):
-        can_top = (results['CAN_A'][i] + results['CAN_KY'][i]
-                   + max(0, results['CAN_LN'][i]))
-        us_top = (results['US_A'][i] + results['US_KY'][i]
-                  + max(0, results['US_LN'][i]))
-        ax.text(i - width/2 - gap/2, can_top + 0.04, 'Canada',
-                ha='center', fontsize=10, fontweight='bold', color=palette[7])
-        ax.text(i + width/2 + gap/2, us_top + 0.04, r"É.-U.",
-                ha='center', fontsize=10, fontweight='bold', color=palette[7])
-
-    ax.set_xticks(x)
-    ax.set_xticklabels(period_labels, fontsize=13)
-    ax.set_ylabel(r"Croissance du PIB/hab. (pp, moy. annuelle)",
-                  fontsize=11, rotation=0, ha='left')
-    ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(-0.25, 2.5)
-    yticks = [0, 0.5, 1.0, 1.5, 2.0, 2.5]
-    ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{y:.1f}' + r'\%' for y in yticks], fontsize=12)
-    ax.axhline(y=0, color='black', linewidth=0.5)
-
-    style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper right',
-              bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, 'Source: Penn World Tables 10.01')
-    save(fig, 'growth_decomp_canada_us.pdf')
+    print('Figure: Growth decomposition — Canada vs USA (per capita, K/L)')
+    _plot_canada_us_accounting(per_capita=True)
 
 
 # =====================================================================
-# Figure: Growth decomposition — Asian tigers (per-capita, K/Y, 1970–1990)
+# Figure: Growth decomposition — Asian tigers (per-capita, K/L, 1970–1990)
 # =====================================================================
 def growth_decomp_asian_tigers():
-    print('Figure: Growth decomposition — Asian tigers (per capita, 1970-1990, K/Y)')
-
-    # K/Y decomposition: %Δ(Y/N) = 1.5·%ΔA + 0.5·%Δ(K/Y) + %Δ(L/N)
-    df = _load_pwt()
-    alpha = 1 / 3
-    amp_ky = alpha / (1 - alpha)
-
-    codes = [('USA', r"É.-U."), ('HKG', 'Hong Kong'),
-             ('KOR', r"Corée du S."), ('SGP', 'Singapour'),
-             ('TWN', 'Taïwan')]
-    y0, y1, T = 1970, 1990, 20
-
-    A_vals, KY_vals, LN_vals, labels = [], [], [], []
-    for code, label in codes:
-        c = df[df['countrycode'] == code].set_index('year')
-        yn0 = c.loc[y0, 'rgdpna'] / c.loc[y0, 'pop']
-        yn1 = c.loc[y1, 'rgdpna'] / c.loc[y1, 'pop']
-        ky0 = c.loc[y0, 'rkna'] / c.loc[y0, 'rgdpna']
-        ky1 = c.loc[y1, 'rkna'] / c.loc[y1, 'rgdpna']
-        ln0 = c.loc[y0, 'emp'] / c.loc[y0, 'pop']
-        ln1 = c.loc[y1, 'emp'] / c.loc[y1, 'pop']
-
-        g_yn = ((yn1 / yn0) ** (1 / T) - 1) * 100
-        g_ky = ((ky1 / ky0) ** (1 / T) - 1) * 100
-        g_ln = ((ln1 / ln0) ** (1 / T) - 1) * 100
-
-        ky_contrib = amp_ky * g_ky
-        ln_contrib = g_ln
-        a_contrib = g_yn - ky_contrib - ln_contrib
-
-        A_vals.append(a_contrib)
-        KY_vals.append(ky_contrib)
-        LN_vals.append(ln_contrib)
-        labels.append(label)
-
-    x = np.arange(len(codes))
-    width = 0.55
-
+    print('Figure: Growth decomposition — Asian tigers (per capita, 1970--1990, K/L)')
+    countries = [('USA', r'É.-U.'), ('HKG', 'Hong Kong'),
+                 ('KOR', r'Corée du S.'), ('SGP', 'Singapour'), ('TWN', 'Taïwan')]
+    values = np.array([_growth_accounting(country, 1970, 1990)
+                       for country, _ in countries])
+    x = np.arange(len(countries))
     fig, ax = new_figure(9, 4.5)
-
-    ax.bar(x, A_vals, width, label='PTF', color=palette[0])
-    ax.bar(x, KY_vals, width, bottom=A_vals, label='Capital', color=palette[1])
-    ak_bottom = [a + k for a, k in zip(A_vals, KY_vals)]
-    ax.bar(x, LN_vals, width, bottom=ak_bottom, label='Travail', color=palette[2])
-
-    for i in range(len(codes)):
-        total = A_vals[i] + KY_vals[i] + LN_vals[i]
-        ax.text(i, total + 0.1, f'{total:.1f}' + r'\%',
-                ha='center', fontsize=11, fontweight='bold')
-
+    tops = _stack_growth_components(
+        ax, x, values, 0.55, ['PTF', 'Capital par travailleur', 'Emploi/population'])
+    for position, top, total in zip(x, tops, values.sum(axis=1)):
+        label = f'{total:.1f}'.replace('.', ',') + r'\%'
+        ax.text(position, top + 0.1, label, ha='center', fontsize=11,
+                fontweight='bold')
     ax.set_xticks(x)
-    ax.set_xticklabels(labels, fontsize=12)
-    ax.set_ylabel(r"Croissance du PIB/hab. (pp, moy. annuelle)",
-                  fontsize=11, rotation=0, ha='left')
+    ax.set_xticklabels([label for _, label in countries], fontsize=12)
+    ax.set_ylabel('Croissance du PIB/hab. (pp/an)', fontsize=11,
+                  rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 9)
-    yticks = range(0, 10, 2)
-    ax.set_yticks(yticks)
-    ax.set_yticklabels([f'{y}' + r'\%' for y in yticks], fontsize=12)
-    ax.axhline(y=0, color='black', linewidth=0.5)
-
+    ax.set_ylim(0, 10)
+    ax.set_yticks(range(0, 11, 2))
+    ax.set_yticklabels(range(0, 11, 2), fontsize=12)
+    ax.axhline(0, color='black', linewidth=0.5)
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=11, loc='upper left',
-              bbox_to_anchor=(0.0, 1.0))
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source : Penn World Table 11.0')
     save(fig, 'growth_decomp_asian_tigers.pdf')
+
 
 
 def growth_decomp_asian_tigers_comparison():
@@ -1831,8 +1645,9 @@ def growth_decomp_asian_tigers_comparison():
     ax.legend(handles=legend_elements, frameon=False, fontsize=11,
               loc='upper left', bbox_to_anchor=(0.0, 1.0))
 
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    add_source(ax, 'Source : Penn World Table 11.0')
     save(fig, 'growth_decomp_asian_tigers_comparison.pdf')
+
 
 
 # =====================================================================
@@ -1859,11 +1674,11 @@ def catchup_growth():
 
     for code, start, label, color in countries:
         c = df[df['countrycode'] == code].set_index('year')['y']
-        years = range(start, 2020)
+        years = range(start, PWT_END_YEAR + 1)
         ratio = [c.loc[yr] / usa.loc[yr] for yr in years]
         ax.plot(range(len(ratio)), ratio, color=color, label=label, linewidth=2)
 
-    ax.set_xlim(0, 60)
+    ax.set_xlim(0, PWT_END_YEAR - min(c[1] for c in countries))
     ax.set_xticks(range(0, 61, 10))
     ax.set_xticklabels(range(0, 61, 10), fontsize=12)
     ax.set_xlabel(r"Années depuis le début de la croissance rapide",
@@ -1871,22 +1686,23 @@ def catchup_growth():
     ax.xaxis.set_label_coords(0.5, -0.1)
 
     ax.set_yscale('log', base=2)
-    ax.set_ylim(1 / 32, 1.5)
-    ax.set_yticks([2**x for x in range(-5, 1)])
-    ax.set_yticklabels(['1/' + str(2**x) for x in range(5, 0, -1)] + ['1'],
+    ax.set_ylim(1 / 64, 2)
+    ax.set_yticks([2**x for x in range(-6, 2)])
+    ax.set_yticklabels(['1/' + str(2**x) for x in range(6, 0, -1)] + ['1', '2'],
                        fontsize=12)
     ax.set_ylabel(r"PIB réel par habitant relatif aux É.-U.",
                   fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=12)
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    ax.legend(frameon=False, fontsize=11, loc='lower right')
+    add_source(ax, 'Source : PWT 11.0 (jusqu’en 2023)')
     save(fig, 'catchup_growth.pdf')
 
 
+
 # =====================================================================
-# Figure: Miracle vs stagnation — GDP/cap relative to US (1960–2019)
+# Figure: Miracle vs stagnation — GDP/cap relative to US (1960–2023)
 # =====================================================================
 def miracle_vs_stagnation():
     print('Figure: Miracle vs stagnation — GDP/cap relative to US')
@@ -1912,24 +1728,25 @@ def miracle_vs_stagnation():
     for code, label, color in miracles:
         c = df[df['countrycode'] == code].set_index('year')['y']
         common = sorted(set(c.index) & set(usa.index))
-        common = [yr for yr in common if 1960 <= yr <= 2019]
+        common = [yr for yr in common if 1960 <= yr <= PWT_END_YEAR]
         ratio = [c.loc[yr] / usa.loc[yr] for yr in common]
         ax.plot(common, ratio, color=color, linewidth=2.5, label=label)
 
     for code, label, color in stagnation:
         c = df[df['countrycode'] == code].set_index('year')['y']
         common = sorted(set(c.index) & set(usa.index))
-        common = [yr for yr in common if 1960 <= yr <= 2019]
+        common = [yr for yr in common if 1960 <= yr <= PWT_END_YEAR]
         ratio = [c.loc[yr] / usa.loc[yr] for yr in common]
         ax.plot(common, ratio, color=color, linewidth=1.8,
                 linestyle='--', label=label)
 
-    ax.set_xlim(1960, 2019)
-    ax.set_xticks(range(1960, 2020, 10))
-    ax.set_xticklabels(range(1960, 2020, 10), fontsize=12)
+    ax.set_xlim(1960, PWT_END_YEAR)
+    ticks = list(range(1960, 2020, 10)) + [PWT_END_YEAR]
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(ticks, fontsize=12)
 
     ax.set_yscale('log', base=2)
-    ax.set_ylim(1 / 128, 1.5)
+    ax.set_ylim(1 / 128, 2)
     ytick_vals = [1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1]
     ax.set_yticks(ytick_vals)
     ax.set_yticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1'],
@@ -1941,117 +1758,116 @@ def miracle_vs_stagnation():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0), ncol=2)
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    add_source(ax, 'Source : Penn World Table 11.0')
     save(fig, 'miracle_vs_stagnation.pdf')
 
 
+
 # =====================================================================
-# Development accounting scatter plots (K/Y, L/N, A vs Y/N)
+# Development accounting scatter plots ((K/L)^alpha, L/N, A vs Y/N)
 # =====================================================================
 _dev_acct_cache = None
 
 
 def _dev_accounting_data():
-    """Compute development accounting ratios relative to US (2019)."""
+    """2023 components of Y/N = A (K/L)^alpha (L/N), relative to the US.
+
+    Retain the original cross-country inputs: PWT rgdpo (output-side GDP
+    at chained PPPs), cn (PPP capital stock), emp, and pop. The capital
+    component includes alpha; the productivity component is unamplified A.
+    Exclude country-years flagged by PWT (i_outlier == 1), consistently
+    across all three components; no ad hoc value or country exclusions.
+    """
     global _dev_acct_cache
     if _dev_acct_cache is not None:
         return _dev_acct_cache
-
-    df = _load_pwt()
-    df = df[df['year'] == 2019].copy()
-    alpha = 1 / 3
-
-    usa = df[df['countrycode'] == 'USA'].iloc[0]
-    yn_usa = usa['rgdpo'] / usa['pop']
-    ky_usa = (usa['cn'] / usa['rgdpo']) ** (alpha / (1 - alpha))
-    ln_usa = usa['emp'] / usa['pop']
-    a_usa = yn_usa / (ky_usa * ln_usa)
-
-    records = []
-    for _, row in df.iterrows():
-        try:
-            yn = row['rgdpo'] / row['pop']
-            ky = (row['cn'] / row['rgdpo']) ** (alpha / (1 - alpha))
-            ln = row['emp'] / row['pop']
-            a = yn / (ky * ln)
-            records.append({
-                'country': row['countrycode'],
-                'yn_ratio': yn / yn_usa,
-                'ky_ratio': ky / ky_usa,
-                'ln_ratio': ln / ln_usa,
-                'a_ratio': a / a_usa,
-            })
-        except (ZeroDivisionError, ValueError):
-            continue
-
-    _dev_acct_cache = pd.DataFrame(records).dropna()
+    data = _load_pwt()
+    columns = ['rgdpo', 'cn', 'emp', 'pop']
+    data = data.loc[data['year'].eq(PWT_END_YEAR), ['countrycode', 'i_outlier'] + columns].copy()
+    data[columns] = data[columns].astype(float)
+    valid = np.isfinite(data[columns]).all(axis=1) & (data[columns] > 0).all(axis=1)
+    # read_stata may decode the numeric flag into its categorical label.
+    regular = data['i_outlier'].isin([0, 'Regular'])
+    data = data.loc[valid & regular].set_index('countrycode')
+    output = data['rgdpo'] / data['pop']
+    capital = (data['cn'] / data['emp']) ** ACCOUNTING_ALPHA
+    employment = data['emp'] / data['pop']
+    productivity = output / (capital * employment)
+    components = pd.DataFrame({
+        'yn_ratio': output / output.loc['USA'],
+        'kl_ratio': capital / capital.loc['USA'],
+        'ln_ratio': employment / employment.loc['USA'],
+        'a_ratio': productivity / productivity.loc['USA'],
+    })
+    if not np.allclose(components['yn_ratio'],
+                       components['kl_ratio'] * components['ln_ratio'] * components['a_ratio'],
+                       atol=1e-12, rtol=1e-12):
+        raise ValueError('Development accounting components do not reproduce relative output')
+    _dev_acct_cache = components.rename_axis('country').reset_index()
     return _dev_acct_cache
 
 
-def _dev_accounting_scatter(data, y_col, ylabel, filename, ylim_top=4):
-    """Generic scatter plot for development accounting."""
+
+def _dev_accounting_scatter(data, y_col, ylabel, filename):
+    """Common log axes covering all unflagged 2023 country observations."""
     fig, ax = new_figure(8, 4)
-
-    ax.scatter(data['yn_ratio'], data[y_col], s=50, color=palette[0],
-               alpha=0.7)
-    ax.plot([1 / 90, ylim_top], [1 / 90, ylim_top], color=palette[1],
-            linewidth=1)
-
+    ax.scatter(data['yn_ratio'], data[y_col], s=50, color=palette[0], alpha=0.7)
+    # One-for-one reference line; no causal or fitted interpretation.
+    ax.plot([1 / 128, 2], [1 / 128, 2], color=palette[1], linewidth=1)
     ax.set_xscale('log', base=2)
-    ax.set_xlim(1 / 90, 2)
-    ax.set_xticks([1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2])
-    ax.set_xticklabels(['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
-                       fontsize=12)
-    ax.set_xlabel(r"PIB réel par habitant relatif aux É.-U. (2019)",
-                  fontsize=12, ha='center')
+    ax.set_xlim(1 / 128, 2)
+    ax.set_xticks([1 / 128, 1 / 64, 1 / 32, 1 / 16, 1 / 8, 1 / 4, 1 / 2, 1, 2])
+    ax.set_xticklabels(['1/128', '1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'], fontsize=12)
+    ax.set_xlabel(r'PIB réel par habitant relatif aux É.-U. (2023)', fontsize=12)
     ax.xaxis.set_label_coords(0.5, -0.1)
-
     ax.set_yscale('log', base=2)
-    ax.set_ylim(1 / 90, ylim_top)
-    if ylim_top <= 2:
-        yticks = [1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2]
-        ylabels = ['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2']
-    else:
-        yticks = [1/64, 1/32, 1/16, 1/8, 1/4, 1/2, 1, 2, 4]
-        ylabels = ['1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2', '4']
-    ax.set_yticks(yticks)
-    ax.set_yticklabels(ylabels, fontsize=12)
+    ax.set_ylim(1 / 128, 2)
+    ax.set_yticks([1 / 128, 1 / 64, 1 / 32, 1 / 16, 1 / 8, 1 / 4, 1 / 2, 1, 2])
+    ax.set_yticklabels(['1/128', '1/64', '1/32', '1/16', '1/8', '1/4', '1/2', '1', '2'],
+                       fontsize=12)
     ax.set_ylabel(ylabel, fontsize=12, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.01)
-
+    if not (data['yn_ratio'].between(*ax.get_xlim()).all()
+            and data[y_col].between(*ax.get_ylim()).all()):
+        raise ValueError(f'Accounting plot would clip countries: {filename}')
     style_axes(ax)
-    add_source(ax, 'Source: Penn World Tables 10.01')
+    add_source(ax, 'Source : PWT 11.0 (hors valeurs aberrantes signalées)')
     save(fig, filename)
 
 
+
 def development_accounting_capital():
-    print('Figure: Development accounting — capital (K/Y)')
-    data = _dev_accounting_data()
-    _dev_accounting_scatter(
-        data, 'ky_ratio',
-        r"Ratio capital/PIB relatif aux É.-U.",
-        'development_accounting_capital.pdf',
-        ylim_top=4)
+    print('Figure: development_accounting_capital')
+    _dev_accounting_scatter(_dev_accounting_data(), 'kl_ratio',
+                            r'Composante capital (É.-U. = 1)', 'development_accounting_capital.pdf')
 
 
 def development_accounting_labor():
-    print('Figure: Development accounting — labor (L/N)')
-    data = _dev_accounting_data()
-    _dev_accounting_scatter(
-        data, 'ln_ratio',
-        r"Taux d'emploi relatif aux É.-U.",
-        'development_accounting_labor.pdf',
-        ylim_top=2)
+    print('Figure: development_accounting_labor')
+    _dev_accounting_scatter(_dev_accounting_data(), 'ln_ratio',
+                            r'Emploi/population (É.-U. = 1)', 'development_accounting_labor.pdf')
 
 
 def development_accounting_tfp():
-    print('Figure: Development accounting — TFP (A)')
-    data = _dev_accounting_data()
-    _dev_accounting_scatter(
-        data, 'a_ratio',
-        r"PTF relative aux É.-U.",
-        'development_accounting_tfp.pdf',
-        ylim_top=2)
+    print('Figure: development_accounting_tfp')
+    _dev_accounting_scatter(_dev_accounting_data(), 'a_ratio',
+                            r'PTF (É.-U. = 1)', 'development_accounting_tfp.pdf')
+
+
+def development_accounting_human_capital():
+    """PWT schooling-based human-capital index, with the same output axis."""
+    print('Figure: development_accounting_human_capital')
+    data = _load_pwt()
+    data = data.loc[data['year'].eq(PWT_END_YEAR)].set_index('countrycode')
+    cols = ['rgdpo', 'pop', 'hc']
+    valid = np.isfinite(data[cols]).all(axis=1) & (data[cols] > 0).all(axis=1)
+    data = data.loc[valid & data['i_outlier'].isin([0, 'Regular'])]
+    output = data['rgdpo'] / data['pop']
+    plot_data = pd.DataFrame({'yn_ratio': output / output.loc['USA'],
+                              'hc_ratio': data['hc'] / data.loc['USA', 'hc']})
+    _dev_accounting_scatter(plot_data, 'hc_ratio',
+                            r'Capital humain (É.-U. = 1)',
+                            'development_accounting_human_capital.pdf')
 
 
 # =====================================================================
@@ -2522,6 +2338,248 @@ def business_entry_delays():
     save(fig, 'business_entry_delays.pdf')
 
 
+# PWT illustrations reused from Session 3, regenerated within Session 2.
+def zimbabwe_botswana():
+    """GDP per capita comparison: institutions matter."""
+    print('Figure 13: Zimbabwe vs Botswana')
+
+    pwt = _load_pwt()
+
+    pwt = pwt.loc[pwt['year'].between(1960, PWT_END_YEAR)]
+    zwe = pwt[pwt['countrycode'] == 'ZWE'].set_index('year')['rgdpo'] / \
+          pwt[pwt['countrycode'] == 'ZWE'].set_index('year')['pop']
+    bwa = pwt[pwt['countrycode'] == 'BWA'].set_index('year')['rgdpo'] / \
+          pwt[pwt['countrycode'] == 'BWA'].set_index('year')['pop']
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.plot(zwe.index, zwe.values, color=palette[0], linewidth=2.5,
+            label='Zimbabwe')
+    ax.plot(bwa.index, bwa.values, color=palette[1], linewidth=2.5,
+            label='Botswana')
+
+    ax.set_xlim(1960, PWT_END_YEAR)
+    ticks = list(range(1960, 2020, 10)) + [PWT_END_YEAR]
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(ticks, fontsize=11)
+    ax.set_ylabel(r"PIB/hab. (PPA, \$US 2021)", fontsize=11,
+                  rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    upper = int(np.ceil(max(zwe.max(), bwa.max()) / 5000) * 5000)
+    ax.set_ylim(0, upper)
+    ax.set_yticks(range(0, upper + 1, 5000))
+    ax.set_yticklabels([f'{y:,}'.replace(',', r'\,') for y in range(0, upper + 1, 5000)],
+                       fontsize=11)
+
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source : Penn World Table 11.0')
+    save(fig, 'zimbabwe_botswana.pdf')
+
+def tropics_map():
+    """World choropleth: GDP/capita in 3 tiers + tropic lines."""
+    print('Figure 16: Tropics map')
+
+    import geopandas as gpd
+    from matplotlib.colors import ListedColormap
+
+    # ── Load geometries (Natural Earth 110m) ─────────────────────────
+    world = gpd.read_file(
+        PWT_PATH.parent / 'ne_110m_admin_0_countries.zip')
+    world = world[world['NAME'] != 'Antarctica']
+
+    # ── Load PWT 11.0 for GDP per capita ────────────────────────────
+    pwt = _load_pwt()
+    pwt = pwt[pwt['year'].eq(PWT_END_YEAR) & pwt['i_outlier'].isin([0, 'Regular'])].copy()
+    pwt['gdp_pc'] = pwt['cgdpo'] / pwt['pop']
+    pwt = pwt[['countrycode', 'gdp_pc']].dropna()
+
+    # ── Merge (ISO_A3 ↔ countrycode) ────────────────────────────────
+    # Natural Earth uses -99 for missing ISO codes; also try ISO_A3_EH
+    world['iso'] = world['ISO_A3'].where(
+        world['ISO_A3'] != '-99', world['ISO_A3_EH'])
+    world = world.merge(pwt, left_on='iso', right_on='countrycode',
+                        how='left')
+
+    # ── Classify into terciles ──────────────────────────────────────
+    valid = world['gdp_pc'].dropna()
+    t1 = valid.quantile(1 / 3)
+    t2 = valid.quantile(2 / 3)
+    world['tier'] = pd.cut(
+        world['gdp_pc'], bins=[-np.inf, t1, t2, np.inf],
+        labels=[0, 1, 2])
+    world['tier'] = world['tier'].astype(float)  # NaN for missing data
+
+    # ── Colours: coral (poor), yellow (mid), green (rich) ─────────────
+    cmap = ListedColormap([palette[2], palette[3], palette[1]])
+
+    # ── Plot ─────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(10, 5))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+
+    # Countries with data
+    world[world['tier'].notna()].plot(
+        column='tier', cmap=cmap, ax=ax, linewidth=0.3,
+        edgecolor='black')
+    # Countries without data: light gray
+    world[world['tier'].isna()].plot(
+        ax=ax, color='#d9d9d9', linewidth=0.3, edgecolor='black')
+
+    # ── Tropic lines ────────────────────────────────────────────────
+    for lat, label in [(23.4364, r'Tropique du Cancer'),
+                       (-23.4364, r'Tropique du Capricorne')]:
+        ax.axhline(lat, color='black', linewidth=0.8, linestyle='--',
+                   zorder=4)
+
+    # ── Equator (subtle) ────────────────────────────────────────────
+    ax.axhline(0, color='black', linewidth=0.4, linestyle=':', zorder=4)
+
+    # ── Legend ───────────────────────────────────────────────────────
+    from matplotlib.patches import Patch
+    legend_items = [
+        Patch(facecolor=palette[1], edgecolor='white',
+              label=r'PIB/hab. élevé'),
+        Patch(facecolor=palette[3], edgecolor='white',
+              label=r'PIB/hab. moyen'),
+        Patch(facecolor=palette[2], edgecolor='white',
+              label=r'PIB/hab. faible'),
+    ]
+    ax.legend(handles=legend_items, loc='lower left',
+              fontsize=9, frameon=False,
+              bbox_to_anchor=(0.0, -0.02))
+
+    # ── Clean up axes ───────────────────────────────────────────────
+    ax.set_xlim(-180, 180)
+    ax.set_ylim(-60, 85)
+    ax.axis('off')
+
+    add_source(ax, 'Source : Penn World Table 11.0 (2023)')
+    save(fig, 'tropics.pdf')
+
+def digital_adoption_index():
+    """Scatter: DAI vs real GDP per capita (log scale)."""
+    print('Figure 16: Digital Adoption Index vs GDP/capita')
+
+    # Load PWT 11.0 for real GDP per capita (2016)
+    pwt = _load_pwt()
+    pwt = pwt[pwt['year'].eq(2016) & pwt['i_outlier'].isin([0, 'Regular'])].copy()
+    pwt['rgdpe_pc'] = pwt['rgdpe'] / pwt['pop']
+
+    # Load DAI data
+    dai = pd.read_excel(
+        PWT_PATH.parent / 'DAIforweb.xlsx'
+    ).rename(columns={'Year': 'year'})
+    dai = dai.loc[dai['year'] == 2016, ['country', 'Digital Adoption Index']].copy()
+    names = _load_pwt()[['country', 'countrycode']].drop_duplicates().set_index('country')['countrycode'].to_dict()
+    # World Bank and UN/PWT country-name variants; match by ISO3 afterward.
+    names.update({'Bahamas, The': 'BHS', 'Bolivia': 'BOL', 'Congo, Dem. Rep.': 'COD',
+                  'Congo, Rep.': 'COG', 'Czech Republic': 'CZE', 'Egypt, Arab Rep.': 'EGY',
+                  'Gambia, The': 'GMB', 'Hong Kong SAR, China': 'HKG', 'Iran, Islamic Rep.': 'IRN',
+                  'Korea, Rep.': 'KOR', 'Kyrgyz Republic': 'KGZ', 'Lao PDR': 'LAO',
+                  'Macao SAR, China': 'MAC', 'Macedonia, FYR': 'MKD', 'Moldova': 'MDA',
+                  'Slovak Republic': 'SVK', 'St. Kitts and Nevis': 'KNA', 'St. Lucia': 'LCA',
+                  'Swaziland': 'SWZ', 'Tanzania': 'TZA', 'Turkey': 'TUR', 'Venezuela, RB': 'VEN',
+                  'Vietnam': 'VNM', 'West Bank and Gaza': 'PSE', 'Yemen, Rep.': 'YEM'})
+    dai['countrycode'] = dai['country'].map(names)
+
+    # Merge
+    df = pwt.merge(dai[['countrycode', 'Digital Adoption Index']].dropna(subset=['countrycode']), on='countrycode', validate='one_to_one').dropna(subset=['rgdpe_pc', 'Digital Adoption Index'])
+
+    fig, ax = new_figure(9, 4.5)
+
+    ax.scatter(df['rgdpe_pc'], df['Digital Adoption Index'],
+               s=70, color=palette[0], alpha=0.7, edgecolors='black',
+               linewidths=0.3, zorder=3)
+
+    # X-axis: log scale
+    ax.set_xscale('log')
+    ax.set_xlim(500, max(150000, df['rgdpe_pc'].max() * 1.1))
+    ax.set_xticks([1e3, 1e4, 1e5])
+    ax.set_xticklabels([r'\$1\,000', r'\$10\,000', r'\$100\,000'],
+                       fontsize=11)
+    ax.set_xlabel(r"PIB/hab. (PPA, \$US 2021; données 2016)", fontsize=11)
+
+    # Y-axis
+    ax.set_ylim(0, 1)
+    ax.set_yticks(np.arange(0, 1.01, 0.2))
+    ax.set_yticklabels([f'{x:.1f}'.replace('.', ',') for x in np.arange(0, 1.01, 0.2)],
+                       fontsize=11)
+    ax.set_ylabel(r"Indice d'adoption numérique",
+                  fontsize=11, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+
+    style_axes(ax)
+    add_source(ax, 'Source : Banque mondiale / PWT 11.0 (2016)')
+    save(fig, 'dai.pdf')
+
+
+# =====================================================================
+# US labor productivity and utilization-adjusted TFP (same Fernald vintage)
+# =====================================================================
+def us_labor_productivity_tfp():
+    """Rebase annualized log growth to 2022Q4=100; no mixed sectors/vintages."""
+    print('Figure: US labor productivity and utilization-adjusted TFP')
+    import hashlib
+    import json
+
+    data_dir = Path(__file__).resolve().parents[1] / 'Data'
+    source = data_dir / 'fernald_20261105/quarterly_tfp.xlsx'
+    metadata = json.loads((data_dir / 's2_us_productivity_comparison.json').read_text())
+    if hashlib.sha256(source.read_bytes()).hexdigest() != metadata['sha256']:
+        raise ValueError('Fernald workbook changed; review its vintage and metadata')
+    raw = pd.read_excel(source, sheet_name='quarterly', header=1)
+    raw = raw[raw['date'].astype(str).str.fullmatch(r'\d{4}:Q[1-4]')].copy()
+    raw.index = pd.PeriodIndex(raw['date'].str.replace(':', ''), freq='Q')
+    base = pd.Period('2022Q4', freq='Q')
+    sample = raw.loc[base:].copy()
+    fields = ['dLP', 'dtfp_util', 'dY', 'dhours', 'dk', 'dLQ', 'alpha', 'dutil']
+    if sample[fields].isna().any().any():
+        raise ValueError('Missing observations in the common productivity sample')
+    expected = pd.period_range(base, sample.index[-1], freq='Q')
+    if not sample.index.equals(expected):
+        raise ValueError('Gap or duplicate in quarterly productivity observations')
+    if str(sample.index[-1]) != metadata['last_quarter']:
+        raise ValueError('Unexpected sample endpoint')
+    # Source definitions: dLP = dY - dhours. The adjusted-TFP gap is NOT
+    # a data-center contribution: it also includes labor quality and utilization.
+    np.testing.assert_allclose(sample['dLP'], sample['dY'] - sample['dhours'], atol=1e-9)
+    gap = (sample['alpha'] * (sample['dk'] - sample['dhours'])
+           + (1 - sample['alpha']) * sample['dLQ'] + sample['dutil'])
+    np.testing.assert_allclose(sample['dLP'] - sample['dtfp_util'], gap, atol=1e-9)
+    # Workbook readme: growth = 400 * change in log(level).
+    growth = sample[['dLP', 'dtfp_util']].copy()
+    growth.iloc[0] = 0.0  # Base quarter's level is 100, not its growth rate.
+    levels = 100 * np.exp(growth.cumsum() / 400)
+    dates = sample.index.to_timestamp(how='end').normalize()
+
+    fig, ax = new_figure(w=9, h=3.15)
+    ax.plot(dates, levels['dLP'], color=palette[0], lw=2.4,
+            label='Productivité du travail (par heure)')
+    ax.plot(dates, levels['dtfp_util'], color=palette[1], lw=2.4,
+            label=r"PTF corrigée de l'utilisation")
+    ax.set_xlim(dates[0], dates[-1])
+    lower = 2 * np.floor(levels.min().min() / 2)
+    upper = 2 * np.ceil(levels.max().max() / 2)
+    ticks = np.arange(lower, upper + 1, 2)
+    ax.set_ylim(lower, upper)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([f'{v:.0f}' for v in ticks], fontsize=12)
+    periods = [base] + [pd.Period(f'{y}Q4', freq='Q')
+                        for y in range(2023, sample.index[-1].year + 1)
+                        if pd.Period(f'{y}Q4', freq='Q') < sample.index[-1]]
+    periods.append(sample.index[-1])
+    ax.set_xticks(pd.PeriodIndex(periods).to_timestamp(how='end').normalize())
+    ax.set_xticklabels([f'T{p.quarter} {p.year}' for p in periods], fontsize=12)
+    ax.text(0, 1.035, 'Indice, T4 2022 = 100', transform=ax.transAxes,
+            ha='left', va='bottom', fontsize=11)
+    ax.legend(loc='upper left', bbox_to_anchor=(0.01, 0.98), fontsize=12,
+              frameon=False, handlelength=2.3, labelspacing=0.7)
+    style_axes(ax)
+    add_source(ax, 'Source : Fed de San Francisco (Fernald), secteur des entreprises')
+    save(fig, 'us_labor_productivity_tfp.pdf')
+
+
 # =====================================================================
 # Main
 # =====================================================================
@@ -2535,8 +2593,8 @@ if __name__ == '__main__':
         production_function_capital,
         growth_decomp_canada_us_total,
         growth_decomp_canada_us,
+        us_labor_productivity_tfp,
         growth_decomp_asian_tigers,
-        growth_decomp_asian_tigers_comparison,
         catchup_growth,
         miracle_vs_stagnation,
         growth_decomp_china_us,
@@ -2553,6 +2611,10 @@ if __name__ == '__main__':
         development_accounting_capital,
         development_accounting_labor,
         development_accounting_tfp,
+        development_accounting_human_capital,
+        digital_adoption_index,
+        tropics_map,
+        zimbabwe_botswana,
         tfp_growth_advanced,
         business_entry_delays,
         oecd_business_investment,

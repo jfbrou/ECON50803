@@ -1,0 +1,422 @@
+{
+  "source": "Penn World Table 11.0",
+  "source_url": "https://www.rug.nl/ggdc/productivity/pwt/",
+  "input_filename": "pwt110/pwt110.dta",
+  "input_sha256": "2a0d214958dd46ad6cb9966f5dfa2fc8ad546475c79ed70564caf7383777aaa1",
+  "capital_share": 0.3333333333333333,
+  "growth": {
+    "inputs": {
+      "Y": "rgdpna",
+      "K": "rkna",
+      "L": "emp",
+      "N": "pop"
+    },
+    "annual_growth": "g_X = 100 * (ln(X_end) - ln(X_start)) / (end - start)",
+    "PTF": "g_A = g_Y - alpha * g_K - (1 - alpha) * g_L",
+    "total_contributions": [
+      "g_A",
+      "alpha * g_K",
+      "(1 - alpha) * g_L"
+    ],
+    "per_capita_contributions": [
+      "g_A",
+      "alpha * (g_K - g_L)",
+      "g_L - g_N"
+    ],
+    "canada_us_periods": [
+      [
+        1970,
+        1990
+      ],
+      [
+        1990,
+        2007
+      ],
+      [
+        2007,
+        2023
+      ]
+    ],
+    "asian_comparison": {
+      "countries": [
+        "USA",
+        "HKG",
+        "KOR",
+        "SGP",
+        "TWN"
+      ],
+      "period": [
+        1970,
+        1990
+      ]
+    },
+    "units": "Percentage points of annual log output growth; total growth labels are log percent per year.",
+    "capital_measure": "rkna is the capital-services volume index (2021 = 1); log growth is invariant to that normalization.",
+    "values": {
+      "CAN": {
+        "1970-1990": {
+          "total": [
+            0.1184912729851133,
+            1.5443454653802817,
+            1.6015245182680178
+          ],
+          "per_capita": [
+            0.1184912729851133,
+            0.7435832062462728,
+            1.105302587146691
+          ]
+        },
+        "1990-2007": {
+          "total": [
+            0.48222582908461253,
+            1.2168281235200986,
+            0.9827068634105435
+          ],
+          "per_capita": [
+            0.48222582908461253,
+            0.7254746918148269,
+            0.4467630695034379
+          ]
+        },
+        "2007-2023": {
+          "total": [
+            -0.03004925413269155,
+            0.8473525312883577,
+            0.7624554893435901
+          ],
+          "per_capita": [
+            -0.03004925413269155,
+            0.46612478661656276,
+            0.0692768818131968
+          ]
+        }
+      },
+      "USA": {
+        "1970-1990": {
+          "total": [
+            0.6618449875175347,
+            1.2463257590471792,
+            1.278269879158944
+          ],
+          "per_capita": [
+            0.6618449875175347,
+            0.6071908194677074,
+            0.9258759283104897
+          ]
+        },
+        "1990-2007": {
+          "total": [
+            1.1334144471942484,
+            1.1947645744293642,
+            0.6780454935931249
+          ],
+          "per_capita": [
+            1.1334144471942484,
+            0.8557418276328017,
+            -0.012619039960204415
+          ]
+        },
+        "2007-2023": {
+          "total": [
+            0.6129211915928873,
+            0.737739676290621,
+            0.5365261505865419
+          ],
+          "per_capita": [
+            0.6129211915928873,
+            0.46947660099735017,
+            -0.0027735903673239415
+          ]
+        }
+      }
+    }
+  },
+  "development": {
+    "year": 2023,
+    "inputs": {
+      "Y": "rgdpo",
+      "K": "cn",
+      "L": "emp",
+      "N": "pop"
+    },
+    "components": [
+      "A = (Y/N) / ((K/L)^alpha * (L/N))",
+      "(K/L)^alpha",
+      "L/N"
+    ],
+    "normalization": "Each component divided by its United States value.",
+    "sample": "2023 countries with finite positive Y, K, L, N and PWT i_outlier == 0 (Regular); 173 countries.",
+    "interpretation": "Descriptive accounting, not causal identification. PTF includes omitted inputs and measurement error.",
+    "quality_filter": {
+      "variable": "i_outlier",
+      "retained_value": 0,
+      "retained_label": "Regular",
+      "before_filter": 175,
+      "after_filter": 173,
+      "excluded_from_accounting_sample": {
+        "CYM": "Cayman Islands",
+        "VEN": "Venezuela (Bolivarian Republic of)"
+      },
+      "documentation": "https://dataverse.nl/api/access/datafile/554025",
+      "rule": "Apply the PWT flag to every component using the same country sample; no exclusions chosen from the chart values."
+    },
+    "countries": [
+      "ABW",
+      "AGO",
+      "ALB",
+      "ARE",
+      "ARG",
+      "ARM",
+      "AUS",
+      "AUT",
+      "AZE",
+      "BDI",
+      "BEL",
+      "BEN",
+      "BFA",
+      "BGD",
+      "BGR",
+      "BHR",
+      "BHS",
+      "BIH",
+      "BLR",
+      "BLZ",
+      "BMU",
+      "BOL",
+      "BRA",
+      "BRB",
+      "BRN",
+      "BTN",
+      "BWA",
+      "CAF",
+      "CAN",
+      "CHE",
+      "CHL",
+      "CHN",
+      "CIV",
+      "CMR",
+      "COD",
+      "COG",
+      "COL",
+      "COM",
+      "CPV",
+      "CRI",
+      "CYP",
+      "CZE",
+      "DEU",
+      "DJI",
+      "DNK",
+      "DOM",
+      "DZA",
+      "ECU",
+      "EGY",
+      "ESP",
+      "EST",
+      "ETH",
+      "FIN",
+      "FJI",
+      "FRA",
+      "GAB",
+      "GBR",
+      "GEO",
+      "GHA",
+      "GIN",
+      "GMB",
+      "GNB",
+      "GNQ",
+      "GRC",
+      "GRD",
+      "GTM",
+      "HKG",
+      "HND",
+      "HRV",
+      "HTI",
+      "HUN",
+      "IDN",
+      "IND",
+      "IRL",
+      "IRN",
+      "IRQ",
+      "ISL",
+      "ISR",
+      "ITA",
+      "JAM",
+      "JOR",
+      "JPN",
+      "KAZ",
+      "KEN",
+      "KGZ",
+      "KHM",
+      "KOR",
+      "KWT",
+      "LAO",
+      "LBN",
+      "LBR",
+      "LCA",
+      "LKA",
+      "LSO",
+      "LTU",
+      "LUX",
+      "LVA",
+      "MAC",
+      "MAR",
+      "MDA",
+      "MDG",
+      "MDV",
+      "MEX",
+      "MKD",
+      "MLI",
+      "MLT",
+      "MMR",
+      "MNE",
+      "MNG",
+      "MOZ",
+      "MRT",
+      "MSR",
+      "MUS",
+      "MWI",
+      "MYS",
+      "NAM",
+      "NER",
+      "NGA",
+      "NIC",
+      "NLD",
+      "NOR",
+      "NPL",
+      "NZL",
+      "OMN",
+      "PAK",
+      "PAN",
+      "PER",
+      "PHL",
+      "POL",
+      "PRT",
+      "PRY",
+      "PSE",
+      "QAT",
+      "ROU",
+      "RUS",
+      "RWA",
+      "SAU",
+      "SDN",
+      "SEN",
+      "SGP",
+      "SLE",
+      "SLV",
+      "SRB",
+      "STP",
+      "SUR",
+      "SVK",
+      "SVN",
+      "SWE",
+      "SWZ",
+      "SYC",
+      "SYR",
+      "TCD",
+      "TGO",
+      "THA",
+      "TJK",
+      "TKM",
+      "TTO",
+      "TUN",
+      "TUR",
+      "TWN",
+      "TZA",
+      "UGA",
+      "UKR",
+      "URY",
+      "USA",
+      "UZB",
+      "VCT",
+      "VGB",
+      "VNM",
+      "YEM",
+      "ZAF",
+      "ZMB",
+      "ZWE"
+    ]
+  },
+  "script": "Slides/S2/figures_s2.py",
+  "figure_functions": [
+    "growth_decomp_canada_us_total",
+    "growth_decomp_canada_us",
+    "growth_decomp_asian_tigers",
+    "catchup_growth",
+    "miracle_vs_stagnation",
+    "development_accounting_capital",
+    "development_accounting_labor",
+    "development_accounting_tfp",
+    "development_accounting_human_capital",
+    "convergence_oecd",
+    "convergence_asia",
+    "convergence_global",
+    "digital_adoption_index",
+    "tropics_map",
+    "zimbabwe_botswana"
+  ],
+  "source_doi": "https://doi.org/10.34894/FABVLR",
+  "download_url": "https://dataverse.nl/api/access/datafile/554030",
+  "accessed": "2026-11-05",
+  "citation": "Feenstra, Robert C., Robert Inklaar and Marcel P. Timmer (2015), The Next Generation of the Penn World Table, American Economic Review 105(10), 3150-3182.",
+  "relative_income_time_series": {
+    "output": "rgdpo/pop, divided by the US in the same year",
+    "end_year": 2023,
+    "catchup_axis": "Years since the start shown for each country; last point 63 years after 1960.",
+    "miracle_vs_stagnation_start_year": 1960
+  },
+  "convergence": {
+    "end_year": 2023,
+    "initial_years": {
+      "oecd": 1960,
+      "asia": 1990,
+      "global": 1960
+    },
+    "initial_relative_output": "(cgdpo/pop)_country / (cgdpo/pop)_USA at the initial year, using current PPPs as recommended by PWT for a cross-section",
+    "growth": "100 * log((rgdpna/pop)_end / (rgdpna/pop)_start) / (end-start)",
+    "quality_filter": "Positive finite required inputs and Regular i_outlier at both endpoints",
+    "method_correction": "Initial income previously used rgdpna, whose national-price time series is appropriate for growth but not an initial-year PPP comparison. Use cgdpo for that cross-section; retain rgdpna for growth.",
+    "global_sample_size": 105
+  },
+  "human_capital": {
+    "year": 2023,
+    "index": "hc (schooling-based human capital index), divided by USA",
+    "output": "rgdpo/pop, divided by USA, aligned with the other development scatter plots",
+    "quality_filter": "Positive finite rgdpo, pop, hc and i_outlier Regular",
+    "note": "Previously generated by S3 with rgdpna in the output axis; the S2 generator now uses the same output definition and style as its other development figures."
+  },
+  "other_pwt_figures": {
+    "digital_adoption_index": {
+      "year": 2016,
+      "why_historical": "Keep GDP and the existing World Bank DAI observations aligned in the same year. Only the PWT vintage is updated.",
+      "income": "rgdpe/pop",
+      "join": "Country-name crosswalk to ISO3, then validated one-to-one join",
+      "quality_filter": "PWT Regular"
+    },
+    "tropics_map": {
+      "year": 2023,
+      "income": "cgdpo/pop",
+      "classification": "Country terciles of per-capita output among mapped observations",
+      "geometry_source": "Natural Earth 110m admin-0 countries",
+      "quality_filter": "PWT Regular; missing or flagged observations gray"
+    },
+    "zimbabwe_botswana": {
+      "years": [
+        1960,
+        2023
+      ],
+      "income": "rgdpo/pop",
+      "units": "PPP-adjusted 2021 US dollars",
+      "method_alignment": "Use chained-PPP output for the cross-country time-series comparison, instead of rgdpna."
+    }
+  },
+  "supplementary_inputs": {
+    "DAIforweb.xlsx": {
+      "sha256": "1e9c71318fb8952bbe9dceefba5bc682cdcb4c5cc87cfea442c8124a36f30a0b",
+      "source": "Existing World Bank Digital Adoption Index snapshot from ECON20852/Data; observations2016"
+    },
+    "ne_110m_admin_0_countries.zip": {
+      "sha256": "0f243aeac8ac6cf26f0417285b0bd33ac47f1b5bdb719fd3e0df37d03ea37110",
+      "url": "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
+    }
+  }
+}

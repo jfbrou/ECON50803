@@ -1,0 +1,26 @@
+{
+  "source_url": "https://www.frbsf.org/wp-content/uploads/quarterly_tfp.xlsx?2026-11-04=",
+  "landing_page": "https://www.frbsf.org/research-and-insights/data-and-indicators/total-factor-productivity-tfp/",
+  "interpretation_reference": "https://www.frbsf.org/research-and-insights/publications/economic-letter/2026/05/have-we-entered-era-of-high-productivity-growth/",
+  "source_author": "John G. Fernald / Federal Reserve Bank of San Francisco",
+  "workbook_produced_at": "2026-10-01 14:43 (as recorded in readme; timezone unspecified)",
+  "retrieved_at_utc": "2026-11-05T18:35:45.194019+00:00",
+  "sha256": "f037e488b536f1dd8b6e59ebbeeae129f2801dda9da761b268ec3173201fbcaa",
+  "local_input": "Slides/Data/fernald_20261105/quarterly_tfp.xlsx",
+  "sheet": "quarterly",
+  "header_row_excel": 2,
+  "sector": "US business sector (same sector and same vintage for both series)",
+  "variables": {
+    "dLP": "Business labor productivity: dY - dhours; output per hour",
+    "dtfp_util": "Business TFP adjusted for factor utilization: dtfp - dutil",
+    "dY": "Average of expenditure-side and income-side real business output growth (when both available)",
+    "dhours": "BLS business-sector hours growth"
+  },
+  "units": "Percent annualized log changes: 400 * change in natural log (workbook readme row 13)",
+  "base_quarter": "2022Q4",
+  "last_quarter": "2026Q2",
+  "transformation": "Index_t = 100 * exp(sum(growth_q for q > 2022Q4 and q <= t) / 400); no interpolation, extrapolation or smoothing",
+  "interpretation": "The gap includes capital deepening, labor composition and utilization. It is not a causal estimate of data-center investment or AI effects. TFP is a measured residual, not a pure technology measure.",
+  "validation": "Require complete contiguous quarterly sample; verify dLP = dY - dhours and dLP - dtfp_util = alpha*(dk-dhours) + (1-alpha)*dLQ + dutil",
+  "output": "Slides/Figures/us_labor_productivity_tfp.pdf"
+}
