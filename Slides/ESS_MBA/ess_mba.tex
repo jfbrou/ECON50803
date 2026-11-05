@@ -9,16 +9,26 @@
 \date{L'essentiel du MBA\\École des dirigeants\\Édition octobre 2026}
 
 % Build from Slides/ESS_MBA/: latexmk -pdf ess_mba.tex
-% 92 static slides: 84 selected/adapted course and Canadian case-study frames, a shared title frame,
-% five shared section frames, a resource guide and a closing synthesis.
+% 85 main slides + 5 linked backup slides (90 PDF pages).
+% Five themes, a resource guide, scenario planning and a closing synthesis.
+% Optional material is reached through buttons, with a return button on each backup.
 % ECON50803 visual identity is inherited from preamble.tex without overrides.
 % Figures remain shared vector assets with their original source vintages.
 % Only standalone-course references, minor accuracy/clarity points and
 % necessary layout/arrow repairs are adapted in the copied frames.
 % Source provenance and any adaptation appear above each selected frame.
 % Order follows S1 measurement, S2 growth, S3 labor/capital/AI, S4 cycles, S5 policy.
-% Timing, including a 10-minute break after slide 57: 3h30.
+% Timing, including a 10-minute break after slide 50: 3h30.
 \newcolumntype{J}{>{\raggedright\arraybackslash}X}
+% Discreet links to optional material, above the footer and clear of figure notes.
+\newcommand{\essbackupnavigation}[1]{%
+   \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south east,inner sep=0pt] at ([xshift=-1.2cm,yshift=0.58cm]current page.south east) {#1};
+   \end{tikzpicture}%
+}
+\newcommand{\essbackupbutton}[2]{%
+   \essbackupnavigation{\hyperlink{#2}{\beamerbutton{#1}}}%
+}
 \begin{document}
 
 % ============================================================================
@@ -107,48 +117,28 @@
 \end{frame}
 
 % ============================================================================
-% 5 | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
-% Source: S1/s1.tex | \begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
+% 5 | Comprendre la macro pour mieux décider
+% Source: S1/s1.tex | Motivation and course objectives, consolidated from former ESS slides 5–6.
 % ============================================================================
-\begin{frame}[t]{Pourquoi la macroéconomie \textit{vous} concerne-t-elle\,?}
-   \small\raggedright
-   Les événements macroéconomiques perturbent les \textbf{stratégies d'affaires} et sont sources de \textbf{risque} mais aussi d'\textbf{opportunité}. \\ \vspace{0.25cm}
-
-   Les entreprises dont les gestionnaires font de \textbf{meilleures prévisions macroéconomiques} sont plus \textbf{productives} et plus \textbf{rentables}.
-   \vspace{0.1cm}
-   \begin{itemize}
-      \footnotesize
-      \setlength\itemsep{0.1cm}
-      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Tanaka, Bloom, David \& Koga, \textit{J.\ Monetary Econ.}, 2020}
-      \item[\textcolor{HECgray}{$\bullet$}] {\color{HECgray} Bloom, Kawakubo, Meng, Mizen, Riley, Senga \& Van Reenen, \textit{ReStat}, 2025}
-   \end{itemize}
-   \vspace{0.15cm}
-   \begin{bizimplication}
-      Comprendre la macro n'est pas un luxe intellectuel, c'est un \textbf{avantage concurrentiel}. Et le \textbf{jargon macro} sera au c\oe ur de vos conversations de gestionnaires.
+\begin{frame}{Comprendre la macro pour mieux décider}
+   \RaggedRight Les chocs macroéconomiques changent vos marchés, vos coûts et vos conditions de financement.
+   \par\vspace{0.25cm}
+   \begin{enumerate}
+      \setlength\itemsep{0.20cm}
+      \item \textbf{Comprendre} les indicateurs et le langage macro.
+      \item \textbf{Interpréter} les nouvelles en distinguant données, prévisions et opinions.
+      \item \textbf{Anticiper} les risques et les opportunités pour votre organisation.
+   \end{enumerate}
+   \vspace{0.20cm}
+   \begin{bizimplication}[Un avantage pour la gestion]
+      \RaggedRight\small De meilleures prévisions macroéconomiques sont \textbf{associées à davantage de productivité et de rentabilité}.
+      \par\vspace{4pt}
+      {\raggedleft\scriptsize\textcolor{HECgray}{Tanaka et al. (2020); Bloom et al. (2025)}\par}
    \end{bizimplication}
 \end{frame}
 
 % ============================================================================
-% 6 | \begin{frame}{Objectifs du cours}
-% Source: S1/s1.tex | \begin{frame}{Objectifs du cours}
-% ============================================================================
-\begin{frame}{Objectifs du cours}
-   \textbf{Non, je ne ferai pas de vous des économistes\ldots mais à la fin du cours, vous :}
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item Serez \textbf{moins intimidé(e)s} par le jargon macro et aurez des conversations \textbf{objectives et cohérentes} sur la macro
-      \item Serez capables d'\textbf{interpréter les nouvelles économiques} de manière critique (entraîner votre détecteur de \guillemotleft~BS~\guillemotright, signal vs.\ bruit)
-      \item Serez familier avec les grandes \textbf{tendances macro}
-   \end{enumerate}
-   \vspace{0.25cm}
-   \begin{defbox}[Ce que ce cours n'est \textbf{pas}\,!]
-      Boule de cristal. Technique. Abstrait. Idéologique.
-   \end{defbox}
-\end{frame}
-
-% ============================================================================
-% 7 | \begin{frame}{Thèmes abordés}
+% 6 | \begin{frame}{Thèmes abordés}
 % Source: S1/s1.tex | \begin{frame}{Thèmes abordés}
 % Adaptation: Remove an omitted inequality-survey promise.
 % ============================================================================
@@ -169,13 +159,13 @@
 \end{frame}
 
 % ============================================================================
-% 8 | \sectionframe{Mesurer l'économie}
+% 7 | \sectionframe{Mesurer l'économie}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Mesurer l'économie}
 
 % ============================================================================
-% 9 | \begin{frame}{Qu'est-ce que le PIB\,?}
+% 8 | \begin{frame}{Qu'est-ce que le PIB\,?}
 % Source: S1/s1.tex | What GDP measures
 % ============================================================================
 \begin{frame}{Qu'est-ce que le PIB\,?}
@@ -195,7 +185,7 @@
 \end{frame}
 
 % ============================================================================
-% 10 | \begin{frame}{Quatre sources de demande}
+% 9 | \begin{frame}{Quatre sources de demande}
 % Source: S1/s1.tex | Expenditure identity and C, I, G, NX definitions
 % Adaptation: Consolidate four component definitions into one manager-facing overview.
 % ============================================================================
@@ -238,7 +228,7 @@
 \end{frame}
 
 % ============================================================================
-% 11 | \begin{frame}{PIB par les dépenses : comparaison internationale}
+% 10 | \begin{frame}{PIB par les dépenses : comparaison internationale}
 % Source: S1/s1.tex | International GDP composition
 % ============================================================================
 \begin{frame}{PIB par les dépenses : comparaison internationale}
@@ -255,11 +245,11 @@
 \end{frame}
 
 % ============================================================================
-% 12 | \begin{frame}[t]{Comparer le PIB entre pays : convertir les devises}
+% 11 | \begin{frame}[t]{Comparer le PIB entre pays : convertir les devises}
 % Source: S1/s1.tex | Comment comparer des unités différentes
 % Adaptation: Original S1 exchange-rate content; explicitly frame it as cross-country GDP comparison.
 % ============================================================================
-\begin{frame}[t]{Comparer le PIB entre pays : convertir les devises}
+\begin{frame}[t,label=ess-main-prix]{Comparer le PIB entre pays : convertir les devises}
    \small
 
    \textbf{Comment comparer les PIB de pays utilisant des devises différentes ?}
@@ -284,21 +274,11 @@
          \item Taux de change réel : $e^{R} = e^{N} / e^{PPA}$
       \end{itemize}
    \end{enumerate}
+   \essbackupbutton{Prix entre pays}{ess-backup-prix}
 \end{frame}
 
 % ============================================================================
-% 13 | \begin{frame}{Prix plus élevés dans les pays riches (effet Balassa-Samuelson)}
-% Source: S1/s1.tex | Price levels versus GDP per capita
-% ============================================================================
-\begin{frame}{Prix plus élevés dans les pays riches}
-   \begin{figure}
-      \centering
-      \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-% 14 | \begin{frame}[t]{PIB vs.\ revenu national brut (RNB)}
+% 12 | \begin{frame}[t]{PIB vs.\ revenu national brut (RNB)}
 % Source: S1/s1.tex | PIB vs. revenu national brut
 % Adaptation: Explain PNB terminology and distinguish primary income from remittances/transfers.
 % ============================================================================
@@ -314,7 +294,7 @@
 \end{frame}
 
 % ============================================================================
-% 15 | \begin{frame}{L'économie des farfadets}
+% 13 | \begin{frame}{L'économie des farfadets}
 % Source: S1/s1.tex | GDP versus GNI country comparisons
 % ============================================================================
 \begin{frame}{L'économie des farfadets}
@@ -325,7 +305,7 @@
 \end{frame}
 
 % ============================================================================
-% 16 | \begin{frame}[t]{PIB et prix}
+% 14 | \begin{frame}[t]{PIB et prix}
 % Source: S1/s1.tex | PIB et prix
 % ============================================================================
 \begin{frame}[t]{PIB et prix}
@@ -345,7 +325,7 @@
 \end{frame}
 
 % ============================================================================
-% 17 | \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
+% 15 | \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
 % Source: S1/s1.tex | Canadian nominal and real GDP chart
 % ============================================================================
 \begin{frame}{Croissance du PIB nominal vs.\ réel au Canada}
@@ -356,7 +336,7 @@
 \end{frame}
 
 % ============================================================================
-% 18 | \begin{frame}[t]{Inflation : des prix qui augmentent plus ou moins vite}
+% 16 | \begin{frame}[t]{Inflation : des prix qui augmentent plus ou moins vite}
 % Source: S1/s1.tex | Inflation definition
 % Adaptation: Make percentage units and inflation-versus-price-level distinction explicit.
 % ============================================================================
@@ -377,11 +357,11 @@
 \end{frame}
 
 % ============================================================================
-% 19 | \begin{frame}[t]{Comment mesure-t-on l'IPC\,?}
+% 17 | \begin{frame}[t]{Comment mesure-t-on l'IPC\,?}
 % Source: S1/s1.tex | CPI definition; Statistics Canada CPI FAQ
 % Adaptation: Dedicated basket explanation, verified against Statistics Canada; no invented numerical weights.
 % ============================================================================
-\begin{frame}[t]{Comment mesure-t-on l'IPC\,?}
+\begin{frame}[t,label=ess-main-qualite]{Comment mesure-t-on l'IPC\,?}
    \small
    \begin{enumerate}
       \setlength\itemsep{0.3cm}
@@ -393,10 +373,11 @@
    \begin{bizimplication}[Pour votre organisation]
       \small L'IPC mesure les prix à la \textbf{consommation}. Il ne représente pas nécessairement l'évolution de \textbf{vos coûts d'entreprise}.
    \end{bizimplication}
+   \essbackupbutton{Qualité et nouveaux produits}{ess-backup-qualite}
 \end{frame}
 
 % ============================================================================
-% 20 | \begin{frame}{Inflation globale vs.\ de base}
+% 18 | \begin{frame}{Inflation globale vs.\ de base}
 % Source: S1/s1.tex | Headline and core inflation
 % ============================================================================
 \begin{frame}{Inflation globale vs.\ de base}
@@ -407,30 +388,10 @@
 \end{frame}
 
 % ============================================================================
-% 21 | \begin{frame}[t]{Corriger les prix : deux difficultés}
-% Source: S1/s1.tex | Quality adjustment examples; new-product bias and the price of light
-% Adaptation: One concise slide without numerical claims; retain Honda and lighting intuitions.
-% ============================================================================
-\begin{frame}[t]{Corriger les prix : deux difficultés}
-   \small
-   \textbf{\textcolor{HECnavy}{1. Comparer une qualité équivalente}}
-   \par\vspace{0.2cm}
-   Une voiture plus chère mais mieux équipée : quelle part du prix reflète de l'inflation vs.\ un \textbf{meilleur produit} ? Les agences corrigent pour la qualité, mais imparfaitement.
-   \par\vspace{0.4cm}
-   \textbf{\textcolor{HECgreen}{2. Intégrer les nouveaux produits}}
-   \par\vspace{0.2cm}
-   Un nouveau produit n'a pas de prix antérieur. Comparer des bougies et des ampoules exige de mesurer le \textbf{service rendu : les lumens}, pas seulement le prix de chaque produit.
-   \par\vspace{0.25cm}
-   \begin{keyinsight}[Une mesure utile, mais imparfaite]
-      \small Mal mesurer les gains de qualité ou les quantités derrières les nouveaux produits peut conduire à \textbf{surestimer l'inflation} et à \textbf{sous-estimer les gains réels}.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 22 | \begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
+% 19 | \begin{frame}[t,label=ess-main-pib-hab]{PIB réel vs.\ PIB réel par habitant}
 % Source: S1/s1.tex | Hermes and Costco market examples
 % ============================================================================
-\begin{frame}[t]{PIB réel vs.\ PIB réel par habitant}
+\begin{frame}[t,label=ess-main-pib-hab]{PIB réel vs.\ PIB réel par habitant}
    \small
    \begin{itemize}
       \setlength\itemsep{0.15cm}
@@ -445,10 +406,11 @@
    \begin{bizimplication}[Rémunération]
       \small Vos employés demandent une hausse car \guillemotleft~l'économie croît~\guillemotright. Le PIB a progressé de 15\,\% en 10 ans. Bon argument pour de meilleurs salaires\,?
    \end{bizimplication}
+   \essbackupbutton{Limites du PIB}{ess-backup-limites}
 \end{frame}
 
 % ============================================================================
-% 23 | \begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
+% 20 | \begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
 % Source: S1/s1.tex | Total Canada-US GDP comparison
 % ============================================================================
 \begin{frame}{Le Canada suit le rythme des États-Unis\ldots}
@@ -459,7 +421,7 @@
 \end{frame}
 
 % ============================================================================
-% 24 | \begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
+% 21 | \begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
 % Source: S1/s1.tex | Per-capita Canada-US GDP comparison
 % ============================================================================
 \begin{frame}{Jusqu'à ce qu'on ajuste pour la démographie\ldots}
@@ -470,41 +432,7 @@
 \end{frame}
 
 % ============================================================================
-% 25 | \begin{frame}[t]{Tout ce qui est comptable sauf ce qui compte\,?}
-% Source: S1/s1.tex | Limits of GDP as a welfare measure
-% Adaptation: Keep the existing welfare limitations, omitting the final open-ended prompt.
-% ============================================================================
-\begin{frame}[t]{Tout ce qui est comptable sauf ce qui compte\,?}
-   \small
-   Le PIB est utile mais incomplet. Il omet :
-   \vspace{0.25cm}
-   \begin{itemize}
-      \setlength\itemsep{0.25cm}
-      \item \textbf{Inégalités :} le PIB peut croître même si la majorité s'appauvrit
-      \item \textbf{Loisir :} travailler 80h/sem.\ augmente le PIB, peut-être pas le bien-être
-      \item \textbf{Santé :} espérance de vie, santé mentale, morbidité
-      \item \textbf{Environnement :} pollution, épuisement des ressources, climat
-      \item \textbf{Liberté politique :} démocratie, droits de la personne, corruption
-      \item \textbf{Sécurité :} criminalité, conflits, terrorisme
-   \end{itemize}
-\end{frame}
-
-% ============================================================================
-% 26 | \begin{frame}{IDH vs.\ PIB par habitant}
-% Source: S1/s1.tex | HDI definition and HDI-GDP comparison
-% Adaptation: Shared scatter with a small bottom note defining HDI.
-% ============================================================================
-\begin{frame}{IDH vs.\ PIB par habitant}
-   \begin{figure}
-      \centering
-      \includegraphics[width=\textwidth, height=0.73\textheight, keepaspectratio]{hdi_vs_gdp_per_capita.pdf}
-   \end{figure}
-   \vspace{-0.15cm}
-   {\scriptsize\color{HECgray} L'IDH combine santé, éducation et RNB par habitant en PPA.}
-\end{frame}
-
-% ============================================================================
-% 27 | \begin{frame}[t]{Où trouver l'information économique\,?}
+% 22 | \begin{frame}[t]{Où trouver l'information économique\,?}
 % Source: Programme-specific resource guide
 % Adaptation: Retained unchanged at the end of the measurement sequence.
 % ============================================================================
@@ -543,13 +471,13 @@
 \end{frame}
 
 % ============================================================================
-% 28 | \sectionframe{Croissance de long terme}
+% 23 | \sectionframe{Croissance de long terme}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Croissance de long terme}
 
 % ============================================================================
-% 29 | \begin{frame}{Croissance de long terme et stratégies d'affaires}
+% 24 | \begin{frame}{Croissance de long terme et stratégies d'affaires}
 % Source: S2/s2.tex | Croissance de long terme et stratégies d’affaires
 % ============================================================================
 \begin{frame}{Croissance de long terme et stratégies d'affaires}
@@ -575,7 +503,7 @@
 \end{frame}
 
 % ============================================================================
-% 30 | \begin{frame}{Des expériences de croissance très différentes}
+% 25 | \begin{frame}{Des expériences de croissance très différentes}
 % Source: S2/s2.tex | Regional growth trajectories
 % ============================================================================
 \begin{frame}{Des expériences de croissance très différentes}
@@ -586,7 +514,7 @@
 \end{frame}
 
 % ============================================================================
-% 31 | \begin{frame}[t]{Quels sont les ingrédients\,?}
+% 26 | \begin{frame}[t]{Quels sont les ingrédients\,?}
 % Source: S2/s2.tex | \begin{frame}[t]{Quels sont les ingrédients\,?}
 % ============================================================================
 \begin{frame}[t]{Quels sont les ingrédients\,?}
@@ -617,7 +545,7 @@
 \end{frame}
 
 % ============================================================================
-% 32 | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
+% 27 | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
 % Source: S2/s2.tex | \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
 % ============================================================================
 \begin{frame}[t]{Qu'est-ce que la PTF ($A$)\,?}
@@ -659,31 +587,20 @@
 \end{frame}
 
 % ============================================================================
-% 33 | \begin{frame}{Canada vs.\ États-Unis : d'où vient la croissance\,?}
+% 28 | \begin{frame}{Canada vs.\ États-Unis : d'où vient la croissance\,?}
 % Source: S2/s2.tex | Canada vs. États-Unis : croissance du PIB
 % Adaptation: Reuse the pre-pandemic decomposition; link total GDP to market expansion.
 % ============================================================================
-\begin{frame}{Canada vs.\ États-Unis : d'où vient la croissance\,?}
+\begin{frame}[label=ess-main-croissance]{Canada vs.\ États-Unis : d'où vient la croissance\,?}
    \centering
    \includegraphics[width=\textwidth, height=0.70\textheight, keepaspectratio]{growth_decomp_canada_us_total.pdf}
    \par\vspace{0.1cm}
    {\small Le PIB total renseigne sur la \textbf{taille du marché}; ses moteurs orientent les opportunités.}
+   \essbackupbutton{Croissance par habitant}{ess-backup-croissance}
 \end{frame}
 
 % ============================================================================
-% 34 | \begin{frame}{Et la croissance du revenu par habitant\,?}
-% Source: S2/s2.tex | Canada vs. États-Unis : PIB par habitant
-% Adaptation: Retain the K/Y decomposition and explain its labels without adding algebra.
-% ============================================================================
-\begin{frame}{Et la croissance du revenu par habitant\,?}
-   \centering
-   \includegraphics[width=\textwidth, height=0.70\textheight, keepaspectratio]{growth_decomp_canada_us.pdf}
-   \par\vspace{0.1cm}
-   {\scriptsize\color{HECgray} $A$ : productivité; $K/Y$ : profondeur du capital; $L/N$ : taux d'emploi.}
-\end{frame}
-
-% ============================================================================
-% 35 | \begin{frame}[t]{À chaque moteur de croissance, des débouchés}
+% 29 | \begin{frame}[t]{À chaque moteur de croissance, des débouchés}
 % Source: S2/s2.tex | Growth accounting and productivity examples
 % Adaptation: Manager-facing application; distinguish measured PTF from evidence of technology adoption.
 % ============================================================================
@@ -707,7 +624,7 @@
 \end{frame}
 
 % ============================================================================
-% 36 | \begin{frame}{Le capital peut-il soutenir la croissance indéfiniment\,?}
+% 30 | \begin{frame}{Le capital peut-il soutenir la croissance indéfiniment\,?}
 % Source: S2/s2.tex | Croissance explosive : capital-production-investment triangle
 % Adaptation: Explicit question about the limits of capital-led growth.
 % ============================================================================
@@ -738,7 +655,7 @@
 \end{frame}
 
 % ============================================================================
-% 37 | \begin{frame}[t]{Rendements décroissants : capital}
+% 31 | \begin{frame}[t]{Rendements décroissants : capital}
 % Source: S2/s2.tex | \begin{frame}[t]{Rendements décroissants : capital}
 % ============================================================================
 \begin{frame}[t]{Rendements décroissants : capital}
@@ -763,7 +680,7 @@
 \end{frame}
 
 % ============================================================================
-% 38 | \begin{frame}{Le capital permet de rattraper\ldots}
+% 32 | \begin{frame}{Le capital permet de rattraper\ldots}
 % Source: S2/s2.tex | La phase de rattrapage en action
 % Adaptation: Full-slide catch-up figure; remove the blue takeaway box.
 % ============================================================================
@@ -773,61 +690,37 @@
 \end{frame}
 
 % ============================================================================
-% 39 | \begin{frame}[t]{\ldots mais la productivité soutient la croissance}
-% Source: S2/s2.tex | Le profil de croissance selon Solow; Leçons du modèle de Solow
-% Adaptation: Two-stage intuition without formal steady-state terminology.
+% 33 | La productivité soutient la croissance durable
+% Source: S2/s2.tex | Solow takeaways and three economy types; former ESS slides 39–40.
 % ============================================================================
-\begin{frame}[t]{\ldots mais la productivité soutient la croissance}
-   \textbf{\textcolor{HECnavy}{Rattraper : équiper davantage les travailleurs}}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Machines, bâtiments et infrastructures augmentent la production...
-      \item ...mais à technologie donnée, les gains additionnels diminuent!
-   \end{itemize}
-   \vspace{0.3cm}
-   \textbf{\textcolor{HECgreen}{Progresser durablement : améliorer les façons de produire}}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.1cm}
-      \item Technologies, compétences, innovation, organisation de la production.
-      \item Le capital et ces améliorations se complètent.
-   \end{itemize}
-   \vspace{0.25cm}
-   \begin{keyinsight}
-      \small Investir davantage peut relever durablement le \textbf{niveau de production}, sans augmenter durablement son \textbf{taux de croissance}.
+\begin{frame}{\ldots mais la productivité soutient la croissance}
+   \small
+   \renewcommand{\arraystretch}{1.35}
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.25\textwidth}J@{}}
+      \toprule
+      Économies & Moteurs de croissance \\
+      \midrule
+      \textcolor{HECgreen}{En rattrapage} & Accumulation de capital et adoption de technologies. \\
+      \addlinespace[9pt]
+      \textcolor{HECnavy}{Matures} & Productivité, innovation et renouvellement du capital. \\
+      \addlinespace[9pt]
+      \textcolor{HECcoral}{En stagnation} & Faibles investissements et gains de productivité, souvent dans un \textbf{contexte institutionnel fragile}. \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.22cm}
+   \begin{keyinsight}[Niveau et croissance]
+      \RaggedRight\small À technologie donnée, plus de capital relève le \textbf{niveau du PIB}. Les gains de productivité soutiennent sa \textbf{croissance à long terme}.
    \end{keyinsight}
 \end{frame}
 
 % ============================================================================
-% 40 | \begin{frame}[t]{Trois types d'économies}
-% Source: S2/s2.tex | Sommaire : théories de la productivité
-% Adaptation: Three growth trajectories with business implications; replace Doing Business pair.
-% ============================================================================
-\begin{frame}[t]{Trois types d'économies}
-   \vspace{0.5cm}
-   \renewcommand{\arraystretch}{1.55}
-   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.27\textwidth} J@{}}
-      \toprule
-      Économies & Caractéristiques de la croissance \\
-      \midrule
-      \textcolor{HECnavy}{Matures} & Productivité, innovation et renouvellement du capital. \\
-      \addlinespace[12pt]
-      \textcolor{HECgreen}{En rattrapage} & Accumulation de capital et adoption de technologies. \\
-      \addlinespace[12pt]
-      \textcolor{HECcoral}{En stagnation} & Investissement et gains de productivité faibles, souvent dans un \textbf{contexte institutionnel fragile}. \\
-      \bottomrule
-   \end{tabularx}
-\end{frame}
-
-% ============================================================================
-% 41 | \sectionframe{Marchés du travail et du capital}
+% 34 | \sectionframe{Marchés du travail et du capital}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Marchés du travail et du capital}
 
 % ============================================================================
-% 42 | \begin{frame}{Recruter et investir : comprendre les marchés}
+% 35 | \begin{frame}{Recruter et investir : comprendre les marchés}
 % Source: S3/s3.tex | Deux ressources, deux décisions
 % Adaptation: Two decisions and one repeated teaching sequence.
 % ============================================================================
@@ -870,7 +763,7 @@
 \end{frame}
 
 % ============================================================================
-% 43 | \begin{frame}[t]{Trois catégories}
+% 36 | \begin{frame}[t]{Trois catégories}
 % Source: S3/s3.tex | Trois catégories
 % Adaptation: Restore the employment-status flow diagram before the ratios.
 % ============================================================================
@@ -903,7 +796,7 @@
 \end{frame}
 
 % ============================================================================
-% 44 | \begin{frame}[t]{Trois ratios essentiels}
+% 37 | \begin{frame}[t]{Trois ratios essentiels}
 % Source: S3/s3.tex | Trois ratios essentiels
 % Adaptation: Restore the original S3 slide without exam marker.
 % ============================================================================
@@ -920,7 +813,7 @@
 \end{frame}
 
 % ============================================================================
-% 45 | \begin{frame}{Le marché du travail canadien}
+% 38 | \begin{frame}{Le marché du travail canadien}
 % Source: S3/s3.tex | Le marché du travail canadien
 % Adaptation: Enlarged chart without bottom note.
 % ============================================================================
@@ -930,7 +823,7 @@
 \end{frame}
 
 % ============================================================================
-% 46 | \begin{frame}[t]{L'équilibre de plein emploi}
+% 39 | \begin{frame}[t]{L'équilibre de plein emploi}
 % Source: S3/s3.tex | L'équilibre de plein emploi
 % Adaptation: Larger diagram, short supply/demand definitions, no bottom note.
 % ============================================================================
@@ -974,7 +867,7 @@
 \end{frame}
 
 % ============================================================================
-% 47 | \begin{frame}{L'IA automatise des tâches : la demande de travail recule}
+% 40 | \begin{frame}{L'IA automatise des tâches : la demande de travail recule}
 % Source: S3/s3.tex | L'IA peut remplacer ou compléter le travail
 % Adaptation: Retain the original negative-demand panel; scenario concerns substitutable jobs, not every worker.
 % ============================================================================
@@ -1015,18 +908,18 @@
 \end{frame}
 
 % ============================================================================
-% 48 | \begin{frame}[t]{IA et emploi : ce que déclarent et anticipent les entreprises}
+% 41 | \begin{frame}[t]{IA et emploi : ce que déclarent et anticipent les entreprises}
 % Source: S3/s3.tex | Que prévoient les entreprises pour l’emploi
 % Adaptation: Evidence after the model; distinguish self-reports/expectations from causal effects.
 % ============================================================================
 \begin{frame}[t]{IA et emploi : ce que déclarent et anticipent les entreprises}
    \framesubtitle{Baslandze et al. (2026) : 734 dirigeants financiers américains interrogés fin 2025.}
    {\centering
-   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_cfo_employment.pdf}}\par}
+   \makebox[\textwidth][c]{\includegraphics[width=1.08\textwidth, height=0.77\textheight, keepaspectratio]{s3_ai_cfo_employment.pdf}}\par}
 \end{frame}
 
 % ============================================================================
-% 49 | \begin{frame}{Le vieillissement de la population}
+% 42 | \begin{frame}{Le vieillissement de la population}
 % Source: S3/s3.tex | Le vieillissement de la population
 % Adaptation: Enlarged demographic chart without bottom note.
 % ============================================================================
@@ -1036,7 +929,7 @@
 \end{frame}
 
 % ============================================================================
-% 50 | \begin{frame}{Le vieillissement : un choc négatif d'offre de travail}
+% 43 | \begin{frame}{Le vieillissement : un choc négatif d'offre de travail}
 % Source: S3 labor-market framework | Retirement-driven supply contraction.
 % Adaptation: Isolate the labor-supply channel at unchanged labor demand.
 % ============================================================================
@@ -1077,7 +970,7 @@
 \end{frame}
 
 % ============================================================================
-% 51 | \begin{frame}[t]{Capital, investissement et financement}
+% 44 | \begin{frame}[t]{Capital, investissement et financement}
 % Source: S3/s3.tex | \begin{frame}[t]{Capital, investissement et financement}
 % ============================================================================
 \begin{frame}[t]{Capital, investissement et financement}
@@ -1099,7 +992,7 @@
 \end{frame}
 
 % ============================================================================
-% 52 | \begin{frame}[t]{Financer les projets : épargne et investissement}
+% 45 | \begin{frame}[t]{Financer les projets : épargne et investissement}
 % Source: S3/s3.tex | Équilibre en économie fermée; Qui épargne
 % Adaptation: Three-part explanation paired with the existing diagram.
 % ============================================================================
@@ -1140,7 +1033,7 @@
 \end{frame}
 
 % ============================================================================
-% 53 | \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
+% 46 | \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
 % Source: S3/s3.tex | Pourquoi l'IA peut-elle relever le taux réel
 % Adaptation: Retain the investment-demand shock before its data-center evidence.
 % ============================================================================
@@ -1181,7 +1074,7 @@
 \end{frame}
 
 % ============================================================================
-% 54 | \begin{frame}{Le boom des centres de données aux États-Unis}
+% 47 | \begin{frame}{Le boom des centres de données aux États-Unis}
 % Source: S3/s3.tex | Le boom des centres de données aux États-Unis
 % Adaptation: Evidence immediately after the investment-demand shock.
 % ============================================================================
@@ -1193,7 +1086,7 @@
 \end{frame}
 
 % ============================================================================
-% 55 | \begin{frame}[t]{Les marchés de capitaux sont mondiaux}
+% 48 | \begin{frame}[t]{Les marchés de capitaux sont mondiaux}
 % Source: S6/s6.tex | Les marchés de capitaux sont mondiaux
 % Adaptation: Keep the financing example and main implication; omit the open-economy derivation.
 % ============================================================================
@@ -1224,7 +1117,7 @@
 \end{frame}
 
 % ============================================================================
-% 56 | \begin{frame}{Savings glut : une offre d'épargne accrue}
+% 49 | \begin{frame}{Savings glut : une offre d'épargne accrue}
 % Source: S3/s3.tex | La courbe d'épargne; Et si l'épargne diminue
 % Adaptation: Match the other shocks; indexed saving curves, fixed investment demand.
 % ============================================================================
@@ -1265,23 +1158,23 @@
 \end{frame}
 
 % ============================================================================
-% 57 | \begin{frame}{Des capacités d'épargne très différentes}
+% 50 | \begin{frame}{Des capacités d'épargne très différentes}
 % Source: S6 regional net-lending figure (updated IMF cache); Schmelzing (2020) global real rates.
 % Adaptation: Matched 2001--2018 panels; real rate is ex post, advanced-economy GDP-weighted, trailing 5-year mean.
 % ============================================================================
 \begin{frame}{Excédents d'épargne et baisse des taux mondiaux}
    \centering
-   \includegraphics[width=1.02\textwidth, height=0.84\textheight, keepaspectratio]{ess_saving_glut_evidence.pdf}
+   \makebox[\textwidth][c]{\includegraphics[width=1.02\textwidth, height=0.84\textheight, keepaspectratio]{ess_saving_glut_evidence.pdf}}
 \end{frame}
 
 % ============================================================================
-% 58 | \sectionframe{Les cycles économiques}
+% 51 | \sectionframe{Les cycles économiques}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Les cycles économiques}
 
 % ============================================================================
-% 59 | Que sont les cycles économiques ?
+% 52 | Que sont les cycles économiques ?
 % Source: S4 | Que sont les cycles économiques
 % ============================================================================
 \begin{frame}{Que sont les cycles économiques\,?}
@@ -1326,7 +1219,7 @@
 \end{frame}
 
 % ============================================================================
-% 60 | Les composantes ne fluctuent pas toutes autant
+% 53 | Les composantes ne fluctuent pas toutes autant
 % Source: S1/S4 | Composantes cycliques; investissement plus volatil
 % ============================================================================
 \begin{frame}{Les composantes ne fluctuent pas toutes autant}
@@ -1335,7 +1228,7 @@
 \end{frame}
 
 % ============================================================================
-% 61 | Le PIB réel et potentiel du Canada
+% 54 | Le PIB réel et potentiel du Canada
 % Source: S4 | PIB potentiel et écart de production; figure canadienne
 % ============================================================================
 \begin{frame}{Le PIB réel et potentiel du Canada}
@@ -1344,8 +1237,8 @@
 \end{frame}
 
 % ============================================================================
-% 62 | Trois éléments pour comprendre les fluctuations
-% Source: S4 | DA-OA framework; potential output and nominal rigidities
+% 55 | Trois éléments pour comprendre les fluctuations
+% Source: S4 | DA-OACT framework; potential output and nominal rigidities
 % ============================================================================
 \begin{frame}{Trois éléments pour comprendre les fluctuations}
 \begin{columns}[c,onlytextwidth]
@@ -1353,18 +1246,18 @@
 \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
 \RaggedRight\small\textbf{\textcolor{HECnavy}{Demande agrégée (DA)}}\par\vspace{4pt}$DA = C + I + G + NX$
 \end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
-\RaggedRight\small\textbf{\textcolor{HECcoral}{Offre agrégée (OA)}}\par\vspace{4pt}Prix et coûts déterminent la production offerte.
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Offre agr. court terme (OACT)}}\par\vspace{4pt}Prix et coûts déterminent la production offerte.
 \end{tcolorbox}\begin{tcolorbox}[colback=HECgreen!5, colframe=HECgreen!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
-\RaggedRight\small\textbf{\textcolor{HECgreen}{PIB potentiel}}\par\vspace{4pt}Capacité soutenable : $A$, $K$, $L$.
+\RaggedRight\small\textbf{\textcolor{HECgreen}{Offre agr. long terme (OALT)}}\par\vspace{4pt}PIB potentiel déterminé par $A$, $K$, $L$.
 \end{tcolorbox}
 \end{column}
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.88]
-\draw[potline] (3.6,0) -- (3.6,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.7) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P^{*}$} -- (3.6,2.55);
 \draw[demand] (0,4.71) -- (7,0.51) node[above right, curvelabel] {DA};
-\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {OA};
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[above left, curvelabel] {$OACT$};
 \filldraw[eqpoint] (3.6,2.55) circle (3pt);
 \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
 \draw[econaxis] (0,0) -- (0,5.1) node[above] {$P$};
@@ -1374,8 +1267,8 @@
 \end{frame}
 
 % ============================================================================
-% 63 | DA : qui achète la production ?
-% Source: S4 | DA-OA framework; potential output and nominal rigidities
+% 56 | DA : qui achète la production ?
+% Source: S4 | DA-OACT framework; potential output and nominal rigidities
 % ============================================================================
 \begin{frame}{Pourquoi DA a-t-elle une pente négative ?}
 \begin{columns}[c,onlytextwidth]
@@ -1408,10 +1301,10 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 64 | Pourquoi OA a-t-elle une pente positive ?
-% Source: S4 | DA-OA framework; potential output and nominal rigidities
+% 57 | Pourquoi l'OACT a-t-elle une pente positive ?
+% Source: S4 | DA-OACT framework; potential output and nominal rigidities
 % ============================================================================
-\begin{frame}{Pourquoi OA a-t-elle une pente positive ?}
+\begin{frame}{Pourquoi l'OACT a-t-elle une pente positive ?}
 \begin{columns}[c,onlytextwidth]
 \begin{column}{0.40\textwidth}
 \begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
@@ -1427,7 +1320,7 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \draw[refline] (0,1.7) node[left, pointlabel] {$P_{0}$} -- (1.5,1.7);
 \draw[refline] (4,0) node[below, pointlabel] {$Y_{1}$} -- (4,3.7);
 \draw[refline] (0,3.7) node[left, pointlabel] {$P_{1}$} -- (4,3.7);
-\draw[supply, HECcoral] (0,0.5) -- (5.1,4.58) node[right, curvelabel] {OA};
+\draw[supply, HECcoral] (0,0.5) -- (5.1,4.58) node[above left, curvelabel] {$OACT$};
 \filldraw[eqpoint=HECcoral] (1.5,1.7) circle (3pt);
 \filldraw[eqpoint=HECcoral] (4,3.7) circle (3pt);
 \draw[econaxis] (0,0) -- (6,0) node[right] {$Y$};
@@ -1438,7 +1331,7 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 65 | Demande en baisse, coûts rigides : une récession
+% 58 | Demande en baisse, coûts rigides : une récession
 % Source: S4 | Negative demand shock; equilibria and arrow endpoints verified.
 % ============================================================================
 \begin{frame}{Demande en baisse, coûts rigides : une récession}
@@ -1447,20 +1340,20 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
 \RaggedRight\small\textbf{\textcolor{HECnavy}{La demande recule}}\par\vspace{4pt}Les dépenses reculent : DA se déplace à gauche.
 \end{tcolorbox}\begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
-\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts rigides}}\par\vspace{4pt}Les salaires ne baissent pas tout de suite : $Y_{1} < Y_{\text{POT}}$.
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts rigides}}\par\vspace{4pt}Les salaires ne baissent pas tout de suite : le PIB passe sous son potentiel.
 \end{tcolorbox}
 \end{column}
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-% OA0 = 0.6 Y + 0.5; DA0 = 4.1 - 0.6 Y; DA1 = 3.02 - 0.6 Y.
-\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+% OACT0 = 0.6 Y + 0.5; DA0 = 4.1 - 0.6 Y; DA1 = 3.02 - 0.6 Y.
+\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.3) node[left, pointlabel] {$P_{0}$} -- (3,2.3);
 \draw[refline] (0,1.76) node[left, pointlabel] {$P_{1}$} -- (2.1,1.76);
 \draw[refline] (2.1,0) node[below, pointlabel] {$Y_{1}$} -- (2.1,1.76);
 \draw[original, HECnavy!45] (0,4.1) -- (6.833333,0) node[above right, curvelabel] {$DA_{0}$};
 \draw[demand] (0,3.02) -- (5.033333,0) node[above right, curvelabel] {$DA_{1}$};
-\draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {OA};
+\draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[above left, curvelabel] {$OACT$};
 \draw[shiftarrow, HECnavy] (4.75,1.1) -- (3.45,1.1);
 \filldraw[eqpoint=HECgray] (3,2.3) circle (3pt);
 \filldraw[eqpoint] (2.1,1.76) circle (3pt);
@@ -1472,31 +1365,31 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 66 | Et si les salaires et les coûts s’ajustaient immédiatement ?
+% 59 | Et si les salaires et les coûts s’ajustaient immédiatement ?
 % Source: S4 | Counterfactual immediate nominal adjustment; fixed A, K, L and potential.
 % ============================================================================
 \begin{frame}{Et si les salaires et les coûts s’ajustaient immédiatement ?}
 \begin{columns}[c,onlytextwidth]
 \begin{column}{0.40\textwidth}
 \begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
-\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts flexibles}}\par\vspace{4pt}Des salaires plus bas permettent de produire à prix plus faibles : OA à droite.
+\RaggedRight\small\textbf{\textcolor{HECcoral}{Des coûts flexibles}}\par\vspace{4pt}Des salaires plus bas permettent de produire à prix plus faibles : OACT à droite.
 \end{tcolorbox}\begin{tcolorbox}[colback=HECgreen!5, colframe=HECgreen!5, boxrule=0pt, arc=7pt, left=8pt, right=8pt, top=7pt, bottom=7pt]
-\RaggedRight\small\textbf{\textcolor{HECgreen}{Production au potentiel}}\par\vspace{4pt}Avec ajustement immédiat, $Y = Y_{\text{POT}}$ : choc absorbé par une baisse des prix.
+\RaggedRight\small\textbf{\textcolor{HECgreen}{Production au potentiel}}\par\vspace{4pt}Avec ajustement immédiat, le PIB reste à son potentiel : les prix absorbent le choc.
 \end{tcolorbox}
 \end{column}
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-% Immediate adjustment: OA1 = 0.6 Y - 0.58. DA1 intersects OA1 at (3,1.22).
-\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+% Immediate adjustment: OACT1 = 0.6 Y - 0.58. DA1 intersects OACT1 at (3,1.22).
+\draw[potline] (3,0) -- (3,4.7) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.3) node[left, pointlabel] {$P_{0}$} -- (3,2.3);
 \draw[refline] (0,1.76) node[left, pointlabel] {$P_{1}$} -- (2.1,1.76);
 \draw[refline] (2.1,0) node[below, pointlabel] {$Y_{1}$} -- (2.1,1.76);
 \draw[refline] (0,1.22) node[left, pointlabel] {$P_{2}$} -- (3,1.22);
 \draw[original, HECnavy!35] (0,4.1) -- (6.833333,0) node[above right, curvelabel] {$DA_{0}$};
 \draw[demand] (0,3.02) -- (5.033333,0) node[above right, curvelabel] {$DA_{1}$};
-\draw[original, HECcoral!45] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {$OA_{0}$};
-\draw[supply, HECcoral] (0.966667,0) -- (6.9,3.56) node[right, curvelabel] {$OA_{1}$};
+\draw[original, HECcoral!45] (0,0.5) -- (6.9,4.64) node[above left, curvelabel] {$OACT_{0}$};
+\draw[supply, HECcoral] (0.966667,0) -- (6.9,3.56) node[above left, curvelabel] {$OACT_{1}$};
 \draw[shiftarrow, HECcoral] (4.75,3.2) -- (6.05,3.2);
 \filldraw[eqpoint=HECgray] (3,2.3) circle (2.5pt);
 \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.5pt);
@@ -1509,7 +1402,7 @@ Nos produits deviennent plus chers donc les exportations reculent et les importa
 \end{frame}
 
 % ============================================================================
-% 67 | Les prix et les salaires s’ajustent lentement : les données
+% 60 | Les prix et les salaires s’ajustent lentement : les données
 % Source: Nakamura and Steinsson (2008), QJE; Grigsby, Hurst and Yildirmaz (2021), AER.
 % ============================================================================
 \begin{frame}{Les prix et les salaires s’ajustent lentement : les données}
@@ -1538,7 +1431,7 @@ Environ 35\,\% ne connaissent aucun changement.
 \end{columns}
 \end{frame}
 % ============================================================================
-% 68 | Exemples de chocs : demande ou offre ?
+% 61 | Exemples de chocs : demande ou offre ?
 % Source: S4 | Drivers of aggregate demand and aggregate supply, condensed examples.
 % ============================================================================
 \begin{frame}{Exemples de chocs : demande ou offre ?}
@@ -1560,21 +1453,21 @@ Exportations en hausse : DA $\rightarrow$
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{tcolorbox}[colback=HECcoral!5, colframe=HECcoral!5, boxrule=0pt, arc=7pt, left=10pt, right=10pt, top=10pt, bottom=10pt, equal height group=shocklists]
-\RaggedRight\textbf{\textcolor{HECcoral}{Chocs d'offre (OA et $Y_{\text{POT}}$)}}\par\vspace{12pt}
+\RaggedRight\textbf{\textcolor{HECcoral}{Chocs d'offre (OACT et $OALT$)}}\par\vspace{12pt}
 \small\textbf{\textcolor{HECcoral}{Coûts à court terme}}\\[5pt]
 \textbf{Pétrole plus cher} ou \textbf{chaînes d'approvisionnement perturbées}.\\[5pt]
-OA $\leftarrow$ et $Y_{\text{POT}}$ inchangé
+OACT $\leftarrow$ et $OALT$ inchangée
 \par\vspace{14pt}
 \textbf{\textcolor{HECgreen}{Capacité productive durable}}\\[5pt]
 \textbf{Productivité, capital ou main-d'œuvre en hausse} ($A$, $K$, $L$).\\[5pt]
-$Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
+$OALT$ $\rightarrow$ et OACT $\rightarrow$.
 \end{tcolorbox}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ============================================================================
-% 69 | Les tarifs américains freinent les exportations et l’investissement
+% 62 | Les tarifs américains freinent les exportations et l’investissement
 % Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/tariff-assumptions/
 % ============================================================================
 \begin{frame}{Les tarifs américains freinent les exportations et l’investissement}
@@ -1589,11 +1482,11 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
 \draw[refline] (0,2.07) node[left, pointlabel] {$P_{1}$} -- (2.8,2.07);
 \draw[refline] (2.8,0) node[below, pointlabel] {$Y_{1}$} -- (2.8,2.07);
-\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[above left, curvelabel] {$OACT$};
 \draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
 \draw[demand] (0,3.75) -- (5.55,0.42) node[right, curvelabel] {$DA_{1}$};
 \draw[shiftarrow, HECnavy] (5.6,1.2) -- (4.5,1.2);
@@ -1607,7 +1500,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 70 | L’emploi canadien selon l’exposition aux exportations américaines
+% 63 | L’emploi canadien selon l’exposition aux exportations américaines
 % Source: Session 1, figure « Un avenir incertain »; Statistique Canada 14-10-0355-01, septembre 2026.
 % ============================================================================
 \begin{frame}{L’emploi canadien selon l’exposition aux exportations américaines}
@@ -1616,7 +1509,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 71 | Le pétrole et les contre-tarifs augmentent les coûts au Canada
+% 64 | Le pétrole et les contre-tarifs augmentent les coûts au Canada
 % Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/ ; https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/tariff-assumptions/
 % ============================================================================
 \begin{frame}{Le pétrole et les contre-tarifs augmentent les coûts au Canada}
@@ -1631,13 +1524,13 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
 \draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (2.8,3.03);
 \draw[refline] (2.8,0) node[below, pointlabel] {$Y_{1}$} -- (2.8,3.03);
 \draw[demand] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA$};
-\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA_{0}$};
-\draw[supply, HECcoral] (0,1.35) -- (5.7,4.77) node[above, curvelabel] {$OA_{1}$};
+\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[above, curvelabel] {$OACT_{0}$};
+\draw[supply, HECcoral] (0,1.35) -- (5.7,4.77) node[above, curvelabel] {$OACT_{1}$};
 \draw[shiftarrow, HECcoral] (5.6,3.9) -- (4.5,3.9);
 \filldraw[eqpoint=HECgray] (3.6,2.55) circle (2.7pt);
 \filldraw[eqpoint=HECcoral] (2.8,3.03) circle (3pt);
@@ -1649,7 +1542,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 72 | Deux sources de pression sur les coûts en 2026
+% 65 | Deux sources de pression sur les coûts en 2026
 % Source: EIA/FRED DCOILBRENTEU, January–October 2026; Bank of Canada, October MPR, Table 1. Duties after remissions, goods only.
 % ============================================================================
 \begin{frame}{Deux sources de pression sur les coûts en 2026}
@@ -1658,7 +1551,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 73 | Pétrole : les producteurs canadiens exportent et investissent davantage
+% 66 | Pétrole : les producteurs canadiens exportent et investissent davantage
 % Source: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/in-focus-3/
 % ============================================================================
 \begin{frame}{Pétrole : les producteurs canadiens exportent et investissent davantage}
@@ -1673,11 +1566,11 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
 \draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (4.4,3.03);
 \draw[refline] (4.4,0) node[below, pointlabel] {$Y_{1}$} -- (4.4,3.03);
-\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[above left, curvelabel] {$OACT$};
 \draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
 \draw[demand] (1.05,5.04) -- (6.9,1.53) node[right, curvelabel] {$DA_{1}$};
 \draw[shiftarrow, HECnavy] (5.35,1.65) -- (6.45,1.65);
@@ -1691,7 +1584,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 74 | La Mégadéduction à la productivité soutient l’investissement
+% 67 | La Mégadéduction à la productivité soutient l’investissement
 % Source: https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/perspectives-canadiennes/ — official investment outlook, not a fiscal multiplier or a realized treatment effect.
 % ============================================================================
 \begin{frame}{La Mégadéduction à la productivité soutient l’investissement}
@@ -1706,11 +1599,11 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.86]
-\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
 \draw[refline] (0,3.03) node[left, pointlabel] {$P_{1}$} -- (4.4,3.03);
 \draw[refline] (4.4,0) node[below, pointlabel] {$Y_{1}$} -- (4.4,3.03);
-\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA$};
+\draw[supply, HECcoral] (0,0.39) -- (6.9,4.53) node[above left, curvelabel] {$OACT$};
 \draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
 \draw[demand] (1.05,5.04) -- (6.9,1.53) node[right, curvelabel] {$DA_{1}$};
 \draw[shiftarrow, HECnavy] (5.35,1.65) -- (6.45,1.65);
@@ -1724,7 +1617,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 75 | Canada : des prix plus élevés, un PIB sous son potentiel
+% 68 | Canada : des prix plus élevés, un PIB sous son potentiel
 % Source: https://www.banqueducanada.ca/publication/rpm/rpm-2026-10-28/conjoncture-canadienne/
 % Illustrative short-run shifts; the CPI figures are observed twelve-month changes.
 % ============================================================================
@@ -1741,13 +1634,13 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \begin{column}{0.57\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.84]
-\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
+\draw[potline] (3.6,0) -- (3.6,4.65) node[above, curvelabel, text=HECgreen] {$OALT$};
 \draw[refline] (0,2.55) node[left, pointlabel] {$P_{0}$} -- (3.6,2.55);
 \draw[refline] (0,3.51) node[left, pointlabel] {$P_{1}$} -- (3.2,3.51);
 \draw[refline] (3.2,0) node[below, pointlabel] {$Y_{1}$} -- (3.2,3.51);
-\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[right, curvelabel] {$OA_{0}$};
+\draw[original, HECcoral!55] (0,0.39) -- (6.9,4.53) node[above, curvelabel] {$OACT_{0}$};
 \draw[original, HECnavy!55] (0,4.71) -- (6.9,0.57) node[right, curvelabel] {$DA_{0}$};
-\draw[supply, HECcoral] (0,1.59) -- (5.5,4.89) node[above, curvelabel] {$OA_{1}$};
+\draw[supply, HECcoral] (0,1.59) -- (5.5,4.89) node[above, curvelabel] {$OACT_{1}$};
 \draw[demand] (0.85,4.92) -- (6.9,1.29) node[right, curvelabel] {$DA_{1}$};
 \draw[shiftarrow, HECcoral] (5.94,4.08) -- (4.36,4.08);
 \draw[shiftarrow, HECnavy] (5.70,1.4) -- (6.53,1.4);
@@ -1764,14 +1657,14 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 76 | \sectionframe{Les politiques économiques}
+% 69 | \sectionframe{Les politiques économiques}
 % Source: Shared ECON50803 title/section style
 % ============================================================================
 \sectionframe{Les politiques économiques}
 
 % ============================================================================
-% 77 | Après un choc de demande, pourquoi ne pas attendre la reprise ?
-% Source: S5 #7–8; same post-shock demand, supply curves and equilibria as ESS #65–66.
+% 70 | Après un choc de demande, pourquoi ne pas attendre la reprise ?
+% Source: S5 #7–8; same post-shock demand, supply curves and equilibria as ESS #58–59.
 % Earnings scarring: Oreopoulos, von Wachter and Heisz (2012), doi:10.1257/app.4.1.1.
 % ============================================================================
 \begin{frame}{Après un choc, pourquoi ne pas attendre la reprise\,?}
@@ -1781,12 +1674,12 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.54\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.865]
-            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
             \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
             \draw[refline] (0,1.22) node[left,pointlabel] {$P_{2}$} -- (3,1.22);
-            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA_{0}$};
-            \draw[supply,HECcoral] (1.3,0.2) -- (6.8,3.5) node[right,curvelabel] {$OA_{1}$};
+            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[above left,curvelabel] {$OACT_{0}$};
+            \draw[supply,HECcoral] (1.3,0.2) -- (6.8,3.5) node[above left,curvelabel] {$OACT_{1}$};
             \draw[demand] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
             \draw[shiftarrow,HECcoral] (4.75,3.2) -- (6.05,3.2);
             \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.7pt);
@@ -1798,7 +1691,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \end{column}
       \begin{column}{0.45\textwidth}
          \begin{tcolorbox}[colback=HECnavy!5,colframe=HECnavy!5,boxrule=0pt,arc=7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
-            \RaggedRight\small\textbf{\textcolor{HECnavy}{OA se déplace (lentement)}}\par\smallskip
+            \RaggedRight\small\textbf{\textcolor{HECnavy}{L'OACT s'ajuste lentement}}\par\smallskip
             Le travail coûte moins cher que prévu. Au même prix de vente, les entreprises offrent davantage.
          \end{tcolorbox}
          \begin{keyinsight}[Des séquelles possibles]
@@ -1812,48 +1705,28 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 78 | \begin{frame}[t]{Deux institutions, deux leviers}
-% Source: S5/s5.tex | \begin{frame}[t]{Deux institutions, deux leviers}
+% 71 | Deux leviers pour agir sur la demande
+% Source: S5/s5.tex | Institutions and policy comparison; former ESS slides 78 and 88, consolidated before the monetary-policy sequence.
 % ============================================================================
-\begin{frame}[t]{Deux institutions, deux leviers}
-   \vspace{1cm}
-   \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \centering
-         \textcolor{HECnavy}{\large\textbf{Politique monétaire}}\\[3pt]
-         \textcolor{HECgray}{Banque centrale}\\[8pt]
-         \small
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Taux d'intérêt directeur
-            \item Décision rapide (8 annonces/an)
-            \item \textbf{Indépendante} du gouvernement
-            \item Agit sur DA via $C$ et $I$
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.06\textwidth}
-         \centering
-         \vspace{0.8cm}
-         {\Large\textcolor{HECgray}{vs.\,}}
-      \end{column}
-      \begin{column}{0.47\textwidth}
-         \centering
-         \textcolor{HECgreen}{\large\textbf{Politique budgétaire}}\\[3pt]
-         \textcolor{HECgray}{Gouvernement}\\[8pt]
-         \small
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item Dépenses ($G$), impôts ($T$), transferts
-            \item Processus législatif (lent)
-            \item Décision \textbf{politique}
-            \item Agit sur DA via $G$, $C$ et $I$
-         \end{itemize}
-      \end{column}
-   \end{columns}
+\begin{frame}{Deux leviers pour agir sur la demande}
+   \small
+   \renewcommand{\arraystretch}{1.50}
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.20\textwidth}JJ@{}}
+      \toprule
+      & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
+      \midrule
+      Décideur & Banque centrale indépendante & Gouvernement \\
+      Levier & Taux directeur & Dépenses, impôts et transferts \\
+      Courbe déplacée & Demande agrégée ($DA$) & Demande agrégée ($DA$) \\
+      Décision & Rapide & Processus budgétaire plus lent \\
+      Portée & Effets diffus & Peut cibler certains secteurs \\
+      Limite & Effets retardés et incertains & Endettement \\
+      \bottomrule
+   \end{tabularx}
 \end{frame}
 
 % ============================================================================
-% 79 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
+% 72 | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % Source: S5/s5.tex | \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
 % ============================================================================
 \begin{frame}[t]{Un objectif clair et mesurable : cible d'inflation de 2\,\%}
@@ -1873,7 +1746,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 80 | \begin{frame}{Le taux directeur et l’inflation au Canada depuis 1996}
+% 73 | \begin{frame}{Le taux directeur et l’inflation au Canada depuis 1996}
 % Source: S5/figures_s5.py | rate_vs_inflation_ca; StatCan v39079 and v41690973.
 % ============================================================================
 \begin{frame}{Le taux directeur et l’inflation au Canada depuis 1996}
@@ -1884,7 +1757,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 81 | \begin{frame}{Le mécanisme de transmission}
+% 74 | \begin{frame}{Le mécanisme de transmission}
 % Source: S5/s5.tex | \begin{frame}{Le mécanisme de transmission}
 % ============================================================================
 \begin{frame}{Le mécanisme de transmission}
@@ -1909,13 +1782,13 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       % Feedback arrow (dashed, closes the loop)
       \draw[flowarrow, HECgray, dashed] (pib) to[bend left=25]
          node[left=1pt, pointlabel, text=HECgray] {Rétroaction} (td);
-      % Delay annotation
-      \node[font=\scriptsize, HECcoral, align=center] at (0,0) {Délai total : \textbf{6 à 8 trimestres}};
+      % Delay and forward-looking decisions, consolidated from former ESS slide 83.
+      \node[font=\footnotesize, align=center] at (0,0) {\textcolor{HECcoral}{\textbf{6 à 8 trimestres}}\\[2pt]pour l'effet maximal\\sur l'inflation\\[7pt]\textbf{La BdC doit anticiper}\\malgré l'incertitude.};
    \end{tikzpicture}
 \end{frame}
 
 % ============================================================================
-% 82 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
+% 75 | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
 % Inflation targeting under a demand shock: https://www.banqueducanada.ca/2002/01/poursuite-cibles-inflation-canada/
 % Source: S5/s5.tex | \begin{frame}[t]{Politique expansionniste : la réponse de la BdC}
 % ============================================================================
@@ -1926,14 +1799,14 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.55\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.865]
-            % Same demand shortfall and potential output as on slide 65.
-            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            % Same demand shortfall and potential output as on slide 58.
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
             \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
             \draw[refline] (0,2.3) node[left,pointlabel] {$P_{2}$} -- (3,2.3);
             \draw[original,HECnavy!55] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
             \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{2}$};
-            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[above left,curvelabel] {$OACT$};
             \draw[shiftarrow,HECnavy] (3.45,1.1) -- (4.75,1.1);
             \filldraw[eqpoint=HECgray] (2.1,1.76) circle (2.7pt);
             \filldraw[eqpoint=HECnavy] (3,2.3) circle (3pt);
@@ -1954,28 +1827,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 83 | \begin{frame}[t]{Les délais de transmission}
-% Source: S5/s5.tex | \begin{frame}[t]{Les délais de transmission}
-% ============================================================================
-\begin{frame}[t]{Les délais de transmission}
-   \small
-   \vspace{0.2cm}
-   \textbf{Consensus :} 6 à 8 trimestres entre la décision et l'effet maximal sur l'inflation.
-   \vspace{0.2cm}
-   \begin{itemize}
-      \setlength\itemsep{0.2cm}
-      \item La BdC doit donc agir en fonction de ses \textbf{prévisions}, pas de la situation actuelle
-      \item Les prévisions sont \textbf{imparfaites} --- c'est loin d'être une science exacte
-      \item Métaphore : \guillemotleft~conduire en regardant dans le rétroviseur~\guillemotright
-   \end{itemize}
-   \vspace{0.2cm}
-   \begin{keyinsight}
-      C'est pour cette raison que les banques centrales répètent que leurs décisions sont \guillemotleft~\textit{forward-looking}~\guillemotright\ et dépendent des \guillemotleft~données à venir~\guillemotright.
-   \end{keyinsight}
-\end{frame}
-
-% ============================================================================
-% 84 | Le dilemme d’un choc d’offre négatif
+% 76 | Le dilemme d’un choc d’offre négatif
 % Source: S5/s5.tex | Le dilemme des chocs d'offre. The diagram shows the short-run cost shock before a policy response.
 % ============================================================================
 \begin{frame}{Le dilemme d’un choc d’offre négatif}
@@ -1985,12 +1837,12 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.55\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.865]
-            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (2.25,0) node[below,pointlabel] {$Y_{1}$} -- (2.25,2.75);
             \draw[refline] (0,2.3) node[left,pointlabel] {$P_{0}$} -- (3,2.3);
             \draw[refline] (0,2.75) node[left,pointlabel] {$P_{1}$} -- (2.25,2.75);
-            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA_{0}$};
-            \draw[supply,HECcoral] (0,1.4) -- (5.3,4.58) node[above,curvelabel] {$OA_{1}$};
+            \draw[original,HECcoral!55] (0,0.5) -- (6.8,4.58) node[above,curvelabel] {$OACT_{0}$};
+            \draw[supply,HECcoral] (0,1.4) -- (5.3,4.58) node[above,curvelabel] {$OACT_{1}$};
             \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA$};
             \draw[shiftarrow,HECcoral] (4.8,3.5) -- (3.7,3.5);
             \filldraw[eqpoint=HECgray] (3,2.3) circle (2.7pt);
@@ -2013,16 +1865,16 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 85 | Rappel des chocs au Canada (reprise de la diapositive 75)
+% 77 | Rappel des chocs au Canada (reprise de la diapositive 68)
 % ============================================================================
 \againframe<2>{chocs-canada}
 
 % ============================================================================
-% 86 | La hausse du taux directeur du 28 octobre 2026
+% 78 | La hausse du taux directeur du 28 octobre 2026
 % Decision and 2027 annual inflation forecast: https://www.banqueducanada.ca/2026/10/fad-communique-2026-10-28/
 % Q3 output gap: https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/
-% Slide 75 ends at (3.2,3.51). Compare the same horizon with and without the hike.
-% Illustrative shift only: OA1 = 1.59 + 0.6 Y; DA1 = 5.43 - 0.6 Y; DA2 = 4.53 - 0.6 Y.
+% Slide 68 ends at (3.2,3.51). Compare the same horizon with and without the hike.
+% Illustrative shift only: OACT1 = 1.59 + 0.6 Y; DA1 = 5.43 - 0.6 Y; DA2 = 4.53 - 0.6 Y.
 % ============================================================================
 \begin{frame}{Le 28 octobre 2026, la BdC relève son taux de 2,25 à 2,50\,\%}
    \RaggedRight\small Le PIB est légèrement sous son potentiel, mais la BdC prévoit 3\,\% d’inflation en 2027.
@@ -2031,10 +1883,10 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.54\textwidth}
          \centering
          \begin{tikzpicture}[scale=0.80]
-            \draw[potline] (3.6,0) -- (3.6,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[potline] (3.6,0) -- (3.6,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (0,3.51) node[left,pointlabel] {$P_{1}$} -- (3.2,3.51);
             \draw[refline] (0,3.06) node[left,pointlabel] {$P_{2}$} -- (2.45,3.06);
-            \draw[supply,HECcoral] (0,1.59) -- (5.5,4.89) node[above,curvelabel] {$OA$};
+            \draw[supply,HECcoral] (0,1.59) -- (5.5,4.89) node[above,curvelabel] {$OACT$};
             \draw[original,HECnavy!60] (0.85,4.92) -- (5.45,2.16)
                node[right,font=\scriptsize,text=HECnavy] {$DA$ sans hausse};
             \draw[demand] (0,4.53) -- (5.45,1.26)
@@ -2056,7 +1908,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 87 | \begin{frame}[t]{L'autre levier : le gouvernement}
+% 79 | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Source: S5/s5.tex | \begin{frame}[t]{L'autre levier : le gouvernement}
 % Adaptation: Keep the Canadian G/I convention and the transfer channel consistent.
 % ============================================================================
@@ -2079,32 +1931,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 88 | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-% Source: S5/s5.tex | \begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-% ============================================================================
-\begin{frame}[t]{Comparaison : politique monétaire vs.\ budgétaire}
-   \small
-   \vfill
-   \renewcommand{\arraystretch}{1.50}
-   \centering
-   \begin{tabularx}{\textwidth}{>{\bfseries\small}l >{\small}X >{\small\raggedright\arraybackslash}p{0.42\textwidth}}
-      \toprule
-      & \textbf{Politique monétaire} & \textbf{Politique budgétaire} \\
-      \midrule
-      Décideur & Banque centrale & Gouvernement \\
-      Rapidité & Rapide (8 annonces/an) & Lente (processus législatif) \\
-      Indépendance & Oui & Non (politique) \\
-      Courbe déplacée & Demande agrégée ($DA$) & Demande agrégée ($DA$) \\
-      Canal & Taux $\to$ $C$, $I$, $NX$ & $G$ direct + $C, I$ via transferts/impôts \\
-      Précision & Faible (effets diffus) & Peut cibler des secteurs \\
-      Limite & Délai, incert., borne zéro & \textcolor{HECcoral}{\textbf{Endettement}} \\
-      \bottomrule
-   \end{tabularx}
-   \vfill
-\end{frame}
-
-% ============================================================================
-% 89 | La dette fédérale canadienne avant la Grande Récession
+% 80 | La dette fédérale canadienne avant la Grande Récession
 % Finance Canada, Fiscal Reference Tables 2025, table 2, fiscal years ending March 1994–2007.
 % ============================================================================
 \begin{frame}{La dette fédérale canadienne}
@@ -2113,8 +1940,8 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 90 | Austerity with interest rates held fixed (illustrative counterfactual, S5).
-% OA: P = 0.5 + 0.6 Y; DA0: P = 4.1 - 0.6 Y; DA1: P = 3.02 - 0.6 Y.
+% 81 | Austerity with interest rates held fixed (illustrative counterfactual, S5).
+% OACT: P = 0.5 + 0.6 Y; DA0: P = 4.1 - 0.6 Y; DA1: P = 3.02 - 0.6 Y.
 % ============================================================================
 \begin{frame}[t]{L’austérité peut provoquer une récession...}
    \vfill
@@ -2133,11 +1960,11 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.58\textwidth}
          \centering
          \begin{tikzpicture}[x=0.93cm,y=0.97cm]
-            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
             \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
             \draw[refline] (0,2.3) node[left,pointlabel] {$P_{0}$} -- (3,2.3);
-            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[above left,curvelabel] {$OACT$};
             \draw[original,HECnavy!55] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{0}$};
             \draw[demand] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
             \draw[shiftarrow,HECnavy] (4.75,1.10) -- (3.45,1.10);
@@ -2152,7 +1979,7 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 91 | Monetary easing after the fiscal contraction (S5). Full offset is illustrative.
+% 82 | Monetary easing after the fiscal contraction (S5). Full offset is illustrative.
 % The Bank describes easing in late 1995–96 and a recovery in domestic demand starting in mid-1996.
 % https://www.bankofcanada.ca/1998/10/canadian-experience-targets-inflation-control/
 % ============================================================================
@@ -2173,11 +2000,11 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       \begin{column}{0.58\textwidth}
          \centering
          \begin{tikzpicture}[x=0.93cm,y=0.97cm]
-            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$Y_{\text{POT}}$};
+            \draw[potline] (3,0) -- (3,4.65) node[above,curvelabel,text=HECgreen] {$OALT$};
             \draw[refline] (2.1,0) node[below,pointlabel] {$Y_{1}$} -- (2.1,1.76);
             \draw[refline] (0,1.76) node[left,pointlabel] {$P_{1}$} -- (2.1,1.76);
             \draw[refline] (0,2.3) node[left,pointlabel] {$P_{2}$} -- (3,2.3);
-            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[right,curvelabel] {$OA$};
+            \draw[supply,HECcoral] (0,0.5) -- (6.8,4.58) node[above left,curvelabel] {$OACT$};
             \draw[original,HECnavy!55] (0,3.02) -- (4.5,0.32) node[right,curvelabel] {$DA_{1}$};
             \draw[demand] (0,4.1) -- (6.3,0.32) node[right,curvelabel] {$DA_{2}$};
             \draw[shiftarrow,HECnavy] (3.45,1.10) -- (4.75,1.10);
@@ -2192,7 +2019,28 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
 \end{frame}
 
 % ============================================================================
-% 92 | Synthèse des cinq thèmes pour les décisions de gestion
+% 83 | Du scénario macro à la décision d'affaires
+% Inspired by Nicolas Vincent, Macro - Essentiel du MBA 2026, PDF pp. 6 and 71–74.
+% Adaptation: Connect likelihood and firm exposure to financial effects and an action trigger.
+% ============================================================================
+\begin{frame}{Du scénario macro à la décision d'affaires}
+   \vfill
+   \small
+   \begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.22\textwidth}J@{}}
+      \textcolor{HECnavy}{1. Scénario} & Que pourrait-il se passer ? Avec quelle vraisemblance ? \\[0.45cm]
+      \textcolor{HECnavy}{2. Exposition} & Quels clients, fournisseurs ou financements seraient touchés ? \\[0.45cm]
+      \textcolor{HECnavy}{3. Impact} & Quel effet sur nos ventes, nos marges et notre trésorerie ? \\[0.45cm]
+      \textcolor{HECnavy}{4. Réponse} & Que préparer maintenant ? Quel signal déclencherait l'action ?
+   \end{tabularx}
+   \vspace{0.35cm}
+   \begin{keyinsight}[Prioriser les risques]
+      \RaggedRight\small Même peu probable, un scénario à \textbf{fort impact} peut mériter un plan.
+   \end{keyinsight}
+   \vfill
+\end{frame}
+
+% ============================================================================
+% 84 | Synthèse des cinq thèmes pour les décisions de gestion
 % Source: Manager-facing synthesis of the five themes covered in this deck.
 % ============================================================================
 \begin{frame}{Cinq thèmes pour mieux décider}
@@ -2210,5 +2058,105 @@ $Y_{\text{POT}}$ $\rightarrow$ et OA $\rightarrow$.
       {\small Intégrer la réaction des autorités et ses délais à vos scénarios d'affaires.}
    \end{enumerate}
 \end{frame}
+
+% ============================================================================
+% 85 | Fin de la présentation principale
+% Source: Shared ECON50803 full-navy section-slide style.
+% ============================================================================
+\sectionframe{Merci\,!}
+
+% ============================================================================
+% Linked backup slides: optional material, outside the main teaching sequence.
+% ============================================================================
+\backupbegin
+\renewcommand{\appendixname}{Compléments}
+\appendix
+
+% ============================================================================
+% 86 | \begin{frame}{Prix plus élevés dans les pays riches (effet Balassa-Samuelson)}
+% Source: S1/s1.tex | Price levels versus GDP per capita
+% ============================================================================
+\begin{frame}[label=ess-backup-prix]{Complément : prix plus élevés dans les pays riches}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.76\textheight, keepaspectratio]{gdp_per_capita_vs_price_level.pdf}
+   \end{figure}
+   \essbackupbutton{Retour}{ess-main-prix}
+\end{frame}
+
+% ============================================================================
+% 87 | \begin{frame}[t]{Corriger les prix : deux difficultés}
+% Source: S1/s1.tex | Quality adjustment examples; new-product bias and the price of light
+% Adaptation: One concise slide without numerical claims; retain Honda and lighting intuitions.
+% ============================================================================
+\begin{frame}[t,label=ess-backup-qualite]{Complément : qualité et nouveaux produits}
+   \small
+   \textbf{\textcolor{HECnavy}{1. Comparer une qualité équivalente}}
+   \par\vspace{0.2cm}
+   Une voiture plus chère mais mieux équipée : quelle part du prix reflète de l'inflation vs.\ un \textbf{meilleur produit} ? Les agences corrigent pour la qualité, mais imparfaitement.
+   \par\vspace{0.4cm}
+   \textbf{\textcolor{HECgreen}{2. Intégrer les nouveaux produits}}
+   \par\vspace{0.2cm}
+   Un nouveau produit n'a pas de prix antérieur. Comparer des bougies et des ampoules exige de mesurer le \textbf{service rendu : les lumens}, pas seulement le prix de chaque produit.
+   \par\vspace{0.25cm}
+   \begin{keyinsight}[Une mesure utile, mais imparfaite]
+      \small Mal mesurer les gains de qualité ou les quantités derrières les nouveaux produits peut conduire à \textbf{surestimer l'inflation} et à \textbf{sous-estimer les gains réels}.
+   \end{keyinsight}
+   \essbackupbutton{Retour}{ess-main-qualite}
+\end{frame}
+
+% ============================================================================
+% 88 | \begin{frame}[t]{Complément : les limites du PIB}
+% Source: S1/s1.tex | Limits of GDP as a welfare measure
+% Adaptation: Keep the existing welfare limitations, omitting the final open-ended prompt.
+% ============================================================================
+\begin{frame}[t,label=ess-backup-limites]{Complément : les limites du PIB}
+   \small
+   Le PIB est utile mais incomplet. Il omet :
+   \vspace{0.25cm}
+   \begin{itemize}
+      \setlength\itemsep{0.25cm}
+      \item \textbf{Inégalités :} le PIB peut croître même si la majorité s'appauvrit
+      \item \textbf{Loisir :} travailler 80h/sem.\ augmente le PIB, peut-être pas le bien-être
+      \item \textbf{Santé :} espérance de vie, santé mentale, morbidité
+      \item \textbf{Environnement :} pollution, épuisement des ressources, climat
+      \item \textbf{Liberté politique :} démocratie, droits de la personne, corruption
+      \item \textbf{Sécurité :} criminalité, conflits, terrorisme
+   \end{itemize}
+   \essbackupnavigation{%
+      \hyperlink{ess-backup-idh}{\beamerbutton{IDH et PIB}}\hspace{5pt}%
+      \hyperlink{ess-main-pib-hab}{\beamerbutton{Retour}}%
+   }
+\end{frame}
+
+% ============================================================================
+% 89 | \begin{frame}{IDH vs.\ PIB par habitant}
+% Source: S1/s1.tex | HDI definition and HDI-GDP comparison
+% Adaptation: Shared scatter with a small bottom note defining HDI.
+% ============================================================================
+\begin{frame}[label=ess-backup-idh]{Complément : IDH vs.\ PIB par habitant}
+   \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth, height=0.73\textheight, keepaspectratio]{hdi_vs_gdp_per_capita.pdf}
+   \end{figure}
+   \vspace{-0.15cm}
+   {\scriptsize\color{HECgray} L'IDH combine santé, éducation et RNB par habitant en PPA.}
+   \essbackupbutton{Retour}{ess-backup-limites}
+\end{frame}
+
+% ============================================================================
+% 90 | \begin{frame}{Et la croissance du revenu par habitant\,?}
+% Source: S2/s2.tex | Canada vs. États-Unis : PIB par habitant
+% Adaptation: Retain the K/Y decomposition and explain its labels without adding algebra.
+% ============================================================================
+\begin{frame}[label=ess-backup-croissance]{Complément : croissance du revenu par habitant}
+   \centering
+   \includegraphics[width=\textwidth, height=0.70\textheight, keepaspectratio]{growth_decomp_canada_us.pdf}
+   \par\vspace{0.1cm}
+   {\scriptsize\color{HECgray} $A$ : productivité; $K/Y$ : profondeur du capital; $L/N$ : taux d'emploi.}
+   \essbackupbutton{Retour}{ess-main-croissance}
+\end{frame}
+
+\backupend
 
 \end{document}
