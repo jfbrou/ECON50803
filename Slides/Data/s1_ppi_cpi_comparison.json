@@ -1,0 +1,48 @@
+{
+  "retrieved_at_utc": "2026-11-06T14:56:23.270070+00:00",
+  "as_of_date": "2026-11-06",
+  "sources": {
+    "ippi": {
+      "table": "18-10-0265-01",
+      "vector": "v1230995983",
+      "selection": {
+        "GEO": "Canada",
+        "North American Product Classification System (NAPCS)": "Total, Industrial product price index (IPPI)"
+      },
+      "units": "Index, January 2020=100, not seasonally adjusted",
+      "url": "https://www150.statcan.gc.ca/n1/tbl/csv/18100265-eng.zip",
+      "filename": "18100265-eng.zip",
+      "sha256": "91bf641c1fb0fddd43e34c51489b1fe182ccd3e1e0cd6840654ca6b043c5e04f"
+    },
+    "cpi": {
+      "table": "18-10-0004-01",
+      "vector": "v41690973",
+      "selection": "Canada, all-items CPI",
+      "units": "Index, 2002=100, not seasonally adjusted",
+      "url": "https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorsAndLatestNPeriods",
+      "request": [
+        {
+          "vectorId": 41690973,
+          "latestN": 160
+        }
+      ],
+      "filename": "cpi_v41690973.json",
+      "sha256": "18c469cc1f956ec952e8ef052eabe7b13794868aca35290f88ec48de8828ab97"
+    }
+  },
+  "transform": "For each monthly index: 100 * (index_t / index_t_minus_12 - 1). No smoothing, filling, interpolation or forecast.",
+  "display_start": "2016-01-01",
+  "last_common_observation": "2026-09-01",
+  "validation": {
+    "September 2026 IPPI YoY, rounded to one decimal": 14.5,
+    "September 2026 CPI YoY, rounded to one decimal": 3.1
+  },
+  "validation_urls": [
+    "https://www150.statcan.gc.ca/n1/daily-quotidien/261022/dq261022a-eng.htm",
+    "https://www150.statcan.gc.ca/n1/daily-quotidien/261019/t001a-eng.htm"
+  ],
+  "interpretation": "IPPI covers prices received by Canadian manufacturers at the factory gate, including exported products. It is not an input-cost index and does not cover all producer services. CPI covers household purchases of goods and services, including imported items. Their baskets and valuations differ; the gap is neither an aggregate profit-margin measure nor a mechanical forecast of future CPI.",
+  "methodology": "https://www23.statcan.gc.ca/imdb/p2SV.pl?Function=getSurvey&SDDS=2318",
+  "generator": "Slides/S1/figures_s1.py --ppi-cpi-only",
+  "output": "Slides/Figures/inflation_ppi_cpi_canada.pdf"
+}

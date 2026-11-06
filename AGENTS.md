@@ -2,8 +2,8 @@
 
 ## Next-semester working copy
 
-This checkout is the `next-semester` branch. Revise Session 2 here, in
-`Slides/S2/s2.tex`, and build its PDF from `Slides/S2`. The sibling `ECON50803`
+This checkout is the `next-semester` branch. Revise Sessions 1 and 2 here, in
+`Slides/S1/s1.tex` and `Slides/S2/s2.tex`, and build each PDF from its session directory. The sibling `ECON50803`
 checkout on `main` is the official current-semester version: do not edit or
 build there as part of next-semester work.
 
@@ -12,7 +12,7 @@ build there as part of next-semester work.
   official figures.
 - Preserve the main-only guards in `.github/workflows/build-slides.yml`.
   Never merge or push draft revisions to `main` until explicitly authorized.
-- Session 2 uses the versioned `latex-common` directory inside this worktree.
+- Sessions 1 and 2 use the versioned `latex-common` directory inside this worktree.
   Do not edit the external sibling `latex-common` or `plot-common` repositories
   for draft work. The plotting helper may be imported read-only; implement any
   draft-specific adjustments here instead.

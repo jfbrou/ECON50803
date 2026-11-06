@@ -10,6 +10,7 @@ Run from Slides/S1/:
     python3 figures_s1.py
     python3 intro_data.py                  # refresh official inputs for slides 7--13
     python3 figures_s1.py --intro-only     # regenerate only those seven figures
+    python3 figures_s1.py --ppi-cpi-only   # regenerate the draft producer/consumer comparison
     python3 remaining_data.py             # refresh the remaining source snapshots
     python3 figures_s1.py --remaining-only # regenerate the remaining figures offline
 """
@@ -1306,6 +1307,69 @@ def inflation_cpi_deflator_canada():
 
 
 # =====================================================================
+# Figure: Industrial producer prices vs consumer prices — Canada
+# =====================================================================
+def inflation_ppi_cpi_canada():
+    """Compare Canadian factory-gate and household inflation, not profit margins."""
+    import hashlib
+    import json
+    import zipfile
+
+    print('Figure: IPPI vs CPI inflation — Canada')
+    data_dir = Path(__file__).resolve().parents[1] / 'Data'
+    snapshot = data_dir / 's1_prices_20261106'
+    meta = json.loads((data_dir / 's1_ppi_cpi_comparison.json').read_text())
+    for source in meta['sources'].values():
+        raw_file = snapshot / source['filename']
+        if hashlib.sha256(raw_file.read_bytes()).hexdigest() != source['sha256']:
+            raise ValueError(f"Changed price snapshot: {source['filename']}")
+    with zipfile.ZipFile(snapshot / meta['sources']['ippi']['filename']) as archive:
+        table = pd.read_csv(archive.open('18100265.csv'), low_memory=False)
+    selected = table[(table['GEO'] == 'Canada') &
+                     (table['North American Product Classification System (NAPCS)'] ==
+                      'Total, Industrial product price index (IPPI)')].copy()
+    if set(selected['VECTOR']) != {'v1230995983'}:
+        raise ValueError('Unexpected industrial producer price series')
+    ippi = selected.set_index(pd.to_datetime(selected['REF_DATE']))['VALUE'].sort_index()
+    raw = json.loads((snapshot / meta['sources']['cpi']['filename']).read_text())[0]
+    if int(raw['vectorId']) != 41690973:
+        raise ValueError('Unexpected CPI vector')
+    consumer = pd.DataFrame(raw['vectorDataPoint'])
+    cpi = consumer.set_index(pd.to_datetime(consumer['refPer']))['value'].sort_index()
+    last = min(ippi.index[-1], cpi.index[-1])
+    if last != pd.Timestamp(meta['last_common_observation']):
+        raise ValueError('Unexpected common price-series endpoint')
+    levels = pd.concat([ippi.rename('IPPI'), cpi.rename('IPC')], axis=1).loc['2015-01-01':last]
+    expected = pd.date_range('2015-01-01', last, freq='MS')
+    if not levels.index.equals(expected) or levels.isna().any().any() or (levels <= 0).any().any():
+        raise ValueError('Incomplete or invalid monthly prices: do not fill missing data')
+    rates = (100 * levels.pct_change(12, fill_method=None)).loc[meta['display_start']:]
+    np.testing.assert_allclose(rates.iloc[-1].round(1), [14.5, 3.1], atol=1e-9)
+
+    fig, ax = new_figure(w=9, h=3.15)
+    ax.plot(rates.index, rates['IPPI'], color=palette[2], lw=2.2,
+            label=r"Biens industriels, sortie d'usine (IPPI)")
+    ax.plot(rates.index, rates['IPC'], color=palette[0], lw=2.2,
+            label='Panier des ménages (IPC)')
+    ax.set_xlim(rates.index[0], last)
+    ax.set_ylim(-10, 20)
+    ticks = np.arange(-10, 21, 5)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels([str(v) + r'\%' for v in ticks], fontsize=12)
+    years = list(range(2016, last.year, 2))
+    ax.set_xticks([pd.Timestamp(f'{year}-01-01') for year in years] + [last])
+    ax.set_xticklabels([str(year) for year in years] + [_source_month(last)], fontsize=12)
+    ax.text(0, 1.035, 'Variation sur 12 mois', fontsize=11,
+            ha='left', va='bottom', transform=ax.transAxes)
+    style_axes(ax)
+    ax.axhline(0, color=palette[7], linewidth=0.8, zorder=0)
+    ax.legend(loc='upper left', fontsize=11.5, frameon=False,
+              handlelength=2.3, labelspacing=0.65)
+    add_source(ax, f'Source : StatCan ({_source_month(last)})')
+    save(fig, 'inflation_ppi_cpi_canada.pdf')
+
+
+# =====================================================================
 # Figure: Headline vs core CPI inflation — Canada
 # =====================================================================
 def inflation_headline_core_canada():
@@ -1698,13 +1762,16 @@ if __name__ == '__main__':
         gdp_nominal_canada,
         gdp_nominal_real_canada,
         inflation_cpi_deflator_canada,
+        inflation_ppi_cpi_canada,
         inflation_headline_core_canada,
         inflation_highfreq_cavallo,
         hdi_vs_gdp_per_capita,
         beyond_gdp,
     ]
 
-    if '--intro-only' in sys.argv:
+    if '--ppi-cpi-only' in sys.argv:
+        figures = [inflation_ppi_cpi_canada]
+    elif '--intro-only' in sys.argv:
         figures = figures[:7]
     elif '--remaining-only' in sys.argv:
         figures = figures[7:]

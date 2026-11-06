@@ -38,3 +38,6 @@ __pycache__/
 
 # Local link to the next-semester Fernald productivity snapshot in Dropbox
 /Slides/Data/fernald_20261105
+
+# Local next-semester producer/consumer price snapshot in Dropbox
+/Slides/Data/s1_prices_20261106
