@@ -944,9 +944,9 @@ def moores_law():
     ax.set_xticks(range(1970, 2026, 5))
     ax.set_xticklabels([str(y) for y in range(1970, 2026, 5)], fontsize=11)
 
-    # Y-axis: powers of 10 (LaTeX-rendered for correct font)
+    # Keep powers of 10 in text mode so both digits and exponents use Fira Sans.
     yticks = [10**i for i in range(3, 13)]
-    ylabels = [r'$10^{' + str(i) + r'}$' for i in range(3, 13)]
+    ylabels = [rf'10\textsuperscript{{{i}}}' for i in range(3, 13)]
     ax.set_yticks(yticks)
     ax.set_yticklabels(ylabels, fontsize=11, usetex=True)
     ax.set_ylim(1e3, 1e12)
