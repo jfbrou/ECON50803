@@ -41,3 +41,6 @@ __pycache__/
 
 # Local next-semester producer/consumer price snapshot in Dropbox
 /Slides/Data/s1_prices_20261106
+
+# Local cache for historical Session 3 figures
+/Slides/Data/s3_closed_economy_shocks.csv

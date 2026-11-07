@@ -2164,9 +2164,8 @@ _CA_GROUPS = {
     'Europe du Nord': (['DEU', 'NLD', 'CHE', 'SWE', 'DNK'], '#6ee0a8'),
     'Chine': (['CHN'], '#1a9e5a'),
     "Asie de l'Est": (['JPN', 'KOR', 'SGP', 'MYS', 'THA', 'HKG'], palette[1]),
-    'Anglosphère': (['USA', 'GBR', 'AUS'], '#cc2f33'),
+    'Anglosphère': (['USA', 'GBR', 'AUS', 'CAN'], '#cc2f33'),
     'Europe périphérique': (['ESP', 'ITA', 'GRC', 'PRT', 'TUR'], '#ff9a9d'),
-    'Canada': (['CAN'], palette[0]),
 }
 _SAVING_COUNTRIES = {
     'CHN': ('China', palette[0]), 'USA': ('United States', palette[2]),
@@ -2183,7 +2182,7 @@ def refresh_international_timeseries(as_of=None):
     """Cache the latest completed annual observations; never zero-fill gaps.
 
     IMF BCA and world NGDPD both use billions of current US dollars. The
-    original Session 6 country groups are unchanged, with Canada separate.
+    Session 6 groups include Canada in the Anglosphere.
     Use their complete common consecutive interval (currently 2001-2025).
     Savings retain each country's own endpoint, without extrapolation.
     """
@@ -2250,7 +2249,7 @@ def refresh_international_timeseries(as_of=None):
             'units_output': 'Percent of world GDP.',
             'group_members': {label: members for label, (members, _) in _CA_GROUPS.items()},
             'plotted_range': [first_complete, last_complete],
-            'coverage': 'Original Session 6 groups plus separate Canada, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.',
+            'coverage': 'Original Session 6 groups with Canada included in the Anglosphere, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.',
             'transformation': 'Sum BCA by group; divide by WEOWORLD NGDPD; multiply by 100. Positive/negative group balances stack on the corresponding side of zero in each year.',
             'excluded_years': '2026 and later forecasts excluded; 1995-2000 excluded from plot for incomplete country coverage. Unfilled gaps retained in cached data.',
             'indicator_metadata': {key: indicators[key] for key in ['BCA', 'NGDPD']},
@@ -2281,10 +2280,8 @@ def current_accounts_divergence():
     fig, ax = new_figure(10, 5)
     positive = np.zeros(len(raw))
     negative = np.zeros(len(raw))
-    # Keep Canada's small contribution next to zero rather than burying it.
-    plot_order = ['Canada'] + [name for name in _CA_GROUPS if name != 'Canada']
     handles = {}
-    for name in plot_order:
+    for name in _CA_GROUPS:
         series = values[name].to_numpy()
         bottom = np.where(series >= 0, positive, negative)
         handles[name] = ax.bar(raw.index, series, bottom=bottom, width=0.75,
@@ -2306,7 +2303,7 @@ def current_accounts_divergence():
     ax.set_ylabel(r'(\% du PIB mondial)', fontsize=11, rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
     ax.legend([handles[name] for name in _CA_GROUPS], list(_CA_GROUPS),
-              fontsize=9, ncol=4, loc='lower right', frameon=False,
+              fontsize=9, ncol=3, loc='lower right', frameon=False,
               handlelength=1.1, handletextpad=0.4, columnspacing=1.0)
     style_axes(ax)
     ax.set_axisbelow(True)
@@ -2356,6 +2353,7 @@ def saving_rates_divergence():
 _AI_EVIDENCE_DIR = Path(__file__).resolve().parents[1] / 'Data'
 _AI_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_construction.csv'
 _AI_REAL_YIELD_DATA = _AI_EVIDENCE_DIR / 's3_ai_real_yield.csv'
+_AI_REAL_FORWARD_DATA = _AI_EVIDENCE_DIR / 'ess_ai_real_forward_5y5y.csv'
 _AI_EVIDENCE_META = _AI_EVIDENCE_DIR / 's3_ai_capital_evidence.json'
 _AI_REAL_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_real_monthly.csv'
 _AI_NOMINAL_GDP_DATA = _AI_EVIDENCE_DIR / 's3_ai_us_nominal_gdp.csv'
@@ -2588,7 +2586,7 @@ def ai_datacenter_construction():
 def ai_datacenter_and_real_yield():
     """Overlay construction/GDP and the Fed-published TIPS5F5 real forward rate."""
     construction = pd.read_csv(_AI_CONSTRUCTION_GDP_DATA, parse_dates=['date'])
-    rates = pd.read_csv(_AI_EVIDENCE_DIR / 'ess_ai_real_forward_5y5y.csv', parse_dates=['date']).dropna(subset=['percent'])
+    rates = pd.read_csv(_AI_REAL_FORWARD_DATA, parse_dates=['date']).dropna(subset=['percent'])
     # Retain each series at its own observation frequency; no extrapolation.
     start = max(construction.date.min(), rates.date.min())
     end = max(construction.date.max(), rates.date.max())
@@ -2628,6 +2626,127 @@ def ai_datacenter_and_real_yield():
     save(fig, 'ess_ai_datacenter_real_yield.pdf')
 
 
+# =====================================================================
+# Canadian closed-economy examples
+# =====================================================================
+_CLOSED_SHOCKS_DATA = Path(__file__).resolve().parents[1] / 'Data' / 's3_closed_economy_shocks.csv'
+
+
+def refresh_closed_economy_shocks():
+    """Cache official series for the two fixed historical windows."""
+    from io import BytesIO
+    import requests
+
+    vectors = {
+        'gdp': (62305783, 1992, 2018, 4),  # 36-10-0104-01, nominal GDP at annual rates
+        'conventional': (90968372, 2000, 2018, 1),  # 36-10-0096-01, current-price investment
+        'oil_sands': (90968412, 2000, 2018, 1),
+        'public_net': (62355385, 1992, 2005, 4),  # 36-10-0118-01, all governments
+        'public_cfc': (62355387, 1992, 2005, 4),
+        'national_net': (62305875, 1992, 2005, 4),  # 36-10-0111-01
+        'national_cfc': (62305885, 1992, 2005, 4),
+        'real_yield': (122553, 1992, 2005, 12),  # 10-10-0122-01, last Wednesday
+    }
+    url = ('https://www150.statcan.gc.ca/t1/wds/rest/'
+           'getDataFromVectorByReferencePeriodRange')
+    response = requests.get(url, params={
+        'vectorIds': ','.join(str(spec[0]) for spec in vectors.values()),
+        'startRefPeriod': '1992-01-01', 'endReferencePeriod': '2018-12-31',
+    }, timeout=45)
+    response.raise_for_status()
+    points = {item['object']['vectorId']: item['object']['vectorDataPoint']
+              for item in response.json() if item['status'] == 'SUCCESS'}
+    annual = {}
+    for name, (vector, first, last, count) in vectors.items():
+        values = pd.Series({row['refPer']: row['value'] for row in points[vector]})
+        by_year = values.groupby(pd.to_datetime(values.index).year)
+        years = pd.Index(range(first, last + 1))
+        if not by_year.count().reindex(years).eq(count).all():
+            raise ValueError(f'Incomplete historical vector {vector}')
+        # Quarterly national accounts are already expressed at annual rates.
+        annual[name] = by_year.mean().reindex(years)
+
+    response = requests.get('https://www.eia.gov/dnav/pet/hist_xls/RWTCa.xls', timeout=45)
+    response.raise_for_status()
+    wti = pd.read_excel(BytesIO(response.content), sheet_name=1, skiprows=2).set_index('Date').iloc[:, 0]
+    wti.index = wti.index.year
+    wti = wti.reindex(range(2000, 2019))
+    if wti.isna().any():
+        raise ValueError('Incomplete historical EIA WTI series')
+    data = pd.DataFrame({
+        'gdp_million': annual['gdp'],
+        'wti_usd': wti,
+        'oil_investment_million': annual['conventional'] + annual['oil_sands'],
+        'public_saving_million': annual['public_net'] + annual['public_cfc'],
+        'national_saving_million': annual['national_net'] + annual['national_cfc'],
+        'real_yield_percent': annual['real_yield'],
+    })
+    data.index.name = 'year'
+    # Write to the resolved cache so a local Dropbox symlink stays intact.
+    data.to_csv(_CLOSED_SHOCKS_DATA.resolve(), float_format='%.8g')
+
+
+def _closed_shock_data(first, last, columns):
+    if not _CLOSED_SHOCKS_DATA.is_file():
+        refresh_closed_economy_shocks()
+    data = pd.read_csv(_CLOSED_SHOCKS_DATA, index_col='year').reindex(range(first, last + 1))
+    if data[columns].isna().any().any():
+        raise ValueError('Incomplete historical saving–investment evidence')
+    return data
+
+
+def _closed_shock_axes(axis, years, event, label, title, source, yticks, percent=False):
+    axis.set_xlim(years[0], years[-1])
+    axis.set_xticks(years, labels=[str(year) for year in years], fontsize=12)
+    axis.set_ylim(yticks[0], yticks[-1])
+    suffix = r'\%' if percent else ''
+    axis.set_yticks(yticks, labels=[f'{value:g}'.replace('.', ',') + suffix for value in yticks], fontsize=12)
+    axis.set_title(title, loc='left', fontsize=15, pad=22)
+    axis.axvline(event, color=palette[7], linewidth=0.9, alpha=0.65, zorder=1)
+    axis.text(event + 0.22, 0.055, label, transform=axis.get_xaxis_transform(),
+              va='bottom', fontsize=10, color=palette[7])
+    style_axes(axis)
+    add_source(axis, source)
+
+
+def canada_oil_investment_boom():
+    columns = ['wti_usd', 'oil_investment_million', 'gdp_million']
+    data = _closed_shock_data(2000, 2018, columns)
+    fig, (price, investment) = plt.subplots(1, 2, figsize=(11.4, 4.8))
+    price.plot(data.index, data.wti_usd, color=palette[0], linewidth=2.5, zorder=3)
+    investment.plot(data.index, 100 * data.oil_investment_million / data.gdp_million,
+                    color=palette[2], linewidth=2.5, zorder=3)
+    years = [2000, 2005, 2010, 2014, 2018]
+    _closed_shock_axes(price, years, 2014.5, 'Chute du WTI',
+                       r'Prix du WTI (\$ US par baril)', 'Source : EIA', range(25, 106, 20))
+    _closed_shock_axes(investment, years, 2014.5, 'Chute du WTI',
+                       r'Investissement pétrolier et gazier (\% du PIB)',
+                       'Source : Statistique Canada', np.arange(1.5, 5, 0.5), percent=True)
+    save(fig, 's3_canada_oil_investment_boom.pdf')
+
+
+def canada_fiscal_consolidation():
+    columns = ['public_saving_million', 'national_saving_million', 'gdp_million', 'real_yield_percent']
+    data = _closed_shock_data(1992, 2005, columns)
+    fig, (saving, rates) = plt.subplots(1, 2, figsize=(11.4, 4.8))
+    saving.axhline(0, color=palette[7], linewidth=0.8, zorder=1)
+    saving.plot(data.index, 100 * data.national_saving_million / data.gdp_million,
+                color=palette[0], linewidth=2.5, label='Nationale', zorder=3)
+    saving.plot(data.index, 100 * data.public_saving_million / data.gdp_million,
+                color=palette[1], linewidth=2.5, label='Publique', zorder=3)
+    rates.plot(data.index, data.real_yield_percent, color=palette[2], linewidth=2.5, zorder=3)
+    years = [1992, 1995, 2000, 2005]
+    _closed_shock_axes(saving, years, 1995, 'Budget de 1995',
+                       r'Épargne brute (\% du PIB)', 'Source : Statistique Canada',
+                       [-6, 0, 5, 10, 15, 20, 25], percent=True)
+    _closed_shock_axes(rates, years, 1995, 'Budget de 1995',
+                       'Rendement réel à long terme', 'Source : Banque du Canada (V122553)',
+                       np.arange(1.5, 5.5, 0.5), percent=True)
+    saving.legend(frameon=False, loc='upper right', bbox_to_anchor=(1, 0.53),
+                  fontsize=11, handlelength=1.5)
+    save(fig, 's3_canada_fiscal_consolidation.pdf')
+
+
 def saving_glut_evidence():
     """Regional net lending and global sovereign real rates, matched 2001-2018."""
     rates = pd.read_csv(_INTERNATIONAL_DATA_DIR / 'ess_global_real_rate.csv', index_col='year')
@@ -2642,8 +2761,8 @@ def saving_glut_evidence():
     legend_ax.axis('off')
     pos = np.zeros(len(raw)); neg = pos.copy()
     for name, (members, color) in _CA_GROUPS.items():
-        if name == 'Canada':
-            continue
+        # Use the original regional panel for the Essentiel du MBA figure.
+        members = [iso for iso in members if iso != 'CAN']
         values = raw[members].sum(axis=1).to_numpy() / raw.world_gdp_billion_usd.to_numpy() * 100
         bottom = np.where(values >= 0, pos, neg)
         ax.bar(raw.index, values, bottom=bottom, width=0.75, color=color, label=name, zorder=3)
@@ -2702,8 +2821,7 @@ def ai_investment_booms():
     save(fig, 's3_ai_investment_booms.pdf')
 
 
-def ai_real_yield():
-    data = pd.read_csv(_AI_REAL_YIELD_DATA, parse_dates=['date'])
+def _plot_ai_real_rate(data, label, source, filename, *, zero_line=True):
     fig, ax = new_figure(10, 5)
     ax.plot(data.date, data.percent, color=palette[0], linewidth=1.5)
     _ai_evidence_date_axis(ax, data.date)
@@ -2712,8 +2830,9 @@ def ai_real_yield():
     ax.set_ylim(ymin, ymax)
     ax.set_yticks(ticks)
     ax.set_yticklabels([f'{value:.0f}' + r'\%' for value in ticks], fontsize=11)
-    ax.axhline(0, color=palette[7], linewidth=0.7)
-    ax.set_ylabel(r'Rendement réel à 10 ans (\%)', rotation=0, ha='left', fontsize=11)
+    if zero_line:
+        ax.axhline(0, color=palette[7], linewidth=0.7)
+    ax.set_ylabel(label, rotation=0, ha='left', fontsize=11)
     ax.yaxis.set_label_coords(0, 1.02)
     style_axes(ax)
     launch = pd.Timestamp('2022-11-30')
@@ -2721,8 +2840,22 @@ def ai_real_yield():
     ax.text(launch - pd.Timedelta(days=100), 0.85, r'Lancement de ChatGPT',
             transform=ax.get_xaxis_transform(), ha='right', va='center',
             fontsize=10, color=palette[0])
-    add_source(ax, r'Source : Federal Reserve / FRED (DFII10)')
-    save(fig, 's3_ai_real_yield.pdf')
+    add_source(ax, source)
+    save(fig, filename)
+
+
+def ai_real_yield():
+    data = pd.read_csv(_AI_REAL_YIELD_DATA, parse_dates=['date'])
+    _plot_ai_real_rate(data, r'Rendement réel à 10 ans (\%)',
+                       'Source : Federal Reserve / FRED (DFII10)', 's3_ai_real_yield.pdf')
+
+
+def ai_real_forward_rate():
+    """Use the same Federal Reserve TIPS5F5 cache as Essentiel du MBA."""
+    data = pd.read_csv(_AI_REAL_FORWARD_DATA, parse_dates=['date']).dropna(subset=['percent'])
+    _plot_ai_real_rate(data, 'Taux réel à 5 ans dans 5 ans (5y5y)',
+                       'Source : Réserve fédérale (GSW, TIPS5F5)',
+                       's3_ai_real_forward_5y5y.pdf', zero_line=False)
 
 
 # =====================================================================
@@ -3167,9 +3300,12 @@ if __name__ == '__main__':
         us_twin_deficits,
         ai_datacenter_construction,
         ai_datacenter_and_real_yield,
+        canada_oil_investment_boom,
+        canada_fiscal_consolidation,
         saving_glut_evidence,
         ai_investment_booms,
         ai_real_yield,
+        ai_real_forward_rate,
         ai_computer_income_share,
         ai_labour_shares,
         ai_growth_scenarios,

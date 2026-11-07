@@ -47,7 +47,8 @@
       "Anglosphère": [
         "USA",
         "GBR",
-        "AUS"
+        "AUS",
+        "CAN"
       ],
       "Europe périphérique": [
         "ESP",
@@ -55,16 +56,13 @@
         "GRC",
         "PRT",
         "TUR"
-      ],
-      "Canada": [
-        "CAN"
       ]
     },
     "plotted_range": [
       2001,
       2025
     ],
-    "coverage": "Original Session 6 groups plus separate Canada, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.",
+    "coverage": "Original Session 6 groups with Canada included in the Anglosphere, constant membership. All members must report every plotted year. Earliest complete year is 2001 because Iraq starts then.",
     "transformation": "Sum BCA by group; divide by WEOWORLD NGDPD; multiply by 100. Positive/negative group balances stack on the corresponding side of zero in each year.",
     "excluded_years": "2026 and later forecasts excluded; 1995-2000 excluded from plot for incomplete country coverage. Unfilled gaps retained in cached data.",
     "indicator_metadata": {
