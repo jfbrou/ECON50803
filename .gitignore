@@ -32,3 +32,6 @@ __pycache__/
 
 # Environment
 .env
+
+# Local cache for historical Session 3 figures
+/Slides/Data/s3_closed_economy_shocks.csv
