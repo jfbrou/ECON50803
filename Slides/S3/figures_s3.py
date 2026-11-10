@@ -2359,6 +2359,7 @@ _AI_REAL_CONSTRUCTION_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_real_monthly.c
 _AI_NOMINAL_GDP_DATA = _AI_EVIDENCE_DIR / 's3_ai_us_nominal_gdp.csv'
 _AI_CONSTRUCTION_GDP_DATA = _AI_EVIDENCE_DIR / 's3_ai_datacenter_gdp_share.csv'
 _AI_BOOMS_DATA = _AI_EVIDENCE_DIR / 's3_ai_investment_booms.csv'
+_AI_BUILDOUT_DATA = _AI_EVIDENCE_DIR / 's3_ai_furman_buildout.csv'
 
 
 def refresh_ai_capital_evidence(as_of=None):
@@ -2581,6 +2582,194 @@ def ai_datacenter_construction():
             fontsize=10, color=palette[0])
     add_source(ax, r'Sources : Census / BEA (via FRED)')
     save(fig, 's3_ai_datacenter_construction.pdf')
+
+
+def ai_investment_components():
+    """Chart the four components of Furman's buildout measure since 2014."""
+    data = pd.read_csv(_AI_BUILDOUT_DATA, parse_dates=['date'])
+    data = data.loc[data.date >= '2014-01-01']
+    components = ['comp', 'commeq', 'commst', 'dc']
+    quarters = pd.period_range('2014Q1', '2026Q3', freq='Q')
+    if (list(data.date.dt.to_period('Q')) != list(quarters)
+            or data[components].isna().any().any()):
+        raise ValueError('Incomplete Econvitals investment snapshot')
+
+    fig, ax = new_figure(10, 4.8)
+    ax.stackplot(data.date, data[components].to_numpy().T,
+                 labels=['Ordinateurs et périphériques', 'Équipements de télécommunication',
+                         'Infrastructures de télécommunication', 'Centres de données'],
+                 colors=[palette[0], palette[4], palette[7], palette[1]], alpha=0.9, zorder=2)
+    _ai_evidence_date_axis(ax, data.date)
+    labels = [label.get_text() for label in ax.get_xticklabels()]
+    labels[-1] = f'T{quarters[-1].quarter}\n{quarters[-1].year}'
+    ax.set_xticklabels(labels, fontsize=11)
+    ax.set_ylim(0, 3)
+    ticks = np.arange(0, 3.1, 0.5)
+    ax.set_yticks(ticks, [f'{value:g}'.replace('.', ',') + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'Investissement privé (\% du PIB américain)', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(frameon=False, loc='upper left', fontsize=11, ncol=2)
+    launch = pd.Timestamp('2022-11-30')
+    ax.axvline(launch, color=palette[7], linewidth=0.9, zorder=3)
+    ax.text(launch - pd.Timedelta(days=70), 1.75, 'Lancement de ChatGPT',
+            ha='right', va='center', fontsize=10, color=palette[0])
+    last_share = data.total.iloc[-1]
+    ax.annotate(f'{last_share:.2f}'.replace('.', ',') + r'\%',
+                (data.date.iloc[-1], last_share), xytext=(-5, 5),
+                textcoords='offset points', ha='right', va='bottom', fontsize=13)
+    add_source(ax, 'Sources : BEA / Census, via Furman (2026)')
+    save(fig, 's3_ai_investment_components.pdf')
+
+
+def ai_construction_growth():
+    """Recreate the construction panel of Furman's Figure 4."""
+    data = pd.read_csv(_AI_EVIDENCE_DIR / 's3_ai_furman_construction.csv').sort_values('value', ascending=False)
+    french_labels = {
+        'Data center': 'Centres de données',
+        'Power': 'Énergie',
+        'Nonresidential total': 'Total non résidentiel',
+        'Multi-family': 'Logements multifamiliaux',
+        'Health care': 'Santé',
+        'Single family': 'Maisons individuelles',
+        'Lodging': 'Hébergement',
+        'Commercial (incl. warehouses)': 'Commerces et entrepôts',
+        'Educational': 'Éducation',
+        'Office ex-data-center': 'Bureaux hors centres de données',
+        'Residential total': 'Total résidentiel',
+        'Manufacturing': 'Industrie manufacturière',
+    }
+    group_colors = {'Data centers': palette[1], 'Other nonresidential': palette[0], 'Residential': palette[4]}
+
+    fig, ax = new_figure(9.6, 5.4)
+    bars = ax.barh(data.label.map(french_labels), data.value, height=0.64,
+                   color=data.group.map(group_colors), zorder=2)
+    ax.invert_yaxis()
+    bar_labels = [f'{value:+.1f}'.replace('.', ',').replace('-', '−') + r'\%' for value in data.value]
+    ax.bar_label(bars, labels=bar_labels, padding=4, fontsize=11)
+    ticks = np.arange(-40, 101, 20)
+    ax.set_xlim(ticks[0], ticks[-1])
+    ax.set_xticks(ticks, [str(value).replace('-', '−') + r'\%' for value in ticks], fontsize=11)
+    ax.tick_params(axis='y', labelsize=12, length=0, pad=7)
+    ax.set_ylabel('Construction réelle, sept. 2025 à sept. 2026',
+                  rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.grid(False, axis='y')
+    ax.grid(True, axis='x', linestyle=':', linewidth=0.5, color='gray')
+    ax.axvline(0, linewidth=0.9, color=palette[0], zorder=3)
+    group_labels = {'Data centers': 'Centres de données',
+                    'Other nonresidential': 'Non résidentiel',
+                    'Residential': 'Résidentiel'}
+    groups = data.group.tolist()
+    handles = [bars[groups.index(group)] for group in group_labels]
+    ax.legend(handles, group_labels.values(), frameon=False, loc='lower right', fontsize=10)
+    add_source(ax, 'Sources : Census / BLS, via Furman (2026)')
+    save(fig, 's3_ai_construction_growth.pdf')
+
+
+def ai_trade_balance():
+    """Recreate Furman's January–September trade-balance decomposition."""
+    data = pd.read_csv(_AI_EVIDENCE_DIR / 's3_ai_furman_trade.csv', parse_dates=['date'])
+    years = data.date.dt.year
+    fig, ax = new_figure(10, 4.8)
+    ax.bar(years, data.other, width=0.72, color=palette[0], label='Autres biens et services', zorder=2)
+    ax.bar(years, data.dc, width=0.72, bottom=data.other, color=palette[1],
+           label='Biens liés aux centres de données', zorder=2)
+    ax.set_xlim(years.iloc[0] - 0.55, years.iloc[-1] + 0.55)
+    ax.set_xticks(years, [str(year) for year in years], fontsize=11)
+    ax.set_ylim(-4, 0)
+    ticks = range(-4, 1)
+    ax.set_yticks(ticks, [str(value).replace('-', '−') + r'\%' for value in ticks], fontsize=11)
+    ax.set_ylabel(r'Solde commercial (\% du PIB américain, de janvier à septembre)',
+                  rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.axhline(0, linewidth=0.9, color=palette[0], clip_on=False)
+    ax.legend(frameon=False, ncol=2, loc='upper center', bbox_to_anchor=(0.5, -0.085), fontsize=11)
+    add_source(ax, 'Sources : Census / BEA, via Furman (2026)')
+    save(fig, 's3_ai_trade_balance.pdf')
+
+
+def us_gdp_growth_waterfall():
+    """Show observed real GDP growth as a waterfall of BEA contributions."""
+    import json
+
+    metadata = json.loads(_AI_EVIDENCE_META.read_text(encoding='utf-8'))
+    effects = metadata['us_gdp_growth_waterfall']['bea_values']
+    components = (
+        ('Consommation', effects['consumption']),
+        ('Investissement\nprivé', effects['investment']),
+        ('Dépenses\npubliques', effects['government']),
+        ('Exportations\nnettes', effects['net_exports']),
+    )
+
+    fig, ax = new_figure(10, 4.8)
+    width = 0.62
+    running = 0.0
+    for index, (_, value) in enumerate(components):
+        end = running + value
+        color = palette[1] if value > 0 else palette[2]
+        if value:
+            ax.bar(index, abs(value), width, bottom=min(running, end), color=color, zorder=3)
+        else:
+            ax.hlines(end, index - width / 2, index + width / 2, color=palette[7], linewidth=1.2, zorder=3)
+        if index < len(components) - 1:
+            ax.hlines(end, index + width / 2, index + 1 - width / 2, color=palette[7], linewidth=0.7, alpha=0.65)
+        offset = 12 if value > 0 else -5
+        label = f'{value:+.2f}' if value else '0.00'
+        ax.annotate(label.replace('.', ',').replace('-', '−'), (index, end), xytext=(0, offset),
+                    textcoords='offset points', ha='center', va='bottom' if value > 0 else 'top',
+                    fontsize=12)
+        running = end
+
+    total = effects['real_gdp']
+    index = len(components)
+    ax.bar(index, total, width, color=palette[0], zorder=3)
+    ax.annotate(r'\textbf{' + f'{total:+.1f}'.replace('.', ',') + r'\,\%}', (index, total), xytext=(0, 5),
+                textcoords='offset points', ha='center', va='bottom', fontsize=13)
+
+    ax.set_xlim(-0.55, index + 0.55)
+    ax.set_xticks(range(index + 1), [label for label, _ in components] + ['PIB réel'], fontsize=11)
+    ax.tick_params(axis='x', length=0, pad=6)
+    ax.set_ylim(0, 8)
+    ax.set_yticks([0, 2, 4, 6, 8], ['0', '2', '4', '6', '8'], fontsize=11)
+    ax.set_ylabel('Contributions en points de pourcentage, au rythme annualisé',
+                  rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    add_source(ax, 'Source : BEA, NIPA 1.1.1 et 1.5.2')
+    save(fig, 's3_us_gdp_growth_waterfall.pdf')
+
+
+def ai_stock_market():
+    """Recreate Furman's comparison of indexed stock-market capitalizations."""
+    data = pd.read_csv(_AI_EVIDENCE_DIR / 's3_ai_furman_stocks.csv', parse_dates=['date'])
+    fig, ax = new_figure(10, 4.8)
+    ax.axhline(100, color=palette[7], linewidth=0.9, zorder=1)
+    for column, label, color in (
+        ('seven', "Sept entreprises liées à l'IA", palette[0]),
+        ('rest', 'Reste du marché américain', palette[4]),
+    ):
+        ax.plot(data.date, data[column], color=color, linewidth=2.7, label=label)
+        last_date, last_value = data.date.iloc[-1], data[column].iloc[-1]
+        ax.scatter(last_date, last_value, color=color, s=18, zorder=4, clip_on=False)
+        ax.annotate(f'{last_value:.0f}', (last_date, last_value), xytext=(-6, -6),
+                    textcoords='offset points', ha='right', va='top', color=color, fontsize=12)
+
+    annual_ticks = list(pd.date_range('2023-01-01', '2026-01-01', freq='YS'))
+    ax.set_xlim(data.date.iloc[0], data.date.iloc[-1])
+    ax.set_xticks(annual_ticks + [data.date.iloc[-1]],
+                  [str(date.year) for date in annual_ticks] + ['5 nov.\n2026'], fontsize=11)
+    ax.set_ylim(0, 400)
+    ticks = range(0, 401, 100)
+    ax.set_yticks(ticks, [str(value) for value in ticks], fontsize=11)
+    ax.set_ylabel('Capitalisation boursière (30 nov. 2022 = 100)', rotation=0, ha='left', fontsize=11)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(frameon=False, loc='upper left', fontsize=11)
+    add_source(ax, 'Sources : SEC / Nasdaq / Réserve fédérale, via Furman (2026)')
+    save(fig, 's3_ai_stock_market.pdf')
 
 
 def ai_datacenter_and_real_yield():
@@ -3299,6 +3488,11 @@ if __name__ == '__main__':
         saving_rates_divergence,
         us_twin_deficits,
         ai_datacenter_construction,
+        ai_investment_components,
+        ai_construction_growth,
+        ai_trade_balance,
+        us_gdp_growth_waterfall,
+        ai_stock_market,
         ai_datacenter_and_real_yield,
         canada_oil_investment_boom,
         canada_fiscal_consolidation,

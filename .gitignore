@@ -35,3 +35,6 @@ __pycache__/
 
 # Local cache for historical Session 3 figures
 /Slides/Data/s3_closed_economy_shocks.csv
+
+# Local copy of the public Econvitals figure data
+/Slides/Data/s3_ai_furman_*.csv

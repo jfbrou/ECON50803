@@ -1556,11 +1556,11 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 % ============================================================================
 
 % 58
-\begin{frame}{Le boom des centres de données aux États-Unis}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_ai_datacenter_construction.pdf}
-   \end{figure}
+\begin{frame}[t]{Le boom de l'investissement informatique aux États-Unis}
+   \centering
+   \includegraphics[width=0.96\textwidth, height=0.76\textheight, keepaspectratio]{s3_ai_investment_components.pdf}
+   \par\smallskip
+   {\footnotesize Ces investissements couvrent aussi des usages autres que l'IA.}
 \end{frame}
 
 % ============================================================================
@@ -1578,51 +1578,118 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 % ============================================================================
 
 % 60
+\begin{frame}{Les centres de données créent-ils un effet d'éviction\,?}
+   \centering
+   \includegraphics[width=0.96\textwidth, height=0.82\textheight, keepaspectratio]{s3_ai_construction_growth.pdf}
+\end{frame}
+
+% ============================================================================
+
+% 61
+\begin{frame}[t]{Le déficit commercial américain change de composition}
+   \centering
+   \includegraphics[width=0.96\textwidth, height=0.72\textheight, keepaspectratio]{s3_ai_trade_balance.pdf}
+   \par
+   {\scriptsize Ordinateurs, pièces et accessoires, semi-conducteurs et matériel de télécommunication.}
+\end{frame}
+
+% ============================================================================
+
+% 62
+\begin{frame}[t]{D'où vient la croissance américaine au T3 2026\,?}
+   \centering
+   \includegraphics[width=0.98\textwidth, height=0.74\textheight, keepaspectratio]{s3_us_gdp_growth_waterfall.pdf}
+   \par\smallskip
+   {\scriptsize L'investissement privé comprend la variation des stocks. Les chiffres sont arrondis.}
+\end{frame}
+
+% ============================================================================
+
+% 63
+\begin{frame}[t]{Sept entreprises liées à l'IA se démarquent en Bourse}
+   \centering
+   \includegraphics[width=0.96\textwidth, height=0.76\textheight, keepaspectratio]{s3_ai_stock_market.pdf}
+   \par\smallskip
+   {\footnotesize Nvidia, Microsoft, Alphabet, Amazon, Meta, Broadcom et Oracle.}
+\end{frame}
+
+% ============================================================================
+
+% 64
 \begin{frame}{Pourquoi l'IA peut-elle relever le taux réel\,?}
    \begin{columns}[c,onlytextwidth]
       \begin{column}{0.55\textwidth}
          \centering
          \begin{tikzpicture}[scale=.78]
-            \draw[refline] (3,0) node[below, pointlabel, text=HECgray] {$I_{0}$} -- (3,2.25);
+            \path (0,-0.8);
+            \only<1>{
+               \draw[refline] (3,0) node[below, pointlabel, text=HECgray] {$I_{0}$} -- (3,2.25);
+               \draw[refline] (4.2,0) node[below, pointlabel, text=HECnavy] {$I_{1}$} -- (4.2,3.15);
+               \draw[supply, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S_{0}$};
+            }
+            \only<2->{
+               \draw[original, HECnavy!60] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S_{0}$};
+               \draw[supply, HECnavy] (0,1.2) -- (5.35,5.2125) node[right, curvelabel] {$S_{1}$};
+               % At r = 4.5, S_1 and S_0 cross at 4.4 and 6.
+               \draw[shiftarrow, HECnavy] (5.7,4.5) -- (4.7,4.5);
+               \draw[refline] (0,3.75) node[left, pointlabel, text=HECnavy] {$r_{2}$} -- (3.4,3.75);
+            }
             \draw[refline] (0,2.25) node[left, pointlabel, text=HECgray] {$r_{0}$} -- (3,2.25);
-            \draw[refline] (4.2,0) node[below, pointlabel, text=HECnavy] {$I_{1}$} -- (4.2,3.15);
             \draw[refline] (0,3.15) node[left, pointlabel, text=HECnavy] {$r_{1}$} -- (4.2,3.15);
-            \draw[supply, HECnavy] (0,0) -- (6.4,4.8) node[right, curvelabel] {$S$};
             \draw[original, HECcoral!45] (0,4.5) -- (6,0) node[above right, curvelabel] {$I_{0}$};
             \draw[demand, HECcoral] (0,6.3) -- (7.2,0.9) node[above right, curvelabel] {$I_{1}$};
-            % At r = 3.5, the demand curves are at 1.333333 and 3.733333.
-            \draw[shiftarrow, HECcoral] (1.733333,3.5) -- (3.333333,3.5);
+            % At r = 4.35, I_0 and I_1 cross at 0.2 and 2.6.
+            \draw[shiftarrow, HECcoral] (0.55,4.35) -- (2.25,4.35);
             \filldraw[eqpoint=HECgray] (3,2.25) circle (3pt);
-            \filldraw[eqpoint=HECgreen] (4.2,3.15) circle (3pt);
+            \only<1>{\filldraw[eqpoint=HECgreen] (4.2,3.15) circle (3pt);}
+            \only<2->{
+               \filldraw[eqpoint=HECgray] (4.2,3.15) circle (3pt);
+               \filldraw[eqpoint=HECgreen] (3.4,3.75) circle (3pt);
+            }
             \draw[econaxis] (0,0) -- (7.4,0) node[right] {$S, I$};
             \draw[econaxis] (0,0) -- (0,6.6) node[above] {$r$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
          \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
-            \RaggedRight\small\hyphenpenalty=10000
+            \RaggedRight\small
             \textbf{1. Plus de projets à financer}\par\vspace{4pt}
-            À taux réel donné, la demande d'investissement se déplace vers la droite.
+            L'essor des centres de données stimule l'investissement.
          \end{tcolorbox}
          \vspace{0.15cm}
-         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
-            \RaggedRight\small\hyphenpenalty=10000
-            \textbf{2. Le taux réel augmente}\par\vspace{4pt}
-            Le taux réel s'ajuste pour équilibrer l'épargne et l'investissement.
-         \end{tcolorbox}
-         \vspace{0.15cm}
-         \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
-            \RaggedRight\small\hyphenpenalty=10000
-            \textbf{3. D'autres projets sont évincés}\par\vspace{4pt}
-            Au nouveau taux, certains projets ne sont plus assez rentables.
-         \end{tcolorbox}
+         \begin{overprint}
+            \onslide<1>
+            \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
+               \RaggedRight\small
+               \textbf{Le taux réel augmente}\par\vspace{4pt}
+               En économie fermée, le taux équilibre l'épargne et l'investissement.
+            \end{tcolorbox}
+            \vspace{0.15cm}
+            \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
+               \RaggedRight\small
+               \textbf{Certains projets sont évincés}\par\vspace{4pt}
+               Leur rendement ne couvre plus le coût du financement.
+            \end{tcolorbox}
+            \onslide<2>
+            \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
+               \RaggedRight\small
+               \textbf{2. L'effet de richesse}\par\vspace{4pt}
+               À revenu et taux réel donnés, les ménages enrichis consomment plus et épargnent moins.
+            \end{tcolorbox}
+            \vspace{0.15cm}
+            \begin{tcolorbox}[colback=HECgreen!7, colframe=HECgreen!7, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=0pt, after skip=0pt]
+               \RaggedRight\small
+               \textbf{Le taux réel monte davantage}\par\vspace{4pt}
+               L'effet sur l'investissement total dépend de l'ampleur des deux chocs.
+            \end{tcolorbox}
+         \end{overprint}
       \end{column}
    \end{columns}
 \end{frame}
 
 % ============================================================================
 
-% 61
+% 65
 \begin{frame}{Le taux réel à terme a augmenté}
    \begin{figure}
       \centering
@@ -1632,12 +1699,12 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 62
+% 66
 \sectionframe{Qui captera les gains de l'IA\,?}
 
 % ============================================================================
 
-% 63
+% 67
 \begin{frame}[t]{Travail ou capital : qui captera les gains\,?}
    \framesubtitle{Demain : comment l'automatisation modifiera-t-elle le partage du revenu\,?}
    \centering
@@ -1646,7 +1713,7 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 64
+% 68
 \begin{frame}[t]{Progrès technique : qui fait mieux, qui fait quoi\,?}
    \small
    Quand les tâches humaines--machines sont \textbf{complémentaires}, deux forces s'opposent :
@@ -1682,7 +1749,7 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 65
+% 69
 \begin{frame}[t]{Ordinateurs : la course entre prix et quantité}
    \begin{columns}[T,onlytextwidth]
       \begin{column}{0.68\textwidth}
@@ -1715,12 +1782,12 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 66
+% 70
 \sectionframe{L'IA peut-elle accélérer la croissance\,?}
 
 % ============================================================================
 
-% 67
+% 71
 \begin{frame}[t]{L'IA partout, les gains de productivité où\,?}
    \begin{columns}[T,onlytextwidth]
       \begin{column}{0.13\textwidth}
@@ -1769,7 +1836,7 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 68
+% 72
 \begin{frame}{La maladie des coûts de Baumol}
    \begin{figure}
       \centering
@@ -1786,7 +1853,7 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 69
+% 73
 \begin{frame}[t]{Trois futurs divergents aux des débuts semblables}
    \centering
    \includegraphics[width=\textwidth, height=0.52\textheight, keepaspectratio]{s3_ai_growth_scenarios.pdf}
@@ -1806,12 +1873,12 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 70
+% 74
 \sectionframe{Et pour la suite\,?}
 
 % ============================================================================
 
-% 71
+% 75
 \courseroadmap{3}
 
 % ============================================================================
