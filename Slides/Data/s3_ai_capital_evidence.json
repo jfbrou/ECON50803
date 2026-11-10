@@ -59,5 +59,61 @@
     "last_percent_gdp": 0.20497887737515008,
     "endpoint_policy": "Only complete quarters with observed GDP and all three construction months; no GDP interpolation, forward filling, forecasts, or partial-quarter averages.",
     "refresh_command": "python -c \"import figures_s3 as f; f.refresh_ai_construction_gdp(); f.ai_datacenter_construction()\""
+  },
+  "furman_buildout_components": {
+    "article": "https://econvitals.org/posts/2026-11-09-ai-boom-two-engines/",
+    "publication_date": "2026-11-09",
+    "input": "s3_ai_furman_buildout.csv",
+    "input_url": "https://raw.githubusercontent.com/econvitals/replication/502c5c3a43fc2222ca0b212c65393d8582168daf/posts/2026-11-09-ai-boom-two-engines/data/as_used/fig2_buildout_share.csv",
+    "input_sha256": "7356833655e540d618b0e99b254f88f4c4aa8cb2d8559efeda2c1da91260aeeb",
+    "source": "Furman Figure 2 replication data, BEA NIPA and Census C30. Data-center structures use Census C30 for 2014–2019 and BEA NIPA from 2020.",
+    "plotted_period": "2014Q1–2026Q3",
+    "transformation": "Stack computers and peripheral equipment (comp), telecommunications equipment (commeq), telecommunications structures (commst), and data-center structures (dc), each as a share of nominal GDP.",
+    "scope": "Computer and communications equipment include uses outside AI. Values are observed investment shares, not a causal estimate or the above-trend model shock."
+  },
+  "furman_descriptive_charts": {
+    "article": "https://econvitals.org/posts/2026-11-09-ai-boom-two-engines/",
+    "publication_date": "2026-11-09",
+    "construction": {
+      "input": "s3_ai_furman_construction.csv",
+      "input_url": "https://raw.githubusercontent.com/econvitals/replication/502c5c3a43fc2222ca0b212c65393d8582168daf/posts/2026-11-09-ai-boom-two-engines/data/as_used/fig4_right_construction.csv",
+      "sha256": "a2b296cee334897c2a57076cfb5f806e8d3c85da93ea875d8d0e71915567a5c3",
+      "method": "Figure 4 right. September 2025 to September 2026 percent change. Census C30 nominal construction deflated by the BLS PPI for final demand construction."
+    },
+    "trade": {
+      "input": "s3_ai_furman_trade.csv",
+      "input_url": "https://raw.githubusercontent.com/econvitals/replication/502c5c3a43fc2222ca0b212c65393d8582168daf/posts/2026-11-09-ai-boom-two-engines/data/as_used/fig5_trade_balance.csv",
+      "sha256": "6d1bde2c681f9c844e581502f36e86a6543ebbeba29db2ca3c5affa2ce386adb",
+      "method": "Figure 5. Sum the monthly balances over January–September and divide by nominal GDP over the same period. Other goods and services is the total balance less the data-center goods balance."
+    },
+    "stocks": {
+      "input": "s3_ai_furman_stocks.csv",
+      "input_url": "https://raw.githubusercontent.com/econvitals/replication/502c5c3a43fc2222ca0b212c65393d8582168daf/posts/2026-11-09-ai-boom-two-engines/data/as_used/fig3_stocks.csv",
+      "sha256": "44fec3db595f6a3947be85659cb179a4576fdda528b05a477f351b7ff89001bd",
+      "method": "Figure 3. Index market capitalization of each group to 100 on 2022-11-30. Quarter-end closes and final observation on 2026-11-05."
+    }
+  },
+  "us_gdp_growth_waterfall": {
+    "source": "U.S. Bureau of Economic Analysis, NIPA Tables 1.1.1 and 1.5.2",
+    "release_date": "2026-10-29",
+    "release_url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+    "download_url": "https://apps.bea.gov/national/Release/TXT/NipaDataQ.txt",
+    "period": "2026Q3",
+    "units": "Seasonally adjusted annual rates. Contributions are in percentage points; real GDP growth is in percent.",
+    "bea_codes": {
+      "consumption": "DPCERY",
+      "investment": "A006RY",
+      "government": "A822RY",
+      "net_exports": "A019RY",
+      "real_gdp": "A191RL"
+    },
+    "bea_values": {
+      "consumption": 2.52,
+      "investment": 3.27,
+      "government": 0.9,
+      "net_exports": -3.32,
+      "real_gdp": 3.4
+    },
+    "method": "Plot the published BEA expenditure contributions cumulatively and retain the published total growth rate. Gross private domestic investment includes residential and nonresidential fixed investment and changes in private inventories."
   }
 }
