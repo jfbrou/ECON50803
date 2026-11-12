@@ -69,16 +69,19 @@
 }
 
 % --- Exam-relevance tag -----------------------------------------------------
-% Set \showexamtagstrue and rebuild all sessions before the exam.
+% Enable the stars per session with \showexamtagstrue after loading this file.
 \newif\ifshowexamtags
 \showexamtagsfalse
 \usetikzlibrary{shapes.geometric}
 \newcommand{\examtag}{%
    \ifshowexamtags%
-      \begin{tikzpicture}[remember picture, overlay]
-         \node[star, star points=5, star point ratio=2.25,
-               fill=HECcoral, inner sep=1.6pt, anchor=north east]
-            at ([xshift=-0.5cm, yshift=-0.65cm]current page.north east) {};
-      \end{tikzpicture}%
+      \AddToHookNext{shipout/foreground}{%
+         \put(\dimexpr\paperwidth - 0.5cm\relax,-0.65cm){%
+            \makebox(0,0)[rt]{%
+               \tikz \node[star, star points=5, star point ratio=2.25,
+                           fill=HECcoral, inner sep=1.6pt] {};%
+            }%
+         }%
+      }%
    \fi%
 }
