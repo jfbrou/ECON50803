@@ -47,3 +47,9 @@ __pycache__/
 
 # Local copy of the public Econvitals figure data
 /Slides/Data/s3_ai_furman_*.csv
+
+# Local next-semester CPS occupational wage data in Dropbox
+/Slides/Data/s3_occupational_wages
+
+# Local next-semester oil-price and investment snapshot in Dropbox
+/Slides/Data/s3_canada_oil_wcs.csv

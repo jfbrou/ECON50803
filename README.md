@@ -22,6 +22,10 @@ Open `Slides/S2/s2.pdf` in this working copy to review the draft. Session 2's
 LaTeX configuration uses the versioned styles under this copy's `latex-common`.
 The existing plotting script writes to this copy's `Slides/Figures`.
 
+## Session 3 follow-up
+
+The only remaining Session 3 revision is to revamp the current-account section.
+
 ## Publication
 
 The student website remains https://jfbrou.github.io/ECON50803/ and its Session 2

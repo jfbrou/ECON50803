@@ -311,7 +311,7 @@ _SKILL_PREMIUM_META = _SKILL_PREMIUM_DIR / 's3_college_wage_premium.json'
 
 
 def _labour_history_xaxis(ax):
-    """Common annual time axis for polarization and the college wage premium."""
+    """Common annual time axis for US employment and wage comparisons."""
     ax.set_xlim(1983, 2025)
     ax.set_xticks(range(1985, 2026, 5))
     ax.set_xticklabels(range(1985, 2026, 5), fontsize=12)
@@ -1567,70 +1567,57 @@ def participation_rate_ca():
 # Figure 23: Immigration to Canada — PR + temporary as % of population
 # =====================================================================
 def immigration_ca():
-    """Stacked area: immigrants (PR) and net non-permanent residents as % of population."""
-    print('Figure 23: Immigration to Canada (% of population)')
+    """Plot annual Canadian immigration flows relative to the July 1 population."""
+    # StatCan 17-10-0014-01 (flows) and 17-10-0005-01 (population).
+    vectors = {'permanent': 437339, 'non_permanent': 41444303, 'population': 466668}
+    response = requests.get(
+        'https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange',
+        params={
+            'vectorIds': ','.join(map(str, vectors.values())),
+            'startRefPeriod': '1971-01-01',
+            'endReferencePeriod': f'{pd.Timestamp.today().year}-12-31',
+        },
+        timeout=45,
+    )
+    response.raise_for_status()
+    series = {
+        item['object']['vectorId']: pd.Series({
+            int(point['refPer'][:4]): point['value']
+            for point in item['object']['vectorDataPoint']
+        })
+        for item in response.json() if item['status'] == 'SUCCESS'
+    }
+    start_years = range(1971, series[vectors['permanent']].index.max() + 1)
+    data = pd.DataFrame({name: series[vector].reindex(start_years)
+                         for name, vector in vectors.items()})
+    if data.isna().any().any() or (data.population <= 0).any():
+        raise ValueError('Incomplete Statistics Canada immigration or population series')
 
-    from stats_can import StatsCan
-    sc = StatsCan()
-
-    # ── Migration data: StatsCan 17-10-0014-01 ───────────────────────
-    mig = sc.table_to_df('17-10-0014-01')
-    mig = mig[mig['GEO'] == 'Canada']
-    mig = mig[mig['Age group'] == 'All ages']
-    mig = mig[mig['Gender'] == 'Total - gender']
-
-    # REF_DATE format is '1971/1972' — extract first year
-    mig['year'] = mig['REF_DATE'].str.split('/').str[0].astype(int)
-
-    immigrants = (mig[mig['Type of migrant'] == 'Immigrants']
-                  .set_index('year')['VALUE'])
-    net_npr = (mig[mig['Type of migrant'] == 'Net non-permanent residents']
-               .set_index('year')['VALUE'])
-    immigrants = immigrants[~immigrants.index.duplicated(keep='first')].sort_index()
-    net_npr = net_npr[~net_npr.index.duplicated(keep='first')].sort_index()
-
-    # ── Population: StatsCan 17-10-0005-01 ────────────────────────────
-    pop = sc.table_to_df('17-10-0005-01')
-    pop = pop[pop['GEO'] == 'Canada']
-    pop = pop[pop['Age group'] == 'All ages']
-    pop = pop[pop['Gender'] == 'Total - gender']
-    pop['REF_DATE'] = pd.to_datetime(pop['REF_DATE'])
-    pop['year'] = pop['REF_DATE'].dt.year
-    pop = pop.set_index('year')['VALUE']
-    pop = pop[~pop.index.duplicated(keep='first')].sort_index()
-
-    # ── Compute as % of population ────────────────────────────────────
-    common = immigrants.index.intersection(net_npr.index).intersection(pop.index)
-    imm_pct = (immigrants[common] / pop[common]) * 100
-    npr_pct = (net_npr[common] / pop[common]) * 100
-    # Clip negative NPR values to 0 for stacked area display
-    npr_pct_pos = npr_pct.clip(lower=0)
-
-    fig, ax = new_figure(9, 4.5)
-
-    ax.stackplot(imm_pct.index, imm_pct.values, npr_pct_pos.values,
-                 colors=[palette[0], palette[1]],
-                 labels=[r'Résidents permanents',
-                         r'Résidents temporaires (net)'],
-                 edgecolor='k', linewidth=0.5)
-
-    ax.set_xlim(imm_pct.index.min(), imm_pct.index.max())
-    xticks = list(range(((imm_pct.index.min() // 10) + 1) * 10,
-                        imm_pct.index.max() + 1, 10))
-    ax.set_xticks(xticks)
-    ax.set_xticklabels([str(y) for y in xticks], fontsize=11)
-    ax.set_ylabel(r"Immigration (\% de la population)", fontsize=11,
+    # Show the end year of each July–June period, using population at its start.
+    end_years = data.index + 1
+    shares = 100 * data[['permanent', 'non_permanent']].div(data.population, axis=0)
+    fig, ax = new_figure(10.2, 4.65)
+    ax.plot(end_years, shares.permanent, color=palette[0], linewidth=2.4,
+            label='Nouveaux résidents permanents')
+    ax.plot(end_years, shares.non_permanent, color=palette[1], linewidth=2.4,
+            label='Variation du nombre de résidents non permanents')
+    ax.axhline(0, color=palette[7], linewidth=0.8, zorder=1)
+    first, last = end_years[0], end_years[-1]
+    ticks = sorted({first, last, *range(1980, last - 1, 10)})
+    ax.set_xlim(first, last)
+    ax.set_xticks(ticks, [str(year) for year in ticks], fontsize=12)
+    ax.set_xlabel('Année se terminant le 30 juin', fontsize=11)
+    lower = np.floor(2 * shares.min().min()) / 2
+    upper = np.ceil(2 * shares.max().max()) / 2
+    yticks = np.arange(lower, upper + 0.25, 0.5)
+    ax.set_ylim(lower, upper)
+    ax.set_yticks(yticks, [f'{value:g}'.replace('.', ',') + r'\%' for value in yticks], fontsize=12)
+    ax.set_ylabel('Part de la population au début de la période', fontsize=12,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
-    ax.set_ylim(0, 3.5)
-    ax.set_yticks(np.arange(0, 3.6, 0.5))
-    ax.set_yticklabels([f'{y:.1f}' + r'\%' for y in np.arange(0, 3.6, 0.5)],
-                       fontsize=11)
-
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper left',
-              bbox_to_anchor=(0.0, 1.0))
-    add_source(ax, r"Source: Statistique Canada, tableaux 17-10-0014-01 et 17-10-0005-01")
+    ax.legend(frameon=False, fontsize=11, loc='upper left')
+    add_source(ax, 'Source : Statistique Canada (17-10-0014-01 et 17-10-0005-01)')
     save(fig, 'immigration_ca.pdf')
 
 
@@ -1774,6 +1761,131 @@ def outsourcing_inequality():
 # =====================================================================
 # Job polarization: routine vs nonroutine employment (US, 1983-2024)
 # =====================================================================
+_OCCUPATIONAL_WAGE_DIR = Path(__file__).resolve().parents[1] / 'Data' / 's3_occupational_wages'
+_OCCUPATIONAL_GROUPS = (
+    ('nrc', (1, 2), 'Non routinier cognitif', 0, '-'),
+    ('nrm', (5, 6, 7), 'Non routinier manuel', 1, '-'),
+    ('rc', (3, 4), 'Routinier cognitif', 0, ':'),
+    ('rm', (8, 9), 'Routinier manuel', 1, ':'),
+)
+
+
+def refresh_real_wages_by_occupation():
+    """Cache weighted CPS wage medians using the archived EPI and BLS inputs."""
+    from hashlib import file_digest
+    import json
+    from zipfile import ZipFile
+
+    extract = _OCCUPATIONAL_WAGE_DIR / 'epi_cpsorg_1979_2026.zip'
+    price_file = _OCCUPATIONAL_WAGE_DIR / 'cpi_us_1983_2025.csv'
+    prices = pd.read_csv(price_file, parse_dates=['observation_date'])
+    prices['year'] = prices.observation_date.dt.year
+    prices['month'] = prices.observation_date.dt.month
+    prices = prices.set_index(['year', 'month'], verify_integrity=True).CPIAUCNS
+    group_codes = {
+        occupation: group
+        for group, occupations, _, _, _ in _OCCUPATIONAL_GROUPS
+        for occupation in occupations
+    }
+    columns = ['month', 'mocc10', 'wage', 'orgwgt']
+    records = []
+    with ZipFile(extract) as archive:
+        for year in range(1983, 2026):
+            with archive.open(f'epi_cpsorg_{year}.dta') as member:
+                workers = pd.read_stata(member, columns=columns, convert_categoricals=False)
+            expected_months = set(range(1, 13))
+            if year == 2025:
+                expected_months.remove(10)  # No CPS interviews during the shutdown.
+            if set(workers.month.unique()) != expected_months:
+                raise ValueError(f'Unexpected CPS month coverage in {year}')
+            workers['group'] = workers.mocc10.map(group_codes)
+            workers = workers.loc[
+                workers.group.notna() & np.isfinite(workers.wage) & (workers.wage > 0)
+                & np.isfinite(workers.orgwgt) & (workers.orgwgt > 0)
+            ].copy()
+            cpi = workers.month.map(prices.loc[year])
+            if not (np.isfinite(cpi) & (cpi > 0)).all():
+                raise ValueError(f'Missing or invalid CPI for an observed CPS month in {year}')
+            workers['real_hourly_wage'] = 100 * workers.wage / cpi
+            for group, rows in workers.groupby('group'):
+                rows = rows.sort_values('real_hourly_wage')
+                weight = rows.orgwgt.to_numpy(dtype=float).cumsum()
+                median_position = weight.searchsorted(weight[-1] / 2)
+                records.append((year, group, rows.real_hourly_wage.iloc[median_position],
+                                len(rows), rows.month.nunique()))
+
+    result = pd.DataFrame(records, columns=[
+        'year', 'group', 'median_real_hourly_wage', 'observations', 'months',
+    ])
+    group_names = [group for group, *_ in _OCCUPATIONAL_GROUPS]
+    expected_index = pd.MultiIndex.from_product([range(1983, 2026), group_names])
+    observed_index = pd.MultiIndex.from_frame(result[['year', 'group']])
+    if not observed_index.is_unique or not expected_index.difference(observed_index).empty:
+        raise ValueError('The CPS cache must cover every year and all four occupations')
+    if not result.months.eq(result.year.map(lambda year: 11 if year == 2025 else 12)).all():
+        raise ValueError('Incomplete CPS month coverage within an occupation group')
+    result.to_csv(_OCCUPATIONAL_WAGE_DIR / 'annual.csv', index=False, float_format='%.10f')
+
+    checksums = {}
+    for source in (extract, price_file):
+        with source.open('rb') as handle:
+            checksums[source.name] = file_digest(handle, 'sha256').hexdigest()
+    metadata = {
+        'sources': {
+            'cps': 'https://microdata.epi.org/epi_cpsorg_1979_2026.zip',
+            'cps_version': '2026.10.13',
+            'cpi': 'https://fred.stlouisfed.org/series/CPIAUCNS',
+            'occupation_codes': 'https://microdata.epi.org/variables/indocc/mocc10/',
+            'wage_definition': 'https://microdata.epi.org/variables/income/wage/',
+        },
+        'input_sha256': checksums,
+        'mocc10_groups': {group: occupations for group, occupations, *_ in _OCCUPATIONAL_GROUPS},
+        'population': 'U.S. wage and salary workers in CPS ORG with valid wages and weights. '
+                      'Agriculture and unclassified occupations are excluded.',
+        'method': 'Deflate EPI nominal hourly wage by monthly, unadjusted BLS CPI-U. '
+                  'Take the weighted annual median within each broad group using orgwgt. '
+                  'Report levels in 1982–84 dollars and index each group to 1983 = 100 in the plot.',
+        'comparability': 'EPI harmonized categories approximate the broad published CPS '
+                         'employment groups. Trends also reflect workforce composition.',
+        'coverage': '1983–2025. October 2025 CPS data were not collected. Use the 11 observed months.',
+    }
+    (_OCCUPATIONAL_WAGE_DIR / 'provenance.json').write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8',
+    )
+
+
+def real_wages_by_occupation():
+    """Annual index of median real hourly wages by U.S. occupation group."""
+    data = pd.read_csv(_OCCUPATIONAL_WAGE_DIR / 'annual.csv')
+    wages = data.pivot(index='year', columns='group', values='median_real_hourly_wage')
+    if not wages.index.equals(pd.Index(range(1983, 2026), name='year')) or not (
+        np.isfinite(wages) & (wages > 0)
+    ).all().all():
+        raise ValueError('Incomplete or invalid annual occupational wage data')
+    wage_index = 100 * wages / wages.loc[1983]
+    fig, ax = new_figure(9, 4.5)
+    for group, _, label, color, linestyle in _OCCUPATIONAL_GROUPS:
+        ax.plot(wage_index.index, wage_index[group], color=palette[color],
+                linewidth=2.5, linestyle=linestyle, label=label)
+
+    _labour_history_xaxis(ax)
+    lower = 10 * int(np.floor(wage_index.min().min() / 10))
+    upper = tick_ceil(wage_index.max().max(), 10)
+    ax.set_ylim(lower, upper)
+    ticks = range(lower, upper + 1, 10)
+    ax.set_yticks(ticks, [str(tick) for tick in ticks], fontsize=12)
+    ax.set_ylabel('Indice (1983 = 100)', fontsize=12, rotation=0, ha='left')
+    ax.yaxis.set_label_coords(0, 1.02)
+    for start, end in recessions_us:
+        if start >= pd.Timestamp('1983-01-01'):
+            ax.axvspan(start.year + start.month / 12,
+                       end.year + end.month / 12, color='grey', alpha=0.3, linewidth=0)
+    style_axes(ax)
+    ax.legend(frameon=False, fontsize=10, loc='upper left', bbox_to_anchor=(-0.01, 1.0))
+    add_source(ax, 'Source : CPS-ORG (EPI) et IPC-U (BLS)')
+    save(fig, 's3_real_wages_by_occupation.pdf')
+
+
 def job_polarization():
     """Employment by occupational group (routine vs nonroutine, US)."""
     print('  job_polarization ...', end=' ', flush=True)
@@ -2898,26 +3010,106 @@ def _closed_shock_axes(axis, years, event, label, title, source, yticks, percent
     add_source(axis, source)
 
 
+_CANADA_OIL_WCS_DATA = _CLOSED_SHOCKS_DATA.with_name('s3_canada_oil_wcs.csv')
+
+
+def refresh_canada_oil_wcs():
+    """Cache the overlapping complete calendar years of WCS and sector investment."""
+    response = requests.get(
+        'https://api.economicdata.alberta.ca/data',
+        params={'Type': 'WCS', 'table': 'OilPrices'},
+        timeout=45,
+    )
+    response.raise_for_status()
+    wcs = pd.DataFrame(response.json()).dropna(subset=['Value'])
+    wcs['date'] = pd.to_datetime(wcs.Date)
+    if not wcs.date.is_unique or not wcs.Unit.eq('$US/bbl').all():
+        raise ValueError('Unexpected Alberta WCS units or duplicate monthly dates')
+    annual_wcs = wcs.groupby(wcs.date.dt.year).Value.agg(['mean', 'count'])
+    annual_wcs = annual_wcs['mean'].where(annual_wcs['count'].eq(12)).dropna()
+
+    # Current-price sector investment (36-10-0096-01) and GDP (36-10-0104-01).
+    vectors = {'conventional_million': 90968372, 'oil_sands_million': 90968412,
+               'gdp_million': 62305783}
+    response = requests.get(
+        'https://www150.statcan.gc.ca/t1/wds/rest/getDataFromVectorByReferencePeriodRange',
+        params={
+            'vectorIds': ','.join(map(str, vectors.values())),
+            'startRefPeriod': f'{annual_wcs.index.min()}-01-01',
+            'endReferencePeriod': f'{pd.Timestamp.today().year}-12-31',
+        },
+        timeout=45,
+    )
+    response.raise_for_status()
+    series = {
+        item['object']['vectorId']: pd.Series({
+            point['refPer']: point['value'] for point in item['object']['vectorDataPoint']
+        }, dtype=float)
+        for item in response.json() if item['status'] == 'SUCCESS'
+    }
+    annual = {'wcs_usd': annual_wcs}
+    for name, vector in vectors.items():
+        values = series[vector]
+        by_year = values.groupby(pd.to_datetime(values.index).year).agg(['mean', 'count'])
+        # GDP quarters are reported at annual rates, so the yearly value is their mean.
+        count = 4 if name == 'gdp_million' else 1
+        annual[name] = by_year['mean'].where(by_year['count'].eq(count)).dropna()
+    first = max(values.index.min() for values in annual.values())
+    last = min(values.index.max() for values in annual.values())
+    data = pd.DataFrame(annual).reindex(range(first, last + 1))
+    if data.empty or data.isna().any().any() or (data.gdp_million <= 0).any():
+        raise ValueError('Incomplete matched WCS, investment or GDP series')
+    data.to_csv(_CANADA_OIL_WCS_DATA.resolve(), index_label='year', float_format='%.10g')
+
+
 def canada_oil_investment_boom():
-    columns = ['wti_usd', 'oil_investment_million', 'gdp_million']
-    data = _closed_shock_data(2000, 2018, columns)
-    fig, (price, investment) = plt.subplots(1, 2, figsize=(11.4, 4.8))
-    price.plot(data.index, data.wti_usd, color=palette[0], linewidth=2.5, zorder=3)
-    investment.plot(data.index, 100 * data.oil_investment_million / data.gdp_million,
-                    color=palette[2], linewidth=2.5, zorder=3)
-    years = [2000, 2005, 2010, 2014, 2018]
-    _closed_shock_axes(price, years, 2014.5, 'Chute du WTI',
-                       r'Prix du WTI (\$ US par baril)', 'Source : EIA', range(25, 106, 20))
-    _closed_shock_axes(investment, years, 2014.5, 'Chute du WTI',
-                       r'Investissement pétrolier et gazier (\% du PIB)',
-                       'Source : Statistique Canada', np.arange(1.5, 5, 0.5), percent=True)
+    if not _CANADA_OIL_WCS_DATA.is_file():
+        refresh_canada_oil_wcs()
+    data = pd.read_csv(_CANADA_OIL_WCS_DATA, index_col='year').loc[:2020]
+    fig, price = new_figure(10.2, 4.65)
+    investment = price.twinx()
+    investment_share = 100 * (data.conventional_million + data.oil_sands_million) / data.gdp_million
+    price.plot(data.index, data.wcs_usd, color=palette[0], linewidth=2.5, zorder=3)
+    investment.plot(data.index, investment_share, color=palette[2], linewidth=2.5, zorder=3)
+
+    first, last = data.index[0], data.index[-1]
+    years = sorted({first, last, 2014, *range(2010, last - 1, 10)})
+    price.set_xlim(years[0], years[-1])
+    price.set_xticks(years, [str(year) for year in years], fontsize=12)
+    price_ticks = range(20, tick_ceil(data.wcs_usd.max() + 5, 10) + 1, 10)
+    price.set_ylim(price_ticks[0], price_ticks[-1])
+    price.set_yticks(price_ticks, [str(value) for value in price_ticks], fontsize=12)
+    lower = np.floor(2 * investment_share.min()) / 2
+    upper = np.ceil(2 * investment_share.max()) / 2
+    investment_ticks = np.arange(lower, upper + 0.25, 0.5)
+    investment.set_ylim(investment_ticks[0], investment_ticks[-1])
+    investment.set_yticks(
+        investment_ticks,
+        [f'{value:g}'.replace('.', ',') + r'\%' for value in investment_ticks],
+        fontsize=12,
+    )
+
+    style_axes(price)
+    investment.grid(False)
+    investment.spines[['top', 'bottom', 'left']].set_visible(False)
+    for axis, side, color in [(price, 'left', palette[0]), (investment, 'right', palette[2])]:
+        axis.spines[side].set_color(color)
+        axis.tick_params(axis='y', colors=color)
+    price.set_title(r'Western Canadian Select (\$ US par baril)', loc='left',
+                    color=palette[0], fontsize=14, pad=17)
+    investment.set_title(r'Investissement pétrolier et gazier (\% du PIB)', loc='right',
+                         color=palette[2], fontsize=14, pad=17)
+    price.axvline(2014.5, color=palette[7], linewidth=0.9, alpha=0.65, zorder=1)
+    price.text(2014.72, 0.055, 'Chute du WCS', transform=price.get_xaxis_transform(),
+               va='bottom', fontsize=10, color=palette[7])
+    add_source(price, 'Sources : Gouvernement de l’Alberta et Statistique Canada')
     save(fig, 's3_canada_oil_investment_boom.pdf')
 
 
 def canada_fiscal_consolidation():
     columns = ['public_saving_million', 'national_saving_million', 'gdp_million', 'real_yield_percent']
     data = _closed_shock_data(1992, 2005, columns)
-    fig, (saving, rates) = plt.subplots(1, 2, figsize=(11.4, 4.8))
+    fig, (saving, rates) = plt.subplots(1, 2, figsize=(11.4, 5.3))
     saving.axhline(0, color=palette[7], linewidth=0.8, zorder=1)
     saving.plot(data.index, 100 * data.national_saving_million / data.gdp_million,
                 color=palette[0], linewidth=2.5, label='Nationale', zorder=3)
@@ -2929,7 +3121,8 @@ def canada_fiscal_consolidation():
                        r'Épargne brute (\% du PIB)', 'Source : Statistique Canada',
                        [-6, 0, 5, 10, 15, 20, 25], percent=True)
     _closed_shock_axes(rates, years, 1995, 'Budget de 1995',
-                       'Rendement réel à long terme', 'Source : Banque du Canada (V122553)',
+                       'Rendement réel des obligations fédérales',
+                       'Source : Banque du Canada (V122553)',
                        np.arange(1.5, 5.5, 0.5), percent=True)
     saving.legend(frameon=False, loc='upper right', bbox_to_anchor=(1, 0.53),
                   fontsize=11, handlelength=1.5)
@@ -3482,6 +3675,7 @@ if __name__ == '__main__':
         inequality_top1_share,
         elephant_curve,
         job_polarization,
+        real_wages_by_occupation,
         gatsby_curve,
         baumol_cost_disease_canada,
         current_accounts_divergence,
