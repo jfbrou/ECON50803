@@ -1246,6 +1246,75 @@ def s4_canada_cost_shocks():
     save(fig, 's4_canada_cost_shocks.pdf')
 
 
+
+def s4_canada_industry_betas():
+    """Estimate pre-pandemic industry betas using StatCan quarterly real GDP."""
+    from io import BytesIO
+    from zipfile import ZipFile
+
+    industries = {
+        '31-33': 'Fabrication',
+        '41': 'Commerce de gros',
+        '23': 'Construction',
+        '211': 'Extraction de pétrole et de gaz',
+        '44-45': 'Commerce de détail',
+        '52': 'Finance et assurances',
+        '72': 'Hébergement et restauration',
+        '61': 'Services d’enseignement',
+        '62': 'Santé et assistance sociale',
+    }
+    total = 'T001'  # All industries, GDP at basic prices
+    codes = [total, *industries]
+    naics = 'North American Industry Classification System (NAICS)'
+    columns = ['REF_DATE', 'GEO', 'Seasonal adjustment', 'Prices', naics, 'VALUE']
+    response = requests.get('https://www150.statcan.gc.ca/n1/tbl/csv/36100449-eng.zip', timeout=60)
+    response.raise_for_status()
+    with ZipFile(BytesIO(response.content)) as archive, archive.open('36100449.csv') as source:
+        rows = pd.read_csv(source, usecols=columns)
+    # REF_DATE encodes the first month of each quarter.
+    keep = (
+        rows['GEO'].eq('Canada') & rows['Seasonal adjustment'].eq('Seasonally adjusted at annual rates')
+        & rows['Prices'].eq('Chained (2017) dollars') & rows['REF_DATE'].between('1999-10', '2019-10')
+    )
+    rows = rows.loc[keep, ['REF_DATE', naics, 'VALUE']].copy()
+    rows['NAICS'] = rows[naics].str.extract(r'\[([^\]]+)\]$')
+    levels = rows.loc[rows['NAICS'].isin(codes)].pivot(index='REF_DATE', columns='NAICS', values='VALUE')
+    quarters = pd.period_range('1999Q4', '2019Q4', freq='Q')
+    levels.index = pd.to_datetime(levels.index).to_period('Q')
+    levels = levels.reindex(index=quarters, columns=codes)
+    if levels.isna().any().any() or levels.le(0).any().any():
+        raise ValueError('Missing or nonpositive quarterly GDP level for an industry beta')
+
+    # OLS slopes with an intercept, using quarter-to-quarter log growth rates.
+    growth = 100 * np.log(levels).diff().iloc[1:]
+    betas = growth.cov()[total].drop(total) / growth[total].var()
+    betas = betas.rename(index=industries).sort_values()
+    print('  StatCan 36-10-0449-01, 2000Q1–2019Q4:', betas.round(2).to_dict())
+
+    fig, ax = new_figure(9, 4.35)
+    positions = np.arange(len(betas))
+    ax.barh(positions, betas, height=0.64, color=[palette[0] if beta > 1 else palette[4] for beta in betas], zorder=3)
+    ax.set_yticks(positions, betas.index, fontsize=13)
+    ax.tick_params(axis='y', length=0, pad=8)
+    ticks = np.arange(-0.5, 3.01, 0.5)
+    ax.set_xticks(ticks, [f'{tick:g}'.replace('-', '−').replace('.', ',') for tick in ticks], fontsize=12)
+    ax.set_xlim(ticks[0], ticks[-1])
+    ax.set_ylim(-0.6, len(betas) - 0.28)
+    style_axes(ax)
+    ax.spines['left'].set_visible(False)
+    ax.grid(False, axis='y')
+    ax.grid(True, axis='x', color=palette[7], alpha=0.3, linewidth=0.6, zorder=0)
+    ax.axvline(0, color=palette[7], linewidth=0.9, zorder=2)
+    ax.axvline(1, color=palette[7], linestyle='--', linewidth=1.1, zorder=2)
+    for position, beta in zip(positions, betas):
+        offset = 0.06 if beta >= 0 else -0.06
+        label = f'{beta:.2f}'.replace('-', '−').replace('.', ',')
+        ax.text(beta + offset, position, label, va='center', ha='left' if beta >= 0 else 'right', fontsize=12)
+    ax.set_xlabel('Bêta sectoriel', fontsize=13)
+    add_source(ax, 'Source : Statistique Canada, 36-10-0449-01')
+    save(fig, 's4_canada_industry_betas.pdf')
+
+
 # =====================================================================
 # Main
 # =====================================================================
@@ -1260,6 +1329,7 @@ if __name__ == '__main__':
         us_recession_inflation,
         s4_historical_recessions,
         s4_canada_trade_employment,
+        s4_canada_industry_betas,
         s4_canada_cost_shocks,
         us_gdp_growth,
         canada_gdp_potential,
