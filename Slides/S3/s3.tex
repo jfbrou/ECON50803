@@ -13,6 +13,75 @@
    \end{tikzpicture}%
 }
 
+% Use the same bounds and rate line in the standalone and paired capital-market diagrams.
+\newcommand{\sThreeCapitalMarketSetup}{%
+   \path[use as bounding box] (-1,-1.4) rectangle (8.95,7.05);
+   \draw[HECgreen!60!black, densely dashed, line width=0.65pt]
+      (0,2.4) node[left, pointlabel] {\(r^{W}\)} -- (7.7,2.4);
+}
+\newcommand{\sThreeCapitalMarketAxes}[1]{%
+   \draw[econaxis] (0,0) -- (8,0) node[right] {\footnotesize \(#1\)};
+   \draw[econaxis] (0,0) -- (0,6.55) node[above] {\(r\)};
+}
+
+% The curves are anchored at the quantities read at the world rate.
+% At r = 2.4, domestic saving is 3.1 and investment is 4.9.
+\newcommand{\sThreeDomesticCapitalMarket}[1]{%
+   \sThreeCapitalMarketSetup
+   \ifnum#1>0
+      \draw[refline] (3.1,0) node[below, pointlabel, text=HECnavy] {\(E\)} -- (3.1,2.4);
+   \fi
+   \ifnum#1>1
+      \draw[refline] (4.9,0) node[below, pointlabel, text=HECcoral] {\(I\)} -- (4.9,2.4);
+   \fi
+   \draw[supply, HECnavy, line cap=round]
+      (0,0.54) -- (7.35,4.95) node[right, curvelabel] {\(E\)};
+   \draw[demand, HECcoral, line cap=round]
+      (0,5.34) -- (7.35,0.93) node[right, curvelabel] {\(I\)};
+   \ifnum#1>0
+      \filldraw[eqpoint=HECnavy] (3.1,2.4) circle (2.8pt);
+   \fi
+   \ifnum#1>1
+      \filldraw[eqpoint=HECcoral] (4.9,2.4) circle (2.8pt);
+   \fi
+   \ifnum#1>2
+      \draw[econbrace, HECcoral] (3.1,-0.55) -- (4.9,-0.55)
+         node[midway, below=7pt, pointlabel, text=HECnavy] {\(CA < 0\)};
+   \fi
+   \sThreeCapitalMarketAxes{E, I}
+}
+
+% Both world curves are anchored at the equilibrium (4,2.4).
+\newcommand{\sThreeWorldCapitalMarket}{%
+   \sThreeCapitalMarketSetup
+   \draw[refline] (4,0) node[below, pointlabel, text=HECnavy] {\(E^{W} = I^{W}\)} -- (4,2.4);
+   \draw[supply, HECnavy, line cap=round]
+      (0,0.20) -- (7.35,4.2425) node[right, curvelabel] {\(E^{W}\)};
+   \draw[demand, HECcoral, line cap=round]
+      (0,4.60) -- (7.35,0.5575) node[right, curvelabel] {\(I^{W}\)};
+   \filldraw[eqpoint=HECgreen!60!black] (4,2.4) circle (2.8pt);
+   \sThreeCapitalMarketAxes{E^{W}, I^{W}}
+}
+
+\newcommand{\sThreeCapitalMarketPanels}[1]{%
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.485\textwidth}
+         \centering
+         \textbf{\textcolor{HECnavy}{Monde}}\par\smallskip
+         \begin{tikzpicture}[x=0.64cm,y=0.61cm,pointlabel/.style={font=\footnotesize}]
+            \sThreeWorldCapitalMarket
+         \end{tikzpicture}
+      \end{column}
+      \begin{column}{0.485\textwidth}
+         \centering
+         \textbf{\textcolor{HECnavy}{Canada}}\par\smallskip
+         \begin{tikzpicture}[x=0.64cm,y=0.61cm,pointlabel/.style={font=\footnotesize}]
+            \sThreeDomesticCapitalMarket{#1}
+         \end{tikzpicture}
+      \end{column}
+   \end{columns}%
+}
+
 \begin{document}
 
 % L’IA sert d’application dans les trois sections. Les effets sur la croissance de long terme sont traités en séance 2.
@@ -1530,27 +1599,16 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
 % ============================================================================
 
 % 55
-\begin{frame}{Le compte courant américain}
+\begin{frame}{Compte courant et solde commercial}
    \begin{figure}
       \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_ca_balance_gdp.pdf}
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_current_account_and_trade.pdf}
    \end{figure}
 \end{frame}
 
 % ============================================================================
 
-% Session 6 regional time series with Canada included in the Anglosphere.
 % 56
-\begin{frame}{Les déséquilibres mondiaux des comptes courants}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_current_accounts_divergence.pdf}
-   \end{figure}
-\end{frame}
-
-% ============================================================================
-
-% 57
 \begin{frame}{Du PIB au compte courant}\examtag
    \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, boxsep=0pt, left=12pt, right=12pt, top=12pt, bottom=12pt, before skip=0pt, after skip=0pt]
       \begin{columns}[c,onlytextwidth]
@@ -1592,7 +1650,7 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
 
 % ============================================================================
 
-% 58
+% 57
 \begin{frame}{L'identité fondamentale}\examtag
    \centering
    {\LARGE $\boldsymbol{CA = E - I}$\par}
@@ -1625,33 +1683,7 @@ Le \textbf{compte courant} ($CA$) mesure ce qu'un pays reçoit du reste du monde
 
 % ============================================================================
 
-% 59
-\begin{frame}[t]{Les déficits jumeaux}\examtag
-Puisque $E = E_{P} + E_{G}$, on peut écrire :
-   \begin{equation*} CA = E_{P} + E_{G} - I \end{equation*}
-   \vspace{0.15cm}
-   Si $E_{P}$ et $I$ ne changent pas, une baisse de l'épargne publique ($E_{G} \downarrow$) se traduit par une détérioration du compte courant ($CA \downarrow$).
-   \vspace{0.25cm}
-   \begin{warning}[Déficits jumeaux]
-      \RaggedRight
-      Un déficit budgétaire peut creuser le déficit courant.
-   \end{warning}
-\end{frame}
-
-% ============================================================================
-
-% 60
-\begin{frame}{Les déficits jumeaux américains}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.74\textheight, keepaspectratio]{s3_us_twin_deficits.pdf}
-   \end{figure}
-   \centering{\scriptsize\color{HECgray}Compte courant : année civile ; budget fédéral : exercice budgétaire.}
-\end{frame}
-
-% ============================================================================
-
-% 61
+% 58
 \begin{frame}[t]{De l'économie fermée à l'économie ouverte}
    \small
    \vspace{0.1cm}
@@ -1696,114 +1728,115 @@ Puisque $E = E_{P} + E_{G}$, on peut écrire :
 
 % ============================================================================
 
+% 59
+\begin{frame}[t]{Au Canada, on part du taux mondial}
+   \framesubtitle{Le Canada prend le taux d'intérêt réel mondial \(r^{W}\) comme donné.}
+   \centering
+   \begin{tikzpicture}[x=1.10cm,y=0.75cm,curvelabel/.style={font=\normalsize\bfseries}]
+      \sThreeDomesticCapitalMarket{0}
+   \end{tikzpicture}
+\end{frame}
+
+% ============================================================================
+
+% 60
+\begin{frame}[t]{Quelle épargne au taux mondial\,?}
+   \framesubtitle{On suit \(r^{W}\) jusqu'à la courbe bleue, puis on descend pour lire \(E\).}
+   \centering
+   \begin{tikzpicture}[x=1.10cm,y=0.75cm,curvelabel/.style={font=\normalsize\bfseries}]
+      \sThreeDomesticCapitalMarket{1}
+   \end{tikzpicture}
+\end{frame}
+
+% ============================================================================
+
+% 61
+\begin{frame}[t]{Quel investissement au même taux\,?}
+   \framesubtitle{On suit \(r^{W}\) jusqu'à la courbe rouge, puis on descend pour lire \(I\).}
+   \centering
+   \begin{tikzpicture}[x=1.10cm,y=0.75cm,curvelabel/.style={font=\normalsize\bfseries}]
+      \sThreeDomesticCapitalMarket{2}
+   \end{tikzpicture}
+\end{frame}
+
+% ============================================================================
+
 % 62
-\begin{frame}{Diagramme E-I en économie ouverte}
-   \begin{columns}[c,onlytextwidth]
-      \begin{column}{0.56\textwidth}
-         \centering
-         \begin{tikzpicture}[x=0.78cm, y=0.72cm, pointlabel/.style={font=\footnotesize}]
-            \path[use as bounding box] (-0.86,-1.38) rectangle (8.78,6.98);
-            % Domestic E: r = 0.6 + 0.75 q. Domestic I: r = 5.4 - 0.75 q.
-            % At r^{W} = 2.4, E = 2.4 and I = 4.
-
-            \draw[refline] (2.4,0) node[below, pointlabel, text=HECnavy] {$E$} -- (2.4,2.4);
-            \draw[refline] (4,0) node[below, pointlabel, text=HECcoral] {$I$} -- (4,2.4);
-            \draw[HECgreen!60!black, thick, dashed] (0,2.4) -- (7.7,2.4)
-               node[pos=0, left, pointlabel] {$r^{W}$};
-
-            \draw[supply, HECnavy] (0,0.6) -- (6.55,5.5125)
-               node[right, curvelabel, text=HECnavy] {$E$};
-            \draw[demand, HECcoral] (0,5.4) -- (6.4,0.6)
-               node[right, curvelabel, text=HECcoral] {$I$};
-
-            \filldraw[eqpoint=HECnavy] (2.4,2.4) circle (2.8pt);
-            \filldraw[eqpoint=HECcoral] (4,2.4) circle (2.8pt);
-
-            \draw[econbrace, HECcoral] (2.4,-0.55) -- (4,-0.55)
-               node[midway, below=7pt, pointlabel, text=HECnavy] {$CA < 0$};
-            \draw[econaxis] (0,0) -- (8,0) node[right] {\footnotesize \(E, I\)};
-            \draw[econaxis] (0,0) -- (0,6.55) node[above] {$r$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.41\textwidth}
-         \begin{tcolorbox}[colback=HECnavy!5, colframe=HECnavy!5, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=8pt, bottom=8pt, before skip=0pt, after skip=0pt]
-            \RaggedRight\small\hyphenpenalty=10000
-            \textbf{Un taux mondial donné}\par\vspace{5pt}
-            Au taux $r^{W}$, les deux courbes donnent l'épargne $E$ et l'investissement $I$.
-         \end{tcolorbox}
-         \vspace{0.18cm}
-         \begin{tcolorbox}[colback=HECcoral!6, colframe=HECcoral!6, boxrule=0pt, arc=7pt, boxsep=0pt, left=9pt, right=9pt, top=8pt, bottom=8pt, before skip=0pt, after skip=0pt]
-            \RaggedRight\small\hyphenpenalty=10000
-            \textbf{Un déficit courant}\par\vspace{5pt}
-            L'investissement dépasse l'épargne. Le reste du monde finance l'écart.
-         \end{tcolorbox}
-      \end{column}
-   \end{columns}
+\begin{frame}[t]{Le reste du monde finance l'écart}
+   \framesubtitle{Ici, \(I > E\). Le Canada reçoit un financement net égal à \(I - E\).}
+   \centering
+   \begin{tikzpicture}[x=1.10cm,y=0.75cm,curvelabel/.style={font=\normalsize\bfseries}]
+      \sThreeDomesticCapitalMarket{3}
+   \end{tikzpicture}
 \end{frame}
 
 % ============================================================================
 
 % 63
-\begin{frame}{Le diagramme à deux panneaux}
-   \begin{columns}[T,onlytextwidth]
-      \begin{column}{0.485\textwidth}
-         \centering
-         {\strut\textbf{\textcolor{HECnavy}{Monde}}\par}
-         \vspace{3pt}
-         {\footnotesize\strut\vphantom{$r^{W}$}Le marché fixe le taux mondial $r^{W}$.\par}
-         \vspace{0.08cm}
-         \begin{tikzpicture}[x=0.67cm, y=0.65cm, pointlabel/.style={font=\footnotesize}]
-            \path[use as bounding box] (-0.86,-1.38) rectangle (8.78,6.98);
-            % E^{W}: r = 0.1 + 0.5 q. I^{W}: r = 5.62 - 0.7 q.
-            % They intersect at q = 4.6 and r^{W} = 2.4.
-            \draw[refline] (4.6,0) node[below, pointlabel, text=HECnavy] {$E^{W} = I^{W}$} -- (4.6,2.4);
-            \draw[HECgreen!60!black, thick, dashed] (0,2.4) -- (7.7,2.4)
-               node[pos=0, left, pointlabel] {$r^{W}$};
-            \draw[supply, HECnavy] (0,0.1) -- (6.55,3.375)
-               node[right, curvelabel, text=HECnavy] {$E^{W}$};
-            \draw[demand, HECcoral] (0,5.62) -- (6.4,1.14)
-               node[right, curvelabel, text=HECcoral] {$I^{W}$};
-            \filldraw[eqpoint=HECgreen!60!black] (4.6,2.4) circle (2.8pt);
-            \draw[econaxis] (0,0) -- (8,0) node[right] {\footnotesize \(E^{W}, I^{W}\)};
-            \draw[econaxis] (0,0) -- (0,6.55) node[above] {$r$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.485\textwidth}
-         \centering
-         {\strut\textbf{\textcolor{HECnavy}{Petite économie ouverte}}\par}
-         \vspace{3pt}
-         {\footnotesize\strut\vphantom{$r^{W}$}Le taux mondial détermine $E$ et $I$.\par}
-         \vspace{0.08cm}
-         \begin{tikzpicture}[x=0.67cm, y=0.65cm, pointlabel/.style={font=\footnotesize}]
-            \path[use as bounding box] (-0.86,-1.38) rectangle (8.78,6.98);
-            % Domestic E: r = 0.6 + 0.75 q. Domestic I: r = 5.4 - 0.75 q.
-            % At r^{W} = 2.4, E = 2.4 and I = 4.
-
-            \draw[refline] (2.4,0) node[below, pointlabel, text=HECnavy] {$E$} -- (2.4,2.4);
-            \draw[refline] (4,0) node[below, pointlabel, text=HECcoral] {$I$} -- (4,2.4);
-            \draw[HECgreen!60!black, thick, dashed] (0,2.4) -- (7.7,2.4)
-               node[pos=0, left, pointlabel] {$r^{W}$};
-
-            \draw[supply, HECnavy] (0,0.6) -- (6.55,5.5125)
-               node[right, curvelabel, text=HECnavy] {$E$};
-            \draw[demand, HECcoral] (0,5.4) -- (6.4,0.6)
-               node[right, curvelabel, text=HECcoral] {$I$};
-
-            \filldraw[eqpoint=HECnavy] (2.4,2.4) circle (2.8pt);
-            \filldraw[eqpoint=HECcoral] (4,2.4) circle (2.8pt);
-
-            \draw[econbrace, HECcoral] (2.4,-0.55) -- (4,-0.55)
-               node[midway, below=7pt, pointlabel, text=HECnavy] {$CA < 0$};
-            \draw[econaxis] (0,0) -- (8,0) node[right] {\footnotesize \(E, I\)};
-            \draw[econaxis] (0,0) -- (0,6.55) node[above] {$r$};
-         \end{tikzpicture}
-      \end{column}
-   \end{columns}
+\begin{frame}[t]{D'où vient le taux mondial\,?}
+   \framesubtitle{À l'équilibre mondial, le taux égalise l'épargne et l'investissement.}
+   \centering
+   \begin{tikzpicture}[x=1.10cm,y=0.75cm,curvelabel/.style={font=\normalsize\bfseries}]
+      \sThreeWorldCapitalMarket
+   \end{tikzpicture}
 \end{frame}
 
 % ============================================================================
 
 % 64
+\begin{frame}[t]{Du marché mondial au marché canadien}
+   \framesubtitle{On reporte à droite le taux \(r^{W}\) déterminé à gauche.}
+   \sThreeCapitalMarketPanels{0}
+\end{frame}
+
+% ============================================================================
+
+% 65
+\begin{frame}[t]{Le diagramme à deux panneaux}
+   \framesubtitle{À ce taux, on lit \(E\) et \(I\) au Canada, puis on calcule \(CA = E - I\).}
+   \sThreeCapitalMarketPanels{3}
+\end{frame}
+
+% ============================================================================
+
+% Session 6 regional time series with Canada included in the Anglosphere.
+% 66
+\begin{frame}{Les déséquilibres mondiaux des comptes courants}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{s3_current_accounts_divergence.pdf}
+   \end{figure}
+\end{frame}
+
+% ============================================================================
+
+% 67
+\begin{frame}[t]{Les déficits jumeaux}\examtag
+Puisque $E = E_{P} + E_{G}$, on peut écrire :
+   \begin{equation*} CA = E_{P} + E_{G} - I \end{equation*}
+   \vspace{0.15cm}
+   Si $E_{P}$ et $I$ ne changent pas, une baisse de l'épargne publique ($E_{G} \downarrow$) se traduit par une détérioration du compte courant ($CA \downarrow$).
+   \vspace{0.25cm}
+   \begin{warning}[Déficits jumeaux]
+      \RaggedRight
+      Un déficit budgétaire peut creuser le déficit courant.
+   \end{warning}
+\end{frame}
+
+% ============================================================================
+
+% 68
+\begin{frame}{Les déficits jumeaux américains}
+   \begin{figure}
+      \centering
+      \includegraphics[width=0.95\textwidth, height=0.74\textheight, keepaspectratio]{s3_us_twin_deficits.pdf}
+   \end{figure}
+   \centering{\scriptsize\color{HECgray}Compte courant : année civile ; budget fédéral : exercice budgétaire.}
+\end{frame}
+
+% ============================================================================
+
+% 69
 \begin{frame}{Le boom de l'IA en économie ouverte}
    \begin{columns}[c,onlytextwidth]
       \begin{column}{0.56\textwidth}
@@ -1857,7 +1890,7 @@ Puisque $E = E_{P} + E_{G}$, on peut écrire :
 
 % ============================================================================
 
-% 65
+% 70
 \begin{frame}[t,label=s3-main-pib]{Le déficit commercial américain change de composition}
    \centering
    \includegraphics[width=0.96\textwidth, height=0.72\textheight, keepaspectratio]{s3_ai_trade_balance.pdf}
@@ -1868,7 +1901,7 @@ Puisque $E = E_{P} + E_{G}$, on peut écrire :
 
 % ============================================================================
 
-% 66
+% 71
 \begin{frame}{Et si le taux mondial augmente\,?}
    \begin{columns}[c,onlytextwidth]
       \begin{column}{0.56\textwidth}
@@ -1922,7 +1955,7 @@ Puisque $E = E_{P} + E_{G}$, on peut écrire :
 
 % ============================================================================
 
-% 67
+% 72
 \begin{frame}[t]{Emprunter pour investir ou pour consommer\,?}
 \small
 Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que finance l'emprunt.
@@ -1956,12 +1989,12 @@ Un \textbf{déficit courant} peut être bénéfique ou préoccupant selon ce que
 
 % ============================================================================
 
-% 68
+% 73
 \sectionframe{Et pour la suite\,?}
 
 % ============================================================================
 
-% 69
+% 74
 \courseroadmap{3}
 
 % ============================================================================

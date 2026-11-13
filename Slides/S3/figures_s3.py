@@ -3474,6 +3474,47 @@ def refresh_twin_deficits(as_of=None):
     print('Twin deficits:', metadata['range'])
 
 
+def current_account_and_trade_balance():
+    # U.S. current account: World Bank WDI. Trade balance: BEA NIPA via FRED.
+    us_trade = pd.read_csv(_INTERNATIONAL_DATA_DIR / 's3_us_trade_balance_fred.csv',
+                           parse_dates=['observation_date'])
+    us_trade = us_trade.set_index(us_trade.observation_date.dt.year)['A019RE1A156NBEA']
+    us_current = pd.read_csv(_TWIN_DATA, index_col='year')['current_account_percent_gdp']
+    us_years = pd.Index(range(1970, 2025), name='year')
+    us = pd.DataFrame({'current': us_current, 'trade': us_trade}).reindex(us_years)
+
+    # Canadian balances: StatCan 36-10-0014-01, vectors 61914609 and 61914617.
+    # GDP: annual mean of quarterly nominal GDP at annual rates (v62305783).
+    canada_years = pd.Index(range(1981, 2025), name='year')
+    canada = pd.read_csv(_INTERNATIONAL_DATA_DIR / 's3_canadian_ca_nx.csv',
+                         index_col='year').reindex(canada_years)
+    if us.isna().any().any() or canada.isna().any().any() or not canada.gdp_million.gt(0).all():
+        raise ValueError('Incomplete current-account, trade-balance or GDP data')
+
+    fig, ax = new_figure(10, 4.7)
+    for country, color, current, trade in (
+        ('États-Unis', palette[0], us.current, us.trade),
+        ('Canada', palette[2], 100 * canada.current_account_million / canada.gdp_million,
+         100 * canada.trade_balance_million / canada.gdp_million),
+    ):
+        ax.plot(current.index, current, color=color, linewidth=2.3, label=f'{country} — CA')
+        ax.plot(trade.index, trade, color=color, linewidth=2.3, linestyle=':',
+                label=f'{country} — NX')
+    ax.axhline(0, color=palette[7], linewidth=0.75)
+    year_ticks = [1970, 1980, 1990, 2000, 2010, 2020, 2024]
+    ax.set_xticks(year_ticks, labels=[str(year) for year in year_ticks], fontsize=12)
+    ax.set_xlim(us_years[0], us_years[-1])
+    ticks = range(-6, 7, 2)
+    ax.set_yticks(ticks, labels=[f'{value}' + r'\%' for value in ticks], fontsize=12)
+    ax.set_ylim(ticks[0], ticks[-1])
+    ax.set_ylabel(r'(\% du PIB)', rotation=0, ha='left', fontsize=12)
+    ax.yaxis.set_label_coords(0, 1.02)
+    style_axes(ax)
+    ax.legend(loc='upper right', ncol=2, frameon=False, fontsize=11)
+    add_source(ax, 'Sources : Statistique Canada, Banque mondiale et BEA (via FRED)')
+    save(fig, 's3_current_account_and_trade.pdf')
+
+
 def us_twin_deficits():
     data = pd.read_csv(_TWIN_DATA, index_col='year')
     fig, ax = new_figure(10, 5)
@@ -3680,6 +3721,7 @@ if __name__ == '__main__':
         baumol_cost_disease_canada,
         current_accounts_divergence,
         saving_rates_divergence,
+        current_account_and_trade_balance,
         us_twin_deficits,
         ai_datacenter_construction,
         ai_investment_components,

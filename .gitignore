@@ -53,3 +53,9 @@ __pycache__/
 
 # Local next-semester oil-price and investment snapshot in Dropbox
 /Slides/Data/s3_canada_oil_wcs.csv
+
+# Local next-semester BEA trade-balance snapshot in Dropbox
+/Slides/Data/s3_us_trade_balance_fred.csv
+
+# Local next-semester StatCan balances and GDP snapshot in Dropbox
+/Slides/Data/s3_canadian_ca_nx.csv
