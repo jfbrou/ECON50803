@@ -3,7 +3,7 @@ ECON50803 — Session 4 : Figure Generation
 ============================================
 
 Generates all matplotlib figures for Session 4 slides (business cycles,
-AD-AS model, recessions). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and
+DA-OA model, recessions). Figures are exported as native vector PDFs. All figure labels, axis titles, legends, and
 annotations are in French.
 
 Run from Slides/S4/:
@@ -186,7 +186,7 @@ def us_recession_inflation():
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(inflation.index, inflation.values, color=palette[0], linewidth=2.5)
-    ax.axhline(2, color=palette[1], linewidth=1.5, linestyle='--',
+    ax.axhline(2, color=palette[7], linewidth=1.5, linestyle='--',
                label=r"Cible d'inflation (2\,\%)")
 
     # Recession shading
@@ -1082,6 +1082,170 @@ def stock_sectors_iran():
     save(fig, 'stock_sectors_iran.pdf')
 
 
+def _s4_fred_csv(series_id, start, end):
+    """Public FRED download for a dated figure, with a finite request timeout."""
+    from io import StringIO
+
+    response = requests.get(
+        'https://fred.stlouisfed.org/graph/fredgraph.csv',
+        params={'id': series_id, 'cosd': start, 'coed': end},
+        timeout=45,
+    )
+    response.raise_for_status()
+    data = pd.read_csv(StringIO(response.text), parse_dates=['observation_date'])
+    return pd.to_numeric(data.set_index('observation_date')[series_id], errors='coerce')
+
+
+def s4_historical_recessions():
+    """BEA real GDP and BLS CPI, with NBER monthly peak-to-trough dates."""
+    gdp = _s4_fred_csv('GDPC1', '1972-01-01', '2011-12-31')
+    cpi = _s4_fred_csv('CPIAUCSL', '1971-01-01', '2011-12-31')
+    inflation = cpi.pct_change(12, fill_method=None) * 100
+    episodes = [
+        ('1972-01-01', '1976-10-01', '1973-07-01', '1973-11-01',
+         '1975-03-01', '1973', 's4_recession_1973.pdf'),
+        ('2006-01-01', '2011-10-01', '2007-07-01', '2007-12-01',
+         '2009-06-01', '2007', 's4_recession_2008.pdf'),
+    ]
+
+    for start, end, base, peak, trough, year, filename in episodes:
+        indexed = gdp.loc[start:end] / gdp.loc[base] * 100
+        # Put quarterly observations at the middle month of the quarter.
+        indexed.index += pd.DateOffset(months=1)
+        monthly = inflation.loc[start:indexed.index[-1]]
+        fig, (output, prices) = plt.subplots(1, 2, figsize=(10.8, 4.9))
+        output.plot(indexed, color=palette[0], linewidth=2.4)
+        prices.plot(monthly, color=palette[2], linewidth=2.4)
+        output.axhline(100, color=palette[7], linewidth=0.8)
+        prices.axhline(0, color=palette[7], linewidth=0.8)
+        output.set_title(f'PIB réel (T3 {year} = 100)', loc='left', fontsize=13, pad=20)
+        prices.set_title('Inflation IPC sur 12 mois', loc='left', fontsize=13, pad=20)
+        # Fit each episode's data and use the first mid-quarter observation as the left edge.
+        gdp_bounds, inflation_bounds = ((92, 106), (2, 13)) if year == '1973' else ((96, 104), (-3, 6))
+        tick_step = 2 if year == '1973' else 1
+        output.set_yticks(range(gdp_bounds[0], gdp_bounds[1] + 1, tick_step))
+        output.set_ylim(*gdp_bounds)
+        inflation_ticks = range(inflation_bounds[0], inflation_bounds[1] + 1, tick_step)
+        prices.set_yticks(inflation_ticks, labels=[str(n) + r'\%' for n in inflation_ticks])
+        prices.set_ylim(*inflation_bounds)
+        add_source(output, 'Source : BEA / FRED')
+        add_source(prices, 'Source : BLS / FRED')
+        left_edge = indexed.index[0]
+        ticks = pd.date_range(left_edge, indexed.index[-1], freq='12MS')
+        for ax in (output, prices):
+            ax.axvspan(pd.Timestamp(peak), pd.Timestamp(trough), color=palette[7], alpha=0.16, linewidth=0)
+            ax.set_xticks(ticks, labels=[str(t.year) for t in ticks])
+            ax.set_xlim(left_edge, indexed.index[-1])
+            ax.tick_params(labelsize=11)
+            style_axes(ax)
+        save(fig, filename)
+
+
+def s4_canada_trade_employment():
+    """Rebuild the S1 industry exposure comparison for the October 2026 vintage."""
+    from io import BytesIO
+    from zipfile import ZipFile
+
+    cutoff = '2026-10'
+    industry = 'North American Industry Classification System (NAICS)'
+    response = requests.get('https://www150.statcan.gc.ca/n1/tbl/csv/14100355-eng.zip', timeout=60)
+    response.raise_for_status()
+    cols = ['REF_DATE', 'GEO', industry, 'Statistics', 'Data type', 'VALUE']
+    with ZipFile(BytesIO(response.content)) as archive, archive.open('14100355.csv') as source:
+        rows = []
+        for chunk in pd.read_csv(source, usecols=cols, chunksize=150_000):
+            keep = (
+                chunk['GEO'].eq('Canada') & chunk['Statistics'].eq('Estimate')
+                & chunk['Data type'].eq('Seasonally adjusted')
+                & chunk['REF_DATE'].between('2023-01', cutoff)
+            )
+            rows.append(chunk.loc[keep, ['REF_DATE', industry, 'VALUE']])
+    levels = pd.concat(rows).pivot(index='REF_DATE', columns=industry, values='VALUE')
+    levels.index = pd.to_datetime(levels.index)
+    expected_last_date = pd.Timestamp(cutoff)
+    if levels.index.max() != expected_last_date:
+        raise ValueError(f'Employment data do not reach {cutoff}')
+
+    # Same disjoint NAICS groups as the exposure proxy in Session 1.
+    groups = [
+        ('Secteurs très exposés', palette[2], [
+            'Manufacturing [31-33]',
+            'Agriculture [111-112, 1100, 1151-1152]',
+            'Forestry, fishing, mining, quarrying, oil and gas [21, 113-114, 1153, 2100]',
+        ]),
+        ('Secteurs peu exposés', palette[0], [
+            'Health care and social assistance [62]',
+            'Educational services [61]',
+            'Public administration [91]',
+            'Construction [23]',
+            'Accommodation and food services [72]',
+            'Retail trade [44-45]',
+        ]),
+        ('Tous les secteurs', palette[1], ['Total employed, all industries']),
+    ]
+    fig, ax = new_figure(9.5, 4.5)
+    plotted = []
+    for label, color, industries in groups:
+        total = levels[industries].sum(axis=1, min_count=len(industries))
+        if total.isna().any():
+            raise ValueError(f'Missing monthly estimate for {label}')
+        index = 100 * total / total.iloc[0]
+        plotted.append(index)
+        ax.plot(index, color=color, linewidth=2.4, label=label)
+    ticks = pd.date_range(levels.index.min(), expected_last_date, freq='6MS')
+    ax.set_xticks(ticks, labels=[french_date_label(date) for date in ticks])
+    ax.set_xlim(levels.index.min(), expected_last_date)
+    lower = 2 * np.floor(min(s.min() for s in plotted) / 2)
+    upper = 2 * np.ceil(max(s.max() for s in plotted) / 2)
+    ax.set_ylim(lower, upper)
+    ax.set_yticks(np.arange(lower, upper + 1, 2))
+    ax.set_ylabel('Indice d’emploi (janv. 2023 = 100)', rotation=0, ha='left', fontsize=12)
+    ax.yaxis.set_label_coords(0, 1.02)
+    ax.tick_params(labelsize=11)
+    style_axes(ax)
+    ax.legend(loc='upper left', frameon=False, fontsize=10)
+    add_source(ax, 'Source : Statistique Canada, 14-10-0355-01 (oct. 2026)')
+    save(fig, 's4_canada_trade_employment.pdf')
+
+
+def s4_canada_cost_shocks():
+    """Daily EIA Brent and Bank of Canada tariff assumptions by MPR vintage."""
+    brent = _s4_fred_csv('DCOILBRENTEU', '2026-01-01', '2026-11-13').dropna()
+    # Bank of Canada, October 2026 MPR, Table 1; after remissions.
+    tariffs = [1.2, 1.5, 1.5, 3.9]
+    fig, (oil, duties) = plt.subplots(
+        1, 2, figsize=(10.8, 4.9), gridspec_kw={'width_ratios': [1.35, 1]},
+    )
+    oil.plot(brent, color=palette[0], linewidth=2.1)
+    oil.axvline(pd.Timestamp('2026-02-28'), color=palette[7], linewidth=0.9, linestyle=':')
+    oil.annotate('Début de la guerre', (pd.Timestamp('2026-02-28'), 133),
+                 xytext=(4, 0), textcoords='offset points', fontsize=9)
+    ticks = pd.to_datetime(['2026-01-02', '2026-04-01', '2026-07-01', '2026-10-01'])
+    oil.set_xticks(ticks, labels=['Janv.', 'Avr.', 'Juill.', 'Oct.'])
+    oil.set_xlim(brent.index.min(), brent.index.max())
+    oil.set_ylim(60, 140)
+    oil.set_yticks(range(60, 141, 20))
+    oil.set_title('Brent (USD/baril)', loc='left', fontsize=13, pad=20)
+    last = brent.index[-1]
+    add_source(oil, f'Source : EIA / FRED, au {last.day} nov. 2026')
+
+    bars = duties.bar(['Janv.', 'Avr.', 'Juill.', 'Oct.'], tariffs, width=0.60,
+                      color=[palette[7]] * 3 + [palette[2]], zorder=3)
+    for bar, value in zip(bars, tariffs):
+        duties.annotate(str(value).replace('.', ',') + r'\%',
+                        (bar.get_x() + bar.get_width() / 2, value),
+                        xytext=(0, 3), textcoords='offset points', ha='center', fontsize=10)
+    duties.set_ylim(0, 5)
+    duties.set_yticks(range(6), labels=[str(n) + r'\%' for n in range(6)])
+    duties.set_title('Droits sur les biens américains', loc='left', fontsize=13, pad=20)
+    add_source(duties, 'Source : BdC, RPM d’octobre, tableau 1')
+    for ax in (oil, duties):
+        ax.set_xlabel('2026')
+        ax.tick_params(labelsize=11)
+        style_axes(ax)
+    save(fig, 's4_canada_cost_shocks.pdf')
+
+
 # =====================================================================
 # Main
 # =====================================================================
@@ -1094,6 +1258,9 @@ if __name__ == '__main__':
         output_gap_us,
         employment_recovery,
         us_recession_inflation,
+        s4_historical_recessions,
+        s4_canada_trade_employment,
+        s4_canada_cost_shocks,
         us_gdp_growth,
         canada_gdp_potential,
         output_gap_canada,

@@ -5,7 +5,78 @@
 \author{Jean-Félix Brouillette}
 \date{Séance 4}
 
+% Keep the same axes, reference point, and curve colours across the case studies.
+% Arguments: shifts in the DA and OA intercepts, and whether to show Y_POT.
+\newcommand{\sFourCaseDiagram}[3]{\sFourCaseDiagramFrom{0}{0}{#1}{#2}{#3}}
+% Start from earlier shifts when depicting a second stage.
+\newcommand{\sFourCaseDiagramFrom}[6][1]{%
+   \begin{tikzpicture}[s4 curve diagram={9 and 6}]
+      % DA: P = 4.8 - 0.6 Y. OA: P = 0.6 + 0.6 Y.
+      \pgfmathsetmacro{\priorDemand}{4.8 + (#2)}
+      \pgfmathsetmacro{\priorSupply}{0.6 + (#3)}
+      \pgfmathsetmacro{\priorY}{(\priorDemand - \priorSupply) / 1.2}
+      \pgfmathsetmacro{\priorP}{(\priorDemand + \priorSupply) / 2}
+      \pgfmathsetmacro{\caseDemand}{4.8 + (#4)}
+      \pgfmathsetmacro{\caseSupply}{0.6 + (#5)}
+      \def\priorPrime{}
+      \def\casePrime{$'$}
+      \def\caseSupplyArrowX{5.5}
+      \ifnum#1=2
+         \def\priorPrime{$'$}
+         \def\casePrime{$''$}
+         \def\caseSupplyArrowX{4.5}
+      \fi
+      \pgfmathsetmacro{\caseY}{(\caseDemand - \caseSupply) / 1.2}
+      \pgfmathsetmacro{\caseP}{(\caseDemand + \caseSupply) / 2}
+      \ifnum#6=1
+         \draw[potline] (3.5,0) -- (3.5,5.4)
+            node[above, curvelabel] {$Y_{\text{POT}}$};
+         \draw[refline] (0,2.7) node[left, pointlabel, yshift=-2pt] {$P_0$} -- (3.5,2.7);
+      \fi
+      \draw[refline] (0,\caseP) node[left, pointlabel, yshift={#6 * 2pt}] {$P_{#1}$} -- (\caseY,\caseP);
+      \draw[refline] (\caseY,\caseP) -- (\caseY,0) node[below, pointlabel] {$Y_{#1}$};
+      \pgfmathtruncatemacro{\caseHasDemandShift}{abs((#4) - (#2)) > 0}
+      \ifnum\caseHasDemandShift=1
+         \draw[original] (0,\priorDemand) -- ({\priorDemand / 0.6},0) node[pos=0.93, above right, pointlabel] {DA\priorPrime};
+         \draw[demand, HECnavy] (0,\caseDemand) -- ({min(\caseDemand / 0.6,8.8)},{max(\caseDemand - 5.28,0)})
+            node[pos=0.96, above right, curvelabel] {DA\casePrime};
+         \pgfmathsetmacro{\oldDemandX}{(\priorDemand - 1.2) / 0.6}
+         \pgfmathsetmacro{\newDemandX}{(\caseDemand - 1.2) / 0.6}
+         \draw[shiftarrow, HECnavy] ({0.80 * \oldDemandX + 0.20 * \newDemandX},1.2)
+            -- ({0.20 * \oldDemandX + 0.80 * \newDemandX},1.2);
+      \else
+         \draw[demand, HECnavy] (0,4.8) -- (8,0) node[above right, curvelabel] {DA};
+      \fi
+      \pgfmathtruncatemacro{\caseHasSupplyShift}{abs((#5) - (#3)) > 0}
+      \ifnum\caseHasSupplyShift=1
+         \draw[original] (0,\priorSupply) -- ({(5.1 - \priorSupply) / 0.6},5.1) node[right, pointlabel] {OA\priorPrime};
+         \draw[supply, HECcoral] (0,\caseSupply) -- ({(5.1 - \caseSupply) / 0.6},5.1)
+            node[above, curvelabel] {OA\casePrime};
+         \pgfmathsetmacro{\priorSupplyY}{0.6 * \caseSupplyArrowX + \priorSupply}
+         \pgfmathsetmacro{\caseSupplyY}{0.6 * \caseSupplyArrowX + \caseSupply}
+         \draw[shiftarrow, HECcoral]
+            (\caseSupplyArrowX,{0.82 * \priorSupplyY + 0.18 * \caseSupplyY})
+            -- (\caseSupplyArrowX,{0.18 * \priorSupplyY + 0.82 * \caseSupplyY});
+      \else
+         \draw[supply, HECcoral] (0,0.6) -- (7.5,5.1) node[right, curvelabel] {OA};
+      \fi
+      \filldraw[eqfaded] (\priorY,\priorP) circle (2.5pt);
+      \filldraw[eqpoint=HECnavy] (\caseY,\caseP) circle (3pt);
+      \draw[econaxis] (0,0) -- (9,0) node[right] {$Y$};
+      \draw[econaxis] (0,0) -- (0,6) node[above] {$P$};
+   \end{tikzpicture}%
+}
+\newcommand{\sFourCaseFigure}[1]{%
+   \centering
+   \includegraphics[width=0.96\textwidth,height=0.75\textheight,keepaspectratio]{#1}%
+}
+
 \begin{document}
+
+% Include the private roster only for an explicitly requested classroom build.
+\ifdefined\showbriefingroster
+   \input{../../Evaluations/A2026/participation/seance4_briefing.tex}
+\fi
 
 % ============================================================================
 \titleframe
@@ -14,14 +85,18 @@
 {
 \setbeamertemplate{footline}{}
 \begin{frame}{La macroéconomie de court terme}
-   \begin{tikzpicture}[remember picture, overlay]
+   \begin{tikzpicture}[remember picture, overlay,
+      every node/.append style={yshift={-0.4cm * \hlrow}}]
       \setcounter{newshl}{0}
-      \newsheadline[economist]{The Economist}{\guillemotleft~The nightmare Iran energy scenario is becoming reality~\guillemotright}
-      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Iran War, Oil Price Surge Put Global Economic Recovery at Risk~\guillemotright}
-      \newsheadline[lapresse]{La Presse}{\guillemotleft~Contraction surprise de l'économie canadienne~\guillemotright}
-      \newsheadline[ft]{Financial Times}{\guillemotleft~Scott Bessent says 15\% global tariff `likely' to be imposed this week~\guillemotright}
-      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~L'économie s'est contractée au quatrième trimestre, selon Statistique Canada~\guillemotright}
-      \newsheadline[reuters]{Reuters}{\guillemotleft~Investors brace for energy shock, inflation fears from prolonged Iran conflict~\guillemotright}
+      % Row 1: Canadian jobs and fiscal policy
+      \newsheadline[bloomberg]{Bloomberg}{\href{https://www.bloomberg.com/news/articles/2026-11-06/canada-jobless-rate-rises-to-6-7-amid-small-employment-decline}{\guillemotleft~Canada Jobless Rate Rises to 6.7\% Amid Small Employment Decline~\guillemotright}}
+      \newsheadline[radiocanada]{CBC News}{\href{https://www.cbc.ca/news/politics/carney-2nd-federal-budget-affordability-sovereignty-9.7411102}{\guillemotleft~Carney's 2nd budget earmarks billions for affordability and Canadian sovereignty~\guillemotright}}
+      % Row 2: AI and interest rates
+      \newsheadline[economist]{The Economist}{\href{https://www.economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash}{\guillemotleft~Why you should expect an AI crash~\guillemotright}}
+      \newsheadline[washpost]{The Washington Post}{\href{https://www.washingtonpost.com/business/2026/11/10/trump-appointed-fed-member-signals-big-rate-hike-inflation-runs-hot/}{\guillemotleft~Trump-appointed Fed member signals big interest rate hike as inflation runs hot~\guillemotright}}
+      % Row 3: oil and the Bank of Canada
+      \newsheadline[reuters]{Reuters}{\href{https://live.euronext.com/en/financial-news/oil-settles-3-higher-attacks-saudi-energy-sites-strait-hormuz-disruptions}{\guillemotleft~Oil settles \$3 higher on attacks on Saudi energy sites, Strait of Hormuz disruptions~\guillemotright}}
+      \newsheadline[wsj]{The Wall Street Journal}{\href{https://www.wsj.com/economy/central-banking/bank-of-canada-raised-rates-to-mitigate-inflation-risk-minutes-say-1bece759}{\guillemotleft~Bank of Canada Raised Rates to Mitigate Inflation Risk, Minutes Say~\guillemotright}}
    \end{tikzpicture}
 \end{frame}
 }
@@ -31,8 +106,9 @@
       \setlength\itemsep{0.5cm}
       \item \textbf{Faits saillants sur les cycles économiques}
       \item Tendance et fluctuations
-      \item Le modèle AD-AS
+      \item Le modèle DA-OA
       \item Anatomie d'une récession
+      \item Où en est le Canada dans le cycle\,?
    \end{enumerate}
 \end{frame}
 
@@ -199,8 +275,9 @@
       \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Faits saillants sur les cycles économiques}
       \item \textbf{Tendance et fluctuations}
-      \item Le modèle AD-AS
+      \item Le modèle DA-OA
       \item Anatomie d'une récession
+      \item Où en est le Canada dans le cycle\,?
    \end{enumerate}
 \end{frame}
 
@@ -292,13 +369,14 @@
       \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Faits saillants sur les cycles économiques}
       \item {\color{gray!50}Tendance et fluctuations}
-      \item \textbf{Le modèle AD-AS}
+      \item \textbf{Le modèle DA-OA}
       \item Anatomie d'une récession
+      \item Où en est le Canada dans le cycle\,?
    \end{enumerate}
 \end{frame}
 
 % ============================================================================
-\sectionframe{Le modèle AD-AS}
+\sectionframe{Le modèle DA-OA}
 % ============================================================================
 
 \begin{frame}[t]{Un cadre pour analyser les fluctuations}
@@ -308,8 +386,8 @@
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.2cm}
-      \item \textbf{Demande agrégée (AD)} --- quantités demandées par les ménages ($C$), les entreprises ($I$), le gouvernement ($G$) et le reste du monde ($NX$)
-      \item \textbf{Offre agrégée (AS)} --- quantités produites par l'ensemble des entreprises
+      \item \textbf{Demande agrégée (DA)} --- quantités demandées par les ménages ($C$), les entreprises ($I$), le gouvernement ($G$) et le reste du monde ($NX$)
+      \item \textbf{Offre agrégée (OA)} --- quantités produites par l'ensemble des entreprises
    \end{itemize}
 
    \vspace{0.2cm}
@@ -324,29 +402,39 @@
    \end{bizimplication}
 \end{frame}
 
-\begin{frame}{Le diagramme AD-AS}\examtag
+\begin{frame}{Le diagramme DA-OA}\examtag
    \centering
    \begin{tikzpicture}[scale=1.1]
       % Potential GDP (vertical line)
       \draw[potline] (3.25,0) -- (3.25,5.0)
          node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
       \node[pointlabel, text=HECgreen, below] at (3.25,-0.1) {PIB potentiel};
-      % AD curve: y = -0.68x + 4.746, y-int (0,4.746), x-int (6.98,0)
+      % DA curve: y = -0.68x + 4.746, y-int (0,4.746), x-int (6.98,0)
       \draw[demand] (0,4.746) -- (6.98,0)
-         node[above right, curvelabel, text=HECnavy] {AD};
-      % AS curve: y = 0.72x + 0.226, y-int (0,0.226), far end at (6.63,5.0)
+         node[above right, curvelabel, text=HECnavy] {DA};
+      % OA curve: y = 0.72x + 0.226, y-int (0,0.226), far end at (6.63,5.0)
       \draw[supply, HECcoral] (0,0.226) -- (6.63,5.0)
-         node[right, curvelabel, text=HECcoral] {AS};
+         node[right, curvelabel, text=HECcoral] {OA};
       % Axes (drawn last for z-order)
       \draw[econaxis] (0,0) -- (7.3,0) node[right] {$Y$};
       \draw[econaxis] (0,0) -- (0,5.3) node[above] {$P$};
    \end{tikzpicture}
 \end{frame}
 
-\begin{frame}[t]{La demande agrégée (AD)}\examtag
+% Give the four DA and OA diagrams the same physical axes and label margins.
+\tikzset{
+   s4 curve diagram/.style args={#1 and #2}{
+      x={6.15cm / #1}, y={4.85cm / #2},
+      execute at begin picture={
+         \path[use as bounding box] (-0.60cm,-0.45cm) rectangle (6.60cm,5.30cm);
+      }
+   }
+}
+
+\begin{frame}[t]{La demande agrégée (DA)}\examtag
    \small
    \begin{columns}[T]
-      \begin{column}{0.45\textwidth}
+      \begin{column}{0.47\textwidth}
          \begin{defbox}[Demande agrégée]
             Relation entre niveau des prix ($P$) et niveau de dépenses ($Y$) :
             \vspace{0.15cm}
@@ -362,10 +450,10 @@
       \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % AD curve: y = -0.7778x + 4.389, y-int (0,4.389), x-int (5.64,0)
+         \begin{tikzpicture}[s4 curve diagram={5.95 and 4.7}]
+            % DA curve: y = -0.7778x + 4.389, y-int (0,4.389), x-int (5.64,0)
             \draw[demand] (0,4.389) -- (5.64,0)
-               node[above right, curvelabel, text=HECnavy] {AD};
+               node[above right, curvelabel, text=HECnavy] {DA};
             % Points on the curve: y = 4 - (7/9)(x - 0.5)
             % At x=2: y=2.83, at x=4: y=1.28
             % Dotted reference lines
@@ -386,12 +474,12 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Ce qui déplace la courbe AD}\examtag
+\begin{frame}[t]{Ce qui déplace la courbe DA}\examtag
    \small
    Tout choc qui modifie les \textbf{dépenses souhaitées} à un niveau de prix donné :
    \vspace{0.5cm}
    \begin{columns}[T]
-      \begin{column}{0.52\textwidth}
+      \begin{column}{0.47\textwidth}
          \textbf{\textcolor{HECgreen}{Déplacements vers la droite}}
          \vspace{0.15cm}
          \begin{itemize}
@@ -402,19 +490,19 @@
             \item Boom d'exportations ($NX \uparrow$)
          \end{itemize}
          \vspace{0.2cm}
-         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent AD vers la gauche.}}
+         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent la DA vers la gauche.}}
       \end{column}
-      \begin{column}{0.46\textwidth}
+      \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=0.75]
-            % Original AD (dashed gray): y = -0.7346x + 4.170, y-int (0,4.170), x-int (5.68,0)
+         \begin{tikzpicture}[s4 curve diagram={7.4 and 5.63}]
+            % Original DA (dashed gray): y = -0.7346x + 4.170, y-int (0,4.170), x-int (5.68,0)
             \draw[original] (0,4.170) -- (5.68,0)
-               node[above right, pointlabel] {AD};
-            % Shifted AD' (green, solid): y = -0.75x + 5.325, y-int (0,5.325), x-int (7.1,0)
+               node[above right, pointlabel] {DA};
+            % Shifted DA' (green, solid): y = -0.75x + 5.325, y-int (0,5.325), x-int (7.1,0)
             \draw[curveshift, HECgreen] (0,5.325) -- (7.1,0)
-               node[above right, curvelabel] {AD$'$};
-            % Shift arrow: horizontal from AD to AD' at y=2.2
+               node[above right, curvelabel] {DA$'$};
+            % Shift arrow: horizontal from DA to DA' at y=2.2
             \draw[shiftarrow, HECgreen] (2.68,2.2) -- (4.17,2.2);
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (7.4,0) node[right] {$Y$};
@@ -424,28 +512,28 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{L'offre agrégée (AS)}\examtag
+\begin{frame}[t]{L'offre agrégée (OA)}\examtag
    \small
    \begin{columns}[T]
-      \begin{column}{0.45\textwidth}
+      \begin{column}{0.47\textwidth}
          \begin{defbox}[Offre agrégée]
             Production des entreprises ($Y$) à un niveau des prix donné ($P$).
             \vspace{0.25cm}
 
             \textbf{Hypothèse clé :} les salaires nominaux sont rigides à court terme.
          \end{defbox}
-         \vspace{0.25cm}
          \begin{keyinsight}
-            À prix plus élevés $\to$ les firmes veulent produire davantage.
+            \raggedright
+            À salaires inchangés, des prix plus élevés augmentent les marges et incitent à produire davantage.
          \end{keyinsight}
       \end{column}
       \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=1.0]
-            % AS curve: y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.2,4.16)
+         \begin{tikzpicture}[s4 curve diagram={5.5 and 4.5}]
+            % OA curve: y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.2,4.16)
             \draw[supply, HECcoral] (0,0.1135) -- (5.2,4.16)
-               node[right, curvelabel, text=HECcoral] {AS};
+               node[right, curvelabel, text=HECcoral] {OA};
             % Dotted reference lines
             \draw[refline] (1.5,0) node[below, pointlabel] {$Y_1$} -- (1.5,1.28);
             \draw[refline] (0,1.28) node[left, pointlabel] {$P_1$} -- (1.5,1.28);
@@ -466,12 +554,12 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}[t]{Ce qui déplace la courbe AS}\examtag
+\begin{frame}[t]{Ce qui déplace la courbe OA}\examtag
    \small
    Tout ce qui modifie les \textbf{coûts de production} des entreprises à prix donnés :
    \vspace{0.5cm}
    \begin{columns}[T]
-      \begin{column}{0.52\textwidth}
+      \begin{column}{0.47\textwidth}
          \textbf{\textcolor{HECgreen}{Déplacements vers la droite}}
          \vspace{0.15cm}
          \begin{itemize}
@@ -482,21 +570,21 @@
             \item Amélioration des chaînes d'approvisionnement
          \end{itemize}
          \vspace{0.2cm}
-         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent AS vers la gauche.}}
+         {\footnotesize\textcolor{HECgray}{Les chocs inverses déplacent l’OA vers la gauche.}}
       \end{column}
-      \begin{column}{0.46\textwidth}
+      \begin{column}{0.52\textwidth}
          \centering
          \vspace{0.2cm}
-         \begin{tikzpicture}[scale=0.82]
-            % Original AS (dashed gray): y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.26,4.2)
+         \begin{tikzpicture}[s4 curve diagram={6.55 and 4.5}]
+            % Original OA (dashed gray): y = 0.7767x + 0.1135, y-int (0,0.1135), far end (5.26,4.2)
             \draw[original] (0,0.1135) -- (5.26,4.2)
-               node[right, pointlabel] {AS};
-            % Shifted AS' (green, solid): y = 0.7778x - 0.6667, x-int (0.86,0), far end (6.25,4.2)
+               node[right, pointlabel] {OA};
+            % Shifted OA' (green, solid): y = 0.7778x - 0.6667, x-int (0.86,0), far end (6.25,4.2)
             \draw[curveshift, HECgreen] (0.86,0) -- (6.25,4.2)
-               node[right, curvelabel] {AS$'$};
-            % Shift arrow: horizontal from AS to AS' at y=2.2
-            % On AS: x = 0.5 + (9/7)(2.2 - 0.5) = 2.69
-            % On AS': x = 1.5 + (9/7)(2.2 - 0.5) = 3.69
+               node[right, curvelabel] {OA$'$};
+            % Shift arrow: horizontal from OA to OA' at y=2.2
+            % On OA: x = 0.5 + (9/7)(2.2 - 0.5) = 2.69
+            % On OA': x = 1.5 + (9/7)(2.2 - 0.5) = 3.69
             \draw[shiftarrow, HECgreen] (2.69,2.2) -- (3.69,2.2);
             % Axes (drawn last for z-order)
             \draw[econaxis] (0,0) -- (6.55,0) node[right] {$Y$};
@@ -509,10 +597,10 @@
 \begin{frame}{Équilibre de court terme}\examtag
    \centering
    \begin{tikzpicture}[scale=1.2]
-      % AD: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {AD};
-      % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
+      % DA: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
+      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {DA};
+      % OA: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
+      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {OA};
       % Intersection: -0.6x+4.1 = 0.6x+0.5 => x=3.0, y=2.3
       \draw[refline] (3.0,0) node[below, pointlabel] {$Y^*$} -- (3.0,2.3);
       \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
@@ -531,24 +619,25 @@
          \begin{tcolorbox}[
             colback=HECnavy!5, colframe=HECnavy, boxrule=0.5pt, arc=8pt,
             leftrule=3pt, top=6pt, bottom=6pt, left=8pt, right=8pt,
-            title={\textcolor{HECnavy}{\textbf{AD : pente négative}}},
+            title={\textcolor{HECnavy}{\textbf{DA : pente négative}}},
             coltitle=HECnavy, colbacktitle=HECnavy!12,
-            equal height group=slopes
+            equal height group=slopes,
+            space to upper, valign lower=bottom, lower separated=false, middle=3pt
          ]
-            \textbf{L'effet de richesse :}
-            \begin{enumerate}
-               \setlength\itemsep{0.12cm}
-               \item Richesse des ménages en \$
-               \item Hausse généralisée des prix
-               \item Pouvoir d'achat $\downarrow$ $\to$ $C \downarrow$
-            \end{enumerate}
-            \vspace{0.2cm}
+            \raggedright
+            \textbf{Pouvoir d’achat}\par
+            Des prix plus élevés réduisent le pouvoir d’achat et la consommation.
+
+            \smallskip
+            \textbf{Exportations nettes}\par
+            Si les prix canadiens augmentent par rapport aux prix étrangers, le Canada exporte moins et importe davantage.
+            \tcblower
             \begin{tcolorbox}[
                colback=HECnavy!10, colframe=HECnavy!0, boxrule=0pt, arc=6pt,
                top=3pt, bottom=3pt, left=4pt, right=4pt
             ]
                \centering\bfseries
-               $P \uparrow$ $\to$ richesse réelle $\downarrow$ $\to$ $C \downarrow$ $\to$ $Y \downarrow$
+               $P \uparrow$ $\to$ $C \downarrow$ et $NX \downarrow$ $\to$ $Y \downarrow$
             \end{tcolorbox}
          \end{tcolorbox}
       \end{column}
@@ -556,24 +645,25 @@
          \begin{tcolorbox}[
             colback=HECcoral!5, colframe=HECcoral, boxrule=0.5pt, arc=8pt,
             leftrule=3pt, top=6pt, bottom=6pt, left=8pt, right=8pt,
-            title={\textcolor{HECcoral}{\textbf{AS : pente positive}}},
+            title={\textcolor{HECcoral}{\textbf{OA : pente positive}}},
             coltitle=HECcoral, colbacktitle=HECcoral!12,
-            equal height group=slopes
+            equal height group=slopes,
+            space to upper, valign lower=bottom, lower separated=false, middle=3pt
          ]
-            \textbf{L'effet des salaires rigides :}
-            \begin{enumerate}
-               \setlength\itemsep{0.12cm}
-               \item Salaires nom. ($w$) fixés par contrat
-               \item $P \uparrow$ mais $w$ fixe $\to$ coût réel $\downarrow$
-               \item Production plus rentable $\to$ $Y \uparrow$
-            \end{enumerate}
-            \vspace{0.2cm}
+            \raggedright
+            \textbf{Salaires nominaux rigides}\par
+            À court terme, les salaires nominaux s’ajustent peu aux variations des prix.
+
+            \smallskip
+            \textbf{Marges des entreprises}\par
+            À salaires inchangés, des prix plus élevés augmentent les marges et incitent à produire davantage.
+            \tcblower
             \begin{tcolorbox}[
                colback=HECcoral!10, colframe=HECcoral!0, boxrule=0pt, arc=6pt,
                top=3pt, bottom=3pt, left=4pt, right=4pt
             ]
                \centering\bfseries
-               $P \uparrow$ $\to$ $w$ fixe $\to$ coût $\downarrow$ $\to$ $Y \uparrow$
+               $P \uparrow$ $\to$ marges $\uparrow$ $\to$ $Y \uparrow$
             \end{tcolorbox}
          \end{tcolorbox}
       \end{column}
@@ -585,49 +675,45 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.9]
+         \begin{tikzpicture}[s4 curve diagram={9 and 6}, xscale=1.05]
             % Y_POT
-            \draw[potline] (3.0,0) -- (3.0,4.2)
+            \draw[potline] (3.0,0) -- (3.0,5.5)
                node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
             \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
             \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
             \draw[refline, HECcoral] (0,1.75) node[left, pointlabel] {$P_1$} -- (2.08,1.75);
-            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
-            \draw[supply] (0,0.5) -- (5.7,3.92)
-               node[right, curvelabel, text=HECnavy] {AS};
-            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+            % OA: y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            \draw[supply] (0,0.5) -- (8.7,5.72)
+               node[right, curvelabel, text=HECnavy] {OA};
+            % DA original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
             \draw[original] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECgray] {AD};
-            % AD' shifted left: y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+               node[above right, curvelabel, text=HECgray] {DA};
+            % DA' shifted left: y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
             \draw[curveshift, HECcoral] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel, text=HECcoral] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
+               node[above right, curvelabel, text=HECcoral] {DA$'$};
+            % E0: DA ∩ OA at (3.0, 2.3)
             \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
-            \node[pointlabel, HECgray, above right] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
+            % E1: DA' ∩ OA at (2.08, 1.75)
             \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
-            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % Shock arrow (AD → AD') at y=1.3: AD at x=4.67, AD' at x=2.83
+            % Shock arrow (DA → DA') at y=1.3: DA at x=4.67, DA' at x=2.83
             \draw[shiftarrow, HECcoral] (4.5,1.3) -- (3.0,1.3);
-            \node[pointlabel, HECcoral, above] at (3.75,1.3) {Choc};
             % Axes
-            \draw[econaxis] (0,0) -- (7.1,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
+            \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Court terme :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.15cm}
-            \item AD se déplace à gauche
-            \item Nouvel équilibre $E_1$ : $Y$ $\downarrow$ $+$ $P$ $\downarrow$
-            \item $Y_1 < Y_{\text{POT}}$ $\to$ récession
-         \end{enumerate}
-         \vspace{0.3cm}
-         \textcolor{HECgray}{\footnotesize L'économie est en dessous de son potentiel. Que se passe-t-il ensuite\,?}
+         \begin{warning}[Court terme (CT)]
+            \small\raggedright
+            \vspace{-0.35cm}
+            \begin{enumerate}
+               \setlength\itemsep{0.12cm}
+               \item La DA va à gauche.
+               \item La production baisse,\\ tout comme les prix.
+               \item $Y_1 < Y_{\text{POT}}$ $\to$ récession.
+            \end{enumerate}
+         \end{warning}
       \end{column}
    \end{columns}
 \end{frame}
@@ -637,50 +723,44 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.9]
+         \begin{tikzpicture}[s4 curve diagram={9 and 6}, xscale=1.05]
             % Y_POT
-            \draw[potline] (3.0,0) -- (3.0,4.2)
+            \draw[potline] (3.0,0) -- (3.0,5.5)
                node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
             \draw[refline, HECcoral] (2.08,0) node[below, pointlabel] {$Y_1$} -- (2.08,1.75);
-            \draw[refline, HECnavy] (0,1.2) node[left, pointlabel] {$P_{LR}$} -- (3.0,1.2);
-            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (5.7,3.92)
-            \draw[original] (0,0.5) -- (5.7,3.92)
-               node[right, curvelabel, text=HECgray] {AS};
-            % AD' (solid, the new demand): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
+            \draw[refline, HECnavy] (0,1.2) node[left, pointlabel] {$P_{LT}$} -- (3.0,1.2);
+            % OA original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            \draw[original] (0,0.5) -- (8.7,5.72)
+               node[right, curvelabel, text=HECgray] {OA};
+            % DA' (solid, the new demand): y = -0.6x + 3.0 → y-int (0,3.0), x-int (5.0,0)
             \draw[demand, HECcoral] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel, text=HECcoral] {AD$'$};
-            % AS' shifted right: y = 0.6x - 0.6 → x-int (1.0,0), far end (5.7,2.82)
-            \draw[supply] (1.0,0) -- (5.7,2.82)
-               node[right, curvelabel, text=HECnavy] {AS$'$};
-            % E1: AD' ∩ AS at (2.08, 1.75)
+               node[above right, curvelabel, text=HECcoral] {DA$'$};
+            % OA' shifted right: y = 0.6x - 0.6 → x-int (1.0,0), far end (8.7,4.62)
+            \draw[supply] (1.0,0) -- (8.7,4.62)
+               node[right, curvelabel, text=HECnavy] {OA$'$};
+            % E1: DA' ∩ OA at (2.08, 1.75)
             \filldraw[eqpoint=HECcoral] (2.08,1.75) circle (3pt);
-            \node[pointlabel, HECcoral, above left] at (2.08,1.75) {$E_1$};
-            % E_LR: AD' ∩ AS' at (3.0, 1.2)
+            % E_LT: DA' ∩ OA' at (3.0, 1.2)
             \filldraw[eqpoint=HECnavy] (3.0,1.2) circle (3pt);
-            \node[pointlabel, HECnavy, below right] at (3.0,1.2) {$E_{LR}$};
-            % AS adjustment arrow (AS → AS') at x=4.5: AS at y=3.2, AS' at y=2.1
-            \draw[shiftarrow, HECnavy] (4.5,3.2) -- (4.5,2.1);
-            \node[pointlabel, HECnavy, right] at (4.55,2.85) {$w\downarrow$};
+            % OA adjustment arrow (OA → OA') at x=4.5: OA at y=3.2, OA' at y=2.1
+            \draw[shiftarrow, HECnavy] (4.5,3.05) -- (4.5,2.25);
             % Axes
-            \draw[econaxis] (0,0) -- (6,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,4.5) node[above] {$P$};
+            \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
+            \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Long terme :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.1cm}
-            \item $Y_1 < Y_{\text{POT}}$ $\to$ chômage élevé
-            \item Travailleurs abondants
-            \item Salaires nominaux $\downarrow$ $\to$ coûts $\downarrow$
-            \item AS se déplace vers la droite
-            \item Retour à $Y_{\text{POT}}$ au prix $P_{LR}$
-         \end{enumerate}
-         \vspace{0.2cm}
-         \textcolor{HECgray}{\footnotesize Même niveau de production, mais à un niveau de prix plus bas.}
+         \begin{bizimplication}[Long terme (LT)]
+            \small\raggedright
+            \vspace{-0.35cm}
+            \begin{enumerate}
+               \setlength\itemsep{0.12cm}
+               \item Chômage élevé\\ $\to$ salaires nominaux $\downarrow$.
+               \item Les coûts baissent.\\ L’OA va à droite.
+               \item La production revient à $Y_{\text{POT}}$, à un prix $P_{LT}$ plus bas qu’avant le choc.
+            \end{enumerate}
+         \end{bizimplication}
       \end{column}
    \end{columns}
 \end{frame}
@@ -690,7 +770,7 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.68]
+         \begin{tikzpicture}[s4 curve diagram={9 and 6}, xscale=1.05]
             % Y_POT
             \draw[potline] (3.0,0) -- (3.0,5.5)
                node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
@@ -698,41 +778,37 @@
             \draw[refline] (0,2.3) node[left, pointlabel] {$P_0$} -- (3.0,2.3);
             \draw[refline, HECcoral] (3.92,0) node[below, pointlabel] {$Y_1$} -- (3.92,2.85);
             \draw[refline, HECcoral] (0,2.85) node[left, pointlabel] {$P_1$} -- (3.92,2.85);
-            % AS: y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            % OA: y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
             \draw[supply] (0,0.5) -- (8.7,5.72)
-               node[right, curvelabel, text=HECnavy] {AS};
-            % AD original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
+               node[right, curvelabel, text=HECnavy] {OA};
+            % DA original (dashed): y = -0.6x + 4.1 → y-int (0,4.1), x-int (6.83,0)
             \draw[original] (0,4.1) -- (6.83,0)
-               node[above right, curvelabel, text=HECgray] {AD};
-            % AD' shifted right: y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
+               node[above right, curvelabel, text=HECgray] {DA};
+            % DA' shifted right: y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
             \draw[curveshift, HECcoral] (0,5.2) -- (8.67,0)
-               node[above right, curvelabel, text=HECcoral] {AD$'$};
-            % E0: AD ∩ AS at (3.0, 2.3)
+               node[pos=0.87, above right, curvelabel, text=HECcoral] {DA$'$};
+            % E0: DA ∩ OA at (3.0, 2.3)
             \filldraw[eqpoint=HECgray] (3.0,2.3) circle (3pt);
-            \node[pointlabel, HECgray, below left] at (3.0,2.3) {$E_0$};
-            % E1: AD' ∩ AS at (3.92, 2.85)
+            % E1: DA' ∩ OA at (3.92, 2.85)
             \filldraw[eqpoint=HECcoral] (3.92,2.85) circle (3pt);
-            \node[pointlabel, HECcoral, above left] at (3.92,2.85) {$E_1$};
-            % Shock arrow (AD → AD') at y=3.2: AD at x=1.5, AD' at x=3.33
+            % Shock arrow (DA → DA') at y=3.2: DA at x=1.5, DA' at x=3.33
             \draw[shiftarrow, HECcoral] (1.7,3.2) -- (3.1,3.2);
-            \node[pointlabel, HECcoral, above] at (2,3.2) {Choc};
             % Axes
             \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
             \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Court terme :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.15cm}
-            \item AD se déplace à droite
-            \item Nouvel équilibre $E_1$ : $Y$ $\uparrow$ $+$ $P$ $\uparrow$
-            \item $Y_1 > Y_{\text{POT}}$ $\to$ surchauffe
-         \end{enumerate}
-         \vspace{0.3cm}
-         \textcolor{HECgray}{\footnotesize L'économie dépasse son potentiel. Que se passe-t-il ensuite\,?}
+         \begin{warning}[Court terme (CT)]
+            \small\raggedright
+            \vspace{-0.35cm}
+            \begin{enumerate}
+               \setlength\itemsep{0.12cm}
+               \item La DA va à droite.
+               \item La production monte,\\ tout comme les prix.
+               \item $Y_1 > Y_{\text{POT}}$ $\to$ surchauffe.
+            \end{enumerate}
+         \end{warning}
       \end{column}
    \end{columns}
 \end{frame}
@@ -742,50 +818,44 @@
    \begin{columns}[T]
       \begin{column}{0.55\textwidth}
          \centering
-         \begin{tikzpicture}[scale=0.68]
+         \begin{tikzpicture}[s4 curve diagram={9 and 6}, xscale=1.05]
             % Y_POT
             \draw[potline] (3.0,0) -- (3.0,5.5)
                node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
             % Dotted reference lines
             \draw[refline, HECcoral] (3.92,0) node[below, pointlabel] {$Y_1$} -- (3.92,2.85);
-            \draw[refline, HECnavy] (0,3.4) node[left, pointlabel] {$P_{LR}$} -- (3.0,3.4);
-            % AS original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
+            \draw[refline, HECnavy] (0,3.4) node[left, pointlabel] {$P_{LT}$} -- (3.0,3.4);
+            % OA original (dashed): y = 0.6x + 0.5 → y-int (0,0.5), far end (8.7,5.72)
             \draw[original] (0,0.5) -- (8.7,5.72)
-               node[right, curvelabel, text=HECgray] {AS};
-            % AD' (solid, the new demand): y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
+               node[right, curvelabel, text=HECgray] {OA};
+            % DA' (solid, the new demand): y = -0.6x + 5.2 → y-int (0,5.2), x-int (8.67,0)
             \draw[demand, HECcoral] (0,5.2) -- (8.67,0)
-               node[above right, curvelabel, text=HECcoral] {AD$'$};
-            % AS' shifted left: y = 0.6x + 1.6 → y-int (0,1.6), far end (6.83,5.7)
+               node[pos=0.87, above right, curvelabel, text=HECcoral] {DA$'$};
+            % OA' shifted left: y = 0.6x + 1.6 → y-int (0,1.6), far end (6.83,5.7)
             \draw[supply] (0,1.6) -- (6.83,5.7)
-               node[right, curvelabel, text=HECnavy] {AS$'$};
-            % E1: AD' ∩ AS at (3.92, 2.85)
+               node[right, curvelabel, text=HECnavy] {OA$'$};
+            % E1: DA' ∩ OA at (3.92, 2.85)
             \filldraw[eqpoint=HECcoral] (3.92,2.85) circle (3pt);
-            \node[pointlabel, HECcoral, below right] at (3.92,2.85) {$E_1$};
-            % E_LR: AD' ∩ AS' at (3.0, 3.4)
+            % E_LT: DA' ∩ OA' at (3.0, 3.4)
             \filldraw[eqpoint=HECnavy] (3.0,3.4) circle (3pt);
-            \node[pointlabel, HECnavy, above left] at (3.0,3.4) {$E_{LR}$};
-            % AS adjustment arrow (AS → AS')
-            \draw[shiftarrow, HECnavy] (1.5,1.4) -- (1.5,2.5);
-            \node[pointlabel, HECnavy, left] at (1.45,1.65) {$w\uparrow$};
+            % OA adjustment arrow (OA → OA')
+            \draw[shiftarrow, HECnavy] (1.5,1.55) -- (1.5,2.35);
             % Axes
             \draw[econaxis] (0,0) -- (9.0,0) node[right] {$Y$};
             \draw[econaxis] (0,0) -- (0,6.0) node[above] {$P$};
          \end{tikzpicture}
       \end{column}
       \begin{column}{0.42\textwidth}
-         \small
-         \textbf{Long terme :}
-         \vspace{0.15cm}
-         \begin{enumerate}
-            \setlength\itemsep{0.1cm}
-            \item $Y_1 > Y_{\text{POT}}$ $\to$ chômage faible
-            \item Travailleurs rares
-            \item Salaires nominaux $\uparrow$ $\to$ coûts $\uparrow$
-            \item AS se déplace vers la gauche
-            \item Retour à $Y_{\text{POT}}$ au prix $P_{LR}$
-         \end{enumerate}
-         \vspace{0.2cm}
-         \textcolor{HECgray}{\footnotesize Même niveau de production, mais à un niveau de prix plus élevé.}
+         \begin{bizimplication}[Long terme (LT)]
+            \small\raggedright
+            \vspace{-0.35cm}
+            \begin{enumerate}
+               \setlength\itemsep{0.12cm}
+               \item Chômage faible\\ $\to$ salaires nominaux $\uparrow$.
+               \item Les coûts montent.\\ L’OA va à gauche.
+               \item La production revient à $Y_{\text{POT}}$, à un prix $P_{LT}$ plus élevé qu’avant le choc.
+            \end{enumerate}
+         \end{bizimplication}
       \end{column}
    \end{columns}
 \end{frame}
@@ -796,34 +866,34 @@
       \setlength\itemsep{0.5cm}
       \item {\color{gray!50}Faits saillants sur les cycles économiques}
       \item {\color{gray!50}Tendance et fluctuations}
-      \item {\color{gray!50}Le modèle AD-AS}
+      \item {\color{gray!50}Le modèle DA-OA}
       \item \textbf{Anatomie d'une récession}
+      \item Où en est le Canada dans le cycle\,?
    \end{enumerate}
 \end{frame}
 
+% ============================================================================
 % ============================================================================
 \sectionframe{Anatomie d'une récession}
 % ============================================================================
 
-\begin{frame}{Anatomie d'une récession}
-   Analyser une récession comme un \textbf{incendie} en quatre étapes :
-   \vspace{0.3cm}
+\begin{frame}{Anatomie d’une récession}
    \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item \textbf{Étincelle} --- ce qui déclenche la récession (\guillemotleft~le choc~\guillemotright)
-      \item \textbf{Transmission} --- comment le choc se propage (AD, AS, ou les deux)
-      \item \textbf{Carburant} --- ce qui amplifie la transmission
-      \item \textbf{Pare-feu} --- la réponse politique visant à limiter les dégâts
+      \setlength\itemsep{0.29cm}
+      \item \textbf{Étincelle} — Quel événement déclenche le recul de l’activité\,?
+      \item \textbf{Transmission} — Le choc touche-t-il la DA, l’OA ou les deux\,?
+      \item \textbf{Carburant} — Qu’est-ce qui amplifie le recul\,?
+      \item \textbf{Pare-feu} — Quelle réponse peut limiter les dégâts\,?
    \end{enumerate}
-   \vspace{0.3cm}
-   \begin{bizimplication}[Application]
-      Nous allons appliquer ce cadre à \textbf{trois chocs} : 2020, 2025 et 2026.
+   \vspace{0.2cm}
+   \begin{bizimplication}[Trois cas pour apprendre à poser le diagnostic]
+      Crise financière, embargo pétrolier, pandémie.
    \end{bizimplication}
 \end{frame}
 
-\begin{frame}[t]{1.\ L'étincelle}
+\begin{frame}[t]{1.\ L’étincelle}
    \small
-   Trois grands types de chocs déclenchent les récessions :
+   Trois types d’événements peuvent déclencher une récession.
    \vspace{0.25cm}
    \begin{enumerate}
       \setlength\itemsep{0.25cm}
@@ -839,781 +909,299 @@
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
-      \item Quelle étincelle pour la Grande Récession de 2008--09\,?
-      \item Pour la récession de 2020\,? La guerre commerciale\,?
+      \item Quelle étincelle en 2007–2009, en 1973–1975 et en 2020\,?
    \end{itemize}
 \end{frame}
 
-% --- Application : La pandémie de 2020 ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}{}
-   \centering
-   \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
-   {\LARGE\textbf{\textcolor{HECnavy}{La pandémie de 2020}}}\\[12pt]
-   {\large\textcolor{HECgray}{Étincelle : choc externe (type C)}}
-\end{frame}
-}
-
-\begin{frame}{2.\ Transmission \textnormal{(1/3)} --- équilibre initial}
-   \centering
-   \vspace{0.1cm}
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
-      % AD: y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[demand] (0,4.1) -- (6.833,0) node[above right, curvelabel] {AD};
-      % Reference lines
-      \draw[refline] (3.0,0) node[below, pointlabel] {$Y^*$} -- (3.0,2.3);
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      % Equilibrium at (3.0, 2.3)
-      \filldraw[eqpoint=HECnavy] (3.0,2.3) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-\end{frame}
-
-\begin{frame}[t]{2.\ Transmission \textnormal{(2/3)} --- effondrement de la demande}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=0.9]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-            \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
-            % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AD' shifted left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
-            \draw[demand] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel] {AD$'$};
-            % Shift arrow (full span between AD and AD' at y=1.5)
-            \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
-            % Reference lines
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-            \draw[refline] (2.08,0) node[below, pointlabel] {$Y'$} -- (2.08,1.75);
-            \draw[refline] (0,1.75) node[left, pointlabel] {$P'$} -- (2.08,1.75);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint=HECnavy] (2.08,1.75) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         La \textbf{demande agrégée} s'effondre :
-         \vspace{0.2cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Effondrement de l'\textbf{investissement} ($I \downarrow$)
-            \item Baisse de la \textbf{consommation} ($C \downarrow$) --- impossibilité de dépenser, précaution
-         \end{itemize}
-         \vspace{0.3cm}
-         \textbf{AD se déplace vers la gauche}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat partiel : $Y \downarrow$ et $P \downarrow$}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{2.\ Transmission \textnormal{(3/3)} --- un double choc rare}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         \begin{tikzpicture}[scale=0.9]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-            \draw[original] (0,0.5) -- (6.9,4.64)
-               node[right, pointlabel] {AS};
-            % AD' shifted left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
-            \draw[demand] (0,3.0) -- (5.0,0)
-               node[above right, curvelabel] {AD$'$};
-            % AS' shifted left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-            \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-               node[right, curvelabel] {AS$'$};
-            % Shift arrows
-            \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
-            \draw[shiftarrow, HECcoral] (4.17,3.0) -- (2.5,3.0);
-            % Reference lines
-            \draw[refline] (1.25,0) node[below, pointlabel] {$Y^{**}$} -- (1.25,2.25);
-            \draw[refline] (0,2.25) node[left, pointlabel] {$P^{**}$} -- (1.25,2.25);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint] (1.25,2.25) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         \textbf{L'offre agrégée} se contracte aussi :
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item \textbf{Confinements} $\to$ fermeture de la production (services)
-            \item Perturbation des \textbf{chaînes d'approvisionnement}
-         \end{itemize}
-         \vspace{0.2cm}
-         \textbf{AS se déplace aussi vers la gauche}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat : $Y \downarrow\downarrow$ (chocs se renforcent) et $P$ ambigu (effets opposés)}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{3.\ Le carburant en 2020}
+\begin{frame}{2.\ La transmission}
    \small
+   \renewcommand{\arraystretch}{1.65}
+   \begin{tabularx}{\textwidth}{l l c >{\raggedright\arraybackslash}X}
+      \toprule
+      \textbf{Choc négatif} & \textbf{Courbes} & \textbf{Production} & \textbf{Pression sur les prix} \\
+      \midrule
+      Demande & DA $\leftarrow$ & $\downarrow$ & $\downarrow$ \\
+      Offre & OA $\leftarrow$ & $\downarrow$ & $\uparrow$ \\
+      Mixte & DA et OA $\leftarrow$ & $\downarrow$ & $\uparrow$ ou $\downarrow$ selon le choc dominant \\
+      \bottomrule
+   \end{tabularx}
    \vspace{0.3cm}
+   \begin{keyinsight}[Le diagnostic]
+      Le PIB recule dans les trois cas. Les prix et l’origine du choc les distinguent.
+   \end{keyinsight}
+\end{frame}
+
+\begin{frame}[t]{Demande : la crise financière de 2007–2009}\examtag
    \begin{columns}[T]
-      \begin{column}{0.48\textwidth}
-         \textbf{Le carburant amplifie la transmission :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item \textbf{Accentue} le changement de comportement des acteurs
-            \item Peut transformer un ralentissement en \textbf{récession majeure}
-         \end{itemize}
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{-1.2}{0}{0}
       \end{column}
-      \begin{column}{0.48\textwidth}
-         \textbf{En 2020 :}
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item \textbf{Interdépendance mondiale} et complexification des chaînes d'approvisionnement
-            \item \textit{Just-in-time} $\to$ fragilité
-         \end{itemize}
+      \begin{column}{0.43\textwidth}
+         \begin{bizimplication}[Du logement aux dépenses]
+            \small\RaggedRight
+            La chute de l’immobilier réduit la richesse des ménages.
+
+            \medskip
+            Le crédit se resserre. Les ménages consomment moins et les entreprises reportent leurs projets d’investissement.
+         \end{bizimplication}
+         {\scriptsize\hfill\href{https://www.federalreservehistory.org/essays/great-recession-of-200709}{Federal Reserve History}}
       \end{column}
    \end{columns}
-   \vspace{0.3cm}
-   \begin{bizimplication}[Et au niveau micro\,?]
-      Dans quelle mesure \textit{mon} organisation est-elle exposée aux chocs macro\,?
-   \end{bizimplication}
 \end{frame}
 
-\begin{frame}{Le résultat : un effondrement record de l'emploi}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{employment_recovery.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Le résultat : une baisse de l'inflation}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.80\textheight, keepaspectratio]{us_recession_inflation.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Pourquoi les prix baissent : AD domine AS}
+\begin{frame}{2007–2009 : le PIB et l’inflation reculent}
+   \framesubtitle{États-Unis · Zone grisée : récession datée par le NBER}
    \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[original] (0,0.5) -- (6.9,4.64)
-         node[right, pointlabel] {AS};
-      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[original] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS' shifted left: y = 0.6x + 1.0, y-int (0,1.0), far end (6.17,4.7)
-      \draw[supply, HECcoral] (0,1.0) -- (6.17,4.7)
-         node[right, curvelabel] {AS$'$};
-      % AD' shifted further left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
-      \draw[demand] (0,3.0) -- (5.0,0)
-         node[above right, curvelabel] {AD$'$};
-      % AD shift arrow (at y=1.5): from AD to AD'
-      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
-      % AS shift arrow (at y=3.0): from AS to AS'
-      \draw[shiftarrow, HECcoral] (4.17,3.0) -- (3.33,3.0);
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (1.67,0) node[below, pointlabel] {$Y'$} -- (1.67,2.0);
-      \draw[refline] (0,2.0) node[left, pointlabel] {$P'$} -- (1.67,2.0);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      % New equilibrium: AD' ∩ AS' at (1.67, 2.0)
-      % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
-      \filldraw[eqpoint=HECnavy] (1.67,2.0) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
+   \includegraphics[width=\textwidth,height=0.79\textheight,keepaspectratio]{s4_recession_2008.pdf}
 \end{frame}
 
-\begin{frame}{Que s'est-il passé ensuite\,?}
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical, solid green — not dashed, intentional emphasis)
-      \draw[HECgreen, very thick] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[original] (0,0.5) -- (6.9,4.64)
-         node[right, pointlabel] {AS};
-      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[original] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS' shifted left: y = 0.6x + 1.0, y-int (0,1.0), far end (6.17,4.7)
-      \draw[supply, HECcoral] (0,1.0) -- (6.17,4.7)
-         node[right, curvelabel] {AS$'$};
-      % AD' shifted further left: y = -0.6x + 3.0, y-int (0,3.0), x-int (5.0,0)
-      \draw[demand] (0,3.0) -- (5.0,0)
-         node[above right, curvelabel] {AD$'$};
-      % AD shift arrow (at y=1.5): from AD to AD'
-      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (2.5,1.5);
-      % AS shift arrow (at y=3.0): from AS to AS'
-      \draw[shiftarrow, HECcoral] (4.17,3.0) -- (3.33,3.0);
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (1.67,0) node[below, pointlabel] {$Y'$} -- (1.67,2.0);
-      \draw[refline] (0,2.0) node[left, pointlabel] {$P'$} -- (1.67,2.0);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      % -0.6x + 3.0 = 0.6x + 1.0 → 1.2x = 2.0 → x = 1.67, y = 2.0
-      \filldraw[eqpoint=HECnavy] (1.67,2.0) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-\end{frame}
-
-
-% --- Application : Guerre commerciale Canada--É.-U. (2025--26) ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}{}
-   \centering
-   \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
-   {\LARGE\textbf{\textcolor{HECnavy}{Guerre commerciale Canada--É.-U.\ (2025--26)}}}\\[12pt]
-   {\large\textcolor{HECgray}{Un choc de demande\ldots{} et d'offre\,?}}
-\end{frame}
-}
-
-\begin{frame}{Le taux tarifaire effectif américain}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{us_tariff_rate.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Les secteurs exposés souffrent déjà}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, height=0.78\textheight, keepaspectratio]{canada_employment_exports.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}[t]{Les données : le marché du travail vacille}
-   \framesubtitle{Enquête sur la population active, février 2026 (Statistique Canada, 13 mars 2026)}
-   \centering
-   \vspace{0.05cm}
-   {\fontsize{30}{36}\selectfont\bfseries\textcolor{HECcoral}{$-$84\,000}}\\[1pt]
-   {\small emplois en février --- pire mois \textbf{hors COVID} \quad\textcolor{HECgray}{Chômage : \textbf{6.7\,\%} ($+$0.2 pp)}}
-   \vspace{0.1cm}
-
-   \footnotesize
+\begin{frame}[t]{Offre : le choc pétrolier de 1973}\examtag
    \begin{columns}[T]
-      \begin{column}{0.47\textwidth}
-         \raggedright
-         \textbf{\textcolor{HECnavy}{Ventilation nationale}}
-         \vspace{0.15cm}
-
-         \renewcommand{\arraystretch}{1.5}
-         \begin{tabularx}{\textwidth}{@{}X r@{}}
-            \arrayrulecolor{HECgray!30}
-            Temps plein & $-$108K \\
-            Secteur privé & $-$73K \\
-            \midrule
-            Jeunes (15--24) & $-$47K \\[-2pt]
-            & {\scriptsize\textcolor{HECcoral}{chômage \textbf{14.1\,\%}}} \\
-            \midrule
-            Salaires (a/a) & $+$3.9\,\% \\[-2pt]
-            & {\scriptsize\textcolor{HECcoral}{\textbf{aucun} ralentissement}} \\
-         \end{tabularx}
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{0}{1.2}{0}
       \end{column}
-      \begin{column}{0.47\textwidth}
-         \raggedright
-         \textbf{\textcolor{HECnavy}{Répartition provinciale}}
-         \vspace{0.15cm}
+      \begin{column}{0.43\textwidth}
+         \begin{warning}[Du pétrole aux coûts]
+            \small\RaggedRight
+            L’embargo perturbe l’approvisionnement et fait monter le prix de l’énergie.
 
-         \renewcommand{\arraystretch}{1.5}
-         \begin{tabularx}{\textwidth}{@{}X r@{}}
-            \arrayrulecolor{HECgray!30}
-            \textbf{\textcolor{HECcoral}{Québec}} & \textcolor{HECcoral}{\textbf{$-$57K} ($-$1.2\,\%)} \\
-            C.-B.\ & $-$20K \\
-            Sask.\ + Man.\ & $-$9.5K \\
-            \textbf{Ontario} & $\approx 0$ \\
-            \bottomrule
-         \end{tabularx}
+            \medskip
+            Les coûts augmentent. Les entreprises produisent moins à chaque niveau de prix.
+         \end{warning}
+         {\scriptsize\hfill\href{https://www.federalreservehistory.org/essays/oil-shock-of-1973-74}{Federal Reserve History}}
+      \end{column}
+   \end{columns}
+\end{frame}
 
-         \vspace{0.2cm}
-         \begin{tcolorbox}[
-            colback=HECcoral!6, colframe=HECcoral!40, boxrule=0.4pt, arc=6pt,
-            left=5pt, right=5pt, top=3pt, bottom=3pt]
-            \centering\footnotesize
-            Le QC = 22\,\% de l'emploi national,\\
-            mais \textbf{\textcolor{HECcoral}{68\,\%}} des pertes de février
+\begin{frame}{1973–1975 : le PIB recule et l’inflation accélère}
+   \framesubtitle{États-Unis · Zone grisée : récession datée par le NBER}
+   \sFourCaseFigure{s4_recession_1973.pdf}
+\end{frame}
+
+\begin{frame}[t]{Pandémie (1/2) : la demande chute au printemps 2020}\examtag
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{-1.35}{0.65}{0}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{bizimplication}[Fort recul de la demande]
+            \small\RaggedRight Les ménages dépensent moins en services. Les entreprises investissent moins, surtout~en~équipement.
+         \end{bizimplication}
+         \begin{warning}[Recul plus modéré de l’offre]
+            \small\RaggedRight Les commerces et services fermés réduisent la production.
+         \end{warning}
+         {\scriptsize\hfill\href{https://www.bea.gov/news/2020/gross-domestic-product-third-estimate-corporate-profits-revised-and-gdp-industry-annual}{BEA, États-Unis, T2 2020}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{En 2020, l’emploi chute en quelques semaines}
+   \sFourCaseFigure{employment_recovery.pdf}
+\end{frame}
+
+\begin{frame}[t]{Pandémie (2/2) : la demande repart, l’offre peine à suivre}\examtag
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagramFrom[2]{-1.35}{0.65}{0.05}{1.45}{0}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{bizimplication}[Demande en reprise]
+            \small\RaggedRight Avec la réouverture, la consommation et l’investissement reprennent. La DA se déplace vers la droite.
+         \end{bizimplication}
+         \begin{warning}[Offre sous pression]
+            \small\RaggedRight Les perturbations des chaînes d’approvisionnement limitent la production. L’OA recule.
+         \end{warning}
+         {\scriptsize\hfill\href{https://www.federalreserve.gov/monetarypolicy/2021-07-mpr-summary.htm}{Réserve fédérale, juillet 2021}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}{L’inflation ralentit en 2020, puis remonte}
+   \sFourCaseFigure{us_recession_inflation.pdf}
+\end{frame}
+
+\begin{frame}{Un recul du PIB peut avoir des causes différentes}
+   \footnotesize
+   \renewcommand{\arraystretch}{1.5}
+   \begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X l l}
+      \toprule
+      \textbf{Épisode} & \textbf{Mécanisme dominant} & \textbf{Courbes} & \textbf{Inflation observée} \\
+      \midrule
+      2007–2009 & Le crédit et les dépenses reculent & DA $\leftarrow$ & Ralentit \\
+      1973–1975 & Les coûts de l’énergie bondissent & OA $\leftarrow$ & Accélère \\
+      2020 & Les dépenses et la production sont limitées & DA et OA $\leftarrow$ & Ralentit d’abord \\
+      \bottomrule
+   \end{tabularx}
+   \vspace{0.3cm}
+   \begin{keyinsight}[Du diagramme aux données]
+      La réaction conjointe des prix et du PIB aide à distinguer les chocs de demande et d’offre.
+   \end{keyinsight}
+\end{frame}
+
+% ============================================================================
+\begin{frame}{Plan}
+   \begin{enumerate}
+      \setlength\itemsep{0.5cm}
+      \item {\color{gray!50}Faits saillants sur les cycles économiques}
+      \item {\color{gray!50}Tendance et fluctuations}
+      \item {\color{gray!50}Le modèle DA-OA}
+      \item {\color{gray!50}Anatomie d'une récession}
+      \item \textbf{Où en est le Canada dans le cycle\,?}
+   \end{enumerate}
+\end{frame}
+
+\sectionframe{Où en est le Canada dans le cycle\,?}
+
+\begin{frame}[t]{Canada : capacités inutilisées et inflation élevée}
+   \framesubtitle{Données disponibles au 13 novembre 2026}
+   \small
+   \tcbset{s4 snapshot/.style={
+      boxrule=0pt, leftrule=3pt, arc=8pt, left=10pt, right=10pt,
+      top=12pt, bottom=12pt, fonttitle=\bfseries, halign title=center,
+      equal height group=s4-snapshot
+   }}
+   \vspace{0.2cm}
+   \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[s4 snapshot, colback=HECnavy!5, colframe=HECnavy,
+            coltitle=HECnavy, colbacktitle=HECnavy!12, title={\strut Activité sous le potentiel}]
+            \centering
+            {\Large\bfseries\boldmath $-1{,}25\,\%$ à $-0{,}25\,\%$\par}
+            \smallskip
+            Écart de production au T3 (BdC)\par
+         \end{tcolorbox}
+      \end{column}
+      \begin{column}{0.485\textwidth}
+         \begin{tcolorbox}[s4 snapshot, colback=HECcoral!5, colframe=HECcoral,
+            coltitle=HECcoral, colbacktitle=HECcoral!12, title={\strut Inflation élevée}]
+            \centering
+            {\Large\bfseries\boldmath $+3{,}1\,\%$\par}
+            \smallskip
+            IPC en septembre, sur un an\par
          \end{tcolorbox}
       \end{column}
    \end{columns}
+   \vspace{0.28cm}
+   {\centering\footnotesize
+   PIB réel T3/T2 (est. avancée) \textbf{+0,3\,\%}
+   \enspace\textbullet\enspace Chômage (oct.) \textbf{6,7\,\%}
+   \enspace\textbullet\enspace IPC hors essence \textbf{+2,2\,\%} sur un an\par}
+   \vspace{0.35cm}
+   {\centering\bfseries Pourquoi l’inflation reste-t-elle élevée si le PIB est sous son potentiel\,?\par}
+   \vspace{0.25cm}
+   {\scriptsize\hfill
+   \href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/}{BdC, RPM d’octobre}
+   \quad\href{https://www150.statcan.gc.ca/n1/daily-quotidien/261030/dq261030a-eng.htm}{StatCan, PIB}
+   \quad\href{https://www150.statcan.gc.ca/n1/daily-quotidien/261106/dq261106a-eng.htm}{StatCan, emploi}}
 \end{frame}
 
-\begin{frame}[t]{Sans représailles : un choc de demande}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         % --- Algebraic verification ---
-         % AD: P = -0.6Y + 4.1;  AS: P = 0.6Y + 0.5
-         % Original eq: Y* = 3.0, P* = 2.3
-         % AD': P = -0.6Y + 3.1 (tariffs shift AD left)
-         % AD' ∩ AS: -0.6Y+3.1 = 0.6Y+0.5 → Y' = 2.167, P' = 1.80
-         % AD' y-int (0,3.1), x-int (5.167,0)
-         % Shift arrow at P=1.2: AD x=4.833, AD' x=3.167
-         % ---
-         \begin{tikzpicture}[scale=0.9]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AS: y = 0.6x + 0.5, unchanged
-            \draw[supply, HECcoral] (0,0.5) -- (6.9,4.64) node[right, curvelabel] {AS};
-            % AD original (dashed gray): y = -0.6x + 4.1
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AD' shifted left: y = -0.6x + 3.1
-            \draw[demand] (0,3.1) -- (5.167,0)
-               node[above right, curvelabel] {AD$'$};
-            % AD shift arrow at P=1.2
-            \draw[shiftarrow, HECnavy] (4.833,1.2) -- (3.167,1.2);
-            % Reference lines
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-            \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,1.80);
-            \draw[refline] (0,1.80) node[left, pointlabel] {$P'$} -- (2.17,1.80);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint=HECnavy] (2.17,1.80) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         \textbf{75\,\%} des exportations CAN $\to$ É.-U.\
-         \vspace{0.2cm}
-         \begin{itemize}
-            \setlength\itemsep{0.2cm}
-            \item Tarifs de 25\,\% $\to$ $NX \downarrow$
-            \item La demande pour les biens canadiens \textbf{chute}
-         \end{itemize}
-         \vspace{0.3cm}
-         \textbf{AD se déplace vers la gauche}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat : récession ($Y \downarrow$, $P \downarrow$)}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Avec représailles : le dilemme}
-   \vspace{0.5cm}
-   \begin{columns}[c]
-      \begin{column}{0.55\textwidth}
-         \centering
-         % --- Algebraic verification ---
-         % Original: AD: P = -0.6Y + 4.1, AS: P = 0.6Y + 0.5, eq (3.0, 2.3)
-         % AD': P = -0.6Y + 3.5 (moderate leftward shift — M↓ partially offsets X↓)
-         %   intercept shift 0.6 → horizontal shift 1.0 unit
-         % AS': P = 0.6Y + 1.9 (large leftward shift — tariffs on US inputs raise costs)
-         %   intercept shift 1.4 → horizontal shift 2.333 units
-         % AD' ∩ AS': -0.6Y+3.5 = 0.6Y+1.9 → 1.2Y = 1.6 → Y' = 4/3 ≈ 1.333, P' = 27/10 = 2.7
-         % Stagflation: Y' < Y* (1.333 < 3.0) and P' > P* (2.7 > 2.3)
-         % AD' y-int (0,3.5), x-int (5.833,0)
-         % AS' y-int (0,1.9), far end (4.667,4.7)
-         % AD shift arrow at P=1.0: AD x=5.167, AD' x=4.167
-         % AS shift arrow at P=3.5: AS x=5.0, AS' x=2.667
-         % ---
-         \begin{tikzpicture}[scale=0.9]
-            % Y_POT (vertical)
-            \draw[potline] (3.0,0) -- (3.0,4.7)
-               node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-            % AD original (dashed gray): P = -0.6Y + 4.1
-            \draw[original] (0,4.1) -- (6.833,0)
-               node[above right, pointlabel] {AD};
-            % AS original (dashed gray): P = 0.6Y + 0.5
-            \draw[original] (0,0.5) -- (7.0,4.7)
-               node[right, pointlabel] {AS};
-            % AD' shifted left (moderate): P = -0.6Y + 3.5
-            \draw[demand] (0,3.5) -- (5.833,0)
-               node[above right, curvelabel] {AD$'$};
-            % AS' shifted left (large — main retaliation channel): P = 0.6Y + 1.9
-            \draw[supply, HECcoral] (0,1.9) -- (4.667,4.7)
-               node[right, curvelabel] {AS$'$};
-            % AD shift arrow at P=1.0
-            \draw[shiftarrow, HECnavy] (5.167,1.0) -- (4.167,1.0);
-            % AS shift arrow at P=3.5
-            \draw[shiftarrow, HECcoral] (5.0,3.5) -- (2.667,3.5);
-            % Reference lines
-            \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-            \draw[refline] (1.333,0) node[below, pointlabel] {$Y'$} -- (1.333,2.7);
-            \draw[refline] (0,2.7) node[left, pointlabel] {$P'$} -- (1.333,2.7);
-            % Equilibrium dots
-            \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-            \filldraw[eqpoint=HECcoral] (1.333,2.7) circle (3pt);
-            % Axes (drawn last for z-order)
-            \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-            \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-         \end{tikzpicture}
-      \end{column}
-      \begin{column}{0.42\textwidth}
-         \small
-         Représailles CAN : 25\,\% sur acier, aluminium, autos É.-U.\
-         \vspace{0.15cm}
-         \begin{itemize}
-            \setlength\itemsep{0.15cm}
-            \item \textbf{AS$\leftarrow$} : coûts de production $\uparrow$ (intrants importés plus chers)
-            \item \textbf{AD partiellement restauré} : $M \downarrow$ $\to$ $NX$ se rétablit en partie
-         \end{itemize}
-         \vspace{0.2cm}
-         \textbf{Double déplacement : AD$\leftarrow$ et AS$\leftarrow$}
-         \vspace{0.2cm}
-
-         {\footnotesize\textcolor{HECgray}{Résultat : stagflation ($Y \downarrow$, $P \uparrow$)}}
-      \end{column}
-   \end{columns}
-\end{frame}
-
-\begin{frame}[t]{Représailles : pour ou contre\,?}
-   \small
-   \vspace{0.2cm}
-   \begin{center}
-   \begin{tabularx}{0.92\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
-      \toprule
-      & \textbf{Sans représailles} & \textbf{Avec représailles} \\
-      \midrule
-      \textbf{PIB} & $\downarrow\downarrow$ & $\downarrow\downarrow$ \\[4pt]
-      \textbf{Prix} & $\downarrow$ & $\uparrow$ \\[4pt]
-      \textbf{Emploi} & $\downarrow$ (secteurs exportateurs) & $\downarrow$ (généralisé) \\[4pt]
-      \textbf{Logique} & Choc de demande pur & Choc mixte AD + AS \\
-      \bottomrule
-   \end{tabularx}
-   \end{center}
-   \vspace{0.2cm}
-   \begin{keyinsight}[Le dilemme des représailles]
-      Les représailles ne préviennent pas la récession --- elles \textbf{échangent la déflation contre l'inflation}. Le gouvernement doit choisir quel mal est le moindre.
-   \end{keyinsight}
-\end{frame}
-
-
-% --- Application : Guerre en Iran (2026) ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}{}
-   \centering
-   \vspace{2cm}
-   {\LARGE\textbf{\textcolor{HECnavy}{Application :}}}\\[8pt]
-   {\LARGE\textbf{\textcolor{HECnavy}{Guerre en Iran (2026)}}}\\[12pt]
-   {\large\textcolor{HECgray}{Un choc d'offre en temps réel}}
-\end{frame}
-}
-
-\begin{frame}[t]{Le coût macroéconomique des chocs pétroliers}
-   \framesubtitle{Hamilton (2003, \textit{Journal of Econometrics})}
-   \small
-   \begin{defbox}[Règle approximative (FMI, Fed, BCE)]
-      Hausse \textbf{persistante} de 10\,\% du prix du pétrole $\to$ PIB $-$\textbf{0.3 pp}, inflation $+$\textbf{0.4 pp}.
-   \end{defbox}
-   \vspace{0.1cm}
-   \begin{itemize}
-      \setlength\itemsep{0.15cm}
-      \item \textbf{1973} (embargo OPEP, +300\,\%) : PIB É.-U.\ $-4.7$\,\%, Japon $-7$\,\%
-      \item \textbf{1979} (révolution iranienne, +160\,\%) : PIB mondial $-3$\,\%
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{bizimplication}[Asymétrie de Hamilton]
-      Les hausses du pétrole font \textbf{plus de mal} que les baisses ne font de bien.
-   \end{bizimplication}
-\end{frame}
-
-% --- Headline slide: Iran/Hormuz crisis ---
-{
-\setbeamertemplate{footline}{}
-\begin{frame}{}
-   \begin{tikzpicture}[remember picture, overlay]
-      \setcounter{newshl}{0}
-      \newsheadline[bloomberg]{Bloomberg}{\guillemotleft~Trump's Iran War Pushes World to the Brink of an Energy Crisis~\guillemotright}
-      \newsheadline[washpost]{Washington Post}{\guillemotleft~Iran strikes stall traffic in Strait of Hormuz, rattling world markets~\guillemotright}
-      \newsheadline[globeandmail]{The Globe and Mail}{\guillemotleft~Tanker attack in the northern Persian Gulf boosts oil and gas prices~\guillemotright}
-      \newsheadline[radiocanada]{Radio-Canada}{\guillemotleft~Vers ``le scénario le plus toxique'' pour l'industrie pétrolière?~\guillemotright}
-      \newsheadline[ft]{Financial Times}{\guillemotleft~Iran war triggers aluminium supply crunch and shutdowns across Middle East~\guillemotright}
-      \newsheadline[economist]{The Economist}{\guillemotleft~The nightmare Iran energy scenario is becoming reality~\guillemotright}
-   \end{tikzpicture}
-\end{frame}
-}
-
-\begin{frame}[t]{28 février 2026 : Opération \textit{Epic Fury}}\examtag
-   \footnotesize
-   \textbf{L'étincelle :}
-   \begin{itemize}
-      \setlength\itemsep{0.05cm}
-      \item Frappes coordonnées É.-U./Israël sur les sites nucléaires iraniens
-      \item L'Iran riposte : 500+ missiles balistiques, 2\,000+ drones sur la région
-      \item Frappes sur Dubaï, Abu Dhabi, Doha; QatarEnergy suspend sa production de GNL
-   \end{itemize}
-   \vspace{0.1cm}
-   \textbf{Le blocage d'Ormuz :}
-   \begin{itemize}
-      \setlength\itemsep{0.05cm}
-      \item $\sim$20\,\% du pétrole mondial transite par le détroit (20~M barils/jour)
-      \item Les assureurs retirent la couverture de risque de guerre $\to$ transit impossible
-      \item Maersk, Hapag-Lloyd suspendent tout passage; le trafic tombe à $\sim$zéro
-   \end{itemize}
-   \vspace{0.1cm}
-   \begin{warning}[Choc d'offre $\neq$ choc de demande]
-      En 2020, la demande s'est effondrée $\to$ désinflation. Ici, c'est l'\textbf{offre} qui se contracte $\to$ \textbf{stagflation} (prix $\uparrow$, production $\downarrow$).
-   \end{warning}
-\end{frame}
-
-\begin{frame}{Le prix du Brent autour de l'opération Epic Fury}\examtag
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.95\textwidth, keepaspectratio]{oil_price_2026.pdf}
-   \end{figure}
-\end{frame}
-
-\begin{frame}{Le choc d'offre : Ormuz et le pétrole}\examtag
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AD original (stays in place): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[demand] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[original] (0,0.5) -- (6.9,4.64)
-         node[right, pointlabel] {AS};
-      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-         node[right, curvelabel] {AS$'$};
-      % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
-      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (2.17,0) node[below, pointlabel] {$Y'$} -- (2.17,2.80);
-      \draw[refline] (0,2.80) node[left, pointlabel] {$P'$} -- (2.17,2.80);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      \filldraw[eqpoint=HECcoral] (2.17,2.80) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Scénario A : Pétrole cher $\to$ aubaine pour les exportateurs}\examtag
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[original] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (7.0,4.7)
-      \draw[original] (0,0.5) -- (7.0,4.7)
-         node[right, pointlabel] {AS};
-      % AD' shifted slightly right: y = -0.6x + 4.5, y-int (0,4.5), x-int (7.5,0)
-      \draw[demand] (0,4.5) -- (7.5,0)
-         node[above right, curvelabel] {AD$'$};
-      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-         node[right, curvelabel] {AS$'$};
-      % Small AD shift arrow (rightward): from AD to AD' at y=1.5
-      % AD at y=1.5: x=(4.1-1.5)/0.6=4.33; AD' at y=1.5: x=(4.5-1.5)/0.6=5.0
-      \draw[shiftarrow, HECnavy] (4.33,1.5) -- (5.0,1.5);
-      \node[annotlabel, HECnavy, above] at (4.3,1.5) {\textit{peu}};
-      % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
-      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (2.5,0) node[below, pointlabel] {$Y'$} -- (2.5,3.0);
-      \draw[refline] (0,3.0) node[left, pointlabel] {$P'$} -- (2.5,3.0);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      \filldraw[eqpoint=HECcoral] (2.5,3.0) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.8,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-   \vspace{-0.2cm}
-   \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow$ modéré, prix $\uparrow\uparrow$}}
-\end{frame}
-
-\begin{frame}{Scénario B : Incertitude $\to$ effondrement de l'investissement}\examtag
-   \centering
-   \begin{tikzpicture}[scale=1.2]
-      % Y_POT (vertical)
-      \draw[potline] (3.0,0) -- (3.0,4.7)
-         node[above, curvelabel, text=HECgreen] {$Y_{\text{POT}}$};
-      % AD original (dashed gray): y = -0.6x + 4.1, y-int (0,4.1), x-int (6.833,0)
-      \draw[original] (0,4.1) -- (6.833,0)
-         node[above right, pointlabel] {AD};
-      % AS original (dashed gray): y = 0.6x + 0.5, y-int (0,0.5), far end (6.9,4.64)
-      \draw[original] (0,0.5) -- (6.9,4.64)
-         node[right, pointlabel] {AS};
-      % AD' shifted slightly left: y = -0.6x + 3.7, y-int (0,3.7), x-int (6.167,0)
-      \draw[demand] (0,3.7) -- (6.167,0)
-         node[above right, curvelabel] {AD$'$};
-      % AS' shifted a lot left: y = 0.6x + 1.5, y-int (0,1.5), far end (5.33,4.7)
-      \draw[supply, HECcoral] (0,1.5) -- (5.33,4.7)
-         node[right, curvelabel] {AS$'$};
-      % Small AD shift arrow (leftward): from AD to AD' at y=1.4
-      % AD at y=1.4: x=(4.1-1.4)/0.6=4.5; AD' at y=1.4: x=(3.7-1.4)/0.6=3.83
-      \draw[shiftarrow, HECnavy] (4.5,1.4) -- (3.83,1.4);
-      \node[annotlabel, HECnavy, above] at (4.17,1.4) {\textit{peu}};
-      % Large AS shift arrow: from AS to AS' at y=3.2
-      \draw[shiftarrow, HECcoral] (4.5,3.2) -- (2.83,3.2);
-      \node[annotlabel, HECcoral, above] at (4,3.2) {\textbf{beaucoup}};
-      % Reference lines
-      \draw[refline] (0,2.3) node[left, pointlabel] {$P^*$} -- (3.0,2.3);
-      \draw[refline] (1.83,0) node[below, pointlabel] {$Y'$} -- (1.83,2.60);
-      \draw[refline] (0,2.60) node[left, pointlabel] {$P'$} -- (1.83,2.60);
-      % Equilibrium dots
-      \filldraw[eqfaded] (3.0,2.3) circle (3pt);
-      \filldraw[eqpoint=HECcoral] (1.83,2.60) circle (3pt);
-      % Axes (drawn last for z-order)
-      \draw[econaxis] (0,0) -- (7.2,0) node[right] {$Y$};
-      \draw[econaxis] (0,0) -- (0,5.0) node[above] {$P$};
-   \end{tikzpicture}
-   \vspace{-0.2cm}
-   \par{\footnotesize\textcolor{HECcoral}{PIB $\downarrow\downarrow$, prix $\uparrow$ modéré}}
-\end{frame}
-
-\begin{frame}[t]{Comment distinguer les deux scénarios\,?}\examtag
-   Le choc d'offre est \textbf{certain}. La question : qu'arrive-t-il à la \textbf{demande canadienne}\,?
-   \vspace{0.05cm}
-
-   \renewcommand{\arraystretch}{1.2}
-   \centering
-   \begin{tabularx}{0.92\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
-      \toprule
-       & \textbf{Scénario A} (AD $\rightarrow$) & \textbf{Scénario B} (AD $\leftarrow$) \\
-      \midrule
-      \textbf{PIB}        & $\downarrow$ modéré       & $\downarrow\downarrow$ fort \\
-      \textbf{Inflation}  & $\uparrow\uparrow$ forte  & $\uparrow$ modérée \\
-      \textbf{Mécanisme}  & Pétrole cher profite aux exportateurs CAN & Incertitude freine l'investissement \\
-      \bottomrule
-   \end{tabularx}
-   \vspace{0.1cm}
-
-   \begin{keyinsight}
-      En observant si c'est l'\textbf{inflation} ou le \textbf{PIB} qui réagit le plus, on peut inférer le sens du choc de demande, mais avec un délai\ldots
-   \end{keyinsight}
-\end{frame}
-
-\begin{frame}{La Bourse tranche : gagnants et perdants}
-   \centering
-   \includegraphics[width=0.95\textwidth, keepaspectratio]{stock_reaction_iran.pdf}
-\end{frame}
-
-\begin{frame}[t]{Au-delà du pétrole : la cascade des coûts}
-   \footnotesize
+\begin{frame}[t]{Tarifs américains : un frein à la demande canadienne}\examtag
    \begin{columns}[T]
-      \begin{column}{0.65\textwidth}
-         \textbf{Pétrole $+$45\,\%} en une semaine $\to$ effets en cascade :
-         \vspace{0.25cm}
-         \begin{itemize}
-            \setlength\itemsep{0.25cm}
-            \item \textbf{Transport et pétrochimie} --- coûts d'expédition, transport, plastiques, solvants
-            \item \textbf{Engrais} (urée) : $+$43\,\% en une semaine (475 $\to$ 680\,\$/t)
-            \item \textbf{Agriculture} --- semis de printemps perturbés
-            \item \textbf{Automobile} --- batteries, plastiques, pièces détachées
-            \item \textbf{Tourisme} --- coûts de carburant pour les vols.
-         \end{itemize}
-      \end{column}
-      \begin{column}{0.35\textwidth}
+      \begin{column}{0.54\textwidth}
          \centering
-         \begin{tikzpicture}[
-            node distance=0.45cm,
-            every node/.style={font=\footnotesize, align=center,
-               rounded corners=4pt, minimum width=2.8cm, minimum height=0.55cm},
-            arrow/.style={-{Stealth[length=4pt]}, thick, HECgray}
-         ]
-            \node[fill=HECnavy, text=white] (oil) {Pétrole};
-            \node[fill=HECnavy!70, text=white, below=of oil] (fert) {Engrais};
-            \node[fill=HECnavy!50, text=white, below=of fert] (trans) {Transport};
-            \node[fill=HECnavy!30, below=of trans] (food) {Aliments};
-            \node[fill=HECcoral!20, draw=HECcoral, thick, below=of food,
-               font=\footnotesize\bfseries] (as) {AS $\leftarrow$};
-            \draw[arrow] (oil) -- (fert);
-            \draw[arrow] (fert) -- (trans);
-            \draw[arrow] (trans) -- (food);
-            \draw[arrow] (food) -- (as);
-         \end{tikzpicture}
+         \sFourCaseDiagram{-1.2}{0}{0}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{bizimplication}[Moins de commandes]
+            \small\RaggedRight Les tarifs rendent les biens canadiens plus chers pour les clients américains.
+         \end{bizimplication}
+         \begin{bizimplication}[Des projets reportés]
+            \small\RaggedRight L’incertitude commerciale peut freiner l’investissement des entreprises canadiennes.
+         \end{bizimplication}
+         {\scriptsize\href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/tariff-assumptions/}{BdC, RPM d’octobre}}
       \end{column}
    \end{columns}
-   \begin{keyinsight}
-      Les effets de second tour poussent AS encore plus à gauche (amplification).
-   \end{keyinsight}
 \end{frame}
 
-\begin{frame}{La propagation sectorielle en Bourse}
-   \centering
-   \includegraphics[width=0.95\textwidth, keepaspectratio]{stock_sectors_iran.pdf}
+\begin{frame}{L’emploi selon l’exposition aux exportations américaines}
+   \sFourCaseFigure{s4_canada_trade_employment.pdf}\par
+   \centering{\footnotesize Les groupes comparent des industries. D’autres facteurs peuvent expliquer leurs écarts.}
 \end{frame}
 
-\begin{frame}{Que faire face à une récession\,?}
-   \vspace{0.3cm}
-   \textbf{Analyse en quatre étapes :}
-   \vspace{0.3cm}
-   \begin{enumerate}
-      \setlength\itemsep{0.3cm}
-      \item {\color{gray!50}Étincelle --- ce qui déclenche la récession}
-      \item {\color{gray!50}Transmission --- comment le choc se propage}
-      \item {\color{gray!50}Carburant --- ce qui amplifie la transmission}
-      \item \textbf{\textcolor{HECnavy}{Pare-feu --- réponse politique pour limiter les dégâts}}
-   \end{enumerate}
-   \vspace{0.3cm}
-   \begin{keyinsight}
-      L'économie peut se corriger seule, mais \textbf{attendre coûte cher} (chômage, faillites). C'est le fondement de la politique contracyclique $\to$ \textbf{Séance 5}.
-   \end{keyinsight}
+\begin{frame}[t]{Pétrole et contre-tarifs : les coûts augmentent}\examtag
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{0}{1.2}{0}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{warning}[Énergie]
+            \small\RaggedRight Les perturbations de l’offre mondiale renchérissent le carburant et le transport.
+         \end{warning}
+         \begin{warning}[Intrants importés]
+            \small\RaggedRight Les contre-tarifs canadiens augmentent les coûts de certains intrants américains.
+         \end{warning}
+         {\scriptsize\href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/}{BdC, RPM d’octobre}}
+      \end{column}
+   \end{columns}
 \end{frame}
 
-% ============================================================================
-
-\begin{frame}{}
-   \centering
-   \vspace{1.5cm}
-   {\Large\textbf{Qu'est-ce que vous retenez de cette séance\,?}}
+\begin{frame}{Deux sources de pression sur les coûts}
+   \framesubtitle{Brent observé · Droits moyens estimés par la BdC, après remises}
+   \sFourCaseFigure{s4_canada_cost_shocks.pdf}
 \end{frame}
 
-% ============================================================================
-\sectionframe{Et pour la suite\,?}
-% ============================================================================
+\begin{frame}[t]{À l’impact, l’offre et la demande reculent}\examtag
+   \framesubtitle{Situation actuelle au T4 2026, illustrée par le modèle}
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{-0.75}{1.4}{1}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{warning}[L’offre recule]
+            \small\RaggedRight L’énergie et les intrants coûtent plus cher.
+         \end{warning}
+         \begin{bizimplication}[Léger recul de la demande]
+            \small\RaggedRight Les tarifs freinent les exportations. L’incertitude retarde des projets.
+         \end{bizimplication}
+         {\scriptsize\hfill\href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-conditions/}{Banque du Canada, RPM d’octobre}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{En 2027, l’investissement pourrait soutenir la demande}\examtag
+   \framesubtitle{Effet isolé de la hausse de l’investissement}
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{1.15}{0}{0}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{bizimplication}[Investissement pétrolier]
+            \small\RaggedRight Un prix du pétrole durablement élevé rend plus de projets rentables.
+         \end{bizimplication}
+         \begin{bizimplication}[Mégadéduction fiscale]
+            \small\RaggedRight La déduction immédiate réduit le coût après impôt des projets admissibles.
+         \end{bizimplication}
+         {\scriptsize\hfill\href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/in-focus-3/}{BdC, RPM d’octobre}
+         \enspace\textbullet\enspace\href{https://www.budget.canada.ca/2026/report-rapport/brief-bref-fr.html}{Budget fédéral 2026}}
+      \end{column}
+   \end{columns}
+\end{frame}
+
+\begin{frame}[t]{En 2027, la demande pourrait se redresser}\examtag
+   \framesubtitle{Scénario illustratif pour l’année à venir}
+   \begin{columns}[T]
+      \begin{column}{0.54\textwidth}
+         \centering
+         \sFourCaseDiagram{0.85}{1.4}{1}
+      \end{column}
+      \begin{column}{0.43\textwidth}
+         \begin{warning}[Même choc d’offre]
+            \small\RaggedRight On maintient le choc d’offre du T4 2026 pour isoler l’effet de la demande.
+         \end{warning}
+         \begin{bizimplication}[La demande remonte]
+            \small\RaggedRight La hausse de l’investissement ferait plus que compenser le frein des tarifs.
+         \end{bizimplication}
+         {\scriptsize\hfill\href{https://www.bankofcanada.ca/publications/mpr/mpr-2026-10-28/canadian-outlook/}{Banque du Canada, RPM d’octobre}}
+      \end{column}
+   \end{columns}
+\end{frame}
 
 \courseroadmap{4}
-
 \end{document}
