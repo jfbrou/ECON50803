@@ -73,10 +73,35 @@
 
 \begin{document}
 
-% Include the private roster only for an explicitly requested classroom build.
-\ifdefined\showbriefingroster
-   \input{../../Evaluations/A2026/participation/seance4_briefing.tex}
-\fi
+% Roster for the Fall 2026 Session 4 briefing.
+{
+\setbeamertemplate{footline}{}
+\begin{frame}[t,noframenumbering]{Briefing macroéconomique de la séance 4}
+   \vspace{0.16cm}
+   \fontsize{8.5}{10.1}\selectfont
+   \setlength{\tabcolsep}{5pt}
+   \renewcommand{\arraystretch}{1.00}
+   \begin{tabularx}{\textwidth}{@{}r >{\raggedright\arraybackslash}X @{\hspace{0.06\textwidth}}r >{\raggedright\arraybackslash}X @{}}
+      \multicolumn{2}{@{}l}{\textbf{\textcolor{HECnavy}{Le regard critique}}} &
+      \multicolumn{2}{@{}l}{\textbf{\textcolor{HECnavy}{La macro dans l’actualité}}} \\
+      \midrule
+      \rowcolor{HEClightgray!60} 1 & Ayim, Julia & 1 & Chen, Yujia \\
+      2 & Chekirou, Nouha & 2 & Cherkaoui, Fatima-Zahra \\
+      \rowcolor{HEClightgray!60} 3 & Chennoufi, Mohamed & 3 & Descoteaux, Julien \\
+      4 & Cunha, Clement & 4 & Dissou, Amari \\
+      \rowcolor{HEClightgray!60} 5 & Diallo, Fatoumata & 5 & Djampou-Mbakop, Shelby-Patricia \\
+      6 & Dufault-Raiche, Sarah & 6 & Eichten, Lisa-Marie \\
+      \rowcolor{HEClightgray!60} 7 & Fares, Amine & 7 & El-Meliani, Nabila \\
+      8 & Henri, Frederick & 8 & Gaudet, Emmanuelle \\
+      \rowcolor{HEClightgray!60} 9 & Jotio, Joseph-Antoine-Bell & 9 & Gray, Thomas \\
+      10 & Levesque, Alexandre & 10 & Haoufazane, Youness \\
+      \rowcolor{HEClightgray!60} 11 & Marin, Jean-Maxime & 11 & Li, Kenny \\
+      12 & Sofo, Olivia & 12 & Maiga, Fatoumata-Moussa \\
+      \rowcolor{HEClightgray!60} 13 & Viau, Marion & 13 & Ould-Tahar, Nada \\
+      14 & Youssef-Tarabay, Nancy & 14 & Sally, Ouattara \\
+   \end{tabularx}
+\end{frame}
+}
 
 % ============================================================================
 \titleframe
