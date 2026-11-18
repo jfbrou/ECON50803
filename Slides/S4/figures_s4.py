@@ -290,7 +290,7 @@ def canada_gdp_potential():
     print('Figure 6a: Canada real vs potential GDP')
 
     # ── 1. Real GDP from FRED ────────────────────────────────────────
-    gdp = get_fred_data('NGDPRSAXDCCAQ', observation_start='1980-01-01')
+    gdp = _s4_fred_csv('NGDPRSAXDCCAQ', '1980-01-01', pd.Timestamp.today().date()).dropna()
     if len(gdp) == 0:
         print('  ! No Canada GDP data. Skipping.')
         return
@@ -347,7 +347,7 @@ def canada_gdp_potential():
     # ── 5. Axis formatting ───────────────────────────────────────────
     ax.set_xlim(gdp.index.min(), gdp.index.max())
     ax.set_ylim(None, 650_000)
-    ax.set_ylabel(r"Millions CAD (2012)", fontsize=11,
+    ax.set_ylabel(r"Millions de dollars enchaînés (2017)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
@@ -366,8 +366,9 @@ def canada_gdp_potential():
     ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10)
-    add_source(ax, r"Source: FRED, Banque du Canada")
+    ax.legend(frameon=False, fontsize=10, loc='lower right')
+    last = gdp.index[-1].to_period('Q')
+    add_source(ax, f'Sources : FRED et Banque du Canada (T{last.quarter} {last.year})')
     save(fig, 'canada_gdp_potential.pdf')
 
 
@@ -447,7 +448,8 @@ def output_gap_canada():
     ax.set_xticklabels([str(y) for y in xticks])
 
     style_axes(ax)
-    add_source(ax, r"Source: Banque du Canada (Rapport sur la politique monétaire)")
+    last = gap.index[-1].to_period('Q')
+    add_source(ax, f'Source : Banque du Canada, RPM (T{last.quarter} {last.year})')
     save(fig, 'output_gap_canada.pdf')
 
 
@@ -660,38 +662,37 @@ def cyclical_components_canada():
     print('Figure 10: Cyclical components (Canada)')
 
     from statsmodels.tsa.filters.hp_filter import hpfilter
-    from stats_can import StatsCan
+    from stats_can import vectors_to_df
 
-    sc = StatsCan()
-    df = sc.table_to_df('36-10-0104-01')
-
-    # Parse dates and filter chained dollars
-    df['REF_DATE'] = pd.to_datetime(df['REF_DATE'])
-    df = df[df['Prices'] == 'Chained (2017) dollars']
-
-    dates = df['REF_DATE'].unique()
-
-    # Calculate components
-    C = (df.loc[df['Estimates'] == 'Final consumption expenditure', 'VALUE'].values
-         - df.loc[df['Estimates'] == 'General governments final consumption expenditure', 'VALUE'].values)
-    G = df.loc[df['Estimates'] == 'General governments final consumption expenditure', 'VALUE'].values
-    I = (df.loc[df['Estimates'] == 'Gross fixed capital formation', 'VALUE'].values
-         + df.loc[df['Estimates'] == 'Investment in inventories', 'VALUE'].values)
-    X = df.loc[df['Estimates'] == 'Exports of goods and services', 'VALUE'].values
-    M = df.loc[df['Estimates'] == 'Less: imports of goods and services', 'VALUE'].values
-    Y = C + G + I + X - M
+    # StatCan 36-10-0104-01, chained 2017 dollars, seasonally adjusted at annual rates.
+    vectors = {
+        'v62305752': 'GDP',
+        'v62305723': 'Final consumption',
+        'v62305731': 'Government consumption',
+        'v62305732': 'Fixed investment',
+        'v62305741': 'Inventory investment',
+    }
+    data = vectors_to_df(list(vectors), periods=300).rename(columns=vectors).sort_index()
+    if data.empty or data.index[0] > pd.Timestamp('1961-01-01') or data.isna().any().any():
+        raise ValueError('Incomplete quarterly history for the Canadian cyclical components')
+    # Keep the existing consumption and investment groupings. Use published real GDP
+    # directly because chained-dollar expenditure components are not additive.
+    dates = data.index
+    Y = data['GDP']
+    C = data['Final consumption'] - data['Government consumption']
+    I = data['Fixed investment'] + data['Inventory investment']
 
     fig, ax = new_figure(9, 4.5)
 
     # HP-filter the year-over-year growth rates (skip first 4 quarters)
     ax.plot(dates[4:],
-            hpfilter(pd.DataFrame(Y)[0].pct_change(4).values[4:], lamb=1600)[0],
+            hpfilter(Y.pct_change(4).iloc[4:], lamb=1600)[0],
             color=palette[0], linewidth=2, label='PIB', zorder=2)
     ax.plot(dates[4:],
-            hpfilter(pd.DataFrame(C)[0].pct_change(4).values[4:], lamb=1600)[0],
+            hpfilter(C.pct_change(4).iloc[4:], lamb=1600)[0],
             color=palette[1], linewidth=2, label='Consommation', zorder=3)
     ax.plot(dates[4:],
-            hpfilter(pd.DataFrame(I)[0].pct_change(4).values[4:], lamb=1600)[0],
+            hpfilter(I.pct_change(4).iloc[4:], lamb=1600)[0],
             color=palette[2], linewidth=2, label='Investissement', zorder=1)
 
     # Recession shading (Canada)
@@ -720,8 +721,9 @@ def cyclical_components_canada():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10)
-    add_source(ax, r"Source: Statistique Canada (36-10-0104-01), filtre HP")
+    ax.legend(frameon=False, fontsize=10, loc='upper left')
+    last = dates[-1].to_period('Q')
+    add_source(ax, f'Source : Statistique Canada, 36-10-0104-01 (T{last.quarter} {last.year}), filtre HP')
     save(fig, 'cyclical_components_canada.pdf')
 
 
@@ -790,9 +792,7 @@ def yield_curve_usa():
     """US 10-year minus 2-year Treasury yield spread."""
     print('Figure 12: Yield curve spread (US)')
 
-    data = get_fred_data('T10Y2Y', frequency='m', aggregation_method='avg',
-                         observation_start='1976-01-01')
-    data = data.dropna()
+    data = _s4_fred_csv('T10Y2YM', '1976-01-01', pd.Timestamp.today().date()).dropna()
 
     fig, ax = new_figure(9, 4.5)
 
@@ -820,7 +820,8 @@ def yield_curve_usa():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (T10Y2Y) --- États-Unis")
+    last = data.index[-1]
+    add_source(ax, f'Source : FRED (T10Y2YM), {MONTH_FR[last.month]} {last.year}')
     save(fig, 'yield_curve_usa.pdf')
 
 
@@ -831,11 +832,9 @@ def natural_unemployment_usa():
     """US unemployment rate vs natural rate (NROU) with recession shading."""
     print('Figure 13: Natural unemployment rate (US)')
 
-    unrate = get_fred_data('UNRATE', frequency='m', aggregation_method='avg',
-                           observation_start='1950-01-01')
-    nrou = get_fred_data('NROU', observation_start='1950-01-01')
-    unrate = unrate.dropna()
-    nrou = nrou.dropna()
+    cutoff = pd.Timestamp.today().date()
+    unrate = _s4_fred_csv('UNRATE', '1950-01-01', cutoff).dropna()
+    nrou = _s4_fred_csv('NROU', '1950-01-01', cutoff).dropna().loc[:unrate.index[-1]]
 
     fig, ax = new_figure(9, 4.5)
 
@@ -864,7 +863,8 @@ def natural_unemployment_usa():
 
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left')
-    add_source(ax, r"Source: FRED (UNRATE, NROU) --- États-Unis")
+    last = unrate.index[-1]
+    add_source(ax, f'Source : FRED (UNRATE, NROU), {MONTH_FR[last.month]} {last.year}')
     save(fig, 'natural_unemployment_usa.pdf')
 
 
