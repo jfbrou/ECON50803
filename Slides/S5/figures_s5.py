@@ -27,16 +27,43 @@ teaching_plot_utils.init(
 from teaching_plot_utils import *
 
 
+def _s5_fred_series(series_id, start):
+    """Download public FRED observations without an API key."""
+    from io import StringIO
+    import requests
+
+    response = requests.get(
+        'https://fred.stlouisfed.org/graph/fredgraph.csv',
+        params={'id': series_id, 'cosd': start},
+        timeout=30,
+    )
+    response.raise_for_status()
+    data = pd.read_csv(StringIO(response.text), index_col=0, parse_dates=True)
+    return pd.to_numeric(data[series_id], errors='coerce').dropna().loc[start:]
+
+
+def _canadian_overnight_rate(start):
+    """Use the BoC target where available and the OECD overnight rate before it."""
+    target = get_valet_series('V39079', start=start).dropna()
+    if start >= '2009-04-21':
+        return target
+    history = _s5_fred_series('IRSTCI01CAM156N', start)
+    return pd.concat([history.loc[history.index < target.index[0]], target])
+
+
+def _last_complete_month():
+    """Timestamp for the first day of the most recently completed month."""
+    return (pd.Timestamp.today().to_period('M') - 1).start_time
+
+
 # =====================================================================
 # Figure 1: Bank of Canada overnight rate (1996–2026)
 # =====================================================================
 def overnight_rate_ca():
-    """Bank of Canada overnight target rate since 1996."""
+    """Canadian overnight rate since 1996."""
     print('Figure 1: Bank of Canada overnight rate')
 
-    # FRED IRSTCI01CAM156N: monthly overnight rate, full history from 1996
-    rate = get_fred_data('IRSTCI01CAM156N', observation_start='1996-01-01')
-    rate = rate.dropna()
+    rate = _canadian_overnight_rate('1996-01-01')
 
     fig, ax = new_figure(9, 4.5)
 
@@ -56,12 +83,12 @@ def overnight_rate_ca():
     ax.set_ylim(0, 6)
     ax.set_yticks(range(0, 7, 1))
     ax.set_yticklabels([f'{y}\\%' for y in range(0, 7, 1)], fontsize=11)
-    ax.set_ylabel(r"Taux directeur (\%)", fontsize=11,
+    ax.set_ylabel(r"Taux à un jour (\%)", fontsize=11,
                   rotation=0, ha='left')
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, r"Source: FRED (OCDE)")
+    add_source(ax, r"Sources : OCDE/FRED (avant avr. 2009), Banque du Canada (cible)")
     save(fig, 'overnight_rate_ca.pdf')
 
 
@@ -72,20 +99,16 @@ def overnight_vs_mortgage():
     """Bank of Canada overnight rate vs 5-year conventional mortgage rate."""
     print('Figure 2: Overnight rate vs 5-year mortgage rate')
 
-    # FRED IRSTCI01CAM156N: monthly overnight rate (full history)
-    overnight = get_fred_data('IRSTCI01CAM156N', observation_start='2000-01-01')
-    overnight = overnight.dropna()
-
-    # Valet V121764: 5-year conventional mortgage rate
-    mortgage = get_valet_series('V121764', start='2000-01-01')
-    mortgage = mortgage.dropna()
+    overnight = _canadian_overnight_rate('2000-01-01')
+    # V121764: posted 5-year conventional mortgage rate, weekly.
+    mortgage = get_valet_series('V121764', start='2000-01-01').dropna()
 
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(overnight.index, overnight.values, color=palette[0],
-            linewidth=2, label='Taux directeur')
+            linewidth=2, label='Taux à un jour')
     ax.plot(mortgage.index, mortgage.values, color=palette[2],
-            linewidth=2, label=r'Taux hypothécaire 5 ans')
+            linewidth=2, label=r'Taux hypothécaire affiché (5 ans)')
 
     # Recession shading (Canadian)
     for start, end in recessions_ca:
@@ -99,7 +122,7 @@ def overnight_vs_mortgage():
     ax.set_xticks([pd.Timestamp(f'{y}-01-01') for y in xticks])
     ax.set_xticklabels([str(y) for y in xticks], fontsize=10)
 
-    ymax = max(8, tick_ceil(max(overnight.max(), mortgage.max()), 1))
+    ymax = max(8, int(tick_ceil(max(overnight.max(), mortgage.max()), 1)))
     ax.set_ylim(0, ymax)
     ax.set_yticks(range(0, ymax + 1))
     ax.set_yticklabels([f'{y}\\%' for y in range(0, ymax + 1)], fontsize=11)
@@ -109,7 +132,7 @@ def overnight_vs_mortgage():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, r"Source: FRED, Banque du Canada (Valet)")
+    add_source(ax, r"Sources : OCDE/FRED (avant avr. 2009), Banque du Canada")
     save(fig, 'overnight_vs_mortgage.pdf')
 
 
@@ -120,26 +143,19 @@ def transmission_taux():
     """Overnight rate, 5-year GoC bond yield, 5-year mortgage rate."""
     print('Figure 2b: Transmission du taux directeur')
 
-    # FRED IRSTCI01CAM156N: monthly overnight rate (full history)
-    overnight = get_fred_data('IRSTCI01CAM156N', observation_start='2000-01-01')
-    overnight = overnight.dropna()
-
-    # Valet BD.CDN.5YR.DQ.YLD: 5-year Government of Canada benchmark bond yield
-    bond5 = get_valet_series('BD.CDN.5YR.DQ.YLD', start='2000-01-01')
-    bond5 = bond5.dropna().resample('MS').mean()  # monthly average
-
-    # Valet V121764: 5-year conventional mortgage rate
-    mortgage = get_valet_series('V121764', start='2000-01-01')
-    mortgage = mortgage.dropna().resample('MS').mean()  # monthly average
+    last_complete = _last_complete_month()
+    overnight = _canadian_overnight_rate('2000-01-01').resample('MS').mean().loc[:last_complete]
+    bond5 = get_valet_series('BD.CDN.5YR.DQ.YLD', start='2000-01-01').resample('MS').mean().loc[:last_complete]
+    mortgage = get_valet_series('V121764', start='2000-01-01').resample('MS').mean().loc[:last_complete]
 
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(overnight.index, overnight.values, color=palette[0],
-            linewidth=2, label='Taux directeur')
+            linewidth=2, label='Taux à un jour')
     ax.plot(bond5.index, bond5.values, color=palette[1],
-            linewidth=2, label='Obligations du GdC 5 ans')
+            linewidth=2, label='Obligations du Canada (5 ans)')
     ax.plot(mortgage.index, mortgage.values, color=palette[2],
-            linewidth=2, label=r'Taux hypothécaire 5 ans')
+            linewidth=2, label=r'Taux hypothécaire affiché (5 ans)')
 
     # Recession shading (Canadian)
     for start, end in recessions_ca:
@@ -161,8 +177,8 @@ def transmission_taux():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    ax.legend(frameon=False, fontsize=10, loc='upper center', ncol=3)
-    add_source(ax, r"Source: FRED, Banque du Canada (Valet)")
+    ax.legend(frameon=False, fontsize=10, loc='upper right')
+    add_source(ax, r"Sources : OCDE/FRED et Banque du Canada, moyennes mensuelles")
     save(fig, 'transmission_taux.pdf')
 
 
@@ -261,7 +277,7 @@ def inflation_vs_rate_2019():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, r"Source: Banque du Canada")
+    add_source(ax, r"Sources : Statistique Canada et Banque du Canada")
     save(fig, 'inflation_vs_rate_2019.pdf')
 
 
@@ -272,27 +288,20 @@ def policy_rates_global():
     """Policy rates of the Fed, ECB, and BoC."""
     print('Figure 5: Global policy rates')
 
-    # Fed: federal funds rate
-    fed = get_fred_data('FEDFUNDS', frequency='m', aggregation_method='avg',
-                        observation_start='2000-01-01')
-
-    # BoC: FRED IRSTCI01CAM156N (monthly, full history)
-    boc = get_fred_data('IRSTCI01CAM156N', observation_start='2000-01-01')
-
-    # ECB: deposit facility rate
-    ecb = get_fred_data('ECBDFR', observation_start='2000-01-01')
-    if len(ecb) == 0:
-        ecb = get_fred_data('ECBMLFR', observation_start='2000-01-01')
+    start = '2000-01-01'
+    cutoff = _last_complete_month()
+    fed = _s5_fred_series('FEDFUNDS', start).loc[:cutoff]
+    boc = _canadian_overnight_rate(start).resample('MS').last().loc[:cutoff]
+    ecb = _s5_fred_series('ECBDFR', start).resample('MS').last().loc[:cutoff]
 
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(fed.index, fed.values, color=palette[4], linewidth=2,
-            label='Fed (taux des fonds)')
+            label='Fed (taux effectif moyen)')
     ax.plot(boc.index, boc.values, color=palette[2], linewidth=2,
-            label='BdC (taux directeur)')
-    if len(ecb) > 0:
-        ax.plot(ecb.index, ecb.values, color=palette[1], linewidth=2,
-                label=r'BCE (taux de dépôt)')
+            label='BdC (taux à un jour)')
+    ax.plot(ecb.index, ecb.values, color=palette[1], linewidth=2,
+            label=r'BCE (taux de dépôt)')
 
     # ZLB zone: shading below 0%
     ax.axhspan(-1, 0, color=palette[7], alpha=0.08, linewidth=0)
@@ -317,7 +326,7 @@ def policy_rates_global():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=9, loc='upper right',
               bbox_to_anchor=(1.0, 1.0))
-    add_source(ax, r"Source: FRED")
+    add_source(ax, r"Sources : FRED et Banque du Canada")
     save(fig, 'policy_rates_global.pdf')
 
 
@@ -328,30 +337,8 @@ def boc_balance_sheet():
     """Bank of Canada total assets showing QE and QT periods."""
     print('Figure 6: Bank of Canada balance sheet')
 
-    # Try Valet series for BoC total assets (weekly)
-    try:
-        assets = get_valet_series('V36610', start='2007-01-01')
-        assets = assets.dropna()
-        if len(assets) == 0:
-            raise ValueError('Empty series')
-    except Exception:
-        # Fallback: try FRED series
-        try:
-            assets = get_fred_data('BCNSDCBS', observation_start='2007-01-01')
-            assets = assets.dropna()
-            if len(assets) == 0:
-                raise ValueError('Empty series')
-        except Exception:
-            print('  ! No BoC balance sheet data available. Skipping.')
-            return
-
-    if len(assets) == 0:
-        print('  ! No BoC balance sheet data available. Skipping.')
-        return
-
-    # Convert to billions (data is in millions CAD)
-    if assets.max() > 10000:
-        assets = assets / 1000
+    # Valet V36610 records total assets weekly in millions of Canadian dollars.
+    assets = get_valet_series('V36610', start='2007-01-01').dropna() / 1000
 
     fig, ax = new_figure(9, 4.5)
 
@@ -377,7 +364,8 @@ def boc_balance_sheet():
     ax.yaxis.set_label_coords(0, 1.02)
 
     style_axes(ax)
-    add_source(ax, r"Source: Banque du Canada")
+    last = assets.index[-1]
+    add_source(ax, f'Source : Banque du Canada ({last.day} {MONTH_FR[last.month]} {last.year})')
     save(fig, 'boc_balance_sheet.pdf')
 
 
@@ -426,70 +414,33 @@ def federal_debt_gdp_ca():
 # =====================================================================
 # Figure 7: Government debt-to-GDP — horizontal bar chart (latest)
 # =====================================================================
+# Annual observations from the IMF October 2026 WEO workbook, Countries sheet.
+# GGXWDG_NGDP and GGXWDN_NGDP are general government debt as a share of GDP.
+# https://data.imf.org/datasets/WEO
+_DEBT_YEAR = 2025
+_DEBT_GROSS = {
+    'Canada': 113.583,
+    'États-Unis': 124.377,
+    'Japon': 204.775,
+    'Royaume-Uni': 102.056,
+    'Allemagne': 62.658,
+    'France': 115.534,
+    'Italie': 137.105,
+    'Espagne': 100.513,
+    'Chine': 98.609,
+    'Brésil': 93.329,
+    'Inde': 84.261,
+    'Mexique': 61.670,
+    'Corée du Sud': 52.417,
+}
+
+
 def debt_to_gdp():
-    """Horizontal bar chart of government gross debt / GDP (latest observation)."""
+    """Horizontal bar chart of government gross debt / GDP (IMF WEO, 2025)."""
     print('Figure 7: Government debt-to-GDP ratios (bar chart)')
 
-    # ── FRED series IDs and French labels ─────────────────────────────
-    # Target year for consistent cross-country comparison
-    TARGET_YEAR = 2023
-
-    countries = [
-        ('Japon',         'GGGDTAJPA188N'),
-        ('Italie',        'GGGDTAITA188N'),
-        (r'États-Unis',   'GGGDTAUSA188N'),
-        ('Espagne',       'GGGDTAESA188N'),
-        ('France',        'GGGDTAFRA188N'),
-        ('Royaume-Uni',   'GGGDTAGBA188N'),
-        ('Canada',        'GGGDTACAA188N'),
-        ('Chine',         'GGGDTACNA188N'),
-        (r'Brésil',       'GGGDTABRA188N'),
-        ('Inde',          'GGGDTAINA188N'),
-        ('Allemagne',     'GGGDTADEA188N'),
-        ('Mexique',       'GGGDTAMXA188N'),
-        (r'Corée du Sud', 'GGGDTAKRA188N'),
-    ]
-
-    # Hardcoded fallbacks (IMF WEO, 2023)
-    fallback = {
-        'GGGDTAJPA188N': 240,
-        'GGGDTAITA188N': 135,
-        'GGGDTAUSA188N': 121,
-        'GGGDTAESA188N': 105,
-        'GGGDTAFRA188N': 110,
-        'GGGDTAGBA188N': 101,
-        'GGGDTACAA188N': 107,
-        'GGGDTACNA188N': 84,
-        'GGGDTABRA188N': 84,
-        'GGGDTAINA188N': 81,
-        'GGGDTADEA188N': 64,
-        'GGGDTAMXA188N': 53,
-        'GGGDTAKRA188N': 51,
-    }
-
-    # Fetch the TARGET_YEAR observation for each country
-    labels = []
-    values = []
-    for label, fred_id in countries:
-        try:
-            s = get_fred_data(fred_id)
-            s = s.dropna()
-            # Pick the observation closest to TARGET_YEAR
-            yr_data = s[s.index.year == TARGET_YEAR]
-            if len(yr_data) > 0:
-                values.append(yr_data.iloc[-1])
-            elif len(s) > 0:
-                values.append(s.iloc[-1])  # fallback to latest
-            else:
-                values.append(fallback[fred_id])
-        except Exception:
-            values.append(fallback[fred_id])
-        labels.append(label)
-
-    # Sort descending (largest debt at top)
-    order = np.argsort(values)[::-1]
-    labels = [labels[i] for i in order]
-    values = [values[i] for i in order]
+    ranked = sorted(_DEBT_GROSS.items(), key=lambda item: item[1], reverse=True)
+    labels, values = zip(*ranked)
 
     # ── Bar colors: Canada in green, others in navy ───────────────────
     colors = [palette[1] if lab == 'Canada' else palette[0] for lab in labels]
@@ -518,7 +469,7 @@ def debt_to_gdp():
 
     style_axes(ax, xgrid=True)
     ax.grid(False, axis='y')  # keep only vertical gridlines
-    add_source(ax, r"Source: FMI via FRED (2023)")
+    add_source(ax, f'Source : FMI, WEO d’octobre 2026 (données de {_DEBT_YEAR})')
     save(fig, 'debt_to_gdp.pdf')
 
 
@@ -602,30 +553,22 @@ def phillips_curve_decades():
 
 
 # =====================================================================
-# Figure 9: Fed dot plot (March 2025 FOMC SEP)
+# Figure 9: Fed dot plot (September 2026 FOMC SEP)
 # =====================================================================
 def fed_dot_plot():
     """FOMC dot plot: each participant's projected federal funds rate."""
-    print('Figure 9: Fed dot plot (mars 2025)')
+    print('Figure 9: Fed dot plot (septembre 2026)')
 
-    # ── March 2025 FOMC SEP data (19 participants) ────────────────────
-    # Rate midpoints and number of participants at each level per year.
+    # September 2026 FOMC SEP, Figure 2: published rate/count pairs.
+    # https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm
     dot_data = {
-        '2025': {
-            3.625: 2, 3.875: 9, 4.125: 4, 4.375: 4,
-        },
-        '2026': {
-            2.875: 3, 3.125: 1, 3.375: 9, 3.625: 2,
-            3.875: 1, 4.125: 3,
-        },
-        '2027': {
-            2.625: 2, 2.875: 3, 3.125: 6, 3.375: 2,
-            3.625: 4, 3.875: 2,
-        },
+        '2026': {3.875: 2, 4.125: 12, 4.375: 4},
+        '2027': {3.125: 1, 3.625: 3, 4.125: 6, 4.375: 8},
+        '2028': {3.125: 4, 3.375: 1, 3.625: 3, 3.875: 5, 4.125: 4},
+        '2029': {2.875: 1, 3.125: 4, 3.375: 2, 3.625: 7, 3.875: 3},
         'Plus long\nterme': {
-            2.500: 2, 2.625: 2, 2.875: 4, 3.000: 3,
-            3.125: 1, 3.375: 1, 3.500: 2, 3.625: 2,
-            3.750: 1, 3.875: 1,
+            2.875: 1, 3.000: 6, 3.125: 1, 3.250: 2, 3.375: 1,
+            3.500: 2, 3.625: 2, 3.750: 1, 3.875: 2,
         },
     }
 
@@ -635,7 +578,7 @@ def fed_dot_plot():
     fig, ax = new_figure(8, 5)
 
     # Dot radius in data coords (for side-by-side placement)
-    dot_spacing = 0.10  # horizontal offset between same-rate dots
+    dot_spacing = 0.073  # horizontal offset between same-rate dots
 
     for cat in categories:
         x_center = x_positions[cat]
@@ -647,7 +590,7 @@ def fed_dot_plot():
                                   count)
             for dx in offsets:
                 ax.plot(x_center + dx, rate, 'o',
-                        color=palette[0], markersize=8,
+                        color=palette[0], markersize=6.5,
                         markeredgecolor='white', markeredgewidth=0.5,
                         zorder=3)
 
@@ -669,14 +612,14 @@ def fed_dot_plot():
     ax.set_xticklabels(categories, fontsize=11)
 
     # Y-axis: labels every 0.50%, grid lines every 0.25%
-    y_min, y_max = 2.25, 4.50
+    y_min, y_max = 2.50, 4.75
     ax.set_ylim(y_min, y_max)
     yticks_major = np.arange(2.50, 4.51, 0.50)
     ax.set_yticks(yticks_major)
     ax.set_yticklabels([f'{y:.1f}\\%' for y in yticks_major], fontsize=11)
 
     # Minor ticks at every 0.25% for finer grid
-    yticks_minor = np.arange(2.25, 4.51, 0.25)
+    yticks_minor = np.arange(2.50, 4.76, 0.25)
     ax.set_yticks(yticks_minor, minor=True)
     ax.grid(True, which='minor', axis='y', color='gray',
             linestyle=':', linewidth=0.3, alpha=0.5)
@@ -689,7 +632,7 @@ def fed_dot_plot():
     from matplotlib.lines import Line2D
     legend_elements = [
         Line2D([0], [0], marker='o', color='w', markerfacecolor=palette[0],
-               markersize=8, markeredgecolor='white', markeredgewidth=0.5,
+               markersize=6.5, markeredgecolor='white', markeredgewidth=0.5,
                label='Projection individuelle'),
         Line2D([0], [0], color=palette[2], linewidth=2.5,
                label=r'Médiane'),
@@ -698,24 +641,21 @@ def fed_dot_plot():
               loc='upper right', bbox_to_anchor=(1.0, 1.0))
 
     style_axes(ax, xgrid=False)
-    ax.set_ylim(2.25, 4.50)
-    add_source(ax, r"Source: Federal Reserve, FOMC SEP (mars 2025)")
+    add_source(ax, r"Source : Réserve fédérale, SEP de septembre 2026")
     save(fig, 'fed_dot_plot.pdf')
 
 
 # =====================================================================
-# Figure 10: Gross vs Net Debt (bar chart, 2023)
+# Figure 10: Gross vs Net Debt (bar chart, 2025)
 # =====================================================================
 def gross_vs_net_debt():
-    """Grouped bar chart: gross vs net debt as % of GDP (2023, IMF WEO)."""
+    """Grouped bar chart: gross vs net debt as % of GDP (2025, IMF WEO)."""
     print('Figure 10: Gross vs net debt comparison')
 
-    # ── Data: IMF Fiscal Monitor (oct. 2024), general government, 2023 ──
-    # Verified via IMF datamapper API (GGXWDN_G01_GDP_PT, G_XWDG_G01_GDP_PT)
-    # Order: ascending by net debt
     countries = ['CAN', 'DEU', 'GBR', r'É.-U.', 'FRA', 'ITA', 'JPN']
-    gross = [107.7, 62.4, 100.4, 119.8, 109.6, 134.6, 240.5]
-    net   = [ 14.4, 45.9,  91.8,  94.5, 101.5, 124.2, 136.3]
+    names = ['Canada', 'Allemagne', 'Royaume-Uni', 'États-Unis', 'France', 'Italie', 'Japon']
+    gross = [_DEBT_GROSS[country] for country in names]
+    net = [10.429, 47.12, 93.609, 96.702, 108.357, 127.704, 132.358]
 
     x = np.arange(len(countries))
     width = 0.32
@@ -756,7 +696,7 @@ def gross_vs_net_debt():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='upper left',
               bbox_to_anchor=(0.0, 1.0))
-    add_source(ax, r"Source: FMI, Fiscal Monitor (oct. 2024)")
+    add_source(ax, f'Source : FMI, WEO d’octobre 2026 (données de {_DEBT_YEAR})')
     save(fig, 'gross_vs_net_debt.pdf')
 
 
@@ -966,57 +906,38 @@ def conjoncture_canada():
     """Single chart: overnight rate, unemployment, CPI inflation."""
     print('Figure 15: Conjoncture Canada')
 
-    # ── 1. Fetch data ──────────────────────────────────────────────────
-    # Overnight rate (Valet V39079)
-    rate = get_valet_series('V39079', start='2025-01-01')
-    rate = rate.dropna()
+    from stats_can import vectors_to_df
 
-    # Unemployment rate (FRED, fallback Valet)
-    try:
-        unemp = get_fred_data('LRUNTTTTCAM156S', observation_start='2025-01-01')
-        unemp = unemp.dropna()
-        if len(unemp) == 0:
-            raise ValueError('Empty series')
-    except Exception:
-        unemp = get_valet_series('V2062815', start='2025-01-01')
-        unemp = unemp.dropna()
+    rate = get_valet_series('V39079', start='2025-01-01').resample('MS').last()
+    # Statistics Canada table 14-10-0287-01, age 15+, seasonally adjusted.
+    unemp = vectors_to_df(['v2062815'], periods=36)['v2062815'].sort_index().loc['2025-01-01':]
+    cpi = get_valet_series('V41690973', start='2024-01-01').asfreq('MS')
+    inflation = (cpi.pct_change(12, fill_method=None) * 100).loc['2025-01-01':]
 
-    # CPI level (fetch from Dec 2023 for 12-month lag, plot from Jan 2025)
-    cpi_level = get_valet_series('V41690973', start='2023-12-01')
-    cpi_level = cpi_level.dropna()
-    inflation = cpi_level.pct_change(periods=12) * 100
-    inflation = inflation.dropna()
-    inflation = inflation.loc['2025-01-01':]
-
-    # Trim all series to end no later than Feb 2026
-    cutoff = pd.Timestamp('2026-02-28')
-    rate = rate.loc[:cutoff]
-    unemp = unemp.loc[:cutoff]
-    inflation = inflation.loc[:cutoff]
-
-    # Resample overnight rate to monthly (last value per month)
-    rate = rate.resample('MS').last().dropna()
-
-    # Append Feb 2026 unemployment if missing (StatsCan LFS, 13 mars 2026: 6.6%)
-    feb26 = pd.Timestamp('2026-02-01')
-    if feb26 not in unemp.index:
-        unemp = pd.concat([unemp, pd.Series({feb26: 6.6})])
+    # Compare the three series through the latest month with all releases.
+    last = min(rate.last_valid_index(), unemp.last_valid_index(), inflation.last_valid_index())
+    months = pd.date_range('2025-01-01', last, freq='MS')
+    rate, unemp, inflation = (series.reindex(months) for series in (rate, unemp, inflation))
+    if any(series.isna().any() for series in (rate, unemp, inflation)):
+        raise ValueError('Missing observations in the Canadian outlook figures')
 
     # ── 2. Single-axis plot ───────────────────────────────────────────
     fig, ax = new_figure(9, 4.5)
 
     ax.plot(rate.index, rate.values, color=palette[0], linewidth=2.5,
-            label='Taux directeur', marker='o', markersize=6)
+            label='Taux directeur', marker='o', markersize=5, clip_on=False)
     ax.plot(unemp.index, unemp.values, color=palette[2], linewidth=2.5,
-            label=r'Taux de chômage', marker='o', markersize=6)
+            label=r'Taux de chômage', marker='o', markersize=5, clip_on=False)
     ax.plot(inflation.index, inflation.values, color=palette[1], linewidth=2.5,
-            label='Inflation IPC (a/a)', marker='o', markersize=6)
+            label='Inflation IPC (a/a)', marker='o', markersize=5, clip_on=False)
 
     # ── Axis formatting ───────────────────────────────────────────────
-    monthly = pd.date_range('2025-01-01', '2026-02-01', freq='MS')
-    ax.set_xlim(pd.Timestamp('2024-12-20'), pd.Timestamp('2026-02-12'))
-    ax.set_xticks(monthly)
-    ax.set_xticklabels([french_date_label(d) for d in monthly], fontsize=10)
+    ticks = months[::3]
+    if ticks[-1] != last:
+        ticks = ticks.append(months[-1:])
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([french_date_label(date) for date in ticks], fontsize=10)
+    ax.set_xlim(months[0], last)
 
     ax.set_ylim(0, 8)
     ax.set_yticks(range(0, 9))
@@ -1027,7 +948,7 @@ def conjoncture_canada():
     style_axes(ax)
     ax.legend(frameon=False, fontsize=10, loc='lower left',
               bbox_to_anchor=(0.0, 0.0))
-    add_source(ax, r"Source: Banque du Canada, FRED")
+    add_source(ax, f'Sources : Statistique Canada et Banque du Canada ({MONTH_FR[last.month]} {last.year})')
     save(fig, 'conjoncture_canada.pdf')
 
 
@@ -1065,11 +986,13 @@ def boc_tightening_cycles():
         days = (cycle.index - cycle.index[0]).days
         ax.step(days, cycle.values - baseline, where='post',
                 color=color, linewidth=3, label=label)
+    # Plain text keeps both axes in Fira Sans instead of TeX's math font.
+    xticks = range(0, 651, 50)
+    yticks = range(0, 6)
     ax.set_xlim(0, 650)
-    ax.set_xticks(range(0, 651, 50))
+    ax.set_xticks(xticks, labels=[str(value) for value in xticks], fontsize=11)
     ax.set_ylim(0, 5)
-    ax.set_yticks(range(0, 6))
-    ax.tick_params(labelsize=11)
+    ax.set_yticks(yticks, labels=[str(value) for value in yticks], fontsize=11)
     ax.set_xlabel('Nombre de jours depuis la première hausse', fontsize=11)
     ax.set_ylabel('Points de pourcentage', fontsize=11,
                   rotation=0, ha='left')
@@ -1078,6 +1001,69 @@ def boc_tightening_cycles():
     ax.legend(frameon=False, fontsize=11, loc='upper left')
     add_source(ax, 'Source: Banque du Canada (Valet); FRED (mensuel: 1997/2004)')
     save(fig, 'boc_tightening_cycles.pdf')
+
+
+# =====================================================================
+# Canada's mid-1990s fiscal consolidation and monetary policy
+# =====================================================================
+def canada_1990s_fiscal_monetary():
+    """Federal fiscal balances and end-of-month Bank of Canada policy rates."""
+    from io import BytesIO
+    import requests
+
+    print('Figure: Canadian fiscal consolidation and policy rates')
+    finance_url = ('https://www.canada.ca/en/department-finance/services/publications/'
+                   'fiscal-reference-tables/2026/part-1.html')
+    response = requests.get(finance_url, timeout=25)
+    response.raise_for_status()
+    table, = pd.read_html(BytesIO(response.content), attrs={'id': 'tbl2'})
+    table.columns = table.columns.str.replace(r'\s+', ' ', regex=True)
+    fiscal_years = table['Year'].astype(str)
+    fiscal = table.loc[fiscal_years.str.fullmatch(r'\d{4}-\d{2}'),
+                       ['Year', 'Budgetary surplus or deficit (-)']].copy()
+    fiscal['year_end'] = fiscal['Year'].str[:4].astype(int) + 1
+    years = pd.Index(range(1993, 2000))
+    balance = pd.to_numeric(fiscal.set_index('year_end')['Budgetary surplus or deficit (-)']).reindex(years)
+
+    months = pd.period_range('1993-01', '1999-12', freq='M')
+    # BIS compilation: official Bank Rate through May 1994, then the overnight target.
+    response = requests.get(
+        'https://stats.bis.org/api/v1/data/BIS,WS_CBPOL,1.0/M.CA',
+        params={'startPeriod': str(months[0]), 'endPeriod': str(months[-1]), 'format': 'csv'},
+        timeout=25,
+    )
+    response.raise_for_status()
+    policy = pd.read_csv(BytesIO(response.content), usecols=['TIME_PERIOD', 'OBS_VALUE'])
+    policy.index = pd.PeriodIndex(policy['TIME_PERIOD'], freq='M')
+    policy_rate = pd.to_numeric(policy['OBS_VALUE']).reindex(months)
+    if balance.isna().any() or policy_rate.isna().any():
+        raise ValueError('Incomplete Canadian historical budget or policy-rate series')
+
+    fig, (fiscal_ax, rates_ax) = plt.subplots(1, 2, figsize=(11.4, 4.7))
+    fiscal_ax.axhline(0, color=palette[7], linewidth=0.9, zorder=2)
+    fiscal_ax.plot(pd.to_datetime([f'{year}-03-31' for year in years]), balance,
+                   color=palette[0], marker='o', markersize=4, linewidth=2.5, zorder=3)
+    rates_ax.plot(months.to_timestamp(how='end').normalize(), policy_rate,
+                  color=palette[0], linewidth=2.5, zorder=3)
+
+    panels = [
+        (fiscal_ax, r'Solde budgétaire fédéral (\% du PIB)', 'Exercice clos en mars',
+         'Finances Canada, tableau 2', range(-6, 3, 2)),
+        (rates_ax, r'Taux directeur de la Banque du Canada (\%)', 'Observations de fin de mois',
+         'Banque du Canada via la BRI', range(2, 10)),
+    ]
+    for axis, title, period, source, ticks in panels:
+        axis.set_xlim(pd.Timestamp('1993-01-01'), pd.Timestamp('1999-12-31'))
+        axis.set_xticks(pd.to_datetime([f'{year}-01-01' for year in years]),
+                        labels=[str(year) for year in years], fontsize=12)
+        axis.set_ylim(ticks[0], ticks[-1])
+        axis.set_yticks(ticks, labels=[rf'\textminus{{}}{abs(tick)}' if tick < 0 else str(tick)
+                                     for tick in ticks], fontsize=12)
+        axis.set_xlabel(period, fontsize=11)
+        axis.set_title(title, loc='left', fontsize=14, pad=20)
+        style_axes(axis)
+        add_source(axis, source)
+    save(fig, 's5_canada_1990s_fiscal_monetary.pdf')
 
 
 # =====================================================================
@@ -1095,6 +1081,7 @@ if __name__ == '__main__':
         inflation_vs_rate_2019,
         policy_rates_global,
         boc_tightening_cycles,
+        canada_1990s_fiscal_monetary,
         boc_balance_sheet,
         debt_to_gdp,
         federal_debt_gdp_ca,
