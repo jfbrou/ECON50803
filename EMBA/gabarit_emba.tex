@@ -42,7 +42,7 @@
   \begin{frame}
     \begin{tikzpicture}[remember picture,overlay]
       \coordinate (repere) at ([xshift=1.2cm,yshift=-.39\paperheight]current page.north west);
-      \draw[EMBAor,line width=1.5pt] (repere) -- ++(.95cm,0) coordinate (fin);
+      \draw[EMBAor,line width=1.5pt] (repere) -- ++(2.5cm,0) coordinate (fin);
       \ifstrempty{#1}{}{%
         \node[anchor=west,inner sep=0pt,font=\normalsize\bfseries,text=EMBAor]
           at ([xshift=.28cm]fin) {#1};}
