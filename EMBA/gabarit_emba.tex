@@ -1,0 +1,54 @@
+% Identité du gabarit « TEMPLATE POWERPOINT - EMBA », au format 16:9.
+% Le logo conserve le recadrage et les proportions du masque PowerPoint.
+\definecolor{EMBAor}{HTML}{D1BA22}
+% Adapter localement la palette employée par les composants du cours.
+\colorlet{HECtext}{black}
+\colorlet{HECnavy}{black}
+\colorlet{HECgreen}{EMBAor}
+\colorlet{HECgray}{black!60}
+\colorlet{HEClightblue}{black!5}
+\setbeamercolor{example text}{fg=black}
+\setbeamercolor{pied EMBA}{bg=white,fg=HECgray}
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.46cm,dp=.087cm,
+    leftskip=.122cm,rightskip=.24cm]{pied EMBA}%
+    \includegraphics[width=.12223\paperwidth]{logo_emba_mcgill_hec.png}%
+    \hfill\raisebox{.035cm}{\scriptsize\insertframenumber}%
+  \end{beamercolorbox}%
+}
+
+% Titre centré et filet or aux dimensions de la première diapositive du gabarit.
+\renewcommand{\titleframe}{%
+  \begin{frame}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[align=center,inner sep=0pt,
+        font=\LARGE\bfseries,text=black]
+        at ([yshift=-.135\paperheight]current page.north) {\inserttitle};
+      \draw[EMBAor,line width=.00556\paperheight]
+        ([xshift=.02453\paperwidth,yshift=-.24861\paperheight]current page.north west) --
+        ([xshift=-.02453\paperwidth,yshift=-.24861\paperheight]current page.north east);
+      \node[align=center,inner sep=0pt,text=HECtext]
+        at ([yshift=-.59\paperheight]current page.north)
+        {{\large\insertauthor}\\[5pt]{\normalsize\insertdate}};
+    \end{tikzpicture}
+  \end{frame}%
+}
+
+% Le filet et le titre suivent la marge des diapositives de contenu.
+% Le libellé facultatif identifie les cliniques au-dessus de leur sujet.
+\renewcommand{\sectionframe}[2][]{%
+  \begingroup
+  \setbeamercolor{background canvas}{bg=black}%
+  \begin{frame}
+    \begin{tikzpicture}[remember picture,overlay]
+      \coordinate (repere) at ([xshift=1.2cm,yshift=-.39\paperheight]current page.north west);
+      \draw[EMBAor,line width=1.5pt] (repere) -- ++(.95cm,0) coordinate (fin);
+      \ifstrempty{#1}{}{%
+        \node[anchor=west,inner sep=0pt,font=\normalsize\bfseries,text=EMBAor]
+          at ([xshift=.28cm]fin) {#1};}
+      \node[anchor=north west,inner sep=0pt,text width=\textwidth,align=flush left,
+        font=\LARGE\bfseries,text=white] at ([yshift=-.42cm]repere) {#2};
+    \end{tikzpicture}
+  \end{frame}%
+  \endgroup
+}

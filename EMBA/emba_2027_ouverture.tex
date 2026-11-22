@@ -5,12 +5,11 @@
 \def\input@path{{../latex-common/}}
 \makeatother
 \input{../Slides/preamble.tex}
-\graphicspath{{../Slides/Figures/}}
+\graphicspath{{./}{../Slides/Figures/}}
 \jfbcoursename{EMBA McGill–HEC Montréal}
 \jfbcoursetitle{Environnement macroéconomique et stratégie}
 \jfbinstitution{HEC Montréal}
-% La page titre partagée se termine par « MBA ». Adapter uniquement ce libellé.
-\patchcmd{\titleframe}{\enspace MBA}{\enspace EMBA}{}{\PackageError{emba}{Vérifier le libellé de la page titre}{}}
+\input{gabarit_emba.tex}
 \title{L’environnement macroéconomique\\au cœur des décisions stratégiques}
 \author{Jean-Félix Brouillette}
 \date{28 janvier 2027}
@@ -43,23 +42,7 @@
    \end{columns}
 \end{frame}
 
-% 3 | Mosaïque de six manchettes de L’essentiel du MBA.
-\begin{frame}{Un monde complexe et incertain}
-  \begin{tikzpicture}[remember picture,overlay]
-    \setcounter{newshl}{0}
-    \newsheadline[globeandmail]{The Globe and Mail}{\href{https://www.theglobeandmail.com/business/article-bank-of-canada-raises-interest-rate-october-2026/}{\guillemotleft~BoC hikes rate to 2.5\% to contain oil-price shock~\guillemotright}}
-    \newsheadline[ft]{Financial Times}{\href{https://www.ft.com/content/9cb63980-cd43-419d-a7e5-42039b9fd01e?syn-25a6b1a6=1}{\guillemotleft~The multiplying risks of financing data centres~\guillemotright}}
-    \newsheadline[bloomberg]{Bloomberg}{\href{https://www.bloomberg.com/news/articles/2026-09-23/us-treasury-five-year-yields-breach-5-for-first-time-since-2007}{\guillemotleft~US Bond-Market Slide Deepens, Pushing Yields to Two-Decade Highs~\guillemotright}}
-    \newsheadline[reuters]{Reuters}{\href{https://theedgemalaysia.com/node/820812}{\guillemotleft~Oil rises as investors weigh supply threats~\guillemotright}}
-    \newsheadline[lapresse]{La Presse}{\href{https://www.lapresse.ca/affaires/economie/2026-10-06/etude-de-la-banque-du-canada/la-replique-tarifaire-du-canada-alimente-l-inflation.php}{\guillemotleft~La réplique tarifaire du Canada alimente l'inflation~\guillemotright}}
-    \newsheadline[ledevoir]{Le Devoir}{\href{https://www.ledevoir.com/economie/1015754/economie-quebecoise-perdu-49-000-emplois-septembre}{\guillemotleft~L'économie québécoise a perdu 49\,000 emplois en septembre~\guillemotright}}
-    \node[anchor=south west,text=HECtext!70,font=\scriptsize] at ([xshift=1.2cm,yshift=.65cm]current page.south west)
-      {Manchettes d’août à octobre 2026};
-  \end{tikzpicture}
-  \note{Laisser le groupe parcourir les six manchettes. Relever celle de Reuters sur le pétrole. Comment une dépense de plus à la pompe se répercute-t-elle ailleurs dans l’économie\,? Introduire ce passage de l’individu au groupe avec l’exemple du hockey.}
-\end{frame}
-
-% 4 | Texte de l’ouverture initiale. Les flèches relient les deux échelles de décision.
+% 3 | Texte de l’ouverture initiale. Les flèches relient les deux échelles de décision.
 \begin{frame}{Qu’est-ce que la macroéconomie\,?}
   \centering
   \begin{tikzpicture}[
@@ -84,10 +67,10 @@
   \par\vspace{.32cm}
   {\small \textcolor{HECnavy}{$\bullet$}\enspace Le paradoxe de l’épargne\hspace{.9cm}%
           \textcolor{HECnavy}{$\bullet$}\enspace Se lever à un match de hockey\par}
-  \note{Au hockey, se lever permet de mieux voir tant que les autres restent assis. Si tous les ménages réduisent leurs dépenses, les ventes et les revenus peuvent baisser, ce qui limite la hausse de l’épargne totale. Dans votre secteur, que se passe-t-il si tous vos clients repoussent leurs achats en même temps\,? Reprendre ensuite la manchette sur le pétrole.}
+  \note{Au hockey, se lever permet de mieux voir tant que les autres restent assis. Si tous les ménages réduisent leurs dépenses, les ventes et les revenus peuvent baisser, ce qui limite la hausse de l’épargne totale. Dans votre secteur, que se passe-t-il si tous vos clients repoussent leurs achats en même temps\,?}
 \end{frame}
 
-% 5
+% 4
 \begin{frame}{Comprendre la macro pour mieux décider}
    \RaggedRight Les chocs macroéconomiques changent vos marchés, vos coûts et vos conditions de financement.
    \par\vspace{0.25cm}
@@ -103,7 +86,23 @@
       \par\vspace{4pt}
       {\raggedleft\scriptsize\textcolor{HECgray}{\href{https://www.gsb.stanford.edu/faculty-research/publications/firm-performance-macro-forecast-accuracy}{Tanaka et al. (2020)} et \href{https://researchonline.lse.ac.uk/130291/1/paper_all_WPupdate.pdf}{Bloom et al. (2025)}}\par}
    \end{bizimplication}
-   \note{Reprendre la manchette sur le pétrole. Le prix dont il est question est-il une donnée observée ou une prévision\,? Quelle décision dépend de son évolution\,? Les études citées documentent une association. Chez les entreprises étudiées par Tanaka et ses coauteurs, les erreurs de prévision du PIB dans les deux sens sont associées à une rentabilité moindre.}
+   \note{Les études citées documentent une association. Chez les entreprises étudiées par Tanaka et ses coauteurs, les erreurs de prévision du PIB dans les deux sens sont associées à une rentabilité moindre.}
+\end{frame}
+
+% 5 | Mosaïque de six manchettes de L’essentiel du MBA.
+\begin{frame}{Un monde complexe et incertain}
+  \begin{tikzpicture}[remember picture,overlay]
+    \setcounter{newshl}{0}
+    \newsheadline[globeandmail]{The Globe and Mail}{\href{https://www.theglobeandmail.com/business/article-bank-of-canada-raises-interest-rate-october-2026/}{\guillemotleft~BoC hikes rate to 2.5\% to contain oil-price shock~\guillemotright}}
+    \newsheadline[ft]{Financial Times}{\href{https://www.ft.com/content/9cb63980-cd43-419d-a7e5-42039b9fd01e?syn-25a6b1a6=1}{\guillemotleft~The multiplying risks of financing data centres~\guillemotright}}
+    \newsheadline[bloomberg]{Bloomberg}{\href{https://www.bloomberg.com/news/articles/2026-09-23/us-treasury-five-year-yields-breach-5-for-first-time-since-2007}{\guillemotleft~US Bond-Market Slide Deepens, Pushing Yields to Two-Decade Highs~\guillemotright}}
+    \newsheadline[reuters]{Reuters}{\href{https://theedgemalaysia.com/node/820812}{\guillemotleft~Oil rises as investors weigh supply threats~\guillemotright}}
+    \newsheadline[lapresse]{La Presse}{\href{https://www.lapresse.ca/affaires/economie/2026-10-06/etude-de-la-banque-du-canada/la-replique-tarifaire-du-canada-alimente-l-inflation.php}{\guillemotleft~La réplique tarifaire du Canada alimente l'inflation~\guillemotright}}
+    \newsheadline[ledevoir]{Le Devoir}{\href{https://www.ledevoir.com/economie/1015754/economie-quebecoise-perdu-49-000-emplois-septembre}{\guillemotleft~L'économie québécoise a perdu 49\,000 emplois en septembre~\guillemotright}}
+    \node[anchor=south west,text=HECtext!70,font=\scriptsize] at ([xshift=1.2cm,yshift=.65cm]current page.south west)
+      {Manchettes d’août à octobre 2026};
+  \end{tikzpicture}
+  \note{Laisser le groupe parcourir les six manchettes. Relever celle de Reuters sur le pétrole. Comment une dépense de plus à la pompe se répercute-t-elle ailleurs dans l’économie\,? Le prix dont il est question est-il une donnée observée ou une prévision\,? Quelle décision dépend de son évolution\,?}
 \end{frame}
 
 % 6 | Tableau de Nicolas Vincent (EMBA 2025, diapo 7 et 2026, diapo 6).
@@ -138,21 +137,21 @@
     \draw[HECgray!55] (0,1.23) -- (13.1,1.23) (0,.05) -- (13.1,.05);
     \draw[HECgray!35] (3.1,.05) -- (3.1,2.41) (8.1,.05) -- (8.1,2.41);
   \end{tikzpicture}
-  \note{Choisir une manchette de la diapositive 3. Par exemple, le pétrole pourrait revenir rapidement à son prix antérieur ou rester cher pendant six mois. Pour chaque scénario, distinguer sa vraisemblance de l’exposition de l’organisation. Une clause carburant peut protéger la marge d’un transporteur, tandis qu’un détaillant peut subir la baisse des achats de ses clients. Demander quelle décision tiendrait dans les deux cas et quel indicateur justifierait de la revoir.}
+  \note{Choisir une des manchettes de la diapositive précédente. Par exemple, le pétrole pourrait revenir rapidement à son prix antérieur ou rester cher pendant six mois. Pour chaque scénario, distinguer sa vraisemblance de l’exposition de l’organisation. Une clause carburant peut protéger la marge d’un transporteur, tandis qu’un détaillant peut subir la baisse des achats de ses clients. Demander quelle décision tiendrait dans les deux cas et quel indicateur justifierait de la revoir.}
 \end{frame}
 
 % 7
 \begin{frame}{Thèmes abordés}
   \begin{enumerate}
     \setlength\itemsep{.52cm}
-    \item \textbf{Conjoncture macro canadienne}\\
+    \item \textbf{Conjoncture macroéconomique canadienne}\\
       {\small Que change la décision de la Banque du Canada pour votre budget\,?}
     \item \textbf{Commerce et géopolitique}\\
-      {\small Quand faut-il diversifier ses fournisseurs\,?}
+      {\small À quel moment faut-il diversifier ses fournisseurs\,?}
     \item \textbf{Inflation, taux d’intérêt et endettement}\\
       {\small Quelle échéance de dette fragilise votre organisation\,?}
-    \item \textbf{Productivité canadienne et intelligence artificielle}\\
-      {\small Quel investissement augmenterait la production par heure travaillée\,?}
+    \item \textbf{Intelligence artificielle et productivité}\\
+      {\small Qu’a votre organisation à gagner ou à perdre en déployant l’IA à grande échelle\,?}
   \end{enumerate}
   \note{Former des équipes stables pour les trois cliniques et favoriser la rotation des secteurs. Chaque recommandation doit préciser le signal économique qui justifierait de la revoir.}
 \end{frame}
@@ -166,8 +165,8 @@
 % Partir des données canadiennes et québécoises disponibles avant l’annonce du 27 janvier.
 % Lire la décision et les projections de la Banque du Canada à la lumière de l’offre et de la
 % demande agrégées, du marché du travail et du marché du capital.
-\section{Conjoncture macro canadienne}
-\sectionframe{Conjoncture macro canadienne}
+\section{Conjoncture macroéconomique canadienne}
+\sectionframe{Conjoncture macroéconomique canadienne}
 
 % Trois blocs de 40 min : discussion (20 min), clinique (15 min) et restitution (5 min).
 % Commerce : tarifs, devises et chaînes d’approvisionnement. Relier les chocs à l’accès
@@ -178,7 +177,7 @@
 % Comparer deux scénarios commerciaux. Quels clients, fournisseurs et concurrents
 % seraient touchés ? Choisir une réponse et un indicateur à surveiller.
 \subsection{Clinique 1 — Exposition commerciale}
-\sectionframe{Clinique 1\\L’exposition commerciale de votre secteur}
+\sectionframe[Clinique 1]{L’exposition commerciale de votre secteur}
 
 % Inflation et dette : distinguer les chocs de demande et de coûts. Examiner les taux,
 % l’endettement des ménages, des entreprises et des gouvernements, ainsi que leurs
@@ -189,17 +188,17 @@
 % Comparer deux scénarios de demande ou de financement. Identifier la vulnérabilité
 % du secteur, la réponse stratégique et le signal qui justifierait de la revoir.
 \subsection{Clinique 2 — Vulnérabilités financières}
-\sectionframe{Clinique 2\\Les vulnérabilités financières de votre secteur}
+\sectionframe[Clinique 2]{Les vulnérabilités financières de votre secteur}
 
 % Productivité au Canada : investissement, adoption de l’IA et environnement d’affaires.
 % Examiner les effets sur le travail, la concurrence et le partage des gains.
-\section{Productivité canadienne et intelligence artificielle}
-\sectionframe{Productivité canadienne\\et intelligence artificielle}
+\section{Intelligence artificielle et productivité}
+\sectionframe{Intelligence artificielle et productivité}
 
 % Comparer deux trajectoires de productivité dans le secteur. Proposer un investissement
 % et les indicateurs qui guideraient son ajustement.
 \subsection{Clinique 3 — Investissement et productivité}
-\sectionframe{Clinique 3\\Investir pour gagner en productivité}
+\sectionframe[Clinique 3]{Investir pour gagner en productivité}
 
 % Prévoir une pause de 10 min pendant la séance.
 % Synthèse et application individuelle : 20 min. Chaque participant reprend une décision
