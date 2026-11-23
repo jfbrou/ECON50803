@@ -17,19 +17,21 @@
   \end{beamercolorbox}%
 }
 
-% Titre centré et filet or aux dimensions de la première diapositive du gabarit.
+% Nom du module en surtitre, titre sur deux lignes et filet or du gabarit.
 \renewcommand{\titleframe}{%
   \begin{frame}
     \begin{tikzpicture}[remember picture,overlay]
+      \node[inner sep=0pt,font=\small\bfseries,text=black!70]
+        at ([yshift=-.15\paperheight]current page.north) {\insertsubtitle};
       \node[align=center,inner sep=0pt,
         font=\LARGE\bfseries,text=black]
-        at ([yshift=-.135\paperheight]current page.north) {\inserttitle};
+        at ([yshift=-.32\paperheight]current page.north) {\inserttitle};
       \draw[EMBAor,line width=.00556\paperheight]
-        ([xshift=.02453\paperwidth,yshift=-.24861\paperheight]current page.north west) --
-        ([xshift=-.02453\paperwidth,yshift=-.24861\paperheight]current page.north east);
+        ([xshift=.02453\paperwidth,yshift=-.455\paperheight]current page.north west) --
+        ([xshift=-.02453\paperwidth,yshift=-.455\paperheight]current page.north east);
       \node[align=center,inner sep=0pt,text=HECtext]
-        at ([yshift=-.59\paperheight]current page.north)
-        {{\large\insertauthor}\\[5pt]{\normalsize\insertdate}};
+        at ([yshift=-.67\paperheight]current page.north)
+        {{\large\insertauthor}\\[4pt]{\normalsize\textcolor{black!70}{\insertdate}}};
     \end{tikzpicture}
   \end{frame}%
 }

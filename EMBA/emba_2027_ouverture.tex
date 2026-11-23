@@ -11,6 +11,7 @@
 \jfbinstitution{HEC Montréal}
 \input{gabarit_emba.tex}
 \title{L’environnement macroéconomique\\au cœur des décisions stratégiques}
+\subtitle{Analytic Mindset}
 \author{Jean-Félix Brouillette}
 \date{28 janvier 2027}
 
@@ -53,16 +54,16 @@
     \node[definition,fill=HEClightblue] (micro) at (0,0) {%
       {\large\bfseries\color{HECnavy}La microéconomie}\\[3pt]
       étudie les \textbf{décisions individuelles} des ménages et des entreprises.\\
-      \vphantom{tendances à long terme.}};
+      \strut};
     \node[definition,fill=HECgreen!9] (macro) at (6.9,0) {%
       {\large\bfseries\color{HECnavy}La macroéconomie}\\[3pt]
-      étudie ces interconnexions, les fluctuations à court terme et les tendances à long terme.};
+      étudie leur \textbf{agrégation} (prix et \mbox{quantités}) et les réponses de \mbox{politiques économiques}.};
     \draw[relation,HECnavy] (micro.north) -- ++(0,.38) -| (macro.north);
     \node[above,text=HECnavy,font=\small] at ($(micro.north)!.5!(macro.north)+(0,.43)$)
       {Ces décisions \textbf{s’agrègent}.};
     \draw[relation,HECgreen!48!HECnavy] (macro.south) -- ++(0,-.38) -| (micro.south);
     \node[below,font=\small] at ($(micro.south)!.5!(macro.south)+(0,-.43)$)
-      {\textbf{En retour}, ce qui se passe dans l’économie influence les décisions de chacun.};
+      {\textbf{En retour}, la conjoncture influence les choix individuels.};
   \end{tikzpicture}
   \par\vspace{.32cm}
   {\small \textcolor{HECnavy}{$\bullet$}\enspace Le paradoxe de l’épargne\hspace{.9cm}%
@@ -72,7 +73,7 @@
 
 % 4
 \begin{frame}{Comprendre la macro pour mieux décider}
-   \RaggedRight Les chocs macroéconomiques changent vos marchés, vos coûts et vos conditions de financement.
+   \RaggedRight Les chocs macroéconomiques influencent vos stratégies d’affaires.
    \par\vspace{0.25cm}
    \begin{enumerate}
       \setlength\itemsep{0.20cm}
@@ -163,10 +164,249 @@
 
 % Ouverture et conjoncture : 30 min au total, y compris les diapositives 1 à 7.
 % Partir des données canadiennes et québécoises disponibles avant l’annonce du 27 janvier.
-% Lire la décision et les projections de la Banque du Canada à la lumière de l’offre et de la
-% demande agrégées, du marché du travail et du marché du capital.
+% Lire la décision et les projections de la Banque du Canada avec AD-AS. Relier les chocs
+% aux embauches dans les secteurs exposés et au coût du financement dans la clinique 2.
 \section{Conjoncture macroéconomique canadienne}
 \sectionframe{Conjoncture macroéconomique canadienne}
+
+% Sources canadiennes et internationales, d’après Nicolas Vincent
+% (EMBA janvier 2026, diapositive 7 ; janvier 2025, diapositive 8).
+\begingroup
+\newtcolorbox{fichesource}[1]{%
+  equal height group=sources-canadiennes,arc=2pt,boxrule=0pt,titlerule=1.1pt,
+  colframe=EMBAor,colback=black!3,colbacktitle=black!94,coltitle=white,
+  left=8pt,right=8pt,top=5pt,bottom=4pt,toptitle=4pt,bottomtitle=4pt,
+  fonttitle=\small\bfseries\raggedright,fontupper=\small,
+  before upper=\raggedright,title={#1}}
+\begin{frame}[t]{Rester «\,macro-aware\,» — Sources canadiennes}
+  \vspace*{.04cm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.489\textwidth}
+      \begin{fichesource}{Statistique Canada}
+        Production, emploi et salaires. Prix à la production et à la consommation. Ventes au détail et commandes.
+      \end{fichesource}
+      \begin{fichesource}{Banque du Canada}
+        Taux d’intérêt, taux de change et enquêtes auprès des entreprises. \textbf{Rapport sur la politique monétaire}.
+      \end{fichesource}
+    \end{column}
+    \begin{column}{.489\textwidth}
+      \begin{fichesource}{Institut de la statistique du Québec}
+        Comparer les MRC du Québec selon le revenu disponible par habitant et la croissance démographique projetée.
+      \end{fichesource}
+      \begin{fichesource}{Instituts de recherche et banques}
+        Prévisions et analyses sectorielles de Signal49 et des grandes banques canadiennes.
+      \end{fichesource}
+    \end{column}
+  \end{columns}
+  \note{Ouvrir le tableau sur l’emploi. Comparer le Québec et le Canada sur douze mois en sélectionnant l’emploi, la population active et le taux de chômage. Si la tendance se poursuivait, quel serait l’impact pour votre organisation\,? Demander quel indicateur interne permettrait de préciser le diagnostic pour une décision d’embauche. Pour illustrer l’apport de l’ISQ, prendre deux municipalités régionales de comté (MRC) où une entreprise envisage d’ouvrir une succursale. Comment le revenu disponible et la croissance projetée de la population éclairent-ils le choix du site\,?}
+\end{frame}
+
+% Sources internationales par marché.
+\newcommand{\titrepresse}[2]{%
+  \raisebox{-.32\height}{\includegraphics[height=.54cm]{logos/#1.png}}%
+  \hspace{3pt}{\footnotesize\textit{#2}}}
+\begin{frame}[c]{Rester «\,macro-aware\,» — Sources internationales}
+  \small
+  \setlength{\aboverulesep}{3.5pt}
+  \setlength{\belowrulesep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\RaggedRight\arraybackslash}p{.27\textwidth}
+    @{\hspace{.024\textwidth}}>{\RaggedRight\arraybackslash}p{.30\textwidth}
+    @{\hspace{.024\textwidth}}>{\RaggedRight\arraybackslash}X@{}}
+    \textbf{Marché} & \textbf{Où chercher} & \textbf{Information disponible} \\
+    \arrayrulecolor{EMBAor}\midrule[.9pt]
+    États-Unis & \textbf{FRED} & Production, emploi et crédit. \\
+    \arrayrulecolor{black!16}\midrule[.35pt]
+    Économies avancées & \textbf{OCDE} et agences \mbox{statistiques nationales} & PIB, inflation et emploi par pays. \\
+    \midrule[.35pt]
+    Économies émergentes & \textbf{FMI} et \textbf{Banque mondiale} & Croissance, dette et pauvreté. \\
+    \midrule[.35pt]
+    Marchés du crédit & Banque des règlements internationaux (\textbf{BRI/BIS}) & Crédit transfrontalier et ratios du service de la dette.
+  \end{tabularx}\par
+  \vspace{.35cm}
+  \noindent\textbf{Presse économique internationale}\enspace{\color{EMBAor}\hrulefill}\par
+  \vspace{5pt}
+  \noindent\titrepresse{ft}{Financial Times}\hfill
+  \titrepresse{wsj}{The Wall Street Journal}\hfill
+  \titrepresse{economist}{The Economist}\hfill
+  \titrepresse{bloomberg}{Bloomberg}\par
+  \note{Prendre le cas d’un fabricant québécois qui vend aux États-Unis. Ouvrir la production industrielle dans FRED et comparer sa trajectoire au carnet de commandes de l’entreprise. Pour un nouveau marché, consulter les perspectives du FMI et les données historiques de la Banque mondiale.}
+\end{frame}
+\endgroup
+
+% Essentiel du MBA (avril 2026, pentes, équilibre et tarifs) et MBA, séance 5
+% (choc de demande, choc d’offre et arbitrage monétaire). Un même point de départ.
+\colorlet{offreEMBA}{EMBAor!64!black}
+\colorlet{courbeInitialeEMBA}{black!24}
+\newtcolorbox{piedADAS}{colback=EMBAor!9,colframe=EMBAor,boxrule=0pt,
+  leftrule=1.6pt,arc=1pt,left=8pt,right=6pt,top=4pt,bottom=4pt,
+  before skip=10pt,after skip=0pt,boxsep=2pt,fontupper=\small}
+\newcommand{\effetsADAS}[1]{%
+  \par\vspace{.40cm}
+  {\small\color{black!70}Effets à court terme\par}\vspace{3pt}
+  \renewcommand{\arraystretch}{1.16}%
+  \begin{tabularx}{\linewidth}{@{}Xr@{}}
+    \arrayrulecolor{black!20}\toprule[.4pt]
+    PIB réel        & $\boldsymbol{\downarrow}$\\
+    \midrule[.3pt]
+    Niveau des prix & $\boldsymbol{#1}$\\
+  \end{tabularx}}
+% Même échelle et mêmes limites de dessin pour les trois modèles.
+\tikzset{unites marche/.style={x=1cm,y=.94cm}}
+\newcommand{\hauteurAxePrixEMBA}{4.24}
+\newcommand{\hautCadreMarcheEMBA}{4.81}
+\newcommand{\repereMarcheEMBA}{%
+  \path[use as bounding box] (-.50,-.43) rectangle (6.35,\hautCadreMarcheEMBA);
+  \coordinate (O) at (0,0);
+  \coordinate (axeQuantite) at (6.12,0);
+  \coordinate (axePrix) at (0,\hauteurAxePrixEMBA);}
+\newcommand{\schemaADAS}[2][]{%
+  \begin{tikzpicture}[unites marche,
+    guide/.style={black!28,thin}, etiquette/.style={font=\footnotesize},
+    potentiel/.style={black!55,line width=.7pt},
+    courbe/.style={line width=1.15pt,line cap=round}]
+    \repereMarcheEMBA
+    \coordinate (adG) at (0,3.8); \coordinate (adD) at (5.5,.5);
+    \coordinate (asG) at (0,.2);  \coordinate (asD) at (5.5,3.5);
+    \coordinate (E0) at (intersection of adG--adD and asG--asD);
+    \colorlet{encreAD}{black}\colorlet{encreAS}{offreEMBA}
+    \def\demande##1{AD\ifstrempty{##1}{}{$_{##1}$}}\def\offre##1{AS\ifstrempty{##1}{}{$_{##1}$}}\def\prix{P}\def\quantite{Y}
+    \def\axeVertical{Niveau des prix}\def\axeHorizontal{PIB réel}
+    \ifstrequal{#1}{travail}{%
+      \def\demande##1{\ensuremath{L^{D}_{##1}}}\def\offre##1{\ensuremath{L^{S}_{##1}}}
+      \def\prix{w}\def\quantite{L}\def\axeVertical{Salaire réel}\def\axeHorizontal{Emploi}}{}
+    \def\nomAD{\demande{}}\def\nomAS{\offre{}}
+    \ifstrequal{#2}{demande}{%
+      \colorlet{encreAD}{courbeInitialeEMBA}\def\nomAD{\textcolor{black!50}{\demande{0}}}
+      \coordinate (gauche) at ($(adG)+(0,-.9)$);
+      \coordinate (droite) at ($(adG)!.72!(adD)+(0,-.9)$);
+      \coordinate (E1) at (intersection of gauche--droite and asG--asD);
+    }{}
+    \ifstrequal{#2}{offre}{%
+      \colorlet{encreAS}{courbeInitialeEMBA}\def\nomAS{\textcolor{black!50}{\offre{0}}}
+      \coordinate (gauche) at ($(asG)+(0,.9)$);
+      \coordinate (droite) at ($(asG)!.8!(asD)+(0,.9)$);
+      \coordinate (E1) at (intersection of gauche--droite and adG--adD);
+    }{}
+    \ifstrequal{#1}{travail}{%
+      \draw[guide] (E0) -- (E0 |- O) node[below,etiquette,text=black] {$L_0$};}{%
+    \draw[potentiel] (E0 |- O) node[below,etiquette,text=black] {$Y_{\text{pot}}$}
+      -- (E0 |- axePrix) node[above right,inner xsep=0pt,etiquette,text=black!75] {PIB potentiel};}
+    \draw[guide] (O |- E0) node[left,etiquette,text=black] {$\prix_0$} -- (E0);
+    \ifstrequal{#2}{initial}{}{%
+      \draw[guide] (O |- E1) node[left,etiquette,text=black] {$\prix_1$} --
+        (E1) -- (E1 |- O) node[below,etiquette,text=black] {$\quantite_1$};}
+    \ifstrequal{#1}{pentes}{%
+      \coordinate (prixHaut) at (0,2.75);
+      \coordinate (finGuide) at (5.5,2.75);
+      \coordinate (achat) at (intersection of prixHaut--finGuide and adG--adD);
+      \coordinate (production) at (intersection of prixHaut--finGuide and asG--asD);
+      \draw[guide] (prixHaut) node[left,etiquette,text=black] {$\prix_1$} -- (production);
+      \draw[guide] (achat) -- (achat |- O) node[below,etiquette,text=black] {$Y_{\text{AD}}$};
+      \draw[guide] (production) -- (production |- O) node[below,etiquette,text=black] {$Y_{\text{AS}}$};
+    }{}
+    \draw[courbe,encreAD] (adG) -- (adD) node[right,curvelabel] {\nomAD};
+    \draw[courbe,encreAS] (asG) -- (asD) node[right,curvelabel] {\nomAS};
+    \ifstrequal{#1}{pentes}{%
+      \draw[shiftarrow,shorten <=2pt] (E0) -- (achat);
+      \draw[shiftarrow,offreEMBA,shorten <=2pt] (E0) -- (production);
+    }{}
+    \ifstrequal{#2}{demande}{%
+      \draw[courbe] (gauche) -- (droite) node[right,curvelabel] {\demande{1}};
+      \draw[shiftarrow,shorten <=3.5pt,shorten >=3.5pt] ($(adG)!.89!(adD)$) -- ++(-1.5,0);
+    }{}
+    \ifstrequal{#2}{offre}{%
+      \draw[courbe,offreEMBA] (gauche) -- (droite) node[right,curvelabel] {\offre{1}};
+      \draw[shiftarrow,offreEMBA,shorten <=3.5pt,shorten >=3.5pt] ($(asG)!.89!(asD)$) -- ++(-1.5,0);
+    }{}
+    \filldraw[fill=white,draw=black] (E0) circle (2.4pt);
+    \ifstrequal{#2}{initial}{}{\fill (E1) circle (2.6pt);}
+    \draw[econaxis] (O) -- (axeQuantite) node[below left,etiquette] {\axeHorizontal};
+    \draw[econaxis] (O) -- (axePrix) node[above,anchor=south west,inner xsep=0pt,etiquette] {\axeVertical};
+  \end{tikzpicture}}
+
+\begin{frame}[t]{Le modèle AD-AS en un graphique}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.54\textwidth}\centering\schemaADAS{initial}\end{column}
+    \begin{column}{.44\textwidth}
+      \raggedright\small
+      \textbf{Demande agrégée}\\[5pt]
+      {\large $\mathsf{AD} = C + I + G + \mathsf{NX}$}
+      \par\vspace{.38cm}
+      \textcolor{offreEMBA}{\textbf{Offre agrégée (AS)}}\\[2pt]
+      Quantité que les entreprises souhaitent produire à prix donné.
+    \end{column}
+  \end{columns}
+  \begin{piedADAS}
+    Le \textbf{PIB potentiel} est le niveau de production soutenable à long terme.
+  \end{piedADAS}
+  \note{Au croisement, les dépenses souhaitées correspondent à la production offerte.
+    La demande comprend la consommation, l’investissement, les dépenses publiques et
+    les exportations nettes. À court terme, certains salaires et coûts s’ajustent
+    lentement. Le PIB potentiel est le niveau d’activité que l’économie peut soutenir
+    dans la durée. On part de ce niveau pour comparer les deux scénarios.}
+\end{frame}
+
+\begin{frame}[t]{Pourquoi les deux courbes ont-elles des pentes opposées\,?}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.54\textwidth}\centering\schemaADAS[pentes]{initial}\end{column}
+    \begin{column}{.44\textwidth}
+      \raggedright\small
+      \textbf{AD — Les achats diminuent}\\[4pt]
+      Quand les prix montent, une même somme en banque permet d’acheter moins.
+      Les ménages réduisent leur consommation.
+      \par\vspace{.32cm}
+      \textcolor{offreEMBA}{\textbf{AS — La production augmente}}\\[4pt]
+      À court terme, les prix de vente montent plus vite que les salaires déjà négociés.
+      Produire davantage devient plus rentable.
+    \end{column}
+  \end{columns}
+  \begin{piedADAS}
+    De $P_0$ à $P_1$, on se déplace \textbf{le long de chaque courbe}.
+  \end{piedADAS}
+  \note{Comparer deux niveaux de prix en maintenant les autres déterminants constants.
+    Au prix plus élevé, lire séparément la quantité demandée et la quantité offerte.
+    Ces deux lectures ne constituent pas un nouvel équilibre. Du côté de la demande,
+    la valeur réelle des encaisses diminue. À taux de change et prix étrangers inchangés,
+    les produits canadiens deviennent aussi relativement plus chers, ce qui réduit les
+    exportations nettes. Du côté de l’offre, prendre un quart de travail additionnel
+    payé au salaire fixé par convention collective. Si le prix de vente augmente alors
+    que le coût du quart change peu, il devient plus intéressant de le programmer.
+    Passer ensuite au cas où les dépenses prévues diminuent à niveau de prix donné.}
+\end{frame}
+
+\begin{frame}[c]{Un choc de demande négatif}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.55\textwidth}\resizebox{\linewidth}{!}{\schemaADAS{demande}}\end{column}
+    \begin{column}{.42\textwidth}
+      \raggedright
+      \textbf{AD se déplace vers la gauche}\\[5pt]
+      À niveau de prix donné, les dépenses prévues en biens et services diminuent.
+      \effetsADAS{\downarrow}
+    \end{column}
+  \end{columns}
+  \note{Le choc peut venir de la consommation, de l’investissement, des dépenses publiques
+    ou des exportations nettes. Maintenir l’offre agrégée inchangée. Du cercle blanc au
+    point noir, le PIB réel et le niveau des prix baissent. Un choc de demande positif
+    inverserait ces deux mouvements.}
+\end{frame}
+
+\begin{frame}[c]{Un choc d’offre négatif}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.55\textwidth}\resizebox{\linewidth}{!}{\schemaADAS{offre}}\end{column}
+    \begin{column}{.42\textwidth}
+      \raggedright
+      \textbf{AS se déplace vers la gauche}\\[5pt]
+      À niveau de prix donné, les entreprises offrent moins de biens et de services.
+      \effetsADAS{\uparrow}
+    \end{column}
+  \end{columns}
+  \note{Le choc peut venir d’une hausse des coûts ou d’une perturbation temporaire de la production.
+    Maintenir la demande agrégée inchangée. Du cercle blanc au point noir, le PIB réel baisse
+    et le niveau des prix augmente. Un choc d’offre positif inverserait ces deux mouvements.
+    Demander quelles données canadiennes permettraient de distinguer un choc d’offre d’un choc de demande.}
+\end{frame}
+
+\input{chocs_canadiens.tex}
 
 % Trois blocs de 40 min : discussion (20 min), clinique (15 min) et restitution (5 min).
 % Commerce : tarifs, devises et chaînes d’approvisionnement. Relier les chocs à l’accès
@@ -185,10 +425,59 @@
 \section{Inflation, taux d’intérêt et endettement}
 \sectionframe{Inflation, taux d’intérêt et endettement}
 
+% Actualiser le graphique après l’annonce du 27 janvier.
+\begin{frame}{Quel taux compte pour vos décisions d’investissement\,?}
+  \centering
+  \includegraphics[width=\textwidth]{taux_directeur_et_10_ans.pdf}
+  \note{Présenter la décision du 27 janvier et le motif donné par la Banque.
+    Proposer ensuite ce scénario : le taux directeur baisse, mais le rendement à dix ans
+    reste stable. Que change cette baisse pour votre marge de crédit à taux variable\,?
+    Et pour une usine à financer à taux fixe sur dix ans\,? Pour la marge de crédit,
+    vérifier le taux de référence du contrat et la date de révision. Pour l’usine,
+    le rendement de l’obligation fédérale à dix ans sert de repère. Le prêteur tient
+    aussi compte du risque de crédit de l’entreprise.}
+\end{frame}
+
 % Comparer deux scénarios de demande ou de financement. Identifier la vulnérabilité
 % du secteur, la réponse stratégique et le signal qui justifierait de la revoir.
 \subsection{Clinique 2 — Vulnérabilités financières}
 \sectionframe[Clinique 2]{Les vulnérabilités financières de votre secteur}
+
+\begin{frame}{Quels projets résistent à un financement plus cher\,?}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.55\textwidth}
+      \resizebox{\linewidth}{!}{%
+        \begin{tikzpicture}[unites marche,font=\footnotesize]
+          \repereMarcheEMBA
+          \coordinate (iG) at (0,3.8); \coordinate (iD) at (5.5,.5);
+          \foreach \i/\taux in {0/1.35,1/2.45}{
+            \coordinate (rG) at (0,\taux); \coordinate (rD) at (5.5,\taux);
+            \coordinate (I\i) at (intersection of rG--rD and iG--iD);
+            \draw[black!35,thin] (rG) node[left,text=black] {$r_{\i}$} -- (I\i)
+              -- (I\i |- O) node[below,text=black] {$I_{\i}$};
+          }
+          \draw[line width=1.15pt] (iG) -- (iD) node[right,curvelabel] {$I$};
+          \draw[shiftarrow,shorten <=4pt,shorten >=4pt] (I0) -- (I1);
+          \filldraw[fill=white] (I0) circle (2.4pt); \fill (I1) circle (2.6pt);
+          \draw[econaxis] (O) -- (axeQuantite) node[below left] {$I$};
+          \draw[econaxis] (O) -- (axePrix) node[anchor=south west,inner xsep=0pt] {Coût réel du financement};
+        \end{tikzpicture}}
+    \end{column}
+    \begin{column}{.42\textwidth}
+      \raggedright\small
+      \textbf{À la prochaine échéance de dette}\\[3pt]
+      Supposez que le taux directeur baisse. Dans un scénario, votre prêteur réduit votre taux. Dans l’autre, il le maintient.
+      \par\vspace{.30cm}
+      \textbf{Dans votre secteur}\\[3pt]
+      Quel projet maintiendriez-vous dans les deux cas\,? À quel taux d’emprunt décideriez-vous de le reporter\,?
+    \end{column}
+  \end{columns}
+  \note{Partir de la décision du 27 janvier, puis proposer la baisse comme hypothèse de travail.
+    Le point noir représente le scénario où le prêteur maintient son taux. À inflation anticipée
+    et flux de trésorerie identiques, le coût réel du financement est alors plus élevé que dans
+    le scénario de baisse. Demander à chaque équipe de choisir une échéance de dette du secteur,
+    un projet et le signal qui ferait réviser sa décision.}
+\end{frame}
 
 % Productivité au Canada : investissement, adoption de l’IA et environnement d’affaires.
 % Examiner les effets sur le travail, la concurrence et le partage des gains.
@@ -206,4 +495,68 @@
 \section{Synthèse et application individuelle}
 \sectionframe{Synthèse et application individuelle}
 
+\appendix
+\section{Annexe — Équilibres de marché}
+% Équilibres de référence, d’après la séance 3 du MBA.
+% Axes, repères d’équilibre, puis libellés de la demande et de l’offre.
+\newcommand{\equilibreMarche}[6]{%
+  \begin{tikzpicture}[unites marche,font=\footnotesize,
+    courbe/.style={line width=1.15pt,line cap=round}]
+    \repereMarcheEMBA
+    \coordinate (dG) at (0,3.8); \coordinate (dD) at (5.5,.5);
+    \coordinate (sG) at (0,.2);  \coordinate (sD) at (5.5,3.5);
+    \coordinate (E) at (intersection of dG--dD and sG--sD);
+    \draw[black!28,thin] (O |- E) node[left,text=black] {#3} -- (E)
+      -- (E |- O) node[below,text=black] {#4};
+    \draw[courbe] (dG) -- (dD) node[right,curvelabel] {#5};
+    \draw[courbe,offreEMBA] (sG) -- (sD) node[right,curvelabel] {#6};
+    \filldraw[fill=white,draw=black] (E) circle (2.4pt);
+    \draw[econaxis] (O) -- (axeQuantite) node[below left] {#2};
+    \draw[econaxis] (O) -- (axePrix) node[anchor=south west,inner xsep=0pt] {#1};
+  \end{tikzpicture}}
+
+\begin{frame}[c]{Annexe — L’équilibre sur le marché du travail}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.55\textwidth}
+      \resizebox{\linewidth}{!}{\equilibreMarche{Salaire réel}{Emploi}
+        {$w^{*}$}{$L^{*}$}{$L^{D}$}{$L^{S}$}}
+    \end{column}
+    \begin{column}{.42\textwidth}
+      \raggedright\small
+      \textbf{Demande de travail ($L^{D}$)}\\[4pt]
+      Nombre de personnes que les entreprises souhaitent embaucher à un salaire donné.
+      \par\vspace{.30cm}
+      \textcolor{offreEMBA}{\textbf{Offre de travail ($L^{S}$)}}\\[4pt]
+      Nombre de personnes disposées à travailler à ce salaire.
+      \par\vspace{.30cm}
+      Au \textbf{salaire réel d’équilibre} $w^{*}$, ces deux quantités sont égales à $L^{*}$.
+    \end{column}
+  \end{columns}
+  \note{Le salaire réel mesure le pouvoir d’achat du salaire. Lire d’abord le salaire
+    sur l’axe vertical, puis l’emploi correspondant sur l’axe horizontal.}
+\end{frame}
+
+\begin{frame}[c]{Annexe — L’équilibre sur le marché du capital}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.55\textwidth}
+      \resizebox{\linewidth}{!}{\equilibreMarche{Taux d’intérêt réel}{Fonds prêtables}
+        {$r^{*}$}{$S^{*} = I^{*}$}{$I$}{$S$}}
+    \end{column}
+    \begin{column}{.42\textwidth}
+      \raggedright\small
+      \textbf{Demande de fonds ($I$)}\\[4pt]
+      Financement recherché pour les projets d’investissement.
+      \par\vspace{.30cm}
+      \textcolor{offreEMBA}{\textbf{Offre de fonds ($S$)}}\\[4pt]
+      Épargne (privée et publique) disponible pour financer ces projets.
+      \par\vspace{.30cm}
+      À l’échelle mondiale, le \textbf{taux réel d’équilibre} $r^{*}$ égalise l’épargne et l’investissement.
+    \end{column}
+  \end{columns}
+  \note{Le graphique représente le marché mondial des fonds prêtables. Sur l’axe
+    horizontal, l’épargne et l’investissement sont des flux par période. Un taux réel
+    plus élevé rend moins de projets rentables et incite à épargner dans ce modèle.
+    L’épargne mondiale égale l’investissement mondial. Au Canada, les deux peuvent
+    différer puisque les capitaux circulent entre les pays.}
+\end{frame}
 \end{document}
