@@ -74,7 +74,9 @@ jobs:
 
           # Collect the project description (pre-compiled PDF)
           mkdir -p _site/project
-          cp Project/projet_session.pdf _site/project/projet_session.pdf
+          cp Project/projet_session_A2026.pdf _site/project/
+          # Preserve the URL distributed to the fall 2026 cohort.
+          cp Project/projet_session_A2026.pdf _site/project/projet_session.pdf
 
           # Build ordered list of session links
           pdf_links=""
@@ -151,7 +153,7 @@ jobs:
             <h2>Exercices</h2>
             <ul>%%EXERCISES%%</ul>
             <h2>Projet de session</h2>
-            <ul><li><a href="project/projet_session.pdf">Taux sous pression — Consignes du projet</a></li></ul>
+            <ul><li><a href="project/projet_session_A2026.pdf">Taux sous pression — Automne 2026</a></li></ul>
             <h2>Articles</h2>
             <ul>%%ARTICLES%%</ul>
             <p class="footer">Dernière mise à jour : %%DATE%%</p>
