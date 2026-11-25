@@ -1025,7 +1025,8 @@ def canada_1990s_fiscal_monetary():
     years = pd.Index(range(1993, 2000))
     balance = pd.to_numeric(fiscal.set_index('year_end')['Budgetary surplus or deficit (-)']).reindex(years)
 
-    months = pd.period_range('1993-01', '1999-12', freq='M')
+    fiscal_dates = pd.to_datetime([f'{year}-03-31' for year in years])
+    months = pd.period_range('1993-01', fiscal_dates[-1], freq='M')
     # BIS compilation: official Bank Rate through May 1994, then the overnight target.
     response = requests.get(
         'https://stats.bis.org/api/v1/data/BIS,WS_CBPOL,1.0/M.CA',
@@ -1039,30 +1040,36 @@ def canada_1990s_fiscal_monetary():
     if balance.isna().any() or policy_rate.isna().any():
         raise ValueError('Incomplete Canadian historical budget or policy-rate series')
 
-    fig, (fiscal_ax, rates_ax) = plt.subplots(1, 2, figsize=(11.4, 4.7))
-    fiscal_ax.axhline(0, color=palette[7], linewidth=0.9, zorder=2)
-    fiscal_ax.plot(pd.to_datetime([f'{year}-03-31' for year in years]), balance,
-                   color=palette[0], marker='o', markersize=4, linewidth=2.5, zorder=3)
+    fig, fiscal_ax = new_figure(11.4, 5.55)
+    rates_ax = fiscal_ax.twinx()
+    fiscal_ax.axhline(0, color=palette[7], linewidth=1.0, zorder=2)
+    fiscal_ax.plot(fiscal_dates, balance,
+                   color=palette[0], marker='o', markersize=5, linewidth=2.8, zorder=3)
     rates_ax.plot(months.to_timestamp(how='end').normalize(), policy_rate,
-                  color=palette[0], linewidth=2.5, zorder=3)
+                  color=palette[1], linewidth=2.8, zorder=3)
 
-    panels = [
-        (fiscal_ax, r'Solde budgétaire fédéral (\% du PIB)', 'Exercice clos en mars',
-         'Finances Canada, tableau 2', range(-6, 3, 2)),
-        (rates_ax, r'Taux directeur de la Banque du Canada (\%)', 'Observations de fin de mois',
-         'Banque du Canada via la BRI', range(2, 10)),
-    ]
-    for axis, title, period, source, ticks in panels:
-        axis.set_xlim(pd.Timestamp('1993-01-01'), pd.Timestamp('1999-12-31'))
-        axis.set_xticks(pd.to_datetime([f'{year}-01-01' for year in years]),
-                        labels=[str(year) for year in years], fontsize=12)
+    year_ticks = pd.to_datetime([f'{year}-01-01' for year in years])
+    fiscal_ax.set_xlim(pd.Timestamp('1993-01-01'), fiscal_dates[-1] + pd.Timedelta(days=14))
+    fiscal_ax.set_xticks(year_ticks, labels=[str(year) for year in years], fontsize=14)
+    fiscal_ax.tick_params(axis='x', color=palette[7], length=3)
+    style_axes(fiscal_ax)
+    fiscal_ax.grid(axis='y', color=palette[7], alpha=0.25, linestyle='-', linewidth=0.65)
+    fiscal_ax.spines['bottom'].set_color(palette[7])
+    rates_ax.spines[['left', 'top', 'bottom']].set_visible(False)
+
+    for axis, title, source_note, ticks, color, side, x in [
+        (fiscal_ax, r'Solde budgétaire fédéral (\% du PIB)',
+         'Finances Canada, exercices clos en mars', range(-6, 3), palette[0], 'left', 0),
+        (rates_ax, r'Taux directeur (\%)',
+         'Banque du Canada via la BRI, données de fin de mois', range(2, 10), '#147d4c', 'right', 1),
+    ]:
         axis.set_ylim(ticks[0], ticks[-1])
         axis.set_yticks(ticks, labels=[rf'\textminus{{}}{abs(tick)}' if tick < 0 else str(tick)
-                                     for tick in ticks], fontsize=12)
-        axis.set_xlabel(period, fontsize=11)
-        axis.set_title(title, loc='left', fontsize=14, pad=20)
-        style_axes(axis)
-        add_source(axis, source)
+                                     for tick in ticks], fontsize=14)
+        axis.tick_params(axis='y', colors=color, length=3)
+        axis.spines[side].set_color(color)
+        axis.set_title(rf'\textbf{{{title}}}', loc=side, fontsize=16, color=color, pad=20)
+        axis.text(x, 1.01, source_note, transform=axis.transAxes, ha=side, va='bottom', fontsize=10)
     save(fig, 's5_canada_1990s_fiscal_monetary.pdf')
 
 

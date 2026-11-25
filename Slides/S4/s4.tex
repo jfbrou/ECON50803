@@ -245,25 +245,24 @@
 
 \begin{frame}[t]{La courbe de rendement inversée}
    \small
-   \textbf{Normalement :} taux longs $>$ taux courts (compensation pour le risque et l'attente).
+   La courbe s’inverse quand le taux long passe sous le taux court.
 
-   \vspace{0.25cm}
-   \textbf{Inversion :} taux courts $>$ taux longs $\to$ anticipations de \textbf{baisses de taux} futures.
-
-   \vspace{0.25cm}
-   \begin{defbox}[L'hypothèse des anticipations]
-      \vspace{-0.2cm}
+   \begin{defbox}[Anticipations et prime de terme]
+      \small\raggedright
+      \setlength{\abovedisplayskip}{4pt}
+      \setlength{\belowdisplayskip}{5pt}
+      \setlength{\abovedisplayshortskip}{4pt}
+      \setlength{\belowdisplayshortskip}{5pt}
+      Le rendement à 10 ans se décompose ainsi :
       \begin{equation*}
-         i_{10} \approx \frac{i_{t,1} + i_{t+1,1} + \ldots + i_{t+9,1}}{10}
+         i_{t,10} \approx \underbrace{\frac{i_{t,1} + \mathbb{E}_t[i_{t+1,1}] + \cdots + \mathbb{E}_t[i_{t+9,1}]}{10}}_{\text{Moyenne des taux à 1 an anticipés}} + \underbrace{\theta_{t,10}\vphantom{\frac{1}{10}}}_{\text{Prime de terme}}
       \end{equation*}
-      \vspace{-0.3cm}
-      Si les marchés anticipent des baisses $\to$ $i_{10} < i_{1}$ $\to$ inversion.
+      La prime de terme reflète le risque de taux d’une obligation longue.
    \end{defbox}
 
-   \vspace{0.25cm}
    \begin{bizimplication}[Signal pour les décideurs]
-      \footnotesize
-      Chaque récession depuis 1970 a été précédée d'une inversion de la courbe de rendement.
+      \footnotesize\raggedright
+      Des baisses de taux anticipées ou une faible prime de terme peuvent expliquer l’inversion. Aux États-Unis, les inversions ont souvent précédé des récessions.
    \end{bizimplication}
 \end{frame}
 

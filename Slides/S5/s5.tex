@@ -305,10 +305,10 @@
          \vspace{0.08cm}
          \begin{keyinsight}[Un jour de paie]
             \footnotesize\raggedright
-            TD doit verser \textbf{5 M\$} à RBC pour la paie de ses clients. RBC lui doit \textbf{2 M\$} pour d’autres paiements.
+            Une entreprise cliente de TD paie ses employés qui ont un compte chez RBC.
 
             \vspace{0.12cm}
-            TD doit régler \textbf{3 M\$ nets}, mais n’a que 2 M\$ de liquidités. RBC peut lui prêter le \textbf{million manquant} pour la nuit.
+            TD doit verser \textbf{3~M\$} à RBC, mais ne dispose que de \textbf{2~M\$} de liquidités. BMO peut lui prêter le \textbf{million manquant} pour la nuit.
          \end{keyinsight}
       \end{column}
       \begin{column}{0.44\textwidth}
@@ -1141,7 +1141,7 @@
       \item Équilibre délicat entre \guillemotleft~trop~\guillemotright\ et \guillemotleft~pas assez~\guillemotright
    \end{itemize}
    \vspace{0.15cm}
-   \textbf{Historiquement, c'est l'exception :}
+   \textbf{Repères historiques}
    \vspace{0.1cm}
    \begin{itemize}
       \setlength\itemsep{0.1cm}
@@ -1225,6 +1225,27 @@
    \end{columns}
 \end{frame}
 
+\begin{frame}[t]{Qu’est-ce qui détermine le taux à 10 ans\,?}
+   \framesubtitle{Rappel de la séance 4}
+   \vspace{0.25cm}
+   Comparons une obligation à 10 ans à dix placements successifs à 1 an.
+
+   \vspace{0.18cm}
+   \begin{defbox}[Anticipations et prime de terme]
+      \small\raggedright
+      Le rendement à 10 ans se décompose ainsi :
+      {\large
+      \begin{equation*}
+         i_{t,10} \approx \underbrace{\frac{i_{t,1} + \mathbb{E}_t[i_{t+1,1}] + \cdots + \mathbb{E}_t[i_{t+9,1}]}{10}}_{\text{Moyenne des taux à 1 an anticipés}} + \underbrace{\theta_{t,10}\vphantom{\frac{1}{10}}}_{\text{Prime de terme}}
+      \end{equation*}
+      }
+      La prime de terme reflète le risque de taux d’une obligation longue.
+   \end{defbox}
+
+   \smallskip
+   {\scriptsize\hfill\href{https://www.bankofcanada.ca/wp-content/uploads/2025/01/review-policy-actions-during-pandemic.pdf}{Banque du Canada, revue des mesures exceptionnelles, p. 26}\par}
+\end{frame}
+
 \begin{frame}[t]{Indications prospectives (\textit{forward guidance})}
    \small
    \vspace{0.2cm}
@@ -1232,8 +1253,8 @@
    \vspace{0.2cm}
    \begin{itemize}
       \setlength\itemsep{0.2cm}
-      \item Même si le taux à un jour est déjà à 0\,\%, les taux de \textbf{long terme} dépendent des \textbf{anticipations} du taux directeur futur
-      \item En s'engageant à garder les taux bas $\to$ taux longs $\downarrow$ $\to$ stimulation de $C$ et $I$
+      \item Si les marchés s’attendent à ce que le taux directeur reste bas plus longtemps, la \textbf{moyenne des taux courts anticipés} baisse.
+      \item Les taux longs peuvent baisser dès aujourd’hui et soutenir la consommation et l’investissement.
       \item Exemple : le \textit{dot plot} de la Fed (projections des membres du FOMC)
    \end{itemize}
    \vspace{0.15cm}
@@ -1267,9 +1288,9 @@
    \vspace{0.1cm}
    \begin{enumerate}
       \setlength\itemsep{0.1cm}
-      \item BdC achète des titres \textbf{à longue échéance} $\to$ prix $\uparrow$
-      \item Prix $\uparrow$ $\to$ taux de rendement à long terme $\downarrow$
-      \item Taux longs $\downarrow$ $\to$ stimule \textbf{directement} la consommation et l'investissement
+      \item La BdC achète des obligations à longue échéance. Leur prix augmente.
+      \item Le secteur privé porte moins de risque de taux. La \textbf{prime de terme} peut diminuer.
+      \item Des taux longs plus bas soutiennent la consommation et l’investissement.
    \end{enumerate}
    \vspace{0.25cm}
    \textbf{Utilisé en :} 2008--14 (Fed, BCE), 2020--22 (Fed, BdC, BCE)
@@ -1529,12 +1550,6 @@
          \end{warning}
       \end{column}
    \end{columns}
-
-   \vspace{0.18cm}
-   \begin{bizimplication}[Le solde hors intérêts compte aussi]
-      \small\raggedright
-      Un déficit hors intérêts peut faire monter le ratio même si \(r < g\).
-   \end{bizimplication}
 \end{frame}
 
 \begin{frame}{Que cache le ratio de dette brute\,?}
@@ -1643,31 +1658,21 @@
    \end{columns}
 \end{frame}
 
-\begin{frame}{Canada : assainissement budgétaire et baisse des taux}
-   \begin{figure}
-      \centering
-      \includegraphics[width=0.97\textwidth, height=0.74\textheight, keepaspectratio]{s5_canada_1990s_fiscal_monetary.pdf}
-   \end{figure}
-   {\centering\scriptsize\color{HECgray}
-      Taux officiel d’escompte jusqu’en mai 1994, puis cible du taux à un jour (\href{https://www.bis.org/pages/statistics/cbpol-doc.pdf}{BRI}).\par}
-\end{frame}
-
-% ============================================================================
-
-% ============================================================================
-% CLOSING SEQUENCE
-% ============================================================================
-
-\begin{frame}{}
+\begin{frame}[t]{Canada : assainissement budgétaire et baisse des taux}
    \centering
-   \vspace{1.5cm}
-   {\Large\textbf{Qu'est-ce que vous retenez de cette séance\,?}}
+   \vspace{0.18cm}
+   \includegraphics[width=\textwidth, height=0.89\textheight, keepaspectratio]{s5_canada_1990s_fiscal_monetary.pdf}
 \end{frame}
 
-% ============================================================================
-\sectionframe{Et pour la suite\,?}
-% ============================================================================
-
-\courseroadmap{5}
+{
+\setbeamertemplate{footline}{}
+\begin{frame}[plain]
+   \begin{tikzpicture}[remember picture, overlay]
+      \node[inner sep=0pt] at (current page.center) {%
+         \includegraphics[width=\paperwidth]{the_end.png}%
+      };
+   \end{tikzpicture}
+\end{frame}
+}
 
 \end{document}
